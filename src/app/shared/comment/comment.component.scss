@@ -2,11 +2,17 @@
 @import './src/assets/scss/helpers/_helpers.scss';
 @import './src/assets/scss/components/_feed-card.scss';
 @import './src/assets/scss/components/_form.scss';
+@import './src/assets/scss/components/_cards.scss';
+@import '~sass-mq/_mq.scss';
 
 .c-mediamodal__comment {
     bottom: 0;
     position: absolute;
     width: 100%;
+}
+.c-post__bottom-fixed{
+    bottom:0px;
+    position: fixed!important;
 }
 
 .c-mediamodal__input {
@@ -422,4 +428,115 @@
 
 .m-b-0 {
     margin-top: 0px;
+}
+
+
+// comments block -----------------------------
+.c-post__comment--left {
+    // width: 7%;
+    float: left;
+}
+
+.c-post__comment--right {
+    width: 88%;
+    float: left;
+    margin-left: 8px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+            width: 81%;
+            margin-top: 8px;
+    }
+}
+
+.c-post__comment__blank {
+    height: 49vh;
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    color: #808080;
+    font-weight: 300;
+    line-height: 24px;
+}
+
+.c-post__comment {
+    padding: 8px 24px;
+    @include clearfix;
+    position: relative;
+    clear: both;
+}
+
+.c-post--unread {
+    background-color: #F5F5F5;
+}
+
+.c-post__comment--time {
+    color: #c1c1c1;
+    font-size: 11px;
+    line-height: 18px;
+    margin-top: 3px;
+    padding-right: 8px;
+}
+
+.c-post__commenter {
+    color: #333333;
+    font-size: 12px;
+    line-height: 17px;
+    cursor: pointer;
+    &:hover {
+        color: #333;
+    }
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        margin-left: 8px;
+    }
+}
+
+.c-post__comment_text {
+    color: #929292;
+    font-size: 11px;
+    line-height: 18px;
+    margin-left: 8px;
+    display: inline;
+}
+.c-post__comment_rm {
+    color: #FF7B84;
+    font-size: 11px;
+    line-height: 18px;
+    &:hover {
+        color: #FF7B84;
+    }
+    &:visited {
+        color: #FF7B84;
+    }
+}
+#c-comment_readMore {
+    display: hidden;
+}
+.c-post__input {
+    width: 90%;
+    float: left;
+    margin-left: 8px;
+}
+
+.form__bottom--0 {
+    margin-bottom: 0px;
+    .form_input:focus~label,
+    .form_input:valid~label {
+        display: none;
+    }
+}
+.c-post_extraspace {
+    padding-top: 5px !important;
+}
+.c-post_viewmore2 {
+    width: 100%;
+    float: left;
+    background-color: #F3F5F7;
+    padding-left: 24px;
+    padding-bottom: 4px;
+    a {
+    font-size: 11px;
+    line-height: 18px;
+    color: #929292;
+    }
 }

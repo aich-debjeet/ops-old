@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EventsComponent } from './events.component';
 import { DpDatePickerModule } from 'ng2-date-picker';
 import { SharedModule } from '../../shared/shared.module';
+import { SharedPipesModule } from '../../pipes/shared-pipes.module';
 import { RouterModule, Routes } from '@angular/router';
 import { EventsCreateComponent } from './events-create/events-create.component';
 import { EventsInnerComponent } from './events-inner/events-inner.component';
@@ -43,7 +44,7 @@ const routes: Routes = [
     component: EventsInnerComponent
   },
   {
-    path: 'edit',
+    path: 'edit/:id',
     component: EventsEditComponent
   }
 
@@ -54,6 +55,7 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     SharedModule,
+    SharedPipesModule,
     ReactiveFormsModule,
     FormsModule,
     NguCarouselModule,

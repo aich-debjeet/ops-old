@@ -12,8 +12,8 @@
                                 <div class="c-h2 color-theme">{{banner?.startDate | utcDate | date:'d'}}</div>
                                 <p class="c-text_sm color-theme text_uppercase ltr-space">{{banner?.startDate | utcDate | date:'MMM'}}</p>
                             </div>
-                            <div class="o-event-slider__det-text">
-                                <h3 class="c-h3 color-white f-w_500">{{banner?.title}}</h3>
+                            <div class="o-event-slider__det-text m-t-16">
+                                <h3 class="c-h3 color-white f-w_500">{{banner?.title  | truncate:[22, '...'] }}</h3>
                                 <p class="c-text_md color-grey-dark">{{banner?.venue?.location}}</p>
                             </div>
                         </div>

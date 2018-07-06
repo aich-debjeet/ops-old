@@ -1,0 +1,117 @@
+<form #createVolFrm="ngForm" [formGroup]="volunteerFrm" (ngSubmit)="submitVolunteerForm(volunteerFrm.value)">
+  <p class="c-text_lg color-grey-dark m-t-16">Volunteer.</p>
+  <div id="06" class="tab-pane">
+      <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+          Location details
+      </div>
+      <!-- subtitle end -->
+      <div class="o-oppo-form__single">
+          <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Title</div>
+          </div>
+          <div class="col-md-9 p-0">
+              <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                  <input formControlName="volunteerTitle" class="c-form__input" type="text" placeholder="Name of your project">
+                  <span class="c-form__highlight"></span>
+                  <span class="c-form__bar"></span>
+                  <!-- <label>Name of your project</label> -->
+              </div>
+              <p *ngIf="volunteerFrm.controls['volunteerTitle'].errors?.required && createVolFrm.submitted" class="c-form__validation error">Title is required!</p>
+          </div>
+      </div>
+      <!-- Title end -->
+      <div class="o-oppo-form__single">
+          <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">What causes does it relate to?</div>
+          </div>
+          <div class="col-md-9 p-0">
+              <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                  <input formControlName="volunteerCause" class="c-form__input" type="text" placeholder="Describe the cause">
+                  <span class="c-form__highlight"></span>
+                  <span class="c-form__bar"></span>
+                  <!-- <label>Describe the cause</label> -->
+              </div>
+              <p *ngIf="volunteerFrm.controls['volunteerCause'].errors?.required && createVolFrm.submitted" class="c-form__validation error">This is required!</p>
+          </div>
+      </div>
+      <div class="o-oppo-form__single">
+          <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Industry</div>
+          </div>
+          <div class="col-md-6 p-0">
+              <div class="c-form__group m-t-0">
+                  <select formControlName="volunteerIndustry" class="c-form-control p-l-0">
+                      <option value="">Select</option>
+                      <option *ngFor="let category of industryList" [value]="category.name">
+                          {{ category.name }}
+                      </option>
+                  </select>
+              </div>
+              <p *ngIf="volunteerFrm.controls['volunteerIndustry'].errors?.required && createVolFrm.submitted" class="c-form__validation error">Industry is required!</p>
+          </div>
+      </div>
+      <!-- Description end -->
+      <div class="o-oppo-form__single">
+          <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Skills Required </div>
+          </div>
+          <div class="col-md-9 p-0">
+              <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                  <input formControlName="volunteerSkills" class="c-form__input" type="text" placeholder="What skills are you looking for in volunteers">
+                  <span class="c-form__highlight"></span>
+                  <span class="c-form__bar"></span>
+                  <!-- <label>What skills are you looking for in volunteers</label> -->
+              </div>
+              <p *ngIf="volunteerFrm.controls['volunteerSkills'].errors?.required && createVolFrm.submitted" class="c-form__validation error">Skills are required!</p>
+          </div>
+      </div>
+      <!-- Skills end -->
+      <div class="o-oppo-form__single">
+          <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Location</div>
+          </div>
+          <div class="col-md-9 p-0">
+              <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                  <input formControlName="volunteerLocation" class="c-form__input" type="text" placeholder="Location of the opportunity">
+                  <span class="c-form__highlight"></span>
+                  <span class="c-form__bar"></span>
+                  <!-- <label>Location of the opportunity</label> -->
+              </div>
+              <p *ngIf="volunteerFrm.controls['volunteerLocation'].errors?.required && createVolFrm.submitted" class="c-form__validation error">Location is required!</p>
+          </div>
+      </div>
+      <!-- Add Collaborators end -->
+      <div class="o-oppo-form__single">
+          <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Requirements</div>
+          </div>
+          <div class="col-md-9 p-0">
+              <div class="o-oppo-form-check float_left m-r-16">
+                  <label for="License"> Driver's License Needed 
+                      <input id="License" formControlName="volunteerDL" type="checkbox">
+                  </label>
+              </div>
+              <div class="o-oppo-form-check float_left m-r-16">
+                  <label for="Check"> Background Check
+                      <input id="Check" formControlName="volunteerBGC" type="checkbox">
+                  </label>
+              </div>
+              <div class="o-oppo-form-check float_left">
+                  <label for="Training"> Orientation or Training
+                      <input id="Training" formControlName="volunteerORTR" type="checkbox">
+                  </label>
+              </div>
+          </div>
+      </div>
+      <!-- Add Collaborators end -->
+      <div class="o-oppo-form__single">
+        <div class="col-md-3 p-0"></div>
+        <div class="col-md-9 p-0">
+            <p *ngIf="_oppDetails?.formType === 'create'" class="c-text_sm color-grey-dark m-t-24">By clicking ‘Create’, you agree to the Terms and condition and Privacy policy</p>
+            <button *ngIf="_oppDetails?.formType === 'create'" type="submit" [disabled]="oppSubmitting" class="btn btn-primary btn-md m-t-16 m-b-16">Create</button>
+            <button *ngIf="_oppDetails?.formType === 'edit'" type="submit" [disabled]="oppSubmitting" class="btn btn-primary btn-md m-t-16 m-b-16">Update</button>
+        </div>
+      </div>
+      <!-- btn end -->
+  </div>
+</form>

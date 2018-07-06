@@ -89,12 +89,17 @@ export const EventReducer: ActionReducer<any> = (state = initialTagEve, {payload
 
     case EventActions.EVENT_DETAILS_LOAD:
       return Object.assign({}, state, {
-        event_detail: []
+        event_detail: undefined
       });
 
     case EventActions.EVENT_DETAILS_LOAD_SUCCESS:
       return Object.assign({}, state, {
         event_detail: payload
+      });
+
+    case EventActions.EVENT_DETAILS_LOAD_FAILED:
+      return Object.assign({}, state, {
+        event_detail_error: payload
       });
 
     case EventActions.GET_ALL_INDUSTRY_SUCCESS:

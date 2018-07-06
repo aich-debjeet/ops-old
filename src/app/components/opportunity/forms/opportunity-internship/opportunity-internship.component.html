@@ -1,0 +1,252 @@
+<form #createInternshipFrm="ngForm" [formGroup]="internshipFrm" (ngSubmit)="submitInternshipForm(internshipFrm.value)">
+  <p class="c-text_lg color-grey-dark m-t-16">Internships.</p>
+  <div id="03" class="tab-pane">
+      <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+          Internships details
+      </div>
+      <!-- subtitle end -->
+      <div class="o-oppo-form__single">
+          <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Role</div>
+          </div>
+          <div class="col-md-9 p-0">
+              <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                  <input formControlName="internshipRole" class="c-form__input" type="text" placeholder="eg: Manager/Director">
+                  <span class="c-form__highlight"></span>
+                  <span class="c-form__bar"></span>
+                  <!-- <label>eg: Manager/Director</label> -->
+              </div>
+              <p *ngIf="internshipFrm.controls['internshipRole'].errors?.required && createInternshipFrm.submitted" class="c-form__validation error">Role is required!</p>
+          </div>
+      </div>
+      <!-- Role end -->
+      <div class="o-oppo-form__single">
+          <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Description</div>
+          </div>
+          <div class="col-md-9 p-0">
+              <div class="c-form__group m-t-0 c-form--sm">
+                  <textarea formControlName="internshipDescription" class="c-textarea__block c-textarea--style" placeholder="Describe about opportunity"></textarea>
+              </div>
+              <p *ngIf="internshipFrm.controls['internshipDescription'].errors?.required && createInternshipFrm.submitted" class="c-form__validation error">Description is required!</p>
+          </div>
+      </div>
+      <!-- Description end -->
+      <div class="o-oppo-form__single">
+          <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Industry</div>
+          </div>
+          <div class="col-md-6 p-0">
+              <div class="c-form__group m-t-0">
+                  <select formControlName="internshipIndustry" class="c-form-control p-l-0">
+                      <option value="">Select</option>
+                      <option *ngFor="let category of industryList" [value]="category.name">
+                          {{ category.name }}
+                      </option>
+                  </select>
+              </div>
+              <p *ngIf="internshipFrm.controls['internshipIndustry'].errors?.required && createInternshipFrm.submitted" class="c-form__validation error">Industry is required!</p>
+          </div>
+      </div>
+      <!-- Description end -->
+      <div class="o-oppo-form__single">
+          <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Experience</div>
+          </div>
+          <div class="col-md-9 p-0">
+              <div class="col-md-2 p-0">
+                  <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                    <input formControlName="internshipExperienceFrom" class="c-form__input" type="number" placeholder="Years">
+                    <span class="c-form__highlight"></span>
+                    <span class="c-form__bar"></span>
+                  </div>
+              </div>
+              <div class="col-md-1">
+                  <div class="c-text_md color-grey-dark p-8">to</div>
+              </div>
+              <div class="col-md-2 p-0">
+                  <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                    <input formControlName="internshipExperienceTo" class="c-form__input" type="number" placeholder="Years">
+                    <span class="c-form__highlight"></span>
+                    <span class="c-form__bar"></span>
+                  </div>
+              </div>
+              <p *ngIf="(internshipFrm.controls['internshipExperienceFrom'].errors?.required || internshipFrm.controls['internshipExperienceTo'].errors?.required) && createInternshipFrm.submitted" class="c-form__validation error">Experience fields are required!</p>
+          </div>
+      </div>
+      <!-- Experience end -->
+      <div class="o-oppo-form__single">
+          <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Salary</div>
+          </div>
+          <div class="col-md-9 p-0">
+              <div class="col-md-4 p-l-0">
+                  <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                      <input formControlName="internshipSalaryAmount" class="c-form__input" type="text" placeholder="Salary amount">
+                      <span class="c-form__highlight"></span>
+                      <span class="c-form__bar"></span>
+                      <!-- <label>Salary amount</label> -->
+                  </div>
+              </div>
+              <div class="col-md-3 ">
+                  <div class="c-form__group m-t-0">
+                      <select formControlName="internshipSalaryDuration" class="c-form-control p-l-0">
+                          <option value="Annualy">Annualy</option>
+                          <option value="Monthly">Monthly</option>
+                          <option value="Contract">Contract</option>
+                      </select>
+                  </div>
+              </div>
+              <div class="col-md-3 ">
+                  <div class="c-form__group m-t-0">
+                      <select formControlName="internshipSalaryCurrency" class="c-form-control p-l-0">
+                          <option value="INR">INR</option>
+                          <option value="DOLLOR">DOLLOR</option>
+                          <option value="EURO">EURO</option>
+                      </select>
+                  </div>
+              </div>
+              <p *ngIf="(internshipFrm.controls['internshipSalaryAmount'].errors?.required || internshipFrm.controls['internshipSalaryDuration'].errors?.required || internshipFrm.controls['internshipSalaryCurrency'].errors?.required) && createInternshipFrm.submitted" class="c-form__validation error">Salary details are required!</p>
+          </div>
+      </div>
+      <!-- Salary end -->
+      <div class="o-oppo-form__single">
+          <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Duration</div>
+          </div>
+          <div class="col-md-9 p-0">
+              <div class="col-md-4 p-0">
+                  <div class="c-form__group m-t-0">
+                      <select formControlName="internshipDuration" class="c-form-control p-l-0">
+                          <option value="Full time">Full time</option>
+                          <option value="Part time">Part time</option>
+                      </select>
+                  </div>
+              </div>
+              <p *ngIf="internshipFrm.controls['internshipDuration'].errors?.required && createInternshipFrm.submitted" class="c-form__validation error">Duration is required!</p>
+          </div>
+      </div>
+      <!-- Duration end -->
+      <div class="o-oppo-form__single">
+          <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Location</div>
+          </div>
+          <div class="col-md-9 p-0">
+              <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                  <input formControlName="internshipLocation" class="c-form__input" type="text" placeholder="Where is the opportunity">
+                  <span class="c-form__highlight"></span>
+                  <span class="c-form__bar"></span>
+                  <!-- <label>Where is the opportunity</label> -->
+              </div>
+              <p *ngIf="internshipFrm.controls['internshipLocation'].errors?.required && createInternshipFrm.submitted" class="c-form__validation error">Location is required!</p>
+          </div>
+      </div>
+      <!-- Location end -->
+      <div class="o-oppo-form__single">
+          <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Includes travel</div>
+          </div>
+          <div class="col-md-9 p-0">
+              <div class="col-md-2 p-0">
+                  <div class="c-radio__sm p-t-8 float_left width100">
+                      <label class="col-md-6 p-0 p-t-8">
+                          <input formControlName="internshipTravelInclusive" type="radio" value="Yes" class="c-form__bar2"><span></span>yes
+                      </label>
+                      <label class="col-md-6 p-0 p-t-8">
+                          <input formControlName="internshipTravelInclusive" type="radio" value="No" class="c-form__bar2"><span></span>No
+                      </label>
+                  </div>
+              </div>
+              <div class="col-md-9 p-r-0">
+                  <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                      <input formControlName="internshipCountry" class="c-form__input" type="text" placeholder="Country">
+                      <span class="c-form__highlight"></span>
+                      <span class="c-form__bar"></span>
+                      <!-- <label>Country</label> -->
+                  </div>
+              </div>
+              <p *ngIf="(internshipFrm.controls['internshipTravelInclusive'].errors?.required || internshipFrm.controls['internshipCountry'].errors?.required) && createInternshipFrm.submitted" class="c-form__validation error">This is required!</p>
+          </div>
+      </div>
+      <!-- Location end -->
+      <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+          Candidate details
+      </div>
+      <!-- subtitle end -->
+      <div class="o-oppo-form__single">
+          <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Skills</div>
+          </div>
+          <div class="col-md-9 p-0">
+              <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                  <input formControlName="internshipSkills" class="c-form__input" type="text" placeholder="eg: #UIdesign #photoshop #sketch">
+                  <span class="c-form__highlight"></span>
+                  <span class="c-form__bar"></span>
+                  <!-- <label>eg: #UIdesign #photoshop #sketch</label> -->
+              </div>
+              <p *ngIf="internshipFrm.controls['internshipSkills'].errors?.required && createInternshipFrm.submitted" class="c-form__validation error">Skills are required!</p>
+          </div>
+      </div>
+      <!-- Skills end -->
+      <div class="o-oppo-form__single">
+          <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Qualifications</div>
+          </div>
+          <div class="col-md-9 p-0">
+              <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                  <input formControlName="internshipQualifications" class="c-form__input" type="text" placeholder="eg: Garduate">
+                  <span class="c-form__highlight"></span>
+                  <span class="c-form__bar"></span>
+                  <!-- <label>eg: Garduate </label> -->
+              </div>
+              <p *ngIf="internshipFrm.controls['internshipQualifications'].errors?.required && createInternshipFrm.submitted" class="c-form__validation error">Qualification is required!</p>
+          </div>
+      </div>
+      <!-- Qualifications end -->
+      <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+          organization details
+      </div>
+      <!-- subtitle end -->
+      <div class="o-oppo-form__single">
+          <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Organization Name</div>
+          </div>
+          <div class="col-md-9 p-0">
+              <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                  <input formControlName="internshipOrgName" class="c-form__input" type="text" placeholder="Name of the organization/company">
+                  <span class="c-form__highlight"></span>
+                  <span class="c-form__bar"></span>
+                  <!-- <label>Name of the organization/company</label> -->
+              </div>
+              <p *ngIf="internshipFrm.controls['internshipOrgName'].errors?.required && createInternshipFrm.submitted" class="c-form__validation error">Organization name is required!</p>
+          </div>
+      </div>
+      <!-- Organization Name end -->
+      <div class="o-oppo-form__single">
+          <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Attach files</div>
+          </div>
+          <div class="col-md-9 p-0">
+              <div class="o-oppo-form__file-type">
+                  <input *ngIf="!uploadedFile" class="o-oppo-file" type="file" accept="image/*" (change)="fileSelectedAction($event)" multiple>
+                  <p *ngIf="!uploadingFile" class="c-text_sm o-oppo-file__text">upload<br>image</p>
+                  <img *ngIf="uploadingFile" src="{{ baseUrl }}img/search-preloader.gif" class="opp-prel-image" alt="">
+                  <img *ngIf="uploadedFile" src="{{ uploadedFileSrc }}" class="opp-prev-image" alt="">
+              </div>
+              <div *ngFor="let fileName of internshipAttachments" class="o-oppo-form__img-show">
+                <img src="{{ baseUrl + fileName }}" alt="">
+              </div>
+          </div>
+      </div>
+      <!-- file attach end -->
+      <div class="o-oppo-form__single">
+        <div class="col-md-3 p-0"></div>
+        <div class="col-md-9 p-0">
+            <p *ngIf="_oppDetails?.formType === 'create'" class="c-text_sm color-grey-dark m-t-24">By clicking ‘Create’, you agree to the Terms and condition and Privacy policy</p>
+            <button *ngIf="_oppDetails?.formType === 'create'" type="submit" [disabled]="oppSubmitting || uploadingFile" class="btn btn-primary btn-md m-t-16 m-b-16">Create</button>
+            <button *ngIf="_oppDetails?.formType === 'edit'" type="submit" [disabled]="oppSubmitting || uploadingFile" class="btn btn-primary btn-md m-t-16 m-b-16">Update</button>
+        </div>
+      </div>
+      <!-- btn end -->
+  </div>
+</form>

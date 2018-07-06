@@ -44,7 +44,7 @@ export class EventsEditComponent implements OnInit {
   tagState$: Observable<EventModal>;
   profileState$: Observable<ProfileModal>;
   today = Date.now();
-  industryList = initialTagEve ;
+  industryList = [];
   image: any;
   eventCoverImage ='';
   minDate = new Date();
@@ -57,6 +57,7 @@ export class EventsEditComponent implements OnInit {
   eventCover: File;
   textEdit = true;
   eventTypeList: any;
+  bldForm: boolean = false;
 
     // Address --
     address: string;
@@ -112,27 +113,63 @@ export class EventsEditComponent implements OnInit {
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
   ) {
+    this.eventForm = this.fb.group({
+      'event_name' :['',[Validators.required]],
+      'event_genres': ['',[Validators.required]],
+      'event_industry': ['',[Validators.required]],
+      'event_venue': ['',[Validators.required]],
+      'event_startdate' : ['', [Validators.required, FormValidation.datevalidation]],
+      'event_enddate' : ['',[Validators.required, FormValidation.oldEndDatevalidation]],
+      'access': '0',
+      'event_type': 'Free',
+      'event_agenda' : this.fb.array([]),
+      'event_brief' :['', [Validators.required]],
+      'ts_startTime': ['',[Validators.required, FormValidation.datevalidation]],
+      'ts_endTime': ['',[Validators.required, FormValidation.oldEndDatevalidation]],
+      'ts_quantity': ['', [Validators.required]]
+    })
     this.tagState$ = this.store.select('eventTags');
     this.tagState$.subscribe((state) => {
-      this.industryList = state['all_industry'];
-      this.eventTypeList = state['eventType_load'];
+      if (state) {
+        if (state['all_industry']) {
+          this.industryList = state['all_industry'];
+        }
+        if (state['eventType_load']) {
+          this.eventTypeList = state['eventType_load'];
+        }
+        // console.log('state', state);
+        if (state['event_detail']) {
+          // console.log('event_detail available', state['event_detail']);
+          this.eventDetail = state['event_detail'];
+          if (!this.bldForm) {
+            this.buildForm(state);
+            this.getLocationGoogle();
+            this.bldForm = true;
+          }
+        }
+      }
       // this.eventDetail = state['event_detail'];
       // console.log(this.eventDetail)
       // this.buildForm();
     });
-    this.store.select('eventTags')
-    .first(state => state['event_detail'] !== 'undefined' )
-    .subscribe( data => {
-      this.eventDetail = data['event_detail']
-      //  console.log(this.eventDetail)
-      this.buildForm();
-      this.getLocationGoogle();
-    });
-    this.store.dispatch({ type: EventActions.GET_EVENT_TYPE });
-    this.store.dispatch({ type: EventActions.GET_ALL_INDUSTRY });
+    // this.store.select('eventTags')
+    // .first(state => state['event_detail'] !== 'undefined' )
+    // .subscribe( data => {
+    //   this.eventDetail = data['event_detail']
+    //   //  console.log(this.eventDetail)
+    //   if(!this.bldForm){
+    //     this.buildForm(data);
+    //     this.getLocationGoogle();
+    //     this.bldForm = true;
+    //   }
+
+    // });
+    // this.store.dispatch({ type: EventActions.GET_EVENT_TYPE });
+    // this.store.dispatch({ type: EventActions.GET_ALL_INDUSTRY });
    }
 
   ngOnInit() {
+    window.scrollTo(0, 0);
     // this.buildForm();
     // this.getLocationGoogle();
     this.store.select('profileTags')
@@ -140,7 +177,24 @@ export class EventsEditComponent implements OnInit {
     .subscribe( data => {
       this.userHandle = data['profile_cards'].active.handle;
     });
+    this.sub = this.route.params.subscribe(params => {
+      this.id = params['id'];
+      if (params['id'] && params['id'].length > 0) {
+        this.loadDetail();
+      }
+    });
+    // this.sub = this.route.params.subscribe(params => {
+    //   this.id = params['id'];
+    //   this.loadDetail();
+    // });
 
+  }
+
+  loadDetail() {
+    console.log('loadDetail', this.id);
+    this.store.dispatch({ type: EventActions.EVENT_DETAILS_LOAD, payload: this.id });
+    this.store.dispatch({ type: EventActions.GET_EVENT_TYPE });
+    this.store.dispatch({ type: EventActions.GET_ALL_INDUSTRY });
   }
 
   fileChangeListener($event) {
@@ -197,31 +251,32 @@ export class EventsEditComponent implements OnInit {
   }
 
 
-  // ngOnDestroy() {
-  //     this.sub.unsubscribe();
-  // }
+  ngOnDestroy() {
+      this.sub.unsubscribe();
+  }
 
   /**
    * Init Form Action
    */
-  buildForm() {
+  buildForm(data: any) {
+    // console.log('in buildForm', data)
     this.eventForm = this.fb.group({
-      'event_name' :[this.eventDetail.title,[Validators.required]],
-      'event_genres': [this.eventDetail.Type.eventType,[Validators.required]],
-      'event_industry': [this.eventDetail.industry[0],[Validators.required]],
-      'event_venue': [this.eventDetail.venue.location,[Validators.required]],
-      'event_startdate' : [this.removeTime(this.eventDetail.eventTiming.startDate), [Validators.required, FormValidation.datevalidation]],
-      'event_enddate' : [this.removeTime(this.eventDetail.eventTiming.endDate),[Validators.required, FormValidation.oldEndDatevalidation]],
+      'event_name' :[data['event_detail']['title'],[Validators.required]],
+      'event_genres': [data['event_detail']['Type']['eventType'],[Validators.required]],
+      'event_industry': [data['event_detail']['industry'][0],[Validators.required]],
+      'event_venue': [data['event_detail']['venue']['location'],[Validators.required]],
+      'event_startdate' : [this.removeTime(data['event_detail']['eventTiming']['startDate']), [Validators.required, FormValidation.datevalidation]],
+      'event_enddate' : [this.removeTime(data['event_detail']['eventTiming']['endDate']),[Validators.required, FormValidation.oldEndDatevalidation]],
       'access': '0',
       'event_type': 'Free',
       'event_agenda' : this.fb.array([]),
       // 'event_ts_type' : this.fb.array(
       //   [this.ticketItem('')]
       // ),
-      'event_brief' :[this.eventDetail.brief, [Validators.required]],
-      'ts_startTime': [this.removeTime(this.eventDetail.extras.ticket[0].startDate),[Validators.required, FormValidation.datevalidation]],
-      'ts_endTime': [this.removeTime(this.eventDetail.extras.ticket[0].endDate),[Validators.required, FormValidation.oldEndDatevalidation]],
-      'ts_quantity': [this.eventDetail.extras.ticket[0].maximum, [Validators.required]]
+      'event_brief' :[data['event_detail']['brief'], [Validators.required]],
+      'ts_startTime': [this.removeTime(data['event_detail']['extras']['ticket'][0]['startDate']),[Validators.required, FormValidation.datevalidation]],
+      'ts_endTime': [this.removeTime(data['event_detail']['extras']['ticket'][0]['endDate']),[Validators.required, FormValidation.oldEndDatevalidation]],
+      'ts_quantity': [data['event_detail']['extras']['ticket'][0]['maximum'], [Validators.required]]
     }, {
       // validators: [FormValidation.endateValidation]
     })
@@ -373,33 +428,33 @@ export class EventsEditComponent implements OnInit {
    * More Agenda Item push to Form
    */
   agendaItem(val: string) {
-    return new FormGroup({
-      startTime: new FormControl(val, Validators.required),
-      description: new FormControl(val, Validators.required)
-    })
+    // return new FormGroup({
+    //   startTime: new FormControl(val, Validators.required),
+    //   description: new FormControl(val, Validators.required)
+    // })
   }
 
   pushAgenda() {
     const control = <FormArray>this.eventForm.controls['event_agenda'];
-    control.push(this.agendaItem(''));
+    // control.push(this.agendaItem(''));
   }
 
   pushTicket() {
     const control = <FormArray>this.eventForm.controls['event_ts_type'];
-    control.push(this.ticketItem(''));
+    // control.push(this.ticketItem(''));
   }
 
   /**
    * More Ticket Item push to Form
    */
   ticketItem(val: string) {
-    return new FormGroup({
-      name: new FormControl(val, Validators.required),
-      price: new FormControl(val, Validators.required),
-      quantity: new FormControl(val),
-      ticketQuantiy: new FormControl(val, Validators.required),
-      ticketType: new FormControl(val)
-    })
+    // return new FormGroup({
+    //   name: new FormControl(val, Validators.required),
+    //   price: new FormControl(val, Validators.required),
+    //   quantity: new FormControl(val),
+    //   ticketQuantiy: new FormControl(val, Validators.required),
+    //   ticketType: new FormControl(val)
+    // })
   }
 
 

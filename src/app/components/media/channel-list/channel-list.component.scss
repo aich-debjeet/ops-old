@@ -1,3 +1,11 @@
+@import './src/assets/scss/helpers/_variables.scss';
+.channel_empty{
+    display: inline;
+    margin: 0px auto;
+    float: left;
+    text-align: center;
+    width: 100%;
+}
 .o-add-media-channel {
     width: 100%;
     background: #fff;

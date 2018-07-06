@@ -64,7 +64,7 @@
             <div class="c-h4 color-grey">The Community is empty</div>
             <a *ngIf="details?.isMember" [routerLink]="['/post/media']" [queryParams]="{post_to: 'community', ct_id: details?.communityId, ct_name: details?.title}" class="btn btn-primary btn-md m-t-16">Add post</a>
         </div>
-        <div class="col-md-6" >
+        <div class="col-md-6" *ngIf="communityPost?.length !== 0">
             <div *ngIf="postLoader">
                 <app-post-card [loader]=true *ngFor="let number of [0,1]" ></app-post-card>
             </div>
@@ -73,9 +73,9 @@
             </div>
         </div>
         <!-- center-block end -->
-        <div class="col-md-3">
+        <div class="col-md-3" >
             <div class="o-commu-right-block">
-                <div class="c-card" *ngIf="listInvitePeople?.length > 0">
+                <div class="c-card" *ngIf="listInvitePeople?.length > 0 && details?.isMember">
                     <div class="c-text_lg padding_16">Invite to the Community</div>
                     <div class="c-invite--search">
                         <form class="fill-grey-light">

@@ -65,7 +65,7 @@ label {
 
 .c-form__bar {
     position: relative;
-    display: block;
+    display: none !important;
     &:before,
     &:after {
         content: '';

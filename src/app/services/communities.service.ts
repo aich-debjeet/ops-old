@@ -84,7 +84,7 @@ export class CommunitiesService {
   }
 
   changeAdminRole(data: any) {
-    return this.api.put(`/portal/community/memberToAdmin`, data);
+    return this.api.put(`/portal/community/leaveAdmin`, data);
   }
 
 

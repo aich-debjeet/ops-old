@@ -5,6 +5,10 @@
     border: none;
 }
 
+.leftRs,
+.rightRs {
+    z-index: 1;
+}
 // slider
 .o-event-top-slider {
     width: 100%;
@@ -44,7 +48,8 @@
     float: left;
     padding: 16px 24px!important;
     background: #fff;
-    width: 9%;
+    width: 12%;
+    text-align: center;
 }
 
 .o-event-slider__det-text {

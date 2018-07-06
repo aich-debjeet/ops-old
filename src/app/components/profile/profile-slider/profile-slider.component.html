@@ -138,11 +138,11 @@
                                 </div>
                             </div> -->
                         </li>
-                        <li class="list-line-item" *ngIf="this.isOwner">
+                        <!-- <li class="list-line-item" *ngIf="this.isOwner">
                             <a (click)="profileEdit()" data-toggle="modal" data-target="#edit_profile_pop">
                                 <img [src]="baseUrl + 'img/svg/ico_edit.svg'" class="o-profile__nav--img">
                             </a>
-                        </li>
+                        </li> -->
                         <li class="list-line-item" *ngIf="!this.isOwner">
                             <a routerLink="/message" routerLinkActive="active"><img [src]="baseUrl + 'img/svg/ico_message.svg'"></a>
                         </li>

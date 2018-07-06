@@ -18,7 +18,7 @@
                 </div>
                 <div *ngIf="ownProfile" class="width100 float_left">
                     <button type="button" class="btn btn-primary btn-md btn-block m-t-16" (click)="showMediaSelection()">add work</button>
-                    <button type="button" *ngIf="ownProfile && profileState?.portfolio_user_profile?.extra?.isPublished === false" (click)="publishAction('publish')" class="btn btn-default btn-md btn-block m-t-8">publish</button>
+                    <button type="button" *ngIf="ownProfile && displayMedia?.length > 0 && profileState?.portfolio_user_profile?.extra?.isPublished === false" (click)="publishAction('publish')" class="btn btn-default btn-md btn-block m-t-8">publish</button>
                     <button type="button" *ngIf="ownProfile && profileState?.portfolio_user_profile?.extra?.isPublished === true" (click)="publishAction('unpublish')" class="btn btn-default btn-md btn-block m-t-8">unpublish</button>
                 </div>
             </div>
@@ -43,15 +43,22 @@
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane fade active in m-l-r-8">
-                                    <div class="row">
+                                    <div class="row"
+                                        infiniteScroll
+                                        [infiniteScrollDistance]="2"
+                                        [infiniteScrollThrottle]="1000"
+                                        (scrolled)="tabMediaScroll($event)">
                                         <ngx-masonry *ngIf="displayMedia?.length > 0" [useImagesLoaded]="true">
                                             <ngx-masonry-item *ngFor="let media of displayMedia" class="col-md-4 col-sm-4 c-portfolio--block">
                                                 <app-portfolio-media (removeSelectedMedia)="removeMediaFromCat($event)" (displaySelectedMedia)="displayMediaPopup($event)" [portMediaDetails]="media" [portMediaCategory]="activeTab" [isOwner]="ownProfile"></app-portfolio-media>
                                             </ngx-masonry-item>
                                         </ngx-masonry>
-                                        <!-- <ng-template #portfolioEmpty>
+                                        <ng-container *ngIf="activeTab === 'all' && isEmptyPortfolio">
                                             <h4 class="o-portfolio-empty-text color-grey-dark">Portfolio is empty</h4>
-                                        </ng-template> -->
+                                        </ng-container>
+                                        <ng-container *ngIf="activeTab !== 'all' && isEmptyCategory">
+                                            <h4 class="o-portfolio-empty-text color-grey-dark">This category is empty</h4>
+                                        </ng-container>
                                     </div>
                                     <div *ngIf="!ownProfile && profileState?.portfolio_user_profile?.extra?.isPublished === false" class="row">
                                         <h4 class="o-portfolio-empty-text color-grey-dark">Portfolio is not published!</h4>
@@ -71,6 +78,9 @@
     <modal-content>
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
+                <div class="modal-header p-0">
+                    <button type="button" class="close" data-dismiss="modal" (click)="closePortAddMediaModal()">×</button>
+                </div>
                 <div class="modal-body">
                     <div class="row with_border_bottom p-b-8">
                         <div class="col-md-3 c-text_md-bold text-uppercase m-t-8">Choose from image</div>
@@ -80,7 +90,7 @@
                                 <form *ngIf="portCategories?.length > 0">
                                     <div class="col-md-9 col-xs-8">
                                         <div class="c-form__group m-0">
-                                            <select class="c-form-control" (change)="selectCategory($event.target.value)">
+                                            <select class="c-form-control" [(ngModel)]="selectedCategoryId" [ngModelOptions]="{standalone: true}" (change)="selectCategory($event.target.value)">
                                                 <option value="">Select Category</option>
                                                 <option *ngFor="let category of portCategories" [value]="category.categoryId">{{ category.categoryName }}</option>
                                             </select>
@@ -115,19 +125,27 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="col-md-10 c-portscroll" id="ops_scrollbar">
-                            <div *ngIf="userMedia?.length > 0; else noMedia" class="row">
+                        <div class="col-md-10 c-portscroll" id="ops_scrollbar"
+                            infiniteScroll
+                            [infiniteScrollDistance]="2"
+                            [infiniteScrollThrottle]="1000"
+                            [scrollWindow]="false"
+                            (scrolled)="portMediaModalScroll($event)">
+                            <div *ngIf="userMedia?.length > 0;" class="row">
                                 <ngx-masonry [useImagesLoaded]="true">
                                     <ngx-masonry-item *ngFor="let media of userMedia" class="col-xs-6 col-md-3 c-portfolio--block" (click)="toggleMediaSelection(media?.mediaId)" >
                                         <app-portfolio-media [isOwner]=false [portMediaDetails]="media"></app-portfolio-media>
                                     </ngx-masonry-item>
                                 </ngx-masonry>
                             </div>
-                            <ng-template #noMedia class="row">
+                            <ng-container *ngIf="profileState?.get_users_media === false && profileState?.get_users_media_success === true && userMedia?.length === 0;" class="row">
                                 <div class="col-xs-12 col-md-12 c-portfolio--block">
-                                    <p class="no-result-found">No result found!</p>
+                                    <p class="no-result-found">No media found!</p>
                                 </div>
-                            </ng-template>
+                            </ng-container>
+                            <!-- <div *ngIf="userMedia?.length === 0 && profileState?.get_users_media === true && profileState?.get_users_media_success === false" class="preloader">
+                                <div class="sticky"><div class="loader">Loading...</div></div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -143,13 +161,14 @@
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
+                    <!-- <button type="button" class="close" data-dismiss="modal" (click)="editCategoriesModal.close()">×</button> -->
                     <p class="c-text_lg-bold">Edit Category</p>
                 </div>
                 <div class="modal-body">
                     <div *ngIf="portCategories?.length === 0 && profileState?.get_portfolio_categories === true && profileState?.get_portfolio_categories_success === false" class="preloader">
                         <div class="sticky"><div class="loader">Loading...</div></div>
                     </div>
-                    <div *ngIf="portCategories?.length > 0">
+                    <div id="ops_scrollbar" class="categories-modal" *ngIf="portCategories?.length > 0">
                         <div *ngFor="let category of portCategories; let catIndex = index;" class="row c-port__cat-name" id="switchbranding">
                             <div class="col-md-9 p-0">
                                 <input #newCatName class="editable-cat" type="text" [disabled]="!category?.isEditable" [value]="category.categoryName" (input)="updateCatName(newCatName.value, catIndex)">

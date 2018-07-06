@@ -364,10 +364,15 @@ ul.nav-tabs li a:hover {
     padding-top: 200px;
 }
 
-.modal-header .close {
-    top: 17px;
-    right: 17px;
-    position: absolute;
+// .modal-header .close {
+//     top: 17px;
+//     right: 17px;
+//     position: absolute;
+// }
+
+.categories-modal {
+    max-height: 50vh;
+    overflow: auto;
 }
 
 .c-portdelete .modal-sm {
@@ -379,4 +384,16 @@ ul.nav-tabs li a:hover {
     background: none;
     outline: none;
     border: none;
+}
+
+.modal-portfolio__media {
+    .modal-header .close {
+        color: #fff;
+        opacity: 0.5;
+        font-weight: 300;
+        font-size: 24px;
+        position: absolute;
+        top: -24px !important;
+        right: 8px !important;
+    }
 }
