@@ -133,7 +133,7 @@ export class OpportunityInternshipComponent implements OnInit, OnDestroy {
             to: formData.internshipExperienceTo.toString()
           },
           salary: {
-            amount: Number(formData.internshipSalaryAmount),
+            amount: formData.internshipSalaryAmount,
             salaryType: formData.internshipSalaryDuration,
             currency: formData.internshipSalaryCurrency
           },
