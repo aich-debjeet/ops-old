@@ -67,7 +67,7 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
           if (this.oppSaved === true) {
             this.toastr.success('Opportunity has been updated successfully!');
             this.oppSaved = false;
-            this.router.navigateByUrl('/opportunity/edit/' + this.jobId);
+            this.router.navigateByUrl('/opportunity/view/' + this.jobId);
             return;
           }
         }
