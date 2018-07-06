@@ -20,11 +20,13 @@ import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 import {} from '@types/googlemaps';
+import { TruncatePipe } from 'app/pipes/truncate.pipe';
 
 @Component({
   selector: 'app-events-landing',
   templateUrl: './events-landing.component.html',
-  styleUrls: ['./events-landing.component.scss']
+  styleUrls: ['./events-landing.component.scss'],
+  providers: [ TruncatePipe ]
 })
 export class EventsLandingComponent implements OnInit, OnDestroy {
   public locForm: FormGroup;
@@ -68,7 +70,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   sum = 10;
   total_pages = 10;
   scrolling = 0;
-  scrollingLoad = 1000;
+  scrollingLoad = 800;
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -87,7 +89,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
         this.eventList = state['event_list'];
         this.scrollId = state['event_scroll_id']
         this.eventTypeList = state['event_filter']
-        console.log(this.eventTypeList)
+        // console.log(this.eventTypeList)
         // console.log(this.eventList, this.scrollId)
       }
       this.eventType = state['event_type'];
@@ -402,7 +404,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
     this.scrolling = e.currentScrollPosition;
     // console.log(this.scrolling)
     if (this.scrollingLoad <= this.scrolling) {
-      this.scrollingLoad += 1000
+      this.scrollingLoad += 800
       const data = {
         searchType: this.filterStatus,
         scrollId: this.scrollId,
