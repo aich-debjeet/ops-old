@@ -43,10 +43,10 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   regState$: Observable<BasicRegTag>;
   regState = initialBasicRegTag;
   resendingOtp = false;
-  imageBaseLink: string = environment.API_IMAGE;
+  imageBaseLink = environment.API_IMAGE;
   claimValue: any;
   claimData: any;
-  claimActive: boolean = false;
+  claimActive = false;
 
   @ViewChild('claimPopup') claimPopup: Modal;
   @ViewChild('otpPopup') otpPopup: Modal;
@@ -284,9 +284,6 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
     return false;
   }
 
-
-  
-
   // user user exists
   userExistCheck(value) {
     if (value.length >= 4) {
@@ -432,7 +429,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
       if (datas['completed'].emailMatches === true || datas['completed'].mobileMatches === true) {
         this.claimPopup.open();
         this.claimActive = true;
-      }else {
+      } else {
         this.otpPopup.open();
         this.claimActive = false;
         this.otpOpenOnce = false;
