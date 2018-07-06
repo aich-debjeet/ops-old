@@ -48,59 +48,61 @@
 
 
 <!-- OTP Modal -->
-<app-modal [modalTitle]="'OTP'" [blocking]='false' modalId='otpWindow' class="otp__modal" size="small">
-    <!-- otp popup code -->
-    <div class="reg_step1_otp" id="otpModal" role="dialog">
-        <!-- otp modal -->
-        <div class="modal-dialog" id="modal-test-2">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header with_border_none">
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <h5 class="text-center">Pending verification! <br> Enter the 6 digit OTP that you have received <br> by email or phone </h5>
-                        <p class="text-center m-t-16">
-                            <a *ngIf="!resendingOtp" (click)="resendOtp()" class="color-theme">Resend OTP</a>
-                            <a *ngIf="resendingOtp">Sending OTP, please wait...</a>
-                        </p>
-                        <form [formGroup]="otpForm" (ngSubmit)="otpSubmit(otpForm.value)" #myform="ngForm">
-                            <div class="row">
-                                <div class="col-sm-6 c-text_md m-8 m-l-24">Enter OTP</div>
-                                <div class="col-sm-5">
-                                    <!-- <div class="c-text_md pull-right color-theme m-8 m-r-16 m-r-0">00:50</div> -->
+<app-modal-new #otpWindow [closeOnEscape]="false" [closeOnOutsideClick]="false" modalClass="reg_step1_otp modal-test-claim">
+    <modal-content>
+        <!-- otp popup code -->
+        <div class="reg_step1_otp" id="otpModal" role="dialog">
+            <!-- otp modal -->
+            <div class="modal-dialog" id="modal-test-2">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header with_border_none">
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <h5 class="text-center">Pending verification! <br> Enter the 6 digit OTP that you have received <br> by email or phone </h5>
+                            <p class="text-center m-t-16">
+                                <a *ngIf="!resendingOtp" (click)="resendOtp()" class="color-theme">Resend OTP</a>
+                                <a *ngIf="resendingOtp">Sending OTP, please wait...</a>
+                            </p>
+                            <form [formGroup]="otpForm" (ngSubmit)="otpSubmit(otpForm.value)" #myform="ngForm">
+                                <div class="row">
+                                    <div class="col-sm-6 c-text_md m-8 m-l-24">Enter OTP</div>
+                                    <div class="col-sm-5">
+                                        <!-- <div class="c-text_md pull-right color-theme m-8 m-r-16 m-r-0">00:50</div> -->
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form_group o-otp_form">
-                                <input #otpNum1 (keydown)="nextOtpNum($event, 1)" class="form_input" type="text" maxlength="1" formControlName="otpNum1">
-                            </div>
-                            <div class="form_group o-otp_form">
-                                <input #otpNum2 (keydown)="nextOtpNum($event, 2)" class="form_input" type="text" maxlength="1" formControlName="otpNum2">
-                            </div>
-                            <div class="form_group o-otp_form">
-                                <input #otpNum3 (keydown)="nextOtpNum($event, 3)" class="form_input" type="text" maxlength="1" formControlName="otpNum3">
-                            </div>
-                            <div class="form_group o-otp_form">
-                                <input #otpNum4 (keydown)="nextOtpNum($event, 4)" class="form_input" type="text" maxlength="1" formControlName="otpNum4">
-                            </div>
-                            <div class="form_group o-otp_form">
-                                <input #otpNum5 (keydown)="nextOtpNum($event, 5)" class="form_input" type="text" maxlength="1" formControlName="otpNum5">
-                            </div>
-                            <div class="form_group o-otp_form">
-                                <input #otpNum6 (keydown)="nextOtpNum($event, 6)" class="form_input" type="text" maxlength="1" formControlName="otpNum6">
-                            </div>
-                            <p class="error_alert text-center" *ngIf="loginState?.user_otp_failed">Invalid OTP</p>
-                            <p class="error_alert text-center" *ngIf="myform.submitted && (otpForm.controls['otpNum1'].errors?.required || otpForm.controls['otpNum2'].errors?.required || otpForm.controls['otpNum3'].errors?.required || otpForm.controls['otpNum4'].errors?.required || otpForm.controls['otpNum5'].errors?.required || otpForm.controls['otpNum6'].errors?.required)">Please enter your 6 digit OTP number</p>
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary btn-lg capitalize">Validate</button>
-                            </div>
-                        </form>
+                                <div class="form_group o-otp_form">
+                                    <input #otpNum1 (keydown)="nextOtpNum($event, 1)" class="form_input" type="text" maxlength="1" formControlName="otpNum1">
+                                </div>
+                                <div class="form_group o-otp_form">
+                                    <input #otpNum2 (keydown)="nextOtpNum($event, 2)" class="form_input" type="text" maxlength="1" formControlName="otpNum2">
+                                </div>
+                                <div class="form_group o-otp_form">
+                                    <input #otpNum3 (keydown)="nextOtpNum($event, 3)" class="form_input" type="text" maxlength="1" formControlName="otpNum3">
+                                </div>
+                                <div class="form_group o-otp_form">
+                                    <input #otpNum4 (keydown)="nextOtpNum($event, 4)" class="form_input" type="text" maxlength="1" formControlName="otpNum4">
+                                </div>
+                                <div class="form_group o-otp_form">
+                                    <input #otpNum5 (keydown)="nextOtpNum($event, 5)" class="form_input" type="text" maxlength="1" formControlName="otpNum5">
+                                </div>
+                                <div class="form_group o-otp_form">
+                                    <input #otpNum6 (keydown)="nextOtpNum($event, 6)" class="form_input" type="text" maxlength="1" formControlName="otpNum6">
+                                </div>
+                                <p class="error_alert text-center" *ngIf="loginState?.user_otp_failed">Invalid OTP</p>
+                                <p class="error_alert text-center" *ngIf="myform.submitted && (otpForm.controls['otpNum1'].errors?.required || otpForm.controls['otpNum2'].errors?.required || otpForm.controls['otpNum3'].errors?.required || otpForm.controls['otpNum4'].errors?.required || otpForm.controls['otpNum5'].errors?.required || otpForm.controls['otpNum6'].errors?.required)">Please enter your 6 digit OTP number</p>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary btn-lg capitalize">Validate</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
+            <!-- //otp modal -->
         </div>
-        <!-- //otp modal -->
-    </div>
-    <!-- //otp popup code -->
-</app-modal>
+        <!-- //otp popup code -->
+    </modal-content>
+</app-modal-new>
 <!-- OTP Modal -->

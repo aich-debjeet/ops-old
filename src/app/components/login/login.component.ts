@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 import { Login, initialTag } from '../../models/auth.model';
+import { Modal } from '../../shared/modal-new/Modal';
 
 // actions
 import { AuthActions } from '../../actions/auth.action';
@@ -22,6 +23,7 @@ import { ModalService } from '../../shared/modal/modal.component.service';
 })
 
 export class LoginComponent implements OnInit, OnDestroy {
+  @ViewChild('otpWindow') otpWindow: Modal;
   loginState$: Observable<Login>;
   loginState = initialTag;
   loginForm: FormGroup;
@@ -79,7 +81,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           if (state['error_description']['error_desc']
             && state['error_description']['error_desc'] === 'OTP_NOT_VALIDATED'
           ) {
-            this.modalService.open('otpWindow');
+            this.otpWindow.open();
           }
         }
         if (typeof state['user_otp_success'] !== 'undefined' && state['user_otp_success'] === true) {
