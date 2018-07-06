@@ -281,8 +281,8 @@
                             <span class="c-form__bar"></span>
                             <label>Enter New Phone Number</label>
                             <p class="error_alert" *ngIf="newNumberForm.controls['newNumber'].errors?.required && newNumFrm.submitted">Phone number is required</p>
-                            <p class="error_alert" *ngIf="newNumberForm.controls['newNumber'].errors?.isInvalidPhoneNumber">Please enter valid phone number</p>
-                            <p class="error_alert" *ngIf="newNumberForm.controls['newNumber'].errors?.isMobileUnique">This phone number is already registered</p>
+                            <p class="error_alert" *ngIf="!newNumberForm.controls['newNumber'].errors?.required && newNumberForm.controls['newNumber'].errors?.isInvalidPhoneNumber && newNumFrm.submitted">Please enter valid phone number</p>
+                            <p class="error_alert" *ngIf="!newNumberForm.controls['newNumber'].errors?.required && newNumberForm.controls['newNumber'].errors?.isMobileUnique">This phone number is already registered</p>
                         </div>
                         <div class="text-center">
                             <button type="button" class="btn btn-default btn-lg capitalize" (click)="backToOtp()">Back</button>
