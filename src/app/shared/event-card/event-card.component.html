@@ -17,7 +17,7 @@
     <!-- card body -->
     <div class="c-card__body p-t-0">
         <div class="c-text_lg c-card__event-title cursor-pointer" [routerLink]="'/event/inner/' + eventData?.id">
-            {{eventData?.title | truncate:[40, '...']}}
+            {{eventData?.title | truncate:[35, '...']}}
         </div>
         <div class="c-text_md color-grey-dark m-t-8">{{ eventData?.startDate | utcDate | date: 'dd, MMM'}} - {{ eventData?.endDate | utcDate | date: 'dd, MMM'}}</div>
         <div class="c-text_sm color-grey-dark m-t-8 c-card__event-address">{{ eventData?.venue | truncate:[60, '...'] }}</div>
