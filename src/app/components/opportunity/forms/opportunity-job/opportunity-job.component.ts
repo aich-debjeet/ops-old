@@ -129,8 +129,8 @@ export class OpportunityJobComponent implements OnInit, OnDestroy {
           description: formData.jobDescription,
           industry: formData.jobIndustry,
           experience: {
-            from: formData.jobExperienceFrom,
-            to: formData.jobExperienceTo
+            from: formData.jobExperienceFrom.toString(),
+            to: formData.jobExperienceTo.toString()
           },
           salary: {
             amount: Number(formData.jobSalaryAmount),

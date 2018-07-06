@@ -55,40 +55,20 @@
           </div>
           <div class="col-md-9 p-0">
               <div class="col-md-2 p-0">
-                  <div class="c-form__group m-t-0">
-                      <select formControlName="internshipExperienceFrom" class="c-form-control p-l-0">
-                          <option value="0">0</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                          <option value="6">6</option>
-                          <option value="7">7</option>
-                          <option value="8">8</option>
-                          <option value="9">9</option>
-                          <option value="10">10</option>
-                      </select>
+                  <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                    <input formControlName="internshipExperienceFrom" class="c-form__input" type="number" placeholder="Years">
+                    <span class="c-form__highlight"></span>
+                    <span class="c-form__bar"></span>
                   </div>
               </div>
               <div class="col-md-1">
                   <div class="c-text_md color-grey-dark p-8">to</div>
               </div>
               <div class="col-md-2 p-0">
-                  <div class="c-form__group m-t-0">
-                      <select formControlName="internshipExperienceTo" class="c-form-control p-l-0">
-                          <option value="0">0</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                          <option value="6">6</option>
-                          <option value="7">7</option>
-                          <option value="8">8</option>
-                          <option value="9">9</option>
-                          <option value="10">10</option>
-                      </select>
+                  <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                    <input formControlName="internshipExperienceTo" class="c-form__input" type="number" placeholder="Years">
+                    <span class="c-form__highlight"></span>
+                    <span class="c-form__bar"></span>
                   </div>
               </div>
               <p *ngIf="(internshipFrm.controls['internshipExperienceFrom'].errors?.required || internshipFrm.controls['internshipExperienceTo'].errors?.required) && createInternshipFrm.submitted" class="c-form__validation error">Experience fields are required!</p>
