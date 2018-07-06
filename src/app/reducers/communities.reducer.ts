@@ -8,7 +8,8 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
 
     case CommunitiesActions.COMMUNITY_CREATE:
       return Object.assign({}, state, {
-
+        completed: [],
+        community_create_success: false
       });
 
     case CommunitiesActions.COMMUNITY_CREATE_SUCCESS:
