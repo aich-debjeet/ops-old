@@ -181,6 +181,7 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
         communityDetails: {
           ...state.communityDetails,
           isOwner: false,
+          isMember: false
         },
       });
 
