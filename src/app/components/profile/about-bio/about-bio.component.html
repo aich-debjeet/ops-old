@@ -7,7 +7,7 @@
               <div class="o-bio-info-block m-b-8" >
                 <h6 class="c-text_md">About me</h6>
                 <div id="o-bio-info__about" *ngIf="editingField != 'aboutMe'" class="o-bio-info__value c-text_sm color-grey-dark">
-                    {{ aboutMe }}
+                    {{ userProfile?.aboutMe }}
                 </div>
                 <ng-container *ngIf="ownProfile">
                     <span class="o-bio-info__edit-ico" *ngIf="userProfile?.aboutMe"  (click)="editField('aboutMe')">
@@ -29,19 +29,33 @@
                   </div>
               </div>
               <!-- About me end -->
-              <div class="o-bio-info-block m-b-8" *ngIf="userProfile?.profileType">
+              <div class="o-bio-info-block m-b-8">
                 <h6 class="c-text_md">Skills</h6>
-                <span class="o-bio-info__edit-ico" *ngIf="ownProfile" (click)="editField('skills')">
-                    <img src="{{ imageBaseUrl }}img/svg/editpencil.svg" alt="">
-                </span>
-                <div id="o-bio-info__skills" class="o-bio-info__value c-text_sm color-grey-dark" *ngFor="let list of skillsArray; let isLast=last">
-                    {{list.name}}{{isLast ? '' : ', '}}
+                <div id="o-bio-info__skills" *ngIf="editingField != 'skills'" class="o-bio-info__value c-text_sm color-grey-dark">
+                    <span *ngFor="let list of skillsArray; let isLast=last">
+                            {{list.name}}{{isLast ? '' : ', '}}
+                    </span>                    
                 </div>
+                <ng-container *ngIf="ownProfile">
+                    <span class="o-bio-info__edit-ico" *ngIf="userProfile?.profileType" (click)="editField('skills')">
+                        <img src="{{ imageBaseUrl }}img/svg/editpencil.svg" alt="">
+                    </span>
+                    <div id="o-bio-info__skills" class="o-bio-info__value c-text_sm color-theme" *ngIf="!userProfile?.profileType" (click)="editField('skills')">
+                        <span class="o-bio-info_plus">+</span> Add Skills
+                    </div>
+                </ng-container>
                 <div id="o-bio-info__skills-edit" class="o-bio-info__edit" *ngIf="editingField == 'skills'">
                     <div class="c-form__group c-form--sm c-form--noeffect">
-                        <input class="c-form__input" required="" type="text" placeholder="Search skill">
+                        <input class="c-form__input" required="" type="text" [ngModel]="skill"  (ngModelChange)="onSearchChange($event)" placeholder="Search skill">
                     </div>
-                    <button class="btn btn-primary btn-sm" *ngFor="let list of skillsArray">{{list.name}}</button>
+                    <div class="row">
+                        <div class="col-md-12 with_border_bottom">
+                            <button class="btn btn-primary btn-sm m-t-8 m-r-8 m-b-8" (click)="toggleSelectSkill(list.code)" *ngFor="let list of skillsArray">{{list.name}}</button>
+                        </div>
+                    </div>
+                    <span *ngFor="let skill of findSkill?.industries">
+                        <button class="btn btn-default btn-sm m-t-8 m-r-8 m-b-8"  [ngClass]="skill.isSelected?'btn btn-reg_tag-active':''" (click)="toggleSelectSkill(skill.code)">{{skill.name}}</button>
+                    </span>
                     <!-- action start -->
                     <div class="o-bio-info__edit-actions m-t-24">
                         <button type="button" class="btn btn-primary btn-sm float-right" (click)="updateAbout('skills')">Save</button>

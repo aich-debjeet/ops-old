@@ -8,6 +8,8 @@ import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from
 import { ProfileHelper } from '../../../helpers/profile.helper';
 import { FormValidation, ProfileUpdateValidator } from '../../../helpers/form.validator';
 import { environment } from '../../../../environments/environment';
+import { Subject } from 'rxjs/Subject';
+import { AuthActions } from '../../../actions/auth.action';
 
 // action
 import { ProfileActions } from '../../../actions/profile.action';
@@ -18,6 +20,7 @@ import { ToastrService } from 'ngx-toastr';
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription, ISubscription } from 'rxjs/Subscription';
+import { find as _find, forEach as _forEach  } from 'lodash';
 
 @Component({
   selector: 'app-about-bio',
@@ -53,12 +56,16 @@ export class AboutBioComponent implements OnInit, OnDestroy {
   website: any;
   websitePrivacy: any;
   mobilePrivacy: any;
-  skillsArray:any;
+  skillsArray = [];
   editingField: string;
   imageBaseUrl = environment.API_IMAGE;
   invalidDOB: boolean = false;
   isUnderAge: boolean = false;
   isOverAge: boolean = false;
+  findSkill: any;
+  skillState$: Observable<any>;
+  skill: any;
+  txtQueryChanged: Subject<string> = new Subject<string>();
 
   constructor(
     private _http: Http,
@@ -71,6 +78,7 @@ export class AboutBioComponent implements OnInit, OnDestroy {
     private toastr: ToastrService
   ) {
     this.tagState$ = this._store.select('profileTags');
+    this.skillState$ = this._store.select('loginTags');
 
     this.subscription = this.tagState$.subscribe((state) => {
       // this.stateProfile = state;
@@ -81,6 +89,10 @@ export class AboutBioComponent implements OnInit, OnDestroy {
         if (this.stateProfile.profile_user_info.isCurrentUser === false && this.stateProfile.profile_other_loaded === true) {
           this.ownProfile = false;
           this.userProfile = this.stateProfile.profile_other;
+          if(this.stateProfile.profile_other && this.stateProfile['profile_other']['profileType']){
+            this.skillsArray = this.stateProfile['profile_other']['profileType']
+            console.log(this.skillsArray)
+          }
         }else {
           this.ownProfile = true;
           this.userProfile = this.stateProfile.profile_details;
@@ -89,8 +101,9 @@ export class AboutBioComponent implements OnInit, OnDestroy {
             console.log(this.aboutMe)
           }
           if(this.stateProfile.profile_details && this.stateProfile['profile_details']['profileType']){
-            this.skillsArray = this.stateProfile['profile_details']['profileType']
-            console.log(this.skillsArray)
+            this.loadSkill();
+            // this.skillsArray = this.stateProfile['profile_details']['profileType']
+            // console.log(this.skillsArray)
           }
           if(this.stateProfile.profile_details && this.stateProfile['profile_details']['physical']['gender']){
             this.gender = this.stateProfile['profile_details']['physical']['gender']
@@ -151,6 +164,16 @@ export class AboutBioComponent implements OnInit, OnDestroy {
       }
     }      
     });
+
+    this.skillState$.subscribe((state) => {
+      this.findSkill = state;
+      console.log(this.findSkill)
+    });
+    this.txtQueryChanged
+      .debounceTime(1000) // wait 1 sec after the last event before emitting last event
+      .subscribe(model => {
+        this._store.dispatch({ type: AuthActions.SEARCH_SKILL, payload: model });
+      });
   }
 
   ngOnInit() {
@@ -297,10 +320,18 @@ export class AboutBioComponent implements OnInit, OnDestroy {
         physical: {
           ethnicity: ''
         }
-      };
+      };    
       reqBody.physical.ethnicity = this.ethnicity.trim() || '';
       console.log(reqBody)
     }
+     if(fieldName === 'skills' && this.skillsArray.length > 0){
+      reqBody = {
+        profileTypeList: ''
+      };  
+      reqBody.profileTypeList = this.skillsArray;
+      this.findSkill.industries = [];
+      console.log(reqBody)
+     }
     this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: reqBody});
     this.toastr.success('Your profile has been updated successfully!');
   }
@@ -436,4 +467,104 @@ onSelectionChange(val){
       this.toastr.success('Your profile has been updated successfully!');
     }
   }
+   /**
+   * Handle Skill selection
+   * @param skillCode
+   */
+  toggleSelectSkill(skillCode: string) {
+    // Check if skill is already selected
+    const selectedSkill = _find(this.skillsArray, function(s) {
+      return s.code === skillCode;
+    });
+
+    // If skill exist then remove it from selection array
+    if (selectedSkill !== undefined) {
+      console.log(selectedSkill)
+      // Searching for the skill in skills array
+      if (this.findSkill.industries !== undefined) {
+        const skillMeta = this.selectedSkill(skillCode);
+      }
+      // Removing skill from selected skills array
+      this.skillsArray = this.skillsArray.filter(function(skill) {
+        console.log('under skillsarray')
+        return skill.code !== skillCode;
+      });
+      // Mark it not selected in UI
+      if (this.findSkill.skills !== undefined) {
+        console.log('under find skills')
+        this.findSkill.skills = this.findSkill.industries.filter(function(skill) {
+          if (skill.code === skillCode) {
+            skill.isSelected = false;
+          }
+          return skill;
+        });
+      }
+
+    } else {
+      console.log('here')
+      // Mark it selected in UI
+      this.findSkill.skills = this.findSkill.industries.filter(function(skill) {
+        if (skill.code === skillCode) {
+          skill.isSelected = true;
+        }
+        return skill;
+      });
+
+      // Searching for the skill in skills array
+      const skillMeta = this.selectedSkill(skillCode);
+
+      // Adding skill to the selection array
+      this.skillsArray.push({
+        'name': skillMeta.name,
+        'code': skillMeta.code,
+        'active': true
+      });
+    }
+
+    // if (this.skillsArray.length > 0) {
+    //   this.activateSubmitBtn = true;
+    // } else {
+    //   this.activateSubmitBtn = false;
+    // }
+  }
+
+   /**
+   * Find Skill from API Skill List
+   * @param skillCode
+   */
+  selectedSkill(skillCode) {
+    return _find(this.findSkill.industries, function(s: any) {
+      return s.code === skillCode;
+    });
+  }
+
+    /**
+   * Search skill on profile Edit
+   */
+  onSearchChange(query) {
+    if (query) {
+      // console.log('query',query)
+    //   this.profileStore.dispatch({ type: AuthActions.SEARCH_SKILL, payload: query });
+    this.txtQueryChanged.next(query);
+    } else {
+      this.txtQueryChanged.next('undefined');
+    }
+    this.findSkill = [];
+  }
+    
+  /**
+   * Exsist update skill push selected skill array
+   */
+  loadSkill() {
+    this.skillsArray = [];
+    const skill = this.stateProfile['profile_details']['profileType']
+    for (let i = 0; i < skill.length; i++) {
+      this.skillsArray.push({
+        'name': skill[i].name,
+        'code': skill[i].code,
+        'active': true
+      });
+    }
+  }
+
 }
