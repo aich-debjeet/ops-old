@@ -82,7 +82,7 @@ export class AboutBioComponent implements OnInit, OnDestroy {
 
     this.subscription = this.tagState$.subscribe((state) => {
       // this.stateProfile = state;
-      console.log(state)
+      
     if(state) {
       this.stateProfile = state;
       if (state.profile_user_info) {
@@ -91,35 +91,35 @@ export class AboutBioComponent implements OnInit, OnDestroy {
           this.userProfile = this.stateProfile.profile_other;
           if(this.stateProfile.profile_other && this.stateProfile['profile_other']['profileType']){
             this.skillsArray = this.stateProfile['profile_other']['profileType']
-            console.log(this.skillsArray)
+            
           }
         }else {
           this.ownProfile = true;
           this.userProfile = this.stateProfile.profile_details;
           if(this.stateProfile.profile_details && this.stateProfile['profile_details']['aboutMe']){
             this.aboutMe = this.stateProfile['profile_details']['aboutMe']
-            console.log(this.aboutMe)
+            
           }
           if(this.stateProfile.profile_details && this.stateProfile['profile_details']['profileType']){
             this.loadSkill();
             // this.skillsArray = this.stateProfile['profile_details']['profileType']
-            // console.log(this.skillsArray)
+            
           }
           if(this.stateProfile.profile_details && this.stateProfile['profile_details']['physical']['gender']){
             this.gender = this.stateProfile['profile_details']['physical']['gender']
-            console.log(this.gender)
+            
           }
           if(this.stateProfile.profile_details && this.stateProfile['profile_details']['extra']['address']['line1']){
             this.addressOne = this.stateProfile['profile_details']['extra']['address']['line1']
-            console.log(this.addressOne)
+            
           }
           if(this.stateProfile.profile_details && this.stateProfile['profile_details']['extra']['address']['line2']){
             this.addressTwo = this.stateProfile['profile_details']['extra']['address']['line2']
-            console.log(this.addressTwo)
+            
           }
           if(this.stateProfile.profile_details && this.stateProfile['profile_details']['extra']['address']['city']){
             this.city = this.stateProfile['profile_details']['extra']['address']['city']
-            console.log(this.city)
+            
           }
           if(this.stateProfile.profile_details && this.stateProfile['profile_details']['extra']['address']['country']){
             this.country = this.stateProfile['profile_details']['extra']['address']['country']
@@ -167,7 +167,7 @@ export class AboutBioComponent implements OnInit, OnDestroy {
 
     this.skillState$.subscribe((state) => {
       this.findSkill = state;
-      console.log(this.findSkill)
+      
     });
     this.txtQueryChanged
       .debounceTime(1000) // wait 1 sec after the last event before emitting last event
@@ -189,7 +189,7 @@ export class AboutBioComponent implements OnInit, OnDestroy {
   }
 
   editField(fieldName: string) {
-    console.log(fieldName)
+    
     this.editingField = fieldName;
   }
 
@@ -206,7 +206,7 @@ export class AboutBioComponent implements OnInit, OnDestroy {
    * Update about individual field
    */
   updateAbout(fieldName: string) {
-    console.log(fieldName)
+    
     let reqBody;
     //for about update
     if (fieldName === 'aboutMe' && this.aboutMe.length > 0) {
@@ -216,7 +216,7 @@ export class AboutBioComponent implements OnInit, OnDestroy {
         }
       };
       reqBody.extras.aboutMe = this.aboutMe.trim();
-      console.log(reqBody)
+      
     }
     if(fieldName === 'dob' && this.dob.length > 0){
       reqBody = {
@@ -224,12 +224,12 @@ export class AboutBioComponent implements OnInit, OnDestroy {
           dateOfBirth: ''
         }
       };
-      console.log(this.dob)
+      
       const dateArr =  this.dob.split('-');
       const day = dateArr[0];
       const month = dateArr[1];
       const year = dateArr[2];
-      console.log(dateArr)
+      
       // check for valid day number
       if (parseInt(day, 10) > 31) {
         this.invalidDOB =true;
@@ -261,7 +261,7 @@ export class AboutBioComponent implements OnInit, OnDestroy {
     }
 
     reqBody.physical.dateOfBirth = this.reverseDate(this.dob) + 'T05:00:00';
-    console.log(reqBody)
+    
     return null;
     }
     if (fieldName === 'height' && this.height.length > 0) {
@@ -271,7 +271,7 @@ export class AboutBioComponent implements OnInit, OnDestroy {
         }
       };
       reqBody.physical.height = parseFloat(this.height);
-      console.log(reqBody)
+      
     }
     if (fieldName === 'weight' && this.weight.length > 0) {
       reqBody = {
@@ -280,7 +280,7 @@ export class AboutBioComponent implements OnInit, OnDestroy {
         }
       };
       reqBody.physical.weight = parseFloat(this.weight);
-      console.log(reqBody)
+      
     }
     if (fieldName === 'language' && this.lang.length > 0) {
       reqBody = {
@@ -294,7 +294,7 @@ export class AboutBioComponent implements OnInit, OnDestroy {
               return item.trim();
             });
       reqBody.extras.association.languages = lang;
-      console.log(reqBody)
+      
     }
     if (fieldName === 'address' && (this.addressOne.length > 0 || this.city.length > 0 || this.country.length > 0 || this.pinCode.length > 0)) {
       reqBody = {
@@ -312,7 +312,7 @@ export class AboutBioComponent implements OnInit, OnDestroy {
       // reqBody.address.line2 = this.addressTwo.trim() || '';
       reqBody.address.postalCode = this.pinCode.trim() || '';
 
-      console.log(reqBody)
+      
     }
 
     if (fieldName === 'ethnicity' && this.ethnicity.length > 0) {
@@ -322,7 +322,7 @@ export class AboutBioComponent implements OnInit, OnDestroy {
         }
       };    
       reqBody.physical.ethnicity = this.ethnicity.trim() || '';
-      console.log(reqBody)
+      
     }
      if(fieldName === 'skills' && this.skillsArray.length > 0){
       reqBody = {
@@ -330,7 +330,7 @@ export class AboutBioComponent implements OnInit, OnDestroy {
       };  
       reqBody.profileTypeList = this.skillsArray;
       this.findSkill.industries = [];
-      console.log(reqBody)
+      
      }
     this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: reqBody});
     this.toastr.success('Your profile has been updated successfully!');
@@ -452,7 +452,7 @@ export class AboutBioComponent implements OnInit, OnDestroy {
   // }
 
 onSelectionChange(val){
-  console.log(val)
+  
   let reqBody;
     //for about update
     if (val.length > 0) {
@@ -462,7 +462,7 @@ onSelectionChange(val){
         }
       };
       reqBody.physical.gender = val;
-      console.log(reqBody)
+      
       this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: reqBody});
       this.toastr.success('Your profile has been updated successfully!');
     }
@@ -479,19 +479,19 @@ onSelectionChange(val){
 
     // If skill exist then remove it from selection array
     if (selectedSkill !== undefined) {
-      console.log(selectedSkill)
+      
       // Searching for the skill in skills array
       if (this.findSkill.industries !== undefined) {
         const skillMeta = this.selectedSkill(skillCode);
       }
       // Removing skill from selected skills array
       this.skillsArray = this.skillsArray.filter(function(skill) {
-        console.log('under skillsarray')
+        
         return skill.code !== skillCode;
       });
       // Mark it not selected in UI
       if (this.findSkill.skills !== undefined) {
-        console.log('under find skills')
+        
         this.findSkill.skills = this.findSkill.industries.filter(function(skill) {
           if (skill.code === skillCode) {
             skill.isSelected = false;
@@ -501,7 +501,7 @@ onSelectionChange(val){
       }
 
     } else {
-      console.log('here')
+      
       // Mark it selected in UI
       this.findSkill.skills = this.findSkill.industries.filter(function(skill) {
         if (skill.code === skillCode) {
