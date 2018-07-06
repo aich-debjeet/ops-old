@@ -14,7 +14,7 @@
             <div class="col-md-6 col-sm-6 col-xs-12 ops_signup_right">
                 <!-- form -->
                 <div class="ops_h1 c-h3">Log in to your account</div>
-                <form [formGroup]="loginForm" novalidate (submit)="submitForm(loginForm.value)" #myform="ngForm">
+                <form [formGroup]="loginForm" novalidate (submit)="submitForm(loginForm.value)" #loginFrm="ngForm">
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="c-form__group c-form--lg">
@@ -22,7 +22,7 @@
                                 <span class="c-form__highlight"></span>
                                 <span class="c-form__bar"></span>
                                 <label>Username/ Phone Number/ Email</label>
-                                <p class="c-form__validation hide" [ngClass]="{'show' : loginForm.controls['email'].errors?.required && myform.submitted}">Username is required</p>
+                                <p class="c-form__validation hide" [ngClass]="{'show' : loginForm.controls['email'].errors?.required && loginFrm.submitted}">Username is required</p>
                             </div>
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                         <span class="c-form__highlight"></span>
                         <span class="c-form__bar"></span>
                         <label>Password</label>
-                        <p class="c-form__validation" *ngIf="loginForm.controls['password'].errors?.required && myform.submitted">Password is required</p>
+                        <p class="c-form__validation" *ngIf="loginForm.controls['password'].errors?.required && loginFrm.submitted">Password is required</p>
                     </div>
                     <p class="c-form__validation m-t-b-8" *ngIf="loginState?.error_description?.error_desc === 'INCORRECT_CREDENTIALS'">Username or Password is incorrect</p>
                     <p class="c-form__validation m-t-b-8" *ngIf="loginState?.error_description?.error_desc === 'Multi_Account_Error'">We found more than one account with that number. <br>Please try again with your username or email.</p>
@@ -64,7 +64,7 @@
                             <a *ngIf="!resendingOtp" (click)="resendOtp()" class="color-theme">Resend OTP</a>
                             <a *ngIf="resendingOtp">Sending OTP, please wait...</a>
                         </p>
-                        <form [formGroup]="otpForm" (ngSubmit)="otpSubmit(otpForm.value)" #myform="ngForm">
+                        <form [formGroup]="otpForm" (ngSubmit)="otpSubmit(otpForm.value)" #otpFrm="ngForm">
                             <div class="row">
                                 <div class="col-sm-6 c-text_md m-8 m-l-24">Enter OTP</div>
                                 <div class="col-sm-5">
@@ -90,7 +90,7 @@
                                 <input #otpNum6 (keydown)="nextOtpNum($event, 6)" class="form_input" type="text" maxlength="1" formControlName="otpNum6">
                             </div>
                             <p class="error_alert text-center" *ngIf="loginState?.user_otp_failed">Invalid OTP</p>
-                            <p class="error_alert text-center" *ngIf="myform.submitted && (otpForm.controls['otpNum1'].errors?.required || otpForm.controls['otpNum2'].errors?.required || otpForm.controls['otpNum3'].errors?.required || otpForm.controls['otpNum4'].errors?.required || otpForm.controls['otpNum5'].errors?.required || otpForm.controls['otpNum6'].errors?.required)">Please enter your 6 digit OTP number</p>
+                            <p class="error_alert text-center" *ngIf="otpFrm.submitted && (otpForm.controls['otpNum1'].errors?.required || otpForm.controls['otpNum2'].errors?.required || otpForm.controls['otpNum3'].errors?.required || otpForm.controls['otpNum4'].errors?.required || otpForm.controls['otpNum5'].errors?.required || otpForm.controls['otpNum6'].errors?.required)">Please enter your 6 digit OTP number</p>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary btn-lg capitalize">Validate</button>
                             </div>
