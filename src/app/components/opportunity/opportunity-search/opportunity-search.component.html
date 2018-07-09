@@ -178,9 +178,9 @@
 			[infiniteScrollDistance]="2"
 			[infiniteScrollThrottle]="1000"
 			(scrolled)="loadMore($event)">
-			<app-opportunity-search-recommended *ngIf="searchType === 'recommended'"></app-opportunity-search-recommended>
-			<app-opportunity-search-applied 	*ngIf="searchType === 'applied'"></app-opportunity-search-applied>
-			<app-opportunity-search-created 	*ngIf="searchType === 'created'"></app-opportunity-search-created>
+			<app-opportunity-search-recommended *ngIf="searchType === 'recommended'" [opportunities]="opportunities"></app-opportunity-search-recommended>
+			<app-opportunity-search-applied 	*ngIf="searchType === 'applied'" 	 [opportunities]="opportunities"></app-opportunity-search-applied>
+			<app-opportunity-search-created 	*ngIf="searchType === 'created'" 	 [opportunities]="opportunities"></app-opportunity-search-created>
 			<!-- search prelaoder -->
 			<div *ngIf="showPreloader">
 				<div class="sticky">
