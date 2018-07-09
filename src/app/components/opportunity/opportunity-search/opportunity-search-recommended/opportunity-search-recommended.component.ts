@@ -57,32 +57,4 @@ export class OpportunitySearchRecommendedComponent implements OnInit, OnDestroy 
     this.oppsSub.unsubscribe();
   }
 
-  /**
-   * While Scrolling trigger next api call
-   */
-  onScroll(e) {
-    this.scrolling = e.currentScrollPosition;
-    if (this.canScroll === true && this.scrollingLoad <= this.scrolling) {
-      // this.showPreloader = true;
-      this.canScroll = false;
-      this.scrollingLoad += 500;
-      // check if it's first request
-      if (this.generalUtils.checkNestedKey(this.opportunityState, ['search_opportunities_result', 'scrollId']) && this.opportunityState['search_opportunities_result']['scrollId'] !== '') {
-        const searchOppsParams = {
-          searchType: this.opportunityState['search_opportunities_params']['searchType'],
-          searchText: this.opportunityState['search_opportunities_params']['searchText'],
-          scrollId: this.opportunityState['search_opportunities_result']['scrollId']
-        }
-        // this.isSearching = true;
-        this.store.dispatch({
-          type: OpportunityActions.SEARCH_OPPORTUNITIES,
-          payload: searchOppsParams
-        });
-      }
-      setTimeout(() => {
-        this.canScroll = true;
-      }, 1000);
-    }
-  }
-
 }

@@ -53,33 +53,10 @@ export class OpportunitySearchAppliedComponent implements OnInit, OnDestroy {
       }
     });
 
-    // observe the user state
-    // this.userState$.subscribe((state) => {
-    //   this.userState = state;
-    //   if (this.userState && this.userState.profile_navigation_details && this.userState.profile_navigation_details.handle) {
-    //     this.loadappliedOpps();
-    //   }
-    // });
-
   }
 
   ngOnDestroy() {
     this.oppsSub.unsubscribe();
-  }
-
-  /**
-   * load applied opportunities
-   */
-  loadappliedOpps() {
-    // const createdSearchParams = {
-    //   // postedBy: profileHandle,
-    //   offset: 0, // initial request
-    //   limit: this.recordsPerPage
-    // }
-    // this.store.dispatch({
-    //   type: OpportunityActions.GET_APPLIED_OPPORTUNITIES,
-    //   payload: createdSearchParams
-    // });
   }
 
 }

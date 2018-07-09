@@ -53,30 +53,6 @@ export class OpportunitySearchCreatedComponent implements OnInit, OnDestroy {
       }
     });
 
-    // observe the user state
-    this.userState$.subscribe((state) => {
-      this.userState = state;
-      // check for user skills
-      if (this.userState && this.userState['profile_navigation_details'] && this.userState['profile_navigation_details']['handle'] && this.userState['profile_navigation_details']['handle'].length > 0) {
-        this.loadCreatedOpps(this.userState['profile_navigation_details']['handle']);
-      }
-    });
-
-  }
-
-  /**
-   * load created opportunities
-   */
-  loadCreatedOpps(profileHandle: any) {
-    const createdSearchParams = {
-      // postedBy: profileHandle,
-      offset: 0, // initial request
-      limit: this.recordsPerPage
-    }
-    // this.store.dispatch({
-    //   type: OpportunityActions.GET_OPPORTUNITIES,
-    //   payload: createdSearchParams
-    // });
   }
 
   ngOnDestroy() {
