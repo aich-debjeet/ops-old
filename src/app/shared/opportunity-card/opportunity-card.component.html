@@ -5,19 +5,19 @@
         <span class="m-l-8">{{ opportunity?.opportunityType | firstCharCaps }}</span>
     </div>
     <div class="c-card__body">
-        <div class="c-text_lg">{{ opportunity?.opportunityRole }}</div>
-        <div *ngIf="opportunity?.organization" class="c-text_sm p-t-b-16 color-grey-dark">{{ opportunity?.organization }}</div>
+        <div class="c-text_lg">{{ opportunity?.opportunityRole | truncate:[25, '...'] }}</div>
+        <div *ngIf="opportunity?.organization" class="c-text_sm p-t-b-16 color-grey-dark">{{ opportunity?.organization | truncate:[25, '...'] }}</div>
         <div *ngIf="!opportunity?.organization" class="c-text_sm p-t-b-16 color-grey-dark">&nbsp;</div>
     </div>
     <div class="c-card__location p-b-16 with_border_bottom">
         <img [src]="baseUrl + 'img/svg/ico_location2.svg'">
-        <p class="c-card__location--text">{{ opportunity?.location }}</p>
+        <p class="c-card__location--text">{{ opportunity?.location | truncate:[25, '...'] }}</p>
     </div>
     <div routerLink="{{ '/profile/u/' + opportunity?.ownerUsername }}" class="c-card__opportunity__user with_border_bottom">
         <a class="c-user__avatar c-avatar--feed">
             <img class="c-user__image" [src]="baseUrl + opportunity?.ownerImage">
         </a>
-        <a class="c-card__opportunity__username">{{ opportunity?.ownerUsername }}</a>
+        <a class="c-card__opportunity__username">{{ opportunity?.ownerUsername | truncate:[25, '...'] }}</a>
     </div>
     <div class="c-card__links">
         <div class="c-links">
