@@ -181,14 +181,17 @@
 			<app-opportunity-search-recommended *ngIf="searchType === 'recommended'" [opportunities]="opportunities"></app-opportunity-search-recommended>
 			<app-opportunity-search-applied 	*ngIf="searchType === 'applied'" 	 [opportunities]="opportunities"></app-opportunity-search-applied>
 			<app-opportunity-search-created 	*ngIf="searchType === 'created'" 	 [opportunities]="opportunities"></app-opportunity-search-created>
-			<!-- search prelaoder -->
-			<div *ngIf="showPreloader">
-				<div class="sticky">
-					<div class="loader">Loading...</div>
-				</div>
-			</div>
-			<!-- search prelaoder -->
 		</div>
+		<div *ngIf="!showPreloader && opportunities && opportunities.length === 0">
+			<p class="result-not-found">No records found!</p>
+		</div>
+		<!-- search prelaoder -->
+		<div *ngIf="showPreloader">
+			<div class="sticky">
+				<div class="loader">Loading...</div>
+			</div>
+		</div>
+		<!-- search prelaoder -->
 	</div>
 </section>
 
