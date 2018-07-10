@@ -1,4 +1,4 @@
-<app-route-modal  modalClass="c-modal--size1">
+<app-route-modal  modalClass="c-modal--size1" [cancelUrl]="['', {outlets: { media: null }}]">
     <modal-content>
 
         <div class="c-mediamodal__left">
@@ -8,8 +8,23 @@
                     <img *ngIf="checkFileType(data?.repopath, 'Image')" [src]="imageLink + data?.repopath" class="img-responsive">
                     <app-audioplayer *ngIf="checkFileType(data?.repopath, 'Audio')" [src]="imageLink + data?.repopath"></app-audioplayer>
                 </figure>
+                <div class="c-mediamodal__l-arrow" *ngIf="mediaCarousal?.prev != ''">
+                    <div class="c-mediamodal__arrow--icon">
+                        <a [routerLink]="['', { outlets: { media : ['media', mediaCarousal?.prev ] }}]">
+                            <img [src]="imageLink + 'img/svg/arrow-left.svg'">
+                        </a>
+                    </div>
+                </div>
+                <div class="c-mediamodal__r-arrow" *ngIf="mediaCarousal?.next != ''">
+                    <div class="c-mediamodal__arrow--icon">
+                        <a [routerLink]="['/', { outlets: { media : ['media', mediaCarousal?.next ] }}]">
+                            <img [src]="imageLink + 'img/svg/arrow-left.svg'">
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
+
         <div class="c-mediamodal__right" id="ops_scrollbar">
             <div class="fill-white">
                 <div class="c-mediamodal__user p-16" *ngIf="data.isOwner">
