@@ -3,6 +3,10 @@
 @import '~sass-mq/_mq.scss';
 
 // opportunity styles
+.sticky {
+    width: 100%;
+    clear: both;
+}
 
 .nav.nav-tabs li a {
   cursor: pointer;
