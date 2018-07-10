@@ -650,7 +650,9 @@ export class MediaSelectorComponent implements OnInit {
         this.changeState(2);
         this.toastr.success('successfully created channel', 'Success!');
         this.createChannelForm();
-        this.loadChannel(this.handle, null);
+        setTimeout(() => {
+          this.loadChannel(this.handle, null);
+        }, 1500);
       });
   }
 
