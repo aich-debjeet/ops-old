@@ -246,4 +246,24 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
       });
   }
 
+  loadMore(e: any) {
+    // check if search type is available
+    if (this.searchType.length > 0) {
+      let scrollId = '';
+      if (this.generalUtils.checkNestedKey(this.opportunityState, ['search_opportunities_result', 'scrollId'])) {
+        scrollId = this.opportunityState['search_opportunities_result']['scrollId'];
+      }
+      const searchOppsParams = {
+        limit: this.recordsPerPage,
+        scrollId: scrollId,
+        filtersMap: this.globalFilter,
+        searchType: this.searchType,
+        searchText: this.searchString
+      }
+      this.isSearching = true;
+      this.showPreloader = true;
+      this.store.dispatch({ type: OpportunityActions.SEARCH_OPPORTUNITIES, payload: searchOppsParams });
+    }
+  }
+
 }
