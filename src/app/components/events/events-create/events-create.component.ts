@@ -218,7 +218,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
       'event_enddate' : ['', [Validators.required, FormValidation.oldEndDatevalidation, this.dateComparision.bind(this)]],
       'access': '0',
       'event_type': 'Free',
-      'event_agenda' : this.fb.array([]),
+      'event_agenda' : this.fb.array([this.agendaItem()]),
       // 'event_ts_type' : this.fb.array(
       //   [this.ticketItem('')]
       // ),
@@ -376,16 +376,16 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
   /**
    * More Agenda Item push to Form
    */
-  agendaItem(val: string) {
-    return new FormGroup({
-      startTime: new FormControl(val, Validators.required),
-      description: new FormControl(val, Validators.required)
+  agendaItem() {
+    return this.fb.group({
+      startTime: [''],
+      description: ['']
     })
   }
 
   pushAgenda() {
     const control = <FormArray>this.eventForm.controls['event_agenda'];
-    control.push(this.agendaItem(''));
+    control.push(this.agendaItem());
   }
 
   pushTicket() {
