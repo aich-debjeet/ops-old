@@ -21,6 +21,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ScrollHelper } from '../../../helpers/scroll.helper';
 import { GeneralUtilities } from '../../../helpers/general.utils';
 import * as _ from 'lodash';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-opportunity-search',
@@ -32,9 +33,11 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
   @ViewChild('searchInput') searchInput;
   @ViewChild('searchQueryElement') searchQueryElement;
   private oppsSub: ISubscription;
+  private loginSub: ISubscription;
   routeSub: any;
   opportunityState$: any;
   opportunityState: any;
+  loginState: Observable<any>;
   searchString = '';
   // default search type
   searchType = 'recommended';
@@ -47,7 +50,8 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
     Volunteer: '0',
     Freelance: '0'
   };
-  industryCount = [];
+  // industryCount = [];
+  industries = [];
   globalFilter = [];
   showPreloader = false;
   baseUrl = environment.API_IMAGE;
@@ -60,7 +64,8 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
     private route: ActivatedRoute,
     private scrollHelper: ScrollHelper,
     private store: Store<OpportunityModel>,
-    private generalUtils: GeneralUtilities
+    private generalUtils: GeneralUtilities,
+    private loginStore: Store<any>,
   ) {
     // state listener
     this.opportunityState$ = this.store.select('opportunityTags');
@@ -79,6 +84,12 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
           this.opportunities = state.search_opportunities_result.opportunityResponse;
           this.prepareFilters(state.search_opportunities_result.filterList);
         }
+      }
+    });
+    this.loginState = this.loginStore.select('loginTags');
+    this.loginSub = this.loginState.subscribe((state) => {
+      if (state['industries'] && state['industries'] !== 'undefined') {
+        this.industries = state['industries'];
       }
     });
   }
@@ -118,18 +129,18 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
           }
           // console.log('this.opportunitiesCount', this.opportunitiesCount);
         }
-        // for industry filter
-        if (filterList[i]['title'] === 'INDUSTRY') {
-          if (filterList[i].hasOwnProperty('filters')) {
-            this.industryCount = [];
-            for (let j = 0; j < filterList[i].filters.length; j++) {
-              if (filterList[i].filters[j].hasOwnProperty('name') && filterList[i].filters[j].hasOwnProperty('count')) {
-                this.industryCount.push(filterList[i].filters[j]);
-              }
-            }
-          }
-          // console.log('this.industryCount', this.industryCount);
-        }
+        // // for industry filter
+        // if (filterList[i]['title'] === 'INDUSTRY') {
+        //   if (filterList[i].hasOwnProperty('filters')) {
+        //     this.industryCount = [];
+        //     for (let j = 0; j < filterList[i].filters.length; j++) {
+        //       if (filterList[i].filters[j].hasOwnProperty('name') && filterList[i].filters[j].hasOwnProperty('count')) {
+        //         this.industryCount.push(filterList[i].filters[j]);
+        //       }
+        //     }
+        //   }
+        //   // console.log('this.industryCount', this.industryCount);
+        // }
       }
     }
   }
@@ -215,6 +226,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
 
   ngOnDestroy() {
     this.oppsSub.unsubscribe();
+    this.loginSub.unsubscribe();
     this.routeSub.unsubscribe();
   }
 

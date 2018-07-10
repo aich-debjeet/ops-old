@@ -7,8 +7,9 @@
 	  	<form action="">
         <input #searchQueryElement #searchInput="ngModel" type="text" [ngModel]="searchString" [ngModelOptions]="{standalone: true}" class="o-opp-search__input" placeholder="Search opportunities">
         <select (change)="selectIndustryFilter($event.target.value)" class="c-form-control o-opp-search__select m-0" [ngModel]="insdustryType" [ngModelOptions]="{standalone: true}">
-		  <option value="" [selected]="industryCount?.length === 0">Industry</option>
-		  <option *ngFor="let industry of industryCount" [value]="industry.name" >{{ industry.name }} ( {{ industry.count }} )</option>
+		  <option value="" [selected]="industries?.length === 0">Industry</option>
+		  <!-- <option *ngFor="let industry of industries" [value]="industry.name" >{{ industry.name }} ( {{ industry.count }} )</option> -->
+		  <option *ngFor="let industry of industries" [value]="industry.name" >{{ industry.name }}</option>
         </select>
         <div class="o-opp-search__icon">
 			<img *ngIf="!isSearching" [src]="baseUrl + 'img/svg/ico_search.svg'" class="search-spinner">

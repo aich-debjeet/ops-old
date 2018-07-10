@@ -108,7 +108,6 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
         this.industryList = state['industries'];
       }
     });
-    this.loginStore.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
   }
 
   ngOnInit() {
