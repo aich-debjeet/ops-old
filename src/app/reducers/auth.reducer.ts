@@ -6,6 +6,36 @@ import { AuthActions } from '../actions/auth.action';
 
 export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, type}: Action) =>  {
   switch (type) {
+    /* search skills */
+    case AuthActions.SIGNUP_SEARCH_SKILL:
+      return Object.assign({}, state, {
+        signup_search_skill: true,
+        signup_search_skill_params: payload,
+        signup_search_skill_success: false
+      });
+
+    case AuthActions.SIGNUP_SEARCH_SKILL_SUCCESS:
+      let updated_signup_search_skill_result;
+      // update state for pagination
+      if (state['signup_search_skill_params']['scrollId'] !== '') {
+        updated_signup_search_skill_result = state['signup_search_skill_result'];
+        updated_signup_search_skill_result.profileTypeResponse = [...state['signup_search_skill_result']['profileTypeResponse'], ...payload['profileTypeResponse']];
+      } else {
+        updated_signup_search_skill_result = payload;
+      }
+      return Object.assign({}, state, {
+        signup_search_skill: false,
+        industries: updated_signup_search_skill_result['profileTypeResponse'],
+        signup_search_skill_result: updated_signup_search_skill_result,
+        signup_search_skill_success: true
+      });
+
+    case AuthActions.SIGNUP_SEARCH_SKILL_FAILED:
+      return Object.assign({}, state, {
+        signup_search_skill: false,
+        signup_search_skill_success: false
+      });
+    /* search skills */
     case AuthActions.USER_REGISTRATION_WELCOME:
       return Object.assign({}, state, {
         success: true
