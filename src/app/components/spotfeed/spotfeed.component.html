@@ -4,7 +4,7 @@
         <!---  section  -->
         <div class="row">
             <div class="col-md-3">
-                <img src="{{ baseUrl + spotfeedDetails?.spotfeedImage }}" class="img-responsive img-rounded img-thumbnail">
+                <img [src]="baseUrl + spotfeedDetails?.spotfeedImage" class="img-responsive img-rounded img-thumbnail">
             </div>
             <div class="col-md-6">
                 <div class="ops_h1">{{ spotfeedDetails?.spotfeedName }}</div>
@@ -41,10 +41,10 @@
             <ul class="list-inline spot_in_head">
                 <li class="list-inline-item ops_heading text_uppercase">Post</li>
                 <li class="list-inline-item float_right hide">
-                  <a href="#"><span class="post-icons"><img src="{{ baseUrl }}img/svg/ico-image-black.svg" alt=""></span></a>
-                  <a href="#"><span class="post-icons"><img src="{{ baseUrl }}img/svg/ico-play-gray.svg" alt=""></span></a>
-                  <a href="#"><span class="post-icons"><img src="{{ baseUrl }}img/svg/ico-audio-black.svg" alt=""></span></a>
-                  <a href="#"><span class="post-icons"><img src="{{ baseUrl }}img/svg/ico-blog-black.svg" alt=""></span></a>
+                  <a href="#"><span class="post-icons"><img [src]="baseUrl + 'img/svg/ico-image-black.svg'" alt=""></span></a>
+                  <a href="#"><span class="post-icons"><img [src]="baseUrl + 'img/svg/ico-play-gray.svg'" alt=""></span></a>
+                  <a href="#"><span class="post-icons"><img [src]="baseUrl + 'img/svg/ico-audio-black.svg'" alt=""></span></a>
+                  <a href="#"><span class="post-icons"><img [src]="baseUrl + 'img/svg/ico-blog-black.svg'" alt=""></span></a>
                 </li>
             </ul>
             <div class="col-md-12">
