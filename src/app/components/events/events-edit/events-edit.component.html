@@ -164,8 +164,8 @@
                             <div class="col-md-3 p-0">
                                 <div class="c-text_md o-events-form-title">Agenda *</div>
                             </div>
-                            <div class="col-md-9 p-0">
-                                <div class="o-form-add-det-sec" *ngFor="let event_agenda of eventForm.controls.event_agenda['controls']; let i=index" [formGroup]="event_agenda">
+                            <div class="col-md-9 p-0" formArrayName="event_agenda">
+                                <div class="o-form-add-det-sec" *ngFor="let event_agenda of eventForm.controls.event_agenda['controls']; let i=index" [formGroupName]="i">
                                     <div class="col-md-4 p-l-0">
                                         <div class="c-form__group c-form--sm c-form--noeffect">
                                             <input class="c-form__input" required="" formControlName="startTime" type="text" [dpDayPicker]="config" theme="dp-material" mode="daytime">

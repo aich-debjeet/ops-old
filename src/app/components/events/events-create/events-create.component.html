@@ -46,12 +46,32 @@
 
                         <div class="o-events-form__single">
                             <div class="col-md-3 p-0">
+                                <div class="c-text_md o-events-form-title">Industry *</div>
+                            </div>
+                            <div class="col-md-5 p-0">
+                                <div class="c-form__group">
+                                    <select class="c-form-control p-l-0" formControlName="event_industry">
+                                      <option value="" disabled selected hidden>Select Industry</option>
+                                      <option *ngFor="let industry of industryList" value="{{ industry?.code }}">{{ industry?.name }}</option>
+                                    </select>
+                                </div>
+                                <p class="c-form__validation" *ngIf="eventForm.controls['event_industry'].errors?.required && ecfrom.submitted">Industry is required
+                                    <span class="pull-right">
+                                      <img [src]="baseUrl + 'img/svg/stop_red.svg'" class="c-form__validation--img">
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Industry end -->
+
+                        <div class="o-events-form__single">
+                            <div class="col-md-3 p-0">
                                 <div class="c-text_md o-events-form-title">Event Type *</div>
                             </div>
                             <div class="col-md-5 p-0">
                                 <div class="c-form__group">
                                     <select class="c-form-control p-l-0" formControlName="event_genres">
-                                      <option value="" disabled selected hidden>Select Genre</option>
+                                      <option value="" disabled selected hidden>Select Event Type</option>
                                       <option value="{{type}}" *ngFor="let type of eventTypeList">{{type}}</option>
                                       <!-- <option value="Movies">Movies</option>
                                       <option value="Festivals">Festivals</option>
@@ -71,30 +91,7 @@
                                 </p>
                             </div>
                         </div>
-                        <!-- Genres end -->
-
-                        <div class="o-events-form__single">
-                            <div class="col-md-3 p-0">
-                                <div class="c-text_md o-events-form-title">Industry *</div>
-                            </div>
-                            <div class="col-md-5 p-0">
-                                <div class="c-form__group">
-                                    <select class="c-form-control p-l-0" formControlName="event_industry">
-                                      <option value="" disabled selected hidden>Select Industry</option>
-                                      <option *ngFor="let industry of industryList" value="{{ industry?.code }}">{{ industry?.name }}</option>
-                                    </select>
-                                </div>
-                                <p class="c-form__validation" *ngIf="eventForm.controls['event_industry'].errors?.required && ecfrom.submitted">Industry is required
-                                    <span class="pull-right">
-                                      <img [src]="baseUrl + 'img/svg/stop_red.svg'" class="c-form__validation--img">
-                                    </span>
-                                </p>
-                            </div>
-                        </div>
-                        <!-- Industry end -->
-
-                    
-
+                        <!-- Genres end -->                    
 
                         <div class="o-events-form__single">
                             <div class="col-md-3 p-0">
@@ -178,8 +175,8 @@
                             <div class="col-md-3 p-0">
                                 <div class="c-text_md o-events-form-title">Agenda *</div>
                             </div>
-                            <div class="col-md-9 p-0">
-                                <div class="o-form-add-det-sec" *ngFor="let event_agenda of eventForm.controls.event_agenda['controls']; let i=index" [formGroup]="event_agenda">
+                            <div class="col-md-9 p-0" formArrayName="event_agenda">
+                                <div class="o-form-add-det-sec" *ngFor="let event_agenda of eventForm.controls.event_agenda['controls']; let i=index" [formGroupName]="i">
                                     <div class="col-md-4 p-l-0">
                                         <div class="c-form__group c-form--sm c-form--noeffect">
                                             <input class="c-form__input" required="" formControlName="startTime" type="text" [dpDayPicker]="config" theme="dp-material" mode="daytime">
