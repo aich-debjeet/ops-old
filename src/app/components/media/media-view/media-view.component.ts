@@ -53,6 +53,7 @@ export class MediaViewComponent {
   deleteMsg: boolean;
   isEdit: boolean;
   editMsg: boolean;
+  mediaCarousal: any = {prev: '', next: ''};
 
   constructor(
     private fb: FormBuilder,
@@ -75,6 +76,10 @@ export class MediaViewComponent {
       this.mediaId = this.mediaStore.media_detail.id;
       this.spot = this.mediaStore.media_detail.isSpotted;
       this.comments = this.mediaStore.media_comment;
+      if (state['media_carousel']) {
+        this.mediaCarousal = state['media_carousel'];
+      }
+
       if (state['media_edit_msg'] && this.editMsg) {
        this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
        this.toastr.success('Post Edited');
@@ -122,6 +127,11 @@ export class MediaViewComponent {
           'commentType': this.mediaType
         }
         this.store.dispatch({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: send });
+
+        const body = {
+          'mediaId': params['id']
+        }
+        this.store.dispatch({ type: MediaActions.MEDIA_NEXT, payload: body });
       }
     });
   }

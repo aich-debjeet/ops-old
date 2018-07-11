@@ -123,7 +123,6 @@ export class RouteModal implements OnInit, OnDestroy {
         this.isOpened = false;
         this.onClose.emit(args);
         document.body.className = document.body.className.replace(/modal-open\b/, "");
-
         if (this.cancelUrl) {
             let navigationExtras: NavigationExtras = { };
             if (this.cancelUrlExtras) {

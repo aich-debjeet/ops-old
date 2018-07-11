@@ -181,6 +181,11 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
       media_edit_msg: payload.SUCCESS
     });
 
+  case MediaActions.MEDIA_NEXT_SUCCESS:
+    return Object.assign({}, state, {
+      media_carousel: payload
+    });
+
 /**
  * media report
  */

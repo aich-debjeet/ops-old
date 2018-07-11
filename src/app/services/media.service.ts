@@ -57,6 +57,14 @@ export class MediaService {
   }
 
   /**
+   * Get Meida Deatils
+   * @param mediaId Channel ID
+   */
+  getMediaNext(body: string) {
+    return this.api.post('/portal/network/spotfeed/carousel', body);
+  }
+
+  /**
    * Media comment fetch
    * @param mediaId Channel ID
    */

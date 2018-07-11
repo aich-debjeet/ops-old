@@ -374,12 +374,16 @@ export class ProfileService {
    * Load a user profile
    */
   loadProfileByUsername(userName: string) {
-    return this.http.get(`${this.apiLink}/portal/profile/user/username/` + userName)
-      .map((data: Response) => {
-        localStorage.setItem('portfolioUserHandle', data.json().handle);
-        return data.json()
-      });
+    return this.api.get(`/portal/profile/user/username/${userName}`);
   }
+
+  // loadProfileByUsername(userName: string) {
+  //   return this.http.get(`${this.apiLink}/portal/profile/user/username/` + userName)
+  //     .map((data: Response) => {
+  //       localStorage.setItem('portfolioUserHandle', data.json().handle);
+  //       return data.json()
+  //     });
+  // }
 
   /**
    * Load a user profile
