@@ -1,6 +1,11 @@
 @import './src/assets/scss/helpers/_variables.scss';
 @import '~sass-mq/_mq.scss';
 
+.preloader {
+    width: 100%;
+    clear: both;
+}
+
 // add skill css
 .o-sign_block {
     width: 100%;

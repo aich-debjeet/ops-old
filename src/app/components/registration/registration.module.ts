@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchFilterPipe } from '../../pipes/search.pipe';
 import { DpDatePickerModule } from 'ng2-date-picker';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 // components
 import { RegistrationComponent } from './registration.component';
@@ -26,6 +27,7 @@ export const routes = [
     SharedModule,
     ReactiveFormsModule,
     FormsModule,
+    InfiniteScrollModule,
     RouterModule.forChild(routes),
     DpDatePickerModule
   ],
