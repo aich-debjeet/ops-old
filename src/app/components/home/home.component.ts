@@ -65,10 +65,10 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     // console.log(document.body.scrollTop);
     // document.body.scrollTop = 0;
-    this.title.setTitle('Home / Angular SSR');
-    this.meta.updateTag({
-        'description': 'Welcome to home section'
-    });
+    // this.title.setTitle('Home / Angular SSR');
+    // this.meta.updateTag({
+    //     'description': 'Welcome to home section'
+    // });
 
     window.scrollTo(0, 0);
     this.carouselOne = {
