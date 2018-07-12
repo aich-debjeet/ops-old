@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, Output, Input, ElementRef, EventEmitt
 import * as Choices from 'choices.js';
 import { Observable } from 'rxjs/Observable';
 import { parse, format, asYouType } from 'libphonenumber-js';
-import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+
 // countries
 import { countries } from './countries';
 
