@@ -1,7 +1,7 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, Inject } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Channel } from '../../models/home.model';
-import { NguCarousel, NguCarouselStore } from '@ngu/carousel';
+import { NguCarousel } from '@ngu/carousel';
 
 import { PLATFORM_ID } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
@@ -16,7 +16,7 @@ import { environment } from '../../../environments/environment';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription, ISubscription } from 'rxjs/Subscription';
+import { ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-home',
