@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ModalService } from '../../shared/modal/modal.component.service';
 import { SharedActions } from '../../actions/shared.action';
 import { Store } from '@ngrx/store';
@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-report-popoup',
   templateUrl: './report-popoup.component.html',
-  providers:[ModalService],
+  providers: [ModalService],
   styleUrls: ['./report-popoup.component.scss']
 })
 export class ReportPopoupComponent implements OnInit {

@@ -8,7 +8,6 @@ import { ProfileActions } from '../../actions/profile.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-quick-access',
