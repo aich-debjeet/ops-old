@@ -1,8 +1,7 @@
-import { Component, Directive, ChangeDetectionStrategy, OnInit, HostListener, Renderer, ElementRef, HostBinding, OnDestroy } from '@angular/core';
+import { Component, OnInit, Renderer, ElementRef, OnDestroy } from '@angular/core';
 import { ModalService } from '../modal/modal.component.service';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag, UserCard, ProfileCards } from '../../models/profile.model';
-import { Organization } from '../../models/organization.model';
 
 import { LocalStorageService } from './../../services/local-storage.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -10,18 +9,14 @@ import { UtcDatePipe } from './../../pipes/utcdate.pipe';
 
 // action
 import { ProfileActions } from '../../actions/profile.action';
-import { OrganizationActions } from '../../actions/organization.action';
 import { NotificationActions } from './../../actions/notification.action';
 
 import { Observable } from 'rxjs/Observable';
-import { Subscription, ISubscription } from 'rxjs/Subscription';
+import { ISubscription } from 'rxjs/Subscription';
 import { environment } from '../../../environments/environment';
 
-import { _ } from 'lodash';
 import {uniqBy as _uniqBy} from 'lodash';
 import { GeneralUtilities } from '../../helpers/general.utils';
-import { Profile } from 'selenium-webdriver/firefox';
-import { AuthActions } from 'app/actions/auth.action';
 import { PusherService } from '../../services/pusher.service';
 
 @Component({
