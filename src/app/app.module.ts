@@ -122,7 +122,6 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { ExploreComponent } from './components/explore/explore.component';
 import { ChannelListComponent } from './components/channel-list/channel-list.component';
 import { LogoutHomeComponent } from './components/logout-home/logout-home.component';
-import { MasonryComponent } from './components/masonry/masonry.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { PopularArtistsComponent } from './shared/popular-artists/popular-artists.component';
 import { NearestEventsComponent } from './shared/nearest-events/nearest-events.component';
@@ -145,7 +144,6 @@ import { AboutComponent } from './components/about/about.component';
     ExploreComponent,
     ChannelListComponent,
     LogoutHomeComponent,
-    MasonryComponent,
     LogoutComponent,
     ChannelInnerComponent,
     LearnComponent,
