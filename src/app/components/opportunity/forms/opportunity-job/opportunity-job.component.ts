@@ -97,7 +97,7 @@ export class OpportunityJobComponent implements OnInit, OnDestroy {
       jobIndustry: [this.generalUtils.checkNestedKey(data, ['opportunityJob', 'industry']) ? data['opportunityJob']['industry'] : '', [Validators.required]],
       jobExperienceFrom: [this.generalUtils.checkNestedKey(data, ['opportunityJob', 'experience', 'from']) ? data['opportunityJob']['experience']['from'] : '', [Validators.required]],
       jobExperienceTo: [this.generalUtils.checkNestedKey(data, ['opportunityJob', 'experience', 'to']) ? data['opportunityJob']['experience']['to'] : '', [Validators.required]],
-      jobSalaryAmount: [this.generalUtils.checkNestedKey(data, ['opportunityJob', 'salary', 'amount_from']) ? data['opportunityJob']['salary']['amount_from'] : '', [Validators.required]],
+      jobSalaryAmount: [this.generalUtils.checkNestedKey(data, ['opportunityJob', 'salary', 'amount']) ? data['opportunityJob']['salary']['amount'] : '', [Validators.required]],
       jobSalaryDuration: [this.generalUtils.checkNestedKey(data, ['opportunityJob', 'salary', 'salaryType']) ? data['opportunityJob']['salary']['salaryType'] : '', [Validators.required]],
       jobSalaryCurrency: [this.generalUtils.checkNestedKey(data, ['opportunityJob', 'salary', 'currency']) ? data['opportunityJob']['salary']['currency'] : '', [Validators.required]],
       jobDuration: [this.generalUtils.checkNestedKey(data, ['opportunityJob', 'duration']) ? data['opportunityJob']['duration'] : '', [Validators.required]],
