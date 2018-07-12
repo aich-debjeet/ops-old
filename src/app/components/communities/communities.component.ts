@@ -32,6 +32,7 @@ export class CommunitiesComponent implements OnInit, AfterViewInit, OnDestroy {
   industryState$: Observable<any>;
   tagState$: Observable<any>;
   private subscription: ISubscription;
+  private routescription: ISubscription;
   selectedIndustry = '';
   status: string;
   query: string;
@@ -74,7 +75,7 @@ export class CommunitiesComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
 
-    this.route
+    this.routescription = this.route
       .queryParams
       .subscribe(params => {
         // Defaults to 0 if no query param provided.
@@ -82,11 +83,11 @@ export class CommunitiesComponent implements OnInit, AfterViewInit, OnDestroy {
           this.status = params['status'];
           this.scrollingLoad = 0;
           this.loadCommunity(null);
+          return
         }
-        // this.serachApi();
+        this.status = 'recommended';
+        this.loadCommunity(null);
       });
-
-      this.loadCommunity(null);
   }
 
   ngOnInit() {
@@ -96,6 +97,7 @@ export class CommunitiesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.routescription.unsubscribe();
   }
 
   createForm() {
@@ -151,7 +153,6 @@ export class CommunitiesComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onScroll(e) {
-    console.log(e);
     this.scrolling = e.currentScrollPosition;
     if (this.scrollingLoad <= this.scrolling) {
       this.scrollingLoad += 700
