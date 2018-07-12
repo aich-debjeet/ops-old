@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Media, initialMedia  } from '../../models/media.model';
@@ -7,7 +6,7 @@ import { Media, initialMedia  } from '../../models/media.model';
 import { Router } from '@angular/router';
 
 import { ModalService } from '../../shared/modal/modal.component.service';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 
 import { environment } from '../../../environments/environment';
@@ -15,7 +14,6 @@ import { environment } from '../../../environments/environment';
 // action
 import { MediaActions } from '../../actions/media.action';
 import { ProfileActions } from '../../actions/profile.action';
-import { SharedActions } from '../../actions/shared.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
@@ -44,7 +42,6 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   constructor(
-    private http: Http,
     private _store: Store<any>,
     private route: ActivatedRoute,
     private fb: FormBuilder,
