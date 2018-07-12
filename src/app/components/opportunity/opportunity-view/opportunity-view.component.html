@@ -658,17 +658,19 @@
     <!-- right widgets -->
     <div class="col-md-3 col-sm-5 col-xs-12 m-t-16 p-0">
       <div class="o-oppo-post-right-block m-b-16">
-        <p class="c-text_sm ltr-space color-grey-dark">Posted By</p>
-        <div class="o-opportunity-post-user-detail m-t-16">
-          <div class="o-post-user__avatar">
-            <img [src]="baseUrl + opportunity?.ownerImage" alt="">
-          </div>
-          <div class="o-post-user__info">
-            <div class="o-post-user__name c-text_lg">
-              {{ opportunity?.ownerName }}
+        <a [routerLink]="'/profile/u/' + opportunity?.ownerUserName">
+          <p class="c-text_sm ltr-space color-grey-dark">Posted By</p>
+          <div class="o-opportunity-post-user-detail m-t-16">
+            <div class="o-post-user__avatar">
+              <img [src]="baseUrl + opportunity?.ownerImage" alt="">
+            </div>
+            <div class="o-post-user__info">
+              <div class="o-post-user__name c-text_lg">
+                {{ opportunity?.ownerName }}
+              </div>
             </div>
           </div>
-        </div>
+        </a>
       </div>
       <div class="o-oppo-post-right-block m-b-16 hidden-xs">
         <h6 class="c-text_lg m-b-8">Similar Opportunities</h6>
