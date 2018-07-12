@@ -12,7 +12,6 @@ import { MediaActions } from '../../actions/media.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
 import { ModalService } from '../../shared/modal/modal.component.service';
