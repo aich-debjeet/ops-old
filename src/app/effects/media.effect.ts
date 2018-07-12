@@ -90,6 +90,21 @@ export class MediaEffect {
     );
 
   /**
+   * Get Media detail Page
+   */
+  @Effect()
+  getMediaNext$ = this.actions$
+    .ofType(MediaActions.MEDIA_NEXT)
+    .map(toPayload)
+    .switchMap((payload) => this.mediaService.getMediaNext(payload)
+      .map(res => ({ type: MediaActions.MEDIA_NEXT_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: MediaActions.MEDIA_NEXT_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
+  /**
    * Post comment
    */
   @Effect()

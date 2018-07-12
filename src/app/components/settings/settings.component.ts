@@ -118,7 +118,7 @@ export class SettingsComponent implements OnInit {
                                     {name: 'Mention', description: 'Receive an e-mail when other people mention you.' , value: 'Mention', checked: this.default.mentions},
                                     {name: 'Followers', description: 'Receive an e-mail when other people follow you.' , value: 'Followers', checked: this.default.newFollower},
                                     {name: 'Channels', description: 'Receive an e-mail when other people add you in a channel.' , value: 'Channels', checked: this.default.channels},
-                                    {name: 'Donate', description: 'Receive an e-mail when other people donate you.' , value: 'Donate', checked: this.default.donate},
+                                    {name: 'Donate', description: 'Receive an e-mail when other people donate to you.' , value: 'Donate', checked: this.default.donate},
                                     {name: 'Network', description: 'Receive an e-mail when other people send you network request.' , value: 'Network', checked: this.default.network}
           ]
           }

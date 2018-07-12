@@ -5,6 +5,7 @@ import 'localstorage-polyfill'
 
 import { renderModuleFactory } from '@angular/platform-server';
 import { enableProdMode } from '@angular/core';
+import Pusher from 'pusher-js';
 
 import * as express from 'express';
 import { join } from 'path';

@@ -113,7 +113,7 @@ export class EventsEditComponent implements OnInit {
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
   ) {
-    this.eventForm = this.fb.group({
+      this.eventForm = this.fb.group({
       'event_name' :['',[Validators.required]],
       'event_genres': ['',[Validators.required]],
       'event_industry': ['',[Validators.required]],
@@ -122,7 +122,7 @@ export class EventsEditComponent implements OnInit {
       'event_enddate' : ['',[Validators.required, FormValidation.oldEndDatevalidation]],
       'access': '0',
       'event_type': 'Free',
-      'event_agenda' : this.fb.array([]),
+      'event_agenda' : this.fb.array([this.agendaItem()]),
       'event_brief' :['', [Validators.required]],
       'ts_startTime': ['',[Validators.required, FormValidation.datevalidation]],
       'ts_endTime': ['',[Validators.required, FormValidation.oldEndDatevalidation]],
@@ -259,7 +259,8 @@ export class EventsEditComponent implements OnInit {
    * Init Form Action
    */
   buildForm(data: any) {
-    // console.log('in buildForm', data)
+    console.log('in buildForm', data)
+    // this.eventAgenda(data['event_detail']);
     this.eventForm = this.fb.group({
       'event_name' :[data['event_detail']['title'],[Validators.required]],
       'event_genres': [data['event_detail']['Type']['eventType'],[Validators.required]],
@@ -269,7 +270,7 @@ export class EventsEditComponent implements OnInit {
       'event_enddate' : [this.removeTime(data['event_detail']['eventTiming']['endDate']),[Validators.required, FormValidation.oldEndDatevalidation]],
       'access': '0',
       'event_type': 'Free',
-      'event_agenda' : this.fb.array([]),
+      'event_agenda' : this.fb.array(this.eventAgenda(data['event_detail'])),
       // 'event_ts_type' : this.fb.array(
       //   [this.ticketItem('')]
       // ),
@@ -282,6 +283,19 @@ export class EventsEditComponent implements OnInit {
     })
     this.eventCoverImage = this.eventDetail.extras.coverImage
 
+  }
+  eventAgenda(data){
+    let newFormGroup = [];
+    for (let i = 0; i < data['event_agenda'].length; i++){
+      let fg = this.fb.group({
+        startTime: [data['event_agenda'][i].startTime],
+        description: [data['event_agenda'][i].description]
+      });
+      newFormGroup.push(fg);
+      if (i >= (data['event_agenda'].length - 1)) {
+        return newFormGroup;
+      }
+    }
   }
 
   dateComparision(control: AbstractControl){
@@ -427,16 +441,16 @@ export class EventsEditComponent implements OnInit {
   /**
    * More Agenda Item push to Form
    */
-  agendaItem(val: string) {
-    // return new FormGroup({
-    //   startTime: new FormControl(val, Validators.required),
-    //   description: new FormControl(val, Validators.required)
-    // })
+  agendaItem() {
+    return this.fb.group({
+      startTime: [''],
+      description: ['']
+    })
   }
 
   pushAgenda() {
     const control = <FormArray>this.eventForm.controls['event_agenda'];
-    // control.push(this.agendaItem(''));
+    control.push(this.agendaItem());
   }
 
   pushTicket() {

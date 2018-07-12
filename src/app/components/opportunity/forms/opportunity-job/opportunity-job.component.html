@@ -230,11 +230,11 @@
               <div class="o-oppo-form__file-type">
                   <input *ngIf="!uploadedFile" class="o-oppo-file" type="file" accept="image/*" (change)="fileSelectedAction($event)" multiple>
                   <p *ngIf="!uploadingFile" class="c-text_sm o-oppo-file__text">upload<br>image</p>
-                  <img *ngIf="uploadingFile" src="{{ baseUrl }}img/search-preloader.gif" class="opp-prel-image" alt="">
-                  <img *ngIf="uploadedFile" src="{{ uploadedFileSrc }}" class="opp-prev-image" alt="">
+                  <img *ngIf="uploadingFile" [src]="baseUrl + 'img/search-preloader.gif'" class="opp-prel-image" alt="">
+                  <img *ngIf="uploadedFile" [src]="uploadedFileSrc" class="opp-prev-image" alt="">
               </div>
               <div *ngFor="let fileName of jobAttachments" class="o-oppo-form__img-show">
-                <img src="{{ baseUrl + fileName }}" alt="">
+                <img [src]="baseUrl + fileName" alt="">
               </div>
           </div>
       </div>

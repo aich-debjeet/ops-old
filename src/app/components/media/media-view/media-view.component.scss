@@ -3,6 +3,10 @@
 @import './src/assets/scss/components/_feed-card.scss';
 // ---------------  Media modal style ---------------------- //
 // post with comments block style -----------------------------------
+
+.c-mediamodal__r-arrow img{
+    transform: rotate(180deg);
+}
 .c-avatar--status {
     width: 34px;
     height: 34px;
@@ -133,7 +137,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    z-index: 2;
+    z-index: 1000;
     transition: .25s;
     vertical-align: middle!important;
     height: 600px;
@@ -146,6 +150,7 @@
     @extend .c-mediamodal__l-arrow;
     right: 8px;
     left: auto;
+    z-index: 1000;
     img {
         filter: drop-shadow(0 0 3px #222);
     }

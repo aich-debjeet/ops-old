@@ -12,7 +12,7 @@
             <div class="o-oppo-post__edit">
               <div class="dropdown" appDropdown>
                 <span class="com-head" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
-                  <img width="16" src="{{ baseUrl }}img/svg/ico_options.svg">
+                  <img width="16" [src]="baseUrl + 'img/svg/ico_options.svg'">
                 </span>
                 <ul *ngIf="isOwnOpportunity" class="dropdown-menu c-opsdropdown--size-oppo">
                   <li>
@@ -39,13 +39,13 @@
           <div class="o-oppo-post__address m-t-8">
             <span class="o-oppo-post__cmpny-location float_left c-text_md color-grey-dark">
               <span class="o-oppo-post__location-icon">
-                <img src="{{ baseUrl }}img/svg/ico_location2.svg" alt="">
+                <img [src]="baseUrl + 'img/svg/ico_location2.svg'" alt="">
               </span>
               {{ opportunity?.opportunityAudition?.location?.location }}
             </span>
             <span class="o-oppo-post__info float_left c-text_lg color-grey-dark m-l-r-16">
               <span class="o-oppo-calander">
-                <span class="o-oppo-calander__ico"><img src="{{ baseUrl }}img/svg/calendar.svg" alt=""></span>
+                <span class="o-oppo-calander__ico"><img [src]="baseUrl + 'img/svg/calendar.svg'" alt=""></span>
                 <span class="c-text_md color-grey-dark ">
                   {{ opportunity?.opportunityAudition?.auditionDate }}
                 </span>
@@ -265,7 +265,7 @@
             <div class="o-oppo-post__edit">
               <div class="dropdown" appDropdown>
                 <span class="com-head" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
-                  <img width="16" src="{{ baseUrl }}img/svg/ico_options.svg">
+                  <img width="16" [src]="baseUrl + 'img/svg/ico_options.svg'">
                 </span>
                 <ul *ngIf="isOwnOpportunity" class="dropdown-menu c-opsdropdown--size-oppo">
                   <li>
@@ -293,10 +293,10 @@
             <div class="o-oppo-post__action-icons float_left ">
               <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity" (click)="applyForJob()" [disabled]="applyingForOpp || hasApplied">Apply</button>
               <a class="o-action-icons__link m-r-16">
-                <img width="24" src="{{ baseUrl }}img/svg/ico_share-02.svg">
+                <img width="24" [src]="baseUrl + 'img/svg/ico_share-02.svg'">
               </a>
               <a class="o-action-icons__link m-r-16">
-                <img width="24" src="{{ baseUrl }}img/svg/bookmark.svg">
+                <img width="24" [src]="baseUrl + 'img/svg/bookmark.svg'">
               </a>
             </div><!-- action icons end -->
             <div class="o-oppo-post__uplod-info">
@@ -323,10 +323,10 @@
               <div class="o-oppo-post__action-icons float_left ">
                 <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity" (click)="applyForJob()" [disabled]="applyingForOpp || hasApplied">Apply</button>
                 <a class="o-action-icons__link m-r-16">
-                  <img width="24" src="{{ baseUrl }}img/svg/ico_share-02.svg">
+                  <img width="24" [src]="baseUrl + 'img/svg/ico_share-02.svg'">
                 </a>
                 <a class="o-action-icons__link m-r-16">
-                  <img width="24" src="{{ baseUrl }}img/svg/bookmark.svg">
+                  <img width="24" [src]="baseUrl + 'img/svg/bookmark.svg'">
                 </a>
               </div>
             </div>
@@ -345,7 +345,7 @@
             <div class="o-oppo-post__edit">
               <div class="dropdown" appDropdown>
                 <span class="com-head" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
-                  <img width="16" src="{{ baseUrl }}img/svg/ico_options.svg">
+                  <img width="16" [src]="baseUrl + 'img/svg/ico_options.svg'">
                 </span>
                 <ul *ngIf="isOwnOpportunity" class="dropdown-menu c-opsdropdown--size-oppo">
                   <li>
@@ -374,7 +374,7 @@
               {{ opportunity?.opportunityInternship?.organizationName }}
             </span>
             <span class="o-oppo-post__cmpny-location float_left c-text_md color-grey-dark">
-              <span class="o-oppo-post__location-icon"><img src="{{ baseUrl }}img/svg/ico_location2.svg" alt=""></span>
+              <span class="o-oppo-post__location-icon"><img [src]="baseUrl + 'img/svg/ico_location2.svg'" alt=""></span>
               {{ opportunity?.opportunityInternship?.location?.location }}
             </span>
           </div><!-- cmpny address end -->
@@ -407,10 +407,10 @@
                 </div>
               </a> -->
               <a class="o-action-icons__link m-r-16">
-                <img width="24" src="{{ baseUrl }}img/svg/ico_share-02.svg">
+                <img width="24" [src]="baseUrl  + 'img/svg/ico_share-02.svg'">
               </a>
               <a class="o-action-icons__link m-r-16">
-                <img width="24" src="{{ baseUrl }}img/svg/bookmark.svg">
+                <img width="24" [src]="baseUrl + 'img/svg/bookmark.svg'">
               </a>
             </div><!-- action icons end -->
             <div class="o-oppo-post__uplod-info float_right">
@@ -451,10 +451,10 @@
                   </div>
                 </a> -->
                 <a class="o-action-icons__link m-r-16">
-                  <img width="24" src="{{ baseUrl }}img/svg/ico_share-02.svg">
+                  <img width="24" [src]="baseUrl + 'img/svg/ico_share-02.svg'">
                 </a>
                 <a class="o-action-icons__link m-r-16">
-                  <img width="24" src="{{ baseUrl }}img/svg/bookmark.svg">
+                  <img width="24" [src]="baseUrl + 'img/svg/bookmark.svg'">
                 </a>
               </div>
             </div>
@@ -473,7 +473,7 @@
           <div class="o-oppo-post__edit">
             <div class="dropdown" appDropdown>
               <span class="com-head" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
-                <img width="16" src="{{ baseUrl }}img/svg/ico_options.svg">
+                <img width="16" [src]="baseUrl + 'img/svg/ico_options.svg'">
               </span>
               <ul *ngIf="isOwnOpportunity" class="dropdown-menu c-opsdropdown--size-oppo">
                 <li>
@@ -509,10 +509,10 @@
           <div class="o-oppo-post__action-icons float_left ">
             <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity" (click)="applyForJob()" [disabled]="applyingForOpp || hasApplied">Apply</button>
             <a class="o-action-icons__link m-r-16">
-              <img width="24" src="{{ baseUrl }}img/svg/ico_share-02.svg">
+              <img width="24" [src]="baseUrl + 'img/svg/ico_share-02.svg'">
             </a>
             <a class="o-action-icons__link m-r-16">
-              <img width="24" src="{{ baseUrl }}img/svg/bookmark.svg">
+              <img width="24" [src]="baseUrl + 'img/svg/bookmark.svg'">
             </a>
           </div><!-- action icons end -->
           <div class="o-oppo-post__uplod-info">
@@ -544,10 +544,10 @@
             <div class="o-oppo-post__action-icons float_left ">
               <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity" (click)="applyForJob()" [disabled]="applyingForOpp || hasApplied">Apply</button>
               <a class="o-action-icons__link m-r-16">
-                <img width="24" src="{{ baseUrl }}img/svg/ico_share-02.svg">
+                <img width="24" [src]="baseUrl + 'img/svg/ico_share-02.svg'">
               </a>
               <a class="o-action-icons__link m-r-16">
-                <img width="24" src="{{ baseUrl }}img/svg/bookmark.svg">
+                <img width="24" [src]="baseUrl + 'img/svg/bookmark.svg'">
               </a>
             </div>
           </div>
@@ -564,7 +564,7 @@
             <div class="o-oppo-post__edit">
               <div class="dropdown" appDropdown>
                 <span class="com-head" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
-                  <img width="16" src="{{ baseUrl }}img/svg/ico_options.svg">
+                  <img width="16" [src]="baseUrl + 'img/svg/ico_options.svg'">
                 </span>
                 <ul *ngIf="isOwnOpportunity" class="dropdown-menu c-opsdropdown--size-oppo">
                   <li>
@@ -590,7 +590,7 @@
           </div><!-- oppo title end -->
           <div class="o-oppo-post__address m-t-8">
             <span class="o-oppo-post__cmpny-location float_left c-text_md color-grey-dark">
-              <span class="o-oppo-post__location-icon"><img src="{{ baseUrl }}img/svg/ico_location2.svg" alt=""></span>
+              <span class="o-oppo-post__location-icon"><img [src]="baseUrl + 'img/svg/ico_location2.svg'" alt=""></span>
               {{ opportunity?.opportunityVolunteer?.location?.location }}
             </span>
           </div><!-- cmpny address end -->
@@ -598,10 +598,10 @@
             <div class="o-oppo-post__action-icons float_left ">
               <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity" (click)="applyForJob()" [disabled]="applyingForOpp || hasApplied">Apply</button>
               <a class="o-action-icons__link m-r-16">
-                <img width="24" src="{{ baseUrl }}img/svg/ico_share-02.svg">
+                <img width="24" [src]="baseUrl + 'img/svg/ico_share-02.svg'">
               </a>
               <a class="o-action-icons__link m-r-16">
-                <img width="24" src="{{ baseUrl }}img/svg/bookmark.svg">
+                <img width="24" [src]="baseUrl + 'img/svg/bookmark.svg'">
               </a>
             </div><!-- action icons end -->
             <div class="o-oppo-post__uplod-info">
@@ -640,10 +640,10 @@
               <div class="o-oppo-post__action-icons float_left ">
                 <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity" (click)="applyForJob()" [disabled]="applyingForOpp || hasApplied">Apply</button>
                 <a class="o-action-icons__link m-r-16">
-                  <img width="24" src="{{ baseUrl }}img/svg/ico_share-02.svg">
+                  <img width="24" [src]="baseUrl + 'img/svg/ico_share-02.svg'">
                 </a>
                 <a class="o-action-icons__link m-r-16">
-                  <img width="24" src="{{ baseUrl }}img/svg/bookmark.svg">
+                  <img width="24" [src]="baseUrl + 'img/svg/bookmark.svg'">
                 </a>
               </div>
             </div>
@@ -661,7 +661,7 @@
         <p class="c-text_sm ltr-space color-grey-dark">Posted By</p>
         <div class="o-opportunity-post-user-detail m-t-16">
           <div class="o-post-user__avatar">
-            <img src="{{ baseUrl + opportunity?.ownerImage }}" alt="">
+            <img [src]="baseUrl + opportunity?.ownerImage" alt="">
           </div>
           <div class="o-post-user__info">
             <div class="o-post-user__name c-text_lg">
