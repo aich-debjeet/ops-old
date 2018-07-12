@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, FormArray } from '@angular/forms';
-import { NgxfUploaderService, UploadEvent, UploadStatus, FileError } from 'ngxf-uploader';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NgxfUploaderService, UploadEvent, FileError } from 'ngxf-uploader';
 import { TokenService } from '../../../helpers/token.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Modal } from '../../../shared/modal-new/Modal';
@@ -16,7 +16,7 @@ import { CommunitiesActions } from '../../../actions/communities.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription, ISubscription } from 'rxjs/Subscription';
+import { ISubscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
 import { ToastrService } from 'ngx-toastr';
