@@ -42,14 +42,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
   // default search type
   searchType = 'recommended';
   isSearching = false;
-  opportunitiesCount = {
-    Audition: '0',
-    Projects: '0',
-    Jobs: '0',
-    Internship: '0',
-    Volunteer: '0',
-    Freelance: '0'
-  };
+  opportunitiesCount: any;
   // industryCount = [];
   industries = [];
   globalFilter = [];
@@ -92,6 +85,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
         this.industries = state['industries'];
       }
     });
+    this.resetOppsTypeCount();
   }
 
   // trigger opps search action
@@ -120,11 +114,15 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
         // for opportunity type filter
         if (filterList[i]['title'] === 'OPPORTUNITY_TYPE') {
           if (filterList[i].hasOwnProperty('filters')) {
-            for (let j = 0; j < filterList[i].filters.length; j++) {
-              if (filterList[i].filters[j].hasOwnProperty('name') && filterList[i].filters[j].hasOwnProperty('count')) {
-                const oppType = this.generalUtils.capitalizeFirstLetter(filterList[i].filters[j].name);
-                this.opportunitiesCount[oppType] = filterList[i].filters[j].count;
+            if (filterList[i].filters.length > 0) {
+              for (let j = 0; j < filterList[i].filters.length; j++) {
+                if (filterList[i].filters[j].hasOwnProperty('name') && filterList[i].filters[j].hasOwnProperty('count')) {
+                  const oppType = this.generalUtils.capitalizeFirstLetter(filterList[i].filters[j].name);
+                  this.opportunitiesCount[oppType] = filterList[i].filters[j].count;
+                }
               }
+            } else {
+              this.resetOppsTypeCount();
             }
           }
           // console.log('this.opportunitiesCount', this.opportunitiesCount);
@@ -144,6 +142,21 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
       }
     }
   }
+
+  /**
+   * reset opps type count
+   */
+  resetOppsTypeCount() {
+    this.opportunitiesCount = {
+      Audition: '0',
+      Projects: '0',
+      Jobs: '0',
+      Internship: '0',
+      Volunteer: '0',
+      Freelance: '0'
+    };
+  }
+
 
   /**
    * select opportunity filter
