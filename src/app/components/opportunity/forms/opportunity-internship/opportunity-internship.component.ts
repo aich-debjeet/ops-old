@@ -152,6 +152,7 @@ export class OpportunityInternshipComponent implements OnInit, OnDestroy {
       }
     }
     this.oppSubmitting = true;
+    this.internshipAttachments = [];
     this.formSubmitted.emit(reqBody);
   }
 

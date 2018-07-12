@@ -152,6 +152,7 @@ export class OpportunityJobComponent implements OnInit, OnDestroy {
       }
     }
     this.oppSubmitting = true;
+    this.jobAttachments = [];
     this.formSubmitted.emit(reqBody);
   }
 
