@@ -11,7 +11,7 @@
                 </div>
                 <ng-container *ngIf="ownProfile">
                     <span class="o-bio-info__edit-ico" *ngIf="userProfile?.aboutMe"  (click)="editField('aboutMe')">
-                        <img src ="{{ imageBaseUrl }}img/svg/editpencil.svg" alt="">
+                        <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
                     </span>
                         
                     <div id="o-bio-info__about" class="o-bio-info__value c-text_sm color-theme" *ngIf="!userProfile?.aboutMe" (click)="editField('aboutMe')">
@@ -38,7 +38,7 @@
                 </div>
                 <ng-container *ngIf="ownProfile">
                     <span class="o-bio-info__edit-ico" *ngIf="userProfile?.profileType" (click)="editField('skills')">
-                        <img src="{{ imageBaseUrl }}img/svg/editpencil.svg" alt="">
+                        <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
                     </span>
                     <div id="o-bio-info__skills" class="o-bio-info__value c-text_sm color-theme" *ngIf="!userProfile?.profileType" (click)="editField('skills')">
                         <span class="o-bio-info_plus">+</span> Add Skills
@@ -63,7 +63,7 @@
                         <div class="dropdown float-right m-r-8">
                             <span class="com-head" data-toggle="dropdown" aria-expanded="false">
                     <div class="o-bio-edit__ico">
-                      <img src="{{ imageBaseUrl }}img/svg/ico_web.svg">
+                      <img [src]="imageBaseUrl + 'img/svg/ico_web.svg'">
                     </div>
                     <div class="o-bio-edit__ico-arrow">
                       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
@@ -80,13 +80,13 @@
                             <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
                                 <li>
                                     <a href="javascript:void(0)" class="c-opsdropdown__list">
-                        <img src="{{ imageBaseUrl }}img/svg/ico-public.svg" class="c-opsdropdown--icons">
+                        <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
                         <span class="c-opsdropdown--text">Public</span>
                       </a>
                                 </li>
                                 <li>
                                     <a href="javascript:void(0)" class="c-opsdropdown__list">
-                        <img src="{{ imageBaseUrl }}img/svg/Ico-private.svg" class="c-opsdropdown--icons">
+                        <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
                         <span class="c-opsdropdown--text">Private</span>
                       </a>
                                 </li>
@@ -100,7 +100,7 @@
               <div class="o-bio-info-block m-b-8" *ngIf="userProfile?.physical?.gender">
                 <h6 class="c-text_md">Gender</h6>
                 <span class="o-bio-info__edit-ico" *ngIf="ownProfile" (click)="editField('gender')">
-                    <img src="{{ imageBaseUrl }}img/svg/editpencil.svg" alt="">
+                    <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
                  </span>
                 <div id="o-bio-info__gender" *ngIf="userProfile?.physical?.gender === 'M' && editingField != 'gender'" class="o-bio-info__value c-text_sm color-grey-dark">
                     Male
@@ -135,7 +135,7 @@
         <div class="o-bio-info-block m-b-8" *ngIf="userProfile?.physical?.dateOfBirth">
             <h6 class="c-text_md">Birth day</h6>
             <span class="o-bio-info__edit-ico" *ngIf="ownProfile" (click)="editField('dob')">
-                <img src="{{ imageBaseUrl }}img/svg/editpencil.svg" alt="">
+                <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
             </span>
             <div id="o-bio-info__birth" *ngIf="editingField != 'dob'" class="o-bio-info__value c-text_sm color-grey-dark">
                 {{ (userProfile?.physical?.dateOfBirth | date:'dd MMMM, y') }}
@@ -155,7 +155,7 @@
                     <div class="dropdown float-right m-r-8">
                         <span class="com-head" data-toggle="dropdown" aria-expanded="false">
                 <div class="o-bio-edit__ico">
-                    <img src="{{ imageBaseUrl }}img/svg/ico_web.svg">
+                    <img [src]="imageBaseUrl + 'img/svg/ico_web.svg'">
                 </div>
                 <div class="o-bio-edit__ico-arrow">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
@@ -172,13 +172,13 @@
                         <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
                             <li>
                                 <a href="javascript:void(0)" class="c-opsdropdown__list">
-                    <img src="{{ imageBaseUrl }}img/svg/ico-public.svg" class="c-opsdropdown--icons">
+                    <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
                     <span class="c-opsdropdown--text">Public</span>
                     </a>
                             </li>
                             <li>
                                 <a href="javascript:void(0)" class="c-opsdropdown__list">
-                    <img src="{{ imageBaseUrl }}img/svg/Ico-private.svg" class="c-opsdropdown--icons">
+                    <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
                     <span class="c-opsdropdown--text">Private</span>
                     </a>
                             </li>
@@ -197,7 +197,7 @@
             </div>
             <ng-container *ngIf="ownProfile">
                 <span class="o-bio-info__edit-ico" *ngIf="userProfile?.physical?.height !== 0 || userProfile?.physical?.height" (click)="editField('height')">
-                    <img src="{{ imageBaseUrl }}img/svg/editpencil.svg" alt="">
+                    <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
                 </span>
                 
                 <div id="o-bio-info__height" class="o-bio-info__value c-text_sm color-theme" *ngIf="userProfile?.physical?.height === 0 || !userProfile?.physical?.height" (click)="editField('height')">
@@ -221,7 +221,7 @@
                     <div class="dropdown float-right m-r-8">
                         <span class="com-head" data-toggle="dropdown" aria-expanded="false">
                             <div class="o-bio-edit__ico">
-                            <img src="{{ imageBaseUrl }}img/svg/ico_web.svg">
+                            <img [src]="imageBaseUrl + 'img/svg/ico_web.svg'">
                             </div>
                             <div class="o-bio-edit__ico-arrow">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
@@ -238,13 +238,13 @@
                         <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
                             <li>
                                 <a href="javascript:void(0)" class="c-opsdropdown__list">
-                                    <img src="{{ imageBaseUrl }}img/svg/ico-public.svg" class="c-opsdropdown--icons">
+                                    <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
                                     <span class="c-opsdropdown--text">Public</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="javascript:void(0)" class="c-opsdropdown__list">
-                                    <img src="{{ imageBaseUrl }}img/svg/Ico-private.svg" class="c-opsdropdown--icons">
+                                    <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
                                     <span class="c-opsdropdown--text">Private</span>
                                 </a>
                             </li>
@@ -263,7 +263,7 @@
             </div>
             <ng-container *ngIf="ownProfile">
                 <span class="o-bio-info__edit-ico" *ngIf="userProfile?.physical?.weight !== 0 || userProfile?.physical?.weight" (click)="editField('weight')">
-                        <img src="{{ imageBaseUrl }}img/svg/editpencil.svg" alt="">
+                        <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
                     </span>
                 <div id="o-bio-info__weight" class="o-bio-info__value c-text_sm color-theme" *ngIf="userProfile?.physical?.weight === 0 || !userProfile?.physical?.weight" (click)="editField('weight')">
                     <span class="o-bio-info_plus">+</span> Add Weight
@@ -285,7 +285,7 @@
                     <div class="dropdown float-right m-r-8">
                         <span class="com-head" data-toggle="dropdown" aria-expanded="false">
                 <div class="o-bio-edit__ico">
-                  <img src="{{ imageBaseUrl }}img/svg/ico_web.svg">
+                  <img [src]="imageBaseUrl + 'img/svg/ico_web.svg'">
                 </div>
                 <div class="o-bio-edit__ico-arrow">
                   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
@@ -302,13 +302,13 @@
                         <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
                             <li>
                                 <a href="javascript:void(0)" class="c-opsdropdown__list">
-                    <img src="{{ imageBaseUrl }}img/svg/ico-public.svg" class="c-opsdropdown--icons">
+                    <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
                     <span class="c-opsdropdown--text">Public</span>
                   </a>
                             </li>
                             <li>
                                 <a href="javascript:void(0)" class="c-opsdropdown__list">
-                    <img src="{{ imageBaseUrl }}img/svg/Ico-private.svg" class="c-opsdropdown--icons">
+                    <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
                     <span class="c-opsdropdown--text">Private</span>
                   </a>
                             </li>
@@ -328,7 +328,7 @@
                     </div>
                     <ng-container *ngIf="ownProfile">
                         <span class="o-bio-info__edit-ico" *ngIf="userProfile?.languages === undefined || (userProfile?.languages)?.length >= 1" (click)="editField('language')">
-                            <img src="{{ imageBaseUrl }}img/svg/editpencil.svg" alt="">
+                            <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
                         </span>
                         <div id="o-bio-info__language" class="o-bio-info__value c-text_sm color-theme" *ngIf="userProfile?.languages === undefined || (userProfile?.languages)?.length === 0" (click)="editField('language')">
                             <span class="o-bio-info_plus">+</span> Add Languages
@@ -344,33 +344,33 @@
                             <button type="button" class="btn btn-default btn-sm float-right m-l-r-8" (click)="cancelEdit()">Cancel</button>
                             <div class="dropdown float-right m-r-8">
                                 <span class="com-head" data-toggle="dropdown" aria-expanded="false">
-                        <div class="o-bio-edit__ico">
-                          <img src="{{ imageBaseUrl }}img/svg/ico_web.svg">
-                        </div>
-                        <div class="o-bio-edit__ico-arrow">
-                          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
-                              <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
-                              <title>Path 2 Copy</title>
-                              <desc>Created with Sketch.</desc>
-                              <defs></defs>
-                              <g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                  <polyline id="Path-2-Copy" stroke="#333" stroke-width="1" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) " points="1 1 8 8 15 1"></polyline>
-                              </g>
-                          </svg>
-                        </div>
-                      </span>
+                                    <div class="o-bio-edit__ico">
+                                    <img [src]="imageBaseUrl + 'img/svg/ico_web.svg'">
+                                    </div>
+                                    <div class="o-bio-edit__ico-arrow">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
+                                        <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+                                        <title>Path 2 Copy</title>
+                                        <desc>Created with Sketch.</desc>
+                                        <defs></defs>
+                                        <g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <polyline id="Path-2-Copy" stroke="#333" stroke-width="1" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) " points="1 1 8 8 15 1"></polyline>
+                                        </g>
+                                    </svg>
+                                    </div>
+                                </span>
                                 <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
                                     <li>
                                         <a href="javascript:void(0)" class="c-opsdropdown__list">
-                            <img src="{{ imageBaseUrl }}img/svg/ico-public.svg" class="c-opsdropdown--icons">
-                            <span class="c-opsdropdown--text">Public</span>
-                          </a>
+                                            <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
+                                            <span class="c-opsdropdown--text">Public</span>
+                                        </a>
                                     </li>
                                     <li>
                                         <a href="javascript:void(0)" class="c-opsdropdown__list">
-                            <img src="{{ imageBaseUrl }}img/svg/Ico-private.svg" class="c-opsdropdown--icons">
-                            <span class="c-opsdropdown--text">Private</span>
-                          </a>
+                                            <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
+                                            <span class="c-opsdropdown--text">Private</span>
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
@@ -400,7 +400,7 @@
                     </div>
                     <ng-container *ngIf="ownProfile">
                         <span class="o-bio-info__edit-ico" *ngIf="userProfile?.extra?.address?.line1" (click)="editField('address')">
-                            <img src="{{ imageBaseUrl }}img/svg/editpencil.svg" alt="">
+                            <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
                         </span>
                         <div id="o-bio-info__address" class="o-bio-info__value c-text_sm color-theme" *ngIf="!userProfile?.extra?.address?.line1" (click)="editField('address')">
                             <span class="o-bio-info_plus">+</span> Add Address
@@ -429,7 +429,7 @@
                             <div class="dropdown float-right m-r-8">
                                 <span class="com-head" data-toggle="dropdown" aria-expanded="false">
                                     <div class="o-bio-edit__ico">
-                                        <img src="{{ imageBaseUrl }}img/svg/ico_web.svg">
+                                        <img [src]="imageBaseUrl + 'img/svg/ico_web.svg'">
                                     </div>
                                     <div class="o-bio-edit__ico-arrow">
                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
@@ -446,13 +446,13 @@
                                 <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
                                     <li>
                                         <a href="javascript:void(0)" class="c-opsdropdown__list">
-                                            <img src="{{ imageBaseUrl }}img/svg/ico-public.svg" class="c-opsdropdown--icons">
+                                            <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
                                             <span class="c-opsdropdown--text">Public</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="javascript:void(0)" class="c-opsdropdown__list">
-                                            <img src="{{ imageBaseUrl }}img/svg/Ico-private.svg" class="c-opsdropdown--icons">
+                                            <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
                                             <span class="c-opsdropdown--text">Private</span>
                                         </a>
                                     </li>
@@ -473,7 +473,7 @@
                     </div>
                     <ng-container *ngIf="ownProfile">
                         <span class="o-bio-info__edit-ico" *ngIf="userProfile?.physical?.ethnicity" (click)="editField('ethnicity')">
-                            <img src="{{ imageBaseUrl }}img/svg/editpencil.svg" alt="">
+                            <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
                         </span>                    
                         <div id="o-bio-info__ethinicity" class="o-bio-info__value c-text_sm color-theme" *ngIf="!userProfile?.physical?.ethnicity" (click)="editField('ethnicity')">
                             <span class="o-bio-info_plus">+</span> Add Ethnicity
@@ -492,7 +492,7 @@
                             <div class="dropdown float-right m-r-8">   
                             <span class="com-head" data-toggle="dropdown" aria-expanded="false">
                                 <div class="o-bio-edit__ico">
-                                <img src="{{ imageBaseUrl }}img/svg/ico_web.svg">
+                                <img [src]="imageBaseUrl + 'img/svg/ico_web.svg'">
                                 </div>
                                 <div class="o-bio-edit__ico-arrow">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
@@ -509,13 +509,13 @@
                             <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
                                 <li>
                                 <a href="#" class="c-opsdropdown__list">
-                                    <img src="{{ imageBaseUrl }}img/svg/ico-public.svg" class="c-opsdropdown--icons">
+                                    <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
                                     <span class="c-opsdropdown--text">Public</span>
                                 </a>
                                 </li>
                                 <li>
                                 <a href="#" class="c-opsdropdown__list">
-                                    <img src="{{ imageBaseUrl }}img/svg/Ico-private.svg" class="c-opsdropdown--icons">
+                                    <img [src=]"imageBaseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
                                     <span class="c-opsdropdown--text">Private</span>
                                 </a>
                                 </li>

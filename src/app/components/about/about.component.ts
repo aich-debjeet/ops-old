@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, FormArray } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthActions } from '../../actions/auth.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription, ISubscription } from 'rxjs/Subscription';
+import { ISubscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -48,7 +48,7 @@ export class AboutComponent implements OnInit {
   }
 
   /**
-   * Community Update 
+   * Community Update
    */
   submitForm(value) {
     if ( this.contactUs.valid === true ) {

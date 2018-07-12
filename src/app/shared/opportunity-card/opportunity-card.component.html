@@ -13,7 +13,7 @@
         <img [src]="baseUrl + 'img/svg/ico_location2.svg'">
         <p class="c-card__location--text">{{ opportunity?.location | truncate:[25, '...'] }}</p>
     </div>
-    <div routerLink="{{ '/profile/u/' + opportunity?.ownerUsername }}" class="c-card__opportunity__user with_border_bottom">
+    <div [routerLink]="'/profile/u/' + opportunity?.ownerUsername" class="c-card__opportunity__user with_border_bottom">
         <a class="c-user__avatar c-avatar--feed">
             <img class="c-user__image" [src]="baseUrl + opportunity?.ownerImage">
         </a>
@@ -25,9 +25,8 @@
                 <img [src]="baseUrl + 'img/svg/ico_share-02.svg'" class="c-links__image">
             </div>
             <div class="c-links__actions">
-                <a routerLink="/opportunity/view/{{ opportunity?.opportunityId }}" class="c-card__opportunity--view">View</a>
+                <a [routerLink]="'/opportunity/view/' + opportunity?.opportunityId" class="c-card__opportunity--view">View</a>
             </div>
         </div>
     </div>
 </div>
-<!-- // opportunity card -->

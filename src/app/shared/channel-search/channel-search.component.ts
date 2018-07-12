@@ -4,13 +4,12 @@ import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../models/profile.model';
 import FilesHelper from '../../helpers/fileUtils';
 
-
 // action
 import { ProfileActions } from '../../actions/profile.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+
 
 @Component({
   selector: 'app-channel-search',

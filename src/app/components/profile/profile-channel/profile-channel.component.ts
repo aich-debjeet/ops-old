@@ -1,18 +1,16 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
 import { DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
-import { Router, ActivatedRoute, RoutesRecognized } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 // action
 import { ProfileActions } from '../../../actions/profile.action';
-import { SharedActions } from '../../../actions/shared.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription, ISubscription } from 'rxjs/Subscription';
+import { ISubscription } from 'rxjs/Subscription';
 
 import { remove as _remove } from 'lodash';
 
@@ -40,7 +38,6 @@ export class ProfileChannelComponent implements OnInit, OnDestroy {
   scrollingLoad = 900;
   channel_scroll_id: any = '';
   constructor(
-    private http: Http,
     private _router: Router,
     public route: ActivatedRoute,
     private toastr: ToastrService,

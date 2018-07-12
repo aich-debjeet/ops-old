@@ -33,7 +33,6 @@ import { VgBufferingModule } from 'videogular2/buffering';
 
 import { VideplayerComponent } from './videplayer/videplayer.component';
 import { AudioPlayerComponent } from './audioplayer/audioplayer.component';
-import { MediaPopupComponent } from './media-popup/media-popup.component';
 import { CreateChannelComponent } from './create-channel/create-channel.component';
 import { ComingSoonComponent } from './coming-soon/coming-soon.component';
 import { DropdownDirective } from './dropdown/dropdown.directive';
@@ -97,7 +96,6 @@ import { PortfolioViewMediaComponent } from './portfolio-view-media/portfolio-vi
     AudioPlayerComponent,
     TabComponents,
     MediumEditorComponent,
-    MediaPopupComponent,
     CreateChannelComponent,
     ComingSoonComponent,
     DropdownDirective,
@@ -140,7 +138,6 @@ import { PortfolioViewMediaComponent } from './portfolio-view-media/portfolio-vi
     VideplayerComponent,
     AudioPlayerComponent,
     TabComponents,
-    MediaPopupComponent,
     ComingSoonComponent,
     DropdownDirective,
     DropdownNotClosableZoneDirective,

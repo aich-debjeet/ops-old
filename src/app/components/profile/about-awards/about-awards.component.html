@@ -15,7 +15,7 @@
           <div class="row sm_panel_body" *ngFor="let award of userProfile?.extra?.awards">
                 <div class="col-md-2 sm_panel_left">
                     <figure class="avatar_overview">
-                        <img src="https://d33wubrfki0l68.cloudfront.net/23233487310357c73524b8c7bfdc14ac9ef3388d/d014c/img/event.jpg" class="img-responsive">
+                        <img [src]="imageBaseUrl + '/img/event.jpg'" class="img-responsive">
                     </figure>
                 </div>
                 <div class="col-md-8 sm_panel_right">
@@ -24,8 +24,8 @@
                         <p>{{ award.from | date:'MMMM, y'}}</p>
                     </div>
                     <div class="workplace_edit_remove_ico " *ngIf="ownProfile">
-                        <a (click) = "editCurrentAward(award)" class="edit_remove_ico"><img src="https://d33wubrfki0l68.cloudfront.net/8acba050eb7fc142849496e9d39c31e6ec848ebc/3b55c/img/svg/ico_edit.svg" alt=""></a>
-                        <a (click) = "deleteCurrentAward(award.id)" class="edit_remove_ico"><img src="https://d33wubrfki0l68.cloudfront.net/b3dd9a5fe04c6921b6c04fd3d4647f713a92b32c/a4a4a/img/svg/ico_delete.svg"></a>
+                        <a (click) = "editCurrentAward(award)" class="edit_remove_ico"><img [src]="imageBaseUrl + '/img/svg/ico_edit.svg'"></a>
+                        <a (click) = "deleteCurrentAward(award.id)" class="edit_remove_ico"><img [src]="imageBaseUrl + '/img/svg/ico_delete.svg'"></a>
                     </div>
                 </div>
           </div>
@@ -63,7 +63,7 @@
                                         <div class="add_workplace_logo">
                                             <input type="file" name="photo" id="upload-photo">
                                             <div class="add_media_plus_ico">
-                                                <img src="{{ imageBaseUrl }}img/svg/ico_add-grey.svg" alt="">
+                                                <img [src]="imageBaseUrl + 'img/svg/ico_add-grey.svg'" alt="">
                                             </div>
                                         </div>
                                         <span class="add_logo_txt">Add Photo</span>

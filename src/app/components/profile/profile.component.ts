@@ -1,19 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag, ProfileCard } from '../../models/profile.model';
-import { UserMedia } from '../../models/user-media.model';
 
 // action
 import { ProfileActions } from '../../actions/profile.action';
-import { SharedActions } from '../../actions/shared.action';
 import { ProfileHelper } from '../../helpers/profile.helper';
 
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription, ISubscription } from 'rxjs/Subscription';
-import { ClaimProfileActions } from 'app/actions/claim-profile.action';
 
 @Component({
   selector: 'app-profile',
@@ -37,7 +33,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   current_user_value: ProfileCard;
 
   constructor(
-    private http: Http,
     public route: ActivatedRoute,
     private utils: ProfileHelper,
     private profileStore: Store<ProfileModal>

@@ -1,14 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
-import { DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { UserSpotfeeds } from '../../../models/user-spotfeed.model';
 
-import { LocalStorageService } from './../../../services/local-storage.service';
-
 // action
 import { ProfileActions } from '../../../actions/profile.action';
-import { environment } from '../../../../environments/environment';
 
 // rx
 import { Observable } from 'rxjs/Observable';
@@ -29,9 +24,7 @@ export class HomeSpotfeedComponent implements OnInit, OnDestroy {
   baseUrl: String;
 
   constructor(
-    private http: Http,
     private store: Store<UserSpotfeeds>,
-    private localStorageService: LocalStorageService
   ) {
 
     this.tagState$ = this.store.select('profileTags');

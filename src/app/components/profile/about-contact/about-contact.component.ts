@@ -1,12 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
 import { Store } from '@ngrx/store';
+import { environment } from '../../../../environments/environment';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
-import { UserMedia } from '../../../models/user-media.model';
-
-// action
-import { ProfileActions } from '../../../actions/profile.action';
-import { SharedActions } from '../../../actions/shared.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
@@ -21,11 +16,11 @@ export class AboutContactComponent implements OnInit, OnDestroy {
   tagState$: Observable<ProfileModal>;
   subscription: Subscription;
   stateProfile = initialTag;
+  imageBaseUrl = environment.API_IMAGE;
   userProfile: any;
   ownProfile: boolean;
 
   constructor(
-    private http: Http,
     private profileStore: Store<ProfileModal>
   ) {
     this.tagState$ = this.profileStore.select('profileTags');

@@ -1,12 +1,10 @@
 <app-modal [modalTitle]="'Change Profile Image'" [closeHidden]="true" (onClose)="isClosed($event)" [blocking]='false' [open]="true" modalId='ChangeProfile' class="media__modal" size="tiny__profile_upload">
-
-
   <div id="profile-upload">
     <div class="o-profile-upload">
         <div class="o-cover-upload__head">
             <h2 class="o-cover-head--heading">Change Profile Image
                 <span class="pop-close">
-                  <a (click)="isClosed($event)"><img src="https://d33wubrfki0l68.cloudfront.net/e85a9c443cca11a2d6a6aca634490f2f2e6bdc55/44c4b/img/svg/ico_close-38.svg" alt=""></a>
+                  <a (click)="isClosed($event)"><img [src]="baseUrl + 'img/svg/ico_close-38.svg'" alt=""></a>
                 </span>
             </h2>
         </div>
@@ -22,8 +20,6 @@
                   <button class="btn btn-network btn-sm text_uppercase">Browse</button>
                   <input type="file" accept="image/*" name="myfile" (change)="fileChangeListener($event)"/>
               </div>
-              <!--<span class="text">Browse</span>
-              <input id="custom-input" type="file" (change)="fileChangeListener($event)">-->
           </div>
         </div>
         <div class="o-cover-upload-footer">
@@ -34,26 +30,5 @@
             </div>
         </div>
     </div>
-</div>
-
-
-
-  <!--<div class="edit-profile_head">
-    <div class="col-md-12 padding_none">
-        <h2>Change Profile Image</h2>
-        <span class="search_close" (click)="isClosed($event)" >
-          <img src="https://d33wubrfki0l68.cloudfront.net/e85a9c443cca11a2d6a6aca634490f2f2e6bdc55/44c4b/img/svg/ico_close-38.svg" alt="">
-        </span>
-    </div>
-    <div *ngIf="stateProfile?.profile_img_upload_loading">
-      <div class="sticky sticky__top">
-        <div class="loader">Loading...</div>
-      </div>
-    </div>
   </div>
-  <img-cropper [image]="data" [settings]="cropperSettings"></img-cropper>
-  <div class="col-md-12 padding_none text-right ptop15">
-      <button type="button" class="btn btn-default btn-sm" (click)="isClosed($event)" >Cancel</button>
-      <button type="button" class="btn btn-primary btn-sm" (click)="saveImageClick()">Save Image</button>
-  </div>-->
 </app-modal>
