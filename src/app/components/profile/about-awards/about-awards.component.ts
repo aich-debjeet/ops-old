@@ -1,25 +1,20 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
-import { UserMedia } from '../../../models/user-media.model';
 import { ModalService } from '../../../shared/modal/modal.component.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { environment } from '../../../../environments/environment';
-
 import {DatabaseValidator } from '../../../helpers/form.validator';
-
 
 // action
 import { ProfileActions } from '../../../actions/profile.action';
-import { SharedActions } from '../../../actions/shared.action';
 
 import { ToastrService } from 'ngx-toastr';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription, ISubscription } from 'rxjs/Subscription';
+import { ISubscription } from 'rxjs/Subscription';
 @Component({
   selector: 'app-about-awards',
   templateUrl: './about-awards.component.html',
@@ -40,7 +35,6 @@ export class AboutAwardsComponent implements OnInit, OnDestroy {
   imageBaseUrl = environment.API_IMAGE;
 
   constructor(
-    private http: Http,
     public modalService: ModalService,
     private fb: FormBuilder,
     private datepipe: DatePipe,
@@ -136,7 +130,6 @@ export class AboutAwardsComponent implements OnInit, OnDestroy {
         this.modalService.close('addAwardPopup');
         this.resetForm();
       }
-      
     }
   }
 
@@ -168,7 +161,7 @@ export class AboutAwardsComponent implements OnInit, OnDestroy {
     this.modalService.close('addAwardPopup');
   }
 
-  resetForm(){
+  resetForm() {
     this.awardForm.reset();
   }
 

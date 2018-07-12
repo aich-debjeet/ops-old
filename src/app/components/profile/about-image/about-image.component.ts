@@ -1,24 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
 import { DatePipe, Location } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { ModalService } from '../../../shared/modal/modal.component.service';
-import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
-import { ProfileHelper } from '../../../helpers/profile.helper';
+import { FormGroup } from '@angular/forms';
 import { TokenService } from '../../../helpers/token.service';
 
 import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
 // action
 import { ProfileActions } from '../../../actions/profile.action';
-import { SharedActions } from '../../../actions/shared.action';
 
-import { ActivatedRoute, Router, Params } from '@angular/router';
-import { environment } from '../../../../environments/environment.prod';
+import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 
 // rx
-import { Subscription } from 'rxjs/Subscription';
-import {Observable} from 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-about-image',
@@ -30,7 +26,6 @@ import {Observable} from 'rxjs/Rx';
 export class AboutImageComponent implements OnInit {
   public bioForm: FormGroup;
   tagState$: Observable<ProfileModal>;
-  private tagStateSubscription: Subscription;
   stateProfile = initialTag;
   userProfile: any;
   ownProfile: boolean;
@@ -41,13 +36,9 @@ export class AboutImageComponent implements OnInit {
   @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
 
   constructor(
-    private _http: Http,
-    private _modalService: ModalService,
     public tokenService: TokenService,
-    private _fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private _utils: ProfileHelper,
     private _location: Location,
     private _store: Store<ProfileModal>
   ) {

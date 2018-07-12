@@ -1,20 +1,16 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
 import { DatePipe, Location } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { ModalService } from '../../../shared/modal/modal.component.service';
-import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
-import { ProfileHelper } from '../../../helpers/profile.helper';
+import { FormGroup } from '@angular/forms';
 import { TokenService } from '../../../helpers/token.service';
 
 import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
 
 // action
 import { ProfileActions } from '../../../actions/profile.action';
-import { SharedActions } from '../../../actions/shared.action';
 
-import { ActivatedRoute, Router, Params } from '@angular/router';
 import { environment } from '../../../../environments/environment.prod';
 
 // rx
@@ -43,17 +39,10 @@ export class AboutCoverComponent implements OnInit {
 
   @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
   constructor(
-    private _http: Http,
-    private _modalService: ModalService,
     public tokenService: TokenService,
-    private _fb: FormBuilder,
-    private router: Router,
-    private route: ActivatedRoute,
-    private _utils: ProfileHelper,
     private _location: Location,
     private _store: Store<ProfileModal>
   ) {
-
     this.baseUrl = environment.API_IMAGE;
 
     this.tagState$ = this._store.select('profileTags');

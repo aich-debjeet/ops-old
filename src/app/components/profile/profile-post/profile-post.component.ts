@@ -1,21 +1,20 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Store, Action } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { ModalService } from '../../../shared/modal/modal.component.service';
 import { Media, initialMedia  } from '../../../models/media.model';
-import { Router, ActivatedRoute, RoutesRecognized } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { environment } from '../../../../environments/environment';
+
 // action
 import { ProfileActions } from '../../../actions/profile.action';
 import { MediaActions } from '../../../actions/media.action';
-import { SharedActions } from '../../../actions/shared.action';
-import { environment } from '../../../../environments/environment';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription, ISubscription } from 'rxjs/Subscription';
-import {Subject} from 'rxjs/Subject';
+import { ISubscription } from 'rxjs/Subscription';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-profile-post',
@@ -23,7 +22,7 @@ import {Subject} from 'rxjs/Subject';
   providers: [ModalService, DatePipe],
   styleUrls: ['./profile-post.component.scss']
 })
-export class ProfilePostComponent implements OnInit, OnDestroy {
+export class ProfilePostComponent implements OnInit, OnDestroy, AfterViewInit {
   componentDestroyed$: Subject<boolean> = new Subject();
   baseUrl = environment.API_IMAGE;
   tagState$: Observable<ProfileModal>;
@@ -50,7 +49,6 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
   scrollingPeople = 100;
 
   constructor(
-    private http: Http,
     private _router: Router,
     public route: ActivatedRoute,
     private modalService: ModalService,
@@ -70,17 +68,6 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
           this.people_follow_id = state.people_follow_scroll_id_prof
         }
     });
-    // const timer = Rx.Observable.timer(5000);
-
-    // this._store.select('profileTags').take(8).last().subscribe( data => {
-    //     this.userType();
-    // });
-
-    // this._store.select('profileTags')
-    //   .first(profile => profile['profile_other_loaded'] === true )
-    //   .subscribe( data => {
-    //      this.userType();
-    //   });
 
   }
 
