@@ -123,7 +123,6 @@ import { ExploreComponent } from './components/explore/explore.component';
 import { ChannelListComponent } from './components/channel-list/channel-list.component';
 import { LogoutHomeComponent } from './components/logout-home/logout-home.component';
 import { LogoutComponent } from './components/logout/logout.component';
-import { PopularArtistsComponent } from './shared/popular-artists/popular-artists.component';
 import { MediaComponent } from './components/media/media.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { TermsComponent } from './components/terms/terms.component';
@@ -138,7 +137,6 @@ import { AboutComponent } from './components/about/about.component';
     SpotfeedPremiumComponent,
     NotificationComponent,
     SettingsComponent,
-    PopularArtistsComponent,
     ExploreComponent,
     ChannelListComponent,
     LogoutHomeComponent,
