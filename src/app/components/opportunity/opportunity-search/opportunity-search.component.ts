@@ -176,7 +176,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
       const params = {
         q: this.searchString,
         type: this.searchType,
-        filters: encodeURIComponent(JSON.stringify(this.globalFilter))
+        filters: true
       };
       this.oppsSearchGetRequest(params);
     }
@@ -197,7 +197,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
       const params = {
         q: this.searchString,
         type: this.searchType,
-        filters: encodeURIComponent(JSON.stringify(this.globalFilter))
+        filters: true
       };
       this.oppsSearchGetRequest(params);
     }
@@ -227,7 +227,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
             searchType: this.searchType,
             searchText: this.searchString
           }
-          if (params.filters && params.filters.length > 0) {
+          if (params.filters && params.filters === 'true') {
             searchOppsParams.filtersMap = this.globalFilter
           }
           this.isSearching = true;
