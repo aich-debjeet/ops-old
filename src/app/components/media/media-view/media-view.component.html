@@ -50,7 +50,7 @@
                 </div>
                 <div class="c-mediamodal__user p-16" *ngIf="!data.isOwner">
                     <a [routerLink]="['/', {outlets: { primary: ['profile', 'u', data?.ownerUsername], media: null }}]"  class="c-user__avatar c-avatar--status3">
-                        <img class="c-user__image" [src]="imageLink + data?.ownerImage">
+                        <img *ngIf="data?.ownerImage" class="c-user__image" [src]="imageLink + data?.ownerImage">
                     </a>
                     <a [routerLink]="['/', {outlets: { primary: ['profile', 'u', data?.ownerUsername], media: null }}]" class="c-user__name">{{ data?.ownerName }}</a>
                     <div class="c-mediamodal__subhead" [routerLink]="['/', {outlets: { primary: ['channel', data?.channelId], media: null }}]">{{ data?.channelName }}
