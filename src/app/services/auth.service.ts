@@ -39,6 +39,13 @@ export class AuthService {
     }
 
     /**
+     * search skill for signup step 2
+     */
+    signupSkillSearch(reqBody: any) {
+      return this.api.post('/portal/skills/search', reqBody);
+    }
+
+    /**
      * Set temp access token for not logged in user
      */
     getTempAuthHeaders() {

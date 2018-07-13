@@ -9,6 +9,7 @@ import { environment } from './../../../../environments/environment';
 import { AuthActions } from '../../../actions/auth.action'
 
 import { find as _find } from 'lodash';
+import { GeneralUtilities } from '../../../helpers/general.utils';
 
 @Component({
   selector: 'app-registration-add-skill',
@@ -30,11 +31,13 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
   uploadingSkills = false;
   search;
   // newSkillAdded = false;
+  skillSearchScrollId = '';
 
   constructor(
     fb: FormBuilder,
     private router: Router,
-    private store: Store<Login>
+    private store: Store<Login>,
+    private generalUtils: GeneralUtilities
   ) {
     this.skillSelectionState$ = store.select('loginTags');
     this.skillSelectionState$.subscribe((state) => {
@@ -50,12 +53,22 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
           this.isSearching = false;
           this.showPreloader = false;
         }
+        if (typeof state['signup_search_skill'] !== 'undefined'
+          && state['signup_search_skill'] === false
+          && state['signup_search_skill_success'] === true
+        ) {
+          this.isSearching = false;
+          this.showPreloader = false;
+        }
         if (typeof state['uploadingUserSkills'] !== 'undefined'
           && state['uploadingUserSkills'] === false
           && state['uploadedUserSkills'] === true
         ) {
           this.uploadingSkills = false;
           this.router.navigate(['/profile/user']);
+        }
+        if (this.generalUtils.checkNestedKey(state, ['signup_search_skill_result', 'scrollId'])) {
+          this.skillSearchScrollId = state['signup_search_skill_result']['scrollId'];
         }
       }
     });
@@ -88,11 +101,28 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
    */
   onSearchChange(query) {
     if (query && query !== '') {
-      this.isSearching = true;
-      this.store.dispatch({ type: AuthActions.SEARCH_SKILL, payload: query });
+      this.searchQuery = query;
+      this.triggerSearchSkills(false);
     } else {
       this.industriesList();
     }
+  }
+
+  triggerSearchSkills(loadMore: boolean) {
+    this.isSearching = true;
+    this.showPreloader = true;
+    let scrollId;
+    if (loadMore === true) {
+      scrollId = this.skillSearchScrollId;
+    } else {
+      scrollId = '';
+    }
+    const params = {
+      limit: 50,
+      searchString: this.searchQuery,
+      scrollId: scrollId
+    }
+    this.store.dispatch({ type: AuthActions.SIGNUP_SEARCH_SKILL, payload: params });
   }
 
   /**
@@ -128,6 +158,13 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
       this.store.dispatch({ type: AuthActions.SAVE_SKILL, payload: name });
       // this.newSkillAdded = true;
     }
+  }
+
+  /**
+   * Load more skill while scrolling
+   */
+  loadMoreSkills() {
+    this.triggerSearchSkills(true);
   }
 
   /**

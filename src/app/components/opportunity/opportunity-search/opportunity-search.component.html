@@ -7,8 +7,9 @@
 	  	<form action="">
         <input #searchQueryElement #searchInput="ngModel" type="text" [ngModel]="searchString" [ngModelOptions]="{standalone: true}" class="o-opp-search__input" placeholder="Search opportunities">
         <select (change)="selectIndustryFilter($event.target.value)" class="c-form-control o-opp-search__select m-0" [ngModel]="insdustryType" [ngModelOptions]="{standalone: true}">
-		  <option value="" [selected]="industryCount?.length === 0">Industry</option>
-		  <option *ngFor="let industry of industryCount" [value]="industry.name" >{{ industry.name }} ( {{ industry.count }} )</option>
+		  <option value="" [selected]="industries?.length === 0">Industry</option>
+		  <!-- <option *ngFor="let industry of industries" [value]="industry.name" >{{ industry.name }} ( {{ industry.count }} )</option> -->
+		  <option *ngFor="let industry of industries" [value]="industry.name" >{{ industry.name }}</option>
         </select>
         <div class="o-opp-search__icon">
 			<img *ngIf="!isSearching" [src]="baseUrl + 'img/svg/ico_search.svg'" class="search-spinner">
@@ -181,14 +182,17 @@
 			<app-opportunity-search-recommended *ngIf="searchType === 'recommended'" [opportunities]="opportunities"></app-opportunity-search-recommended>
 			<app-opportunity-search-applied 	*ngIf="searchType === 'applied'" 	 [opportunities]="opportunities"></app-opportunity-search-applied>
 			<app-opportunity-search-created 	*ngIf="searchType === 'created'" 	 [opportunities]="opportunities"></app-opportunity-search-created>
-			<!-- search prelaoder -->
-			<div *ngIf="showPreloader">
-				<div class="sticky">
-					<div class="loader">Loading...</div>
-				</div>
-			</div>
-			<!-- search prelaoder -->
 		</div>
+		<div *ngIf="!showPreloader && opportunities && opportunities.length === 0">
+			<p class="result-not-found">No records found!</p>
+		</div>
+		<!-- search prelaoder -->
+		<div *ngIf="showPreloader">
+			<div class="sticky">
+				<div class="loader">Loading...</div>
+			</div>
+		</div>
+		<!-- search prelaoder -->
 	</div>
 </section>
 

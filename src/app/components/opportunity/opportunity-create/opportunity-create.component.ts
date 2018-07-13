@@ -21,9 +21,6 @@ import { GeneralUtilities } from '../../../helpers/general.utils';
 import { OpportunityActions } from 'app/actions/opportunity.action';
 import { OpportunityModel } from 'app/models/opportunity.model';
 
-// auth imports
-import { AuthActions } from 'app/actions/auth.action';
-
 @Component({
   selector: 'app-opportunity-create',
   templateUrl: './opportunity-create.component.html',
@@ -33,15 +30,11 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
 
   baseUrl = environment.API_IMAGE;
   userHandle: any;
-
   public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
-
   private oppSub: ISubscription;
   private loginSub: ISubscription;
-
   oppState: Observable<OpportunityModel>;
   loginState: Observable<any>;
-
   oppSaved = false;
   oppCreating = false;
   activeTab = 'audition';
@@ -108,7 +101,6 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
         this.industryList = state['industries'];
       }
     });
-    this.loginStore.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
   }
 
   ngOnInit() {

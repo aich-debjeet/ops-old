@@ -191,7 +191,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     const params = {
       q: this.searchString,
       type: this.searchType,
-      filters: encodeURIComponent(JSON.stringify(this.globalFilter))
+      filters: true
     };
 
     // trigger search get request
@@ -218,7 +218,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     const params = {
       q: this.searchString,
       type: this.searchType,
-      filters: encodeURIComponent(JSON.stringify(this.globalFilter))
+      filters: true
     };
 
     // trigger search get request
@@ -245,7 +245,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     const params = {
       q: this.searchString,
       type: this.searchType,
-      filters: encodeURIComponent(JSON.stringify(this.globalFilter))
+      filters: true
     };
 
     // trigger search get request
@@ -288,7 +288,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
           // scroll to top on view switch
           // this.scrollToTop(200);
 
-          if (params.filters) {
+          if (params.filters && params.filters === 'true') {
             // console.log('filters', JSON.parse(decodeURIComponent(params.filters)));
           }
 
