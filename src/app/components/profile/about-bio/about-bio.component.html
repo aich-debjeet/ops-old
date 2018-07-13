@@ -14,7 +14,7 @@
                         <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
                     </span>
                         
-                    <div id="o-bio-info__about" class="o-bio-info__value c-text_sm color-theme" *ngIf="!userProfile?.aboutMe" (click)="editField('aboutMe')">
+                    <div id="o-bio-info__about" class="o-bio-info__value c-text_sm color-theme" *ngIf="!userProfile?.aboutMe && editingField != 'aboutMe'" (click)="editField('aboutMe')">
                         <span class="o-bio-info_plus">+</span> Add About
                     </div>
                 </ng-container>
@@ -29,201 +29,135 @@
                   </div>
               </div>
               <!-- About me end -->
-              <div class="o-bio-info-block m-b-8">
-                <h6 class="c-text_md">Skills</h6>
-                <div id="o-bio-info__skills" *ngIf="editingField != 'skills'" class="o-bio-info__value c-text_sm color-grey-dark">
-                    <span *ngFor="let list of skillsArray; let isLast=last">
-                            {{list.name}}{{isLast ? '' : ', '}}
-                    </span>                    
-                </div>
-                <ng-container *ngIf="ownProfile">
-                    <span class="o-bio-info__edit-ico" *ngIf="userProfile?.profileType" (click)="editField('skills')">
-                        <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
-                    </span>
-                    <div id="o-bio-info__skills" class="o-bio-info__value c-text_sm color-theme" *ngIf="!userProfile?.profileType" (click)="editField('skills')">
-                        <span class="o-bio-info_plus">+</span> Add Skills
+                <div class="o-bio-info-block m-b-8">
+                    <h6 class="c-text_md">Skills</h6>
+                    <div id="o-bio-info__skills" *ngIf="editingField != 'skills'" class="o-bio-info__value c-text_sm color-grey-dark">
+                        <span *ngFor="let list of skillsArray; let isLast=last">
+                                {{list.name}}{{isLast ? '' : ', '}}
+                        </span>                    
                     </div>
-                </ng-container>
-                <div id="o-bio-info__skills-edit" class="o-bio-info__edit" *ngIf="editingField == 'skills'">
-                    <div class="c-form__group c-form--sm c-form--noeffect">
-                        <input class="c-form__input" required="" type="text" [ngModel]="skill"  (ngModelChange)="onSearchChange($event)" placeholder="Search skill">
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 with_border_bottom">
-                            <button class="btn btn-primary btn-sm m-t-8 m-r-8 m-b-8" (click)="toggleSelectSkill(list.code)" *ngFor="let list of skillsArray">{{list.name}}</button>
+                    <ng-container *ngIf="ownProfile">
+                        <span class="o-bio-info__edit-ico" *ngIf="userProfile?.profileType" (click)="editField('skills')">
+                            <img src="{{ imageBaseUrl }}img/svg/editpencil.svg" alt="">
+                        </span>
+                        <div id="o-bio-info__skills" class="o-bio-info__value c-text_sm color-theme" *ngIf="!userProfile?.profileType && editingField != 'skills'" (click)="editField('skills')">
+                            <span class="o-bio-info_plus">+</span> Add Skills
                         </div>
-                    </div>
-                    <span *ngFor="let skill of findSkill?.industries">
-                        <button class="btn btn-default btn-sm m-t-8 m-r-8 m-b-8"  [ngClass]="skill.isSelected?'btn btn-reg_tag-active':''" (click)="toggleSelectSkill(skill.code)">{{skill.name}}</button>
-                    </span>
-                    <!-- action start -->
-                    <div class="o-bio-info__edit-actions m-t-24">
-                        <button type="button" class="btn btn-primary btn-sm float-right" (click)="updateAbout('skills')">Save</button>
-                        <button type="button" class="btn btn-default btn-sm float-right m-l-r-8" (click)="cancelEdit()">Cancel</button>
-                        <div class="dropdown float-right m-r-8">
-                            <span class="com-head" data-toggle="dropdown" aria-expanded="false">
-                    <div class="o-bio-edit__ico">
-                      <img [src]="imageBaseUrl + 'img/svg/ico_web.svg'">
-                    </div>
-                    <div class="o-bio-edit__ico-arrow">
-                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
-                          <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
-                          <title>Path 2 Copy</title>
-                          <desc>Created with Sketch.</desc>
-                          <defs></defs>
-                          <g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                              <polyline id="Path-2-Copy" stroke="#333" stroke-width="1" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) " points="1 1 8 8 15 1"></polyline>
-                          </g>
-                      </svg>
-                    </div>
-                  </span>
-                            <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
-                                <li>
-                                    <a href="javascript:void(0)" class="c-opsdropdown__list">
-                        <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
-                        <span class="c-opsdropdown--text">Public</span>
-                      </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="c-opsdropdown__list">
-                        <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
-                        <span class="c-opsdropdown--text">Private</span>
-                      </a>
-                                </li>
-                            </ul>
+                    </ng-container>
+                    <div id="o-bio-info__skills-edit" class="o-bio-info__edit" *ngIf="editingField == 'skills'">
+                        <div class="c-form__group c-form--sm c-form--noeffect">
+                            <input class="c-form__input" required="" type="text" [ngModel]="skill"  (ngModelChange)="onSearchChange($event)" placeholder="Search skill">
                         </div>
-                    </div>
-                    <!-- action end -->
-                </div>
-            </div>
-            <!--skills end-->
-              <div class="o-bio-info-block m-b-8" *ngIf="userProfile?.physical?.gender">
-                <h6 class="c-text_md">Gender</h6>
-                <span class="o-bio-info__edit-ico" *ngIf="ownProfile" (click)="editField('gender')">
-                    <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
-                 </span>
-                <div id="o-bio-info__gender" *ngIf="userProfile?.physical?.gender === 'M' && editingField != 'gender'" class="o-bio-info__value c-text_sm color-grey-dark">
-                    Male
-                </div>
-                <div id="o-bio-info__gender" *ngIf="userProfile?.physical?.gender === 'F' && editingField != 'gender'" class="o-bio-info__value c-text_sm color-grey-dark">
-                    Female
-                </div>
-                <div id="o-bio-info__gender" *ngIf="userProfile?.physical?.gender === 'O' && editingField != 'gender'" class="o-bio-info__value c-text_sm color-grey-dark">
-                    Others
-                </div>
-                <div id="o-bio-info__gender-edit" class="o-bio-info__edit" *ngIf="editingField == 'gender'">
-                    <div class="c-radio__sm">
-                        <label class="col-md-3 col-sm-6 col-xs-6 p-0">
-                            <input name="demo" type="radio" [value]="M" [checked]="gender === 'M'" class="c-form__bar2"  (change)="onSelectionChange('M')">
-                            <span></span>
-                            <div class="c-radio--label">Male</div>
-                        </label>
-                        <label class="col-md-3 col-sm-6 col-xs-6 p-0">
-                            <input name="demo" type="radio" [value]="F" [checked]="gender === 'F'" class="c-form__bar2" (change)="onSelectionChange('F')">
-                            <span></span>
-                            <div class="c-radio--label">Female</div>
-                        </label>
-                        <label class="col-md-3 col-sm-6 col-xs-6 p-0">
-                            <input name="demo" type="radio" [value]="O" [checked]="gender === 'O'" class="c-form__bar2" (change)="onSelectionChange('O')">
-                            <span></span>
-                            <div class="c-radio--label">Others</div>
-                        </label>
-                    </div>
-                </div>
-            </div>
-        <!-- gender end -->
-        <div class="o-bio-info-block m-b-8" *ngIf="userProfile?.physical?.dateOfBirth">
-            <h6 class="c-text_md">Birth day</h6>
-            <span class="o-bio-info__edit-ico" *ngIf="ownProfile" (click)="editField('dob')">
-                <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
-            </span>
-            <div id="o-bio-info__birth" *ngIf="editingField != 'dob'" class="o-bio-info__value c-text_sm color-grey-dark">
-                {{ (userProfile?.physical?.dateOfBirth | date:'dd MMMM, y') }}
-            </div>
-            <div id="o-bio-info__birth-edit" class="o-bio-info__edit" *ngIf="editingField == 'dob'">
-                <div class="c-form__group">
-                    <input type="text" [(ngModel)]="dob" [textMask]="{mask: dateMask}" class="c-form__input" placeholder="">
-                    <!-- <p class="error_alert" *ngIf="profileForm.controls['dob'].errors?.required && myform.submitted">Date of Brith is required</p> -->
-                    <p class="error_alert" *ngIf="invalidDOB">Invalid Date of Birth</p>
-                    <p class="error_alert" *ngIf="isUnderAge">You should be above 13</p>
-                    <p class="error_alert" *ngIf="isOverAge">You should be below 100</p>
-                </div>
-                <!-- action start -->
-                <div class="o-bio-info__edit-actions m-t-24">
-                    <button type="button" class="btn btn-primary btn-sm float-right" (click)="updateAbout('dob')">Save</button>
-                    <button type="button" class="btn btn-default btn-sm float-right m-l-r-8" (click)="cancelEdit()">Cancel</button>
-                    <div class="dropdown float-right m-r-8">
-                        <span class="com-head" data-toggle="dropdown" aria-expanded="false">
-                <div class="o-bio-edit__ico">
-                    <img [src]="imageBaseUrl + 'img/svg/ico_web.svg'">
-                </div>
-                <div class="o-bio-edit__ico-arrow">
-                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
-                        <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
-                        <title>Path 2 Copy</title>
-                        <desc>Created with Sketch.</desc>
-                        <defs></defs>
-                        <g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                            <polyline id="Path-2-Copy" stroke="#333" stroke-width="1" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) " points="1 1 8 8 15 1"></polyline>
-                        </g>
-                    </svg>
-                </div>
-                </span>
-                        <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
-                            <li>
-                                <a href="javascript:void(0)" class="c-opsdropdown__list">
-                    <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
-                    <span class="c-opsdropdown--text">Public</span>
-                    </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" class="c-opsdropdown__list">
-                    <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
-                    <span class="c-opsdropdown--text">Private</span>
-                    </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- action end -->
-            </div>
-        </div>
-        <!-- birthday end -->
-
-        <div class="o-bio-info-block m-b-8">
-            <h6 class="c-text_md">Height</h6>
-            <div id="o-bio-info__height" class="o-bio-info__value c-text_sm color-grey-dark" *ngIf="editingField != 'height'">
-                {{ userProfile?.physical?.height.toFixed(2) }}
-            </div>
-            <ng-container *ngIf="ownProfile">
-                <span class="o-bio-info__edit-ico" *ngIf="userProfile?.physical?.height !== 0 || userProfile?.physical?.height" (click)="editField('height')">
-                    <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
-                </span>
-                
-                <div id="o-bio-info__height" class="o-bio-info__value c-text_sm color-theme" *ngIf="userProfile?.physical?.height === 0 || !userProfile?.physical?.height" (click)="editField('height')">
-                    <span class="o-bio-info_plus">+</span> Add Height
-                </div>
-            </ng-container>
-            <div id="o-bio-info__height-edit" class="o-bio-info__edit" *ngIf="editingField == 'height'">
-                <div class="col-md-3 p-0">
-                    <div class="c-form__group c-form--sm c-form--noeffect">
-                        <!-- <input class="c-form__input" required="" type="text" value="162"> -->
-                        <textarea class="c-form__input" [(ngModel)]="height" [ngModelOptions]="{standalone: true}">{{ height }}</textarea>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <span class="c-text_sm color-grey-dark m-t-32 float_left">cm</span>
-                </div>
-                <!-- action start -->
-                <div class="o-bio-info__edit-actions m-t-24">
-                    <button type="button" class="btn btn-primary btn-sm float-right" (click)="updateAbout('height')">Save</button>
-                    <button type="button" class="btn btn-default btn-sm float-right m-l-r-8" (click)="cancelEdit()">Cancel</button>
-                    <div class="dropdown float-right m-r-8">
-                        <span class="com-head" data-toggle="dropdown" aria-expanded="false">
-                            <div class="o-bio-edit__ico">
-                            <img [src]="imageBaseUrl + 'img/svg/ico_web.svg'">
+                        <div class="row">
+                            <div class="col-md-12 with_border_bottom">
+                                <button class="btn btn-primary btn-sm m-t-8 m-r-8 m-b-8" (click)="toggleSelectSkill(list.code)" *ngFor="let list of skillsArray">{{list.name}}</button>
                             </div>
-                            <div class="o-bio-edit__ico-arrow">
+                        </div>
+                        <span *ngFor="let skill of findSkill?.industries">
+                            <button class="btn btn-default btn-sm m-t-8 m-r-8 m-b-8"  [ngClass]="skill.isSelected?'btn btn-reg_tag-active':''" (click)="toggleSelectSkill(skill.code)">{{skill.name}}</button>
+                        </span>
+                        <!-- action start -->
+                        <div class="o-bio-info__edit-actions m-t-24">
+                            <button type="button" class="btn btn-primary btn-sm float-right" (click)="updateAbout('skills')">Save</button>
+                            <button type="button" class="btn btn-default btn-sm float-right m-l-r-8" (click)="cancelEdit()">Cancel</button>
+                            <div class="dropdown float-right m-r-8">
+                                <span class="com-head" data-toggle="dropdown" aria-expanded="false">
+                        <div class="o-bio-edit__ico">
+                        <img src="{{ imageBaseUrl }}img/svg/ico_web.svg">
+                        </div>
+                        <div class="o-bio-edit__ico-arrow">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
+                            <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+                            <title>Path 2 Copy</title>
+                            <desc>Created with Sketch.</desc>
+                            <defs></defs>
+                            <g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <polyline id="Path-2-Copy" stroke="#333" stroke-width="1" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) " points="1 1 8 8 15 1"></polyline>
+                            </g>
+                        </svg>
+                        </div>
+                    </span>
+                                <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
+                                    <li>
+                                        <a href="javascript:void(0)" class="c-opsdropdown__list">
+                            <img src="{{ imageBaseUrl }}img/svg/ico-public.svg" class="c-opsdropdown--icons">
+                            <span class="c-opsdropdown--text">Public</span>
+                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" class="c-opsdropdown__list">
+                            <img src="{{ imageBaseUrl }}img/svg/Ico-private.svg" class="c-opsdropdown--icons">
+                            <span class="c-opsdropdown--text">Private</span>
+                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- action end -->
+                    </div>
+                </div>
+                <!--skills end-->
+                <div class="o-bio-info-block m-b-8" *ngIf="userProfile?.physical?.gender">
+                    <h6 class="c-text_md">Gender</h6>
+                    <span class="o-bio-info__edit-ico" *ngIf="ownProfile" (click)="editField('gender')">
+                        <img src="{{ imageBaseUrl }}img/svg/editpencil.svg" alt="">
+                    </span>
+                    <div id="o-bio-info__gender" *ngIf="userProfile?.physical?.gender === 'M' && editingField != 'gender'" class="o-bio-info__value c-text_sm color-grey-dark">
+                        Male
+                    </div>
+                    <div id="o-bio-info__gender" *ngIf="userProfile?.physical?.gender === 'F' && editingField != 'gender'" class="o-bio-info__value c-text_sm color-grey-dark">
+                        Female
+                    </div>
+                    <div id="o-bio-info__gender" *ngIf="userProfile?.physical?.gender === 'O' && editingField != 'gender'" class="o-bio-info__value c-text_sm color-grey-dark">
+                        Others
+                    </div>
+                    <div id="o-bio-info__gender-edit" class="o-bio-info__edit" *ngIf="editingField == 'gender'">
+                        <div class="c-radio__sm">
+                            <label class="col-md-3 col-sm-6 col-xs-6 p-0">
+                                <input name="demo" type="radio" [value]="M" [checked]="gender === 'M'" class="c-form__bar2"  (change)="onSelectionChange('M')">
+                                <span></span>
+                                <div class="c-radio--label">Male</div>
+                            </label>
+                            <label class="col-md-3 col-sm-6 col-xs-6 p-0">
+                                <input name="demo" type="radio" [value]="F" [checked]="gender === 'F'" class="c-form__bar2" (change)="onSelectionChange('F')">
+                                <span></span>
+                                <div class="c-radio--label">Female</div>
+                            </label>
+                            <label class="col-md-3 col-sm-6 col-xs-6 p-0">
+                                <input name="demo" type="radio" [value]="O" [checked]="gender === 'O'" class="c-form__bar2" (change)="onSelectionChange('O')">
+                                <span></span>
+                                <div class="c-radio--label">Others</div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <!-- gender end -->
+                <div class="o-bio-info-block m-b-8" *ngIf="userProfile?.physical?.dateOfBirth">
+                    <h6 class="c-text_md">Birth day</h6>
+                    <span class="o-bio-info__edit-ico" *ngIf="ownProfile" (click)="editField('dob')">
+                        <img src="{{ imageBaseUrl }}img/svg/editpencil.svg" alt="">
+                    </span>
+                    <div id="o-bio-info__birth" *ngIf="editingField != 'dob'" class="o-bio-info__value c-text_sm color-grey-dark">
+                        {{ (userProfile?.physical?.dateOfBirth | date:'dd MMMM, y') }}
+                    </div>
+                    <div id="o-bio-info__birth-edit" class="o-bio-info__edit" *ngIf="editingField == 'dob'">
+                        <div class="c-form__group">
+                            <input type="text" [(ngModel)]="dob" [textMask]="{mask: dateMask}" class="c-form__input" placeholder="">
+                            <!-- <p class="error_alert" *ngIf="profileForm.controls['dob'].errors?.required && myform.submitted">Date of Brith is required</p> -->
+                            <p class="error_alert" *ngIf="invalidDOB">Invalid Date of Birth</p>
+                            <p class="error_alert" *ngIf="isUnderAge">You should be above 13</p>
+                            <p class="error_alert" *ngIf="isOverAge">You should be below 100</p>
+                        </div>
+                        <!-- action start -->
+                        <div class="o-bio-info__edit-actions m-t-24">
+                            <button type="button" class="btn btn-primary btn-sm float-right" (click)="updateAbout('dob')">Save</button>
+                            <button type="button" class="btn btn-default btn-sm float-right m-l-r-8" (click)="cancelEdit()">Cancel</button>
+                            <div class="dropdown float-right m-r-8">
+                                <span class="com-head" data-toggle="dropdown" aria-expanded="false">
+                        <div class="o-bio-edit__ico">
+                            <img src="{{ imageBaseUrl }}img/svg/ico_web.svg">
+                        </div>
+                        <div class="o-bio-edit__ico-arrow">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
                                 <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
                                 <title>Path 2 Copy</title>
@@ -233,104 +167,174 @@
                                     <polyline id="Path-2-Copy" stroke="#333" stroke-width="1" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) " points="1 1 8 8 15 1"></polyline>
                                 </g>
                             </svg>
-                            </div>
+                        </div>
                         </span>
-                        <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
-                            <li>
-                                <a href="javascript:void(0)" class="c-opsdropdown__list">
-                                    <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
-                                    <span class="c-opsdropdown--text">Public</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" class="c-opsdropdown__list">
-                                    <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
-                                    <span class="c-opsdropdown--text">Private</span>
-                                </a>
-                            </li>
-                        </ul>
+                                <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
+                                    <li>
+                                        <a href="javascript:void(0)" class="c-opsdropdown__list">
+                            <img src="{{ imageBaseUrl }}img/svg/ico-public.svg" class="c-opsdropdown--icons">
+                            <span class="c-opsdropdown--text">Public</span>
+                            </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" class="c-opsdropdown__list">
+                            <img src="{{ imageBaseUrl }}img/svg/Ico-private.svg" class="c-opsdropdown--icons">
+                            <span class="c-opsdropdown--text">Private</span>
+                            </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- action end -->
                     </div>
                 </div>
-                <!-- action end -->
-            </div>
-        </div>
-        <!-- Height end -->
+                <!-- birthday end -->
 
-        <div class="o-bio-info-block m-b-8">
-            <h6 class="c-text_md">Weight</h6>
-            <div id="o-bio-info__weight" class="o-bio-info__value c-text_sm color-grey-dark" *ngIf="editingField != 'weight'">
-                {{ userProfile?.physical?.weight }}
-            </div>
-            <ng-container *ngIf="ownProfile">
-                <span class="o-bio-info__edit-ico" *ngIf="userProfile?.physical?.weight !== 0 || userProfile?.physical?.weight" (click)="editField('weight')">
-                        <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
+                <div class="o-bio-info-block m-b-8">
+                    <h6 class="c-text_md">Height</h6>
+                    <div id="o-bio-info__height" class="o-bio-info__value c-text_sm color-grey-dark" *ngIf="editingField != 'height'">
+                        {{ userProfile?.physical?.height.toFixed(2) }}
+                    </div>
+                    <ng-container *ngIf="ownProfile">
+                        <span class="o-bio-info__edit-ico" *ngIf="userProfile?.physical?.height !== 0 || userProfile?.physical?.height" (click)="editField('height')">
+                            <img src="{{ imageBaseUrl }}img/svg/editpencil.svg" alt="">
+                        </span>
+                        
+                        <div id="o-bio-info__height" class="o-bio-info__value c-text_sm color-theme" *ngIf="(userProfile?.physical?.height === 0 || !userProfile?.physical?.height) && editingField != 'height'" (click)="editField('height')">
+                            <span class="o-bio-info_plus">+</span> Add Height
+                        </div>
+                    </ng-container>
+                    <div id="o-bio-info__height-edit" class="o-bio-info__edit" *ngIf="editingField == 'height'">
+                        <div class="col-md-3 p-0">
+                            <div class="c-form__group c-form--sm c-form--noeffect">
+                                <!-- <input class="c-form__input" required="" type="text" value="162"> -->
+                                <textarea class="c-form__input" [(ngModel)]="height" [ngModelOptions]="{standalone: true}">{{ height }}</textarea>
+                                <p class="error_alert" *ngIf="validHeight">characters Not Accepted</p>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <span class="c-text_sm color-grey-dark m-t-32 float_left">cm</span>
+                        </div>
+                        <!-- action start -->
+                        <div class="o-bio-info__edit-actions m-t-24">
+                            <button type="button" class="btn btn-primary btn-sm float-right" (click)="updateAbout('height')">Save</button>
+                            <button type="button" class="btn btn-default btn-sm float-right m-l-r-8" (click)="cancelEdit()">Cancel</button>
+                            <div class="dropdown float-right m-r-8">
+                                <span class="com-head" data-toggle="dropdown" aria-expanded="false">
+                                    <div class="o-bio-edit__ico">
+                                    <img src="{{ imageBaseUrl }}img/svg/ico_web.svg">
+                                    </div>
+                                    <div class="o-bio-edit__ico-arrow">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
+                                        <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+                                        <title>Path 2 Copy</title>
+                                        <desc>Created with Sketch.</desc>
+                                        <defs></defs>
+                                        <g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <polyline id="Path-2-Copy" stroke="#333" stroke-width="1" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) " points="1 1 8 8 15 1"></polyline>
+                                        </g>
+                                    </svg>
+                                    </div>
+                                </span>
+                                <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
+                                    <li>
+                                        <a href="javascript:void(0)" class="c-opsdropdown__list">
+                                            <img src="{{ imageBaseUrl }}img/svg/ico-public.svg" class="c-opsdropdown--icons">
+                                            <span class="c-opsdropdown--text">Public</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" class="c-opsdropdown__list">
+                                            <img src="{{ imageBaseUrl }}img/svg/Ico-private.svg" class="c-opsdropdown--icons">
+                                            <span class="c-opsdropdown--text">Private</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- action end -->
+                    </div>
+                </div>
+                <!-- Height end -->
+
+                <div class="o-bio-info-block m-b-8">
+                    <h6 class="c-text_md">Weight</h6>
+                    <div id="o-bio-info__weight" class="o-bio-info__value c-text_sm color-grey-dark" *ngIf="editingField != 'weight'">
+                        {{ userProfile?.physical?.weight }}
+                    </div>
+                    <ng-container *ngIf="ownProfile">
+                        <span class="o-bio-info__edit-ico" *ngIf="userProfile?.physical?.weight !== 0 || userProfile?.physical?.weight" (click)="editField('weight')">
+                                <img src="{{ imageBaseUrl }}img/svg/editpencil.svg" alt="">
+                            </span>
+                        <div id="o-bio-info__weight" class="o-bio-info__value c-text_sm color-theme" *ngIf="(userProfile?.physical?.weight === 0 || !userProfile?.physical?.weight) && editingField != 'weight'" (click)="editField('weight')">
+                            <span class="o-bio-info_plus">+</span> Add Weight
+                        </div>
+                    </ng-container>
+                    <div id="o-bio-info__weight-edit" class="o-bio-info__edit" *ngIf="editingField == 'weight'">
+                        <div class="col-md-3 p-0">
+                            <div class="c-form__group c-form--sm c-form--noeffect">
+                                <textarea class="c-form__input" [(ngModel)]="weight" [ngModelOptions]="{standalone: true}" >{{ weight }}</textarea>
+                                <p class="error_alert" *ngIf="validWeight">characters Not Accepted</p>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <span class="c-text_sm color-grey-dark m-t-32 float_left">kg</span>
+                        </div>
+                        <!-- action start -->
+                        <div class="o-bio-info__edit-actions m-t-24">
+                            <button type="button" class="btn btn-primary btn-sm float-right" (click)="updateAbout('weight')">Save</button>
+                            <button type="button" class="btn btn-default btn-sm float-right m-l-r-8" (click)="cancelEdit()">Cancel</button>
+                            <div class="dropdown float-right m-r-8">
+                                <span class="com-head" data-toggle="dropdown" aria-expanded="false">
+                        <div class="o-bio-edit__ico">
+                        <img src="{{ imageBaseUrl }}img/svg/ico_web.svg">
+                        </div>
+                        <div class="o-bio-edit__ico-arrow">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
+                            <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+                            <title>Path 2 Copy</title>
+                            <desc>Created with Sketch.</desc>
+                            <defs></defs>
+                            <g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <polyline id="Path-2-Copy" stroke="#333" stroke-width="1" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) " points="1 1 8 8 15 1"></polyline>
+                            </g>
+                        </svg>
+                        </div>
                     </span>
-                <div id="o-bio-info__weight" class="o-bio-info__value c-text_sm color-theme" *ngIf="userProfile?.physical?.weight === 0 || !userProfile?.physical?.weight" (click)="editField('weight')">
-                    <span class="o-bio-info_plus">+</span> Add Weight
-                </div>
-            </ng-container>
-            <div id="o-bio-info__weight-edit" class="o-bio-info__edit" *ngIf="editingField == 'weight'">
-                <div class="col-md-3 p-0">
-                    <div class="c-form__group c-form--sm c-form--noeffect">
-                        <textarea class="c-form__input" [(ngModel)]="weight" [ngModelOptions]="{standalone: true}">{{ weight }}</textarea>
+                                <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
+                                    <li>
+                                        <a href="javascript:void(0)" class="c-opsdropdown__list">
+                            <img src="{{ imageBaseUrl }}img/svg/ico-public.svg" class="c-opsdropdown--icons">
+                            <span class="c-opsdropdown--text">Public</span>
+                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" class="c-opsdropdown__list">
+                            <img src="{{ imageBaseUrl }}img/svg/Ico-private.svg" class="c-opsdropdown--icons">
+                            <span class="c-opsdropdown--text">Private</span>
+                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- action end -->
                     </div>
                 </div>
-                <div class="col-md-2">
-                    <span class="c-text_sm color-grey-dark m-t-32 float_left">kg</span>
-                </div>
-                <!-- action start -->
-                <div class="o-bio-info__edit-actions m-t-24">
-                    <button type="button" class="btn btn-primary btn-sm float-right" (click)="updateAbout('weight')">Save</button>
-                    <button type="button" class="btn btn-default btn-sm float-right m-l-r-8" (click)="cancelEdit()">Cancel</button>
-                    <div class="dropdown float-right m-r-8">
-                        <span class="com-head" data-toggle="dropdown" aria-expanded="false">
-                <div class="o-bio-edit__ico">
-                  <img [src]="imageBaseUrl + 'img/svg/ico_web.svg'">
-                </div>
-                <div class="o-bio-edit__ico-arrow">
-                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
-                      <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
-                      <title>Path 2 Copy</title>
-                      <desc>Created with Sketch.</desc>
-                      <defs></defs>
-                      <g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                          <polyline id="Path-2-Copy" stroke="#333" stroke-width="1" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) " points="1 1 8 8 15 1"></polyline>
-                      </g>
-                  </svg>
-                </div>
-              </span>
-                        <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
-                            <li>
-                                <a href="javascript:void(0)" class="c-opsdropdown__list">
-                    <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
-                    <span class="c-opsdropdown--text">Public</span>
-                  </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" class="c-opsdropdown__list">
-                    <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
-                    <span class="c-opsdropdown--text">Private</span>
-                  </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- action end -->
-            </div>
-        </div>
-        <!-- Weight end -->
+                <!-- Weight end -->
             </div>
             <div class="col-md-6 ">
                 <div class="o-bio-info-block m-b-8">
                     <h6 class="c-text_md">Language</h6>
-                    <div id="o-bio-info__language" class="o-bio-info__value c-text_sm color-grey-dark" *ngFor="let lang of userProfile?.languages; let isLast=last">
-                        {{ lang }}{{isLast ? '' : ', '}}
-                    </div>
+                    <ng-container *ngIf="editingField != 'language'">
+                        <div id="o-bio-info__language" class="o-bio-info__value c-text_sm color-grey-dark" *ngFor="let lang of userProfile?.languages; let isLast=last">
+                            {{ lang }}{{isLast ? '' : ', '}}
+                        </div>
+                    </ng-container>
                     <ng-container *ngIf="ownProfile">
                         <span class="o-bio-info__edit-ico" *ngIf="userProfile?.languages === undefined || (userProfile?.languages)?.length >= 1" (click)="editField('language')">
                             <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
                         </span>
-                        <div id="o-bio-info__language" class="o-bio-info__value c-text_sm color-theme" *ngIf="userProfile?.languages === undefined || (userProfile?.languages)?.length === 0" (click)="editField('language')">
+                        <div id="o-bio-info__language" class="o-bio-info__value c-text_sm color-theme" *ngIf="(userProfile?.languages === undefined || (userProfile?.languages)?.length === 0) && editingField != 'language'" (click)="editField('language')">
                             <span class="o-bio-info_plus">+</span> Add Languages
                         </div>
                     </ng-container>
@@ -402,7 +406,7 @@
                         <span class="o-bio-info__edit-ico" *ngIf="userProfile?.extra?.address?.line1" (click)="editField('address')">
                             <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
                         </span>
-                        <div id="o-bio-info__address" class="o-bio-info__value c-text_sm color-theme" *ngIf="!userProfile?.extra?.address?.line1" (click)="editField('address')">
+                        <div id="o-bio-info__address" class="o-bio-info__value c-text_sm color-theme" *ngIf="!userProfile?.extra?.address?.line1 && editingField != 'address'" (click)="editField('address')">
                             <span class="o-bio-info_plus">+</span> Add Address
                         </div>
                     </ng-container>
@@ -475,7 +479,7 @@
                         <span class="o-bio-info__edit-ico" *ngIf="userProfile?.physical?.ethnicity" (click)="editField('ethnicity')">
                             <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
                         </span>                    
-                        <div id="o-bio-info__ethinicity" class="o-bio-info__value c-text_sm color-theme" *ngIf="!userProfile?.physical?.ethnicity" (click)="editField('ethnicity')">
+                        <div id="o-bio-info__ethinicity" class="o-bio-info__value c-text_sm color-theme" *ngIf="!userProfile?.physical?.ethnicity && editingField != 'ethnicity'" (click)="editField('ethnicity')">
                             <span class="o-bio-info_plus">+</span> Add Ethnicity
                         </div>
                     </ng-container>

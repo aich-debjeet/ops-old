@@ -64,6 +64,8 @@ export class AboutBioComponent implements OnInit, OnDestroy {
   skillState$: Observable<any>;
   skill: any;
   txtQueryChanged: Subject<string> = new Subject<string>();
+  validWeight: boolean = false;
+  validHeight: boolean = false;
 
   constructor(
     private _modalService: ModalService,
@@ -243,24 +245,54 @@ export class AboutBioComponent implements OnInit, OnDestroy {
       this.isOverAge = true;
       return
     }
-      reqBody.physical.dateOfBirth = this.reverseDate(this.dob) + 'T05:00:00';
-      return null;
+
+    reqBody.physical.dateOfBirth = this.reverseDate(this.dob) + 'T05:00:00';
+    
+    // return null;
     }
     if (fieldName === 'height' && this.height.length > 0) {
-      reqBody = {
-        physical: {
-          height: ''
-        }
-      };
-      reqBody.physical.height = parseFloat(this.height);
+      // reqBody = {
+      //   physical: {
+      //     height: ''
+      //   }
+      // };
+      // reqBody.physical.height = parseFloat(this.height);
+      if(isNaN(this.height)){
+        this.validHeight =true;
+        return false;
+      } else {
+        this.validHeight = false;
+        reqBody = {
+              physical: {
+                height: ''
+            }
+          };
+        reqBody.physical.height = parseFloat(this.height);
+      }      
     }
     if (fieldName === 'weight' && this.weight.length > 0) {
-      reqBody = {
-        physical: {
-          weight: ''
-        }
-      };
-      reqBody.physical.weight = parseFloat(this.weight);
+      // if (this.ischar) {
+      //   return false;
+      // } else {
+      //   reqBody = {
+      //     physical: {
+      //     weight: ''
+      //   }
+      // };
+      //   reqBody.physical.weight = parseFloat(this.weight);
+      // }     
+      if(isNaN(this.weight)){
+        this.validWeight =true;
+        return false;
+      } else {
+        this.validWeight = false;
+        reqBody = {
+              physical: {
+              weight: ''
+            }
+          };
+        reqBody.physical.weight = parseFloat(this.weight);
+      }
     }
     if (fieldName === 'language' && this.lang.length > 0) {
       reqBody = {
@@ -310,6 +342,7 @@ export class AboutBioComponent implements OnInit, OnDestroy {
      }
     this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: reqBody});
     this.toastr.success('Your profile has been updated successfully!');
+    this.cancelEdit();
   }
 
   calculateAge(birthday) {
@@ -440,6 +473,7 @@ onSelectionChange(val) {
 
       this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: reqBody});
       this.toastr.success('Your profile has been updated successfully!');
+      this.cancelEdit();
     }
   }
    /**
@@ -537,5 +571,4 @@ onSelectionChange(val) {
       });
     }
   }
-
 }
