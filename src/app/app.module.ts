@@ -173,7 +173,11 @@ import { AboutComponent } from './components/about/about.component';
     TextMaskModule,
     StoreModule.provideStore(reducer),
     RouterModule.forRoot(routes),
-    ToastrModule.forRoot(), // ToastrModule added
+    ToastrModule.forRoot({
+      timeOut: 1000,
+      preventDuplicates: true,
+    }),
+
     ShareButtonsModule.forRoot(),
     // StoreRouterConnectingModule,
     EffectsModule.run(AuthEffect),
