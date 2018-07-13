@@ -44,10 +44,12 @@
         <div class="container">
             <div class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12 p-0">
                 <div *ngIf="selectedSkills?.length === 0" class="c-text_md color-grey-dark text-center m-t-b-16">No skill selected</div>
-                <div *ngIf="showPreloader" class="preloader">
-                    <div class="sticky"><div class="loader">Loading...</div></div>
-                </div>
-                <ul *ngIf="skills?.length > 0" class="o-add-skill-block">
+                <ul
+                infiniteScroll
+                [infiniteScrollDistance]="2"
+                [infiniteScrollThrottle]="1000"
+                (scrolled)="loadMoreSkills($event)"
+                *ngIf="skills?.length > 0" class="o-add-skill-block">
                     <li class="o-add-skill__item" *ngFor="let skill of skills">
                         <a class="o-add-skill__link" (click)="toggleSelectSkill(skill.code)" [ngClass]="skill?.isSelected ? 'selected' : ''">
                             <span class="o-skill__list-container">
@@ -65,7 +67,10 @@
                         </a>
                     </li>
                 </ul>
-                <div *ngIf="skills?.length === 0 && skillSelectionState?.skills_loading === false && skillSelectionState?.skills_loaded === true" class="o-skill-more">
+                <div *ngIf="skillSelectionState?.signup_search_skill === true && skillSelectionState?.signup_search_skill_success === false" class="preloader">
+                    <div class="sticky"><div class="loader">Loading...</div></div>
+                </div>
+                <div *ngIf="skills?.length === 0 && skillSelectionState?.signup_search_skill === false && skillSelectionState?.signup_search_skill_success === true" class="o-skill-more">
                     <p class="c-text_lg m-t-24 f-w_300">Nothing found. Add "{{ search }}" as a skill</p>
                     <button type="button" (click)="addNewSkill(search)" class="o-skill-btn-add m-t-8">{{ search }}
                         <span class="o-add-skill-btn-ico"><img src="https://ops-v2.netlify.com/assets/svg/plus-red.svg" alt=""></span>

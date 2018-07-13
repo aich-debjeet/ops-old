@@ -128,6 +128,7 @@ export class OpportunityFreelanceComponent implements OnInit, OnDestroy {
       }
     }
     this.oppSubmitting = true;
+    this.freelanceAttachments = [];
     this.formSubmitted.emit(reqBody);
   }
 
