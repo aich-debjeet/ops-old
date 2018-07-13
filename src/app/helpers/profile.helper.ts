@@ -47,7 +47,7 @@ export class ProfileHelper {
         cover: profile.coverImage
       },
       userHandle: this.extractName(profile),
-      userBio: profile.summary,
+      userBio: profile.aboutMe,
       userSkill: profile.profileType,
       userDetails: profile,
       followingCount: profile.followingCount,
