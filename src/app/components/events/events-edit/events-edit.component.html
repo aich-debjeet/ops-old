@@ -13,9 +13,9 @@
                         <div class="o-event-form-upload-img">
                             <input type="file" #fileupload [(ngModel)]="eventCover" [ngModelOptions]="{standalone: true}" class="o-event-upload__file" name="eventCover" (change)="fileChangeListener($event)">
                             <div class="o-event-form-upload__container">
-                                <img *ngIf="eventCoverImage" class="event-image" src="{{ baseUrl + eventCoverImage}}">
+                                <img *ngIf="eventCoverImage" class="event-image" [src]="baseUrl + eventCoverImage">
                                 <div *ngIf="!eventCoverImage" class="c-text_md f-w_600 text_uppercase color-theme ltr-space">Upload event image</div>
-                                <a href= "javascript:void(0)" class="o-event-upload__close" (click)="removePhoto()"><img src="{{ baseUrl }}img/svg/ico_create-close.svg"></a>
+                                <a href= "javascript:void(0)" class="o-event-upload__close" (click)="removePhoto()"><img [src]="baseUrl + 'img/svg/ico_create-close.svg'"></a>
                             </div>
                         </div>
                         <p class="c-form__validation text-center" *ngIf="imageUpload">Event Cover is required</p>
@@ -37,7 +37,7 @@
                                 </div>
                                 <p class="c-form__validation" *ngIf="eventForm.controls['event_name'].errors?.required && ecfrom.submitted">Event Name is required
                                     <span class="pull-right">
-                                        <img src="{{ baseUrl }}img/svg/stop_red.svg" class="c-form__validation--img">
+                                        <img [src]="baseUrl + 'img/svg/stop_red.svg'" class="c-form__validation--img">
                                     </span>
                                 </p>
                             </div>
@@ -57,7 +57,7 @@
                                 </div>
                                 <p class="c-form__validation" *ngIf="eventForm.controls['event_genres'].errors?.required && ecfrom.submitted">Event Type is required
                                     <span class="pull-right">
-                                      <img src="{{ baseUrl }}img/svg/stop_red.svg" class="c-form__validation--img">
+                                      <img [src]="baseUrl + 'img/svg/stop_red.svg'" class="c-form__validation--img">
                                   </span>
                                 </p>
                             </div>
@@ -77,7 +77,7 @@
                                 </div>
                                 <p class="c-form__validation" *ngIf="eventForm.controls['event_industry'].errors?.required && ecfrom.submitted">Industry is required
                                     <span class="pull-right">
-                                      <img src="{{ baseUrl }}img/svg/stop_red.svg" class="c-form__validation--img">
+                                      <img [src]="baseUrl + 'img/svg/stop_red.svg'" class="c-form__validation--img">
                                     </span>
                                 </p>
                             </div>
@@ -98,7 +98,7 @@
                                 </div>
                                 <p class="c-form__validation" *ngIf="eventForm.controls['event_venue'].errors?.required && ecfrom.submitted">Venue is required
                                     <span class="pull-right">
-                                      <img src="{{ baseUrl }}img/svg/stop_red.svg" class="c-form__validation--img">
+                                      <img [src]="baseUrl + 'img/svg/stop_red.svg'" class="c-form__validation--img">
                                     </span>
                                 </p>
                             </div>
@@ -118,7 +118,7 @@
                                 </div>
                                 <p class="c-form__validation" *ngIf="eventForm.controls['event_brief'].errors?.required && ecfrom.submitted">Event Brief is required
                                     <span class="pull-right">
-                                      <img src="{{ baseUrl }}img/svg/stop_red.svg" class="c-form__validation--img">
+                                      <img [src]="baseUrl + 'img/svg/stop_red.svg'" class="c-form__validation--img">
                                     </span>
                                 </p>
                             </div>
@@ -185,7 +185,7 @@
                                     <div class="col-md-1 p-0">
                                         <div class="o-form-trash m-t-8">
                                             <div class="o-form-trash__ico" (click)="eventForm.get('event_agenda').removeAt(i)">
-                                                <img src="{{ baseUrl }}img/svg/delete.svg">
+                                                <img [src]="baseUrl + 'img/svg/delete.svg'">
                                             </div>
                                         </div>
                                     </div>
@@ -200,7 +200,7 @@
                                 <!-- agenda add det sec end -->
                                 <div class="o-form-add-link">
                                     <a (click)="pushAgenda()" class="o-form__add-btn">
-                                        <span class="o-form__add-ico"><img src="{{ baseUrl }}img/svg/plus-red.svg" alt=""></span>
+                                        <span class="o-form__add-ico"><img [src]="baseUrl + 'img/svg/plus-red.svg'" alt=""></span>
                                         <p class="c-text_md color-theme m-l-8 o-form__add-title">Add more agenda</p>
                                     </a>
                                 </div>

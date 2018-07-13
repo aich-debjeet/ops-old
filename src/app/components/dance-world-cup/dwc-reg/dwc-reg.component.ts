@@ -16,7 +16,6 @@ import { FormValidation, DatabaseValidator } from '../../../helpers/form.validat
 
 // Action
 import { EventActions } from '../../../actions/event.action'
-import { Profile } from 'selenium-webdriver/firefox';
 import { NguCarousel, NguCarouselStore } from '@ngu/carousel';
 
 @Component({

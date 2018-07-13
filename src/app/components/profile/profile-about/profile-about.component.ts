@@ -1,20 +1,12 @@
 import { Component, OnInit, OnDestroy  } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 
-// import { TabComponent } from '../../../shared/tab/tab.component';
-// import { TabsComponent } from '../../../shared/tabs/tabs.component';
-
-// action
-import { ProfileActions } from '../../../actions/profile.action';
-import { SharedActions } from '../../../actions/shared.action';
-
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription, ISubscription } from 'rxjs/Subscription';
+import { ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-profile-about',
@@ -28,7 +20,6 @@ export class ProfileAboutComponent implements OnInit, OnDestroy {
   userProfile = initialTag ;
   router: any;
   constructor(
-    private http: Http,
     private _router: Router,
     private profileStore: Store<ProfileModal>
   ) {

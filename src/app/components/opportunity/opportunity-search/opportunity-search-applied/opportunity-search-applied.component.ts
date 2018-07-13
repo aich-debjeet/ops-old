@@ -1,18 +1,11 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-opportunity-search-applied',
   templateUrl: './opportunity-search-applied.component.html',
-  styleUrls: ['./opportunity-search-applied.component.scss']
+  styleUrls: []
 })
-export class OpportunitySearchAppliedComponent implements OnInit, OnDestroy {
+export class OpportunitySearchAppliedComponent {
   @Input() opportunities: any;
   constructor() { }
-
-  ngOnInit() {
-  }
-
-  ngOnDestroy() {
-  }
-
 }

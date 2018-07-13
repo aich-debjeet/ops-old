@@ -1,17 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
-
 import { Observable } from 'rxjs/Observable';
-import { Subscription, ISubscription } from 'rxjs/Subscription';
-
-import { Http, Headers, Response } from '@angular/http';
+import { ISubscription } from 'rxjs/Subscription';
 import { Router, ActivatedRoute } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 import { Store } from '@ngrx/store';
 
 import { ProfileActions } from '../../../actions/profile.action';
 import { MediaActions } from '../../../actions/media.action';
-
-import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-home-post',
@@ -38,7 +34,6 @@ export class HomePostComponent implements OnInit, OnDestroy {
   userData: any;
 
   constructor(
-    private http: Http,
     public route: ActivatedRoute,
     private profileStore: Store<ProfileModal>
   ) {

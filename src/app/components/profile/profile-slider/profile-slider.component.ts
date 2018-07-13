@@ -1,12 +1,10 @@
 import { environment } from '../../../../environments/environment';
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Modal } from '../../../shared/modal-new/Modal';
-import { Http, Headers, Response } from '@angular/http';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
-import { UserMedia } from '../../../models/user-media.model';
 import { ModalService } from '../../../shared/modal/modal.component.service';
-import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
@@ -18,10 +16,8 @@ import { FormValidation, ProfileUpdateValidator } from '../../../helpers/form.va
 // action
 import { ProfileActions } from '../../../actions/profile.action';
 import { AuthActions } from '../../../actions/auth.action';
-import { SharedActions } from '../../../actions/shared.action';
 
 import { ToastrService } from 'ngx-toastr';
-
 import { initialProfileTag, ProfileCard } from '../../../models/profile.model';
 
 // rx
@@ -88,7 +84,6 @@ export class ProfileSliderComponent implements OnInit {
   @ViewChild('followingModal') followingModal: Modal;
 
   constructor(
-    private http: Http,
     public modalService: ModalService,
     private fb: FormBuilder,
     private profileUpdateValidator: ProfileUpdateValidator,
@@ -148,18 +143,6 @@ export class ProfileSliderComponent implements OnInit {
           this.isOwner = false;
         }
       }
-      // if(state.network_sent_request_success){
-      //   console.log(state.network_sent_request_success)
-      //   if(state.network_sent_request_success.SUCCESS){
-      //     this.toastr.success('You have successfully sent a request!');
-      //   }
-      // }
-      // if(state.network_sent_request_fail){
-      //   console.log(state.network_sent_request_fail)
-      //   if(state.network_sent_request_fail.code === '0'){
-      //     this.toastr.error('You have already sent a request')
-      //   }
-      // }
 
     });
 
@@ -176,14 +159,6 @@ export class ProfileSliderComponent implements OnInit {
       .subscribe(model => {
         this.profileStore.dispatch({ type: AuthActions.SEARCH_SKILL, payload: model });
       });
-
-
-    // this.profileStore.select('profileTags')
-    //   .first(profile => profile['profile_other'].handle )
-    //   .subscribe( data => {
-    //     this.isFollowing = data['profile_other'].extra.isFollowing;
-    //     this.followers = data['profile_other'].followersCount;
-    //   });
   }
 
   disableFollowForSelf(username: string) {
@@ -295,7 +270,7 @@ export class ProfileSliderComponent implements OnInit {
   /** 
    * open report modal
   */
-  reportModalOpen(){
+  reportModalOpen() {
     this.modalService.open('reportPopUp');
     this.profileStore.dispatch({ type: ProfileActions.PROFILE_REPORT, payload: 'profile' });
     // this.profileStore.select('profileTags')
@@ -685,7 +660,7 @@ export class ProfileSliderComponent implements OnInit {
  }
 
  openMsg(val: string) {
-  if(val === 'personalMessage'){
+  if (val === 'personalMessage') {
    this.showThis = true;
   } else {
     this.showThis = false;

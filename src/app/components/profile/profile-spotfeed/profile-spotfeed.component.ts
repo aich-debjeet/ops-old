@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
 import { DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { UserSpotfeeds } from '../../../models/user-spotfeed.model';
@@ -25,7 +24,6 @@ export class ProfileSpotfeedComponent implements OnInit {
   baseUrl: String;
 
   constructor(
-    private http: Http,
     private store: Store<UserSpotfeeds>
   ) {
 

@@ -1,14 +1,12 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { environment } from './../../../environments/environment';
 import { Router } from '@angular/router';
-import { initialMedia, Media } from '../../models/media.model';
+import { Media } from '../../models/media.model';
 import { MediaActions } from '../../actions/media.action';
 
 import { TruncatePipe } from '../../pipes/truncate.pipe';
 
 // rx
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
 import FilesHelper from '../../helpers/fileUtils';

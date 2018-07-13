@@ -82,61 +82,6 @@
                             <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                 <img [src]="baseUrl + 'img/svg/ico_share.svg'" class="o-profile__nav--img">
                             </a>
-                            <!-- <div class="dropdown-menu dropdown-menu-right o-share__profile p-16">
-                                <div class="o-share__arrow"><img src="img/arrow.png"></div>
-                                <div class="c-text_md p-b-8">Share this Profile</div>
-                                <div class="c-invite--search m-0">
-                                    <form class="fill-grey-light">
-                                        <div class="c-form__group c-form--sm c-form--noeffect c-form__faded--sm">
-                                            <input class="c-form__input p-l-24" required="" type="text">
-                                            <label class="p-l-16">Input with icon</label>
-                                            <span>
-                                            <img src="img/svg/ico_search.svg" class="c-form__input--lefticon">
-                                        </span>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="o-share__recent m-t-b-16">Recent Contacts</div>
-                                <div class="c-invite__block">
-                                    <a class="c-user__avatar c-avatar--status">
-                                        <img src="img/new/avatar.png" class="o-share__avatar">
-                                    </a>
-                                    <a class="c-text_md c-invite--user">Seth Chevz1</a>
-                                </div>
-                                <div class="c-invite__block">
-                                    <a class="c-user__avatar c-avatar--status">
-                                        <img src="img/new/avatar2.png" class="o-share__avatar">
-                                    </a>
-                                    <a class="c-text_md c-invite--user">Seth Chevz2</a>
-                                </div>
-                                <div class="c-invite__block">
-                                    <a class="c-user__avatar c-avatar--status">
-                                        <img src="img/new/avatar3.png" class="o-share__avatar">
-                                    </a>
-                                    <a class="c-text_md c-invite--user">Seth Chevz3</a>
-                                </div>
-                                <div class="c-invite__block">
-                                    <a class="c-user__avatar c-avatar--status">
-                                        <img src="img/new/avatar2.png" class="o-share__avatar">
-                                    </a>
-                                    <a class="c-text_md c-invite--user">Seth Chevz4</a>
-                                </div>
-
-                                <div class="o-share__social">
-                                    <div class="o-share__social-icon p-l-0">
-                                        <img src="img/svg/googleplus.svg">
-                                    </div>
-                                    <div class="o-share__social-icon">
-                                        <img src="img/svg/twitter.svg">
-                                    </div>
-                                    <div class="o-share__social-icon">
-                                        <img src="img/svg/facebook.svg">
-                                    </div>
-                                    <div class="o-share__social-icon p-r-0">
-                                        <img src="img/svg/envelope.svg">
-                                    </div>
-                                </div>
-                            </div> -->
                         </li>
                         <!-- <li class="list-line-item" *ngIf="this.isOwner">
                             <a (click)="profileEdit()" data-toggle="modal" data-target="#edit_profile_pop">
@@ -337,7 +282,7 @@
                 <div class="donation_content">
                     <h2>Support<br>Coming Soon</h2>
                     <div class="donation_illustration">
-                        <img src="https://d33wubrfki0l68.cloudfront.net/d652cd5f626ee7982b86e0eff837e8d9de21c71f/d59d4/img/svg/asset2.svg" alt="">
+                        <img [src]="baseUrl + 'img/svg/asset2.svg'" alt="">
                     </div>
                     <div class="donation_msg">
                         <p>
@@ -398,42 +343,6 @@
                             </label>
                             
                         </div>
-                            <!-- <form>
-                                <div class="c-form__group c-form--lg">
-                                    <select class="c-form-control p-l-0">
-                                <option>Want to hire</option>
-                                <option>Select list 2</option>
-                                <option>Select list 3</option>
-                                <option>Select list 4</option>
-                            </select>
-                                </div>
-                                <div class="c-form__group c-form--lg">
-                                    <textarea class="c-form__input" required="" rows="2" cols="10"></textarea>
-                                    <span class="c-form__highlight"></span>
-                                    <span class="c-form__bar"></span>
-                                    <label>Note</label>
-                                </div>
-                                <div class="c-form__group c-form--lg">
-                                    <input class="c-form__input" required="" type="text">
-                                    <span class="c-form__highlight"></span>
-                                    <span class="c-form__bar"></span>
-                                    <label>Location</label>
-                                </div>
-                                <div class="m-t-24">
-                                    <a href="" class="btn btn-default btn-md">
-                                        <span class="btn-label-icon m-r-5">
-                            </span> add attachment
-                                    </a>
-                                </div>
-                                <div class="c-form__check m-t-24">
-                                    <label for="people">
-                                <input id="people" type="checkbox"> I confirm that i would like to work and this is not a random connection request.
-                            </label>
-                                </div>
-                                <div class="col-md-12 text-center m-t-24">
-                                    <button type="button" class="btn btn-primary btn-md">Network</button>
-                                </div>
-                            </form> -->
                         </div>
                         <p *ngIf="error && netform.submitted" class="error_alert text-center"> 
                             Selection of either of the two options is mandatory 
@@ -484,7 +393,7 @@
                         </a>
                         <!-- <button type="button" class="btn btn-primary btn-sm m-t-8">follow</button> -->
                         <div *ngIf="follower?.extra.isImported; else not_imported">
-                            <button routerLink="{{ '/profile/u/' + follower?.extra?.username }}" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
+                            <button [routerLink]="'/profile/u/' + follower?.extra?.username" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
                                 <span class="btn-label-follow"> CLAIM </span>
                             </button>
                         </div>
@@ -528,7 +437,7 @@
             <div (scroll)="onFollowingScroll($event)" *ngIf="showPreloader === false && followingProfiles.length > 0" id="ops_scrollbar" class="o-following__container">
                 <ul class="o-follow-people">
                     <li *ngFor="let follower of followingProfiles" class="o-follow-people__list">
-                        <a routerLink="{{ '/profile/u/' + follower?.extra?.username }}">
+                        <a [routerLink]="'/profile/u/' + follower?.extra?.username">
                             <div class="o-follow-people__avatar">
                                 <img [src]="baseUrl + follower?.profileImage" alt="">
                             </div>
@@ -539,7 +448,7 @@
                         </a>
                         <!-- <button type="button" class="btn btn-primary btn-sm m-t-8">follow</button> -->
                         <div *ngIf="follower?.extra.isImported; else not_imported">
-                            <button routerLink="{{ '/profile/u/' + follower?.extra?.username }}" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
+                            <button [routerLink]="'/profile/u/' + follower?.extra?.username" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
                                 <span class="btn-label-follow"> CLAIM </span>
                             </button>
                         </div>

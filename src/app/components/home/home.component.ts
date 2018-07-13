@@ -1,7 +1,7 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, Inject } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Channel } from '../../models/home.model';
-import { NguCarousel, NguCarouselStore } from '@ngu/carousel';
+import { NguCarousel } from '@ngu/carousel';
 
 import { PLATFORM_ID } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
@@ -16,7 +16,7 @@ import { environment } from '../../../environments/environment';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription, ISubscription } from 'rxjs/Subscription';
+import { ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-home',
@@ -41,7 +41,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId: Object, meta: Meta, title: Title,
+    private title: Title,
+    private meta: Meta,
     private store: Store<Channel>,
     private profileStore: Store<ProfileModal>,
     private metaService: Meta
@@ -59,18 +60,16 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS });
 
-    title.setTitle('OPS - Home page');
-    meta.addTags([
-      { name: 'keywords', content: 'dance, dance world cup 2017, dwc, dance world cup india, asia, world, dance competition, competition, dwc info, phoenix marketcity, bangalore, one page soptlight dance, dance world cup qualifiers, qualifiers'},
-      { name: 'description', content: 'OPS' },
-      { name: 'og:image', content: 'https://cdn.onepagespotlight.com/img/landing/logobetawhite.svg' },
-    ]);
-    this.metaShow = meta;
   }
 
   ngOnInit() {
     // console.log(document.body.scrollTop);
     // document.body.scrollTop = 0;
+    // this.title.setTitle('Home / Angular SSR');
+    // this.meta.updateTag({
+    //     'description': 'Welcome to home section'
+    // });
+
     window.scrollTo(0, 0);
     this.carouselOne = {
       grid: {xs: 3, sm: 3, md: 10, lg: 10, all: 0},

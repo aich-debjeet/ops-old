@@ -5,9 +5,9 @@
   <div class="view-port-modal-content">
       <div class="modal-body p-0">
           <div class="col-md-7 c-portmodal__imgblock">
-            <app-videplayer [play]="'true'" *ngIf="checkFileType(viewMediaDetails?.mediaRepoPath, 'Video')" src="{{ baseImageUrl + viewMediaDetails?.mediaRepoPath }}"></app-videplayer>
-            <img *ngIf="checkFileType(viewMediaDetails?.mediaRepoPath, 'Image')" src="{{ baseImageUrl + viewMediaDetails?.mediaRepoPath }}" class="c-portmodal__img">
-            <app-audioplayer *ngIf="checkFileType(viewMediaDetails?.mediaRepoPath, 'Audio')" src="{{ baseImageUrl + viewMediaDetails?.mediaRepoPath }}"></app-audioplayer>
+            <app-videplayer [play]="'true'" *ngIf="checkFileType(viewMediaDetails?.mediaRepoPath, 'Video')" [src]="baseImageUrl + viewMediaDetails?.mediaRepoPath"></app-videplayer>
+            <img *ngIf="checkFileType(viewMediaDetails?.mediaRepoPath, 'Image')" [src]="baseImageUrl + viewMediaDetails?.mediaRepoPath" class="c-portmodal__img">
+            <app-audioplayer *ngIf="checkFileType(viewMediaDetails?.mediaRepoPath, 'Audio')" [src]="baseImageUrl + viewMediaDetails?.mediaRepoPath"></app-audioplayer>
           </div>
           <div class="col-md-5">
               <div class="c-portmodal__text">{{ viewMediaDetails?.mediaDescription }}</div>

@@ -1,10 +1,8 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
-import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
-
-import { Http, Headers, Response } from '@angular/http';
+import { Component } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { environment } from './../../../environments/environment';
 
 // Action
-import { MediaActions } from '../../actions/media.action';
 import { initialMedia, Media } from '../../models/media.model';
 // rx
 import { Observable } from 'rxjs/Observable';
@@ -32,6 +30,7 @@ export class CreateChannelComponent {
   profileChannel = initialTag ;
   channelType: number;
   handle: string;
+  imageLink: string = environment.API_IMAGE;
 
   constructor(
     private fb: FormBuilder,

@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { environment } from './../../../environments/environment';
 import { DatePipe } from '@angular/common';
-import * as moment from 'moment';
 import { Router } from '@angular/router';
 import {ActivatedRoute} from '@angular/router';
 
@@ -35,8 +34,6 @@ export class CommentListComponent implements OnInit {
   }
 
   onContentSaved(content) {
-    //console.log('content', content)
-    //console.log(this.messageText)
     this.isEdit = false;
     this.commentEdited.next(this.messageText);
   }
@@ -48,10 +45,10 @@ export class CommentListComponent implements OnInit {
     if (this.commentData.isOwner) {
       this.router.navigate([{ outlets: { media: null } }])
       .then(() => this.router.navigate(['/profile/user/']));
-    }
-    else this.router.navigate([{ outlets: { media: null } }])
-    .then(() => this.router.navigate(['/profile/u/' + this.commentData.ownerUserName]));
-
+    }else {
+      this.router.navigate([{ outlets: { media: null } }])
+      .then(() => this.router.navigate(['/profile/u/' + this.commentData.ownerUserName]));
+   }
   }
 
 }

@@ -1,8 +1,8 @@
 <div class="o-people-result__prof-pic" routerLink="{{ '/profile/u/' + artist?.extra?.username }}">
     <a routerLink="{{ '/profile/u/' + artist?.extra?.username }}" class="c-artist__avatar">
-        <img *ngIf="artist?.physical?.profileImages?.profileImage_medium; else default_profile_image" src="{{ baseUrl + artist?.physical?.profileImages?.profileImage_medium }}" class="c-artist__img">
+        <img *ngIf="artist?.physical?.profileImages?.profileImage_medium; else default_profile_image" [src]="baseUrl + artist?.physical?.profileImages?.profileImage_medium" class="c-artist__img">
         <ng-template #default_profile_image>
-            <img src="{{ baseUrl }}img/avatar.png" class="c-artist__img">
+            <img [src]="baseUrl + 'img/avatar.png'" class="c-artist__img">
         </ng-template>
     </a>
 </div>

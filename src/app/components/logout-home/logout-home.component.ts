@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy, Inject  } from '@angular/core';
-import { FooterComponent } from './../../shared/footer/footer.component';
 import { Store } from '@ngrx/store';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router } from '@angular/router';
 import { NguCarousel, NguCarouselStore } from '@ngu/carousel';
 
 import { ProfileModal, initialTag, ProfileCard } from '../../models/profile.model';

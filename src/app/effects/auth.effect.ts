@@ -18,6 +18,15 @@ import { AuthActions } from '../actions/auth.action';
 @Injectable()
 export class AuthEffect {
   @Effect()
+  signupSkillSearch$ = this.actions$
+    .ofType(AuthActions.SIGNUP_SEARCH_SKILL)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.signupSkillSearch(payload)
+      .map(res => ({ type: AuthActions.SIGNUP_SEARCH_SKILL_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.SIGNUP_SEARCH_SKILL_FAILED, payload: res }))
+    );
+
+  @Effect()
   authenticateToken$ = this.actions$
     .ofType(AuthActions.USER_AUTHENTICATED)
     .map(toPayload)
