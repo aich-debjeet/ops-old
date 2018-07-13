@@ -2,7 +2,7 @@
     <div class="right_container">
         <div class="reg_steps_logo">
             <a href="index.html">
-                <img src="{{ imageBaseLink }}img/logo_white.svg" alt="One Page Spotlight">
+                <img [src]="imageBaseLink + 'img/logo_white.svg'" alt="One Page Spotlight">
             </a>
         </div>
         <h2 class="text-center">{{rightCom.mainTitle}}</h2>
@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="reg_graph_illustration">
-            <img src="{{rightCom.img}}" alt="">
+            <img [src]="rightCom.img" alt="">
         </div>
         <p>{{rightCom.description}}</p>
         <p *ngIf="rightCom.loginLink && rightCom.button_text == 'Login'">Already a member? <a routerLink="{{rightCom.button_link}}" >{{rightCom.button_text}}</a></p>

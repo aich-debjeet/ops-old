@@ -1,26 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
 import { DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { UserChannel } from '../../../models/user-channel.model';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 
 // action
-// import { ProfileActions } from '../../../actions/profile.action';
-import { HomeActions } from '../../../actions/home.action';
-import { SharedActions } from '../../../actions/shared.action';
+import { ProfileActions } from '../../../actions/profile.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription, ISubscription } from 'rxjs/Subscription';
+import { ISubscription } from 'rxjs/Subscription';
 
-import { TabsetComponent  } from '../../../shared/tabs/tabset';
-import { ProfileActions } from '../../../actions/profile.action';
-
-// load channel component
-import { ChannelComponent } from '../../../shared/channel/channel.component';
-
-import { ApiService } from '../../../helpers/api.service';
 
 @Component({
   selector: 'app-home-channel',
@@ -50,7 +39,6 @@ export class HomeChannelComponent implements OnInit, OnDestroy {
   channel_load: boolean;
 
   constructor(
-    private http: Http,
     private store: Store<ProfileModal>
   ) {
 

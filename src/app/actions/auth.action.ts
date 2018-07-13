@@ -3,6 +3,10 @@ import { Login, Register, RegisterProfile } from '../models/auth.model';
 
 export class AuthActions {
 
+  static SIGNUP_SEARCH_SKILL = 'SIGNUP_SEARCH_SKILL';
+  static SIGNUP_SEARCH_SKILL_SUCCESS = 'SIGNUP_SEARCH_SKILL_SUCCESS';
+  static SIGNUP_SEARCH_SKILL_FAILED = 'SIGNUP_SEARCH_SKILL_FAILED';
+
   static USER_LOGIN = 'USER_LOGIN';
   static USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
   static USER_LOGIN_FAILED = 'USER_LOGIN_FAILED';

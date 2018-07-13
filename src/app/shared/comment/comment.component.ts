@@ -1,12 +1,11 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { initialMedia, Media } from '../../models/media.model';
 import { environment } from './../../../environments/environment';
-
 import { MediaActions } from '../../actions/media.action';
 import { ProfileActions } from '../../actions/profile.action';
+
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
 @Component({

@@ -97,7 +97,7 @@ export class OpportunityInternshipComponent implements OnInit, OnDestroy {
       internshipIndustry: [this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'industry']) ? data['opportunityInternship']['industry'] : '', [Validators.required]],
       internshipExperienceFrom: [this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'experience', 'from']) ? data['opportunityInternship']['experience']['from'] : '', [Validators.required]],
       internshipExperienceTo: [this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'experience', 'to']) ? data['opportunityInternship']['experience']['to'] : '', [Validators.required]],
-      internshipSalaryAmount: [this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'salary', 'amount_from']) ? data['opportunityInternship']['salary']['amount_from'] : '', [Validators.required]],
+      internshipSalaryAmount: [this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'salary', 'amount']) ? data['opportunityInternship']['salary']['amount'] : '', [Validators.required]],
       internshipSalaryDuration: [this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'salary', 'salaryType']) ? data['opportunityInternship']['salary']['salaryType'] : '', [Validators.required]],
       internshipSalaryCurrency: [this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'salary', 'currency']) ? data['opportunityInternship']['salary']['currency'] : '', [Validators.required]],
       internshipDuration: [this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'duration']) ? data['opportunityInternship']['duration'] : '', [Validators.required]],
@@ -152,6 +152,7 @@ export class OpportunityInternshipComponent implements OnInit, OnDestroy {
       }
     }
     this.oppSubmitting = true;
+    this.internshipAttachments = [];
     this.formSubmitted.emit(reqBody);
   }
 

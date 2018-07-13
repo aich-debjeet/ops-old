@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Modal } from '../modal-new/Modal';
 import { environment } from '../../../environments/environment';
 
 @Component({

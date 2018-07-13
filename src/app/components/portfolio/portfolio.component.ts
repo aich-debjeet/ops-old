@@ -93,18 +93,18 @@ export class PortfolioComponent implements OnInit, OnDestroy {
             this.isEmptyCategory = false;
           }
         }
-        // console.log('isEmptyPortfolio', this.isEmptyPortfolio);
-        // console.log('isEmptyCategory', this.isEmptyCategory);
         if (this.generalUtils.checkNestedKey(state, ['portfolio_user_profile'])) {
           this.userProfile = state['portfolio_user_profile'];
           const loggedInProfileHandle = localStorage.getItem('loggedInProfileHandle');
-          if (typeof this.ownProfile === 'undefined' && loggedInProfileHandle) {
+          // if (typeof this.ownProfile === 'undefined' && loggedInProfileHandle) {
+          if (loggedInProfileHandle) {
             if (state['portfolio_user_profile']['handle'] === loggedInProfileHandle) {
               this.ownProfile = true;
             } else {
               this.ownProfile = false;
             }
           }
+          // console.log('this.ownProfile', this.ownProfile);
         }
         if (this.generalUtils.checkNestedKey(state, ['get_users_channels_result'])) {
           this.channels = state['get_users_channels_result'];

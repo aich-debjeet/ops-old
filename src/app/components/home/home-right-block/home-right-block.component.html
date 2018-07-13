@@ -1,6 +1,5 @@
 <!-- right home feed -->
 <div class="col-md-3 col-xs-12 p-0">
-
     <!-- communities -->
     <div class="c-card m-t-8" >
         <div class="c-text_md p-16 color-grey-dark f-w_600 text_uppercase ltr-space">People to follow</div>
@@ -10,7 +9,7 @@
                     <a class="c-user__avatar c-avatar--status">
                         <img *ngIf="profileItem?.physical?.profileImages?.profileImage_medium" class="c-user__image" [src]="baseUrl + profileItem?.physical?.profileImages?.profileImage_medium" width="24px" />
                     </a>
-                    <a class="c-text_md c-invite--user" routerLink="/profile/u/{{ profileItem?.extra?.username }}">{{ profileItem?.name | truncate:[10, '...']}}</a>
+                    <a class="c-text_md c-invite--user" [routerLink]="'/profile/u/' + profileItem?.extra?.username">{{ profileItem?.name | truncate:[10, '...']}}</a>
                     <div class="c-invite--btn">
                         <!-- <button type="button" (click)="followUser(profileItem)" *ngIf="!profileItem.extra.isFollowing" class="btn btn-default btn-sm" [disabled]="disableFollowForSelf(profileItem?.extra?.username)">FOLLOW</button>
                         <button type="button" (click)="unfollowUser(profileItem)" *ngIf="profileItem.extra.isFollowing" class="btn btn-default btn-sm" [disabled]="disableFollowForSelf(profileItem?.extra?.username)">UNFOLLOW</button> -->
@@ -21,7 +20,6 @@
             </div>
         </div>
     </div>
-    <!-- people to follow end -->
     <br>
 
     <div class="c-card">
@@ -49,4 +47,3 @@
         </ng-template>
     </div>
 </div>
-<!-- //right home feed -->

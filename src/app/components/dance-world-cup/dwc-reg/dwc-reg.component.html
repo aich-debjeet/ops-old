@@ -112,7 +112,7 @@
                     <div class="col-md-1 p-0" *ngIf="i > 0">
                         <div class="o-form-trash m-t-8">
                             <div class="o-form-trash__ico" (click)="eventForm.get('team_member').removeAt(i)">
-                                <img src="{{ imageBaseUrl }}img/svg/delete.svg">
+                                <img [src]="imageBaseUrl + 'img/svg/delete.svg'">
                             </div>
                         </div>
                     </div>
@@ -120,7 +120,7 @@
                 </div>
 
                 <a (click)="pushMember()" class="o-dwc-form-add">
-                    <span class="o-dwc-form-add__icon"><img src="{{ imageBaseUrl }}img/svg/plus-red.svg" alt=""></span>
+                    <span class="o-dwc-form-add__icon"><img [src]="imageBaseUrl + 'img/svg/plus-red.svg'" alt=""></span>
                     <span class="c-text_md m-l-8 float_left color-theme">Add more</span>
                 </a>
                 <div class="col-md-12 m-t-b-24 text-center float_left width_100">

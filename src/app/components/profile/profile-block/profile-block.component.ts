@@ -1,27 +1,24 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
 import { DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
-import { Router, ActivatedRoute, RoutesRecognized } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '../../../../environments/environment';
 import { OpportunityModel } from '../../../models/opportunity.model';
 import { EventActions } from '../../../actions/event.action';
 
 // action
 import { ProfileActions } from '../../../actions/profile.action';
-import { SharedActions } from '../../../actions/shared.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription, ISubscription } from 'rxjs/Subscription';
+import { ISubscription } from 'rxjs/Subscription';
 
-import { TabComponents  } from '../../../shared/tabs/tabset';
 import { ProfileHelper } from '../../../helpers/profile.helper';
 
-import { NguCarousel, NguCarouselStore } from '@ngu/carousel';
+import { NguCarousel } from '@ngu/carousel';
 import { GeneralUtilities } from '../../../helpers/general.utils';
-import { EventModal, initialTagEve  } from '../../../models/event.model';
+import { EventModal } from '../../../models/event.model';
 import { OpportunityActions } from '../../../actions/opportunity.action';
 
 import { every as _every } from 'lodash';
@@ -60,7 +57,6 @@ export class ProfileBlockComponent implements OnInit, OnDestroy {
   recordsPerPage = 2;
 
   constructor(
-    private http: Http,
     private _router: Router,
     public route: ActivatedRoute,
     private utils: ProfileHelper,

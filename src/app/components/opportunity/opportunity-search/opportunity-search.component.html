@@ -7,8 +7,9 @@
 	  	<form action="">
         <input #searchQueryElement #searchInput="ngModel" type="text" [ngModel]="searchString" [ngModelOptions]="{standalone: true}" class="o-opp-search__input" placeholder="Search opportunities">
         <select (change)="selectIndustryFilter($event.target.value)" class="c-form-control o-opp-search__select m-0" [ngModel]="insdustryType" [ngModelOptions]="{standalone: true}">
-		  <option value="" [selected]="industryCount?.length === 0">Industry</option>
-		  <option *ngFor="let industry of industryCount" [value]="industry.name" >{{ industry.name }} ( {{ industry.count }} )</option>
+		  <option value="" [selected]="industries?.length === 0">Industry</option>
+		  <!-- <option *ngFor="let industry of industries" [value]="industry.name" >{{ industry.name }} ( {{ industry.count }} )</option> -->
+		  <option *ngFor="let industry of industries" [value]="industry.name" >{{ industry.name }}</option>
         </select>
         <div class="o-opp-search__icon">
 			<img *ngIf="!isSearching" [src]="baseUrl + 'img/svg/ico_search.svg'" class="search-spinner">
@@ -26,7 +27,7 @@
 				  	</span>
 				  	<span class="o-quicklink__title">
 				  		<p class="c-text_lg">Audition</p>
-				  		<p *ngIf="opportunitiesCount.Audition" class="c-text_sm color-grey-dark">{{ opportunitiesCount.Audition }} Oppurtunities</p>
+				  		<p *ngIf="opportunitiesCount.Audition" class="c-text_sm color-grey-dark">{{ opportunitiesCount.Audition }} Opportunities</p>
 				  	</span>
 				  	<span class="o-quicklink__title-show">
 				  		<p class="c-text_md color-theme">Audition</p>
@@ -41,7 +42,7 @@
 				  	</span>
 				  	<span class="o-quicklink__title">
 				  		<p class="c-text_lg">Projects</p>
-				  		<p *ngIf="opportunitiesCount.Projects" class="c-text_sm color-grey-dark">{{ opportunitiesCount.Projects }} Oppurtunities</p>
+				  		<p *ngIf="opportunitiesCount.Projects" class="c-text_sm color-grey-dark">{{ opportunitiesCount.Projects }} Opportunities</p>
 				  	</span>
 				  	<span class="o-quicklink__title-show">
 				  		<p class="c-text_md color-theme">Projects</p>
@@ -56,7 +57,7 @@
 				  	</span>
 				  	<span class="o-quicklink__title">
 				  		<p class="c-text_lg">Jobs</p>
-				  		<p *ngIf="opportunitiesCount.Jobs" class="c-text_sm color-grey-dark">{{ opportunitiesCount.Jobs }} Oppurtunities</p>
+				  		<p *ngIf="opportunitiesCount.Jobs" class="c-text_sm color-grey-dark">{{ opportunitiesCount.Jobs }} Opportunities</p>
 				  	</span>
 				  	<span class="o-quicklink__title-show">
 				  		<p class="c-text_md color-theme">Jobs</p>
@@ -71,7 +72,7 @@
 				  	</span>
 				  	<span class="o-quicklink__title">
 				  		<p class="c-text_lg">Internship</p>
-				  		<p *ngIf="opportunitiesCount.Internship" class="c-text_sm color-grey-dark">{{ opportunitiesCount.Internship }} Oppurtunities</p>
+				  		<p *ngIf="opportunitiesCount.Internship" class="c-text_sm color-grey-dark">{{ opportunitiesCount.Internship }} Opportunities</p>
 				  	</span>
 				  	<span class="o-quicklink__title-show">
 				  		<p class="c-text_md color-theme">Internship</p>
@@ -86,7 +87,7 @@
 				  	</span>
 				  	<span class="o-quicklink__title">
 				  		<p class="c-text_lg">Freelance</p>
-				  		<p *ngIf="opportunitiesCount.Freelance" class="c-text_sm color-grey-dark">{{ opportunitiesCount.Freelance }} Oppurtunities</p>
+				  		<p *ngIf="opportunitiesCount.Freelance" class="c-text_sm color-grey-dark">{{ opportunitiesCount.Freelance }} Opportunities</p>
 				  	</span>
 				  	<span class="o-quicklink__title-show">
 				  		<p class="c-text_md color-theme">Freelance</p>
@@ -101,7 +102,7 @@
 				  	</span>
 				  	<span class="o-quicklink__title">
 				  		<p class="c-text_lg">Volunteer</p>
-				  		<p *ngIf="opportunitiesCount.Volunteer" class="c-text_sm color-grey-dark">{{ opportunitiesCount.Volunteer }} Oppurtunities</p>
+				  		<p *ngIf="opportunitiesCount.Volunteer" class="c-text_sm color-grey-dark">{{ opportunitiesCount.Volunteer }} Opportunities</p>
 				  	</span>
 				  	<span class="o-quicklink__title-show">
 				  		<p class="c-text_md color-theme">Volunteer</p>
@@ -173,10 +174,17 @@
   			</ul>
   		</div>
   	</div><!-- filter section end -->
-		<div class="tab-content m-r--8 m-l--8" *ngIf="!isSearching">
-			<app-opportunity-search-recommended *ngIf="searchType === 'recommended'"></app-opportunity-search-recommended>
-			<app-opportunity-search-applied 	*ngIf="searchType === 'applied'"></app-opportunity-search-applied>
-			<app-opportunity-search-created 	*ngIf="searchType === 'created'"></app-opportunity-search-created>
+		<div class="tab-content m-r--8 m-l--8"
+			infiniteScroll
+			[infiniteScrollDistance]="2"
+			[infiniteScrollThrottle]="1000"
+			(scrolled)="loadMore($event)">
+			<app-opportunity-search-recommended *ngIf="searchType === 'recommended'" [opportunities]="opportunities"></app-opportunity-search-recommended>
+			<app-opportunity-search-applied 	*ngIf="searchType === 'applied'" 	 [opportunities]="opportunities"></app-opportunity-search-applied>
+			<app-opportunity-search-created 	*ngIf="searchType === 'created'" 	 [opportunities]="opportunities"></app-opportunity-search-created>
+		</div>
+		<div *ngIf="!showPreloader && opportunities && opportunities.length === 0">
+			<p class="result-not-found">No records found!</p>
 		</div>
 		<!-- search prelaoder -->
 		<div *ngIf="showPreloader">

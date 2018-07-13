@@ -21,6 +21,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ScrollHelper } from '../../../helpers/scroll.helper';
 import { GeneralUtilities } from '../../../helpers/general.utils';
 import * as _ from 'lodash';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-opportunity-search',
@@ -32,22 +33,18 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
   @ViewChild('searchInput') searchInput;
   @ViewChild('searchQueryElement') searchQueryElement;
   private oppsSub: ISubscription;
+  private loginSub: ISubscription;
   routeSub: any;
   opportunityState$: any;
   opportunityState: any;
+  loginState: Observable<any>;
   searchString = '';
   // default search type
   searchType = 'recommended';
   isSearching = false;
-  opportunitiesCount = {
-    Audition: '0',
-    Projects: '0',
-    Jobs: '0',
-    Internship: '0',
-    Volunteer: '0',
-    Freelance: '0'
-  };
-  industryCount = [];
+  opportunitiesCount: any;
+  // industryCount = [];
+  industries = [];
   globalFilter = [];
   showPreloader = false;
   baseUrl = environment.API_IMAGE;
@@ -60,7 +57,8 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
     private route: ActivatedRoute,
     private scrollHelper: ScrollHelper,
     private store: Store<OpportunityModel>,
-    private generalUtils: GeneralUtilities
+    private generalUtils: GeneralUtilities,
+    private loginStore: Store<any>,
   ) {
     // state listener
     this.opportunityState$ = this.store.select('opportunityTags');
@@ -81,6 +79,13 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
         }
       }
     });
+    this.loginState = this.loginStore.select('loginTags');
+    this.loginSub = this.loginState.subscribe((state) => {
+      if (state['industries'] && state['industries'] !== 'undefined') {
+        this.industries = state['industries'];
+      }
+    });
+    this.resetOppsTypeCount();
   }
 
   // trigger opps search action
@@ -109,30 +114,49 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
         // for opportunity type filter
         if (filterList[i]['title'] === 'OPPORTUNITY_TYPE') {
           if (filterList[i].hasOwnProperty('filters')) {
-            for (let j = 0; j < filterList[i].filters.length; j++) {
-              if (filterList[i].filters[j].hasOwnProperty('name') && filterList[i].filters[j].hasOwnProperty('count')) {
-                const oppType = this.generalUtils.capitalizeFirstLetter(filterList[i].filters[j].name);
-                this.opportunitiesCount[oppType] = filterList[i].filters[j].count;
+            if (filterList[i].filters.length > 0) {
+              for (let j = 0; j < filterList[i].filters.length; j++) {
+                if (filterList[i].filters[j].hasOwnProperty('name') && filterList[i].filters[j].hasOwnProperty('count')) {
+                  const oppType = this.generalUtils.capitalizeFirstLetter(filterList[i].filters[j].name);
+                  this.opportunitiesCount[oppType] = filterList[i].filters[j].count;
+                }
               }
+            } else {
+              this.resetOppsTypeCount();
             }
           }
           // console.log('this.opportunitiesCount', this.opportunitiesCount);
         }
-        // for industry filter
-        if (filterList[i]['title'] === 'INDUSTRY') {
-          if (filterList[i].hasOwnProperty('filters')) {
-            this.industryCount = [];
-            for (let j = 0; j < filterList[i].filters.length; j++) {
-              if (filterList[i].filters[j].hasOwnProperty('name') && filterList[i].filters[j].hasOwnProperty('count')) {
-                this.industryCount.push(filterList[i].filters[j]);
-              }
-            }
-          }
-          // console.log('this.industryCount', this.industryCount);
-        }
+        // // for industry filter
+        // if (filterList[i]['title'] === 'INDUSTRY') {
+        //   if (filterList[i].hasOwnProperty('filters')) {
+        //     this.industryCount = [];
+        //     for (let j = 0; j < filterList[i].filters.length; j++) {
+        //       if (filterList[i].filters[j].hasOwnProperty('name') && filterList[i].filters[j].hasOwnProperty('count')) {
+        //         this.industryCount.push(filterList[i].filters[j]);
+        //       }
+        //     }
+        //   }
+        //   // console.log('this.industryCount', this.industryCount);
+        // }
       }
     }
   }
+
+  /**
+   * reset opps type count
+   */
+  resetOppsTypeCount() {
+    this.opportunitiesCount = {
+      Audition: '0',
+      Projects: '0',
+      Jobs: '0',
+      Internship: '0',
+      Volunteer: '0',
+      Freelance: '0'
+    };
+  }
+
 
   /**
    * select opportunity filter
@@ -152,7 +176,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
       const params = {
         q: this.searchString,
         type: this.searchType,
-        filters: encodeURIComponent(JSON.stringify(this.globalFilter))
+        filters: true
       };
       this.oppsSearchGetRequest(params);
     }
@@ -173,7 +197,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
       const params = {
         q: this.searchString,
         type: this.searchType,
-        filters: encodeURIComponent(JSON.stringify(this.globalFilter))
+        filters: true
       };
       this.oppsSearchGetRequest(params);
     }
@@ -203,7 +227,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
             searchType: this.searchType,
             searchText: this.searchString
           }
-          if (params.filters && params.filters.length > 0) {
+          if (params.filters && params.filters === 'true') {
             searchOppsParams.filtersMap = this.globalFilter
           }
           this.isSearching = true;
@@ -215,6 +239,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
 
   ngOnDestroy() {
     this.oppsSub.unsubscribe();
+    this.loginSub.unsubscribe();
     this.routeSub.unsubscribe();
   }
 
@@ -244,6 +269,26 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
         this.oppsSearchGetRequest(params);
 
       });
+  }
+
+  loadMore(e: any) {
+    // check if search type is available
+    if (this.searchType.length > 0) {
+      let scrollId = '';
+      if (this.generalUtils.checkNestedKey(this.opportunityState, ['search_opportunities_result', 'scrollId'])) {
+        scrollId = this.opportunityState['search_opportunities_result']['scrollId'];
+      }
+      const searchOppsParams = {
+        limit: this.recordsPerPage,
+        scrollId: scrollId,
+        filtersMap: this.globalFilter,
+        searchType: this.searchType,
+        searchText: this.searchString
+      }
+      this.isSearching = true;
+      this.showPreloader = true;
+      this.store.dispatch({ type: OpportunityActions.SEARCH_OPPORTUNITIES, payload: searchOppsParams });
+    }
   }
 
 }

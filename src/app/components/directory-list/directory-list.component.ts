@@ -2,9 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag  } from '../../models/profile.model';
-
-import { ModalService } from '../../shared/modal/modal.component.service';
-
 import { environment } from '../../../environments/environment';
 
 // action
@@ -13,7 +10,7 @@ import { SharedActions } from '../../actions/shared.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription, ISubscription } from 'rxjs/Subscription';
+import { ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-directory-list',

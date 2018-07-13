@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { Observable } from 'rxjs/Observable';
-
 import { ProfileActions } from '../../../actions/profile.action';
-import { filter as _filter } from 'lodash';
-
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -26,7 +22,7 @@ export class ProfileNetworkComponent implements OnInit {
   constructor(
     private profileStore: Store<ProfileModal>,
     private toastr: ToastrService
-  ) { 
+  ) {
     this.tagState$ = this.profileStore.select('profileTags');
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
