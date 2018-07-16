@@ -53,7 +53,7 @@
                                     <img *ngIf="user?.profileImage !== ''" class="navdrop__img" [src]="imageBaseUrl + user?.profileImage">
                                 </div>
                                 <div class="dropnoti__detail">
-                                    <p class="dropnoti__bold color-grey-darker">{{ user?.name }}</p>
+                                    <p class="dropnoti__bold color-grey-darker">{{ user?.name | truncate:[25, '...'] }}</p>
                                     <p>{{ user?.latestMessage | truncate:[30, '...'] }}</p>
                                 </div>
                                 <p class="msg__time2">{{ user?.time | utcDate | date:'d MMM hh:mm a' }}</p>

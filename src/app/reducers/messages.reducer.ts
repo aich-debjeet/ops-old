@@ -41,8 +41,8 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
         if (msgObj && msgObj !== undefined) {
           // update details
           msgObj.isDeleted = true;
-          msgObj.subject = 'This message was deleted';
-          msgObj.content = 'This message was deleted';
+          msgObj.subject = 'This message has been deleted';
+          msgObj.content = 'This message has been deleted';
           // prepare updated conv list
           conv_list_after_del_msg = [msgObj].concat(conv_list);
           return Object.assign({}, state, {
