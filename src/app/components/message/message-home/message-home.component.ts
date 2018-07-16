@@ -440,6 +440,7 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
 
   deleteMessage(message: any) {
     const delMsg = {
+      messageDetails: message,
       messageId: message.id,
       deleteType: 'for_me'
     }
