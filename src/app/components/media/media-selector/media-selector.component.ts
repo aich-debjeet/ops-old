@@ -802,7 +802,8 @@ export class MediaSelectorComponent implements OnInit {
       lastUpdatedDate: postTime,
       tags : tags,
       extras: {
-        access: Number(privacy)
+        access: Number(privacy),
+        isNsfw: this.isNSFW
       },
       count : {
         likes: [], shares: [], spots: [],
