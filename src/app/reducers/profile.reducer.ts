@@ -1771,6 +1771,11 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         return Object.assign({}, state, {
           reports: []
         });
+
+      case ProfileActions.TRENDING_POST_SUCCESS:
+        return Object.assign({}, state, {
+          trending_post: payload['mediaResponse'][0]
+        });
     // }
 
     // return Object.assign({}, state, {
