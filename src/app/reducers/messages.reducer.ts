@@ -48,14 +48,13 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       const convMsgIndexDel = _.findIndex(conv_list, (obj) => obj.id === payload.messageId);
       if (convMsgIndexDel > -1) {
         // get the message object
-        const msgObj = conv_list[convMsgIndexDel];
-        if (msgObj && msgObj !== undefined) {
+        if (conv_list[convMsgIndexDel] && conv_list[convMsgIndexDel] !== undefined) {
           // update details
-          msgObj.isDeleted = true;
-          msgObj.subject = 'This message has been deleted';
-          msgObj.content = 'This message has been deleted';
+          conv_list[convMsgIndexDel].isDeleted = true;
+          conv_list[convMsgIndexDel].subject = 'This message has been deleted';
+          conv_list[convMsgIndexDel].content = 'This message has been deleted';
           // prepare updated conv list
-          load_conversation_data_updated = [msgObj].concat(conv_list);
+          load_conversation_data_updated = conv_list;
         }
       }
       return Object.assign({}, state, {
