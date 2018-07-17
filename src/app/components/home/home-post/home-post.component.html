@@ -34,7 +34,7 @@
                 <!-- card media (img, video & audio) -->
                 <div class="c-card__media">
                   <a href="javascript:void(0)" data-toggle="modal" data-target="#imgModal">
-                    <img [src]="imageLink + 'img/s05.jpg'" class="c-card__image">
+                    <img [src]="imageLink + trendingPost?.thumbNails?.mediumLarge" class="c-card__image">
                   </a>
                   <!--  <span>
                     <img src="assets/svg/ico_image.svg" alt="" class="c-card__icon">
@@ -65,7 +65,7 @@
                 <!-- card body -->
                 <div class="c-card__body">
                   <div class="c-text_sm">
-                    There are many variations of passages of Lorem Ipsum available, but the majority...
+                    {{ trendingPost?.title}}
                   </div>
                 </div>
                 <!-- //card body -->
@@ -74,11 +74,11 @@
                   <div class="c-links">
                     <div class="c-links__spots">
                       <img [src]="imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
-                      <span class="c-links__count">705</span>
+                      <span class="c-links__count">{{ trendingPost?.spotsCount }}</span>
                     </div>
                     <div class="c-links__comments">
                       <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
-                      <span class="c-links__count">24</span>
+                      <span class="c-links__count">{{ trendingPost?.commentsCount }}</span>
                     </div>
                     <div class="c-links__actions">
                         <span class="c-links__add">

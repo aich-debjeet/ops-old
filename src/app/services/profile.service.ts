@@ -615,4 +615,11 @@ export class ProfileService {
   fetchMediaComment(payload: any) {
     return this.api.get(`/portal/cdn/comment/${payload.media_id}/${payload.commentType}`);
   }
+
+  trendingPost() {
+    const body = {
+      limit: 1
+    }
+    return this.api.post(`/portal/cdn/media/search`, body);
+  }
 }
