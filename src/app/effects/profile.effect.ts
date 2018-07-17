@@ -1021,6 +1021,21 @@ export class ProfileEffect {
       }))
     );
 
+  /**
+   * Trending Post
+   */
+  @Effect()
+  TrandingPost$ = this.actions$
+    .ofType(ProfileActions.TRENDING_POST)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.trendingPost()
+      .map(res => ({ type: ProfileActions.TRENDING_POST_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.TRENDING_POST_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
 
   constructor(
     private toastr: ToastrService,
