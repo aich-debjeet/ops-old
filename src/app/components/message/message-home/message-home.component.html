@@ -100,7 +100,7 @@
                 <ng-container *ngIf="showPreloader === false">
                     <!-- message container -->
                     <!-- <div class="mess_chat_block" #chatWindow [scrollTop]="chatWindow.scrollHeight" -->
-                    <div class="mess_chat_block" id="ops_scrollbar" #chatWindow [scrollTop]="chatWindow.scrollHeight"
+                    <div class="mess_chat_block" id="ops_scrollbar" #chatWindow 
                         infiniteScroll
                         [infiniteScrollDistance]="5"
                         [infiniteScrollThrottle]="50"
@@ -121,6 +121,7 @@
                                                 <i>{{ message?.content }}</i>
                                             </p>
                                             <div *ngIf="message?.isDeleted === false" class="msg_sent_time2">{{ message?.time | utcDate | date:'d MMM hh:mm a' }}</div>
+                                            <div *ngIf="message?.isDeleted === true" class="msg_sent_time2">&nbsp;</div>
                                             <ng-template #notSending>
                                                 <span title="Delete" class="del-msg" *ngIf="!message?.isNetworkRequest && !message?.isDeleted" (click)="deleteMessage(message)">x</span>
                                             </ng-template>
@@ -149,6 +150,7 @@
                                                 </ng-container>
                                             </p>
                                             <div *ngIf="message?.isDeleted === false" class="msg_sent_time">{{ message?.time | utcDate | date:'d MMM hh:mm a' }}</div>
+                                            <div *ngIf="message?.isDeleted === true" class="msg_sent_time2">&nbsp;</div>
                                             <span title="Delete" class="del-msg" *ngIf="!message?.isNetworkRequest && !message?.isDeleted" (click)="deleteMessage(message)">x</span>
                                         </li>
                                     </ul>
