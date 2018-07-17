@@ -15,7 +15,7 @@
           <div class="row sm_panel_body" *ngFor="let award of userProfile?.extra?.awards">
                 <div class="col-md-2 sm_panel_left">
                     <figure class="avatar_overview">
-                        <img [src]="imageBaseUrl + '/img/event.jpg'" class="img-responsive">
+                        <img [src]="imageBaseUrl + 'img/event.jpg'" class="img-responsive">
                     </figure>
                 </div>
                 <div class="col-md-8 sm_panel_right">
@@ -24,8 +24,8 @@
                         <p>{{ award.from | date:'MMMM, y'}}</p>
                     </div>
                     <div class="workplace_edit_remove_ico " *ngIf="ownProfile">
-                        <a (click) = "editCurrentAward(award)" class="edit_remove_ico"><img [src]="imageBaseUrl + '/img/svg/ico_edit.svg'"></a>
-                        <a (click) = "deleteCurrentAward(award.id)" class="edit_remove_ico"><img [src]="imageBaseUrl + '/img/svg/ico_delete.svg'"></a>
+                        <a (click) = "editCurrentAward(award)" class="edit_remove_ico"><img [src]="imageBaseUrl + 'img/svg/ico_edit.svg'"></a>
+                        <a (click) = "deleteCurrentAward(award.id)" class="edit_remove_ico"><img [src]="imageBaseUrl + 'img/svg/ico_delete.svg'"></a>
                     </div>
                 </div>
           </div>
