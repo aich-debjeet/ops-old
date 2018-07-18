@@ -56,7 +56,7 @@
           <div class="col-md-9 p-0">
               <div class="col-md-2 p-0">
                   <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                    <input formControlName="internshipExperienceFrom" class="c-form__input" type="number" min="0" placeholder="Years">
+                    <input formControlName="internshipExperienceFrom" class="c-form__input" type="number" min="0" placeholder="Min">
                     <span class="c-form__highlight"></span>
                     <span class="c-form__bar"></span>
                   </div>
@@ -66,12 +66,16 @@
               </div>
               <div class="col-md-2 p-0">
                   <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                    <input formControlName="internshipExperienceTo" class="c-form__input" type="number" min="0" placeholder="Years">
+                    <input formControlName="internshipExperienceTo" class="c-form__input" type="number" min="0" placeholder="Max">
                     <span class="c-form__highlight"></span>
                     <span class="c-form__bar"></span>
                   </div>
               </div>
+              <div class="col-md-1">
+                  <div class="c-text_md color-grey-dark p-8">years</div>
+              </div>
               <p *ngIf="(internshipFrm.controls['internshipExperienceFrom'].errors?.required || internshipFrm.controls['internshipExperienceTo'].errors?.required) && createInternshipFrm.submitted" class="c-form__validation error">Experience fields are required!</p>
+              <p *ngIf="internshipFrm.controls['internshipExperienceTo'].errors?.invalidExperienceRange && createInternshipFrm.submitted" class="c-form__validation error">Invalid experience range!</p>
           </div>
       </div>
       <!-- Experience end -->
@@ -91,8 +95,9 @@
               <div class="col-md-3 ">
                   <div class="c-form__group m-t-0">
                       <select formControlName="internshipSalaryDuration" class="c-form-control p-l-0">
-                          <option value="Annualy">Annualy</option>
-                          <option value="Monthly">Monthly</option>
+                          <option value="">Select</option>
+                          <option value="Year">Year</option>
+                          <option value="Month">Month</option>
                           <option value="Contract">Contract</option>
                       </select>
                   </div>
@@ -100,8 +105,9 @@
               <div class="col-md-3 ">
                   <div class="c-form__group m-t-0">
                       <select formControlName="internshipSalaryCurrency" class="c-form-control p-l-0">
+                          <option value="">Select</option>
                           <option value="INR">INR</option>
-                          <option value="DOLLOR">DOLLOR</option>
+                          <option value="DOLLAR">DOLLAR</option>
                           <option value="EURO">EURO</option>
                       </select>
                   </div>
@@ -112,12 +118,13 @@
       <!-- Salary end -->
       <div class="o-oppo-form__single">
           <div class="col-md-3 p-0">
-              <div class="c-text_md o-oppo-form-title">Duration</div>
+              <div class="c-text_md o-oppo-form-title">Type</div>
           </div>
           <div class="col-md-9 p-0">
               <div class="col-md-4 p-0">
                   <div class="c-form__group m-t-0">
                       <select formControlName="internshipDuration" class="c-form-control p-l-0">
+                          <option value="">Select</option>
                           <option value="Full time">Full time</option>
                           <option value="Part time">Part time</option>
                       </select>
@@ -144,13 +151,13 @@
       <!-- Location end -->
       <div class="o-oppo-form__single">
           <div class="col-md-3 p-0">
-              <div class="c-text_md o-oppo-form-title">Includes travel</div>
+              <div class="c-text_md o-oppo-form-title">Includes Travel</div>
           </div>
           <div class="col-md-9 p-0">
               <div class="col-md-2 p-0">
                   <div class="c-radio__sm p-t-8 float_left width100">
                       <label class="col-md-6 p-0 p-t-8">
-                          <input formControlName="internshipTravelInclusive" type="radio" value="Yes" class="c-form__bar2"><span></span>yes
+                          <input formControlName="internshipTravelInclusive" type="radio" value="Yes" class="c-form__bar2"><span></span>Yes
                       </label>
                       <label class="col-md-6 p-0 p-t-8">
                           <input formControlName="internshipTravelInclusive" type="radio" value="No" class="c-form__bar2"><span></span>No
@@ -190,7 +197,7 @@
       <!-- Skills end -->
       <div class="o-oppo-form__single">
           <div class="col-md-3 p-0">
-              <div class="c-text_md o-oppo-form-title">Qualifications</div>
+              <div class="c-text_md o-oppo-form-title">Education</div>
           </div>
           <div class="col-md-9 p-0">
               <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
@@ -224,7 +231,7 @@
       <!-- Organization Name end -->
       <div class="o-oppo-form__single">
           <div class="col-md-3 p-0">
-              <div class="c-text_md o-oppo-form-title">Attach files</div>
+              <div class="c-text_md o-oppo-form-title">Attach Files</div>
           </div>
           <div class="col-md-9 p-0">
               <div class="o-oppo-form__file-type">
