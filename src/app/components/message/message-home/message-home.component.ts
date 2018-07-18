@@ -276,6 +276,7 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
       messageType: 'sent',
       isNetworkRequest: false,
       isDeleted: false,
+      isRead: true,
       profileImage: loggedUsersImage,
       isSending: true,
       time: Date.now()
@@ -440,6 +441,7 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
 
   deleteMessage(message: any) {
     const delMsg = {
+      messageDetails: message,
       messageId: message.id,
       deleteType: 'for_me'
     }

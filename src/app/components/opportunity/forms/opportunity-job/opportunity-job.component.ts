@@ -83,6 +83,7 @@ export class OpportunityJobComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.jobAttachments = [];
     this.loginSub.unsubscribe();
     this.oppSub.unsubscribe();
   }

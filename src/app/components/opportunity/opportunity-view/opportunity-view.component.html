@@ -95,19 +95,19 @@
                 {{ opportunity?.opportunityAudition?.complexion }}
               </div>
             </div> -->
-            <div class="row m-t-16">
+            <div *ngIf="opportunity?.opportunityAudition?.ageLimit?.from && opportunity?.opportunityAudition?.ageLimit?.to" class="row m-t-16">
               <div class="col-md-2 col-sm-4 col-xs-6 c-text_md">Age</div>
               <div class="col-md-9 col-sm-8 col-xs-6 p-0 c-text_md color-grey-dark">
                 {{ opportunity?.opportunityAudition?.ageLimit?.from }} - {{ opportunity?.opportunityAudition?.ageLimit?.to }} years
               </div>
             </div>
-            <div class="row m-t-16">
+            <div *ngIf="opportunity?.opportunityAudition?.height?.from && opportunity?.opportunityAudition?.height?.to" class="row m-t-16">
               <div class="col-md-2 col-sm-4 col-xs-6 c-text_md">Height</div>
               <div class="col-md-9 col-sm-8 col-xs-6 p-0 c-text_md color-grey-dark">
                 {{ opportunity?.opportunityAudition?.height?.from }} - {{ opportunity?.opportunityAudition?.height?.to }} cm
               </div>
             </div>
-            <div class="row m-t-16">
+            <div *ngIf="opportunity?.opportunityAudition?.weight?.from && opportunity?.opportunityAudition?.weight?.to" class="row m-t-16">
               <div class="col-md-2 col-sm-4 col-xs-6 c-text_md">Weight</div>
               <div class="col-md-9 col-sm-8 col-xs-6 p-0 c-text_md color-grey-dark">
                 {{ opportunity?.opportunityAudition?.weight?.from }} - {{ opportunity?.opportunityAudition?.weight?.to }} kg

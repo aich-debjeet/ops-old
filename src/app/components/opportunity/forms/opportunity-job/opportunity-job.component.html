@@ -1,5 +1,5 @@
 <form #createJobFrm="ngForm" [formGroup]="jobFrm" (ngSubmit)="submitJobForm(jobFrm.value)">
-  <p class="c-text_lg color-grey-dark m-t-16">Jobs.</p>
+  <!-- <p class="c-text_lg color-grey-dark m-t-16">Jobs.</p> -->
   <div id="03" class="tab-pane">
       <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
           Jobs details
@@ -56,7 +56,7 @@
           <div class="col-md-9 p-0">
               <div class="col-md-2 p-0">
                 <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                    <input formControlName="jobExperienceFrom" class="c-form__input" type="number" placeholder="Years">
+                    <input formControlName="jobExperienceFrom" class="c-form__input" type="number" min="0" placeholder="Years">
                     <span class="c-form__highlight"></span>
                     <span class="c-form__bar"></span>
                 </div>
@@ -66,7 +66,7 @@
               </div>
               <div class="col-md-2 p-0">
                 <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                    <input formControlName="jobExperienceTo" class="c-form__input" type="number" placeholder="Years">
+                    <input formControlName="jobExperienceTo" class="c-form__input" type="number" min="0" placeholder="Years">
                     <span class="c-form__highlight"></span>
                     <span class="c-form__bar"></span>
                 </div>
@@ -242,7 +242,7 @@
       <div class="o-oppo-form__single">
         <div class="col-md-3 p-0"></div>
         <div class="col-md-9 p-0">
-            <p *ngIf="_oppDetails?.formType === 'create'" class="c-text_sm color-grey-dark m-t-24">By clicking ‘Create’, you agree to the Terms and condition and Privacy policy</p>
+            <p *ngIf="_oppDetails?.formType === 'create'" class="c-text_sm color-grey-dark m-t-24">By clicking 'Create', you are agreeing to the Terms & Conditions and the Privacy policy.</p>
             <button *ngIf="_oppDetails?.formType === 'create'" type="submit" [disabled]="oppSubmitting || uploadingFile" class="btn btn-primary btn-md m-t-16 m-b-16">Create</button>
             <button *ngIf="_oppDetails?.formType === 'edit'" type="submit" [disabled]="oppSubmitting || uploadingFile" class="btn btn-primary btn-md m-t-16 m-b-16">Update</button>
         </div>

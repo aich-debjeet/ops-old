@@ -83,6 +83,7 @@ export class OpportunityInternshipComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.internshipAttachments = [];
     this.loginSub.unsubscribe();
     this.oppSub.unsubscribe();
   }
