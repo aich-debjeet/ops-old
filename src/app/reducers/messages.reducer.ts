@@ -32,29 +32,36 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
 
     /* message delete */
     case MessageActions.DELETE_MESSAGE:
-      let conv_list_after_del_msg;
-      const conv_list = state['load_conversation_data'];
-      const msgIndexDel = _.findIndex(conv_list, (obj) => obj.id === payload.messageId);
-      if (msgIndexDel > -1) {
-        // get the message object
-        const msgObj = conv_list[msgIndexDel];
-        if (msgObj && msgObj !== undefined) {
+      let messanger_list_data_updated_on_del = state['messanger_list_data'];
+      const msngr_list = state['messanger_list_data'];
+      const msngrMsgIndexDel = _.findIndex(msngr_list, (obj) => obj.handle === payload.messageDetails.to);
+      if (msngrMsgIndexDel > -1) {
+        if (msngr_list[msngrMsgIndexDel] && msngr_list[msngrMsgIndexDel] !== undefined && msngr_list[msngrMsgIndexDel].latestMessage === payload.messageDetails.content) {
           // update details
-          msgObj.isDeleted = true;
-          msgObj.subject = 'This message was deleted';
-          msgObj.content = 'This message was deleted';
+          msngr_list[msngrMsgIndexDel].isDeleted = true;
+          msngr_list[msngrMsgIndexDel].latestMessage = 'This message has been deleted';
+          messanger_list_data_updated_on_del = msngr_list;
+        }
+      }
+      let load_conversation_data_updated = state['load_conversation_data'];
+      const conv_list = state['load_conversation_data'];
+      const convMsgIndexDel = _.findIndex(conv_list, (obj) => obj.id === payload.messageId);
+      if (convMsgIndexDel > -1) {
+        // get the message object
+        if (conv_list[convMsgIndexDel] && conv_list[convMsgIndexDel] !== undefined) {
+          // update details
+          conv_list[convMsgIndexDel].isDeleted = true;
+          conv_list[convMsgIndexDel].subject = 'This message has been deleted';
+          conv_list[convMsgIndexDel].content = 'This message has been deleted';
           // prepare updated conv list
-          conv_list_after_del_msg = [msgObj].concat(conv_list);
-          return Object.assign({}, state, {
-            delete_message_sent: true,
-            delete_message_params: payload,
-            load_conversation_data: conv_list_after_del_msg
-          });
+          load_conversation_data_updated = conv_list;
         }
       }
       return Object.assign({}, state, {
         delete_message_sent: true,
-        delete_message_params: payload
+        delete_message_params: payload,
+        messanger_list_data: messanger_list_data_updated_on_del,
+        load_conversation_data: load_conversation_data_updated
       });
 
     case MessageActions.DELETE_MESSAGE_SUCCESS:

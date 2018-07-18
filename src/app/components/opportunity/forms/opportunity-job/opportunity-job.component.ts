@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { ScrollHelper } from '../../../../helpers/scroll.helper';
 import { Store } from '@ngrx/store';
 import { ProfileModal } from '../../../../models/profile.model';
@@ -83,6 +83,7 @@ export class OpportunityJobComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.jobAttachments = [];
     this.loginSub.unsubscribe();
     this.oppSub.unsubscribe();
   }
@@ -92,22 +93,87 @@ export class OpportunityJobComponent implements OnInit, OnDestroy {
    */
   buildJobForm(data: any) {
     this.jobFrm = this.fb.group({
-      jobRole: [this.generalUtils.checkNestedKey(data, ['opportunityJob', 'role']) ? data['opportunityJob']['role'] : '', [Validators.required]],
-      jobDescription: [this.generalUtils.checkNestedKey(data, ['opportunityJob', 'description']) ? data['opportunityJob']['description'] : '', [Validators.required]],
-      jobIndustry: [this.generalUtils.checkNestedKey(data, ['opportunityJob', 'industry']) ? data['opportunityJob']['industry'] : '', [Validators.required]],
-      jobExperienceFrom: [this.generalUtils.checkNestedKey(data, ['opportunityJob', 'experience', 'from']) ? data['opportunityJob']['experience']['from'] : '', [Validators.required]],
-      jobExperienceTo: [this.generalUtils.checkNestedKey(data, ['opportunityJob', 'experience', 'to']) ? data['opportunityJob']['experience']['to'] : '', [Validators.required]],
-      jobSalaryAmount: [this.generalUtils.checkNestedKey(data, ['opportunityJob', 'salary', 'amount']) ? data['opportunityJob']['salary']['amount'] : '', [Validators.required]],
-      jobSalaryDuration: [this.generalUtils.checkNestedKey(data, ['opportunityJob', 'salary', 'salaryType']) ? data['opportunityJob']['salary']['salaryType'] : '', [Validators.required]],
-      jobSalaryCurrency: [this.generalUtils.checkNestedKey(data, ['opportunityJob', 'salary', 'currency']) ? data['opportunityJob']['salary']['currency'] : '', [Validators.required]],
-      jobDuration: [this.generalUtils.checkNestedKey(data, ['opportunityJob', 'duration']) ? data['opportunityJob']['duration'] : '', [Validators.required]],
-      jobLocation: [this.generalUtils.checkNestedKey(data, ['opportunityJob', 'location', 'location']) ? data['opportunityJob']['location']['location'] : '', [Validators.required]],
-      jobTravelInclusive: [this.generalUtils.checkNestedKey(data, ['opportunityJob', 'includesTravel', 'option']) ? data['opportunityJob']['includesTravel']['option'] : '', [Validators.required]],
-      jobCountry: [this.generalUtils.checkNestedKey(data, ['opportunityJob', 'includesTravel', 'country']) ? data['opportunityJob']['includesTravel']['country'] : '', [Validators.required]],
-      jobSkills: [this.generalUtils.checkNestedKey(data, ['opportunityJob', 'skills']) ? data['opportunityJob']['skills'] : '', [Validators.required]],
-      jobQualifications: [this.generalUtils.checkNestedKey(data, ['opportunityJob', 'qualifications']) ? data['opportunityJob']['qualifications'] : '', [Validators.required]],
-      jobOrgName: [this.generalUtils.checkNestedKey(data, ['opportunityJob', 'organizationName']) ? data['opportunityJob']['organizationName'] : '', [Validators.required]]
+      jobRole: [
+        this.generalUtils.checkNestedKey(data, ['opportunityJob', 'role']) ? data['opportunityJob']['role'] : '',
+        [Validators.required]
+      ],
+      jobDescription: [
+        this.generalUtils.checkNestedKey(data, ['opportunityJob', 'description']) ? data['opportunityJob']['description'] : '',
+        [Validators.required]
+      ],
+      jobIndustry: [
+        this.generalUtils.checkNestedKey(data, ['opportunityJob', 'industry']) ? data['opportunityJob']['industry'] : '',
+        [Validators.required]
+      ],
+      jobExperienceFrom: [
+        this.generalUtils.checkNestedKey(data, ['opportunityJob', 'experience', 'from']) ? data['opportunityJob']['experience']['from'] : '',
+        [Validators.required]
+      ],
+      jobExperienceTo: [
+        this.generalUtils.checkNestedKey(data, ['opportunityJob', 'experience', 'to']) ? data['opportunityJob']['experience']['to'] : '',
+        [Validators.required],
+        this.experienceRangeValidator.bind(this)
+      ],
+      jobSalaryAmount: [
+        this.generalUtils.checkNestedKey(data, ['opportunityJob', 'salary', 'amount']) ? data['opportunityJob']['salary']['amount'] : '',
+        [Validators.required]
+      ],
+      jobSalaryDuration: [
+        this.generalUtils.checkNestedKey(data, ['opportunityJob', 'salary', 'salaryType']) ? data['opportunityJob']['salary']['salaryType'] : '',
+        [Validators.required]
+      ],
+      jobSalaryCurrency: [
+        this.generalUtils.checkNestedKey(data, ['opportunityJob', 'salary', 'currency']) ? data['opportunityJob']['salary']['currency'] : '',
+        [Validators.required]
+      ],
+      jobDuration: [
+        this.generalUtils.checkNestedKey(data, ['opportunityJob', 'duration']) ? data['opportunityJob']['duration'] : '',
+        [Validators.required]
+      ],
+      jobLocation: [
+        this.generalUtils.checkNestedKey(data, ['opportunityJob', 'location', 'location']) ? data['opportunityJob']['location']['location'] : '',
+        [Validators.required]
+      ],
+      jobTravelInclusive: [
+        this.generalUtils.checkNestedKey(data, ['opportunityJob', 'includesTravel', 'option']) ? data['opportunityJob']['includesTravel']['option'] : '',
+        [Validators.required]
+      ],
+      jobCountry: [
+        this.generalUtils.checkNestedKey(data, ['opportunityJob', 'includesTravel', 'country']) ? data['opportunityJob']['includesTravel']['country'] : '',
+        [Validators.required]
+      ],
+      jobSkills: [
+        this.generalUtils.checkNestedKey(data, ['opportunityJob', 'skills']) ? data['opportunityJob']['skills'] : '',
+        [Validators.required]
+      ],
+      jobQualifications: [
+        this.generalUtils.checkNestedKey(data, ['opportunityJob', 'qualifications']) ? data['opportunityJob']['qualifications'] : '',
+        [Validators.required]
+      ],
+      jobOrgName: [
+        this.generalUtils.checkNestedKey(data, ['opportunityJob', 'organizationName']) ? data['opportunityJob']['organizationName'] : '',
+        [Validators.required]
+      ]
     });
+  }
+  /**
+   * validate experience range
+   * @param control : max experience limit
+   */
+  experienceRangeValidator(control: AbstractControl) {
+    const q = new Promise((resolve, reject) => {
+      const minExperience = this.jobFrm.controls['jobExperienceFrom'].value;
+      const maxExperience = control.value;
+      if (maxExperience !== '' && minExperience !== '') {
+        if (maxExperience < minExperience) {
+          resolve({ invalidExperienceRange: true });
+        }
+        resolve(null);
+      } else {
+        resolve(null);
+      }
+    });
+    return q;
   }
 
   /**

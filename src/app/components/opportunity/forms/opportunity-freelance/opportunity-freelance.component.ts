@@ -81,6 +81,7 @@ export class OpportunityFreelanceComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.freelanceAttachments = [];
     this.loginSub.unsubscribe();
     this.oppSub.unsubscribe();
   }

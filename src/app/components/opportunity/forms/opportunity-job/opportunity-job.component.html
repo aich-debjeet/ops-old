@@ -1,5 +1,5 @@
 <form #createJobFrm="ngForm" [formGroup]="jobFrm" (ngSubmit)="submitJobForm(jobFrm.value)">
-  <p class="c-text_lg color-grey-dark m-t-16">Jobs.</p>
+  <!-- <p class="c-text_lg color-grey-dark m-t-16">Jobs.</p> -->
   <div id="03" class="tab-pane">
       <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
           Jobs details
@@ -56,7 +56,7 @@
           <div class="col-md-9 p-0">
               <div class="col-md-2 p-0">
                 <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                    <input formControlName="jobExperienceFrom" class="c-form__input" type="number" placeholder="Years">
+                    <input formControlName="jobExperienceFrom" class="c-form__input" type="number" min="0" placeholder="Min">
                     <span class="c-form__highlight"></span>
                     <span class="c-form__bar"></span>
                 </div>
@@ -66,12 +66,16 @@
               </div>
               <div class="col-md-2 p-0">
                 <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                    <input formControlName="jobExperienceTo" class="c-form__input" type="number" placeholder="Years">
+                    <input formControlName="jobExperienceTo" class="c-form__input" type="number" min="0" placeholder="Max">
                     <span class="c-form__highlight"></span>
                     <span class="c-form__bar"></span>
                 </div>
               </div>
+              <div class="col-md-1">
+                  <div class="c-text_md color-grey-dark p-8">years</div>
+              </div>
               <p *ngIf="(jobFrm.controls['jobExperienceFrom'].errors?.required || jobFrm.controls['jobExperienceTo'].errors?.required) && createJobFrm.submitted" class="c-form__validation error">Experience fields are required!</p>
+              <p *ngIf="jobFrm.controls['jobExperienceTo'].errors?.invalidExperienceRange && createJobFrm.submitted" class="c-form__validation error">Invalid experience range!</p>
           </div>
       </div>
       <!-- Experience end -->
@@ -91,8 +95,9 @@
               <div class="col-md-3 ">
                   <div class="c-form__group m-t-0">
                       <select formControlName="jobSalaryDuration" class="c-form-control p-l-0">
-                          <option value="Annualy">Annualy</option>
-                          <option value="Monthly">Monthly</option>
+                          <option value="">Select</option>
+                          <option value="Year">Year</option>
+                          <option value="Month">Month</option>
                           <option value="Contract">Contract</option>
                       </select>
                   </div>
@@ -100,8 +105,9 @@
               <div class="col-md-3 ">
                   <div class="c-form__group m-t-0">
                       <select formControlName="jobSalaryCurrency" class="c-form-control p-l-0">
+                          <option value="">Select</option>
                           <option value="INR">INR</option>
-                          <option value="DOLLOR">DOLLOR</option>
+                          <option value="DOLLAR">DOLLAR</option>
                           <option value="EURO">EURO</option>
                       </select>
                   </div>
@@ -112,12 +118,13 @@
       <!-- Salary end -->
       <div class="o-oppo-form__single">
           <div class="col-md-3 p-0">
-              <div class="c-text_md o-oppo-form-title">Duration</div>
+              <div class="c-text_md o-oppo-form-title">Job Type</div>
           </div>
           <div class="col-md-9 p-0">
               <div class="col-md-4 p-0">
                   <div class="c-form__group m-t-0">
                       <select formControlName="jobDuration" class="c-form-control p-l-0">
+                          <option value="">Select</option>
                           <option value="Full time">Full time</option>
                           <option value="Part time">Part time</option>
                       </select>
@@ -144,13 +151,13 @@
       <!-- Location end -->
       <div class="o-oppo-form__single">
           <div class="col-md-3 p-0">
-              <div class="c-text_md o-oppo-form-title">Includes travel</div>
+              <div class="c-text_md o-oppo-form-title">Includes Travel</div>
           </div>
           <div class="col-md-9 p-0">
               <div class="col-md-2 p-0">
                   <div class="c-radio__sm p-t-8 float_left width100">
                       <label class="col-md-6 p-0 p-t-8">
-                          <input formControlName="jobTravelInclusive" type="radio" value="Yes" class="c-form__bar2"><span></span>yes
+                          <input formControlName="jobTravelInclusive" type="radio" value="Yes" class="c-form__bar2"><span></span>Yes
                       </label>
                       <label class="col-md-6 p-0 p-t-8">
                           <input formControlName="jobTravelInclusive" type="radio" value="No" class="c-form__bar2"><span></span>No
@@ -190,7 +197,7 @@
       <!-- Skills end -->
       <div class="o-oppo-form__single">
           <div class="col-md-3 p-0">
-              <div class="c-text_md o-oppo-form-title">Qualifications</div>
+              <div class="c-text_md o-oppo-form-title">Education</div>
           </div>
           <div class="col-md-9 p-0">
               <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
@@ -224,7 +231,7 @@
       <!-- Organization Name end -->
       <div class="o-oppo-form__single">
           <div class="col-md-3 p-0">
-              <div class="c-text_md o-oppo-form-title">Attach files</div>
+              <div class="c-text_md o-oppo-form-title">Attach Files</div>
           </div>
           <div class="col-md-9 p-0">
               <div class="o-oppo-form__file-type">
@@ -242,7 +249,7 @@
       <div class="o-oppo-form__single">
         <div class="col-md-3 p-0"></div>
         <div class="col-md-9 p-0">
-            <p *ngIf="_oppDetails?.formType === 'create'" class="c-text_sm color-grey-dark m-t-24">By clicking ‘Create’, you agree to the Terms and condition and Privacy policy</p>
+            <p *ngIf="_oppDetails?.formType === 'create'" class="c-text_sm color-grey-dark m-t-24">By clicking 'Create', you are agreeing to the Terms & Conditions and the Privacy policy.</p>
             <button *ngIf="_oppDetails?.formType === 'create'" type="submit" [disabled]="oppSubmitting || uploadingFile" class="btn btn-primary btn-md m-t-16 m-b-16">Create</button>
             <button *ngIf="_oppDetails?.formType === 'edit'" type="submit" [disabled]="oppSubmitting || uploadingFile" class="btn btn-primary btn-md m-t-16 m-b-16">Update</button>
         </div>

@@ -62,7 +62,7 @@ export class OpportunityVolunteerComponent implements OnInit, OnDestroy {
       volunteerLocation: [this.generalUtils.checkNestedKey(data, ['opportunityVolunteer', 'location', 'location']) ? data['opportunityVolunteer']['location']['location'] : '', [Validators.required]],
       volunteerSkills: [this.generalUtils.checkNestedKey(data, ['opportunityVolunteer', 'skills']) ? data['opportunityVolunteer']['skills'] : '', [Validators.required]],
       volunteerDL: [this.generalUtils.checkNestedKey(data, ['opportunityVolunteer', 'requirements']) ? data['opportunityVolunteer']['requirements'].includes('Background Check') : false, [Validators.required]],
-      volunteerBGC: [this.generalUtils.checkNestedKey(data, ['opportunityVolunteer', 'requirements']) ? data['opportunityVolunteer']['requirements'].includes('Driver\'s License Needed') : false, [Validators.required]],
+      volunteerBGC: [this.generalUtils.checkNestedKey(data, ['opportunityVolunteer', 'requirements']) ? data['opportunityVolunteer']['requirements'].includes('Driver\'s License') : false, [Validators.required]],
       volunteerORTR: [this.generalUtils.checkNestedKey(data, ['opportunityVolunteer', 'requirements']) ? data['opportunityVolunteer']['requirements'].includes('Orientation or Training') : false, [Validators.required]],
     });
   }
@@ -83,7 +83,7 @@ export class OpportunityVolunteerComponent implements OnInit, OnDestroy {
       volunteerRequirements.push('Background Check');
     }
     if (formData.volunteerDL && formData.volunteerDL === true) {
-      volunteerRequirements.push('Driver\'s License Needed');
+      volunteerRequirements.push('Driver\'s License');
     }
     if (formData.volunteerORTR && formData.volunteerORTR === true) {
       volunteerRequirements.push('Orientation or Training');

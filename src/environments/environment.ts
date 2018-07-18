@@ -7,7 +7,7 @@ export const environment = {
   production: false,
   pusher: {
     cluster: 'ap2',
-    key: '1c0b6051b2d1e4977cbd',
+    key: '75a8eb81cd826be4ae19',
   },
   API_ENDPOINT: 'https://dev.api.onepagespotlight.com/api/1.0',
   API_IMAGE: 'https://cdn.onepagespotlight.com/',
