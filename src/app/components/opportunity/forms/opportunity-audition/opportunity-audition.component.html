@@ -1,5 +1,5 @@
 <form #createAudFrm="ngForm" [formGroup]="auditionFrm" (ngSubmit)="submitAuditionForm(auditionFrm.value)">
-  <p class="c-text_lg color-grey-dark m-t-16">Audition Motivation will almost always beat mere talent.</p>
+  <!-- <p class="c-text_lg color-grey-dark m-t-16">Audition Motivation will almost always beat mere talent.</p> -->
   <div class="tab-pane">
       <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
           Audition details
@@ -57,7 +57,7 @@
               <div class="c-form__group m-t-0">
                   <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
                       <!-- <input formControlName="auditionDate" class="c-form__input" type="text" [textMask]="{mask: dateMask}" placeholder="dd-mm-yyyy"> -->
-                      <input formControlName="auditionDate" class="c-form__input" type="text" [dpDayPicker]="datePicketConfig" theme="dp-material" placeholder="dd-mm-yyyy">
+                      <input formControlName="auditionDate" class="c-form__input" type="text" [dpDayPicker]="datePicketConfig" mode="daytime" theme="dp-material" placeholder="dd-mm-yyyy">
                       <span class="c-form__highlight"></span>
                       <span class="c-form__bar"></span>
                       <label></label>
@@ -154,7 +154,7 @@
               <div class="col-md-3 p-l-0">
                   <div class="c-form__group m-t-0">
                       <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                          <input formControlName="auditionHeightFrom" class="c-form__input" type="number" min="0" placeholder="From">
+                          <input formControlName="auditionHeightFrom" class="c-form__input" type="number" min="0" placeholder="Min">
                           <span class="c-form__highlight"></span>
                           <span class="c-form__bar"></span>
                           <!-- <label>From</label> -->
@@ -164,7 +164,7 @@
               <div class="col-md-3 p-l-0">
                   <div class="c-form__group m-t-0">
                       <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                          <input formControlName="auditionHeightTo" class="c-form__input" type="number" min="0" placeholder="To">
+                          <input formControlName="auditionHeightTo" class="c-form__input" type="number" min="0" placeholder="Max">
                           <span class="c-form__highlight"></span>
                           <span class="c-form__bar"></span>
                           <!-- <label>To</label> -->
@@ -187,7 +187,7 @@
               <div class="col-md-3 p-l-0">
                   <div class="c-form__group m-t-0">
                       <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                          <input formControlName="auditionWeightFrom" class="c-form__input" type="number" min="0" placeholder="From">
+                          <input formControlName="auditionWeightFrom" class="c-form__input" type="number" min="0" placeholder="Min">
                           <span class="c-form__highlight"></span>
                           <span class="c-form__bar"></span>
                           <!-- <label>From</label> -->
@@ -197,7 +197,7 @@
               <div class="col-md-3 p-l-0">
                   <div class="c-form__group m-t-0">
                       <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                          <input formControlName="auditionWeightTo" class="c-form__input" type="number" min="0" placeholder="To">
+                          <input formControlName="auditionWeightTo" class="c-form__input" type="number" min="0" placeholder="Max">
                           <span class="c-form__highlight"></span>
                           <span class="c-form__bar"></span>
                           <!-- <label>To</label> -->
