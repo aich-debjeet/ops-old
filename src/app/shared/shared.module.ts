@@ -61,6 +61,7 @@ import { PlaceholderNotificationComponent } from './placeholder-notification/pla
 import { PortfolioMediaComponent } from './portfolio-media/portfolio-media.component';
 import { ReportPopoupComponent } from './report-popoup/report-popoup.component';
 import { PortfolioViewMediaComponent } from './portfolio-view-media/portfolio-view-media.component';
+import { OpportunityApplicationCardComponent } from './opportunity-application-card/opportunity-application-card.component';
 
 @NgModule({
   imports: [
@@ -119,7 +120,8 @@ import { PortfolioViewMediaComponent } from './portfolio-view-media/portfolio-vi
     PlaceholderNotificationComponent,
     PortfolioMediaComponent,
     ReportPopoupComponent,
-    PortfolioViewMediaComponent
+    PortfolioViewMediaComponent,
+    OpportunityApplicationCardComponent
   ],
   exports: [
     OpportunityCardComponent,
@@ -156,7 +158,8 @@ import { PortfolioViewMediaComponent } from './portfolio-view-media/portfolio-vi
     ReadMoreComponent,
     PortfolioMediaComponent,
     ReportPopoupComponent,
-    PortfolioViewMediaComponent
+    PortfolioViewMediaComponent,
+    OpportunityApplicationCardComponent
   ]
 })
 export class SharedModule { }
