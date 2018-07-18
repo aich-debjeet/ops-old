@@ -32,9 +32,10 @@ export class OpportunityAuditionComponent implements OnInit, OnDestroy {
   datePicketConfig: IDatePickerConfig = {
     showMultipleYearsNavigation: true,
     disableKeypress: true,
-    format: 'DD-MMMM-YYYY',
+    format: 'DD-MMMM-YYYY h:m A',
     locale: 'en'
   };
+  todaysDate: string;
 
   constructor(
     private fb: FormBuilder,
@@ -43,6 +44,8 @@ export class OpportunityAuditionComponent implements OnInit, OnDestroy {
     private loginStore: Store<any>
   ) {
     // this.buildAuditionForm();
+    // this.todaysDate = new Date().toString();
+    this.todaysDate = '18-July-2018 3:37 PM';
   }
 
   ngOnInit() {
