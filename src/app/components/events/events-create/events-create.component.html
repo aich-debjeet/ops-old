@@ -11,7 +11,7 @@
                 <form [formGroup]="eventForm" novalidate (ngSubmit)="submitForm(eventForm.value)" #ecfrom="ngForm">
                     <div class="col-md-4 col-sm-12 o-event-form-right">
                         <div class="o-event-form-upload-img">
-                            <input type="file" #fileupload [(ngModel)]="eventCover" [ngModelOptions]="{standalone: true}" class="o-event-upload__file" name="eventCover" (change)="fileChangeListener($event)">
+                            <input type="file" #fileupload accept=".jpg,.jpeg" [(ngModel)]="eventCover" [ngModelOptions]="{standalone: true}" class="o-event-upload__file" name="eventCover" (change)="fileChangeListener($event)">
                             <div class="o-event-form-upload__container">
                                 <img *ngIf="eventCoverImage" class="event-image" [src]="baseUrl + eventCoverImage">
                                 <div *ngIf="!eventCoverImage" class="c-text_md f-w_600 text_uppercase color-theme ltr-space">Upload event image</div>
@@ -203,7 +203,7 @@
                                     <div class="col-md-3 p-0">
                                     </div>
                                     <div class="col-md-9 offset-md-3 p-0">
-                                        <!-- <p class="c-form__validation" *ngIf="eventForm.controls.event_agenda.controls[i].controls.startTime.errors?.required && ecfrom.submitted">Date is required</p> -->
+                                        <p class="c-form__validation" *ngIf="eventForm.controls['event_agenda'].controls[i].controls['startTime'].errors?.invalidAgendDate">Agenda Date should be between the event start date and end date</p>
                                         <!--<p class="c-form__validation" *ngIf="eventForm.controls.event_agenda.controls[i].controls.description.errors?.required && ecfrom.submitted">Program  is required</p>-->
                                         <!--<p class="error_alert" *ngIf="eventForm.controls['description'].errors?.required && ecfrom.submitted">Program is required</p>-->
                                     </div>

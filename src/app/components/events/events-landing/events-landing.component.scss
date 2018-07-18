@@ -8,6 +8,8 @@
 .leftRs,
 .rightRs {
     z-index: 1;
+    width: 23px;
+    height: 24px;
 }
 // slider
 .o-event-top-slider {
@@ -17,7 +19,7 @@
     background: #333;
     overflow: hidden;
     position: relative;
-    z-index: -1;
+    z-index: 1;
     margin-top: 50px;
 }
 
@@ -83,6 +85,8 @@
     float: left;
     background: #fff;
     padding: 8px 24px;
+    z-index: 2;
+    position: relative;
     @include mq($from: $mobile_sm, $until: $tablet) {
         padding: 8px 15px;
     }

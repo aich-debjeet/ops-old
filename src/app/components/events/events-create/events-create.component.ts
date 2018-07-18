@@ -148,6 +148,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
    */
 
   fileChangeListener($event) {
+    console.log($event)
     const data = new FormData();
 
     if ($event.target.files.length > 0) {
@@ -245,6 +246,30 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
       return { endDateLess: true };
     }
     return null;
+
+  }
+
+  agendaDateComp(control: AbstractControl){
+    if (control.value === '' || control.value === undefined) {
+      console.log('undefined')
+      return;
+    } else {
+      const startDate = this.eventForm.controls['event_startdate'].value.split('-').reverse().join('-');
+      const endtDate = this.eventForm.controls['event_enddate'].value.split('-').reverse().join('-');
+      const startSelect = moment(startDate).format('YYYYMMDD');
+      const endSelect = moment(endtDate).format('YYYYMMDD');
+      const date = control.value.split(' ');
+      const agenda = date[0].split('-').reverse().join('-');
+      const agendaDate = moment(agenda).format('YYYYMMDD');
+      console.log(agendaDate)
+      if(agendaDate < startSelect || agendaDate > endSelect){
+        console.log(agendaDate)
+        return {invalidAgendDate: true};
+      } else {
+        return {invalidAgendDate: false};
+      }
+      // return null;
+    }
 
   }
 
@@ -378,7 +403,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
    */
   agendaItem() {
     return this.fb.group({
-      startTime: [''],
+      startTime: ['',[this.agendaDateComp.bind(this)]],
       description: ['']
     })
   }
@@ -424,8 +449,8 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
           active : true,
           isFeatured: false,
           eventTiming: {
-            startDate : this.reverseDate(value.event_startdate) + 'T05:00:00',
-            endDate : this.reverseDate(value.event_enddate) + 'T05:00:00',
+            startDate : this.reverseDate(value.event_startdate) + 'T00:00:00.001',
+            endDate : this.reverseDate(value.event_enddate) + 'T12:00:00.000',
           },
           venue : {
             location: this.address,
@@ -436,8 +461,8 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
           extras: {
             coverImage: this.eventCoverImage,
             ticket: [{
-              startDate: this.reverseDate(value.ts_startTime) + 'T05:00:00',
-              endDate: this.reverseDate(value.ts_endTime) + 'T05:00:00',
+              startDate: this.reverseDate(value.ts_startTime) + 'T00:00:00.001',
+              endDate: this.reverseDate(value.ts_endTime) + 'T12:00:00.000',
               maximum: value.ts_quantity
             }]
           },
