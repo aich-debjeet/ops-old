@@ -32,6 +32,7 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
   search;
   // newSkillAdded = false;
   skillSearchScrollId = '';
+  searchType = 'industry';
 
   constructor(
     fb: FormBuilder,
@@ -102,13 +103,18 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
   onSearchChange(query) {
     if (query && query !== '') {
       this.searchQuery = query;
+      this.searchType = 'skill';
       this.triggerSearchSkills(false);
     } else {
+      this.searchType = 'industry';
       this.industriesList();
     }
   }
 
   triggerSearchSkills(loadMore: boolean) {
+    if (this.searchType === 'industry') {
+      return false;
+    }
     this.isSearching = true;
     this.showPreloader = true;
     let scrollId;
