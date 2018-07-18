@@ -19,7 +19,7 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
     case OpportunityActions.GET_APPLICATIONS_SUCCESS:
       return Object.assign({}, state, {
         get_applications: false,
-        get_applications_result: payload,
+        get_applications_result: payload['SUCCESS'],
         get_applications_success: true,
       });
 

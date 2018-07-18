@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-opportunity-application-card',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./opportunity-application-card.component.scss']
 })
 export class OpportunityApplicationCardComponent implements OnInit {
+  @Input('applicationDetails') applicationDetails: any;
 
   constructor() { }
 

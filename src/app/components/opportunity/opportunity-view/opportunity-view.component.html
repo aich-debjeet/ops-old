@@ -672,7 +672,7 @@
           </div>
         </a>
       </div>
-      <div class="o-oppo-post-right-block m-b-16 hidden-xs">
+      <div *ngIf="!isOwnOpportunity" class="o-oppo-post-right-block m-b-16 hidden-xs">
         <h6 class="c-text_lg m-b-8">Similar Opportunities</h6>
         <div class="o-similar-oppo-card">
           <div class="o-oppo-post-right__title">
@@ -718,6 +718,14 @@
           </div>
         </div><!-- similar oppo card end -->
 
+      </div>
+      <div *ngIf="isOwnOpportunity" class="o-applicant-list-container">
+        <div class="o-applicant-list__heading">
+          <h3 class="c-h3">{{ opportunity?.applicationCount }}</h3>
+          <div class="c-text_md">Applicants 
+            <a [routerLink]="'/opportunity/applications/' + opportunity?.id" class="float_right color-theme text_uppercase ltr-space">See Applicants</a>
+          </div>
+        </div>
       </div>
     </div>
     <!-- right widgets -->

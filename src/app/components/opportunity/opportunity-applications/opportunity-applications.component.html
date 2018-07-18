@@ -1,3 +1,13 @@
-<p>
-  opportunity-applications works!
-</p>
+<div class="container o-contianer--p_none opps-apps-top-space">
+  <!-- prelaoder -->
+  <div *ngIf="showPreloader">
+    <div class="sticky">
+      <div class="loader">Loading...</div>
+    </div>
+  </div>
+  <!-- prelaoder -->
+  <ng-container *ngIf="oppApplications && oppApplications.length > 0">
+    <app-opportunity-application-card *ngFor="let application of oppApplications" [applicationDetails]="application"></app-opportunity-application-card>
+  </ng-container>
+  <h4 *ngIf="oppApplications && oppApplications.length === 0" class="o-apps-empty-text">No applications found!</h4>
+</div>
