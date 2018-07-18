@@ -7,6 +7,13 @@ export class OpportunityService {
   constructor(private api: ApiService) { }
 
   /**
+   * load opportunity specific applications
+   */
+  getApplications(oppId: string) {
+    return this.api.get('/portal/opportunity/applications/id/' + oppId);
+  }
+
+  /**
    * Create opportunity
    * @param request body
    */

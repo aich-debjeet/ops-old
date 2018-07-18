@@ -8,6 +8,28 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
 
   switch (type) {
 
+    /* load opportunities by id */
+    case OpportunityActions.GET_APPLICATIONS:
+      return Object.assign({}, state, {
+        get_applications: true,
+        get_applications_params: payload,
+        get_applications_success: false,
+      });
+
+    case OpportunityActions.GET_APPLICATIONS_SUCCESS:
+      return Object.assign({}, state, {
+        get_applications: false,
+        get_applications_result: payload,
+        get_applications_success: true,
+      });
+
+    case OpportunityActions.GET_APPLICATIONS_FAILED:
+      return Object.assign({}, state, {
+        get_applications: false,
+        get_applications_success: false,
+      });
+    /* load opportunities by id */
+
     /* search opportunities */
     case OpportunityActions.SEARCH_OPPORTUNITIES:
       return Object.assign({}, state, {

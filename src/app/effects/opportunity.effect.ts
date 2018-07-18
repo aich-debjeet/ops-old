@@ -14,6 +14,18 @@ import { OpportunityService } from '../services/opportunity.service';
 export class OpportunityEffect {
 
   /**
+   * load opportunity applications
+   */
+  @Effect()
+  getApplications$ = this.actions$
+    .ofType(OpportunityActions.GET_APPLICATIONS)
+    .map(toPayload)
+    .switchMap((payload) => this.opportunityService.getApplications(payload)
+      .map((res) => ({ type: OpportunityActions.GET_APPLICATIONS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: OpportunityActions.GET_APPLICATIONS_FAILED, payload: res }))
+    );
+
+  /**
    * Create opportunity effect
    */
   @Effect()
