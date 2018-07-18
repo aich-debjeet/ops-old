@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { ScrollHelper } from '../../../../helpers/scroll.helper';
 import { Store } from '@ngrx/store';
 import { ProfileModal } from '../../../../models/profile.model';
@@ -63,19 +63,118 @@ export class OpportunityAuditionComponent implements OnInit, OnDestroy {
    */
   buildAuditionForm(data: any) {
     this.auditionFrm = this.fb.group({
-      auditionTitle: [this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'title']) ? data['opportunityAudition']['title'] : '', [Validators.required]],
-      auditionDescription: [this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'description']) ? data['opportunityAudition']['description'] : '', [Validators.required]],
-      auditionCategory: [this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'category']) ? data['opportunityAudition']['category'] : '', []],
-      auditionDate: [this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'auditionDate']) ? data['opportunityAudition']['auditionDate'] : '', [Validators.required]],
-      auditionLocation: [this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'location', 'location']) ? data['opportunityAudition']['location']['location'] : '', [Validators.required]],
-      auditionGender: [this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'gender']) ? data['opportunityAudition']['gender'] : '', [Validators.required]],
-      auditionAgeMin: [this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'ageLimit', 'from']) ? data['opportunityAudition']['ageLimit']['from'] : '', [Validators.required]],
-      auditionAgeMax: [this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'ageLimit', 'to']) ? data['opportunityAudition']['ageLimit']['to'] : '', [Validators.required]],
-      auditionHeightFrom: [this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'height', 'from']) ? data['opportunityAudition']['height']['from'] : '', [Validators.required]],
-      auditionHeightTo: [this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'height', 'to']) ? data['opportunityAudition']['height']['to'] : '', [Validators.required]],
-      auditionWeightFrom: [this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'weight', 'from']) ? data['opportunityAudition']['weight']['from'] : '', [Validators.required]],
-      auditionWeightTo: [this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'weight', 'to']) ? data['opportunityAudition']['weight']['to'] : '', [Validators.required]]
+      auditionTitle: [
+        this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'title']) ? data['opportunityAudition']['title'] : '',
+        [Validators.required]
+      ],
+      auditionDescription: [
+        this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'description']) ? data['opportunityAudition']['description'] : '',
+        [Validators.required]
+      ],
+      auditionCategory: [
+        this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'category']) ? data['opportunityAudition']['category'] : '',
+        []
+      ],
+      auditionDate: [
+        this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'auditionDate']) ? data['opportunityAudition']['auditionDate'] : '',
+        [Validators.required]
+      ],
+      auditionLocation: [
+        this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'location', 'location']) ? data['opportunityAudition']['location']['location'] : '',
+        [Validators.required]
+      ],
+      auditionGender: [
+        this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'gender']) ? data['opportunityAudition']['gender'] : '',
+        [Validators.required]
+      ],
+      auditionAgeMin: [
+        this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'ageLimit', 'from']) ? data['opportunityAudition']['ageLimit']['from'] : '',
+        []
+      ],
+      auditionAgeMax: [
+        this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'ageLimit', 'to']) ? data['opportunityAudition']['ageLimit']['to'] : '',
+        [],
+        this.ageRangeValidator.bind(this)
+      ],
+      auditionHeightFrom: [
+        this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'height', 'from']) ? data['opportunityAudition']['height']['from'] : '',
+        []
+      ],
+      auditionHeightTo: [
+        this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'height', 'to']) ? data['opportunityAudition']['height']['to'] : '',
+        [],
+        this.heightRangeValidator.bind(this)
+      ],
+      auditionWeightFrom: [
+        this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'weight', 'from']) ? data['opportunityAudition']['weight']['from'] : '',
+        []
+      ],
+      auditionWeightTo: [
+        this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'weight', 'to']) ? data['opportunityAudition']['weight']['to'] : '',
+        [],
+        this.weightRangeValidator.bind(this)
+      ]
     });
+  }
+
+  /**
+   * validate age range
+   * @param control : max age limit
+   */
+  ageRangeValidator(control: AbstractControl) {
+    const q = new Promise((resolve, reject) => {
+      const minAge = this.auditionFrm.controls['auditionAgeMin'].value;
+      const maxAge = control.value;
+      if (maxAge !== '' && minAge !== '') {
+        if (maxAge < minAge) {
+          resolve({ invalidAgeRange: true });
+        }
+        resolve(null);
+      } else {
+        resolve(null);
+      }
+    });
+    return q;
+  }
+
+  /**
+   * validate height range
+   * @param control : max height limit
+   */
+  heightRangeValidator(control: AbstractControl) {
+    const q = new Promise((resolve, reject) => {
+      const minHeight = this.auditionFrm.controls['auditionHeightFrom'].value;
+      const maxHeight = control.value;
+      if (maxHeight !== '' && minHeight !== '') {
+        if (maxHeight < minHeight) {
+          resolve({ invalidHeightRange: true });
+        }
+        resolve(null);
+      } else {
+        resolve(null);
+      }
+    });
+    return q;
+  }
+
+  /**
+   * validate weight range
+   * @param control : max weight limit
+   */
+  weightRangeValidator(control: AbstractControl) {
+    const q = new Promise((resolve, reject) => {
+      const minWeight = this.auditionFrm.controls['auditionWeightFrom'].value;
+      const maxWeight = control.value;
+      if (maxWeight !== '' && minWeight !== '') {
+        if (maxWeight < minWeight) {
+          resolve({ invalidWeightRange: true });
+        }
+        resolve(null);
+      } else {
+        resolve(null);
+      }
+    });
+    return q;
   }
 
   /**
