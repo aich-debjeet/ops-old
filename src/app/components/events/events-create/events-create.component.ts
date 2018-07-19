@@ -236,16 +236,21 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
   dateComparision(control: AbstractControl){
     if (control.value === '') {
       return;
+    } else {
+      const startDate = this.eventForm.controls['event_startdate'].value.split('-').reverse().join('-');
+      // const startDate = AC.get('event_startdate').value.split('-').reverse().join('-');
+      const endData = control.value.split('-').reverse().join('-');
+      const startSelect = moment(startDate).format('YYYYMMDD');
+      const endSelect = moment(endData).format('YYYYMMDD');
+      if (endSelect < startSelect && !isNaN(Number(startSelect))) {
+        console.log('validating')
+        console.log('validating',startSelect)
+        return { endDateLess: true };
+      } else {
+        return { endDateLess: false };
+      }
+      // return null;
     }
-    const startDate = this.eventForm.controls['event_startdate'].value.split('-').reverse().join('-');
-    // const startDate = AC.get('event_startdate').value.split('-').reverse().join('-');
-    const endData = control.value.split('-').reverse().join('-');
-    const startSelect = moment(startDate).format('YYYYMMDD');
-    const endSelect = moment(endData).format('YYYYMMDD');
-    if (endSelect < startSelect) {
-      return { endDateLess: true };
-    }
-    return null;
 
   }
 

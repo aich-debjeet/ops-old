@@ -90,21 +90,21 @@
             <div class="col-md-6 col-sm-6 col-xs-12 p-0">
                 <a routerLink="/event/create" class="btn btn-primary btn-md float_right m-t-8 m-l-8">Create</a>
                 <ul class="o-calendar float_right">
-                    <li class="o-calendar__list" routerLinkActive="o-calendar--active">
+                    <li class="o-calendar__list" [ngClass]="{'o-calendar--active': dayStatus === 'today'}">
                         <div class="o-calander__date">
-                            <span class="c-h5 o-calendar--color point" (click)="filterDate(day)">{{ day | date:"dd, MMM" }}</span>
+                            <span class="c-h5 o-calendar--color point" (click)="filterDate(day, 'today')">{{ day | date:"dd, MMM" }}</span>
                             <span class="c-text_sm text_uppercase ltr-space o-calendar--color">Today</span>
                         </div>
                     </li>
-                    <li class="o-calendar__list hidden-xs" routerLinkActive="o-calendar--active">
+                    <li class="o-calendar__list hidden-xs" [ngClass]="{'o-calendar--active': dayStatus === 'tommorrow'}">
                         <div class="o-calander__date">
-                            <span class="c-h5 o-calendar--color point" (click)="filterDate(tomorrow)">{{ tomorrow | date:"dd, MMM" }}</span>
+                            <span class="c-h5 o-calendar--color point" (click)="filterDate(tomorrow, 'tommorrow')">{{ tomorrow | date:"dd, MMM" }}</span>
                             <span class="c-text_sm text_uppercase ltr-space o-calendar--color">tomorrow</span>
                         </div>
                     </li>
-                    <li class="o-calendar__list hidden-xs hidden-sm" routerLinkActive="o-calendar--active">
+                    <li class="o-calendar__list hidden-xs hidden-sm" [ngClass]="{'o-calendar--active': dayStatus === 'weekend'}">
                         <div class="o-calander__date">
-                            <span class="c-h5 o-calendar--color point" (click)="filterDate(weekend)">{{ weekend | date:"dd, MMM" }}</span>
+                            <span class="c-h5 o-calendar--color point" (click)="filterDate(weekend, 'weekend')">{{ weekend | date:"dd, MMM" }}</span>
                             <span class="c-text_sm text_uppercase ltr-space o-calendar--color">Weekend</span>
                         </div>
                     </li>
