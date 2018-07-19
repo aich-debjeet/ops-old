@@ -9,8 +9,8 @@ export class OpportunityService {
   /**
    * load opportunity specific applications
    */
-  getApplications(oppId: string) {
-    return this.api.get('/portal/opportunity/applications/id/' + oppId);
+  getApplications(reqBody: any) {
+    return this.api.put('/portal/opportunity/applied/user', reqBody);
   }
 
   /**

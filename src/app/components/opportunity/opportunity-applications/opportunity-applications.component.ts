@@ -37,8 +37,8 @@ export class OpportunityApplicationsComponent implements OnInit, OnDestroy {
         ) {
           this.showPreloader = false;
         }
-        if (this.generalUtils.checkNestedKey(state, ['get_applications_result'])) {
-          this.oppApplications = state['get_applications_result'];
+        if (this.generalUtils.checkNestedKey(state, ['get_applications_result', 'applicationResponse'])) {
+          this.oppApplications = state['get_applications_result']['applicationResponse'];
         }
       }
     });
@@ -49,9 +49,15 @@ export class OpportunityApplicationsComponent implements OnInit, OnDestroy {
       if (params['id']) {
         // search job with id
         this.jobId = params['id'];
-        this.store.dispatch({ type: OpportunityActions.GET_APPLICATIONS, payload: this.jobId });
+        this.getApplications({
+          jobId: this.jobId
+        });
       }
     });
+  }
+
+  getApplications(params: any) {
+    this.store.dispatch({ type: OpportunityActions.GET_APPLICATIONS, payload: params });
   }
 
   ngOnDestroy() {
