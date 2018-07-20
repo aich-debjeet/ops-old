@@ -118,7 +118,7 @@ export class OpportunityFreelanceComponent implements OnInit, OnDestroy {
       opportunityFreelance: {
         title: formData.freelanceTitle,
         description: formData.freelanceDescription,
-        industry: formData.freelanceIndustry,
+        category: formData.freelanceIndustry,
         payType: formData.freelancePaymentMethod,
         engagement: formData.freelanceEngagement,
         skills: formData.freelanceSkills,
