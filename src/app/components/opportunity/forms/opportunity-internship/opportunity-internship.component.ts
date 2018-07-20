@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { ScrollHelper } from '../../../../helpers/scroll.helper';
 import { Store } from '@ngrx/store';
 import { ProfileModal } from '../../../../models/profile.model';
@@ -83,6 +83,7 @@ export class OpportunityInternshipComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.internshipAttachments = [];
     this.loginSub.unsubscribe();
     this.oppSub.unsubscribe();
   }
@@ -92,22 +93,87 @@ export class OpportunityInternshipComponent implements OnInit, OnDestroy {
    */
   buildInternshipForm(data: any) {
     this.internshipFrm = this.fb.group({
-      internshipRole: [this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'role']) ? data['opportunityInternship']['role'] : '', [Validators.required]],
-      internshipDescription: [this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'description']) ? data['opportunityInternship']['description'] : '', [Validators.required]],
-      internshipIndustry: [this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'industry']) ? data['opportunityInternship']['industry'] : '', [Validators.required]],
-      internshipExperienceFrom: [this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'experience', 'from']) ? data['opportunityInternship']['experience']['from'] : '', [Validators.required]],
-      internshipExperienceTo: [this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'experience', 'to']) ? data['opportunityInternship']['experience']['to'] : '', [Validators.required]],
-      internshipSalaryAmount: [this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'salary', 'amount']) ? data['opportunityInternship']['salary']['amount'] : '', [Validators.required]],
-      internshipSalaryDuration: [this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'salary', 'salaryType']) ? data['opportunityInternship']['salary']['salaryType'] : '', [Validators.required]],
-      internshipSalaryCurrency: [this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'salary', 'currency']) ? data['opportunityInternship']['salary']['currency'] : '', [Validators.required]],
-      internshipDuration: [this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'duration']) ? data['opportunityInternship']['duration'] : '', [Validators.required]],
-      internshipLocation: [this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'location', 'location']) ? data['opportunityInternship']['location']['location'] : '', [Validators.required]],
-      internshipTravelInclusive: [this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'includesTravel', 'option']) ? data['opportunityInternship']['includesTravel']['option'] : '', [Validators.required]],
-      internshipCountry: [this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'includesTravel', 'country']) ? data['opportunityInternship']['includesTravel']['country'] : '', [Validators.required]],
-      internshipSkills: [this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'skills']) ? data['opportunityInternship']['skills'] : '', [Validators.required]],
-      internshipQualifications: [this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'qualifications']) ? data['opportunityInternship']['qualifications'] : '', [Validators.required]],
-      internshipOrgName: [this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'organizationName']) ? data['opportunityInternship']['organizationName'] : '', [Validators.required]]
+      internshipRole: [
+        this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'role']) ? data['opportunityInternship']['role'] : '',
+        [Validators.required]
+      ],
+      internshipDescription: [
+        this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'description']) ? data['opportunityInternship']['description'] : '',
+        [Validators.required]
+      ],
+      internshipIndustry: [
+        this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'industry']) ? data['opportunityInternship']['industry'] : '',
+        [Validators.required]
+      ],
+      internshipExperienceFrom: [
+        this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'experience', 'from']) ? data['opportunityInternship']['experience']['from'] : '',
+        [Validators.required]
+      ],
+      internshipExperienceTo: [
+        this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'experience', 'to']) ? data['opportunityInternship']['experience']['to'] : '',
+        [Validators.required],
+        this.experienceRangeValidator.bind(this)
+      ],
+      internshipSalaryAmount: [
+        this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'salary', 'amount']) ? data['opportunityInternship']['salary']['amount'] : '',
+        [Validators.required]
+      ],
+      internshipSalaryDuration: [
+        this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'salary', 'salaryType']) ? data['opportunityInternship']['salary']['salaryType'] : '',
+        [Validators.required]
+      ],
+      internshipSalaryCurrency: [
+        this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'salary', 'currency']) ? data['opportunityInternship']['salary']['currency'] : '',
+        [Validators.required]
+      ],
+      internshipDuration: [
+        this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'duration']) ? data['opportunityInternship']['duration'] : '',
+        [Validators.required]
+      ],
+      internshipLocation: [
+        this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'location', 'location']) ? data['opportunityInternship']['location']['location'] : '',
+        [Validators.required]
+      ],
+      internshipTravelInclusive: [
+        this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'includesTravel', 'option']) ? data['opportunityInternship']['includesTravel']['option'] : '',
+        [Validators.required]
+      ],
+      internshipCountry: [
+        this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'includesTravel', 'country']) ? data['opportunityInternship']['includesTravel']['country'] : '',
+        [Validators.required]
+      ],
+      internshipSkills: [
+        this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'skills']) ? data['opportunityInternship']['skills'] : '',
+        [Validators.required]
+      ],
+      internshipQualifications: [
+        this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'qualifications']) ? data['opportunityInternship']['qualifications'] : '',
+        [Validators.required]
+      ],
+      internshipOrgName: [
+        this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'organizationName']) ? data['opportunityInternship']['organizationName'] : '',
+        [Validators.required]
+      ]
     });
+  }
+  /**
+   * validate experience range
+   * @param control : max experience limit
+   */
+  experienceRangeValidator(control: AbstractControl) {
+    const q = new Promise((resolve, reject) => {
+      const minExperience = this.internshipFrm.controls['internshipExperienceFrom'].value;
+      const maxExperience = control.value;
+      if (maxExperience !== '' && minExperience !== '') {
+        if (maxExperience < minExperience) {
+          resolve({ invalidExperienceRange: true });
+        }
+        resolve(null);
+      } else {
+        resolve(null);
+      }
+    });
+    return q;
   }
 
   /**

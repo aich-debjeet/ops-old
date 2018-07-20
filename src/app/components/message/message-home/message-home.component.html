@@ -53,7 +53,7 @@
                                     <img *ngIf="user?.profileImage !== ''" class="navdrop__img" [src]="imageBaseUrl + user?.profileImage">
                                 </div>
                                 <div class="dropnoti__detail">
-                                    <p class="dropnoti__bold color-grey-darker">{{ user?.name }}</p>
+                                    <p class="dropnoti__bold color-grey-darker">{{ user?.name | truncate:[25, '...'] }}</p>
                                     <p>{{ user?.latestMessage | truncate:[30, '...'] }}</p>
                                 </div>
                                 <p class="msg__time2">{{ user?.time | utcDate | date:'d MMM hh:mm a' }}</p>
@@ -64,7 +64,10 @@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 mess_right">
                 <div class="c-text_lg p-t-b-24">
-                    Message with <strong>{{ selectedUser?.name }}</strong>
+                    Message with 
+                    <a routerLink="/profile/u/{{ selectedUser?.username }}">
+                        <strong>{{ selectedUser?.name }}</strong>
+                    </a>
                     <div class="dropdown c-dropdown pull-right">
                         <p class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <img [src]="imageBaseUrl + 'img/svg/ico_settings.svg'" class="mess_set_icon">
@@ -97,7 +100,7 @@
                 <ng-container *ngIf="showPreloader === false">
                     <!-- message container -->
                     <!-- <div class="mess_chat_block" #chatWindow [scrollTop]="chatWindow.scrollHeight" -->
-                    <div class="mess_chat_block" id="ops_scrollbar" #chatWindow [scrollTop]="chatWindow.scrollHeight"
+                    <div class="mess_chat_block" id="ops_scrollbar" #chatWindow 
                         infiniteScroll
                         [infiniteScrollDistance]="5"
                         [infiniteScrollThrottle]="50"
@@ -118,6 +121,7 @@
                                                 <i>{{ message?.content }}</i>
                                             </p>
                                             <div *ngIf="message?.isDeleted === false" class="msg_sent_time2">{{ message?.time | utcDate | date:'d MMM hh:mm a' }}</div>
+                                            <div *ngIf="message?.isDeleted === true" class="msg_sent_time2">&nbsp;</div>
                                             <ng-template #notSending>
                                                 <span title="Delete" class="del-msg" *ngIf="!message?.isNetworkRequest && !message?.isDeleted" (click)="deleteMessage(message)">x</span>
                                             </ng-template>
@@ -146,6 +150,7 @@
                                                 </ng-container>
                                             </p>
                                             <div *ngIf="message?.isDeleted === false" class="msg_sent_time">{{ message?.time | utcDate | date:'d MMM hh:mm a' }}</div>
+                                            <div *ngIf="message?.isDeleted === true" class="msg_sent_time2">&nbsp;</div>
                                             <span title="Delete" class="del-msg" *ngIf="!message?.isNetworkRequest && !message?.isDeleted" (click)="deleteMessage(message)">x</span>
                                         </li>
                                     </ul>

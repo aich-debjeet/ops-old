@@ -19,6 +19,7 @@ export class HomePostComponent implements OnInit, OnDestroy {
   private subscription: ISubscription;
   tagState$: Observable<ProfileModal>;
   userProfile = initialTag ;
+  trendingPost: any;
   isOwner: boolean;
   posts: any;
   page_start = 0;
@@ -46,6 +47,11 @@ export class HomePostComponent implements OnInit, OnDestroy {
         this.posts = this.userProfile.user_following_posts;
         this.post_scroll_id = state.user_following_post_scroll_id
       }
+
+      if (state['trending_post']) {
+        this.trendingPost = state['trending_post']
+      }
+
       if (state['profile_navigation_details'].handle) {
         this.handle = this.userProfile.profile_navigation_details.handle;
          this.isOwner = true;
@@ -58,6 +64,7 @@ export class HomePostComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.profileStore.dispatch({ type: ProfileActions.TRENDING_POST });
   }
 
   postLoad() {

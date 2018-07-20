@@ -17,7 +17,7 @@
         <a class="c-user__avatar c-avatar--feed">
             <img class="c-user__image" [src]="baseUrl + opportunity?.ownerImage">
         </a>
-        <a class="c-card__opportunity__username">{{ opportunity?.ownerUsername | truncate:[25, '...'] }}</a>
+        <a class="c-card__opportunity__username">{{ opportunity?.ownerName | truncate:[25, '...'] }}</a>
     </div>
     <div class="c-card__links">
         <div class="c-links">

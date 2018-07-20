@@ -1,5 +1,5 @@
 <form #createFrlFrm="ngForm" [formGroup]="freelanceFrm" (ngSubmit)="submitFreelanceForm(freelanceFrm.value)">
-  <p class="c-text_lg color-grey-dark m-t-16">Freelance.</p>
+  <!-- <p class="c-text_lg color-grey-dark m-t-16">Freelance.</p> -->
   <div id="05" class="tab-pane">
       <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
           Freelance details
@@ -54,17 +54,17 @@
           </div>
           <div class="col-md-9 p-0">
               <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                  <input formControlName="freelanceLocation" class="c-form__input" type="text" placeholder="Location of the opportunity">
+                  <input formControlName="freelanceLocation" class="c-form__input" type="text" placeholder="Eg: Locality, City, Country">
                   <span class="c-form__highlight"></span>
                   <span class="c-form__bar"></span>
-                  <!-- <label>Location of the opportunity</label> -->
+                  <!-- <label>Eg: Locality, City, Country</label> -->
               </div>
               <p *ngIf="freelanceFrm.controls['freelanceLocation'].errors?.required && createFrlFrm.submitted" class="c-form__validation error">Location is required!</p>
           </div>
       </div>
       <div class="o-oppo-form__single">
           <div class="col-md-3 p-0">
-              <div class="c-text_md o-oppo-form-title">How do you want to pay</div>
+              <div class="c-text_md o-oppo-form-title">Payment</div>
           </div>
           <div class="col-md-9 p-0">
               <div class="c-radio__sm m-t-8">
@@ -114,10 +114,10 @@
           </div>
           <div class="col-md-9 p-0">
               <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                  <input formControlName="freelanceSkills" class="c-form__input" type="text" placeholder="eg: #UIdesign #photoshop #sketch">
+                  <input formControlName="freelanceSkills" class="c-form__input" type="text" placeholder="Eg: #UIdesign #photoshop #sketch">
                   <span class="c-form__highlight"></span>
                   <span class="c-form__bar"></span>
-                  <!-- <label>eg: #UIdesign #photoshop #sketch</label> -->
+                  <!-- <label>Eg: #UIdesign #photoshop #sketch</label> -->
               </div>
               <p *ngIf="freelanceFrm.controls['freelanceSkills'].errors?.required && createFrlFrm.submitted" class="c-form__validation error">Skills are required!</p>
           </div>
@@ -125,7 +125,7 @@
       <!-- Skills end -->
       <div class="o-oppo-form__single">
           <div class="col-md-3 p-0">
-              <div class="c-text_md o-oppo-form-title">Attach files</div>
+              <div class="c-text_md o-oppo-form-title">Attach Files</div>
           </div>
           <div class="col-md-9 p-0">
               <div class="o-oppo-form__file-type">
@@ -143,7 +143,7 @@
       <div class="o-oppo-form__single">
         <div class="col-md-3 p-0"></div>
         <div class="col-md-9 p-0">
-            <p *ngIf="_oppDetails?.formType === 'create'" class="c-text_sm color-grey-dark m-t-24">By clicking ‘Create’, you agree to the Terms and condition and Privacy policy</p>
+            <p *ngIf="_oppDetails?.formType === 'create'" class="c-text_sm color-grey-dark m-t-24">By clicking 'Create', you are agreeing to the Terms & Conditions and the Privacy policy.</p>
             <button *ngIf="_oppDetails?.formType === 'create'" type="submit" [disabled]="oppSubmitting || uploadingFile" class="btn btn-primary btn-md m-t-16 m-b-16">Create</button>
             <button *ngIf="_oppDetails?.formType === 'edit'" type="submit" [disabled]="oppSubmitting || uploadingFile" class="btn btn-primary btn-md m-t-16 m-b-16">Update</button>
         </div>

@@ -1,5 +1,5 @@
 <form #createProjFrm="ngForm" [formGroup]="projectFrm" (ngSubmit)="submitProjectForm(projectFrm.value)">
-  <p class="c-text_lg color-grey-dark m-t-16">Projects.</p>
+  <!-- <p class="c-text_lg color-grey-dark m-t-16">Projects.</p> -->
   <div id="02" class="tab-pane">
       <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
           Projects details
@@ -54,10 +54,10 @@
           </div>
           <div class="col-md-9 p-0">
               <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                  <input formControlName="projectLocation" class="c-form__input" type="text" placeholder="Location of the opportunity">
+                  <input formControlName="projectLocation" class="c-form__input" type="text" placeholder="Eg: Locality, City, Country">
                   <span class="c-form__highlight"></span>
                   <span class="c-form__bar"></span>
-                  <!-- <label>Location of the opportunity</label> -->
+                  <!-- <label>Eg: Locality, City, Country</label> -->
               </div>
               <p *ngIf="projectFrm.controls['projectLocation'].errors?.required && createProjFrm.submitted" class="c-form__validation error">Location is required!</p>
           </div>
@@ -95,7 +95,7 @@
       <div class="o-oppo-form__single">
           <div class="col-md-3 p-0"></div>
           <div class="col-md-9 p-0">
-              <p *ngIf="_oppDetails?.formType === 'create'" class="c-text_sm color-grey-dark m-t-24">By clicking ‘Create’, you agree to the Terms and condition and Privacy policy</p>
+              <p *ngIf="_oppDetails?.formType === 'create'" class="c-text_sm color-grey-dark m-t-24">By clicking 'Create', you are agreeing to the Terms & Conditions and the Privacy policy.</p>
               <button *ngIf="_oppDetails?.formType === 'create'" type="submit" [disabled]="oppSubmitting" class="btn btn-primary btn-md m-t-16 m-b-16">Create</button>
               <button *ngIf="_oppDetails?.formType === 'edit'" type="submit" [disabled]="oppSubmitting" class="btn btn-primary btn-md m-t-16 m-b-16">Update</button>
           </div>

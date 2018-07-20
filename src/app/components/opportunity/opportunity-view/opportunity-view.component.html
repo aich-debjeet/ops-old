@@ -95,19 +95,19 @@
                 {{ opportunity?.opportunityAudition?.complexion }}
               </div>
             </div> -->
-            <div class="row m-t-16">
+            <div *ngIf="opportunity?.opportunityAudition?.ageLimit?.from && opportunity?.opportunityAudition?.ageLimit?.to" class="row m-t-16">
               <div class="col-md-2 col-sm-4 col-xs-6 c-text_md">Age</div>
               <div class="col-md-9 col-sm-8 col-xs-6 p-0 c-text_md color-grey-dark">
                 {{ opportunity?.opportunityAudition?.ageLimit?.from }} - {{ opportunity?.opportunityAudition?.ageLimit?.to }} years
               </div>
             </div>
-            <div class="row m-t-16">
+            <div *ngIf="opportunity?.opportunityAudition?.height?.from && opportunity?.opportunityAudition?.height?.to" class="row m-t-16">
               <div class="col-md-2 col-sm-4 col-xs-6 c-text_md">Height</div>
               <div class="col-md-9 col-sm-8 col-xs-6 p-0 c-text_md color-grey-dark">
                 {{ opportunity?.opportunityAudition?.height?.from }} - {{ opportunity?.opportunityAudition?.height?.to }} cm
               </div>
             </div>
-            <div class="row m-t-16">
+            <div *ngIf="opportunity?.opportunityAudition?.weight?.from && opportunity?.opportunityAudition?.weight?.to" class="row m-t-16">
               <div class="col-md-2 col-sm-4 col-xs-6 c-text_md">Weight</div>
               <div class="col-md-9 col-sm-8 col-xs-6 p-0 c-text_md color-grey-dark">
                 {{ opportunity?.opportunityAudition?.weight?.from }} - {{ opportunity?.opportunityAudition?.weight?.to }} kg
@@ -222,7 +222,7 @@
             <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.opportunityJob?.description"></p>
           </div>
           <div class="o-oppo-post__description p-b-24">
-            <h6 class="c-text_lg m-t-24">Expertised in</h6>
+            <h6 class="c-text_lg m-t-24">Skills</h6>
             <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.opportunityJob?.skills"></p>
           </div>
           <div class="o-oppo-post__description p-b-24">
@@ -429,7 +429,7 @@
             <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.opportunityInternship?.description"></p>
           </div>
           <div class="o-oppo-post__description p-b-24">
-            <h6 class="c-text_lg m-t-24">Expertised in</h6>
+            <h6 class="c-text_lg m-t-24">Skills</h6>
             <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.opportunityInternship?.skills"></p>
           </div>
           <div class="o-oppo-post__description p-b-24">
@@ -618,7 +618,7 @@
           <div class="o-oppo-post__description with_border_top p-b-24">
             <h6 class="c-text_lg m-t-24">Cause</h6>
             <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.opportunityVolunteer?.cause"></p>
-            <h6 class="c-text_lg m-t-24">Skills</h6>
+            <h6 class="c-text_lg m-t-24">Skills Required</h6>
             <div class="row m-t-16 m-l-0">
               <div class="col-md-12 p-0 c-text_md color-grey-dark">
                 {{ opportunity?.opportunityVolunteer?.skills }}
