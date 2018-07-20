@@ -110,7 +110,7 @@ export class MediaBlockComponent implements OnInit {
   ngOnInit() {
     this.meta.addTags([
         { name: 'description', content: 'Media Title working' },
-        { property: 'og:image', content: 'https://cdn.onepagespotlight.com/img/ops_icon.png' }
+        { property: 'og:image', content: 'https://cdn.onepagespotlight.com/images/N_79749C80_8FD1_4048_942A_75B6BDF7090F/9450954a-c7f6-45d4-8931-eea4a8bc63f2_lar.jpeg' }
       ]);
       this.metaShow = this.meta;
   }
