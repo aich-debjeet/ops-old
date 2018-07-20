@@ -46,26 +46,6 @@
 
                         <div class="o-events-form__single">
                             <div class="col-md-3 p-0">
-                                <div class="c-text_md o-events-form-title">Event Type *</div>
-                            </div>
-                            <div class="col-md-5 p-0">
-                                <div class="c-form__group">
-                                    <select class="c-form-control p-l-0" formControlName="event_genres">
-                                        <option value="" disabled selected hidden>Select Genre</option>
-                                        <option value="{{type}}" *ngFor="let type of eventTypeList">{{type}}</option>
-                                    </select>
-                                </div>
-                                <p class="c-form__validation" *ngIf="eventForm.controls['event_genres'].errors?.required && ecfrom.submitted">Event Type is required
-                                    <span class="pull-right">
-                                      <img [src]="baseUrl + 'img/svg/stop_red.svg'" class="c-form__validation--img">
-                                  </span>
-                                </p>
-                            </div>
-                        </div>
-                        <!-- Genres end -->
-
-                        <div class="o-events-form__single">
-                            <div class="col-md-3 p-0">
                                 <div class="c-text_md o-events-form-title">Industry *</div>
                             </div>
                             <div class="col-md-5 p-0">
@@ -83,6 +63,26 @@
                             </div>
                         </div>
                         <!-- Industry end -->
+
+                        <div class="o-events-form__single">
+                            <div class="col-md-3 p-0">
+                                <div class="c-text_md o-events-form-title">Event Type *</div>
+                            </div>
+                            <div class="col-md-5 p-0">
+                                <div class="c-form__group">
+                                    <select class="c-form-control p-l-0" formControlName="event_genres">
+                                        <option value="" disabled selected hidden>Select Event Type</option>
+                                        <option value="{{type}}" *ngFor="let type of eventTypeList">{{type}}</option>
+                                    </select>
+                                </div>
+                                <p class="c-form__validation" *ngIf="eventForm.controls['event_genres'].errors?.required && ecfrom.submitted">Event Type is required
+                                    <span class="pull-right">
+                                      <img [src]="baseUrl + 'img/svg/stop_red.svg'" class="c-form__validation--img">
+                                  </span>
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Genres end -->                        
 
 
                         <div class="o-events-form__single">
