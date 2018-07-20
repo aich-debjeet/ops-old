@@ -72,6 +72,8 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   scrolling = 0;
   scrollingLoad = 800;
 
+  dayStatus: string;
+
   @ViewChild('search')
   public searchElementRef: ElementRef;
 
@@ -113,6 +115,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
           this.filterStartDate = '';
           this.filterLocation = '';
           this.filterEndDate = '';
+          this.dayStatus = '';
         }
         if (!params['status']){
           this.filterStatus = 'recommended';
@@ -120,6 +123,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
           this.filterLocation = '';
           this.filterStartDate = '';
           this.filterEndDate = '';
+          this.dayStatus = '';
         }
         this.serachApi();
       });
@@ -142,6 +146,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.store.dispatch({ type: EventActions.BANNER_SEARCH});
+    this.dayStatus = '';
     this.carouselOne = {
       grid: {xs: 3, sm: 3, md: 3, lg: 3, all: 0},
       slide: 1,
@@ -276,8 +281,10 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
     }
   }
 
-  filterDate(date: any){
+  filterDate(date: any, filterDay: string){
     if(date){
+      console.log(filterDay)
+      this.dayStatus= filterDay;
       if(date === this.weekend){
         let startDate = date.split('T');
         this.filterStartDate = startDate[0]+"T00:00:00.001";
