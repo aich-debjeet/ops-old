@@ -103,13 +103,16 @@ export class MediaBlockComponent implements OnInit {
     .first(media => media['media_detail'].channelId)
     .subscribe( data => {
       this.meta.updateTag({ name: 'description', content: data['media_detail'].description });
-      // meta.addTags([
-      //   { name: 'description', content: data['media_detail'].description },
-      //   { name: 'og:image', content: this.imageLink + data['media_detail'].repopath },
-      // ]);
-      // this.metaShow = meta;
     });
     this.loadMedia();
+  }
+
+  ngOnInit() {
+    this.meta.addTags([
+        { name: 'description', content: 'Media Title working' },
+        { name: 'og:image', content: 'https://cdn.onepagespotlight.com/img/ops_icon.png' },
+      ]);
+      this.metaShow = this.meta;
   }
 
   closeFunction() {
@@ -212,7 +215,6 @@ export class MediaBlockComponent implements OnInit {
     this.store.dispatch({ type: MediaActions.MEDIA_EDIT, payload: data});
   }
 
-  ngOnInit() {
-  }
+  
 
 }

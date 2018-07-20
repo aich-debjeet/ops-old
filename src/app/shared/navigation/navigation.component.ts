@@ -186,78 +186,78 @@ export class NavigationComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
     // this.loadNotifications();
-    this.pusherService.notificationsChannel.bind('Following', (message) => {
-      // console.log(message)
-      this.notify = true;
-      this.notificationStore.dispatch({
-        type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
-        payload: JSON.parse(message)
-      });
-    });
-    this.pusherService.notificationsChannel.bind('Media_Spot', (message) => {
-      // console.log(message)
-      this.notify = true;
-      this.notificationStore.dispatch({
-        type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
-        payload: JSON.parse(message)
-      });
-    });
-    this.pusherService.notificationsChannel.bind('Blog_Spot', (message) => {
-      // console.log(message)
-      this.notify = true;
-      this.notificationStore.dispatch({
-        type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
-        payload: JSON.parse(message)
-      });
-    });
-    this.pusherService.notificationsChannel.bind('Status_Spot', (message) => {
-      // console.log(message)
-      this.notify = true;
-      this.notificationStore.dispatch({
-        type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
-        payload: JSON.parse(message)
-      });
-    });
-    this.pusherService.notificationsChannel.bind('Media_Comments', (message) => {
-      // console.log(message)
-      this.notify = true;
-      this.notificationStore.dispatch({
-        type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
-        payload: JSON.parse(message)
-      });
-    });
-    this.pusherService.notificationsChannel.bind('Blog_Comments', (message) => {
-      // console.log(message)
-      this.notify = true;
-      this.notificationStore.dispatch({
-        type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
-        payload: JSON.parse(message)
-      });
-    });
-    this.pusherService.notificationsChannel.bind('Status_Comments', (message) => {
-      // console.log(message)
-      this.notify = true;
-      this.notificationStore.dispatch({
-        type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
-        payload: JSON.parse(message)
-      });
-    });
-    this.pusherService.notificationsChannel.bind('Network_Sent', (message) => {
-      // console.log(message)
-      this.notify = true;
-      this.notificationStore.dispatch({
-        type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
-        payload: JSON.parse(message)
-      });
-    });
-    this.pusherService.notificationsChannel.bind('Network_Accepted', (message) => {
-       console.log(message)
-      this.notify = true;
-      this.notificationStore.dispatch({
-        type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
-        payload: JSON.parse(message)
-      });
-    });
+    // this.pusherService.notificationsChannel.bind('Following', (message) => {
+    //   // console.log(message)
+    //   this.notify = true;
+    //   this.notificationStore.dispatch({
+    //     type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+    //     payload: JSON.parse(message)
+    //   });
+    // });
+    // this.pusherService.notificationsChannel.bind('Media_Spot', (message) => {
+    //   // console.log(message)
+    //   this.notify = true;
+    //   this.notificationStore.dispatch({
+    //     type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+    //     payload: JSON.parse(message)
+    //   });
+    // });
+    // this.pusherService.notificationsChannel.bind('Blog_Spot', (message) => {
+    //   // console.log(message)
+    //   this.notify = true;
+    //   this.notificationStore.dispatch({
+    //     type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+    //     payload: JSON.parse(message)
+    //   });
+    // });
+    // this.pusherService.notificationsChannel.bind('Status_Spot', (message) => {
+    //   // console.log(message)
+    //   this.notify = true;
+    //   this.notificationStore.dispatch({
+    //     type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+    //     payload: JSON.parse(message)
+    //   });
+    // });
+    // this.pusherService.notificationsChannel.bind('Media_Comments', (message) => {
+    //   // console.log(message)
+    //   this.notify = true;
+    //   this.notificationStore.dispatch({
+    //     type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+    //     payload: JSON.parse(message)
+    //   });
+    // });
+    // this.pusherService.notificationsChannel.bind('Blog_Comments', (message) => {
+    //   // console.log(message)
+    //   this.notify = true;
+    //   this.notificationStore.dispatch({
+    //     type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+    //     payload: JSON.parse(message)
+    //   });
+    // });
+    // this.pusherService.notificationsChannel.bind('Status_Comments', (message) => {
+    //   // console.log(message)
+    //   this.notify = true;
+    //   this.notificationStore.dispatch({
+    //     type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+    //     payload: JSON.parse(message)
+    //   });
+    // });
+    // this.pusherService.notificationsChannel.bind('Network_Sent', (message) => {
+    //   // console.log(message)
+    //   this.notify = true;
+    //   this.notificationStore.dispatch({
+    //     type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+    //     payload: JSON.parse(message)
+    //   });
+    // });
+    // this.pusherService.notificationsChannel.bind('Network_Accepted', (message) => {
+    //    console.log(message)
+    //   this.notify = true;
+    //   this.notificationStore.dispatch({
+    //     type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+    //     payload: JSON.parse(message)
+    //   });
+    // });
     document.body.scrollTop = 0;
     // check if on org page
     // const activeRoute = this.router.url;
