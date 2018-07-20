@@ -22,8 +22,7 @@
             <div class="c-post__time">{{ mediaData?.createdDate | utcDate | date:'d MMM h:m a'}}</div>
             <a>
                 <img *ngIf="mediaData?.access === 1" [src]="imageLink + 'img/svg/ico_private.svg'" class="c-status__options">
-                <!-- <img *ngIf="mediaData?.access === 0" [src]="imageLink + 'img/svg/ico_public.svg'" class="c-status__options"> -->
-                <img [src]="imageLink + 'img/svg/ico_public.svg'" *ngIf="mediaData?.access === 0" class="c-status__options">
+                <!-- <img [src]="imageLink + 'img/svg/ico_public.svg'" *ngIf="mediaData?.access === 0" class="c-status__options"> -->
             </a>
             <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
                     <img [src]="imageLink + 'img/svg/ico_options.svg'" class="c-status__options">
@@ -51,13 +50,19 @@
     <div class="c-feed__img-status" *ngIf="checkFileType(mediaData?.repopath, 'Video') || checkFileType(mediaData?.repopath, 'Audio') || checkFileType(mediaData?.repopath, 'Image')">
         {{ mediaData?.description | truncate:[200, '...']}}
     </div>
-    <div class="c-feed__img" *ngIf="checkFileType(mediaData?.repopath, 'Video') || checkFileType(mediaData?.repopath, 'Audio') || checkFileType(mediaData?.repopath, 'Image')">
+    <div class="c-feed__img2" *ngIf="checkFileType(mediaData?.repopath, 'Video') || checkFileType(mediaData?.repopath, 'Audio') || checkFileType(mediaData?.repopath, 'Image')">
         <!-- <img [src]="imageLink + mediaData?.thumbNails?.large" class="img-responsive"> -->
         <!-- <app-audioplayer class="audio" *ngIf="checkFileType(mediaData?.repopath, 'Audio')" src="{{ imageLink + mediaData?.repopath }}"></app-audioplayer>
         <img *ngIf="checkFileType(mediaData?.repopath, 'Image')" src="{{ imageLink + mediaData?.repopath }}" class="img-responsive">
         <app-videplayer [play]="'true'" *ngIf="checkFileType(mediaData?.repopath, 'Video')" class="{{ imageLink + mediaData?.repopath }}" src="{{ imageLink +  mediaData?.repopath }}"></app-videplayer> -->
         <a [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
-            <img [src]="imageLink + mediaData?.thumbNails?.large" class="img-responsive">
+            <img [src]="imageLink + mediaData?.thumbNails?.large" class="img-responsive" [class.c-feed__adult-blur]="mediaData?.isNsfw">
+            <div class="c-feed__adult" id="c-feed__adult-hide" *ngIf="mediaData?.isNsfw">
+                <div class="c-feed__adult-text">
+                    <div>This post contains sexual content</div>
+                    <a href="javascript:void(0)" class="c-feed__adult-a" id="feedRemove">see this post</a>
+                </div>
+            </div>
         </a>
         <span *ngIf="checkFileType(mediaData?.repopath, 'Audio')">
             <img [src]="imageLink + 'img/svg/ico_volume3.svg'" class="c-card__icon">
