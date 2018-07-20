@@ -37,10 +37,10 @@
                         </span>                    
                     </div>
                     <ng-container *ngIf="ownProfile">
-                        <span class="o-bio-info__edit-ico" *ngIf="userProfile?.profileType" (click)="editField('skills')">
+                        <span class="o-bio-info__edit-ico" *ngIf="userProfile?.profileType?.length > 0" (click)="editField('skills')">
                             <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
                         </span>
-                        <div id="o-bio-info__skills" class="o-bio-info__value c-text_sm color-theme" *ngIf="!userProfile?.profileType && editingField != 'skills'" (click)="editField('skills')">
+                        <div id="o-bio-info__skills" class="o-bio-info__value c-text_sm color-theme" *ngIf="userProfile?.profileType?.length == 0 && editingField != 'skills'" (click)="editField('skills')">
                             <span class="o-bio-info_plus">+</span> Add Skills
                         </div>
                     </ng-container>
