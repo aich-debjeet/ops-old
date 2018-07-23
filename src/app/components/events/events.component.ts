@@ -7,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EventsComponent implements OnInit {
   comingsoon: any;
-  constructor() {}
+  constructor() {
+  }
 
   ngOnInit() {
   }

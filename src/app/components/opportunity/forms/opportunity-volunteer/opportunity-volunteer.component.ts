@@ -95,7 +95,7 @@ export class OpportunityVolunteerComponent implements OnInit, OnDestroy {
       opportunityVolunteer: {
         title: formData.volunteerTitle,
         cause: formData.volunteerCause,
-        industry: formData.volunteerIndustry,
+        category: formData.volunteerIndustry,
         skills: formData.volunteerSkills,
         location: {
           location: formData.volunteerLocation

@@ -333,12 +333,18 @@ export class AboutBioComponent implements OnInit, OnDestroy {
       };
       reqBody.physical.ethnicity = this.ethnicity.trim() || '';
     }
-     if (fieldName === 'skills' && this.skillsArray.length > 0) {
+     if (fieldName === 'skills') {
       reqBody = {
         profileTypeList: ''
       };
-      reqBody.profileTypeList = this.skillsArray;
-      this.findSkill.industries = [];
+      if(this.skillsArray.length > 0){
+        reqBody.profileTypeList = this.skillsArray;
+        this.findSkill.industries = [];
+      } else {
+        reqBody.profileTypeList = '';
+        this.findSkill.industries = [];
+      }
+      
      }
     this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: reqBody});
     this.toastr.success('Your profile has been updated successfully!');
@@ -563,12 +569,14 @@ onSelectionChange(val) {
   loadSkill() {
     this.skillsArray = [];
     const skill = this.stateProfile['profile_details']['profileType']
-    for (let i = 0; i < skill.length; i++) {
-      this.skillsArray.push({
-        'name': skill[i].name,
-        'code': skill[i].code,
-        'active': true
-      });
+    if(skill.length > 0){
+      for (let i = 0; i < skill.length; i++) {
+        this.skillsArray.push({
+          'name': skill[i].name,
+          'code': skill[i].code,
+          'active': true
+        });
+      }
     }
   }
 }

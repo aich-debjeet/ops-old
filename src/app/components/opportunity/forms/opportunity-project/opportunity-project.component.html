@@ -54,10 +54,10 @@
           </div>
           <div class="col-md-9 p-0">
               <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                  <input formControlName="projectLocation" class="c-form__input" type="text" placeholder="Location of the opportunity">
+                  <input formControlName="projectLocation" class="c-form__input" type="text" placeholder="Eg: Locality, City, Country">
                   <span class="c-form__highlight"></span>
                   <span class="c-form__bar"></span>
-                  <!-- <label>Location of the opportunity</label> -->
+                  <!-- <label>Eg: Locality, City, Country</label> -->
               </div>
               <p *ngIf="projectFrm.controls['projectLocation'].errors?.required && createProjFrm.submitted" class="c-form__validation error">Location is required!</p>
           </div>

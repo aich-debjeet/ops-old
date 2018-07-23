@@ -3,6 +3,9 @@ import { ActionReducer, Action } from '@ngrx/store';
 import { OpportunityModel } from '../models/opportunity.model';
 import { OpportunityActions } from '../actions/opportunity.action';
 import { concat } from 'rxjs/observable/concat';
+import { GeneralUtilities } from './../helpers/general.utils';
+
+const generalUtils = new GeneralUtilities;
 
 export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: Action) =>  {
 
@@ -10,8 +13,23 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
 
     /* search opportunities */
     case OpportunityActions.SEARCH_OPPORTUNITIES:
+      let updated_opps;
+      if (state) {
+        if (generalUtils.checkNestedKey(state, ['search_opportunities_params', 'searchType'])
+          && state['search_opportunities_params']['searchType'] !== payload['searchType']
+          && state['search_opportunities_result']
+        ) {
+          updated_opps = state['search_opportunities_result'];
+          updated_opps['opportunityResponse'] = [];
+        } else {
+          if (state['search_opportunities_result']) {
+            updated_opps = state['search_opportunities_result'];
+          }
+        }
+      }
       return Object.assign({}, state, {
         searching_opportunities: true,
+        search_opportunities_result: updated_opps,
         search_opportunities_params: payload,
         search_opportunities_success: false,
         delete_opp_requested: false,
@@ -25,9 +43,6 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
       if (state['search_opportunities_params']['scrollId'] !== '') {
         updated_result = state['search_opportunities_result'];
         updated_result.opportunityResponse = [...state['search_opportunities_result']['opportunityResponse'], ...payload['SUCCESS']['opportunityResponse']];
-        // updated_result.filterList = payload['SUCCESS']['filterList'];
-        // updated_result.scrollId = payload['SUCCESS']['scrollId'];
-        // updated_result.total = payload['SUCCESS']['total'];
       } else {
         updated_result = payload['SUCCESS']
       }

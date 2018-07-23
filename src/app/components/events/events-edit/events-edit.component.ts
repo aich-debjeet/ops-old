@@ -284,18 +284,44 @@ export class EventsEditComponent implements OnInit {
     this.eventCoverImage = this.eventDetail.extras.coverImage
 
   }
+  // eventAgenda(data){
+  //   let newFormGroup = [];
+  //   for (let i = 0; i < data['event_agenda'].length; i++){
+  //     let fg = this.fb.group({
+  //       startTime: [data['event_agenda'][i].startTime],
+  //       description: [data['event_agenda'][i].description]
+  //     });
+  //     newFormGroup.push(fg);
+  //     if (i >= (data['event_agenda'].length - 1)) {
+  //       return newFormGroup;
+  //     }
+  //   }
+  // }
+
   eventAgenda(data){
-    let newFormGroup = [];
-    for (let i = 0; i < data['event_agenda'].length; i++){
+    if(data['event_agenda'] === undefined){
+      console.log('not undefined')
+      let newFormGroup = [];
+      for (let i = 0; i < data['event_agenda'].length; i++){
+        let fg = this.fb.group({
+          startTime: [data['event_agenda'][i].startTime],
+          description: [data['event_agenda'][i].description]
+        });
+        newFormGroup.push(fg);
+        if (i >= (data['event_agenda'].length - 1)) {
+          return newFormGroup;
+        }
+      }
+    } else {
+      console.log('undefined')
+      let newFormGroup = [];
       let fg = this.fb.group({
-        startTime: [data['event_agenda'][i].startTime],
-        description: [data['event_agenda'][i].description]
+        startTime: [''],
+        description: ['']
       });
       newFormGroup.push(fg);
-      if (i >= (data['event_agenda'].length - 1)) {
-        return newFormGroup;
-      }
-    }
+      return newFormGroup;
+    }  
   }
 
   dateComparision(control: AbstractControl){
