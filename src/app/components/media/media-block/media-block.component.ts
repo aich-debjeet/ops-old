@@ -109,6 +109,8 @@ export class MediaBlockComponent implements OnInit {
       this.meta.updateTag({ property: 'og:type', content: 'Media' });
       this.meta.updateTag({ property: 'og:title', content: 'OPS - Media' });
       this.meta.updateTag({ property: 'og:description', content: data['media_detail'].description });
+      this.meta.updateTag({ property: 'og:image:width', content: '640' });
+      this.meta.updateTag({ property: 'og:image:height', content: '442'});
       this.meta.updateTag({ property: 'fb:app_id', content: '678678015828014' });
     });
     this.loadMedia();
