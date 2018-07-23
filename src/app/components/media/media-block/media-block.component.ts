@@ -33,6 +33,7 @@ export class MediaBlockComponent implements OnInit {
 
   public metaShow: Meta;
   imageLink: string = environment.API_IMAGE;
+  domain: string = environment.API_DOMAIN;
   chosenChannel: any = 0;
   @Input() userChannels;
   @Input() profileImage;
@@ -104,6 +105,11 @@ export class MediaBlockComponent implements OnInit {
     .subscribe( data => {
       this.meta.updateTag({ name: 'description', content: data['media_detail'].description });
       this.meta.updateTag({ property: 'og:image', content: this.imageLink + data['media_detail'].repopath });
+      this.meta.updateTag({ property: 'og:url', content: this.domain + 'media/ ' + data['media_detail'].id });
+      this.meta.updateTag({ property: 'og:type', content: 'Media' });
+      this.meta.updateTag({ property: 'og:title', content: 'OPS - Media' });
+      this.meta.updateTag({ property: 'og:description', content: data['media_detail'].description });
+      this.meta.updateTag({ property: 'fb:app_id', content: '678678015828014' });
     });
     this.loadMedia();
   }
