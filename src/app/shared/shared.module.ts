@@ -158,7 +158,8 @@ import { OpporunitySearchCardComponent } from './opporunity-search-card/opporuni
     ReadMoreComponent,
     PortfolioMediaComponent,
     ReportPopoupComponent,
-    PortfolioViewMediaComponent
+    PortfolioViewMediaComponent,
+    OpporunitySearchCardComponent
   ]
 })
 export class SharedModule { }
