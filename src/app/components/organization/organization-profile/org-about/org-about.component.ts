@@ -31,6 +31,7 @@ import { initialTag, Follow } from '../../../../models/auth.model';
 import * as _ from 'lodash';
 
 import { Router, ActivatedRoute } from '@angular/router';
+import { GeneralUtilities } from '../../../../helpers/general.utils';
 
 @Component({
   selector: 'app-org-about',
@@ -95,7 +96,8 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
     private toastr: ToastrService,
     private datePipe: DatePipe,
     private searchStore: Store<SearchModel>,
-    private router: Router
+    private router: Router,
+    private gUtils: GeneralUtilities
   ) {
 
     /* member search */
@@ -131,7 +133,6 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
     this.orgState$.subscribe((state) => {
       this.orgProfile = state;
       // console.log('this.orgProfile', this.orgProfile);
-
       // redirect home if profile details are unavailable
       if (this.orgProfile && this.orgProfile['profile_details'] && this.orgProfile['profile_details'].hasOwnProperty('handle')) {
         // console.log('not empty');
@@ -139,7 +140,6 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
         this.router.navigateByUrl('/org/page/profile');
         return;
       }
-
       if (this.orgProfile && this.orgProfile['org_profile_update_success'] === true) {
         this.orgProfile.org_profile_update_success = false;
         if (this.orgProfile && this.orgProfile['profile_navigation_details']['isOrganization'] === true) {
@@ -147,28 +147,28 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
         }
       }
       // for mobile
-      if (this.orgProfile && this.orgProfile['profile_details']['contact']['mobile']['mobile']) {
+      if (this.gUtils.checkNestedKey(this.orgProfile, ['profile_details', 'contact', 'mobile', 'mobile'])) {
         this.aboutMobile = this.orgProfile['profile_details']['contact']['mobile']['mobile'];
       }
       // for website
-      if (this.orgProfile && this.orgProfile['profile_details']['contact']['website']['website']) {
+      if (this.gUtils.checkNestedKey(this.orgProfile, ['profile_details', 'contact', 'website', 'website'])) {
         this.aboutWebsite = this.orgProfile['profile_details']['contact']['website']['website'];
       }
       // for email
-      if (this.orgProfile && this.orgProfile['profile_details']['email']) {
+      if (this.gUtils.checkNestedKey(this.orgProfile, ['profile_details', 'email'])) {
         this.aboutEmail = this.orgProfile['profile_details']['email'];
       }
       // for description
-      if (this.orgProfile && this.orgProfile['profile_details']['description']) {
+      if (this.gUtils.checkNestedKey(this.orgProfile, ['profile_details', 'description'])) {
         this.aboutDescription = this.orgProfile['profile_details']['description'];
       }
       // for services
-      if (this.orgProfile && this.orgProfile['profile_details']['languages']) {
+      if (this.gUtils.checkNestedKey(this.orgProfile, ['profile_details', 'languages'])) {
         this.aboutServices = this.orgProfile['profile_details']['languages'];
         this.aboutServicesStr = this.orgProfile['profile_details']['languages'].join(', ');
       }
       // loading industries
-      if (this.orgProfile && this.orgProfile['profile_details']['extra']['industryList'].length > 0) {
+      if (this.gUtils.checkNestedKey(this.orgProfile, ['profile_details', 'extra', 'industryList']) && this.orgProfile['profile_details']['extra']['industryList'].length > 0) {
         setTimeout(() => {
           const industryArrLen = this.orgProfile['profile_details']['extra']['industryList'].length;
           this.aboutIndustry = this.orgProfile['profile_details']['extra']['industryList'][industryArrLen - 1];
@@ -178,16 +178,15 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
         }, 1000);
       }
       // for founded date
-      if (this.orgProfile && this.orgProfile['profile_details']['activeFrom']) {
+      if (this.gUtils.checkNestedKey(this.orgProfile, ['profile_details', 'activeFrom'])) {
         this.aboutFoundedDate = this.datePipe.transform(this.orgProfile['profile_details']['activeFrom'], 'dd-MM-yyyy');
       }
       // for address
-      if (this.orgProfile && this.orgProfile['profile_details']['extra']['address']['line1']) {
+      if (this.gUtils.checkNestedKey(this.orgProfile, ['profile_details', 'extra', 'address', 'line1'])) {
         this.aboutAddress = this.orgProfile['profile_details']['extra']['address']['line1'];
       }
-
       // check for invite status
-      if (this.orgProfile && this.orgProfile['invite_sent'] === true && this.inviteSent === true) {
+      if (this.gUtils.checkNestedKey(this.orgProfile, ['invite_sent']) && this.orgProfile['invite_sent'] === true && this.inviteSent === true) {
         this.toastr.success('Invite sent successfully');
         this.inviteSent = false;
         const invitedUserHandle = this.orgProfile['org_invite_req_data'].userHandle;
