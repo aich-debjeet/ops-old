@@ -35,6 +35,7 @@ export class MediaViewComponent {
   @Output() onComment: EventEmitter<any> = new EventEmitter<any>();
   @Output() onMediaNext: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('firstModal') modal: any;
+  domainLink: string = environment.API_DOMAIN;
   messageText: string;
   statusForm: FormGroup;
   private mediaStateSubscription: Subscription;
