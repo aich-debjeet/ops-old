@@ -7,6 +7,13 @@ export class OpportunityService {
   constructor(private api: ApiService) { }
 
   /**
+   * remove opportunity application
+   */
+  removeApplication(oppId: string) {
+    return this.api.delete('/portal/opportunity/application/' + oppId, '');
+  }
+
+  /**
    * load opportunity specific applications
    */
   getApplications(reqBody: any) {
