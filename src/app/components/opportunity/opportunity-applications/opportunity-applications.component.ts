@@ -65,4 +65,8 @@ export class OpportunityApplicationsComponent implements OnInit, OnDestroy {
     this.oppsSub.unsubscribe();
   }
 
+  submitApplicationAction(data: any) {
+    console.log('applicationAction', data);
+  }
+
 }

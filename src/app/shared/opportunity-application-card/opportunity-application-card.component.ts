@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { environment } from 'environments/environment';
 
 @Component({
@@ -9,10 +9,26 @@ import { environment } from 'environments/environment';
 export class OpportunityApplicationCardComponent implements OnInit {
   @Input('applicationDetails') applicationDetails: any;
   baseUrl = environment.API_IMAGE;
+  @Output() applicationAction: EventEmitter<any> = new EventEmitter<any>();
+  disableRemove = false;
+  disableReachout = false;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  userAction(action: string) {
+    const data = {
+      action: action,
+      applicationInfo: this.applicationDetails
+    };
+    if (action === 'remove') {
+      this.disableRemove = true;
+    } else if (action === 'reachout') {
+      this.disableReachout = true;
+    }
+    this.applicationAction.emit(data);
   }
 
 }

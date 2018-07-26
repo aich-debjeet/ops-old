@@ -23,8 +23,8 @@
         </a>
       </div> -->
       <div class="o-aplcnts__footer">
-        <button type="button" class="btn btn-default btn-sm">Remove</button>
-        <button type="button" class="btn btn-primary btn-sm">Reach out</button>
+        <button [disabled]="disableRemove" (click)="userAction('remove')" type="button" class="btn btn-default btn-sm">Remove</button>
+        <button [disabled]="disableReachout" (click)="userAction('reachout')" type="button" class="btn btn-primary btn-sm">Reach out</button>
       </div>
     </div>
   </div>
