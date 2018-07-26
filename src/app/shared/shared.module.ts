@@ -62,6 +62,7 @@ import { PortfolioMediaComponent } from './portfolio-media/portfolio-media.compo
 import { ReportPopoupComponent } from './report-popoup/report-popoup.component';
 import { PortfolioViewMediaComponent } from './portfolio-view-media/portfolio-view-media.component';
 import { OpporunitySearchCardComponent } from './opporunity-search-card/opporunity-search-card.component';
+import { EventSearchCardComponent } from './event-search-card/event-search-card.component';
 
 @NgModule({
   imports: [
@@ -121,7 +122,8 @@ import { OpporunitySearchCardComponent } from './opporunity-search-card/opporuni
     PortfolioMediaComponent,
     ReportPopoupComponent,
     PortfolioViewMediaComponent,
-    OpporunitySearchCardComponent
+    OpporunitySearchCardComponent,
+    EventSearchCardComponent
   ],
   exports: [
     OpportunityCardComponent,
@@ -159,7 +161,8 @@ import { OpporunitySearchCardComponent } from './opporunity-search-card/opporuni
     PortfolioMediaComponent,
     ReportPopoupComponent,
     PortfolioViewMediaComponent,
-    OpporunitySearchCardComponent
+    OpporunitySearchCardComponent,
+    EventSearchCardComponent
   ]
 })
 export class SharedModule { }
