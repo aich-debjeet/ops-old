@@ -1,9 +1,11 @@
-<div class="c-search__block p-8 width100">
-  <div class="c-searchspotfeed">
-      <img [src]="baseUrl + eventDetails?.imagePath[0]" class="c-searchprofile__postimg">
-      <span class="c-searchprofile__eventicon">
-        {{ (eventDetails?.eventDate) || "&nbsp;" }}
-      </span>
+<a class="db" [routerLink]="'/event/inner/' + eventDetails?.id">
+  <div class="c-search__block p-8 width100">
+    <div class="c-searchspotfeed">
+        <img [src]="baseUrl + eventDetails?.imagePath[0]" class="c-searchprofile__postimg">
+        <span class="c-searchprofile__eventicon">
+          {{ (eventDetails?.eventDate | utcDate | date:'d, MMM') || "&nbsp;" }}
+        </span>
+    </div>
+    <div class="c-searchevent__heading p-t-8 p-l-8">{{ (eventDetails?.title | firstCharCaps | truncate:[15, '...']) || "&nbsp;" }}</div>
   </div>
-  <div class="c-searchevent__heading p-t-8 p-l-8">{{ (eventDetails?.title | firstCharCaps) || "&nbsp;" }}</div>
-</div>
+</a>
