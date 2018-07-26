@@ -1,0 +1,15 @@
+<a class="db" [routerLink]="'/opportunity/view/' + opportunityDetails?.opportunityId">
+  <div class="c-card">
+    <div class="c-card__project p-l-r-16 p-t-16">
+      <img [src]="baseUrl + 'img/svg/audition.svg'" class="c-card__project--icon">
+      <span class="m-l-8">{{ (opportunityDetails?.opportunityType | firstCharCaps) || "&nbsp;" }}</span>
+    </div>
+      <!-- card body -->
+    <div class="c-card__body">
+      <div class="c-text_md">
+        {{ (opportunityDetails?.opportunityRole | truncate:[25, '...']) || "&nbsp;" }}
+      </div>
+      <div class="c-text_sm p-t-16 color-grey-dark">{{ (opportunityDetails?.organization | truncate:[25, '...']) || "&nbsp;" }}</div>
+    </div>
+  </div>
+</a>
