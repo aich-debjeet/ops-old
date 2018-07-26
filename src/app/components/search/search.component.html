@@ -202,6 +202,16 @@
                             </div>
                         </div>
                     </div>
+                    <div *ngIf="all_opps && all_opps.length > 0;" class="o-search-result-single-block">
+                        <h6 class="c-text_lg m-t-24">Opportunity 
+                            <a (click)="seeAll('opportunity')" class="color-theme float_right">See all</a>
+                        </h6>
+                        <div class="row">
+                            <div *ngFor="let opportunity of all_opps | slice:0:3" class="col-md-4 col-sm-4 col-xs-12 p-8">
+                                <app-opporunity-search-card [opportunityDetails]="opportunity"></app-opporunity-search-card>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- search all -->
                 

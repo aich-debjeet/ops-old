@@ -56,6 +56,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   all_channels: any[];
   all_artists: any[];
   all_posts: any[];
+  all_opps: any[];
   /* global result store */
 
   channels: any[];
@@ -130,6 +131,11 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       // load global channels
       if (state && state['search_all_data'] && state['search_all_data']['channels']) {
         this.all_channels = state['search_all_data']['channels'];
+      }
+
+      // load global opportunities
+      if (state && state['search_all_data'] && state['search_all_data']['opportunity']) {
+        this.all_opps = state['search_all_data']['opportunity'];
       }
 
       if (state

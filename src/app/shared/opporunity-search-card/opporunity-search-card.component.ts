@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-opporunity-search-card',
@@ -7,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class OpporunitySearchCardComponent implements OnInit {
   @Input() opportunityDetails: any;
+  baseUrl = environment.API_IMAGE;
 
   constructor() { }
 
