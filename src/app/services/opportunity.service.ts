@@ -9,8 +9,8 @@ export class OpportunityService {
   /**
    * remove opportunity application
    */
-  removeApplication(oppId: string) {
-    return this.api.delete('/portal/opportunity/application/' + oppId, '');
+  removeApplication(appDetails: any) {
+    return this.api.delete('/portal/opportunity/application/' + appDetails.id, '');
   }
 
   /**
