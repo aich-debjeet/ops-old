@@ -215,7 +215,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
       'event_genres': ['', [Validators.required]],
       'event_industry': ['', [Validators.required]],
       'event_venue': ['', [Validators.required]],
-      'event_startdate' : ['', [Validators.required, FormValidation.datevalidation]],
+      'event_startdate' : ['', [Validators.required, FormValidation.datevalidation, this.dateCompare.bind(this)]],
       'event_enddate' : ['', [Validators.required, FormValidation.oldEndDatevalidation, this.dateComparision.bind(this)]],
       'access': '0',
       'event_type': 'Free',
@@ -243,6 +243,26 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
       const startSelect = moment(startDate).format('YYYYMMDD');
       const endSelect = moment(endData).format('YYYYMMDD');
       if (endSelect < startSelect && !isNaN(Number(startSelect))) {
+        // console.log('validating')
+        // console.log('validating',startSelect)
+        return { endDateLess: true };
+      } else {
+        return null;
+      }
+    }
+
+  }
+
+  dateCompare(control: AbstractControl){
+    if (control.value === '') {
+      return null;
+    } else {
+      const endData = this.eventForm.controls['event_enddate'].value.split('-').reverse().join('-');
+      // const startDate = AC.get('event_startdate').value.split('-').reverse().join('-');
+      const startDate = control.value.split('-').reverse().join('-');
+      const startSelect = moment(startDate).format('YYYYMMDD');
+      const endSelect = moment(endData).format('YYYYMMDD');
+      if (startSelect > endSelect && !isNaN(Number(startSelect))) {
         // console.log('validating')
         // console.log('validating',startSelect)
         return { endDateLess: true };

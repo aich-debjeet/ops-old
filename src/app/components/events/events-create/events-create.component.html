@@ -165,7 +165,7 @@
                                 <p class="c-form__validation" *ngIf="eventForm.controls['event_startdate'].errors?.oldate">Please choose upcoming date</p>
                                 <p class="c-form__validation" *ngIf="eventForm.controls['event_enddate'].errors?.required && ecfrom.submitted">Please select the event end date </p>
                                 <p class="c-form__validation" *ngIf="eventForm.controls['event_enddate'].errors?.old_even_end_date">Please choose upcoming date </p>
-                                <p class="c-form__validation" *ngIf="eventForm.controls['event_enddate'].errors?.endDateLess && ecfrom.submitted">Event end date should be greater than the event start date</p>
+                                <p class="c-form__validation" *ngIf="(eventForm.controls['event_enddate'].errors?.endDateLess || eventForm.controls['event_startdate'].errors?.endDateLess) && ecfrom.submitted">Event end date should be greater than the event start date</p>
                                 <p class="c-form__validation" *ngIf="eventForm.controls['event_startdate'].errors?.required && ecfrom.submitted">Please select the event start date</p>
                             </div>
                         </div>
