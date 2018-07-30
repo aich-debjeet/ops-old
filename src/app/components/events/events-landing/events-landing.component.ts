@@ -7,6 +7,8 @@ import { UtcDatePipe } from './../../../pipes/utcdate.pipe';
 import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
 import { environment } from '../../../../environments/environment';
+import {IDatePickerConfig} from 'ng2-date-picker';
+import {DatePickerComponent} from 'ng2-date-picker';
 
 // Model
 import { EventModal, initialTagEve  } from '../../../models/event.model';
@@ -66,6 +68,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   event_loading: boolean = true;
   scrollId: any;
   locPop: boolean = false;
+  selectedDate: any;
 
   sum = 10;
   total_pages = 10;
@@ -73,6 +76,11 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   scrollingLoad = 800;
 
   dayStatus: string;
+  calendar: boolean=false;
+
+  config: IDatePickerConfig = {
+    locale: 'en'
+  };
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -196,6 +204,13 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   }
 
 
+  calendarPop(){
+    // console.log('calendar')
+    if(!this.calendar){
+      this.calendar = true;
+    } else this.calendar = false;  
+  }
+  
   serachApi() {
     // const data = {
     //   startDate: this.filterStartDate || '',
@@ -283,7 +298,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
 
   filterDate(date: any, filterDay: string){
     if(date){
-      console.log(filterDay)
+      // console.log(filterDay)
       this.dayStatus= filterDay;
       if(date === this.weekend){
         let startDate = date.split('T');
@@ -306,6 +321,17 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
       'location': ['']
     })
 
+  }
+
+  onDateChange(event) {
+    // console.log(event)
+    // console.log(event._d)
+    if(event !== undefined){
+    const d = moment(event._d).format('YYYY-MM-DD')
+    this.filterStartDate  = d+"T00:00:00.001";
+    this.filterEndDate = d+"T12:00:00.000";
+    this.serachApi();
+    }
   }
 
 
