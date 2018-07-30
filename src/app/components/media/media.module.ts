@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '../../shared/shared.module';
 import { MediaComponent } from './media.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ShareButtonsModule } from 'ngx-sharebuttons';
 
 
 // Childs
@@ -91,7 +92,8 @@ const routes: Routes = [
     TagInputModule,
     SharedPipesModule,
     BrowserAnimationsModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    ShareButtonsModule
   ],
   declarations: [
     MediaComponent,

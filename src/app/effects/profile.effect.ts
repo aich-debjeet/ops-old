@@ -610,7 +610,7 @@ export class ProfileEffect {
   profLoadProfile$ = this.actions$
     .ofType(ProfileActions.PORTFOLIO_PROFILE_LOAD)
     .map(toPayload)
-    .switchMap((payload) => this.profileService.loadProfileByUsername(payload)
+    .switchMap((payload) => this.profileService.loadProfileByUsernameForPortfolio(payload)
       .map(res => ({ type: ProfileActions.PORTFOLIO_PROFILE_LOAD_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: ProfileActions.PORTFOLIO_PROFILE_LOAD_FAILED, payload: res }))
     );

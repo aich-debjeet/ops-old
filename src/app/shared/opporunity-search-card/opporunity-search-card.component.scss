@@ -1,0 +1,62 @@
+.c-card {
+    width: 100%;
+    height: auto;
+    float: left;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.15);
+    background-color: #ffffff;
+}
+
+.m-t-16 {
+    margin-top: 16px !important;
+}
+
+.c-card__project {
+    font-size: 11px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    line-height: 24px;
+    color: #929292;
+    text-transform: uppercase;
+}
+
+.p-l-r-16 {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+}
+
+.p-t-16 {
+    padding-top: 16px !important;
+}
+
+.c-card__project--icon {
+    height: 24px;
+    float: left;
+}
+
+.m-l-8 {
+    margin-left: 8px !important;
+}
+
+.c-card__body {
+    width: 100%;
+    float: left;
+    clear: both;
+    padding: 16px;
+    position: relative;
+}
+
+.c-text_md, .c-text_md-light, .c-text_md-bold {
+    color: #333333;
+    font-size: 13px;
+    line-height: 20px;
+    font-weight: 500;
+}
+
+.color-grey-dark {
+    color: #929292 !important;
+}
+
+.db {
+    display: block;
+}
