@@ -14,7 +14,7 @@
                             <input type="file" #fileupload accept=".jpg,.jpeg" [(ngModel)]="eventCover" [ngModelOptions]="{standalone: true}" class="o-event-upload__file" name="eventCover" (change)="fileChangeListener($event)">
                             <div class="o-event-form-upload__container">
                                 <img *ngIf="eventCoverImage" class="event-image" [src]="baseUrl + eventCoverImage">
-                                <div *ngIf="!eventCoverImage" class="c-text_md f-w_600 text_uppercase color-theme ltr-space">Upload event image</div>
+                                <div *ngIf="!eventCoverImage" class="c-text_md f-w_600 text_uppercase color-theme ltr-space">* Upload event image</div>
                                 
                             </div>
                         </div>
@@ -142,7 +142,7 @@
                             </div>
                             <div class="col-md-3 p-0">
                                 <div class="c-form__group c-form--sm c-form--noeffect">
-                                    <input class="c-form__input" required formControlName="event_startdate" [dpDayPicker]="config" theme="dp-material">
+                                    <input class="c-form__input" required formControlName="event_startdate" [dpDayPicker]="configDateTime" theme="dp-material">
                                     <span class="c-form__highlight"></span>
                                     <span class="c-form__bar"></span>
                                     <label>Start date</label>
@@ -153,7 +153,7 @@
                             </div>
                             <div class="col-md-3 p-0">
                                 <div class="c-form__group c-form--sm c-form--noeffect">
-                                    <input class="c-form__input" required formControlName="event_enddate" [dpDayPicker]="config" theme="dp-material">
+                                    <input class="c-form__input" required formControlName="event_enddate" [dpDayPicker]="configDateTime" theme="dp-material">
                                     <span class="c-form__highlight"></span>
                                     <span class="c-form__bar"></span>
                                     <label>End date</label>
@@ -243,7 +243,7 @@
                         </div>
                         <!-- Event type end -->
 
-                        <div class="o-events-form__single">
+                        <!-- <div class="o-events-form__single">
                             <div class="col-md-3 p-0">
                                 <div class="c-text_md o-events-form-title">Ticket Type *</div>
                             </div>
@@ -261,7 +261,7 @@
                                     </label>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- Event type end -->
                     </div>
 
@@ -272,13 +272,34 @@
                     <!-- subtitle end -->
 
                     <div class="col-md-8 p-0">
+                        
 
-                        <div class="o-events-form__single" *ngIf="paid.checked">
+                        <!-- <div class="o-events-form__single" *ngIf="paid.checked">
                             <div class="col-md-12 p-0">
                                 <label>Comming Soon</label>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- Ticket type end -->
+
+                        <div class="o-events-form__single">
+                            <div class="col-md-3 p-0">
+                                <div class="c-text_md o-events-form-title">Ticket Type *</div>
+                            </div>
+                            <div class="col-md-9 col-sm-9 p-0">
+                                <div class="c-radio__sm p-t-16">
+                                    <label class="col-md-2 p-l-0">
+                                        <input name="event_type" type="radio" value="Free" formControlName="event_type">
+                                        <span></span>
+                                        <div class="c-radio--label c-text_md color-grey-dark">Free</div>
+                                    </label>
+                                    <label class="col-md-2 p-0">
+                                        <input name="event_type" #paid type="radio" value="Paid" formControlName="event_type">
+                                        <span></span>
+                                        <div class="c-radio--label c-text_md color-grey-dark">Paid</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="o-events-form__single">
                             <div class="col-md-3 p-0">

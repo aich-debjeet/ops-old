@@ -75,9 +75,9 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
 
   private configDateTime = {
     locale: 'en',
-    format: 'DD/MM/YYYY hh:mm A',
-    min: moment().format('MM/DD/YYYY'),
-    closeOnSelect: true,
+    format: 'DD/MM/YYYY',
+    // min: moment().format('MM/DD/YYYY'),
+    // closeOnSelect: true,
     disableKeypress: 'Disabled',
     returnedValueType: 'Moment'
 

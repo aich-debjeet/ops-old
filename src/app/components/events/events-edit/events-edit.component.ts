@@ -304,8 +304,8 @@ export class EventsEditComponent implements OnInit {
       let newFormGroup = [];
       for (let i = 0; i < data['event_agenda'].length; i++){
         let fg = this.fb.group({
-          startTime: [data['event_agenda'][i].startTime],
-          description: [data['event_agenda'][i].description]
+          startTime: [data['event_agenda'][i].startTime,[Validators.required, this.agendaDateComp.bind(this)]],
+          description: [data['event_agenda'][i].description, [Validators.required]]
         });
         newFormGroup.push(fg);
         if (i >= (data['event_agenda'].length - 1)) {
@@ -316,14 +316,37 @@ export class EventsEditComponent implements OnInit {
       console.log('undefined')
       let newFormGroup = [];
       let fg = this.fb.group({
-        startTime: [''],
-        description: ['']
+        startTime: ['',[Validators.required, this.agendaDateComp.bind(this)]],
+        description: ['', [Validators.required]]
       });
       newFormGroup.push(fg);
       return newFormGroup;
     }  
   }
 
+  agendaDateComp(control: AbstractControl){
+    if (control.value === '' || control.value === undefined) {
+      // console.log('undefined')
+      return null;
+    } else {
+      const startDate = this.eventForm.controls['event_startdate'].value.split('-').reverse().join('-');
+      const endtDate = this.eventForm.controls['event_enddate'].value.split('-').reverse().join('-');
+      const startSelect = moment(startDate).format('YYYYMMDD');
+      const endSelect = moment(endtDate).format('YYYYMMDD');
+      const date = control.value.split(' ');
+      const agenda = date[0].split('-').reverse().join('-');
+      const agendaDate = moment(agenda).format('YYYYMMDD');
+      // console.log(agendaDate)
+      if(agendaDate < startSelect || agendaDate > endSelect){
+        // console.log(agendaDate)
+        return {invalidAgendDate: true};
+      } else {
+        return null;;
+      }
+    }
+
+  }
+  
   dateComparision(control: AbstractControl){
     if (control.value === '') {
       return;
@@ -469,8 +492,8 @@ export class EventsEditComponent implements OnInit {
    */
   agendaItem() {
     return this.fb.group({
-      startTime: [''],
-      description: ['']
+      startTime: ['',[Validators.required, this.agendaDateComp.bind(this)]],
+      description: ['', [Validators.required]]
     })
   }
 
