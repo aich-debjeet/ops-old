@@ -46,7 +46,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   lastScrollTop = 0;
   canScroll = true;
 
-  recordsPerPage = 10;
+  recordsPerPage = 12;
   showPreloader = false;
 
   resultCount = 0;
@@ -329,7 +329,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
                   isHuman: '1',
                   status: ['active'],
                   offset: 0,
-                  limit: 12,
+                  limit: this.recordsPerPage,
                   searchText: this.searchString
                 }
                 this.isSearching = true;
@@ -352,7 +352,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
                 this.store.dispatch({ type: SearchActions.SEARCH_POST, payload: searchPostParams });
               } else if (this.searchType === 'opportunity') {
                 const searchOppsParams = {
-                  limit: 12,
+                  limit: this.recordsPerPage,
                   scrollId: '',
                   filtersMap: [],
                   searchText: this.searchString

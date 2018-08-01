@@ -40,7 +40,6 @@ export class SearchOpportunityComponent implements OnInit {
     this.searchState$.subscribe((state) => {
       this.searchState = state;
       if (state) {
-        console.log('state', state);
         if (typeof state['search_opportunity_data'] !== 'undefined' && state['search_opportunity_data']['opportunityResponse']) {
           this.opportunities = state['search_opportunity_data']['opportunityResponse'];
         }
