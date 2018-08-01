@@ -125,32 +125,6 @@ export class CreateChannelComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Limit Channel Media Type based on Selection
-   * @param type
-   */
-  channelTypeConfig(type) {
-    let flag;
-    switch (type) {
-      case 1:
-        flag = ['image'];
-        break;
-      case 2:
-        flag = ['audio'];
-        break;
-      case 3:
-        flag = ['video'];
-        break;
-      case 4:
-        flag = ['text'];
-        break;
-      default:
-        flag = ['image', 'video', 'audio', 'text'];
-        break;
-    }
-    return flag;
-  }
-
-  /**
    * Form Builder
    */
   createChannel(value: any) {
