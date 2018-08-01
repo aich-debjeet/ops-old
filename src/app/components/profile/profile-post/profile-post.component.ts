@@ -136,7 +136,7 @@ export class ProfilePostComponent implements OnInit, OnDestroy, AfterViewInit {
   postLoad(handle) {
     const data = {
       limit: 20,
-      scrollID: this.post_scroll_id,
+      scrollId: this.post_scroll_id,
       handle: handle,
     }
     this._store.dispatch({ type: ProfileActions.LOAD_USER_MEDIA, payload: data });
