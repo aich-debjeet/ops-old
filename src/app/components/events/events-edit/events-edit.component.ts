@@ -118,8 +118,8 @@ export class EventsEditComponent implements OnInit {
       'event_genres': ['',[Validators.required]],
       'event_industry': ['',[Validators.required]],
       'event_venue': ['',[Validators.required]],
-      'event_startdate' : ['', [Validators.required, FormValidation.datevalidation]],
-      'event_enddate' : ['',[Validators.required, FormValidation.oldEndDatevalidation]],
+      'event_startdate' : ['', [Validators.required, FormValidation.datevalidation, this.dateCompare.bind(this)]],
+      'event_enddate' : ['',[Validators.required, FormValidation.oldEndDatevalidation, this.dateComparision.bind(this)]],
       'access': '0',
       'event_type': 'Free',
       'event_agenda' : this.fb.array([this.agendaItem()]),
@@ -266,8 +266,8 @@ export class EventsEditComponent implements OnInit {
       'event_genres': [data['event_detail']['Type']['eventType'],[Validators.required]],
       'event_industry': [data['event_detail']['industry'][0],[Validators.required]],
       'event_venue': [data['event_detail']['venue']['location'],[Validators.required]],
-      'event_startdate' : [this.removeTime(data['event_detail']['eventTiming']['startDate']), [Validators.required, FormValidation.datevalidation]],
-      'event_enddate' : [this.removeTime(data['event_detail']['eventTiming']['endDate']),[Validators.required, FormValidation.oldEndDatevalidation]],
+      'event_startdate' : [this.removeTime(data['event_detail']['eventTiming']['startDate']), [Validators.required, FormValidation.datevalidation, this.dateCompare.bind(this)]],
+      'event_enddate' : [this.removeTime(data['event_detail']['eventTiming']['endDate']),[Validators.required, FormValidation.oldEndDatevalidation, this.dateComparision.bind(this)]],
       'access': '0',
       'event_type': 'Free',
       'event_agenda' : this.fb.array(this.eventAgenda(data['event_detail'])),
@@ -349,15 +349,40 @@ export class EventsEditComponent implements OnInit {
   
   dateComparision(control: AbstractControl){
     if (control.value === '') {
-      return;
+      return null;
+    } else {
+      const startDate = this.eventForm.controls['event_startdate'].value.split('-').reverse().join('-');
+      // const startDate = AC.get('event_startdate').value.split('-').reverse().join('-');
+      const endData = control.value.split('-').reverse().join('-');
+      const startSelect = moment(startDate).format('YYYYMMDD');
+      const endSelect = moment(endData).format('YYYYMMDD');
+      if (endSelect < startSelect && !isNaN(Number(startSelect))) {
+        // console.log('validating')
+        // console.log('validating',startSelect)
+        return { endDateLess: true };
+      } else {
+        return null;
+      }
     }
-    const startDate = this.eventForm.controls['event_startdate'].value.split('-').reverse().join('-');
-    // const startDate = AC.get('event_startdate').value.split('-').reverse().join('-');
-    const endData = control.value.split('-').reverse().join('-');
-    const startSelect = moment(startDate).format('YYYYMMDD');
-    const endSelect = moment(endData).format('YYYYMMDD');
-    if (endSelect < startSelect) {
-      return { endDateLess: true };
+
+  }
+
+  dateCompare(control: AbstractControl){
+    if (control.value === '') {
+      return null;
+    } else {
+      const endData = this.eventForm.controls['event_enddate'].value.split('-').reverse().join('-');
+      // const startDate = AC.get('event_startdate').value.split('-').reverse().join('-');
+      const startDate = control.value.split('-').reverse().join('-');
+      const startSelect = moment(startDate).format('YYYYMMDD');
+      const endSelect = moment(endData).format('YYYYMMDD');
+      if (startSelect > endSelect && !isNaN(Number(startSelect))) {
+        // console.log('validating')
+        // console.log('validating',startSelect)
+        return { endDateLess: true };
+      } else {
+        return null;
+      }
     }
 
   }

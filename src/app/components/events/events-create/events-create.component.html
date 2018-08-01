@@ -142,7 +142,7 @@
                             </div>
                             <div class="col-md-3 p-0">
                                 <div class="c-form__group c-form--sm c-form--noeffect">
-                                    <input class="c-form__input" required formControlName="event_startdate" [dpDayPicker]="configDateTime" theme="dp-material">
+                                    <input class="c-form__input" required formControlName="event_startdate" [dpDayPicker]="config" theme="dp-material">
                                     <span class="c-form__highlight"></span>
                                     <span class="c-form__bar"></span>
                                     <label>Start date</label>
@@ -153,7 +153,7 @@
                             </div>
                             <div class="col-md-3 p-0">
                                 <div class="c-form__group c-form--sm c-form--noeffect">
-                                    <input class="c-form__input" required formControlName="event_enddate" [dpDayPicker]="configDateTime" theme="dp-material">
+                                    <input class="c-form__input" required formControlName="event_enddate"  [dpDayPicker]="config" theme="dp-material">
                                     <span class="c-form__highlight"></span>
                                     <span class="c-form__bar"></span>
                                     <label>End date</label>
@@ -166,6 +166,7 @@
                                 <p class="c-form__validation" *ngIf="eventForm.controls['event_enddate'].errors?.required && ecfrom.submitted">Please select the event end date </p>
                                 <p class="c-form__validation" *ngIf="eventForm.controls['event_enddate'].errors?.old_even_end_date">Please choose upcoming date </p>
                                 <p class="c-form__validation" *ngIf="(eventForm.controls['event_enddate'].errors?.endDateLess || eventForm.controls['event_startdate'].errors?.endDateLess) && ecfrom.submitted">Event end date should be greater than the event start date</p>
+                                <p class="c-form__validation" *ngIf="invalidDate">Invalid Date</p>
                                 <p class="c-form__validation" *ngIf="eventForm.controls['event_startdate'].errors?.required && ecfrom.submitted">Please select the event start date</p>
                             </div>
                         </div>
