@@ -154,6 +154,44 @@ export const SearchReducer: ActionReducer<any> = (state, {payload, type}: Action
       });
     /* search channel reducers */
 
+    /* search opportunity reducers */
+    case SearchActions.SEARCH_OPPORTUNITY:
+      return Object.assign({}, state, {
+        searching_opportunity: true,
+        search_opportunity_params: payload,
+        search_opportunity_success: false
+      });
+
+    case SearchActions.SEARCH_OPPORTUNITY_SUCCESS:
+      if (payload && payload.SUCCESS) {
+        const oppsSearchData = payload['SUCCESS'];
+        // update state for pagination
+        let opportunity_data;
+        if (state.search_opportunity_params && state.search_opportunity_params.searchText) {
+          opportunity_data = oppsSearchData.opportunityResponse;
+        } else {
+          opportunity_data = [...state.search_opportunity_data.opportunityResponse, ...oppsSearchData.opportunityResponse];
+        }
+        return Object.assign({}, state, {
+          searching_opportunity: false,
+          search_opportunity_data: {
+            scrollId: oppsSearchData.scrollId,
+            total: oppsSearchData.total,
+            opportunityResponse: opportunity_data
+          },
+          search_opportunity_success: true
+        });
+      } else {
+        return state;
+      }
+
+    case SearchActions.SEARCH_OPPORTUNITY_FAILED:
+      return Object.assign({}, state, {
+        searching_opportunity: false,
+        search_opportunity_success: false
+      });
+    /* search opportunity reducers */
+
     default:
       return state;
 
