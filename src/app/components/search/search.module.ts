@@ -18,6 +18,7 @@ import { SharedPipesModule } from './../../pipes/shared-pipes.module';
 import { SharedModule } from './../../shared/shared.module';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxMasonryModule } from 'ngx-masonry';
+import { SearchOpportunityComponent } from './search-opportunity/search-opportunity.component';
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import { NgxMasonryModule } from 'ngx-masonry';
     SearchSpotfeedComponent,
     SearchPostComponent,
     SearchPeopleComponent,
-    SearchChannelComponent
+    SearchChannelComponent,
+    SearchOpportunityComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
