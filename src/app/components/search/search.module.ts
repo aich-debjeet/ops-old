@@ -10,7 +10,6 @@ import { SearchSpotfeedComponent } from './search-spotfeed/search-spotfeed.compo
 import { SearchPostComponent } from './search-post/search-post.component';
 import { SearchPeopleComponent } from './search-people/search-people.component';
 import { SearchChannelComponent } from './search-channel/search-channel.component';
-import { SearchCommunityComponent } from './search-community/search-community.component';
 
 import { SearchRoutes as routes } from './search.routes';
 import { SearchComponent } from './search.component';
@@ -38,8 +37,7 @@ import { NgxMasonryModule } from 'ngx-masonry';
     SearchSpotfeedComponent,
     SearchPostComponent,
     SearchPeopleComponent,
-    SearchChannelComponent,
-    SearchCommunityComponent
+    SearchChannelComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
