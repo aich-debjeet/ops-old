@@ -325,7 +325,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
                   isHuman: '1',
                   status: ['active'],
                   offset: 0,
-                  limit: this.recordsPerPage,
+                  limit: 12,
                   searchText: this.searchString
                 }
                 this.isSearching = true;
