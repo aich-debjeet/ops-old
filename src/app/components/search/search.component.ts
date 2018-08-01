@@ -46,7 +46,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   lastScrollTop = 0;
   canScroll = true;
 
-  recordsPerPage = 10;
+  recordsPerPage = 12;
   showPreloader = false;
 
   resultCount = 0;
@@ -60,9 +60,6 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   all_opps: any[];
   /* global result store */
 
-  channels: any[];
-  artists: any[];
-  posts: any[];
   globalFilter: any;
   selectedProfileFilters: any;
 
@@ -114,7 +111,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       }
 
       // check for the http request response status
-      if (state && (state.searching_all === false || state.searching_people === false || state.searching_post === false || state.searching_channel === false)) {
+      if (state && (state.searching_all === false || state.searching_people === false || state.searching_post === false || state.searching_channel === false || state.searching_opportunity === false)) {
           this.isSearching = false;
           this.showPreloader = false;
       }
@@ -164,6 +161,10 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       // check if active search is channel and update the count
       if (state && state['search_channel_data'] && state['search_channel_data']['total'] && this.searchType === 'channel') {
         this.resultCount = state['search_channel_data']['total'];
+      }
+      // check if active search is opportunity and update the count
+      if (state && state['search_opportunity_data'] && state['search_opportunity_data']['total'] && this.searchType === 'opportunity') {
+        this.resultCount = state['search_opportunity_data']['total'];
       }
     });
 
@@ -328,31 +329,36 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
                   isHuman: '1',
                   status: ['active'],
                   offset: 0,
-                  limit: 10,
+                  limit: this.recordsPerPage,
                   searchText: this.searchString
                 }
                 this.isSearching = true;
                 this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchPeopleParams });
-              }
-
-              if (this.searchType === 'channel') {
+              } else if (this.searchType === 'channel') {
                 const searchChannelParams = {
                   offset: 0,
-                  limit: 10,
+                  limit: this.recordsPerPage,
                   searchText: this.searchString
                 }
                 this.isSearching = true;
                 this.store.dispatch({ type: SearchActions.SEARCH_CHANNEL, payload: searchChannelParams });
-              }
-
-              if (this.searchType === 'post') {
+              } else if (this.searchType === 'post') {
                 const searchPostParams = {
                   offset: 0,
-                  limit: 10,
+                  limit: this.recordsPerPage,
                   searchText: this.searchString
                 }
                 this.isSearching = true;
                 this.store.dispatch({ type: SearchActions.SEARCH_POST, payload: searchPostParams });
+              } else if (this.searchType === 'opportunity') {
+                const searchOppsParams = {
+                  limit: this.recordsPerPage,
+                  scrollId: '',
+                  filtersMap: [],
+                  searchText: this.searchString
+                }
+                this.isSearching = true;
+                this.store.dispatch({ type: SearchActions.SEARCH_OPPORTUNITY, payload: searchOppsParams });
               }
 
             }
