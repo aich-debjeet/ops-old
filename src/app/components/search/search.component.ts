@@ -111,9 +111,15 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       }
 
       // check for the http request response status
-      if (state && (state.searching_all === false || state.searching_people === false || state.searching_post === false || state.searching_channel === false || state.searching_opportunity === false)) {
-          this.isSearching = false;
-          this.showPreloader = false;
+      if (state && (state.searching_all === false
+          || state.searching_people === false
+          || state.searching_post === false
+          || state.searching_channel === false
+          || state.searching_opportunity === false
+          || state.searching_event === false)
+        ) {
+        this.isSearching = false;
+        this.showPreloader = false;
       }
 
       // load global artists
@@ -165,6 +171,10 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       // check if active search is opportunity and update the count
       if (state && state['search_opportunity_data'] && state['search_opportunity_data']['total'] && this.searchType === 'opportunity') {
         this.resultCount = state['search_opportunity_data']['total'];
+      }
+      // check if active search is event and update the count
+      if (state && state['search_event_data'] && state['search_event_data']['total'] && this.searchType === 'event') {
+        this.resultCount = state['search_event_data']['total'];
       }
     });
 
@@ -359,6 +369,16 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
                 }
                 this.isSearching = true;
                 this.store.dispatch({ type: SearchActions.SEARCH_OPPORTUNITY, payload: searchOppsParams });
+              } else if (this.searchType === 'event') {
+                const searchEventParams = {
+                  scrollId: '',
+                  /* TODO: need to remove searchType once API gets updated */
+                  searchType: 'recommended',
+                  searchText: this.searchString,
+                  filtersMap: []
+                }
+                this.isSearching = true;
+                this.store.dispatch({ type: SearchActions.SEARCH_EVENT, payload: searchEventParams });
               }
 
             }
