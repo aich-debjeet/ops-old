@@ -120,7 +120,6 @@ export class CreateChannelComponent implements OnInit, OnDestroy {
       title: ['', Validators.required ],
       type: ['', Validators.required ],
       desc: ['', Validators.required ],
-      mediaType: ['', Validators.required ],
       privacy: [0, Validators.required ]
     })
   }
@@ -157,8 +156,7 @@ export class CreateChannelComponent implements OnInit, OnDestroy {
   createChannel(value: any) {
     this.prepareHashtags(value.desc);
 
-    // const userHandle = this.profileChannel.profile_navigation_details.handle || '';
-    const mediaTypeList = this.channelTypeConfig(Number(value.mediaType));
+    const mediaTypeList = ['image', 'video', 'audio', 'text'];
 
     // set profile handle to user handle
     const profileHandle = this.activeUser.handle;
