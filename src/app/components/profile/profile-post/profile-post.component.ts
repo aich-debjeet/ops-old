@@ -111,12 +111,8 @@ export class ProfilePostComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onScroll(e) {
-    console.log('scrolling', e.currentScrollPosition );
     this.scrolling = e.currentScrollPosition;
-
-    console.log('scrolling_loaded', this.scrollingLoad );
     if (this.scrollingLoad <= this.scrolling) {
-      console.log('triger');
       this.scrollingLoad += 8000
       this.page_start = this.page_end + 1;
       this.page_end += 10;
@@ -138,7 +134,6 @@ export class ProfilePostComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param handle User Handle
    */
   postLoad(handle) {
-    console.log(this.post_scroll_id);
     const data = {
       limit: 20,
       scrollID: this.post_scroll_id,
