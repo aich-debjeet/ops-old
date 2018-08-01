@@ -33,6 +33,7 @@ export class MediaBlockComponent implements OnInit {
 
   public metaShow: Meta;
   imageLink: string = environment.API_IMAGE;
+  domainLink: string = environment.API_DOMAIN;
   chosenChannel: any = 0;
   @Input() userChannels;
   @Input() profileImage;

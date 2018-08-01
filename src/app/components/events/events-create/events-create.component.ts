@@ -85,7 +85,8 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
   };
 
   config: IDatePickerConfig = {
-    locale: 'en'
+    locale: 'en',
+    showSeconds: false
   };
 
   process: number[] = [];

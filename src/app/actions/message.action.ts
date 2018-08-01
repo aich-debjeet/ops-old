@@ -1,7 +1,10 @@
 import { Action } from '@ngrx/store';
-import { MessageModal, initialMessage } from '../models/message.model';
 
 export class MessageActions {
+
+  static ADD_TO_MESSANGER_LIST = 'ADD_TO_MESSANGER_LIST';
+  static ADD_TO_MESSANGER_LIST_SUCCESS = 'ADD_TO_MESSANGER_LIST_SUCCESS';
+  static ADD_TO_MESSANGER_LIST_FAILED = 'ADD_TO_MESSANGER_LIST_FAILED';
 
   static LOAD_USER_PROFILE_DATA = 'LOAD_USER_PROFILE_DATA';
   static LOAD_USER_PROFILE_DATA_SUCCESS = 'LOAD_USER_PROFILE_DATA_SUCCESS';
