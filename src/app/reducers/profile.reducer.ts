@@ -447,7 +447,9 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS:
       return Object.assign({}, state, {
         success: true,
-        profile_loaded: false
+        profile_loaded: false,
+        user_post_scrollId: '',
+        user_posts: []
       });
 
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS_SUCCESS:
@@ -530,11 +532,13 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Get User Media Post
      */
     case ProfileActions.LOAD_USER_MEDIA:
-      if (payload.page_start === 0) {
+    console.log(payload);
+      if (payload.scrollID === '') {
         return Object.assign({}, state, {
           user_posts_loading: true,
           user_posts_loaded: false,
-          user_posts: []
+          user_posts: [],
+          user_post_scrollId: []
         });
       }
       return Object.assign({}, state, {
@@ -544,13 +548,14 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
 
     case ProfileActions.LOAD_USER_MEDIA_SUCCESS:
-      const posts = payload['SUCCESS'] || [];
+      const posts = payload['SUCCESS']['mediaResponse'] || [];
       const new_post = state.user_posts.concat(posts)
       return Object.assign({}, state, {
         mediaEntity: payload,
         user_posts_loaded: true,
         user_posts_loading: false,
-        user_posts: new_post
+        user_posts: new_post,
+        user_post_scrollId: payload['SUCCESS']['scrollId']
       });
 
     case ProfileActions.LOAD_USER_MEDIA_FAILED:
