@@ -9,6 +9,13 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
 
   switch (type) {
 
+    /* reachout opportunity applicant */
+    case MessageActions.ADD_TO_MESSANGER_LIST:
+      return Object.assign({}, state, {
+        messanger_list_data: [payload]
+      });
+    /* reachout opportunity applicant */
+
     /* newtwork request action */
     case MessageActions.NETWORK_REQUEST_ACTION:
       return Object.assign({}, state, {
@@ -93,10 +100,16 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       });
 
     case MessageActions.GET_MESSANGER_LIST_SUCCESS:
+      let messanger_list_data_if_reached_out;
+      if (state && state['messanger_list_data'] !== undefined) {
+        messanger_list_data_if_reached_out = [...payload, ...state['load_conversation_data']];
+      } else {
+        messanger_list_data_if_reached_out = payload;
+      }
       return Object.assign({}, state, {
         getting_messanger_list: false,
-        messanger_list_data: payload,
-        getting_messanger_list_success: true
+        getting_messanger_list_success: true,
+        messanger_list_data: messanger_list_data_if_reached_out
       });
 
     case MessageActions.GET_MESSANGER_LIST_FAILED:

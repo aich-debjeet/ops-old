@@ -11,6 +11,7 @@ import { MessageActions } from './../../../actions/message.action';
 import { PusherService } from './../../../services/pusher.service';
 
 import * as _ from 'lodash';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-message-home',
@@ -41,11 +42,13 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
   enableMsgInput = false;
   isTyping = false;
   chatScrollBottom = true;
+  convUserHandle: any;
 
   constructor(
     private messageStore: Store<MessageModal>,
     private profileStore: Store<ProfileModal>,
-    private pusherService: PusherService
+    private pusherService: PusherService,
+    private activatedRoute: ActivatedRoute
   ) {
     this.selectedUser = {};
     this.pagination = {
@@ -63,6 +66,7 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
       this.messageState = state;
       if (this.messageState && this.messageState['messanger_list_data']) {
         this.messangerList = this.messageState['messanger_list_data'];
+        // console.log('this.messangerList', this.messangerList);
         this.selectLatestConversation();
       }
 
@@ -115,6 +119,14 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
    * initialize listeners on view available
    */
   ngOnInit() {
+    this.convUserHandle = this.activatedRoute.snapshot.queryParams['handle'];
+    if (this.convUserHandle && this.convUserHandle.length > 0) {
+      // console.log('load user details for: ', this.convUserHandle);
+      this.messageStore.dispatch({
+        type: MessageActions.LOAD_USER_PROFILE_DATA,
+        payload: this.convUserHandle
+      });
+    }
     // pusher message listener
     this.pusherService.messagesChannel.bind('New-Message', (data) => {
       const message = JSON.parse(data);
