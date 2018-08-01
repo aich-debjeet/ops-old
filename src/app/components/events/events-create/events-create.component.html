@@ -204,7 +204,8 @@
                                     </div>
                                     <div class="col-md-9 offset-md-3 p-0">
                                         <p class="c-form__validation" *ngIf="eventForm.controls['event_agenda'].controls[i].controls['startTime'].errors?.invalidAgendDate">Agenda Date should be between the event start date and end date</p>
-                                        <!--<p class="c-form__validation" *ngIf="eventForm.controls.event_agenda.controls[i].controls.description.errors?.required && ecfrom.submitted">Program  is required</p>-->
+                                        <p class="c-form__validation" *ngIf="eventForm.controls['event_agenda'].controls[i].controls['startTime'].errors?.required && ecfrom.submitted">Date is required</p>
+                                        <p class="c-form__validation" *ngIf="eventForm.controls['event_agenda'].controls[i].controls['description'].errors?.required && ecfrom.submitted">Program  is required</p>
                                         <!--<p class="error_alert" *ngIf="eventForm.controls['description'].errors?.required && ecfrom.submitted">Program is required</p>-->
                                     </div>
                                 </div>

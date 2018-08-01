@@ -108,14 +108,26 @@
                             <span class="c-text_sm text_uppercase ltr-space o-calendar--color">Weekend</span>
                         </div>
                     </li>
-                    <li class="o-calendar__list--icon">
+                    <!-- <li class="o-calendar__list--icon dropdown" appDropdown>
                         <a>
-                            <div class="o-calendar__icon">
+                            <div class="o-calendar__icon" [dpDayPicker]="config" theme="dp-material">
                                 <img [src]="baseUrl + 'img/svg/calendar_gray.svg'" alt="">
                             </div>
                         </a>
+                    </li> -->
+
+                    <li class="o-calendar__list--icon ">
+                        <div class=" c-dropdown">
+                            <a (click)="calendarPop()" class="o-calendar__icon o-event-sort__a dropdown-toggle p-l-0" data-toggle="dropdown" aria-expanded="true">
+                                <img [src]="baseUrl + 'img/svg/calendar_gray.svg'" alt="">
+                            </a>
+                        </div>
                     </li>
+                    
                 </ul>
+                <div class="cal_pos" *ngIf="calendar">
+                    <dp-day-calendar [ngModel]="selectedDate" (ngModelChange)="onDateChange($event)" theme="dp-material" [ngClass]="(calendar)? 'disp_cal' : ''"></dp-day-calendar>
+                </div>
                 <!-- <ul class="o-event-filter-list-block">
   				<li class="o-event-filter-list__item">
   					<a href="#" class="o-event-filter-item__location">

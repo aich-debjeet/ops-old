@@ -1,6 +1,7 @@
 @import './src/assets/scss/helpers/_variables.scss';
 @import './src/assets/scss/helpers/_helpers.scss';
 @import './src/assets/scss/components/_feed-card.scss';
+@import './src/assets/scss/components/_dropdowns.scss';
 // ---------------  Media modal style ---------------------- //
 // post with comments block style -----------------------------------
 
@@ -266,6 +267,29 @@
 .c-links__actions {
     text-align: right;
     float: right;
+}
+
+.c-block__inline{
+    display: inline-block;
+}
+.o-share__social {
+    border-top: 1px solid #F3F5F7;
+    padding-top: 16px;
+}
+.o-share__social-icon {
+    display: inline;
+    padding: 0 21px;
+}
+
+.o-share__profile2 {
+    width: 260px;
+    border: none;
+    color: #808080;
+    font-size: 13px;
+    line-height: 20px;
+    border-radius: 3px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.26);
+    right: 0px;
 }
 
 // .media_modal {
