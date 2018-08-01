@@ -1,0 +1,15 @@
+<div infinite-scroll (scrolled)="onScroll($event)" class="row channel-row">
+  <div class="col-12">
+      <div *ngFor="let opportunity of opportunities" class="col-md-3 channel-col-3">
+        <app-opportunity-card [opportunity]="opportunity"></app-opportunity-card>
+      </div>
+  </div>
+</div>
+
+<!-- preloader -->
+<div class="w100 clb" *ngIf="showPreloader === true">
+  <div class="sticky">
+      <div class="loader">Loading...</div>
+  </div>
+</div>
+<!-- preloader -->
