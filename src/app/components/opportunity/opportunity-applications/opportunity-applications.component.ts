@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { OpportunityModel } from '../../../models/opportunity.model';
 import { OpportunityActions } from '../../../actions/opportunity.action';
 import { ISubscription } from 'rxjs/Subscription';
 import { GeneralUtilities } from '../../../helpers/general.utils';
+import { ToastrService } from 'ngx-toastr';
+import { MessageActions } from '../../../actions/message.action';
 
 @Component({
   selector: 'app-opportunity-applications',
@@ -22,6 +24,8 @@ export class OpportunityApplicationsComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
+    private toastr: ToastrService,
     private store: Store<OpportunityModel>,
     private generalUtils: GeneralUtilities
   ) {
@@ -66,7 +70,33 @@ export class OpportunityApplicationsComponent implements OnInit, OnDestroy {
   }
 
   submitApplicationAction(data: any) {
-    console.log('applicationAction', data);
+    if (data.action === 'remove') {
+      this.store.dispatch({
+        type: OpportunityActions.REMOVE_APPLICATION,
+        payload: data.applicationInfo
+      });
+      setTimeout(() => {
+        this.toastr.success('Appication removed successfully');
+      }, 1000);
+    } else if (data.action === 'reachout') {
+      const userDetails = {
+        handle: data['applicationInfo']['userHandle'],
+        username: data['applicationInfo']['userUserName'],
+        profileImage: data['applicationInfo']['userImage'],
+        name: data['applicationInfo']['userName'],
+        latestMessage: '',
+        messageType: 'sent',
+        isRead: true,
+        isBlocked: false,
+        isDeleted: false,
+        time: Date.now()
+      };
+      this.store.dispatch({
+        type: MessageActions.ADD_TO_MESSANGER_LIST,
+        payload: userDetails
+      });
+      this.router.navigate(['/user/message']);
+    }
   }
 
 }
