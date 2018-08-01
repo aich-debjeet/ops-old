@@ -10,6 +10,7 @@ import { SearchSpotfeedComponent } from './search-spotfeed/search-spotfeed.compo
 import { SearchPostComponent } from './search-post/search-post.component';
 import { SearchPeopleComponent } from './search-people/search-people.component';
 import { SearchChannelComponent } from './search-channel/search-channel.component';
+import { SearchOpportunityComponent } from './search-opportunity/search-opportunity.component';
 
 import { SearchRoutes as routes } from './search.routes';
 import { SearchComponent } from './search.component';
@@ -18,7 +19,6 @@ import { SharedPipesModule } from './../../pipes/shared-pipes.module';
 import { SharedModule } from './../../shared/shared.module';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxMasonryModule } from 'ngx-masonry';
-import { SearchOpportunityComponent } from './search-opportunity/search-opportunity.component';
 
 @NgModule({
   imports: [

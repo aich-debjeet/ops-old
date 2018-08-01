@@ -176,7 +176,7 @@ export const SearchReducer: ActionReducer<any> = (state, {payload, type}: Action
           searching_opportunity: false,
           search_opportunity_data: {
             scrollId: oppsSearchData.scrollId,
-            // total: oppsSearchData.total,
+            total: oppsSearchData.total,
             opportunityResponse: opportunity_data
           },
           search_opportunity_success: true

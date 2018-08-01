@@ -16,4 +16,8 @@ export class SearchModel {
     searching_channel: boolean;
     search_channel_success: boolean;
 
+    search_opportunity_data: any[];
+    searching_opportunity: boolean;
+    search_opportunity_success: boolean;
+
 }
