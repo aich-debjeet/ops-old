@@ -43,6 +43,7 @@ export class ProfilePostComponent implements OnInit, OnDestroy, AfterViewInit {
   total_pages = 10;
   scrolling = 0;
   scrollingLoad = 8000;
+  post_scroll_id: any = '';
   isOwner: boolean;
   profiles = [];
   people_follow_id: any = '';
@@ -61,6 +62,7 @@ export class ProfilePostComponent implements OnInit, OnDestroy, AfterViewInit {
     this.subscription = this.tagState$.subscribe((state) => {
       this.userMedia = state;
        this.posts = this.userMedia.user_posts;
+       this.post_scroll_id = this.userMedia.user_post_scrollId
         if (state['user_profiles_all_prof'] !== 'undefined') {
           this.profiles = state.user_profiles_all_prof;
         }
@@ -72,7 +74,10 @@ export class ProfilePostComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
+    this.page_start = 0;
+    this.post_scroll_id = '';
     this.userType();
+
   }
   ngAfterViewInit() {
     this.loadProfiles();
@@ -90,7 +95,6 @@ export class ProfilePostComponent implements OnInit, OnDestroy, AfterViewInit {
         if (data['profile_user_info'].isCurrentUser === true) {
           const handle = this.userMedia.profile_navigation_details.handle;
           this.isOwner = true;
-          this.posts = [];
           this.postLoad(handle);
         }
       });
@@ -101,17 +105,18 @@ export class ProfilePostComponent implements OnInit, OnDestroy, AfterViewInit {
         if (data['profile_user_info'].isCurrentUser === false) {
           const handle = this.userMedia.profile_other.handle;
           this.isOwner = false;
-          this.posts = [];
           this.postLoad(handle);
         }
       });
   }
 
   onScroll(e) {
-
+    console.log('scrolling', e.currentScrollPosition );
     this.scrolling = e.currentScrollPosition;
 
+    console.log('scrolling_loaded', this.scrollingLoad );
     if (this.scrollingLoad <= this.scrolling) {
+      console.log('triger');
       this.scrollingLoad += 8000
       this.page_start = this.page_end + 1;
       this.page_end += 10;
@@ -133,10 +138,11 @@ export class ProfilePostComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param handle User Handle
    */
   postLoad(handle) {
+    console.log(this.post_scroll_id);
     const data = {
+      limit: 20,
+      scrollID: this.post_scroll_id,
       handle: handle,
-      page_start: this.page_start,
-      page_end: this.page_end
     }
     this._store.dispatch({ type: ProfileActions.LOAD_USER_MEDIA, payload: data });
   }
@@ -174,7 +180,7 @@ export class ProfilePostComponent implements OnInit, OnDestroy, AfterViewInit {
         this.loadChannels();
       });
   }
-  
+
   /**
    * post user channel
    */
