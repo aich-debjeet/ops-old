@@ -163,9 +163,9 @@ export const SearchReducer: ActionReducer<any> = (state, {payload, type}: Action
       });
 
     case SearchActions.SEARCH_OPPORTUNITY_SUCCESS:
-      if (payload && payload.SUCCESS) {
+      if (payload['SUCCESS']) {
         const oppsSearchData = payload['SUCCESS'];
-        // update state for pagination
+        // // update state for pagination
         let opportunity_data;
         if (state.search_opportunity_params && state.search_opportunity_params.searchText) {
           opportunity_data = oppsSearchData.opportunityResponse;
@@ -176,7 +176,7 @@ export const SearchReducer: ActionReducer<any> = (state, {payload, type}: Action
           searching_opportunity: false,
           search_opportunity_data: {
             scrollId: oppsSearchData.scrollId,
-            total: oppsSearchData.total,
+            // total: oppsSearchData.total,
             opportunityResponse: opportunity_data
           },
           search_opportunity_success: true

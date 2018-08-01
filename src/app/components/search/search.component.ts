@@ -60,9 +60,6 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   all_opps: any[];
   /* global result store */
 
-  channels: any[];
-  artists: any[];
-  posts: any[];
   globalFilter: any;
   selectedProfileFilters: any;
 
@@ -328,31 +325,36 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
                   isHuman: '1',
                   status: ['active'],
                   offset: 0,
-                  limit: 10,
+                  limit: this.recordsPerPage,
                   searchText: this.searchString
                 }
                 this.isSearching = true;
                 this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchPeopleParams });
-              }
-
-              if (this.searchType === 'channel') {
+              } else if (this.searchType === 'channel') {
                 const searchChannelParams = {
                   offset: 0,
-                  limit: 10,
+                  limit: this.recordsPerPage,
                   searchText: this.searchString
                 }
                 this.isSearching = true;
                 this.store.dispatch({ type: SearchActions.SEARCH_CHANNEL, payload: searchChannelParams });
-              }
-
-              if (this.searchType === 'post') {
+              } else if (this.searchType === 'post') {
                 const searchPostParams = {
                   offset: 0,
-                  limit: 10,
+                  limit: this.recordsPerPage,
                   searchText: this.searchString
                 }
                 this.isSearching = true;
                 this.store.dispatch({ type: SearchActions.SEARCH_POST, payload: searchPostParams });
+              } else if (this.searchType === 'opportunity') {
+                const searchOppsParams = {
+                  limit: 12,
+                  scrollId: '',
+                  filtersMap: [],
+                  searchText: this.searchString
+                }
+                this.isSearching = true;
+                this.store.dispatch({ type: SearchActions.SEARCH_OPPORTUNITY, payload: searchOppsParams });
               }
 
             }
