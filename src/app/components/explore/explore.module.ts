@@ -4,6 +4,7 @@ import { ExploreComponent } from './explore.component';
 import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from '../../shared/shared.module';
 import { SharedPipesModule } from '../../pipes/shared-pipes.module';
+import { NguCarouselModule } from '@ngu/carousel';
 
 const routes: Routes = [
   { path: '',
@@ -16,6 +17,7 @@ const routes: Routes = [
     CommonModule,
     SharedModule,
     SharedPipesModule,
+    NguCarouselModule,
     RouterModule.forChild(routes)
   ],
   declarations: [ExploreComponent]

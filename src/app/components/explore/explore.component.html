@@ -2,90 +2,19 @@
 
 <section class="o-explore-top-block">
   <div class="explore-category">
-    <a href="#">
-      <div class="o-explore-category-block">
-        <div class="o-explore-category__overlay">
-          <div class="c-text_lg color-white">Popular</div>
-        </div>
-      </div>
-    </a>
-    <a href="#">
-      <div class="o-explore-category-block">
-        <div class="o-explore-category__overlay">
-          <div class="c-text_lg color-white">Art </div>
-        </div>
-      </div>
-    </a>
-    <a href="#">
-      <div class="o-explore-category-block">
-        <div class="o-explore-category__overlay">
-          <div class="c-text_lg color-white">Dance</div>
-        </div>
-      </div>
-    </a>
-    <a href="#">
-      <div class="o-explore-category-block">
-        <div class="o-explore-category__overlay">
-          <div class="c-text_lg color-white">Drawing</div>
-        </div>
-      </div>
-    </a>
-    <a href="#">
-      <div class="o-explore-category-block">
-        <div class="o-explore-category__overlay">
-          <div class="c-text_lg color-white">Photography</div>
-        </div>
-      </div>
-    </a>
-    <a href="#">
-      <div class="o-explore-category-block">
-        <div class="o-explore-category__overlay">
-          <div class="c-text_lg color-white">Music</div>
-        </div>
-      </div>
-    </a>
-    <a href="#">
-      <div class="o-explore-category-block">
-        <div class="o-explore-category__overlay">
-          <div class="c-text_lg color-white">Painting</div>
-        </div>
-      </div>
-    </a>
-    <a href="#">
-      <div class="o-explore-category-block">
-        <div class="o-explore-category__overlay">
-          <div class="c-text_lg color-white">Architectur</div>
-        </div>
-      </div>
-    </a>
-    <a href="#">
-      <div class="o-explore-category-block">
-        <div class="o-explore-category__overlay">
-          <div class="c-text_lg color-white">Instruments</div>
-        </div>
-      </div>
-    </a>
-    <a href="#">
-      <div class="o-explore-category-block">
-        <div class="o-explore-category__overlay">
-          <div class="c-text_lg color-white">Cooking</div>
-        </div>
-      </div>
-    </a>
-    <a href="#">
-      <div class="o-explore-category-block">
-        <div class="o-explore-category__overlay">
-          <div class="c-text_lg color-white">Sculpture</div>
-        </div>
-      </div>
-    </a>
-    <a href="#">
-      <div class="o-explore-category-block">
-        <div class="o-explore-category__overlay">
-          <div class="c-text_lg color-white">Video Game</div>
-        </div>
-      </div>
-    </a>
+    <ngu-carousel [inputs]="exploreSlider">
+      <ngu-item NguCarouselItem class="" *ngFor="let spotfeed of spotfeeds">
+          <a href="#">
+            <div class="o-explore-category-block">
+              <div class="o-explore-category__overlay">
+                <div class="c-text_lg color-white">{{ spotfeed }}</div>
+              </div>
+            </div>
+          </a>
+      </ngu-item>
+      <button NguCarouselPrev class='leftRs'>&lt;</button>
+      <button NguCarouselNext class='rightRs'>&gt;</button>
+    </ngu-carousel>
   </div>
 </section>
 
