@@ -9,7 +9,6 @@ import { SpotfeedPremiumComponent } from './components/spotfeed-premium/spotfeed
 import { NotificationComponent } from './components/notification/notification.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { LogoutHomeComponent } from './components/logout-home/logout-home.component';
-import { ExploreComponent } from './components/explore/explore.component';
 import { ChannelListComponent } from './components/channel-list/channel-list.component';
 import { ChannelInnerComponent } from './components/channel-inner/channel-inner.component';
 import { LearnComponent } from './components/learn/learn.component';
@@ -54,7 +53,6 @@ export const routes: Routes = [
  { path: 'project', component: ProjectComponent, canActivate: [AuthGuard] },
  { path: 'event', loadChildren: './components/events/events.module#EventsModule'},
  { path: 'user/settings', component: SettingsComponent, canActivate: [AuthGuard] },
- { path: 'explore', component: ExploreComponent, canActivate: [AuthGuard] },
  { path: 'channel', component: ChannelListComponent, canActivate: [AuthGuard] },
  { path: 'resources', component: ResourceComponent, canActivate: [AuthGuard] },
  { path: 'communities', loadChildren: './components/communities/communities.module#CommunitiesModule', canActivate: [AuthGuard] },
