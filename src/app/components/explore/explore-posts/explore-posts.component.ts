@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-explore-posts',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./explore-posts.component.scss']
 })
 export class ExplorePostsComponent implements OnInit {
+  @Input() posts: any;
 
   constructor() { }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-explore-channels',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./explore-channels.component.scss']
 })
 export class ExploreChannelsComponent implements OnInit {
+  @Input() channels: any;
 
   constructor() { }
 
