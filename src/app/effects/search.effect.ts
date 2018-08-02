@@ -10,6 +10,7 @@ import 'rxjs/add/operator/switchMap';
 import { SearchActions } from '../actions/search.action';
 import { SearchService } from '../services/search.service';
 import { OpportunityService } from '../services/opportunity.service';
+import { EventService } from '../services/event.service';
 
 @Injectable()
 export class SearchEffect {
@@ -64,9 +65,20 @@ export class SearchEffect {
       .catch((res) => Observable.of({ type: SearchActions.SEARCH_OPPORTUNITY_FAILED, payload: res }))
     );
 
+  @Effect()
+  eventSearchData$ = this.actions$
+    .ofType(SearchActions.SEARCH_EVENT)
+    .debounceTime(500)
+    .map(toPayload)
+    .switchMap((payload) => this.eventService.eventSearchData(payload)
+      .map(res => ({ type: SearchActions.SEARCH_EVENT_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: SearchActions.SEARCH_EVENT_FAILED, payload: res }))
+    );
+
   constructor(
       private actions$: Actions,
       private apiService: SearchService,
+      private eventService: EventService,
       private opportunityService: OpportunityService
   ) {}
 }
