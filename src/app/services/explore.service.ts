@@ -12,13 +12,9 @@ import { TokenService } from '../helpers/token.service';
 export class ExploreService {
     handle: string;
     headers: any;
-    private apiLink: string = environment.API_ENDPOINT;
 
     constructor(
-        private http: Http,
-        private router: Router,
-        private api: ApiService,
-        private tokenService: TokenService
+        private api: ApiService
     ) {
         this.headers = this.api.getHeaders();
         this.handle = this.api.getHandle();
@@ -35,6 +31,13 @@ export class ExploreService {
     getSpotfeeds(params: any) {
         this.updateToken();
         return this.api.get('/portal/cdn/explore/getFeeds/' + params.offset + '/' + params.limit + '?industryType=' + params.industryType);
+    }
+
+    /**
+     * Get explore page info
+     */
+    getExploreData(params: any) {
+        return this.api.post('/portal/network/spotfeed/explore', params);
     }
 
 }

@@ -15,7 +15,7 @@ import { ExploreActions } from '../actions/explore.action';
 @Injectable()
 export class ExploreEffect {
 
-   /**
+  /**
    * Get spotfeeds
    */
   @Effect()
@@ -26,6 +26,21 @@ export class ExploreEffect {
       .map(res => ({ type: ExploreActions.LOAD_SPOTFEEDS_SUCCESS, payload: res }))
       .catch((res) => Observable.of({
         type: ExploreActions.LOAD_SPOTFEEDS_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
+  /**
+   * Get explore page data
+   */
+  @Effect()
+  getExploreData$ = this.actions$
+    .ofType(ExploreActions.GET_EXPLORE_DATA)
+    .map(toPayload)
+    .switchMap((payload) => this.exploreService.getExploreData(payload)
+      .map(res => ({ type: ExploreActions.GET_EXPLORE_DATA_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ExploreActions.GET_EXPLORE_DATA_FAILED,
         payload: { errorStatus: res.status }
       }))
     );
