@@ -59,6 +59,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
   eventDetail: any;
   eventCover: File;
   eventTypeList: any;
+  invalidDate: boolean = false;
     // Address --
     address: string;
     country: string;
@@ -75,9 +76,9 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
 
   private configDateTime = {
     locale: 'en',
-    format: 'DD/MM/YYYY hh:mm A',
-    min: moment().format('MM/DD/YYYY'),
-    closeOnSelect: true,
+    format: 'DD/MM/YYYY',
+    // min: moment().format('MM/DD/YYYY'),
+    // closeOnSelect: true,
     disableKeypress: 'Disabled',
     returnedValueType: 'Moment'
 
@@ -216,8 +217,8 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
       'event_genres': ['', [Validators.required]],
       'event_industry': ['', [Validators.required]],
       'event_venue': ['', [Validators.required]],
-      'event_startdate' : ['', [Validators.required, FormValidation.datevalidation]],
-      'event_enddate' : ['', [Validators.required, FormValidation.oldEndDatevalidation, this.dateComparision.bind(this)]],
+      'event_startdate' : ['', [Validators.required, FormValidation.datevalidation, this.dateCompare.bind(this), this.validDate.bind(this)]],
+      'event_enddate' : ['', [Validators.required, FormValidation.oldEndDatevalidation, this.dateComparision.bind(this), this.validDate.bind(this)]],
       'access': '0',
       'event_type': 'Free',
       'event_agenda' : this.fb.array([this.agendaItem()]),
@@ -244,6 +245,39 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
       const startSelect = moment(startDate).format('YYYYMMDD');
       const endSelect = moment(endData).format('YYYYMMDD');
       if (endSelect < startSelect && !isNaN(Number(startSelect))) {
+        // console.log('validating')
+        // console.log('validating',startSelect)
+        return { endDateLess: true };
+      } else {
+        return null;
+      }
+    }
+
+  }
+  validDate(control: AbstractControl){
+    if (control.value === '') {
+      this.invalidDate = false;
+      return null;
+    } else {
+      if(!moment(control.value, "DD-MM-YYYY", true).isValid()){
+        console.log('invalid');
+        this.invalidDate = true;
+      } else {
+        this.invalidDate = false;
+      }
+    }    
+  }
+
+  dateCompare(control: AbstractControl){
+    if (control.value === '') {
+      return null;
+    } else {
+      const endData = this.eventForm.controls['event_enddate'].value.split('-').reverse().join('-');
+      // const startDate = AC.get('event_startdate').value.split('-').reverse().join('-');
+      const startDate = control.value.split('-').reverse().join('-');
+      const startSelect = moment(startDate).format('YYYYMMDD');
+      const endSelect = moment(endData).format('YYYYMMDD');
+      if (startSelect > endSelect && !isNaN(Number(startSelect))) {
         // console.log('validating')
         // console.log('validating',startSelect)
         return { endDateLess: true };
