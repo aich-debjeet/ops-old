@@ -58,22 +58,22 @@ export const ExploreReducer: ActionReducer<any> = (state, {payload, type}: Actio
 
       case ExploreActions.GET_EXPLORE_DATA:
         return Object.assign({}, state, {
-          get_explore_data: true,
-          get_explore_data_success: false,
-          explore_data_params: payload
+          getExploreData: true,
+          getExploreData_success: false,
+          exploreDataParams: payload
         });
 
       case ExploreActions.GET_EXPLORE_DATA_SUCCESS:
         return Object.assign({}, state, {
-          get_explore_data: false,
-          get_explore_data_success: true,
-          explore_data: payload['SUCCESS']
+          getExploreData: false,
+          getExploreData_success: true,
+          exploreData: payload['SUCCESS']
         });
 
       case ExploreActions.GET_EXPLORE_DATA_FAILED:
         return Object.assign({}, state, {
-          get_explore_data: false,
-          get_explore_data_success: false
+          getExploreData: false,
+          getExploreDataSuccess: false
         });
 
       default:

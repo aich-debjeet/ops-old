@@ -8,16 +8,17 @@ import { NguCarouselModule } from '@ngu/carousel';
 import { ExplorePostsComponent } from './explore-posts/explore-posts.component';
 import { ExploreChannelsComponent } from './explore-channels/explore-channels.component';
 import { ExploreProfilesComponent } from './explore-profiles/explore-profiles.component';
+import { NgxMasonryModule } from 'ngx-masonry';
 
 const routes: Routes = [
   { path: '',
     component:  ExploreComponent,
-    children: [
-      { path: '', redirectTo: 'post' },
-      { path: 'post', component: ExplorePostsComponent },
-      { path: 'channel', component: ExploreChannelsComponent },
-      { path: 'profile', component: ExploreProfilesComponent }
-    ]
+    // children: [
+    //   { path: '', redirectTo: 'post' },
+    //   { path: 'post', component: ExplorePostsComponent },
+    //   { path: 'channel', component: ExploreChannelsComponent },
+    //   { path: 'profile', component: ExploreProfilesComponent }
+    // ]
   }
 ];
 
@@ -25,6 +26,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     SharedModule,
+    NgxMasonryModule,
     SharedPipesModule,
     NguCarouselModule,
     RouterModule.forChild(routes)

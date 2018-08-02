@@ -24,20 +24,22 @@
       <div class="col-md-12 p-0">
         <ul class="nav nav-tabs">
           <li class="active">
-            <a [routerLink]="['post']" aria-expanded="true">Posts</a>
+            <a (click)="switchSearchType('post')" aria-expanded="true">Posts</a>
           </li>
           <li>
-            <a [routerLink]="['channel']" aria-expanded="false">Channel</a>
+            <a (click)="switchSearchType('channel')" aria-expanded="false">Channel</a>
           </li>
           <li>
-            <a [routerLink]="['profile']" aria-expanded="false">People</a>
+            <a (click)="switchSearchType('profile')" aria-expanded="false">People</a>
           </li>
         </ul>
       </div>
     </div>
     <div class="col-md-12 p-0">
       <div class="tab-content">
-        <router-outlet></router-outlet>
+        <app-explore-posts    *ngIf="searchType === 'post'"    [posts]="allPosts" ></app-explore-posts>
+        <app-explore-profiles *ngIf="searchType === 'profile'" [profiles]="allProfiles" ></app-explore-profiles>
+        <app-explore-channels *ngIf="searchType === 'channel'" [channels]="allChannels" ></app-explore-channels>
       </div>
     </div>
   </div>
