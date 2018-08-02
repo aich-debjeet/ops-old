@@ -1,0 +1,50 @@
+@import './src/assets/scss/components/_tabs.scss';
+@import './src/assets/scss/components/_cards.scss';
+
+/* ------------------------- explore style --------------------------- */
+.o-explore-top-block{
+    width: 100%;
+    float: left;
+    padding:20px 8px;
+
+}
+.o-explore-category-block{
+    width: 221px;
+    height: 81px;
+    border-radius: 3px; 
+    overflow: hidden;
+    background: url(https://ops-v2.netlify.com/assets/demo/new/s17.jpg);
+    background-size: 100%;
+    background-position: center;
+}
+.o-explore-category__overlay{
+    width: 221px;
+    height: 81px;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content:center;
+    align-items:center;
+}
+
+// explore content block style
+
+.o-explore-content-block{
+    width: 100%;
+    float: left;
+    .nav-tabs{
+        display: flex;
+        justify-content:center;
+        li{
+            text-align: center;
+            a{
+                letter-spacing: 0px!important;
+                font-weight: 600!important;
+            }
+        }
+    }
+}
+.o-explore-channel{
+    width: 18%;
+    float: left;
+    margin:8px;
+}
