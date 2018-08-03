@@ -88,6 +88,7 @@ export class ProfileModal {
   connection_loaded: boolean;
 
   reports: any[];
+  user_post_scrollId?: any;
 
 }
 

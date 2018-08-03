@@ -26,6 +26,7 @@ import { OpportunityJobComponent } from './forms/opportunity-job/opportunity-job
 import { OpportunityInternshipComponent } from './forms/opportunity-internship/opportunity-internship.component';
 import { OpportunityFreelanceComponent } from './forms/opportunity-freelance/opportunity-freelance.component';
 import { OpportunityVolunteerComponent } from './forms/opportunity-volunteer/opportunity-volunteer.component';
+import { OpportunityApplicationsComponent } from './opportunity-applications/opportunity-applications.component';
 
 // opportunity module routes
 const opportunityRoutes: Routes = [
@@ -46,7 +47,8 @@ const opportunityRoutes: Routes = [
       },
       { path: 'create', component: OpportunityCreateComponent },
       { path: 'view/:id', component: OpportunityViewComponent, pathMatch: 'full' },
-      { path: 'edit/:id', component: OpportunityEditComponent, pathMatch: 'full' }
+      { path: 'edit/:id', component: OpportunityEditComponent, pathMatch: 'full' },
+      { path: 'applications/:id', component: OpportunityApplicationsComponent, pathMatch: 'full' }
     ]
   }
 ]
@@ -78,7 +80,8 @@ const opportunityRoutes: Routes = [
     OpportunityJobComponent,
     OpportunityInternshipComponent,
     OpportunityFreelanceComponent,
-    OpportunityVolunteerComponent
+    OpportunityVolunteerComponent,
+    OpportunityApplicationsComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

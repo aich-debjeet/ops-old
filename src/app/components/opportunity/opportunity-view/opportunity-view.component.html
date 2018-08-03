@@ -630,24 +630,6 @@
                 {{ requirement }}, 
               </div>
             </div>
-          <div class="o-oppo-post__description">
-            <h6 class="c-text_lg m-t-24 m-b-16">Attachments</h6>
-            <ul class="o-oppo-post__media-list">
-              <li class="o-oppo-post__media-item"></li>
-              <li class="o-oppo-post__media-item"></li>
-            </ul>
-            <div class="o-oppo-post__media-action">
-              <div class="o-oppo-post__action-icons float_left ">
-                <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity" (click)="applyForJob()" [disabled]="applyingForOpp || hasApplied">Apply</button>
-                <a class="o-action-icons__link m-r-16">
-                  <img width="24" [src]="baseUrl + 'img/svg/ico_share-02.svg'">
-                </a>
-                <a class="o-action-icons__link m-r-16">
-                  <img width="24" [src]="baseUrl + 'img/svg/bookmark.svg'">
-                </a>
-              </div>
-            </div>
-          </div>
         </div><!-- detail end -->
       </div>
       <!-- volunteer -->
@@ -672,7 +654,7 @@
           </div>
         </a>
       </div>
-      <div class="o-oppo-post-right-block m-b-16 hidden-xs">
+      <div *ngIf="!isOwnOpportunity" class="o-oppo-post-right-block m-b-16 hidden-xs">
         <h6 class="c-text_lg m-b-8">Similar Opportunities</h6>
         <div class="o-similar-oppo-card">
           <div class="o-oppo-post-right__title">
@@ -718,6 +700,14 @@
           </div>
         </div><!-- similar oppo card end -->
 
+      </div>
+      <div *ngIf="isOwnOpportunity" class="o-applicant-list-container">
+        <div class="o-applicant-list__heading">
+          <h3 class="c-h3">{{ opportunity?.applicationCount }}</h3>
+          <div class="c-text_md">Applicants 
+            <a [routerLink]="'/opportunity/applications/' + opportunity?.id" class="float_right color-theme text_uppercase ltr-space">See Applicants</a>
+          </div>
+        </div>
       </div>
     </div>
     <!-- right widgets -->

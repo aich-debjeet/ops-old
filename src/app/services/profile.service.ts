@@ -377,13 +377,13 @@ export class ProfileService {
     return this.api.get(`/portal/profile/user/username/${userName}`);
   }
 
-  // loadProfileByUsername(userName: string) {
-  //   return this.http.get(`${this.apiLink}/portal/profile/user/username/` + userName)
-  //     .map((data: Response) => {
-  //       localStorage.setItem('portfolioUserHandle', data.json().handle);
-  //       return data.json()
-  //     });
-  // }
+  loadProfileByUsernameForPortfolio(userName: string) {
+    return this.http.get(`${this.apiLink}/portal/profile/user/username/` + userName)
+      .map((data: Response) => {
+        localStorage.setItem('portfolioUserHandle', data.json().handle);
+        return data.json()
+      });
+  }
 
   /**
    * Load a user profile
@@ -436,9 +436,9 @@ export class ProfileService {
    * Get User media
    */
   getUserMedia(payload: any) {
-    const params = payload.handle + '/' + payload.page_start + '/' + payload.page_end;
-    return this.api.get('/portal/cdn/media/otherProfile/', params);
+    return this.api.post('/portal/cdn/media/profile/posts', payload);
   }
+
   /**
    *
    * @param payload get posts followed by the user

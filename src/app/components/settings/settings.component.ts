@@ -9,7 +9,6 @@ import { DatePipe } from '@angular/common';
 import { Http, Headers, Response } from '@angular/http';
 import { TokenService } from './../../helpers/token.service';
 import { environment } from '../../../environments/environment';
-import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
 
 // action
@@ -23,7 +22,7 @@ import { Subscription } from 'rxjs/Subscription';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  providers: [ModalService, ProfileUpdateValidator, DatabaseValidator, DragulaService],
+  providers: [ModalService, ProfileUpdateValidator, DatabaseValidator],
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
@@ -77,8 +76,7 @@ export class SettingsComponent implements OnInit {
     private tokenService: TokenService,
     private _store: Store<ProfileModal>,
     private store: Store<BasicRegTag>,
-    private databaseValidator: DatabaseValidator,
-    private dragula: DragulaService,
+    private databaseValidator: DatabaseValidator
   ) {
     // this.dragula.drop.subscribe((value) => {
     //   this.onDrop(value.slice(1));

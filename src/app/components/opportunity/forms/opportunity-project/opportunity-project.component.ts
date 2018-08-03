@@ -82,7 +82,7 @@ export class OpportunityProjectComponent implements OnInit, OnDestroy {
       opportunityProject: {
         title: formData.projectTitle,
         description: formData.projectDescription,
-        industry: formData.projectIndustry,
+        category: formData.projectIndustry,
         skills: formData.projectSkills,
         addCollaborators: [formData.projectCollaborators],
         location: {

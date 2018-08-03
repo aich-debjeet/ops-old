@@ -13,7 +13,6 @@ import { TextMaskModule } from 'angular2-text-mask';
 // External Service
 import { ImageCropperModule } from 'ng2-img-cropper/index';
 import { ToastrModule } from 'ngx-toastr';
-import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 import { ShareButtonsModule } from 'ngx-sharebuttons';
 import { NguCarouselModule } from '@ngu/carousel';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
@@ -39,16 +38,6 @@ import { AuthlogoutGuard } from './guard/authlogout.guard';
 import { routes } from './app.routing';
 
 // Reducers
-import { AuthReducer } from './reducers/auth.reducer';
-import { MediaReducer } from './reducers/media.reducer';
-import { HomeReducer } from './reducers/home.reducer';
-import { SharedReducer } from './reducers/shared.reducer';
-import { ProfileReducer } from './reducers/profile.reducer';
-import { MessageReducer } from './reducers/messages.reducer';
-import { UserSearchReducer } from './reducers/user-search.reducer';
-import { OpportunityReducer } from './reducers/opportunity.reducer';
-import { ExploreReducer } from './reducers/explore.reducer';
-import { ClaimProfileReducer } from './reducers/claim-profile.reducer';
 import { reducer } from './app.reducer';
 
 // Effects
@@ -159,7 +148,6 @@ import { AboutComponent } from './components/about/about.component';
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ops-app'}),
-    DragulaModule,
     SharedPipesModule,
     SharedModule,
     MediaModule,

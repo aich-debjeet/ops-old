@@ -11,6 +11,50 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
 
   switch (type) {
 
+    /* remove application by id */
+    case OpportunityActions.REMOVE_APPLICATION:
+      return Object.assign({}, state, {
+        remove_application: true,
+        remove_application_params: payload,
+        remove_application_success: false,
+      });
+
+    case OpportunityActions.REMOVE_APPLICATION_SUCCESS:
+      return Object.assign({}, state, {
+        remove_application: false,
+        remove_application_success: true,
+        remove_application_result: payload
+      });
+
+    case OpportunityActions.REMOVE_APPLICATION_FAILED:
+      return Object.assign({}, state, {
+        remove_application: false,
+        remove_application_success: false,
+      });
+    /* remove application by id */
+
+    /* load opportunities by id */
+    case OpportunityActions.GET_APPLICATIONS:
+      return Object.assign({}, state, {
+        get_applications: true,
+        get_applications_params: payload,
+        get_applications_success: false,
+      });
+
+    case OpportunityActions.GET_APPLICATIONS_SUCCESS:
+      return Object.assign({}, state, {
+        get_applications: false,
+        get_applications_result: payload['SUCCESS'],
+        get_applications_success: true,
+      });
+
+    case OpportunityActions.GET_APPLICATIONS_FAILED:
+      return Object.assign({}, state, {
+        get_applications: false,
+        get_applications_success: false,
+      });
+    /* load opportunities by id */
+
     /* search opportunities */
     case OpportunityActions.SEARCH_OPPORTUNITIES:
       let updated_opps;
