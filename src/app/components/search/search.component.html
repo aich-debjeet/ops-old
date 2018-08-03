@@ -237,6 +237,14 @@
                 <app-search-post *ngIf="searchString?.length > 0 && !isSearching && searchType === 'post'"></app-search-post>
                 <!-- search posts result -->
 
+                <!-- search opportunity result -->
+                <app-search-opportunity *ngIf="searchString?.length > 0 && !isSearching && searchType === 'opportunity'"></app-search-opportunity>
+                <!-- search opportunity result -->
+
+                <!-- search event result -->
+                <app-search-event *ngIf="searchString?.length > 0 && !isSearching && searchType === 'event'"></app-search-event>
+                <!-- search event result -->
+
             </div>
             <!-- search result -->
             

@@ -1,4 +1,4 @@
-<div class="col-md-3 p-l-r-8 m-t-16" *ngIf="!loader">
+<div class="col-xs-12 col-sm-6 col-md-3 p-l-r-8 m-t-16" *ngIf="!loader">
     <div class="c-card c-card-pre">
         <!-- card media (img, video & audio) -->
         <div class="c-card__opportunity">
@@ -17,8 +17,8 @@
         <!-- card footer links -->
         <div class="c-card__links p-t-0">
             <div class="c-comm__followers">
-                <div class="c-followers__img " *ngFor="let member of data?.memberImages | slice:0:3; let index = index" [class.m-l--8]="index !== 0">
-                    <img class="c-user__image cursor-pointer" routerLink="/profile/u/{{ member?.profileUsername }}" [src]="imageLink + member">
+                <div class="c-followers__img " *ngFor="let member of data?.members | slice:0:3; let index = index" [class.m-l--8]="index !== 0">
+                    <img class="c-user__image cursor-pointer" routerLink="/profile/u/{{ member?.username }}" [src]="imageLink + member?.profileImage">
                 </div>
                 <p class="c-followers__count" *ngIf="data?.member_count > 3"> + {{ (data?.member_count) - 3}} member</p>
                 <a (click)="joinCommunity(data?.communityId)" class="c-card__Communities--link" *ngIf="!data?.isOwner && !data?.isMember">Join</a>
@@ -29,7 +29,7 @@
     </div>
 </div>
 
-<div class="col-md-3 p-l-r-8 m-t-16" *ngIf="loader">
+<div class="col-xs-12 col-sm-6 col-md-3 p-l-r-8 m-t-16" *ngIf="loader">
     <div class="c-card c-card-pre">
         <div class="c-card__opportunity c-bg__effect">
         </div>

@@ -1,0 +1,13 @@
+<div infinite-scroll (scrolled)="onScroll($event)" class="row event-row">
+  <div class="col-12">
+      <app-event-card *ngFor="let event of events" [eventData]="event"></app-event-card>
+  </div>
+</div>
+
+<!-- preloader -->
+<div class="w100 clb" *ngIf="showPreloader === true">
+  <div class="sticky">
+      <div class="loader">Loading...</div>
+  </div>
+</div>
+<!-- preloader -->

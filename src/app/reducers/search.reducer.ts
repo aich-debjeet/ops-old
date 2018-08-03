@@ -154,6 +154,77 @@ export const SearchReducer: ActionReducer<any> = (state, {payload, type}: Action
       });
     /* search channel reducers */
 
+    /* search opportunity reducers */
+    case SearchActions.SEARCH_OPPORTUNITY:
+      return Object.assign({}, state, {
+        searching_opportunity: true,
+        search_opportunity_params: payload,
+        search_opportunity_success: false
+      });
+
+    case SearchActions.SEARCH_OPPORTUNITY_SUCCESS:
+      if (payload['SUCCESS']) {
+        const oppsSearchData = payload['SUCCESS'];
+        // // update state for pagination
+        let opportunity_data;
+        if (state.search_opportunity_params && state.search_opportunity_params.searchText) {
+          opportunity_data = oppsSearchData.opportunityResponse;
+        } else {
+          opportunity_data = [...state.search_opportunity_data.opportunityResponse, ...oppsSearchData.opportunityResponse];
+        }
+        return Object.assign({}, state, {
+          searching_opportunity: false,
+          search_opportunity_data: {
+            scrollId: oppsSearchData.scrollId,
+            total: oppsSearchData.total,
+            opportunityResponse: opportunity_data
+          },
+          search_opportunity_success: true
+        });
+      } else {
+        return state;
+      }
+
+    case SearchActions.SEARCH_OPPORTUNITY_FAILED:
+      return Object.assign({}, state, {
+        searching_opportunity: false,
+        search_opportunity_success: false
+      });
+    /* search opportunity reducers */
+
+    /* search event reducers */
+    case SearchActions.SEARCH_EVENT:
+      return Object.assign({}, state, {
+        searching_event: true,
+        search_event_params: payload,
+        search_event_success: false
+      });
+
+    case SearchActions.SEARCH_EVENT_SUCCESS:
+      // update state for pagination
+      let event_data;
+      if (state.search_event_params && state.search_event_params.searchText) {
+        event_data = payload.eventResponse;
+      } else {
+        event_data = [...state.search_event_data.eventResponse, ...payload.eventResponse];
+      }
+      return Object.assign({}, state, {
+        searching_event: false,
+        search_event_data: {
+          scrollId: payload.scrollId,
+          total: payload.total,
+          eventResponse: event_data
+        },
+        search_event_success: true
+      });
+
+    case SearchActions.SEARCH_EVENT_FAILED:
+      return Object.assign({}, state, {
+        searching_event: false,
+        search_event_success: false
+      });
+    /* search event reducers */
+
     default:
       return state;
 
