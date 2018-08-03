@@ -98,7 +98,7 @@
                                     <a routerLink="/home">Home</a>
                                 </div>
                                 <div class="dropdown__item p-b-8 text-uppercase">
-                                    <a routerLink="/explore">Explore</a>
+                                    <a [routerLink]="['/explore']" [queryParams]="{type:'post'}">Explore</a>
                                 </div>
                                 <div class="dropdown__item p-b-8 text-uppercase">
                                     <a [routerLink]="['/opportunity/search']" [queryParams]="{q:'', type:'recommended'}">Opportunity</a>
