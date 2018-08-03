@@ -23,13 +23,13 @@
     <div class="o-home-tab-sec c-ops__tabs m-t-8">
       <div class="col-md-12 p-0">
         <ul class="nav nav-tabs">
-          <li class="active">
+          <li [ngClass]="{'active': searchType === 'post'}">
             <a (click)="switchSearchType('post')" aria-expanded="true">Posts</a>
           </li>
-          <li>
+          <li [ngClass]="{'active': searchType === 'channel'}">
             <a (click)="switchSearchType('channel')" aria-expanded="false">Channel</a>
           </li>
-          <li>
+          <li [ngClass]="{'active': searchType === 'profile'}">
             <a (click)="switchSearchType('profile')" aria-expanded="false">People</a>
           </li>
         </ul>
@@ -41,6 +41,16 @@
         <app-explore-profiles *ngIf="searchType === 'profile'" [profiles]="allProfiles" ></app-explore-profiles>
         <app-explore-channels *ngIf="searchType === 'channel'" [channels]="allChannels" ></app-explore-channels>
       </div>
+      <div *ngIf="!showPreloader && ((searchType === 'post' && allPosts?.length === 0) || (searchType === 'profile' && allProfiles?.length === 0) || (searchType === 'channel' && allChannels?.length === 0))">
+        <p class="result-not-found">No records found!</p>
+      </div>
+      <!-- search prelaoder -->
+      <div *ngIf="showPreloader">
+        <div class="sticky">
+          <div class="loader">Loading...</div>
+        </div>
+      </div>
+      <!-- search prelaoder -->
     </div>
   </div>
 </section>

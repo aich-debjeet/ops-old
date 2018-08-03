@@ -41,6 +41,14 @@ export class ExploreComponent implements OnInit, OnDestroy {
     this.expSub = this.exploreState$.subscribe((state) => {
       if (state) {
         this.exploreState = state;
+        // check for the http request response status
+        if (
+          this.gUtils.checkNestedKey(state, ['getExploreData']) && state['getExploreData'] === false
+          && this.gUtils.checkNestedKey(state, ['getExploreDataSuccess']) && state['getExploreDataSuccess'] === true
+        ) {
+          this.isSearching = false;
+          this.showPreloader = false;
+        }
         // console.log('this.exploreState', this.exploreState);
         if (this.gUtils.checkNestedKey(state, ['exploreData', 'mediaResponse'])) {
           this.allPosts = state['exploreData']['mediaResponse'];
@@ -56,14 +64,13 @@ export class ExploreComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.switchSearchType('post');
     this.exploreSlider = {
-      grid: {xs: 1, sm: 1, md: 1, lg: 1, all: 0},
+      grid: {xs: 2, sm: 3, md: 5, lg: 5, all: 0},
       slide: 5,
       speed: 400,
       interval: 4000,
       point: {
-        visible: true
+        visible: false
       },
       load: 5,
       touch: true,
@@ -83,7 +90,7 @@ export class ExploreComponent implements OnInit, OnDestroy {
           const exploreParams = {
             limit: this.recordsPerPage,
             scrollId: '',
-            searchType: this.searchType,
+            entityType: this.searchType,
           }
           this.isSearching = true;
           this.showPreloader = true;
