@@ -64,10 +64,26 @@ export const ExploreReducer: ActionReducer<any> = (state, {payload, type}: Actio
         });
 
       case ExploreActions.GET_EXPLORE_DATA_SUCCESS:
+        let updatedExploreData;
+        // update state for pagination
+        if (state['exploreDataParams']['scrollId'] !== '') {
+          updatedExploreData = state['exploreData'];
+          if (state['exploreDataParams']['entityType'] === 'post') {
+            updatedExploreData.mediaResponse = [...state['exploreData']['mediaResponse'], ...payload['SUCCESS']['mediaResponse']];
+          }
+          if (state['exploreDataParams']['entityType'] === 'channel') {
+            updatedExploreData.channelResponse = [...state['exploreData']['channelResponse'], ...payload['SUCCESS']['channelResponse']];
+          }
+          if (state['exploreDataParams']['entityType'] === 'profile') {
+            updatedExploreData.profileResponse = [...state['exploreData']['profileResponse'], ...payload['SUCCESS']['profileResponse']];
+          }
+        } else {
+          updatedExploreData = payload['SUCCESS']
+        }
         return Object.assign({}, state, {
           getExploreData: false,
           getExploreDataSuccess: true,
-          exploreData: payload['SUCCESS']
+          exploreData: updatedExploreData
         });
 
       case ExploreActions.GET_EXPLORE_DATA_FAILED:

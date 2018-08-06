@@ -36,7 +36,11 @@
       </div>
     </div>
     <div class="col-md-12 p-0">
-      <div class="tab-content">
+      <div class="tab-content"
+        infiniteScroll
+        [infiniteScrollDistance]="2"
+			  [infiniteScrollThrottle]="1000"
+        (scrolled)="loadMore($event)">
         <app-explore-posts    *ngIf="searchType === 'post'"    [posts]="allPosts" ></app-explore-posts>
         <app-explore-profiles *ngIf="searchType === 'profile'" [profiles]="allProfiles" ></app-explore-profiles>
         <app-explore-channels *ngIf="searchType === 'channel'" [channels]="allChannels" ></app-explore-channels>

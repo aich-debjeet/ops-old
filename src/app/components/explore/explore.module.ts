@@ -9,6 +9,7 @@ import { ExplorePostsComponent } from './explore-posts/explore-posts.component';
 import { ExploreChannelsComponent } from './explore-channels/explore-channels.component';
 import { ExploreProfilesComponent } from './explore-profiles/explore-profiles.component';
 import { NgxMasonryModule } from 'ngx-masonry';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 const routes: Routes = [
   { path: '',
@@ -29,6 +30,7 @@ const routes: Routes = [
     NgxMasonryModule,
     SharedPipesModule,
     NguCarouselModule,
+    InfiniteScrollModule,
     RouterModule.forChild(routes)
   ],
   declarations: [

@@ -120,4 +120,22 @@ export class ExploreComponent implements OnInit, OnDestroy {
     this.routeSub.unsubscribe();
   }
 
+  loadMore(e: any) {
+    // check if search type is available
+    if (this.searchType.length > 0) {
+      let scrollId = '';
+      if (this.gUtils.checkNestedKey(this.exploreState, ['exploreData', 'scrollId'])) {
+        scrollId = this.exploreState['exploreData']['scrollId'];
+      }
+      const exploreParams = {
+        limit: this.recordsPerPage,
+        scrollId: scrollId,
+        entityType: this.searchType,
+      }
+      this.isSearching = true;
+      this.showPreloader = true;
+      this.exploreStore.dispatch({ type: ExploreActions.GET_EXPLORE_DATA, payload: exploreParams });
+    }
+  }
+
 }
