@@ -1,175 +1,49 @@
+@import './src/assets/scss/components/_tabs.scss';
+
 /* ------------------------- explore style --------------------------- */
-
-.o-explore-top-sec{
-    width: 100%;
-    height: 300px;
-    background-color: #fff;
-    float: left;
-    box-shadow: 0 2px 4px 0 rgba(102,45,145,0.1);
-    background: url(https://cdn.onepagespotlight.com/img/home/explore.jpg) center no-repeat;
-    background-size: cover;
-    margin-top: 30px;
-}
-.o-explore-post-by{
-    float: right;
-}
-.o-explore-post__avatar{
-    width: 24px;
-    height: 24px;
-    float: left;
-    border-radius: 50%;
-    overflow: hidden;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.69);
-    img{
-        width: 100%;
-    }
-}
-.o-explore-post__info{
-    float: left;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.69);
-}
-
-// content area
-
-.o-explore-content-sec{
+.o-explore-top-block{
     width: 100%;
     float: left;
-    margin-top: 24px;
+    padding:20px 8px;
+    margin-top: 50px;
 }
-.o-explore-main{
-    width: 100%;
-    float: left;
-    border-radius: 5px;	
-    box-shadow: 0 3px 15px 0 rgba(102,45,145,0.17);
-    min-height: 282px;
-}
-.o-explore-card-left{
-    width: 276px;
-    height: 266px;
-    float: left;
+.o-explore-category-block{
+    width: 221px;
+    height: 81px;
+    border-radius: 3px; 
     overflow: hidden;
-    position: relative;
-    border-radius: 3px;
+    background: url(https://ops-v2.netlify.com/assets/demo/new/s17.jpg);
+    background-size: 100%;
+    background-position: center;
 }
-.o-explore-card-right{
-    width: 276px;
-    height: 266px;
-    float: left;
-    overflow: hidden;
-}
-.o-explore-img-title{
-    height: 72px;	
-    width: 100%;	
-    border-radius: 3px;	
-    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, #000000 100%);
-    position: absolute;
-    bottom: 0;
+.o-explore-category__overlay{
+    width: 221px;
+    height: 81px;
+    background-color: rgba(0,0,0,0.5);
     display: flex;
-    align-items:flex-end;
-    padding: 0px 0px 16px 16px;
-}
-
-// card
-
-.o-explore-card{
-    width: 130px;
-    height: 129px;
-    float: left;
-    position: relative;
-    border-radius: 3px;
-    overflow: hidden;
-    float: left;
-}
-.o-explore-card__media{
-    width: 100%;
-    height: 129px;
-    background: rgb(177, 175, 175);
-    cursor: pointer !important;
-}
-.cursor-pointer {
-    cursor: pointer !important;
-}
-.o-explore-img-title--sm{
-    height: 46px;	
-    width: 100%;	
-    border-radius: 3px;	
-    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, #000000 100%);
-    position: absolute;
-    bottom: 0;
-    display: flex;
-    align-items:flex-end;
-    padding: 0px 0px 8px 8px;
-}
-
-// catagory
-
-.o-explore-catagory-sec{
-    width: 100%;
-    float: left;
-    background: linear-gradient(139.48deg, #FF7B84 0%, #F7D022 100%);
-    padding:24px 8px;
-    display: block;
     justify-content:center;
-    overflow-x: auto;
-    overflow-y: hidden;
-}
-.o-explore-catagory-block{
-    height: 56px;
-    float: left;
-    padding:8px;
-    border-radius: 3px;
-    background: #fff;
-    box-shadow: 0 4px 9px 0 rgba(97,53,129,0.21);
-    min-width: 137px;
-}
-.o-explore-catagory__thumb{
-    width: 40px;
-    height: 40px;
-    border-radius: 2px;
-    overflow: hidden;
-    float: left;
-    background: #b1afaf;
-    img{
-        width: 100%;
-    }
-}
-.ptop-50 {
-    padding-top: 50px;
-}
-.o-explore-catagory__title{
-    height: 40px;
-    display: flex;
     align-items:center;
-    float: left;
-    max-width: 80px;
-    overflow: hidden;
 }
 
-// catagory main
+// explore content block style
 
-.o-explore-catagory-main{
+.o-explore-content-block{
     width: 100%;
-    clear: both;
-}
-
-.m-r-8 {
-    margin-bottom: 8px;
-}
-
-.pointer {
-    cursor: pointer !important;
-}
-
-.o-explore-card {
-    img{
-        width: 100%;
-        height: auto;
+    float: left;
+    .nav-tabs{
+        display: flex;
+        justify-content:center;
+        li{
+            text-align: center;
+            a{
+                letter-spacing: 0px!important;
+                font-weight: 600!important;
+            }
+        }
     }
 }
-
-app-footer{
-    margin-top: 32px;
+.o-explore-channel{
+    width: 18%;
     float: left;
-    display: inline-block;
-    width: 100%;
+    margin:8px;
 }
