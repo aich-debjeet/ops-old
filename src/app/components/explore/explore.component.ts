@@ -28,6 +28,7 @@ export class ExploreComponent implements OnInit, OnDestroy {
 
   exploreState$: any;
   exploreState: any;
+  spotfeedLoaded = false;
 
   constructor(
     private router: Router,
@@ -35,7 +36,6 @@ export class ExploreComponent implements OnInit, OnDestroy {
     private exploreStore: Store<ExploreModel>,
     private gUtils: GeneralUtilities
   ) {
-    this.spotfeeds = [1, 2, 3];
     // state listener
     this.exploreState$ = this.exploreStore.select('exploreTags');
     this.expSub = this.exploreState$.subscribe((state) => {
@@ -59,13 +59,17 @@ export class ExploreComponent implements OnInit, OnDestroy {
         if (this.gUtils.checkNestedKey(state, ['exploreData', 'profileResponse'])) {
           this.allProfiles = state['exploreData']['profileResponse'];
         }
+        if (!this.spotfeedLoaded && this.gUtils.checkNestedKey(state, ['exploreData', 'spotfeedResponsesList'])) {
+          this.spotfeeds = state['exploreData']['spotfeedResponsesList'];
+          this.spotfeedLoaded = true;
+        }
       }
     });
   }
 
   ngOnInit() {
     this.exploreSlider = {
-      grid: {xs: 2, sm: 3, md: 5, lg: 5, all: 0},
+      grid: {xs: 2, sm: 3, md: 6, lg: 6, all: 0},
       slide: 5,
       speed: 400,
       interval: 4000,
