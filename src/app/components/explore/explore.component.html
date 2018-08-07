@@ -1,56 +1,60 @@
 <app-navigation></app-navigation>
 
-<section class="o-explore-top-sec">
+<section class="o-explore-top-block">
+  <div class="explore-category">
+    <ngu-carousel [inputs]="exploreSlider">
+      <ngu-item NguCarouselItem class="" *ngFor="let spotfeed of spotfeeds">
+          <a href="#">
+            <div class="o-explore-category-block">
+              <div class="o-explore-category__overlay">
+                <div class="c-text_lg color-white">{{ spotfeed?.industry | firstCharCaps }}</div>
+              </div>
+            </div>
+          </a>
+      </ngu-item>
+      <button NguCarouselPrev class='leftRs'>&lt;</button>
+      <button NguCarouselNext class='rightRs'>&gt;</button>
+    </ngu-carousel>
+  </div>
+</section>
+
+<section class="o-explore-content-block">
   <div class="container">
-      <!-- <div class="o-explore-post-by m-t-32">
-        <div class="o-explore-post__info m-r-8">
-          <span class="c-text_sm color-white">Posted by @zanelowe</span>
-        </div>
-        <div class="o-explore-post__avatar">
-          <img src="/assets/img/avatar.png" alt="">
-        </div>
-      </div> -->
-  </div>
-</section>
-
-<section class="o-explore-catagory-sec">
-  <div *ngFor="let spotfeed of profileSpotfeeds;" class="o-explore-catagory-block m-r-8">
-    <div class="pointer" [routerLink]="['/spotfeed', spotfeed.name]">
-      <div class="o-explore-catagory__thumb" [ngStyle]="{ 'background-size': 'cover', 'background-position': 'center'}" [lazyLoad]="baseUrl + spotfeed?.image">
-        <!-- <img src="{{ baseUrl + spotfeed.image }}" alt=""> -->
+    <div class="o-home-tab-sec c-ops__tabs m-t-8">
+      <div class="col-md-12 p-0">
+        <ul class="nav nav-tabs">
+          <li [ngClass]="{'active': searchType === 'post'}">
+            <a (click)="switchSearchType('post')" aria-expanded="true">Posts</a>
+          </li>
+          <li [ngClass]="{'active': searchType === 'channel'}">
+            <a (click)="switchSearchType('channel')" aria-expanded="false">Channel</a>
+          </li>
+          <li [ngClass]="{'active': searchType === 'profile'}">
+            <a (click)="switchSearchType('profile')" aria-expanded="false">People</a>
+          </li>
+        </ul>
       </div>
-      <div class="o-explore-catagory__title c-text_sm p-l-8">
-        {{ spotfeed?.name | truncate:[10, '...'] }}
+    </div>
+    <div class="col-md-12 p-0">
+      <div class="tab-content"
+        infiniteScroll
+        [infiniteScrollDistance]="2"
+			  [infiniteScrollThrottle]="1000"
+        (scrolled)="loadMore($event)">
+        <app-explore-posts    *ngIf="searchType === 'post'"    [posts]="allPosts" ></app-explore-posts>
+        <app-explore-profiles *ngIf="searchType === 'profile'" [profiles]="allProfiles" ></app-explore-profiles>
+        <app-explore-channels *ngIf="searchType === 'channel'" [channels]="allChannels" ></app-explore-channels>
       </div>
+      <div *ngIf="!showPreloader && ((searchType === 'post' && allPosts?.length === 0) || (searchType === 'profile' && allProfiles?.length === 0) || (searchType === 'channel' && allChannels?.length === 0))">
+        <p class="result-not-found">No records found!</p>
+      </div>
+      <!-- search prelaoder -->
+      <div *ngIf="showPreloader">
+        <div class="sticky">
+          <div class="loader">Loading...</div>
+        </div>
+      </div>
+      <!-- search prelaoder -->
     </div>
   </div>
 </section>
-
-<section class="o-explore-catagory-main m-t-24 ptop-50"></section>
-
-<section class="o-explore-catagory-main m-t-24">
-  <div class="container p-0">
-    <div *ngFor="let spotfeed of mergedSpotfeeds" class="o-explore-card m-r-16 m-t-16" [routerLink]="['/spotfeed', spotfeed?.industryType ]" >
-      <!-- <img [defaultImage]="defaultImage"
-             [lazyLoad]="baseUrl + spotfeed?.feeds[0].image"
-             [useSrcset]="true"
-             [offset]="offset"> -->
-      <div class="o-explore-card__media" [ngStyle]="{'background-size': 'cover', 'background-position': 'center'}" [lazyLoad]="baseUrl + spotfeed?.feeds[0].image"></div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">{{ spotfeed?.industryType }}</div>
-    </div>
-  </div>
-</section>
-
-<!-- preloader -->
-<div *ngIf="showPreloader === true">
-  <div class="sticky">
-      <div class="loader">Loading...</div>
-  </div>
-</div>
-<!-- preloader -->
-
-<!-- if spotfeeds not found -->
-<div *ngIf="mergedSpotfeeds && mergedSpotfeeds?.length === 0;">
-  <p class="result-not-found">Spotfeeds not found!</p>
-</div>
-<!-- if spotfeeds not found -->

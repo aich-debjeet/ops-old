@@ -1,5 +1,6 @@
 // All cards style ---------------------------------------------------------------------------
 @import '~sass-mq/_mq.scss';
+@import './src/assets/scss/helpers/_variables.scss';
 
 .c-card--artist {
   padding: 16px;
