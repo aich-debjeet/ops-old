@@ -58,3 +58,11 @@
 .leftRs, .rightRs {
     top: calc(50% - 26px);
 }
+
+.selectedSpotfeed {
+    border: 1px solid red;
+}
+
+.text-shadow {
+    text-shadow: 0 0 10px #000;
+}
