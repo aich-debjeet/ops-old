@@ -104,7 +104,7 @@ export class MediaBlockComponent implements OnInit {
     .first(media => media['media_detail'].channelId)
     .subscribe( data => {
       this.meta.updateTag({ name: 'description', content: data['media_detail'].description });
-      this.meta.updateTag({ property: 'og:image', content: this.imageLink + data['media_detail'].repopath });
+      this.meta.updateTag({ property: 'og:image', content: this.imageLink + data['media_detail'].thumbNails.large });
       this.meta.updateTag({ property: 'og:url', content: this.domainLink + 'media/' + data['media_detail'].id });
       this.meta.updateTag({ property: 'og:type', content: 'Media' });
       this.meta.updateTag({ property: 'og:title', content: 'OPS - Media' });
