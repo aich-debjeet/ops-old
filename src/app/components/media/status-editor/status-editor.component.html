@@ -63,7 +63,7 @@
 <section class="Select__channel" *ngIf="uploadState === 2">
     <div class="container">
         <div class="o-add-media">
-            <app-channel-list [userChannels]="channelList" (onSearch)="searchChannel($event)" (onScrolled)="scrolled($event)" (onSelection)="postStatusToChannel($event)"></app-channel-list>
+            <app-channel-list [userChannels]="channelList" (onSearch)="searchChannel($event)" (onScrolled)="scrolled($event)" (onSelection)="postStatusToChannel($event)" (onChangeContext)="changeState($event)"></app-channel-list>
         </div>
     </div>
 </section>

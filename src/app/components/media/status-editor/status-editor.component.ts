@@ -45,6 +45,7 @@ export class StatusEditorComponent implements OnInit, OnDestroy {
   uploadState: Number;
   channelList: any[];
   userHandle: string;
+  user_channel_scroll_id: any;
 
   constructor(
     private fb: FormBuilder,
@@ -68,6 +69,9 @@ export class StatusEditorComponent implements OnInit, OnDestroy {
       this.activeUser = activeUser;
       if (state.user_channels_loaded) {
         this.channelList = state.user_channel;
+      }
+      if (state && state['user_channel_scroll_id']) {
+        this.user_channel_scroll_id = state['user_channel_scroll_id']
       }
     });
     // Media
@@ -184,5 +188,27 @@ export class StatusEditorComponent implements OnInit, OnDestroy {
         this.toastr.success('Your post has been successfully posted to your channel');
         this.router.navigate(['/channel/' + channelId]);
       });
+  }
+
+  scrolled($event) {
+    this.loadChannel(this.userHandle, this.user_channel_scroll_id);
+  }
+
+  searchChannel(text) {
+    const body = {
+      'limit': 30,
+      'superType': 'channel',
+      'owner': this.userHandle,
+      'searchText': text,
+      'scrollId': null
+    }
+    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: body });
+  }
+
+  /**
+   * Switch View
+   */
+  changeState(state: number) {
+    this.uploadState = state;
   }
 }
