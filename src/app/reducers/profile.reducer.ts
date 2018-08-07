@@ -1006,6 +1006,27 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         media_channel_posted: false
       });
 
+    /**
+     * Post status to Channel
+     */
+    case ProfileActions.POST_CHANNEL_STATUS:
+      return Object.assign({}, state, {
+        status_channel_posting: true,
+        status_channel_posted: false
+      });
+
+    case ProfileActions.POST_CHANNEL_STATUS_SUCCESS:
+      return Object.assign({}, state, {
+        status_channel_posting: false,
+        status_channel_posted: true
+      });
+
+    case ProfileActions.POST_CHANNEL_STATUS_FAILED:
+      return Object.assign({}, state, {
+        status_channel_posting: false,
+        status_channel_posted: false
+      });
+
     // Get single spotfeed details
     case ProfileActions.GET_SPOTFEED_DETAILS:
       if (payload.page_start === 0) {
