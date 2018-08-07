@@ -45,7 +45,8 @@
                     </li>
 
                     <li class="o-action-list float-right">
-                        <button type="button" (click)="submitStatusForm()" class="btn btn-primary btn-md" [disabled]="statusMessage.length === 0">NEXT</button>
+                        <button type="button" *ngIf="!external_post_active" (click)="submitStatusForm()" class="btn btn-primary btn-md" [disabled]="statusMessage.length === 0">NEXT</button>
+                        <button type="button" *ngIf="external_post_active" (click)="publishToChannel()" class="btn btn-primary btn-md" [disabled]="statusMessage.length === 0">PUBLISH</button>
                     </li>
                     <li class="o-action-list float-right">
                         <span class="o-status-action__count">

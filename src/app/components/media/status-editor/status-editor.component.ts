@@ -47,6 +47,10 @@ export class StatusEditorComponent implements OnInit, OnDestroy {
   userHandle: string;
   user_channel_scroll_id: any;
 
+  external_post_active = false;
+  ct_id: any;
+  post_to: any;
+
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
@@ -55,6 +59,14 @@ export class StatusEditorComponent implements OnInit, OnDestroy {
     private store: Store<Media>,
     private profileStore: Store<ProfileModal>
   ) {
+    // if redriect url there
+    if (this.route.snapshot.queryParams['post_to'] === 'community' || this.route.snapshot.queryParams['post_to'] === 'channel') {
+      if (this.route.snapshot.queryParams['post_to'] && this.route.snapshot.queryParams['ct_id']) {
+        this.external_post_active = true;
+        this.ct_id = this.route.snapshot.queryParams['ct_id'];
+        this.post_to = this.route.snapshot.queryParams['post_to'];
+      }
+    }
     this.uploadState = 1;
     this.createStatusForm();
     this.userHandle = localStorage.getItem('loggedInProfileHandle');
@@ -92,7 +104,6 @@ export class StatusEditorComponent implements OnInit, OnDestroy {
    */
   onChannelSelection(channel: any) {
     this.chosenChannel = channel;
-    console.log('selected channel', this.chosenChannel);
   }
 
   choosePrivacy(value) {
@@ -123,6 +134,13 @@ export class StatusEditorComponent implements OnInit, OnDestroy {
     //   };
     //   this.uploadStatus(postStatus);
     // }
+  }
+
+  publishToChannel() {
+    const chnlData = {
+      spotfeedId: this.ct_id
+    }
+    this.postStatusToChannel(chnlData);
   }
 
   /**
@@ -166,7 +184,7 @@ export class StatusEditorComponent implements OnInit, OnDestroy {
   /**
    * Post status to Channel
    */
-  postStatusToChannel(channelDetails: string) {
+  postStatusToChannel(channelDetails: any) {
     const channelId = channelDetails['spotfeedId'];
     const postData = {
       channelId: channelId,
