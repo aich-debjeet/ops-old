@@ -1,4 +1,4 @@
-<section class="o-add-status">
+<section class="o-add-status" *ngIf="uploadState === 1" >
     <div class="container">
         <!-- add status  -->
         <div class="o-add-status__block">
@@ -45,7 +45,7 @@
                     </li>
 
                     <li class="o-action-list float-right">
-                        <button type="button" (click)="submitStatusForm()" class="btn btn-primary btn-md" [disabled]="statusMessage.length === 0">POST</button>
+                        <button type="button" (click)="submitStatusForm()" class="btn btn-primary btn-md" [disabled]="statusMessage.length === 0">NEXT</button>
                     </li>
                     <li class="o-action-list float-right">
                         <span class="o-status-action__count">
@@ -57,5 +57,13 @@
             </div>
         </div>
         <!-- add status end -->
+    </div>
+</section>
+
+<section class="Select__channel" *ngIf="uploadState === 2">
+    <div class="container">
+        <div class="o-add-media">
+            <app-channel-list [userChannels]="channelList" (onSearch)="searchChannel($event)" (onScrolled)="scrolled($event)" (onSelection)="postStatusToChannel($event)"></app-channel-list>
+        </div>
     </div>
 </section>
