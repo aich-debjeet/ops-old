@@ -7,6 +7,9 @@ import { Store } from '@ngrx/store';
 import { ISubscription } from 'rxjs/Subscription';
 import { GeneralUtilities } from '../../helpers/general.utils';
 
+import { findIndex as _findIndex } from 'lodash';
+import { environment } from 'environments/environment';
+
 @Component({
   selector: 'app-explore',
   templateUrl: './explore.component.html',
@@ -29,6 +32,9 @@ export class ExploreComponent implements OnInit, OnDestroy {
   exploreState$: any;
   exploreState: any;
   spotfeedLoaded = false;
+  baseUrl = environment.API_IMAGE;
+  selectedSpotfeed: any;
+  spotfeedType = '';
 
   constructor(
     private router: Router,
@@ -62,9 +68,16 @@ export class ExploreComponent implements OnInit, OnDestroy {
         if (!this.spotfeedLoaded && this.gUtils.checkNestedKey(state, ['exploreData', 'spotfeedResponsesList'])) {
           this.spotfeeds = state['exploreData']['spotfeedResponsesList'];
           this.spotfeedLoaded = true;
+          this.spotfeedResetSelection();
         }
       }
     });
+  }
+
+  spotfeedResetSelection() {
+    for (let i = 0; i < this.spotfeeds.length; i++) {
+      this.spotfeeds[i].isSelected = false;
+    }
   }
 
   ngOnInit() {
@@ -78,7 +91,7 @@ export class ExploreComponent implements OnInit, OnDestroy {
       },
       load: 5,
       touch: true,
-      loop: true,
+      loop: false,
       custom: 'banner'
     }
 
@@ -86,8 +99,11 @@ export class ExploreComponent implements OnInit, OnDestroy {
       .subscribe(params => {
         // check if search type is available
         if (params.type && params.type.length > 0) {
-          // giving back the search type
           this.searchType = params.type;
+        }
+        // check if spotfeed type is available
+        if (params.spotfeed && params.spotfeed.length > 0) {
+          this.spotfeedType = params.spotfeed;
         }
         // check if search type is available
         if (this.searchType.length > 0) {
@@ -95,6 +111,7 @@ export class ExploreComponent implements OnInit, OnDestroy {
             limit: this.recordsPerPage,
             scrollId: '',
             entityType: this.searchType,
+            spotfeed: this.spotfeedType
           }
           this.isSearching = true;
           this.showPreloader = true;
@@ -140,6 +157,34 @@ export class ExploreComponent implements OnInit, OnDestroy {
       this.showPreloader = true;
       this.exploreStore.dispatch({ type: ExploreActions.GET_EXPLORE_DATA, payload: exploreParams });
     }
+  }
+
+  /**
+   * toggle spotfeed search selection
+   */
+  toggleSpotfeedFilter(spotfeed: any) {
+    const spIndx = _findIndex(this.spotfeeds, { industry: spotfeed.industry });
+    if (spIndx) {
+      if (this.spotfeeds[spIndx].isSelected === true) {
+        this.spotfeeds[spIndx].isSelected =  false;
+      } else {
+        this.spotfeeds[spIndx].isSelected = true;
+      }
+    }
+  }
+
+  /**
+   * select spotfeed for search
+   * @param spotfeed details
+   */
+  selectSpotfeedFilter(spotfeed: any) {
+    const spIndx = _findIndex(this.spotfeeds, { industry: spotfeed.industry });
+    if (spIndx) {
+      this.spotfeedResetSelection();
+      this.spotfeeds[spIndx].isSelected = true;
+      this.selectedSpotfeed = this.spotfeeds[spIndx];
+    }
+    this.exploreSearchGetRequest({ type: this.searchType, spotfeed: this.selectedSpotfeed['industry'] });
   }
 
 }
