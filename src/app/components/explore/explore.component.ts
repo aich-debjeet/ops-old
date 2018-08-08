@@ -65,7 +65,7 @@ export class ExploreComponent implements OnInit, OnDestroy {
         if (this.gUtils.checkNestedKey(state, ['exploreData', 'profileResponse'])) {
           this.allProfiles = state['exploreData']['profileResponse'];
         }
-        if (!this.spotfeedLoaded && this.gUtils.checkNestedKey(state, ['exploreData', 'spotfeedResponsesList'])) {
+        if (!this.spotfeedLoaded && this.spotfeedType.length === 0 && this.gUtils.checkNestedKey(state, ['exploreData', 'spotfeedResponsesList'])) {
           this.spotfeeds = state['exploreData']['spotfeedResponsesList'];
           this.spotfeedLoaded = true;
           this.spotfeedResetSelection();
@@ -110,8 +110,10 @@ export class ExploreComponent implements OnInit, OnDestroy {
           const exploreParams = {
             limit: this.recordsPerPage,
             scrollId: '',
-            entityType: this.searchType,
-            spotfeed: this.spotfeedType
+            entityType: this.searchType
+          }
+          if (this.spotfeedType.length > 0) {
+            exploreParams['spotfeed'] = this.spotfeedType;
           }
           this.isSearching = true;
           this.showPreloader = true;
