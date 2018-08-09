@@ -20,7 +20,7 @@
             {{eventData?.title | truncate:[35, '...']}}
         </div>
         <div class="c-text_md color-grey-dark m-t-8">{{ eventData?.startDate | utcDate | date: 'dd, MMM'}} - {{ eventData?.endDate | utcDate | date: 'dd, MMM'}}</div>
-        <div class="c-text_sm color-grey-dark m-t-8 c-card__event-address">{{ eventData?.venue | uppercase | truncate:[60, '...'] }}</div>
+        <div class="c-text_sm color-grey-dark m-t-8 c-card__event-address">{{ eventData?.venue | truncate:[60, '...'] }}</div>
     </div>
     <!-- //card body -->
     <!-- card footer links -->

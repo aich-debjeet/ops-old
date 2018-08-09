@@ -20,6 +20,12 @@ export class ProfileService {
     this.headers = this.api.getHeaders();
   }
 
+  postChannelStatus(payload: any) {
+    const channelId = payload.channelId;
+    const reqBody = payload.reqBody;
+    return this.api.put('/portal/network/spotfeed/' + channelId, reqBody);
+  }
+
   /**
    * for: portfolio
    */

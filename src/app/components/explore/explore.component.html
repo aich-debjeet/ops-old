@@ -4,10 +4,10 @@
   <div class="explore-category">
     <ngu-carousel [inputs]="exploreSlider">
       <ngu-item NguCarouselItem class="" *ngFor="let spotfeed of spotfeeds">
-          <a href="#">
+          <a (click)="selectSpotfeedFilter(spotfeed)">
             <div class="o-explore-category-block">
-              <div class="o-explore-category__overlay">
-                <div class="c-text_lg color-white">{{ spotfeed?.industry | firstCharCaps }}</div>
+              <div class="o-explore-category__overlay" [ngStyle]="{'background-image': 'url(' + baseUrl + spotfeed?.feeds[0]?.image + ')'}" [ngClass]="{'selectedSpotfeed': spotfeed?.isSelected === true}">
+                <div class="c-text_lg color-white text-shadow">{{ spotfeed?.industry | firstCharCaps }}</div>
               </div>
             </div>
           </a>
