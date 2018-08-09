@@ -69,11 +69,6 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
           this.opportunity = state.get_opportunity_data;
           this.hasApplied = state.get_opportunity_data.isApplied;
         }
-        // check if appyling for opp success
-        if (state['applying_for_an_opportunity'] === false && state['apply_for_an_opportunity_success'] === true) {
-          // this.applyingForOpp = false;
-          this.toastr.success('Successfully applied for the opportunity!', 'Success!');
-        }
         // check if job application successful
         if (state.apply_for_an_opportunity_data) {
           this.hasApplied = true;
@@ -148,6 +143,11 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
       type: OpportunityActions.APPLY_FOR_AN_OPPORTUNITY,
       payload: reqBody
     });
+    this.store.select('opportunityTags')
+      .first(state => state['applying_for_an_opportunity'] === false && state['apply_for_an_opportunity_success'] === true)
+      .subscribe(state => {
+        this.toastr.success('Successfully applied for the opportunity!', 'Success!');
+      });
   }
 
   deleteOpp(oppId: string) {
