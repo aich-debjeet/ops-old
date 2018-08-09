@@ -178,13 +178,6 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
           return !(obj.key === parentNode && obj.value === oppType);
         });
       }
-      console.log('this.globalFilter', this.globalFilter);
-      const params = {
-        q: this.searchString,
-        type: this.searchType,
-        filters: true
-      };
-      // this.oppsSearchGetRequest(params);
       this.triggerSearch(null);
     }
   }
@@ -201,12 +194,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
       } else {
         this.globalFilter.push({ key: parentNode, value: indValue });
       }
-      const params = {
-        q: this.searchString,
-        type: this.searchType,
-        filters: true
-      };
-      this.oppsSearchGetRequest(params);
+      this.triggerSearch(null);
     }
   }
 
