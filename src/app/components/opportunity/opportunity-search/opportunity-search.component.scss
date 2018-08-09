@@ -108,7 +108,11 @@ p.result-not-found {
 	height: 78px;
 	position: relative;
 	float: left;
-	margin-right: 16px;
+    margin-right: 16px;
+    & label {
+        border-radius: 3px;
+        cursor: pointer;
+    }
 }
 .o-quicklink__item [type="radio"]:not(:checked),
 .o-quicklink__item [type="radio"]:checked {
@@ -138,7 +142,6 @@ p.result-not-found {
 }
 .o-quicklink__item:hover label {
 	background-color: #F3F5F7;
-	border-radius: 3px;
 }
 .o-quicklink__item [type="radio"]:checked + label {
 	border: 1px solid #FF7B84;	
@@ -164,7 +167,6 @@ p.result-not-found {
 }
 .o-quicklink__title-show{
 	float: left;
-	display: none;
 	transition:.25s;
 	width: 100px;
 }
@@ -519,12 +521,6 @@ p.result-not-found {
 }
 .o-quicklink__title{
 	float: left;
-	transition:.25s;
-	width: 100px;
-}
-.o-quicklink__title-show{
-	float: left;
-	display: none;
 	transition:.25s;
 	width: 100px;
 }
