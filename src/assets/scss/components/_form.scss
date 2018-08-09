@@ -19,7 +19,7 @@
 }
 
 .c-form__input--alert {
-    color: #FF7B84;
+    color: $color-theme;
 }
 
 .c-form__input--lefticon {
@@ -254,7 +254,7 @@ $shadow-L3: 0 10px 20px rgba(0, 0, 0, 0.19),
 // }
 // validation msg
 .c-form__validation {
-    color: #FF7B84;
+    color: $color-theme;
     font-size: 11px;
     line-height: 15px;
     margin-top: 4px;
@@ -542,7 +542,7 @@ $shadow-L3: 0 10px 20px rgba(0, 0, 0, 0.19),
 }
 
 .c-form__input--alert {
-    color: #FF7B84;
+    color: $color-theme;
 }
 
 .c-form__input--lefticon {
@@ -788,7 +788,7 @@ $shadow-L3: 0 10px 20px rgba(0, 0, 0, 0.19),
 // }
 // validation msg
 .c-form__validation {
-    color: #FF7B84;
+    color: $color-theme;
     font-size: 11px;
     line-height: 15px;
     margin-top: 4px;

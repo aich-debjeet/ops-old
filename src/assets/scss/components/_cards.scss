@@ -72,7 +72,7 @@
 .c-controller__bar2 {
   width: 33%;
   height: 3px;
-  background-color: #FF7B84;
+  background-color: $color-theme;
   position: inherit;
 }
 .c-controller__bar3 {
@@ -173,10 +173,10 @@
   font-weight: 600;
   letter-spacing: 1px;
   line-height: 18px;
-  color: #FC6371;
+  color: $color-theme;
   text-transform: uppercase;
   &:hover {
-      color: #FC6371;
+      color: $color-theme;
   }
 }
 .c-card__opportunity-head {
@@ -207,13 +207,13 @@
   font-weight: 600;
   letter-spacing: 1px;
   line-height: 18px;
-  color: #FC6371;
+  color: $color-theme;
   text-transform: uppercase;
   position: absolute;
   right: 0px;
   top: 4px;
   &:hover {
-      color: #FC6371;
+      color: $color-theme;
   }
 }
 .c-comm__followers {
@@ -780,9 +780,9 @@
 }
 .c-feed__img-readmore {
   float: right;
-  color: #ff7b84;
+  color: $color-theme;
   &:hover {
-      color: red;
+      color: $color-theme;
   }
 }
 // video card style ----------------------------------------------------

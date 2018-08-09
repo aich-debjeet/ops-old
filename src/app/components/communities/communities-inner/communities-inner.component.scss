@@ -154,7 +154,7 @@
         -webkit-appearance: none;
     }
     input[type="radio"]:checked + .o-cadmin_checkbox:after {
-        border: 2px solid #ff7b84;
+        border: 2px solid $color-theme;
         box-shadow: 0 1.5px 4.5px 0 rgba(0, 0, 0, 0.26);
         border-radius: 3px;
         content: " ";

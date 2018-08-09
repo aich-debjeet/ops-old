@@ -59,8 +59,8 @@
     height: 25px;
   }
   input[type="checkbox"]:checked + span:after {
-    color: #ff7b84;
-    border: 1px solid #ff7b84;
+    color: $color-theme;
+    border: 1px solid $color-theme;
     border-radius: 50px;
     left: -1px;
     position: absolute;

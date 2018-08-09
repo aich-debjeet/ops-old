@@ -184,7 +184,7 @@
     text-transform: uppercase;
     padding: 8px 16px;
     a {
-        color: #FC6371;
+        color: $color-theme;
     }
 }
 
@@ -272,7 +272,7 @@
     letter-spacing: 1px;
     line-height: 15px;
     text-align: center;
-    color: #FC6371;
+    color: $color-theme;
     text-transform: uppercase;
 }
 
@@ -477,7 +477,7 @@
     .header_compose a {
         font-size: 12px;
         font-weight: bold;
-        color: #ff7b84;
+        color: $color-theme;
         text-transform: uppercase;
     }
     li>ul {
@@ -506,7 +506,7 @@
         font-size: 12px;
         font-weight: bold;
         text-transform: uppercase;
-        color: #ff7b84
+        color: $color-theme
     }
 }
 
@@ -554,7 +554,7 @@
     .header_compose a {
         font-size: 12px;
         font-weight: bold;
-        color: #ff7b84;
+        color: $color-theme;
         text-transform: uppercase;
     }
     li>ul {
@@ -586,7 +586,7 @@
         font-size: 12px;
         font-weight: bold;
         text-transform: uppercase;
-        color: #ff7b84
+        color: $color-theme
     }
 }
 
@@ -631,7 +631,7 @@
 }
 
 .o-nav__dwc a {
-    color: #FC6371 !important;
+    color: $color-theme !important;
 }
 
 .signIn {
@@ -714,7 +714,7 @@
 .o-not__alert {
     width: 9px;
     height: 9px;
-    background-color: #FC6371;
+    background-color: $color-theme;
     position: absolute;
     top: 10px;
     right: 5px;

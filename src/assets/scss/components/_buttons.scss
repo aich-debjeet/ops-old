@@ -968,7 +968,7 @@ fieldset[disabled] .btn {
 .tag__username {
     background-color: #FFF7F8;
     border-radius: 2px;
-    border: 1px solid #FF7B84;
+    border: 1px solid $color-theme;
     color: #333333;
     font-size: 12px;
     line-height: 17px;
@@ -977,7 +977,7 @@ fieldset[disabled] .btn {
     span {
         font-size: 14px;
         line-height: 19px;
-        color: #FF7B84;
+        color: $color-theme;
         cursor: pointer;
         margin-left: 8px;
     }

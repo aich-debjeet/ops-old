@@ -320,8 +320,8 @@ a {
 
 .btn-primary {
     color: #ffffff;
-    background-color: #FF7B84;
-    border-color: #FF7B84;
+    background-color: $color-theme;
+    border-color: $color-theme;
     text-shadow: 0 1px rgba(0, 0, 0, 0.25);
     box-shadow: 0 1px rgba(0, 0, 0, 0.25);
 }

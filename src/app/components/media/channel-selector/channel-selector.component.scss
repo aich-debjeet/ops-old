@@ -236,12 +236,12 @@
 .o-channel-items input[type="radio"]:checked + label:before {
   content: '';
   display: inline-block;
-  border: 2px solid #FF7B84;
+  border: 2px solid $color-theme;
 }
 .o-channel-items input[type="radio"]:checked + label:after {
   content: '';
   display: inline-block;
-  background: #FF7B84;
+  background: $color-theme;
   width: 6px;
   height: 6px;
   border-radius: 50%;
@@ -284,7 +284,7 @@
 .o-rightbar-footer{
   float: left;
   width: 100%;
-  background-color: #FF7B84;
+  background-color: $color-theme;
   padding:24px 32px 32px 32px;
 }
 .c-form-control--color{
@@ -369,7 +369,7 @@
   border-radius: 50% 50%;
   background: #fff;
   padding: 2px 4px;
-  color: #FF7B84;
+  color: $color-theme;
   font-size: 8px;
   font-weight: bold;
   display: inline-block;
@@ -399,7 +399,7 @@
     }
   }
   .o-media-block{
-    border: 2px solid #FF7B84;
+    border: 2px solid $color-theme;
   }
   .o-media_delet{
     display: block;
@@ -514,7 +514,7 @@
 }
 .o-create-channel__title{
   font-size: 13px;
-  color: #FF7B84;
+  color: $color-theme;
   font-weight: normal;
   float: left;
 }
@@ -910,7 +910,7 @@
 }
 .o-create-channel__title{
   font-size: 15px;
-  color: #FF7B84;
+  color: $color-theme;
   font-weight: normal;
   float: left;
 }
