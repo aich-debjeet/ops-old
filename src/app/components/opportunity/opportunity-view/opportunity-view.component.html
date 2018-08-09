@@ -230,10 +230,12 @@
             <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.opportunityJob?.qualifications"></p>
           </div>
           <div class="o-oppo-post__description with_border_top">
-            <h6 class="c-text_lg m-t-24 m-b-16">Attachments</h6>
-            <ul *ngIf="opportunity?.opportunityJob?.attachFiles?.length > 0" class="o-oppo-post__media-list">
-              <li *ngFor="let attachment of opportunity?.opportunityJob?.attachFiles" [ngStyle]="{'background-image': 'url('+ baseUrl + attachment +')'}" class="o-oppo-post__media-item"></li>
-            </ul>
+            <ng-container *ngIf="opportunity?.opportunityJob?.attachFiles?.length > 0">
+              <h6 class="c-text_lg m-t-24 m-b-16">Attachments</h6>
+              <ul class="o-oppo-post__media-list">
+                <li *ngFor="let attachment of opportunity?.opportunityJob?.attachFiles" [ngStyle]="{'background-image': 'url('+ baseUrl + attachment +')'}" class="o-oppo-post__media-item"></li>
+              </ul>
+            </ng-container>
             <div class="o-oppo-post__media-action">
               <button type="button" class="btn btn-primary btn-md m-r-8 float_left" *ngIf="!isOwnOpportunity" (click)="applyForJob()" [disabled]="applyingForOpp || hasApplied">Apply</button>
               <div class="o-oppo-post__action-icons float_left ">
@@ -443,10 +445,12 @@
             <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.opportunityInternship?.qualifications"></p>
           </div>
           <div class="o-oppo-post__description with_border_top">
-            <h6 class="c-text_lg m-t-24 m-b-16">Attachments</h6>
-            <ul *ngIf="opportunity?.opportunityInternship?.attachFiles?.length > 0" class="o-oppo-post__media-list">
-              <li *ngFor="let attachment of opportunity?.opportunityInternship?.attachFiles" [ngStyle]="{'background-image': 'url('+ baseUrl + attachment +')'}" class="o-oppo-post__media-item"></li>
-            </ul>
+            <ng-container *ngIf="opportunity?.opportunityInternship?.attachFiles?.length > 0">
+                <h6 class="c-text_lg m-t-24 m-b-16">Attachments</h6>
+                <ul class="o-oppo-post__media-list">
+                  <li *ngFor="let attachment of opportunity?.opportunityInternship?.attachFiles" [ngStyle]="{'background-image': 'url('+ baseUrl + attachment +')'}" class="o-oppo-post__media-item"></li>
+                </ul>
+            </ng-container>
             <div class="o-oppo-post__media-action">
               <button type="button" class="btn btn-primary btn-md m-r-8 float_left" *ngIf="!isOwnOpportunity" (click)="applyForJob()" [disabled]="applyingForOpp || hasApplied">Apply</button>
               <div class="o-oppo-post__action-icons float_left ">
@@ -542,10 +546,12 @@
             </div>
           </div>
           <div class="o-oppo-post__description">
-          <h6 class="c-text_lg m-t-24 m-b-16">Attachments</h6>
-          <ul *ngIf="opportunity?.opportunityFreelance?.attachFiles?.length > 0" class="o-oppo-post__media-list">
-            <li *ngFor="let attachment of opportunity?.opportunityFreelance?.attachFiles" [ngStyle]="{'background-image': 'url('+ baseUrl + attachment +')'}" class="o-oppo-post__media-item"></li>
-          </ul>
+          <ng-container *ngIf="opportunity?.opportunityFreelance?.attachFiles?.length > 0">
+              <h6 class="c-text_lg m-t-24 m-b-16">Attachments</h6>
+              <ul class="o-oppo-post__media-list">
+                <li *ngFor="let attachment of opportunity?.opportunityFreelance?.attachFiles" [ngStyle]="{'background-image': 'url('+ baseUrl + attachment +')'}" class="o-oppo-post__media-item"></li>
+              </ul>
+          </ng-container>
           <div class="o-oppo-post__media-action">
             <div class="o-oppo-post__action-icons float_left ">
               <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity" (click)="applyForJob()" [disabled]="applyingForOpp || hasApplied">Apply</button>
