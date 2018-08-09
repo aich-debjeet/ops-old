@@ -109,6 +109,7 @@ p.result-not-found {
 	position: relative;
 	float: left;
     margin-right: 16px;
+    cursor: pointer;
     & label {
         border-radius: 3px;
         cursor: pointer;
@@ -493,7 +494,7 @@ p.result-not-found {
   display: flex;
   align-items:center;
 	background: #fff;
-
+    cursor: pointer;
 }
 .o-quicklink__item:hover label {
 	background-color: #F3F5F7;
