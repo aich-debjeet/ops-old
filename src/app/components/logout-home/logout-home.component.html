@@ -1,226 +1,213 @@
-<section class="landing_top">
+<section class="landing_top" style="background: url('assets/index/hero_bg.png') no-repeat; background-size: 100%; background-position: top;">
     <div class="container">
-        <!-- header -->
-        <!-- <div class="row">
-            <div class="col-md-12 col-sm-12">
-                <div class="landing_header_button">
-                    <a href="login.html" class="btn btn-login btn-md pull-right">Login</a>
-                </div>
+      <div class="row landing_top_block">
+        <div class="landing-header">
+          <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+            <div class="landing_logo">
+              <img src="assets/index/logo.svg" class="img-responsive">
             </div>
-        </div> -->
-        <!-- //header -->
-        <div class="row landing_top_block">
-            <div class="col-md-7 col-sm-6 col-xs-12">
-                <div class="landing_logo">
-                    <img [src]="base_image + 'img/landing/logobetawhite.svg'"  class="img-responsive">
-                </div>
-                <div class="landing_slider">
-                    <div class="slider_heading c-h2 f-w_600">
-                        Empowering artists to entertain and<br>inspire the world
-                    </div>
-                    <div class="slider_text">
-                        An ecosystem for the Arts &amp; Entertainment industry providing tools to exhibit work, <br>network, collaborate on projects between the performing artists, non-performing<br>crafts and organizations. Alongside, creating an immersive and entertaining<br>experience for art lovers around the world.
-                    </div>
-                   <!--  <a href="/reg_step_1" class="btn btn-primary landing-signup btn-md org-btn text_uppercase">Sign up</a>
-                    <a href="/login" class="btn btn-default landing-login btn-md login_btn org-btn text_uppercase">Login</a> -->
-                    <a [routerLink]="['/reg']"  class="o-landing-signup-btn m-t-8">Register</a>
-                    <a [routerLink]="['/login']" class="o-landing-more-btn m-l-16 m-t-8">Login</a>
-                </div>
-            </div>
-            <div class="col-md-5 col-sm-6 landing_top_art">
-                <img [src]="base_image + 'img/landing/landing_art.png'" >
-                <!-- <div class="landing_art_text">Artist spotlight</div> -->
-            </div>
+          </div>
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+            <a [routerLink]="['/login']" class="btn btn-default btn-md o-landing-login">Log in</a>
+          </div>
         </div>
+        <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 col-xl-7">
+          <div class="landing_slider">
+            <div class="slider_heading c-h2">
+              Empower artists to entertain and<br>inspire the world
+            </div>
+            <div class="slider_text c-text_lg">
+              An ecosystem for the Arts & Entertainment industry providing tools to exhibit work, network, collaborate on projects between the performing artists, non-performing crafts and organizations. Alongside, creating an immersive and entertaining experience for art lovers around the world.
+            </div>
+            <a [routerLink]="['/reg']" class="btn btn-primary btn-lg o-landing-signup-btn">Sign up</a>
+              <!-- <a href="login.html" class="o-landing-more-btn m-l-16">Login</a> -->
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-5 col-lg-5 col-xl-5 landing_top_art">
+          <img class="o-landing-hero_media" src="assets/index/hero.png">
+        </div>
+      </div>
     </div>
 </section>
-
 <section class="o-platform-sec">
-    <div class="container">
-        <div class="row o-platform-det-block">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="c-h2 o-platform-title--margin text-center margin_b_32">
-                    Platform for all
+  <div class="container">
+    <div class="row o-platform-det-block">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="c-h1 o-platform-title--margin text-center margin_b_32">
+            Platform for <span class="color-theme">all</span>
+          </div>
+          <div class="row landing_for_artist">
+            <ul class="o-platform-list">
+              <li class="o-platform__item">
+                <div class="o-platform__single">
+                  <div class="c-text_md text_uppercase color-grey-dark f-w_600">
+                    Talent
+                  </div>
                 </div>
-                <div class="row landing_for_artist">
-                    <div class="col-md-2 col-sm-4 col-xs-4">
-                    <div class="o-platform-container">
-                        <div class="o-platform-block">
-                        <img [src]="base_image + 'img/landing/talent.png'"  class="o-platform-block--img" alt="">
-                        </div>
-                        <div class="o-platform-block-title">
-                        Talent
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col-md-2 col-sm-4 col-xs-4">
-                    <div class="o-platform-container">
-                        <div class="o-platform-block">
-                        <img [src]="base_image + 'img/landing/stagecraft.png'"  class="o-platform-block--img" alt="">
-                        </div>
-                        <div class="o-platform-block-title">
-                        Stagecrafts
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col-md-2 col-sm-4 col-xs-4">
-                    <div class="o-platform-container">
-                        <div class="o-platform-block">
-                        <img [src]="base_image + 'img/landing/techies.png'"  class="o-platform-block--img" alt="">
-                        </div>
-                        <div class="o-platform-block-title">
-                        Techies
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col-md-2 col-sm-4 col-xs-4">
-                    <div class="o-platform-container">
-                        <div class="o-platform-block">
-                        <img [src]="base_image + 'img/landing/corporates.png'"  class="o-platform-block--img" alt="">
-                        </div>
-                        <div class="o-platform-block-title">
-                        Corporates
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col-md-2 col-sm-4 col-xs-4">
-                    <div class="o-platform-container">
-                        <div class="o-platform-block">
-                        <img [src]="base_image + 'img/landing/teachers.png'" class="o-platform-block--img" alt="">
-                        </div>
-                        <div class="o-platform-block-title">
-                        Teachers
-                        </div>
-                    </div>  
-                    </div>
-                    <div class="col-md-2 col-sm-4 col-xs-4">
-                    <div class="o-platform-container">
-                        <div class="o-platform-block">
-                        <img [src]="base_image + 'img/landing/artlovers.png'"  class="o-platform-block--img" alt="">
-                        </div>
-                        <div class="o-platform-block-title">
-                        Art Lovers
-                        </div>
-                    </div>
-                    </div>
-
+              </li>
+              <li class="o-platform__item">
+                <div class="o-platform__single">
+                  <div class="o-platform_dot"> </div>
+                  <div class="c-text_md text_uppercase color-grey-dark f-w_600">
+                    Stagecrafts
+                  </div>
                 </div>
+              </li>
+              <li class="o-platform__item">
+                <div class="o-platform__single">
+                  <div class="o-platform_dot"> </div>
+                  <div class="c-text_md text_uppercase color-grey-dark f-w_600">
+                    Techies
+                  </div>
+                </div>
+              </li>
+              <li class="o-platform__item">
+                <div class="o-platform__single">
+                  <div class="o-platform_dot"> </div>
+                  <div class="c-text_md text_uppercase color-grey-dark f-w_600">
+                    Corporates
+                  </div>
+                </div>
+              </li>
+              <li class="o-platform__item">
+                <div class="o-platform__single">
+                  <div class="o-platform_dot"> </div>
+                  <div class="c-text_md text_uppercase color-grey-dark f-w_600">
+                    Teachers
+                  </div>
+                </div>
+              </li>
+              <li class="o-platform__item">
+                <div class="o-platform__single">
+                  <div class="o-platform_dot"> </div>
+                  <div class="c-text_md text_uppercase color-grey-dark f-w_600">
+                    Art Lovers
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <div class="o-platform-media">
+              <img src="assets/index/platform.png" alt="">
             </div>
-        </div>
+          </div>
+      </div>
     </div>
+  </div>
 </section>
 
-<section class="fill-white">
-    <div class="container">
-        <div class="o-landing-org-block">
-        <div class="col-md-7 col-sm-12 col-xs-12 organization_padd">
-            <div class="c-h2 margin_b_16 o-landing-organization__title">
+<section class="o-org">
+  <div class="o-landing-org-block">
+    <div class="o-org-overlay">
+      <div class="container">
+        <div class="col-md-12 col-sm-12 col-xs-12 organization_padd">
+          <div class="c-h2 margin_b_16 o-landing-organization__title color-white">
             Organization
-            </div>
-            <p class=" c-text_lg o-organization__txt">
-            Always be on the lookout for new talent. Network and discover artists and art lovers across all disciplines.
-            </p>
-            <a [routerLink]="['login']" [queryParams]="{ next: 'org/page/profile' }" type="button" class="btn btn-primary btn-lg margin_t_16">Try Organization</a>
+          </div>
+          <p class=" c-text_lg o-organization__txt color-white">
+            Always be on the lookout for new talent. Network and<br>discover artists and art lovers across all disciplines.
+          </p>
+          <button type="button" [routerLink]="['login']" [queryParams]="{ next: 'org/page/profile' }" class="btn btn-primary btn-lg margin_t_16">Try Organization</button>
         </div>
-        <div class="col-md-5 col-sm-12 col-xs-12 padding_none">
-            <div class="organization-img">
-            <img [src]="base_image + 'img/landing/castle.png'"  alt="">
-            </div>
-        </div>
-        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="product-features">
+    <div class="container">
         <h2 class="c-h2 o-landing-product--margin text-center float_left">Product Features</h2>
         <div class="row float_left">
-            <div class="col-md-4 col-sm-6 col-xs-6">
-                <div class="o-product">
-                    <div class="o-product_media">
-                        <img [src]="base_image + 'img/landing/channel.png'" alt="">
-                    </div>
-                    <div class="o-product_det">
-                        <div class="o-product-det__title">
-                            Channel
-                        </div>
-                        <p class="o-product-det__txt">
+          <div class="col-md-4 col-sm-6 col-xs-6">
+              <div class="o-product">
+                  <div class="o-product_media">
+                      <img [src]="base_image + 'img/landing/channel.png'" alt="">
+                  </div>
+                  <div class="o-product_det">
+                      <div class="o-product-det__title">
+                          Channel
+                      </div>
+                      <p class="o-product-det__txt">
                         Channels are like folders to organize and share multi media content based on your specific skills to ensure you reach the right audience with similar interests.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-6">
-                <div class="o-product">
-                    <div class="o-product_media">
-                        <img [src]="base_image + 'img/landing/spotfeed.png'" alt="">
-                    </div>
-                    <div class="o-product_det">
-                        <div class="o-product-det__title">
-                            Spotfeed
-                        </div>
-                        <p class="o-product-det__txt">
-                            Feeds designed, categorized & curated into multimedia channels of personal interests
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-6">
-                <div class="o-product">
-                    <div class="o-product_media">
-                        <img [src]="base_image + 'img/landing/opportunity.png'"  alt="">
-                    </div>
-                    <div class="o-product_det">
-                        <div class="o-product-det__title">
-                            Opportunity
-                        </div>
-                        <p class="o-product-det__txt">
-                            Artists can collaborate on projects with multiple forms of talents across all industries. Companies can post jobs full time or part time. Charity organizationscan seek volunteers and performers for events.
-                        </p>
-                    </div>
-                </div>
-            </div>
+                      </p>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-6">
+              <div class="o-product">
+                  <div class="o-product_media">
+                      <img [src]="base_image + 'img/landing/spotfeed.png'" alt="">
+                  </div>
+                  <div class="o-product_det">
+                      <div class="o-product-det__title">
+                          Spotfeed
+                      </div>
+                      <p class="o-product-det__txt">
+                          Feeds designed, categorized & curated into multimedia channels of personal interests
+                      </p>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-6">
+              <div class="o-product">
+                  <div class="o-product_media">
+                      <img [src]="base_image + 'img/landing/opportunity.png'" alt="">
+                  </div>
+                  <div class="o-product_det">
+                      <div class="o-product-det__title">
+                          Opportunity
+                      </div>
+                      <p class="o-product-det__txt">
+                         Artists can collaborate on projects with multiple forms of talents across all industries. Companies can post jobs full time or part time. Charity organizationscan seek volunteers and performers for events.
+                      </p>
+                  </div>
+              </div>
+          </div>
 
-            <div class="col-md-4 col-sm-6 col-xs-6">
-                <div class="o-product">
-                    <div class="o-product_media">
-                        <img [src]="base_image + 'img/landing/event.png'" alt="">
-                    </div>
-                    <div class="o-product_det">
-                        <div class="o-product-det__title">
-                            Event
-                        </div>
-                        <p class="o-product-det__txt">
-                            Users can create, invite, share & attend events which can be categorized into workshops, performances and movies that may be ticketed or offer free entry. 
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-6">
-                <div class="o-product">
-                    <div class="o-product_media">
-                        <img [src]="base_image + 'img/landing/community.png'"  alt="">
-                    </div>
-                    <div class="o-product_det">
-                        <div class="o-product-det__title">
-                            Community
-                        </div>
-                        <p class="o-product-det__txt">
-                            Hypnosis or Hypnotism, these words often puts, not surprisingly the layman in predicament. Stretch your swinging imagination and we see wild images of  
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-6">
-                <div class="o-product">
-                    <div class="o-product_media">
-                        <img [src]="base_image + 'img/landing/pedia.png'" alt="">
-                    </div>
-                    <div class="o-product_det">
-                        <div class="o-product-det__title">
-                            Pedia
-                        </div>
-                        <p class="o-product-det__txt">
-                            Curated content for all art forms, crafts & skills required in the arts industry for any one aspiring to learn and progress in their fields, careers or interests. 
-                        </p>
-                    </div>
-                </div>
-            </div>
+          <div class="col-md-4 col-sm-6 col-xs-6">
+              <div class="o-product">
+                  <div class="o-product_media">
+                      <img [src]="base_image + 'img/landing/event.png'" alt="">
+                  </div>
+                  <div class="o-product_det">
+                      <div class="o-product-det__title">
+                          Event
+                      </div>
+                      <p class="o-product-det__txt">
+                         Users can create, invite, share & attend events which can be categorized into workshops, performances and movies that may be ticketed or offer free entry. 
+                      </p>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-6">
+              <div class="o-product">
+                  <div class="o-product_media">
+                      <img [src]="base_image + 'img/landing/community.png'" alt="">
+                  </div>
+                  <div class="o-product_det">
+                      <div class="o-product-det__title">
+                          Community
+                      </div>
+                      <p class="o-product-det__txt">
+                         Hypnosis or Hypnotism, these words often puts, not surprisingly the layman in predicament. Stretch your swinging imagination and we see wild images of  
+                      </p>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-6">
+              <div class="o-product">
+                  <div class="o-product_media">
+                      <img [src]="base_image + 'img/landing/pedia.png'" alt="">
+                  </div>
+                  <div class="o-product_det">
+                      <div class="o-product-det__title">
+                          Pedia
+                      </div>
+                      <p class="o-product-det__txt">
+                         Curated content for all art forms, crafts & skills required in the arts industry for any one aspiring to learn and progress in their fields, careers or interests. 
+                      </p>
+                  </div>
+              </div>
+          </div>
 
         </div>
     </div>
