@@ -12,6 +12,7 @@ import { TruncatePipe } from 'app/pipes/truncate.pipe';
 
 // Action
 import { AuthActions } from '../../../actions/auth.action';
+import { MediaActions } from '../../../actions/media.action';
 import { CommunitiesActions } from '../../../actions/communities.action';
 
 // rx
@@ -233,6 +234,19 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
         this.router.navigateByUrl('/communities');
         return
     });
+  }
+
+  /**
+   * Delete Post
+   */
+  deletePost(media) {
+    const posts = this.communityPost;
+    const index: number = posts.indexOf(media);
+    if (index !== -1) {
+      posts.splice(index, 1);
+      const id = media.id;
+      this.store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id});
+    }
   }
 
   /**
