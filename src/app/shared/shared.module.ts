@@ -65,6 +65,7 @@ import { OpportunityApplicationCardComponent } from './opportunity-application-c
 import { OpporunitySearchCardComponent } from './opporunity-search-card/opporunity-search-card.component';
 import { EventSearchCardComponent } from './event-search-card/event-search-card.component';
 import { UserCardSearchComponent } from './user-card-search/user-card-search.component';
+import { ConfirmBoxComponent } from './confirm-box/confirm-box.component';
 
 @NgModule({
   imports: [
@@ -127,7 +128,8 @@ import { UserCardSearchComponent } from './user-card-search/user-card-search.com
     OpportunityApplicationCardComponent,
     OpporunitySearchCardComponent,
     EventSearchCardComponent,
-    UserCardSearchComponent
+    UserCardSearchComponent,
+    ConfirmBoxComponent
   ],
   exports: [
     OpportunityCardComponent,
@@ -168,7 +170,8 @@ import { UserCardSearchComponent } from './user-card-search/user-card-search.com
     OpportunityApplicationCardComponent,
     OpporunitySearchCardComponent,
     EventSearchCardComponent,
-    UserCardSearchComponent
+    UserCardSearchComponent,
+    ConfirmBoxComponent
   ]
 })
 export class SharedModule { }
