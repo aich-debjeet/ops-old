@@ -23,20 +23,21 @@ export class PusherService {
   ) {
     this.handle = localStorage.getItem('loggedInProfileHandle');
     this.accessToken = this.token.getToken();
-    this.pusher = new Pusher(environment.pusher.key, {
-      authEndpoint: this.apiLink + '/portal/pusher/auth',
-      cluster: environment.pusher.cluster,
-      auth: {
-        params: {
-          param1: this.accessToken
-        },
+      if (this.accessToken) {
+        this.pusher = new Pusher(environment.pusher.key, {
+          authEndpoint: this.apiLink + '/portal/pusher/auth',
+          cluster: environment.pusher.cluster,
+          auth: {
+            params: {
+              param1: this.accessToken
+            },
+          }
+        });
+        // for notifications
+        this.notificationsChannel = this.pusher.subscribe('private-notification-' + this.handle);
+        // for messages
+        this.messagesChannel = this.pusher.subscribe('private-message-' + this.handle);
       }
-    });
-
-    // for notifications
-    this.notificationsChannel = this.pusher.subscribe('private-notification-' + this.handle);
-    // for messages
-    this.messagesChannel = this.pusher.subscribe('private-message-' + this.handle);
   }
 
   // create other user channel for sending typing notification

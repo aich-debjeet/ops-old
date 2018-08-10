@@ -31,7 +31,7 @@
   .progress_dot_active_tick:after{
     width: 10px;
     height: 10px;
-    background-color: #ff7b84;
+    background-color: $color-theme;
     border-radius: 50%;
     font-family: FontAwesome;
     content: "\f00c";

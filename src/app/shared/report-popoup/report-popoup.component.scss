@@ -1,3 +1,4 @@
+@import './src/assets/scss/helpers/_variables.scss';
 // report and block popup
 .report_container {
     width: 563px;
@@ -21,7 +22,7 @@
         width: 570px;
         margin: 0px auto;
         a {
-            color: #FF7B84;
+            color: $color-theme;
         }
         .txt {
             font-weight: normal;

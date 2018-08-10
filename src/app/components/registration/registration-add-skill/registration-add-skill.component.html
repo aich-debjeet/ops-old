@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" [routerLink]="['/']"><img [src]="image_base_url + 'img/logo_black.svg'"></a>
+            <a class="navbar-brand" [routerLink]="['/']"><img [src]="image_base_url + 'v2/ops_logo.png'"></a>
         </div>
         <div class="signup_next">
             <button [disabled]="!skillsSelected || uploadingSkills" (click)="saveSkills()" class="btn btn-primary btn-md">CONTINUE</button>
@@ -73,7 +73,7 @@
                 <div *ngIf="skills?.length === 0 && skillSelectionState?.signup_search_skill === false && skillSelectionState?.signup_search_skill_success === true" class="o-skill-more">
                     <p class="c-text_lg m-t-24 f-w_300">Nothing found. Add "{{ search }}" as a skill</p>
                     <button type="button" (click)="addNewSkill(search)" class="o-skill-btn-add m-t-8">{{ search }}
-                        <span class="o-add-skill-btn-ico"><img src="https://ops-v2.netlify.com/assets/svg/plus-red.svg" alt=""></span>
+                        <span class="o-add-skill-btn-ico"><img [src]="image_base_url + 'v2/svg/plus-red.svg'" alt=""></span>
                     </button>
                 </div>
             </div>

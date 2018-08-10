@@ -144,7 +144,7 @@
     .header_compose a {
         font-size: 12px;
         font-weight: bold;
-        color: #ff7b84;
+        color: $color-theme;
         text-transform: uppercase;
     }
     li > ul {
@@ -173,7 +173,7 @@
         font-size: 12px;
         font-weight: bold;
         text-transform: uppercase;
-        color: #ff7b84
+        color: $color-theme
     }
 }
 
@@ -223,7 +223,7 @@
     .header_compose a {
         font-size: 12px;
         font-weight: bold;
-        color: #ff7b84;
+        color: $color-theme;
         text-transform: uppercase;
     }
     li > ul {
@@ -255,7 +255,7 @@
         font-size: 12px;
         font-weight: bold;
         text-transform: uppercase;
-        color: #ff7b84
+        color: $color-theme
     }
 }
 // search tab people

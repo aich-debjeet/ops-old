@@ -234,7 +234,7 @@
 }
 
 .o-calendar__list:hover {
-    background-color: #FF7B84;
+    background-color: $color-theme;
 }
 
 .o-calendar__list:hover .o-calendar--color {
@@ -252,7 +252,7 @@
 }
 
 .o-calendar--active {
-    background-color: #FF7B84;
+    background-color: $color-theme;
 }
 
 .o-calendar--active .o-calendar--color {

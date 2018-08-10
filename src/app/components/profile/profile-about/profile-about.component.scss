@@ -53,9 +53,9 @@
 // about section -------------------------------------------
 
 .active{
-    color: #ff7b84!important;
+    color: $color-theme!important;
     background-color: transparent!important;
-    border-bottom: solid 3px #ff7b84!important;
+    border-bottom: solid 3px $color-theme!important;
     cursor: default!important;
 }
 .panel-heading {
@@ -123,9 +123,9 @@
     .nav-tabs > li.active > a,
     .nav-tabs > li.active > a:hover,
     .nav-tabs > li.active > a:focus {
-        color: #ff7b84;
+        color: $color-theme;
         background-color: transparent;
-        border-bottom: solid 3px #ff7b84;
+        border-bottom: solid 3px $color-theme;
         cursor: default;
     }
 }

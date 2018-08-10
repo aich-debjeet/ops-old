@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
-import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { environment } from '../../../../environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -14,6 +14,7 @@ import { Store } from '@ngrx/store';
 
 import { ProfileModal, initialTag, UserCard } from '../../../models/profile.model';
 import { ToastrService } from 'ngx-toastr';
+import { ProfileActions } from '../../../actions/profile.action';
 
 @Component({
   selector: 'app-status-editor',
@@ -21,14 +22,14 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./status-editor.component.scss']
 })
 
-export class StatusEditorComponent {
+export class StatusEditorComponent implements OnInit, OnDestroy {
   chosenChannel: any = 0;
   @Input() userChannels;
   statusForm: FormGroup;
   private mediaStateSubscription: Subscription;
   mediaState$: Observable<Media>;
   mediaStore = initialMedia;
-  profileStore = initialTag;
+  profileState = initialTag;
   baseUrl = environment.API_IMAGE;
   privacy: any = 0;
   statusMessage = '';
@@ -41,30 +42,55 @@ export class StatusEditorComponent {
   private tagStateSubscription: Subscription;
   profileChannel = initialTag ;
   statusSaved: boolean;
+  uploadState: Number;
+  channelList: any[];
+  userHandle: string;
+  user_channel_scroll_id: any;
+
+  external_post_active = false;
+  ct_id: any;
+  post_to: any;
 
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
     private router: Router,
     private route: ActivatedRoute,
-    private store: Store<Media>
+    private store: Store<Media>,
+    private profileStore: Store<ProfileModal>
   ) {
+    // if redriect url there
+    if (this.route.snapshot.queryParams['post_to'] === 'community' || this.route.snapshot.queryParams['post_to'] === 'channel') {
+      if (this.route.snapshot.queryParams['post_to'] && this.route.snapshot.queryParams['ct_id']) {
+        this.external_post_active = true;
+        this.ct_id = this.route.snapshot.queryParams['ct_id'];
+        this.post_to = this.route.snapshot.queryParams['post_to'];
+      }
+    }
+    this.uploadState = 1;
     this.createStatusForm();
+    this.userHandle = localStorage.getItem('loggedInProfileHandle');
+    this.loadChannel(this.userHandle, null);
     // Reducer Store
     this.mediaState$ = store.select('mediaStore');
     this.profileState$ = store.select('profileTags');
     // Profile
-    this.profileState$.subscribe((state) => {
-      this.profileStore = state;
-      const activeUser = this.profileStore.profile_cards.active;
+    this.mediaStateSubscription = this.profileState$.subscribe((state) => {
+      this.profileState = state;
+      const activeUser = this.profileState.profile_cards.active;
       this.activeUser = activeUser;
+      if (state.user_channels_loaded) {
+        this.channelList = state.user_channel;
+      }
+      if (state && state['user_channel_scroll_id']) {
+        this.user_channel_scroll_id = state['user_channel_scroll_id']
+      }
     });
     // Media
     this.mediaState$.subscribe((state) => {
       this.mediaStore = state;
       this.statusSaved = this.mediaStore.status_saved;
     });
-
     this.route.queryParams.subscribe(params => {
       this.urlQuery = params
       this.ct_name = params['ct_name']
@@ -84,33 +110,45 @@ export class StatusEditorComponent {
     this.privacy = value
   }
 
+  ngOnInit() {}
+
+  ngOnDestroy() {
+    this.mediaStateSubscription.unsubscribe();
+  }
+
   /**
    * Status Form
    */
   submitStatusForm() {
-    const userHandle = this.profileStore.profile_cards.active.handle || '';
-    const message = (this.statusMessage || '').trim().length === 0;
-
-    if ( !message && userHandle !== '') {
-      const postStatus = {
-        owner: userHandle,
-        feed_type: 'status',
-        title: '',
-        description: this.statusMessage,
-        access: Number(this.privacy),
-        active: true
-      };
-
-      this.postStatus( postStatus );
-    }
+    this.uploadState = 2;
+    // const userHandle = this.profileStore.profile_cards.active.handle || '';
+    // const message = (this.statusMessage || '').trim().length === 0;
+    // if (!message && userHandle !== '') {
+    //   const postStatus = {
+    //     owner: userHandle,
+    //     feed_type: 'status',
+    //     title: '',
+    //     description: this.statusMessage,
+    //     access: Number(this.privacy),
+    //     active: true
+    //   };
+    //   this.uploadStatus(postStatus);
+    // }
   }
+
+  publishToChannel() {
+    const chnlData = {
+      spotfeedId: this.ct_id
+    }
+    this.postStatusToChannel(chnlData);
+  }
+
   /**
    * Post Status
    * @param req
    */
-  postStatus(req: any) {
+  uploadStatus(req: any) {
     this.store.dispatch({ type: MediaActions.STATUS_SAVE, payload: req });
-
     this.store.select('mediaStore')
       .first(post => post['status_saved'] === true)
       .subscribe( data => {
@@ -118,6 +156,7 @@ export class StatusEditorComponent {
         this.router.navigate(['/user/status/list']);
       });
   }
+
   /**
    * Status Form
    */
@@ -126,5 +165,68 @@ export class StatusEditorComponent {
       status : ['', Validators.required ],
       privacy: [0, Validators.required ]
     })
+  }
+
+  /**
+   * Load Channel
+   */
+  loadChannel(handle: string, scrolled: any) {
+    const body = {
+      'limit': 30,
+      'superType': 'channel',
+      'owner': handle,
+      'searchText': '',
+      'scrollId': scrolled
+    }
+    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: body });
+  }
+
+  /**
+   * Post status to Channel
+   */
+  postStatusToChannel(channelDetails: any) {
+    const channelId = channelDetails['spotfeedId'];
+    const postData = {
+      channelId: channelId,
+      reqBody: {
+        feed: [{
+          owner: this.userHandle,
+          feed_type: 'status',
+          title: '',
+          description: this.statusMessage,
+          access: this.privacy,
+          active: true
+        }]
+      }
+    };
+    this.profileStore.dispatch({ type: ProfileActions.POST_CHANNEL_STATUS, payload: postData });
+    this.profileStore.select('profileTags')
+      .first(state => state['status_channel_posted'] === true)
+      .subscribe( data => {
+        this.toastr.success('Your post has been successfully posted to your channel');
+        this.router.navigate(['/channel/' + channelId]);
+      });
+  }
+
+  scrolled($event) {
+    this.loadChannel(this.userHandle, this.user_channel_scroll_id);
+  }
+
+  searchChannel(text) {
+    const body = {
+      'limit': 30,
+      'superType': 'channel',
+      'owner': this.userHandle,
+      'searchText': text,
+      'scrollId': null
+    }
+    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: body });
+  }
+
+  /**
+   * Switch View
+   */
+  changeState(state: number) {
+    this.uploadState = state;
   }
 }

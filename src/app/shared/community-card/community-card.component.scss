@@ -30,10 +30,10 @@
     font-weight: 600;
     letter-spacing: 1px;
     line-height: 18px;
-    color: #FC6371;
+    color: $color-theme;
     text-transform: uppercase;
     &:hover {
-      color: #FC6371;
+      color: $color-theme;
     }
   }
   .c-card__opportunity__details {
@@ -61,13 +61,13 @@
     font-weight: 600;
     letter-spacing: 1px;
     line-height: 18px;
-    color: #FC6371;
+    color: $color-theme;
     text-transform: uppercase;
     position: absolute;
     right: 0px;
     top: 4px;
     &:hover {
-      color: #FC6371;
+      color: $color-theme;
     }
   }
   .c-comm__followers {

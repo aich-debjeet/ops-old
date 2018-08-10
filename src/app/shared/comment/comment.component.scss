@@ -499,14 +499,14 @@
     display: inline;
 }
 .c-post__comment_rm {
-    color: #FF7B84;
+    color: $color-theme;
     font-size: 11px;
     line-height: 18px;
     &:hover {
-        color: #FF7B84;
+        color: $color-theme;
     }
     &:visited {
-        color: #FF7B84;
+        color: $color-theme;
     }
 }
 #c-comment_readMore {
