@@ -12,6 +12,28 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
   switch (type) {
 
     /* remove application by id */
+    case OpportunityActions.CANCEL_APPLICATION:
+      return Object.assign({}, state, {
+        cancel_application: true,
+        cancel_application_params: payload,
+        cancel_application_success: false,
+      });
+
+    case OpportunityActions.CANCEL_APPLICATION_SUCCESS:
+      return Object.assign({}, state, {
+        cancel_application: false,
+        cancel_application_success: true,
+        cancel_application_result: payload
+      });
+
+    case OpportunityActions.CANCEL_APPLICATION_FAILED:
+      return Object.assign({}, state, {
+        cancel_application: false,
+        cancel_application_success: false,
+      });
+    /* remove application by id */
+
+    /* remove application by id */
     case OpportunityActions.REMOVE_APPLICATION:
       return Object.assign({}, state, {
         remove_application: true,
