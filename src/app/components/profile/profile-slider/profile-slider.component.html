@@ -4,7 +4,7 @@
             <span class="c-timeline__imgchange" appDropdown>
                <a data-toggle="modal" data-target="#cover-upload" appDropdownOpen>
                     <div class="c-timeline__changecover">
-                        <a routerLink="/profile/about/cover_image"><img [src]="baseUrl + 'img/svg/edit_red.svg'" class="c-timeline__icon"> Change cover</a>
+                        <a routerLink="/profile/about/cover_image"><img [src]="baseUrl + 'v2/svg/edit_red.svg'" class="c-timeline__icon"> Change cover</a>
                     </div>
                 </a>
             </span>
@@ -22,7 +22,7 @@
                     <img *ngIf="!profileObject?.image?.profile" [src]="defaultImage" class="img-responsive img-circle c-profile__userimg">
                     <span *ngIf="this.isOwner" class="c-profile__imgchange">
                         <a  data-toggle="modal" data-target="#profile-upload">
-                           <a routerLink="/profile/about/image"> <img [src]="baseUrl + 'img/svg/edit_red.svg'" class="c-profile__imgchange--icon"></a>
+                           <a routerLink="/profile/about/image"> <img [src]="baseUrl + 'v2/svg/edit_red.svg'" class="c-profile__imgchange--icon"></a>
                         </a>
                     </span>
                 </div>
