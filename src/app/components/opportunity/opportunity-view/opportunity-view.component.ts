@@ -33,7 +33,7 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
   profileState$: any;
   hasApplied: boolean;
   routerSub: any;
-  applyingForOpp = false;
+  userActionLoading = false;
 
   baseUrl = environment.API_IMAGE;
   private oppsSub: ISubscription;
@@ -134,20 +134,23 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
   /**
    * apply for job
    */
-  applyForJob() {
-    this.applyingForOpp = true;
-    const reqBody = {
-      jobId: this.jobId
-    }
-    this.store.dispatch({
-      type: OpportunityActions.APPLY_FOR_AN_OPPORTUNITY,
-      payload: reqBody
-    });
-    this.store.select('opportunityTags')
-      .first(state => state['applying_for_an_opportunity'] === false && state['apply_for_an_opportunity_success'] === true)
-      .subscribe(state => {
-        this.toastr.success('Successfully applied for the opportunity!', 'Success!');
+  userOppAction(action: string) {
+    if (action === 'apply') {
+      this.userActionLoading = true;
+      const reqBody = {
+        jobId: this.jobId
+      }
+      this.store.dispatch({
+        type: OpportunityActions.APPLY_FOR_AN_OPPORTUNITY,
+        payload: reqBody
       });
+      this.store.select('opportunityTags')
+        .first(state => state['applying_for_an_opportunity'] === false && state['apply_for_an_opportunity_success'] === true)
+        .subscribe(() => {
+          this.userActionLoading = false;
+          this.toastr.success('Successfully applied for the opportunity!', 'Success!');
+        });
+    }
   }
 
   deleteOpp(oppId: string) {
