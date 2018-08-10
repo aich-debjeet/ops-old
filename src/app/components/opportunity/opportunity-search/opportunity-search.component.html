@@ -25,11 +25,11 @@
 				  	<span class="o-quicklink__ico">
 				  		<img width="62" [src]="baseUrl + 'img/opportunities/audition.png'" alt="">
 				  	</span>
-				  	<span class="o-quicklink__title">
+				  	<span *ngIf="isSelected('audition')" class="o-quicklink__title">
 				  		<p class="c-text_lg">Audition</p>
 				  		<p *ngIf="opportunitiesCount.Audition" class="c-text_sm color-grey-dark">{{ opportunitiesCount.Audition }} Opportunities</p>
 				  	</span>
-				  	<span class="o-quicklink__title-show">
+				  	<span *ngIf="!isSelected('audition')" class="o-quicklink__title-show">
 				  		<p class="c-text_md color-theme">Audition</p>
 				  		<p class="c-text_sm color-theme">What does it take to be successful?</p>
 				  	</span>
@@ -40,11 +40,11 @@
 				  	<span class="o-quicklink__ico">
 				  		<img width="62" [src]="baseUrl + 'img/opportunities/projects.png'" alt="">
 				  	</span>
-				  	<span class="o-quicklink__title">
+				  	<span *ngIf="isSelected('projects')" class="o-quicklink__title">
 				  		<p class="c-text_lg">Projects</p>
 				  		<p *ngIf="opportunitiesCount.Projects" class="c-text_sm color-grey-dark">{{ opportunitiesCount.Projects }} Opportunities</p>
 				  	</span>
-				  	<span class="o-quicklink__title-show">
+				  	<span *ngIf="!isSelected('projects')" class="o-quicklink__title-show">
 				  		<p class="c-text_md color-theme">Projects</p>
 				  		<p class="c-text_sm color-theme">What does it take to be successful?</p>
 				  	</span>
@@ -55,11 +55,11 @@
 				  	<span class="o-quicklink__ico">
 				  		<img width="62" [src]="baseUrl + 'img/opportunities/job.png'" alt="">
 				  	</span>
-				  	<span class="o-quicklink__title">
+				  	<span *ngIf="isSelected('job')" class="o-quicklink__title">
 				  		<p class="c-text_lg">Jobs</p>
 				  		<p *ngIf="opportunitiesCount.Jobs" class="c-text_sm color-grey-dark">{{ opportunitiesCount.Jobs }} Opportunities</p>
 				  	</span>
-				  	<span class="o-quicklink__title-show">
+				  	<span *ngIf="!isSelected('job')" class="o-quicklink__title-show">
 				  		<p class="c-text_md color-theme">Jobs</p>
 				  		<p class="c-text_sm color-theme">What does it take to be successful?</p>
 				  	</span>
@@ -70,11 +70,11 @@
 				  	<span class="o-quicklink__ico">
 				  		<img width="62" [src]="baseUrl + 'img/opportunities/internship.png'" alt="">
 				  	</span>
-				  	<span class="o-quicklink__title">
+				  	<span *ngIf="isSelected('internship')" class="o-quicklink__title">
 				  		<p class="c-text_lg">Internship</p>
 				  		<p *ngIf="opportunitiesCount.Internship" class="c-text_sm color-grey-dark">{{ opportunitiesCount.Internship }} Opportunities</p>
 				  	</span>
-				  	<span class="o-quicklink__title-show">
+				  	<span *ngIf="!isSelected('internship')" class="o-quicklink__title-show">
 				  		<p class="c-text_md color-theme">Internship</p>
 				  		<p class="c-text_sm color-theme">What does it take to be successful?</p>
 				  	</span>
@@ -85,11 +85,11 @@
 				  	<span class="o-quicklink__ico">
 				  		<img width="62" [src]="baseUrl + 'img/opportunities/freelance.png'" alt="">
 				  	</span>
-				  	<span class="o-quicklink__title">
+				  	<span *ngIf="isSelected('freelance')" class="o-quicklink__title">
 				  		<p class="c-text_lg">Freelance</p>
 				  		<p *ngIf="opportunitiesCount.Freelance" class="c-text_sm color-grey-dark">{{ opportunitiesCount.Freelance }} Opportunities</p>
 				  	</span>
-				  	<span class="o-quicklink__title-show">
+				  	<span *ngIf="!isSelected('freelance')" class="o-quicklink__title-show">
 				  		<p class="c-text_md color-theme">Freelance</p>
 				  		<p class="c-text_sm color-theme">What does it take to be successful?</p>
 				  	</span>
@@ -100,11 +100,11 @@
 				  	<span class="o-quicklink__ico">
 				  		<img width="62" [src]="baseUrl + 'img/opportunities/volunteer.png'" alt="">
 				  	</span>
-				  	<span class="o-quicklink__title">
+				  	<span *ngIf="isSelected('volunteer')" class="o-quicklink__title">
 				  		<p class="c-text_lg">Volunteer</p>
 				  		<p *ngIf="opportunitiesCount.Volunteer" class="c-text_sm color-grey-dark">{{ opportunitiesCount.Volunteer }} Opportunities</p>
 				  	</span>
-				  	<span class="o-quicklink__title-show">
+				  	<span *ngIf="!isSelected('volunteer')" class="o-quicklink__title-show">
 				  		<p class="c-text_md color-theme">Volunteer</p>
 				  		<p class="c-text_sm color-theme">What does it take to be successful?</p>
 				  	</span>
