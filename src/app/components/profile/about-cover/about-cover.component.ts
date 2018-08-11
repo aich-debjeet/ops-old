@@ -104,6 +104,11 @@ export class AboutCoverComponent implements OnInit {
 
       this._store.dispatch({ type: ProfileActions.PROFILE_COVER_UPDATE, payload: imageData });
       this.changingImage = false;
+      this._store.select('profileTags')
+        .first(state => state['cover_img_upload_success'] === true)
+        .subscribe(() => {
+          this.isClosed(null);
+        });
     }
   }
 
