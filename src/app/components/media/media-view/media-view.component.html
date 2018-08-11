@@ -1,6 +1,8 @@
 <app-route-modal  modalClass="c-modal--size1" [cancelUrl]="['', {outlets: { media: null }}]">
     <modal-content>
 
+        <button class="close" (click)="closeFunction()" data-dismiss="modal" type="button">×</button>
+
         <div class="c-mediamodal__left">
             <div class="c-mediamodal__left__block">
                 <figure class="c-mediamodal--img">
