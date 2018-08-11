@@ -1,0 +1,178 @@
+<section class="o-directory">
+  <div class="container">
+    <div class=" col-md-12 o-dir-search">
+      <div class="col-md-10 padding_none">
+        <input class="c-form__input--search"  (keyup)="search()" [(ngModel)]="searchText" type="text" placeholder="Search by Name, City and Proffession">
+        <span class="o-dir-search__ico">
+          <img [src]="baseUrl + 'img/svg/ico_search.svg'">
+        </span>
+      </div>
+      <div class="col-md-2 padding_none">
+        <a class="o-dir-link o-dir-filter"><img [src]="baseUrl + 'img/directory/filter.svg'"></a>
+      </div>
+      <div class="o-dirfil-opt">
+        <div class="o-dirfil-group with_border_right">
+
+          <ul class="o-dirfil">
+            <!--<li class="o-dirfill-item with_border_right">
+              <label for="all" class="o-dirfill-block">
+                <input type="radio" name="opt" id="all">
+                <span class="o-dirfill__container">
+                  <span class="o-dirfil__ico">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+                      <defs>
+                        <path id="all-list-copy-a" d="M2,20 L22,20 L22,16 L2,16 L2,20 Z M4,17 L6,17 L6,19 L4,19 L4,17 Z M2,4 L2,8 L22,8 L22,4 L2,4 Z M6,7 L4,7 L4,5 L6,5 L6,7 Z M2,14 L22,14 L22,10 L2,10 L2,14 Z M4,11 L6,11 L6,13 L4,13 L4,11 Z"/>
+                      </defs>
+                      <g  fill-rule="evenodd">
+                        <use fill-rule="nonzero" xlink:href="#all-list-copy-a"/>
+                      </g>
+                    </svg>
+                  </span>
+                  <span class="o-dirfill__name">All</span>
+                </span>
+              </label>
+            </li>-->
+            <li class="o-dirfill-item with_border_right">
+              <label class="o-dirfill-block">
+                <input type="radio" name="profileType" [(ngModel)]="profileType" value="1"  (change)="profileTypeOption('1')">
+                <span class="o-dirfill__container">
+                  <span class="o-dirfil__ico">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+                      <defs>
+                        <path id="people-copy-a" d="M11.75,11.55 C8.0105,11.55 5,13.61235 5,16.05 L5,21 L18.5,21 L18.5,16.05 C18.5,13.612575 15.4895,11.55 11.75,11.55 M11.75,3 C9.8861,3 8.375,4.5111 8.375,6.375 C8.375,8.2389 9.8861,9.75 11.75,9.75 C13.6139,9.75 15.125,8.2389 15.125,6.375 C15.125,4.5111 13.6139,3 11.75,3"/>
+                      </defs>
+                      <g fill-rule="evenodd">
+                        <use xlink:href="#people-copy-a"/>
+                      </g>
+                    </svg>
+                  </span>
+                  <span class="o-dirfill__name">People</span>
+                </span>
+              </label>
+            </li>
+            <li class="o-dirfill-item">
+              <label class="o-dirfill-block">
+                <input type="radio" name="profileType" [(ngModel)]="profileType" value="0" (change)="profileTypeOption(2)">
+                <span class="o-dirfill__container">
+                  <span class="o-dirfil__ico">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+                      <defs>
+                        <path id="industry-copy-a" d="M18.193137,20.4357585 L15.8540085,20.4357585 L15.8540085,13.8523458 C15.8540085,13.0028732 16.4385818,12.3657687 17.0239903,12.3657687 C17.691239,12.3657687 18.193137,13.0028732 18.193137,13.8523458 L18.193137,20.4357585 Z M13.1825084,20.4357585 L10.844215,20.4357585 L10.844215,13.8523458 C10.844215,13.0028732 11.4279532,12.3657687 12.0133617,12.3657687 C12.6806104,12.3657687 13.1825084,13.0028732 13.1825084,13.8523458 L13.1825084,20.4357585 Z M8.17187974,20.4357585 L5.8335864,20.4357585 L5.8335864,13.8523458 C5.8335864,13.0028732 6.41732463,12.3657687 7.00273307,12.3657687 C7.66998178,12.3657687 8.17187974,13.0028732 8.17187974,13.8523458 L8.17187974,20.4357585 Z M12.0133617,5.69119704 C12.9311418,5.69119704 13.6835712,6.43254371 13.6835712,7.33863408 C13.6835712,8.24472445 12.9311418,8.98607112 12.0133617,8.98607112 C11.0947464,8.98607112 10.3431521,8.24472445 10.3431521,7.33863408 C10.3431521,6.43254371 11.0947464,5.69119704 12.0133617,5.69119704 L12.0133617,5.69119704 Z M19.946857,13.2694074 L19.9318251,11.0453674 L20.8646371,11.0453674 L23,11.0453674 L12.4309141,2.23157926 C12.1803826,1.98446371 11.7628302,1.90209185 11.5122988,2.14920741 L1,11.0453674 L2.99423019,11.0453674 L3.91201032,11.0453674 L3.91201032,20.4357585 L2.49316732,20.4357585 L2.49316732,22 L21.3665351,22 L21.3665351,20.4357585 L19.946857,20.4357585 L19.946857,13.2694074 Z"/>
+                      </defs>
+                      <g  fill-rule="evenodd">
+                        <use xlink:href="#industry-copy-a"/>
+                      </g>
+                    </svg>
+                  </span>
+                  <span class="o-dirfill__name">Organization</span>
+                </span>
+              </label>
+            </li>
+          </ul>
+          
+
+        </div>
+        <div class="o-dirfil-checkbox with_border_right">
+          <!-- <div class="form_group ops_radio_sm">
+              <label class="width100">
+                  <label class="col-md-4">
+                      <input type="radio" name="demo"><span></span>Inactive
+                  </label>
+                  <label class="col-md-4">
+                      <input type="radio" name="demo"><span></span>Active
+                  </label>
+                  <label class="col-md-4">
+                      <input type="radio" name="demo"><span></span>Verified
+                  </label>
+              </label>
+          </div> -->
+          <!--<div *ngFor="let option of options">
+            <label>
+                <input type="checkbox"
+                      
+                      
+                      [(ngModel)]="option.checked"/>
+                {{option.name}}
+            </label>
+        </div>-->
+        
+          <ul class="o-dirfill-check">
+            <li class="o-dirfill-check__list" *ngFor="let option of options">
+              <label>
+                <input type="checkbox" name="options" value="{{option.value}}" checked [(ngModel)]="option.checked" (change)="updateCheckedOptions(option, $event)"> <span></span>
+                <span class="o-dirfill-check__txt"> {{option.name}}</span>
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- search end -->
+    <div class="o-dir-list-block">
+      <div class="o-dir-list" 
+        *ngFor="let dir of dirList; let i = index"
+        infiniteScroll
+		    [infiniteScrollDistance]="2"
+		    [infiniteScrollThrottle]="10"
+		    (scrolled)="onScroll($event)">
+        >
+        <div class="o-dir-list__user o-dir-list--box">
+          <div class="c-card__user margin_none">
+            <span class="c-user-list__active-ico"><img [src]="(dir?.extra?.isImported) ? baseUrl + 'img/directory/inactive.svg' : baseUrl + 'img/directory/active.svg'"></span>
+            <div class="c-user c-user-list--dir">
+                <a class="c-user__avatar c-avatar--dir">
+                  <img *ngIf="!dir?.profileImage" class="c-user__image"  [src]="baseUrl + 'images/defaultFemale/1a43f5d9-5798-4d6b-bde0-eb38c369cfc2.png'">
+                  <img *ngIf="dir?.profileImage" class="c-user__image" [lazyLoad]="baseUrl + dir?.profileImage">
+                </a>
+                <a class="c-user__name c-user--dir-name" routerLink="{{ '/profile/u/' + dir?.extra?.username }}">{{ dir?.name }}</a>
+                <a class="c-user__dir-sub" routerLink="{{ '/profile/u/' + dir?.extra?.username }}">{{ dir?.extra?.profession }}</a>
+            </div>
+          </div>
+        </div>
+        <div class="o-dir-list__mail o-dir-list--box">
+          <div class="o-dir-contact__det">
+            <div class="o-dir-contact__ico">
+              <img width="15" [src]="baseUrl + 'img/directory/envelope.svg'" alt="">
+            </div>
+            <div class="o-dir-contact__txt c-text_sm-light"  *ngIf="dir?.email">
+              {{ dir?.email }}
+            </div>
+            <div *ngIf="!(dir?.email)" class="o-dir-contact__txt c-text_sm-light">Email has not been added</div>
+          </div>
+        </div>
+        <div class="o-dir-list__phone o-dir-list--box">
+          <div class="o-dir-contact__ico">
+            <img width="15" [src]="baseUrl + 'img/directory/receiver.svg'" alt="">
+          </div>
+          <div class="o-dir-contact__txt c-text_sm-light">
+            <div *ngIf="dir?.contact?.mobile?.mobile" class="o-dir-phone margin_none">{{  dir?.contact?.mobile?.mobile }}</div>
+            <div *ngIf="!(dir?.contact?.mobile?.mobile)" class="o-dir-phone margin_none">Mobile No has not been added</div>
+            <!--<div class="o-dir-phone">219-501-4082</div>-->
+          </div>
+        </div>
+        <div class="o-dir-list__address o-dir-list--box">
+          <div class="o-dir-address margin_none">
+            <p class="o-dir-address__txt">
+              {{ dir?.extra?.address?.line1 }} {{ dir?.extra?.address?.city }}
+              {{ dir?.extra?.address?.state }} {{ dir?.extra?.address?.country }}
+            </p>
+          </div>
+        </div>
+        <div class="o-dir-list__actions">
+          <div class="o-dir-actions">
+            <button type="button" class="btn btn-default btn-md" disabled>CONTACT </button>
+            <button type="button" (click)="userFollow(dir, i)" class="btn btn-md btn-primary btn-follow m-l-0" *ngIf="!dir?.extra?.isImported">
+                <span class="btn-label-follow">
+                <img [src]="baseUrl + 'img/svg/ico_plus_white.svg'">
+              </span> {{(dir?.extra?.isFollowing ? 'FOLLOWING' : 'FOLLOW')}} 
+            </button>
+          </div>
+        </div>
+      </div><!-- 1st row end -->
+      <!--<div >
+        <div class="msg__loading">
+          <div class="loader">Loading...</div>
+        </div>
+      </div>-->
+    </div>
+  </div>
+</section>

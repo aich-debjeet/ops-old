@@ -1,7 +1,12 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DirectoryComponent } from './directory.component';
 import { RouterModule, Routes } from '@angular/router';
+import { DirectoryListComponent } from './directory-list/directory-list.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { SharedModule } from '../../shared/shared.module';
 
 const routes: Routes = [
   {
@@ -9,16 +14,27 @@ const routes: Routes = [
     component: DirectoryComponent,
     children: [
       { path: '', redirectTo: 'listing' },
-      { path: 'listing', component: DirectoryComponent }
+      { path: 'listing', component: DirectoryListComponent }
     ]
   }
 ];
 
 @NgModule({
   imports: [
+    FormsModule,
     CommonModule,
+    SharedModule,
+    ReactiveFormsModule,
+    InfiniteScrollModule,
+    LazyLoadImageModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [DirectoryComponent]
+  declarations: [
+    DirectoryComponent,
+    DirectoryListComponent
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ]
 })
 export class DirectoryModule { }
