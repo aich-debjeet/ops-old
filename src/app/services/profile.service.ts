@@ -126,7 +126,12 @@ export class ProfileService {
   getLoggedInProfileDetails() {
     return this.api.get('/portal/loggedInProfile/', '');
   }
-
+  /**
+   * current logged in user details
+   */
+  getLoggedInUserDetails(){
+    return this.api.get('/portal/auth/user/loggedUser');
+  }
   /**
    * Current LoggedIn Quick Access.
    */

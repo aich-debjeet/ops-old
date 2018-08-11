@@ -19,6 +19,9 @@ export class CountrySelectorComponent implements OnInit, AfterViewInit, OnChange
   @Output() onCountrySelection: EventEmitter<any> = new EventEmitter<any>();
   @Input() onNumberUpdate: string;
   @Input() countrySelForm: string;
+  @Input('countryCode') set selectCountry(value) {
+    this.selectedCountryId = value;
+  };
   countries: any[];
   country: string;
   selectedCountry: any;
@@ -30,10 +33,12 @@ export class CountrySelectorComponent implements OnInit, AfterViewInit, OnChange
   private selector: any;
 
   onSelectCountry(event) {
+    console.log(event)
     this.selectedCountryId = event.trim();
     // console.log('this.selectedCountryId', event);
     this.countryIcon = 'https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.8.0/flags/1x1/' + event.toLowerCase() + '.svg';
     const countryData = this.getCountry(event);
+    console.log(countryData)
     this.onCountrySelection.emit(countryData);
   }
 
@@ -51,7 +56,7 @@ export class CountrySelectorComponent implements OnInit, AfterViewInit, OnChange
   }
 
   initCountrySelector(selectorId: string) {
-
+    console.log(selectorId)
     if (selectorId === 'country-options-reg') {
       const el = 'country-options-reg';
       this.selector = new Choices(document.getElementById(el), {
@@ -94,9 +99,64 @@ export class CountrySelectorComponent implements OnInit, AfterViewInit, OnChange
             },
           };
         }
-      }).setValueByChoice('IN');
+      });
+      // console.log('otp this.selectedCountryId', this.selectedCountryId);
+      if (this.selectedCountryId.length > 0) {
+        this.selector.setValueByChoice(this.selectedCountryId);
+      } else {
+        this.selector.setValueByChoice('IN');
+      }
     } else if (selectorId === 'country-options-otp') {
       const el = 'country-options-otp';
+      this.selector = new Choices(document.getElementById(el), {
+        searchFields: ['label', 'value', 'customProperties.description'],
+        choices: this.countries,
+        callbackOnCreateTemplates: function(strToEl) {
+          const classNames = this.config.classNames;
+          const itemSelectText = this.config.itemSelectText;
+
+          return {
+            item: function(data) {
+              return strToEl('\
+                <div\
+                  class="' + String(classNames.item) + ' ' + String(data.highlighted ? classNames.highlightedState : classNames.itemSelectable) + '"\
+                  data-item\
+                  data-id="' + String(data.id) + '"\
+                  data-value="' + String(data.value) + '"\
+                  ' + String(data.active ? 'aria-selected="true"' : '') + '\
+                  ' + String(data.disabled ? 'aria-disabled="true"' : '') + '\
+                  >\
+                  <span style="margin-right:10px;"><img width="18" src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.8.0/flags/1x1/' + data.value.toLowerCase() + '.svg"/></span>' + '\
+                </div>\
+              ');
+            },
+            choice: function(data) {
+              return strToEl('\
+                <div\
+                  class="' + String(classNames.item) + ' ' + String(classNames.itemChoice) + ' ' + String(data.disabled ? classNames.itemDisabled : classNames.itemSelectable) + '"\
+                  data-select-text="' + String(itemSelectText) + '"\
+                  data-choice \
+                  ' + String(data.disabled ? 'data-choice-disabled aria-disabled="true"' : 'data-choice-selectable') + '\
+                  data-id="' + String(data.id) + '"\
+                  data-value="' + String(data.value) + '"\
+                  ' + String(data.groupId > 0 ? 'role="treeitem"' : 'role="option"') + '\
+                  >\
+                  <span style="margin-right:10px;">\
+                  <img width="18" src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.8.0/flags/1x1/' + data.value.toLowerCase() + '.svg"/></span> ' + String(data.label) + '\
+                </div>\
+              ');
+            },
+          };
+        }
+      });
+      // console.log('otp this.selectedCountryId', this.selectedCountryId);
+      if (this.selectedCountryId.length > 0) {
+        this.selector.setValueByChoice(this.selectedCountryId);
+      } else {
+        this.selector.setValueByChoice('IN');
+      }
+    } else if (selectorId === 'country-options-set') {
+      const el = 'country-options-set';
       this.selector = new Choices(document.getElementById(el), {
         searchFields: ['label', 'value', 'customProperties.description'],
         choices: this.countries,

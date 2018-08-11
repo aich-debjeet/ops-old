@@ -197,6 +197,21 @@ export class ProfileEffect {
     );
 
   /**
+   * Get LoggedIn user data details
+   */
+  @Effect()
+  loadUserDataDetails$ = this.actions$
+    .ofType(ProfileActions.LOAD_USER_DATA_DETAILS)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getLoggedInUserDetails()
+      .map(res => ({ type: ProfileActions.LOAD_USER_DATA_DETAILS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.LOAD_USER_DATA_DETAILS_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
+  /**
    * Get current user media profile
    */
   @Effect()
