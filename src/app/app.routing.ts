@@ -17,7 +17,6 @@ import { NotFoundPageComponent } from './components/not-found-page/not-found-pag
 import { StatusListComponent } from './components/status-list/status-list.component';
 import { PlannerComponent } from './components/planner/planner.component';
 import { ProjectComponent } from './components/project/project.component';
-import { DirectoryListComponent } from './components/directory-list/directory-list.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { TermsComponent } from './components/terms/terms.component';
 import { AboutComponent } from './components/about/about.component';
@@ -44,7 +43,6 @@ export const routes: Routes = [
  { path: 'user/media/list', loadChildren: './components/media-list/media-list.module#MediaListModule', canActivate: [AuthGuard]},
  { path: 'spotfeed/:id', component: SpotfeedComponent, canActivate: [AuthGuard] },
  { path: 'spotfeed-premium', component: SpotfeedPremiumComponent, canActivate: [AuthGuard] },
- { path: 'directory', component: DirectoryListComponent, canActivate: [AuthGuard] },
  { path: 'notification', component: NotificationComponent, canActivate: [AuthGuard] },
  { path: 'user/message', loadChildren: './components/message/message.module#MessageModule', canActivate: [AuthGuard] },
  { path: 'portfolio', loadChildren: './components/portfolio/portfolio.module#PortfolioModule' },
