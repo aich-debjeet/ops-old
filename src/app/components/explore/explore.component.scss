@@ -1,4 +1,5 @@
 @import './src/assets/scss/components/_tabs.scss';
+@import './src/assets/scss/helpers/_variables.scss';
 
 /* ------------------------- explore style --------------------------- */
 .o-explore-top-block{
@@ -60,7 +61,7 @@
 }
 
 .selectedSpotfeed {
-    border: 1px solid red;
+    border: 2px solid $color-theme;
 }
 
 .text-shadow {

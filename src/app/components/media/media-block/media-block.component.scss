@@ -643,7 +643,7 @@
 //                 li a {
 //                     &:hover {
 //                         background-color: #fff;
-//                         color: #ff7b84;
+//                         color: $color-theme;
 //                     }
 //                 }
 //             }
@@ -853,7 +853,7 @@
 // .read-more-link{
 //     float: right;
 //     span{
-//         color: #ff7b84;
+//         color: $color-theme;
 //         font-size: 12px;
 //         text-decoration: underline;
 //         cursor: pointer;

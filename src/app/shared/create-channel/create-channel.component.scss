@@ -136,7 +136,7 @@
                             width: 110px;
                             height: 32px;
                             background: #FFF7F8 !important;
-                            border-color: #FF7B84 !important;
+                            border-color: $color-theme !important;
                             &:hover {
                                 .btn-label-skill {
                                     background: none;
@@ -243,7 +243,7 @@
               padding: 24px 32px;
               border-top: 1px solid rgba(102, 45, 145, 0.1);
               .channel_success_msg {
-                  color: #FF7B84;
+                  color: $color-theme;
                   font-size: 14px;
                   line-height: 19px;
                   display: inline;

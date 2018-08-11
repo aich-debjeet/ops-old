@@ -1,3 +1,4 @@
+@import './src/assets/scss/helpers/_variables.scss';
 // opportunity styles
 
 .o-opportunity-top-block{
@@ -6,7 +7,7 @@
 	background-color: #fff;
 	float: left;
 	box-shadow: 0 2px 4px 0 rgba(102,45,145,0.1);
-	background: url(https://cdn.onepagespotlight.com/img/opportunities/opportunities_bg.jpg) no-repeat;
+	background: url(https://cdn.onepagespotlight.com/v2/opportunities/opportunities_bg.jpg) no-repeat;
 	background-size: cover;
 }
 // top text and search
@@ -109,7 +110,7 @@
 	border-radius: 3px;
 }
 .o-quicklink__item [type="radio"]:checked + label {
-	border: 1px solid #FF7B84;	
+	border: 1px solid $color-theme;	
 	border-radius: 3px;	
 	background-color: #FFFFFF;	
 	background-color: #F3F5F7;

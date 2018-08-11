@@ -40,7 +40,7 @@
   .c-controller__bar2 {
     width: 33%;
     height: 3px;
-    background-color: #FF7B84;
+    background-color: $color-theme;
     position: inherit;
   }
   
@@ -155,10 +155,10 @@
     font-weight: 600;
     letter-spacing: 1px;
     line-height: 18px;
-    color: #FC6371;
+    color: $color-theme;
     text-transform: uppercase;
     &:hover {
-      color: #FC6371;
+      color: $color-theme;
     }
   }
   .c-card__opportunity__details {

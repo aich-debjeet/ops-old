@@ -7,13 +7,522 @@
 @import './src/assets/scss/components/_buttons.scss';
 
 
+// landing page css
+.landing_cont {
+  padding-bottom: 72px;
+  background:#fff;
+  @include mq($from: $mobile_sm, $until: $desktop_sm){
+    padding-bottom: 72px;
+  }
+}
+.o-hero-section{
+  position: relative;
+  width: 100%;
+  height: 610px!important;
+  @include mq($from: $mobile_sm, $until: $desktop_sm){
+    height: 386px!important;
+  }
+}
+.o-landing-hero{
+  width: 100%;
+  // height: 100vh;
+  float: left;
+  height: 610px!important;
+  background: url(https://cdn.onepagespotlight.com/v2/landing/slider_1.jpg) no-repeat;
+  background-size: 100%;
+  background-position: left;
+  @include mq($from: $mobile_sm, $until: $desktop_sm){
+    height: 386px!important;
+    background-size: cover;
+    background-position: center;
+  }
+}
+.o-landing-hero2{
+  width: 100%;
+  // height: 100vh;
+  float: left;
+  height: 610px!important;
+  background: url(https://cdn.onepagespotlight.com/v2/landing/slider_2.jpg) no-repeat;
+  background-size: 100%;
+  background-position: left;
+  @include mq($from: $mobile_sm, $until: $desktop_sm){
+    height: 386px!important;
+    background-size: cover;
+    background-position: center;
+  }
+}
+.o-landing-hero3{
+  width: 100%;
+  // height: 100vh;
+  float: left;
+  height: 610px!important;
+  background: url(https://cdn.onepagespotlight.com/v2/landing/slider_3.jpg) no-repeat;
+  background-size: 100%;
+  background-position: left;
+  @include mq($from: $mobile_sm, $until: $desktop_sm){
+    height: 386px!important;
+    background-size: cover;
+    background-position: center;
+  }
+}
+.o-landing-hero4{
+  width: 100%;
+  // height: 100vh;
+  float: left;
+  height: 100% !important;
+  background: url(https://cdn.onepagespotlight.com/v2/landing/slider_4.jpg) no-repeat;
+  background-size: 100%;
+  // background-position: left;
+  background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+  @include mq($from: $mobile_sm, $until: $desktop_sm){
+    height: 386px!important;
+    background-size: cover;
+    background-position: center;
+  }
+}
+.o-landing-inner__black{
+  width: 100%;
+  height: 610px;
+  background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  @include mq($from: $mobile_sm, $until: $desktop_sm){
+    height: 386px!important;
+    background-size: cover;
+    background-position: center;
+  }
+}
+.o-landing-log{
+  margin-bottom: 72px;
+}
+.o-dwc-hosted-container{
+  @include mq($from: $mobile_sm, $until: $mobile_lg){
+    margin-top: 24px;
+    border-left: 0px;
+  }
+}
+.o-dwc-powered-container{
+  @include mq($from: $mobile_sm, $until: $mobile_lg){
+    margin-top: 24px;
+  }
+}
+.o-dance-wc-logo{
+  width: 100%;
+  float: left;
+  text-align: right;
+  @include mq($from: $mobile_sm, $until: $mobile_lg){
+    text-align: left;
+  }
+}
+.o-dance-wc__logo-container{
+  width: 50%;
+  float: left;
+  img{
+    width: 259px;
+  }
+  @include mq($from: $mobile_sm, $until: $mobile_lg){
+    width: 100%;
+  }
+}
+.o-dance-wc__powered-logo-container{
+  width: 100%;
+  text-align: right;
+  // img{
+  //   width: 47px;
+  // }
+  @include mq($from: $mobile_sm, $until: $mobile_lg){
+    text-align: left;
+  }
+}
+.o-dance-wc__hosted-logo-container{
+  width: 100%;
+  img{
+    width: 104px;
+  }
+}
+.o-landing-signup-btn{ 
+  padding: 7px 14px;
+  font-size: 13px;
+  line-height: 18px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  @include mq($from: $mobile_sm, $until: $desktop_sm){
+    padding: 3px 7px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+}
+
+.o-landing-more-btn{
+  border: 1px solid #FFFFFF;  
+  padding: 7px 14px;
+  font-size: 13px;
+  line-height: 18px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  color: #fff;
+  @include mq($from: $mobile_sm, $until: $desktop_sm){
+    padding: 3px 7px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+}
+.o-hero-main__title{
+  margin-top: 238px;
+  @include mq($from: $mobile_sm, $until: $desktop_sm){
+    margin-top: 142px;
+    font-size: 18px!important;
+    line-height: 27px;
+  }
+}
+
+.o-register-area{
+  text-align: center;
+}
+.o-dwc-bnglr{
+  float: right;
+  margin-top: 24px;
+  // width: 32%;
+  @include mq($from: $mobile_sm, $until: $mobile_lg){
+    width: 100%;
+    float: left;
+    text-align: left;
+    margin-top: 24px;
+  }
+}
+.o-dwc-q__txt{
+  @include mq($from: $mobile_sm, $until: $mobile_lg){
+    font-size: 11px!important;
+    font-weight: 600;
+    line-height: 15px;
+    margin-top: 18px;
+  }
+}
+.o-dwc-q__date{
+  @include mq($from: $mobile_sm, $until: $mobile_lg){
+    font-size: 15px!important;
+    font-weight: 500;
+    line-height: 24px;
+  }
+}
+.o-dwc-q__location{
+  @include mq($from: $mobile_sm, $until: $mobile_lg){
+    font-size: 13px!important;
+    font-weight: 500;
+    line-height: 20px;
+  }
+}
+
+// hero right block
+
+.o-landing-hero__img{
+  width: 100%;
+  float: left;
+  margin-top: 100px;
+  img{
+    width: 100%;
+  }
+}
+.o-hosted__logo{
+  background: #fff;
+  padding:24px 0px;
+}
+
+// platform sec
+
+.o-platform-container{
+  float: left;
+  width: 100%;
+  height: 240px;
+  @include mq($from: $mobile_sm, $until: $mobile_lg){
+    height: 140px;
+  }
+}
+.o-platform-det-block{
+  padding-bottom: 200px;
+  @include mq($from: $mobile_sm, $until: $mobile_lg){
+    padding-bottom: 0px;
+  }
+}
+.o-platform-sec{
+  width: 100%;
+  // background: #fff;
+}
+.o-platform-title--margin{
+  margin-top: 100px;
+  @include mq($from: $mobile_sm, $until: $mobile_lg){
+    margin-top: 42px;
+    font-size: 20px!important;
+    font-weight: 500;
+    line-height: 30px;
+  }
+}
+.o-platform-block{
+  height:180px;
+  width: 152px;
+  border-radius: 50%;
+  transition:.25s;
+  margin:0px auto;
+  &:hover{
+    transform: scale(1.1, 1.1);
+    margin-top: -5px;
+  }
+  @include mq($from: $mobile_sm, $until: $mobile_lg){
+    width: 100%;
+    height: 70px;
+  }
+  @include mq($from: $mobile_lg, $until: $tablet){
+    width: 75%;
+    // height: 145px;
+  }
+}
+.o-platform-block--img{
+  width: 100%;
+}
+.o-platform-block-title{
+  font-size: 15px;
+  font-weight: normal;
+  color: #333;
+  margin-top: 24px;
+  text-align: center;
+  margin-bottom: 24px;
+  @include mq($from: $mobile_sm, $until: $mobile_lg){
+    font-size: 11px;
+  }
+}
+
+
+// landing organization css
+
+.o-landing-org-block{
+  width: 100%;
+  background: #fff;
+  margin-top: -160px;
+  float: left;
+  border-radius: 10px;
+  background: url(https://cdn.onepagespotlight.com/v2/index/org-land.jpg) no-repeat;
+  background-position: center;
+  background-size: cover;
+  @include mq($from: $mobile_sm, $until: $mobile_lg){
+    margin-top: 0px;
+    box-shadow: none;
+  }
+}
+.o-landing-organization__title{
+  @include mq($from: $mobile_sm, $until: $mobile_lg){
+    font-size: 20px!important;
+    font-weight: 500;
+    line-height: 30px;
+  }
+}
+.organization_padd{
+  padding: 70px 60px;
+  @include mq($from: $mobile_sm, $until: $mobile_lg){
+    padding:10px 8px;
+  }
+}
+.organization-img{
+  overflow: hidden;
+  width: 100%;
+  padding-top: 50px;
+  margin:0px auto;
+  img{
+    width: 100%;
+    margin-bottom: -16px;
+  }
+}
+.o-organization__txt{
+  color: $color-grey-dark;
+  @include mq($from: $mobile_sm, $until: $mobile_lg){
+    font-size: 11px;
+    // color: $color-base-dark!important;
+  }
+}
+
+
+.o-landing-product--margin{
+  margin-top: 63px;
+  width: 100%;
+  margin-bottom: 40px;
+  @include mq($from: $mobile_sm, $until: $mobile_lg){
+    font-size: 20px!important;
+    font-weight: 500;
+    line-height: 30px;
+  }
+}
+
+
+.o-product{
+    width: 100%;
+    min-height: 200px;
+}
+.o-product_media{
+    width: 77px;
+    height: 77px;
+    float: left;
+    box-shadow: 0 6px 15px 0 rgba(102,45,145,0.2);
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 24px;
+    img{
+        width: 100%;
+    }
+}
+.o-product_det{
+    width: 71%;
+    float: left;
+    margin-left: 24px;
+    margin-bottom: 24px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg){
+      width: 100%;
+      margin-left: 0px;
+    }
+}
+.o-product-det__title{
+    font-size: 15px;
+    color: #333;
+    font-weight: 600;
+}
+.o-product-det__txt{
+    font-size:13px;
+    color: #747474;
+    font-weight: normal;
+    margin-top: 8px;
+    line-height: 22px;
+    @include mq($from: $mobile_sm, $until: $desktop_sm){
+      font-size: 11px;
+      line-height: 18px;
+      min-height: 180px;
+    }
+    @include mq($tablet){
+      min-height: 130px;
+    }
+}
+
+// footer
+
+.footer{
+    background-color: #F5F5F5;
+    padding: 24px 0px;
+}
+.f-menu{
+    list-style: none;
+    margin:0px;
+    padding: 0px;
+}
+.f-menu__list{
+    list-style-type: none;
+    display: inline-block;
+}
+.f-menu__link{
+    font-size: 14px;
+    color: #979797;
+    font-weight: normal;
+    padding-right: 16px;
+    &:hover{
+        color: #979797;
+    }
+    &:focus{
+        color: #979797;
+    }
+}
+.f-copy-txt{
+    font-size: 14px;
+    color: #979797;
+    font-weight: normal;
+    text-align: right;
+}
+.landing-signup{
+    background: #fff;
+    color: $color-theme;
+    font-size: 16px;
+    font-weight: 600;
+    border:none;
+}
+.landing-login{
+    background: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    border:1px #fff solid;
+}
+
+// new platform
+
+.o-platform-list{
+    list-style: none;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.o-platform__item{
+    list-style-type: none;
+    float: left;
+    display: inline-block;
+    margin:8px;
+}
+.o-platform__single{
+    float: left;
+    .c-text_md{
+        float: left;
+    }
+}
+.o-platform_dot{
+   width: 6px;
+   height: 6px;
+   border-radius:50%;
+   background-color: $color-grey-dark; 
+   margin-right: 12px;
+   float: left;
+   margin-top:6px;
+}
+.o-platform-media{
+    width: 70%;
+    margin: 60px auto 60px auto;
+    img{
+        width: 100%;
+    }
+}
+
+// new org
+
+.o-org-overlay{
+    background-color: rgba(0,0,0,0.5);
+}
+.o-org{
+  float: left;
+  width: 100%;
+}
+
+// product
+
+.product-features{
+  width: 100%;
+  float: left;
+  background: $color-grey-light;
+  padding-bottom: 40px;
+}
+.o-landing-login {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
 
 
 .landing_top {
   background: linear-gradient(135.82deg, #F7D022 0%, #E56E86 26.1%, #662D91 100%);
-  background: url(https://cdn.onepagespotlight.com/img/landing/hero.svg) no-repeat;
+ // background: url(../img/landing/bg.svg);
  background-size: cover;
- background-position: bottom;
+ background-position: center;
+  // min-height: 100vh;
  height: 100%;
  // padding-bottom: 70px;
  .landing_header_button {
@@ -21,18 +530,16 @@
  }
  .landing_logo {
      img {
-         width: 305px;
+         width: 233px;
      }
  }
  .landing_top_block {
-     margin: 90px 0 134px;
+      margin: 20px 0 150px;
      .landing_slider {
          .slider_heading {
-             color: #fff;
-             margin-top: 32px;
+             margin-top: 80px;
          }
          .slider_text {
-             color: #fff;
              line-height: 24px;
              margin: 16px 0;
          }
@@ -41,7 +548,6 @@
        margin-top: 8px;
      }
      .landing_top_art {
-       float: left;
        img {
          width: 100%;
          // margin-left: 52px;
@@ -59,484 +565,221 @@
  }
 }
 
-// landing page css
-.o-hero-section{
-    position: relative;
-    width: 100%;
-    height: 610px!important;
-    @include mq($from: $mobile_sm, $until: $desktop_sm){
-      height: 386px!important;
-    }
-  }
-  .o-landing-hero{
-      width: 100%;
-      // height: 100vh;
-      float: left;
-    height: 610px!important;
-    background: url(https://cdn.onepagespotlight.com/img/landing/1.jpg) no-repeat;
-    background-size: 100%;
-    background-position: left;
-    @include mq($from: $mobile_sm, $until: $desktop_sm){
-      height: 386px!important;
-      background-size: cover;
-      background-position: center;
-    }
-  }
-  .o-landing-hero2{
-    width: 100%;
-    // height: 100vh;
-    float: left;
-    height: 610px!important;
-    background: url(https://cdn.onepagespotlight.com/img/landing/2.jpg) no-repeat;
-    background-size: 100%;
-    background-position: left;
-    @include mq($from: $mobile_sm, $until: $desktop_sm){
-      height: 386px!important;
-      background-size: cover;
-      background-position: center;
-    }
-  }
-  .o-landing-hero3{
-    width: 100%;
-    // height: 100vh;
-    float: left;
-    height: 610px!important;
-    background: url(https://cdn.onepagespotlight.com/img/landing/3.jpg) no-repeat;
-    background-size: 100%;
-    background-position: left;
-    @include mq($from: $mobile_sm, $until: $desktop_sm){
-      height: 386px!important;
-      background-size: cover;
-      background-position: center;
-    }
-  }
-  .o-landing-hero4{
-    width: 100%;
-    // height: 100vh;
-    float: left;
-    height: 610px!important;
-    background: url(https://cdn.onepagespotlight.com/img/landing/4.jpg) no-repeat;
-    background-size: 100%;
-    background-position: left;
-    @include mq($from: $mobile_sm, $until: $desktop_sm){
-      height: 386px!important;
-      background-size: cover;
-      background-position: center;
-    }
-  }
-  .o-landing-inner__black{
-    width: 100%;
-    height: 610px;
-    background: rgba(0, 0, 0, 0.5);
-    position: absolute;
-    top: 0;
-    @include mq($from: $mobile_sm, $until: $desktop_sm){
-      height: 386px!important;
-      background-size: cover;
-      background-position: center;
-    }
-  }
-  .o-landing-log{
-    margin-bottom: 72px;
-  }
-  .o-dwc-hosted-container{
-    @include mq($from: $mobile_sm, $until: $mobile_lg){
-      margin-top: 24px;
-      border-left: 0px;
-    }
-  }
-  .o-dwc-powered-container{
-    @include mq($from: $mobile_sm, $until: $mobile_lg){
-      margin-top: 24px;
-    }
-  }
-  .o-dance-wc-logo{
-      width: 100%;
-      float: left;
-    text-align: right;
-    @include mq($from: $mobile_sm, $until: $mobile_lg){
-      text-align: left;
-    }
-  }
-  .o-dance-wc__logo-container{
-      width: 50%;
-    float: left;
-      img{
-          width: 259px;
-      }
-    @include mq($from: $mobile_sm, $until: $mobile_lg){
-      width: 100%;
-    }
-  }
-  .o-dance-wc__powered-logo-container{
-    width: 100%;
-    text-align: right;
-    img{
-      // width: 47px;
-    }
-    @include mq($from: $mobile_sm, $until: $mobile_lg){
-      text-align: left;
-    }
-  }
-  .o-dance-wc__hosted-logo-container{
-    width: 100%;
-    img{
-      width: 104px;
-    }
-  }
-  .o-landing-signup-btn{
-    border: 1px solid #FFFFFF;  
-    padding: 7px 14px;
-    font-size: 13px;
-    line-height: 18px;
-    border-radius: 2px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 600;
-    color: $color-theme;
-    background: #fff;
-    @include mq($from: $mobile_sm, $until: $desktop_sm){
-      padding: 3px 7px;
-      font-size: 11px;
-      font-weight: 500;
-    }
-  }
-  
-  .o-landing-more-btn{
-    border: 1px solid #FFFFFF;  
-    padding: 7px 14px;
-    font-size: 13px;
-    line-height: 18px;
-    border-radius: 2px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 600;
-    color: #fff;
-    @include mq($from: $mobile_sm, $until: $desktop_sm){
-      padding: 3px 7px;
-      font-size: 11px;
-      font-weight: 500;
-    }
-  }
-  .o-hero-main__title{
-    margin-top: 238px;
-    @include mq($from: $mobile_sm, $until: $desktop_sm){
-      margin-top: 142px;
-      font-size: 18px!important;
-      line-height: 27px;
-    }
-  }
-  
-  .o-register-area{
-    text-align: center;
-  }
-  .o-dwc-bnglr{
-    float: right;
-    // width: 32%;
-    @include mq($from: $mobile_sm, $until: $mobile_lg){
-      width: 100%;
-      float: left;
-      text-align: left;
-      margin-top: 24px;
-    }
-  }
-  .o-dwc-q__txt{
-    @include mq($from: $mobile_sm, $until: $mobile_lg){
-      font-size: 11px!important;
-      font-weight: 600;
-      line-height: 15px;
-      margin-top: 18px;
-    }
-  }
-  .o-dwc-q__date{
-    @include mq($from: $mobile_sm, $until: $mobile_lg){
-      font-size: 15px!important;
-      font-weight: 500;
-      line-height: 24px;
-    }
-  }
-  .o-dwc-q__location{
-    @include mq($from: $mobile_sm, $until: $mobile_lg){
-      font-size: 13px!important;
-      font-weight: 500;
-      line-height: 20px;
-    }
-  }
-  
-  // hero right block
-  
-  .o-landing-hero__img{
-      width: 100%;
-      float: left;
-    margin-top: 100px;
-      img{
-          width: 100%;
-      }
-  }
-  .o-hosted__logo{
-    background: #fff;
-    padding:24px 0px;
-  }
-  
-  // platform sec
-  
-  .o-platform-container{
-    float: left;
-    width: 100%;
-    height: 240px;
-    @include mq($from: $mobile_sm, $until: $mobile_lg){
-        height: 180px;
-    }
-  }
-  .o-platform-det-block{
-      padding-bottom: 200px;
-    @include mq($from: $mobile_sm, $until: $mobile_lg){
-      padding-bottom: 0px;
-    }
-  }
-  .o-platform-sec{
-      width: 100%;
-      // background: #fff;
-  }
-  .o-platform-title--margin{
-    margin-top: 100px;
-    @include mq($from: $mobile_sm, $until: $mobile_lg){
-      margin-top: 42px;
-      font-size: 20px!important;
-      font-weight: 500;
-      line-height: 30px;
-    }
-  }
-  .o-platform-block{
-    height:180px;
-    width: 152px;
-    border-radius: 50%;
-    // overflow: hidden;
-    // -webkit-box-shadow: 0px 7px 15px 0px rgba(102,45,145,0.16);
-    // -moz-box-shadow: 0px 7px 15px 0px rgba(102,45,145,0.16);
-    // box-shadow: 0px 7px 15px 0px rgba(102,45,145,0.16);
-    transition:.25s;
-    margin:0px auto;
-    &:hover{
-      transform: scale(1.1, 1.1);
-      margin-top: -5px;
-    }
-    @include mq($from: $mobile_sm, $until: $mobile_lg){
-      width: 100%;
-      height: 95px;
-    }
-    @include mq($from: $mobile_lg, $until: $tablet){
-      width: 75%;
-      // height: 145px;
-    }
-  }
-  .o-platform-block--img{
-    width: 100%;
-  }
-  .o-platform-block-title{
-    font-size: 15px;
-    font-weight: normal;
-    color: #333;
-    margin-top: 24px;
-    text-align: center;
-    margin-bottom: 24px;
-    @include mq($from: $mobile_sm, $until: $mobile_lg){
-      font-size: 11px;
-    }
-  }
-  
-  
-  // landing organization css
-  
-  .o-landing-org-block{
-    width: 100%;
-    box-shadow: 0 2px 8px 0 rgba(102,45,145,0.09);
-    background: #fff;
-    margin-top: -160px;
-    float: left;
-    border-radius: 10px;
-    @include mq($from: $mobile_sm, $until: $mobile_lg){
-      margin-top: 0px;
-      box-shadow: none;
-    }
-  }
-  .o-landing-organization__title{
-    @include mq($from: $mobile_sm, $until: $mobile_lg){
-      font-size: 20px!important;
-      font-weight: 500;
-      line-height: 30px;
-    }
-  }
-  .organization_padd{
-    padding: 70px 60px;
-    @include mq($from: $mobile_sm, $until: $mobile_lg){
-      padding:10px 8px;
-    }
-  }
-  .organization-img{
-    overflow: hidden;
-    width: 100%;
-    padding-top: 50px;
-    margin:0px auto;
-    img{
-      width: 100%;
-      margin-bottom: -16px;
-    }
-  }
-  .o-organization__txt{
-    color: $color-grey-dark;
-    @include mq($from: $mobile_sm, $until: $mobile_lg){
-      font-size: 11px;
-      color: $color-base-dark!important;
-    }
-  }
-  
-  
-  .o-landing-product--margin{
-      margin-top: 63px;
-      width: 100%;
-      margin-bottom: 40px;
-    @include mq($from: $mobile_sm, $until: $mobile_lg){
-      font-size: 20px!important;
-      font-weight: 500;
-      line-height: 30px;
-    }
-  }
-  
-  
-  .o-product{
-      width: 100%;
-      min-height: 200px;
-  }
-  .o-product_media{
-      width: 77px;
-      height: 77px;
-      float: left;
-      box-shadow: 0 6px 15px 0 rgba(102,45,145,0.2);
-      border-radius: 50%;
-      overflow: hidden;
-      margin-bottom: 24px;
-      img{
-          width: 100%;
-      }
-  }
-  .o-product_det{
-      width: 71%;
-      float: left;
-      margin-left: 24px;
-      margin-bottom: 24px;
-      @include mq($from: $mobile_sm, $until: $mobile_lg){
-        width: 100%;
-        margin-left: 0px;
-      }
-  }
-  .o-product-det__title{
-      font-size: 15px;
-      color: #333;
-      font-weight: 600;
-  }
-  .o-product-det__txt{
-      font-size:13px;
-      color: #747474;
-      font-weight: normal;
-      margin-top: 8px;
-      line-height: 22px;
-      @include mq($from: $mobile_sm, $until: $desktop_sm){
-        font-size: 11px;
-        line-height: 18px;
-        min-height: 180px;
-      }
-      @include mq($tablet){
-        min-height: 130px;
-      }
-  }
-  
-  // footer
-  
-  .footer{
-      background-color: #F5F5F5;
-      padding: 24px 0px;
-  }
-  .f-menu{
-      list-style: none;
-      margin:0px;
-      padding: 0px;
-  }
-  .f-menu__list{
-      list-style-type: none;
-      display: inline-block;
-  }
-  .f-menu__link{
-      font-size: 14px;
-      color: #979797;
-      font-weight: normal;
-      padding-right: 16px;
-      &:hover{
-          color: #979797;
-      }
-      &:focus{
-          color: #979797;
-      }
-  }
-  .f-copy-txt{
-      font-size: 14px;
-      color: #979797;
-      font-weight: normal;
-      text-align: right;
-  }
-  .landing-signup{
-      background: #fff;
-      color: #FF7B84;
-      font-size: 16px;
-      font-weight: 600;
-      border:none;
-  }
-  .landing-login{
-      background: none;
-      color: #fff;
-      font-size: 16px;
-      font-weight: 600;
-      border:1px #fff solid;
-  }
-    
-
-// for landing header
-
-// .opsheader_landing{
-//     position: absolute;
-//     width: 100%;
-//     float: left;
-//     top: 0px;
-//     background: none;
-//     z-index: 100;
-// }
-.o-logo{
-    width: 50%;
-    float: left;
-    margin-top: 52px;
-    margin-bottom: 0px;
-  img {
-    width: 175px;
-  }
-  @include mq($from: $mobile_sm, $until: $desktop_sm){
-    width: 34px;
-    overflow: hidden;
-    margin-top: 16px;
-    img{
-      width: 106px;
-    }
-  }
-  @include mq($from: $tablet, $until: $desktop_sm){
-  }
-}
-.o-log-reg-btn{
-  width: 50%;
-  text-align: right;
-  margin-top: 40px;
-  float: right;
-  @include mq($from: $mobile_sm, $until: $desktop_sm){
-    width: 80%;
-    margin-top: 24px;
-  }
+.landing_for_artist {
+ // padding: 58px 0;
+     // margin: 40px 0px 96px 0px;
+ .landing_text {
+     margin: 16px 0;
+     padding-right: 16px;
+ }
+ .artist_feature {
+     margin-top: 48px;
+ }
+ .btn-default {
+     background-color: transparent;
+     &:hover {
+         color: $theme_red;
+     }
+     &:active {
+         color: $white;
+     }
+ }
 }
 
+.landing_art_lovers {
+ margin: 58px 24px 58px 0;
+ .landing_text {
+     margin: 24px 0;
+ }
+}
+
+.landing_org {
+ margin: 58px 24px 58px 58px;
+ .landing_text {
+     margin: 24px 0;
+ }
+ .btn-default {
+     background-color: transparent;
+     &:hover {
+         color: $theme_red;
+     }
+     &:active {
+         color: $white;
+     }
+ }
+}
+.landing_heading {
+color: #333;
+}
+.landing_text {
+color: #747474;
+font-size: 15px;
+line-height: 25px;
+}
+.landing_title {
+color: #662D91;
+font-size: 18px;
+font-weight: 600;
+line-height: 24px;
+}
+
+// landing page new styles
+
+.login_btn{
+ background: transparent;
+ margin-left: 24px;
+ padding:8px 12px;
+ font-size: 13px;
+ font-weight: 600;
+ color: #fff;
+ border:1px #fff solid;
+ border-radius: 2px;
+ line-height: 18px;
+ margin-top: 6px;
+ float: left;
+ &:hover{
+     color:#fff;
+ }
+}
+.signup_btn{
+ background: #fff;
+ padding: 8px 12px;
+ font-size: 13px;
+ font-weight: 600;
+ color: $color-theme;
+ border-radius: 2px;
+ line-height: 18px;
+ margin-left: 0px;
+ margin-top: 6px;
+ float: left;
+ &:hover{
+     color:$color-theme;
+ }
+}
+.o-block{
+ background: #fff;
+ height: 152px;
+ width: 152px;
+ border-radius: 50%;
+ overflow: hidden;
+ // -webkit-box-shadow: 0px 7px 15px 0px rgba(102,45,145,0.16);
+ // -moz-box-shadow: 0px 7px 15px 0px rgba(102,45,145,0.16);
+ // box-shadow: 0px 7px 15px 0px rgba(102,45,145,0.16);
+ transition:.25s;
+ margin:0px auto;
+ &:hover{
+     transform: scale(1.1, 1.1);
+     margin-top: -5px;
+ }
+}
+.o-block--img{
+ width: 100%;
+}
+.o-block-title{
+ font-size: 15px;
+ font-weight: normal;
+ color: #333;
+ margin-top: 16px;
+ text-align: center;
+ margin-bottom: 24px;
+}
+
+// organization
+.white_block{
+ background: #fff;
+}
+.o-box-block{
+ width: 100%;
+ box-shadow: 0 8px 7px 0 rgba(102,45,145,0.07);
+ background: #fff;
+ margin-top: -100px;
+ float: left;
+ border-radius: 10px;
+}
+.organization_padd{
+ padding: 70px 60px;
+}
+.organization-img{
+ overflow: hidden;
+ width: 100%;
+ padding-top: 50px;
+ margin:0px auto;
+ img{
+     width: 100%;
+     margin-bottom: -16px;
+ }
+}
+.org-btn{
+ font-weight: 600;
+ font-size: 16px;
+}
+
+// product section
+.product-heading{
+ margin-bottom: 44px;
+}
+.o-product{
+ width: 100%;
+ min-height: 200px;
+}
+.o-product_media{
+ width: 77px;
+ height: 77px;
+ float: left;
+ box-shadow: 0 6px 15px 0 rgba(102,45,145,0.2);
+ border-radius: 50%;
+ overflow: hidden;
+ margin-bottom: 24px;
+ img{
+     width: 100%;
+ }
+}
+.o-product_det{
+ width: 71%;
+ float: left;
+ margin-left: 24px;
+ margin-bottom: 24px;
+}
+.o-product-det__title{
+ font-size: 15px;
+ color: #333;
+ font-weight: 600;
+}
+.o-product-det__txt{
+ font-size:13px;
+ color: #747474;
+ font-weight: normal;
+ margin-top: 8px;
+ line-height: 22px;
+}
+.view_btn{
+ background: transparent;
+ padding:8px 12px;
+ font-size: 13px;
+ font-weight: 600;
+ color: $color-theme;
+ border: 1px solid $color-theme;
+ border-radius: 2px;
+ line-height: 18px;
+ margin-top: 40px;
+ margin-bottom: 60px;
+ display: inline-block;
+ &:hover{
+     color:$color-theme;
+ }
+}
+
+.landing-signup{
+ background: #fff;
+ color: $color-theme;
+ font-size: 16px;
+ font-weight: 600;
+ border:none;
+}
+.landing-login{
+ background: none;
+ color: #fff;
+ font-size: 16px;
+ font-weight: 600;
+ border:1px #fff solid;
+}

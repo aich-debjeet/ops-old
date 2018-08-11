@@ -30,7 +30,7 @@ p.result-not-found {
 	background-color: #fff;
 	float: left;
 	box-shadow: 0 2px 4px 0 rgba(102,45,145,0.1);
-	background: url(https://cdn.onepagespotlight.com/img/opportunities/opportunities_bg.jpg) no-repeat;
+	background: url(https://cdn.onepagespotlight.com/v2/opportunities/opportunities_bg.jpg) no-repeat;
 	background-size: cover;
     margin-top: 3.5%;
 }
@@ -145,7 +145,7 @@ p.result-not-found {
 	background-color: #F3F5F7;
 }
 .o-quicklink__item [type="radio"]:checked + label {
-	border: 1px solid #FF7B84;	
+	border: 1px solid $color-theme;	
 	border-radius: 3px;	
 	background-color: #FFFFFF;	
 	background-color: #F3F5F7;
@@ -428,7 +428,7 @@ p.result-not-found {
     font-weight: 600;
     letter-spacing: 1px;
     line-height: 18px;
-    color: #FC6371;
+    color: $color-theme;
     text-transform: uppercase;
 }
 
@@ -501,7 +501,7 @@ p.result-not-found {
 	border-radius: 3px;
 }
 .o-quicklink__item [type="radio"]:checked + label {
-	border: 1px solid #FF7B84;	
+	border: 1px solid $color-theme;	
 	border-radius: 3px;	
 	background-color: #FFFFFF;	
 	background-color: #F3F5F7;

@@ -146,7 +146,7 @@
     font-weight: 500;
   }
   a{
-    color: #ff7b84;
+    color: $color-theme;
     font-size: 16px;
   }
   form {
@@ -212,7 +212,7 @@
     text-align: left;
   }
   .reg_step2_box:hover {
-    //border: solid 2px #ff7b84;
+    //border: solid 2px $color-theme;
     box-shadow: 0 1.5px 4.5px 0 rgba(0, 0, 0, 0.26);
   }
   .are_you_student{
@@ -250,7 +250,7 @@
     -webkit-appearance: none;
   }
   input[type="checkbox"]:checked + .reg_profile_types:after {
-    border: 2px solid #ff7b84;
+    border: 2px solid $color-theme;
     box-shadow: 0 1.5px 4.5px 0 rgba(0, 0, 0, 0.26);
     border-radius: 5px;
     content: " ";

@@ -1,10 +1,11 @@
+@import './src/assets/scss/helpers/_variables.scss';
 .c-card{
     margin-bottom: 1.5rem;
   }
   
   
   .empty__state .btn-add {
-    background-color: #ff7b84;
+    background-color: $color-theme;
     padding-left: 16px;
     padding-right: 16px;
     border-radius: 5px;

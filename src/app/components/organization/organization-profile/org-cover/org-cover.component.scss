@@ -1,3 +1,4 @@
+@import './src/assets/scss/helpers/_variables.scss';
 .o-cover-upload{
     width: 887px;
     height: 525px;
@@ -106,15 +107,15 @@ span.search_close {
         opacity: 0;
         cursor: pointer;
         &:hover{
-            color: #ff7b84;
+            color: $color-theme;
             background-color: #ffffff;
-            border-color: #ff7b84;
+            border-color: $color-theme;
         }
     }
     .btn-network {
-        color: #ff7b84;
+        color: $color-theme;
         background-color: #ffffff;
-        border-color: #ff7b84;
+        border-color: $color-theme;
         text-transform: uppercase;
         padding: 6px 18px;
         font-size: 14px;
@@ -123,9 +124,9 @@ span.search_close {
         font-weight: 700;
         cursor: pointer;
         &:hover{
-            color: #ff7b84;
+            color: $color-theme;
             background-color: #ffffff;
-            border-color: #ff7b84;
+            border-color: $color-theme;
         }
     }
 }
