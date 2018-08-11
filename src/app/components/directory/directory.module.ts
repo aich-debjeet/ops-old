@@ -7,6 +7,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { SharedModule } from '../../shared/shared.module';
+import { DirectoryProfileComponent } from './directory-profile/directory-profile.component';
 
 const routes: Routes = [
   {
@@ -14,7 +15,8 @@ const routes: Routes = [
     component: DirectoryComponent,
     children: [
       { path: '', redirectTo: 'home' },
-      { path: 'home', component: DirectoryListComponent }
+      { path: 'home', component: DirectoryListComponent },
+      { path: 'profile/:id', component: DirectoryProfileComponent, pathMatch: 'full' },
     ]
   }
 ];
@@ -31,7 +33,8 @@ const routes: Routes = [
   ],
   declarations: [
     DirectoryComponent,
-    DirectoryListComponent
+    DirectoryListComponent,
+    DirectoryProfileComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

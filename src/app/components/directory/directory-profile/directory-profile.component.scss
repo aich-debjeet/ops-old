@@ -1,0 +1,78 @@
+// directory profile
+
+.o-dir-prof__img{
+	margin-top: -28%;
+}
+.o-dir-prof__user-info{
+	width: 100%;
+	float: left;
+	margin-top: 22px;
+}
+.o-dir-prof__title{
+	margin-bottom: 4px;
+}
+.o-dir-prof__main-title{
+	margin-top: 40px;
+	margin-bottom: 8px;
+	text-transform: uppercase;
+	font-weight: 600!important;
+}
+
+// related news
+
+.o-related-news{
+	width: 100%;
+	float: left;
+	margin-top: 40px;
+	background: #fff;
+	padding:16px;
+	margin-bottom: 16px;
+	border-radius: 3px;
+}
+.o-news{
+	width: 100%;
+	list-style: none;
+}
+.o-news__list{
+	list-style-type: none;
+	display: block;
+	padding:8px 0px;
+	a{
+		color:#333;
+	}
+}
+
+// similiar prof
+
+.o-similiar-prof{
+	width: 100%;
+	float: left;
+	background: #fff;
+	padding:16px;
+	margin-bottom: 16px;
+	border-radius: 3px;
+}
+.o-smlr-prof__list{
+	list-style-type: none;
+	display: block;
+	margin:8px 0px;
+	width: 100%;
+	float: left;
+	a{
+		color:#333;
+	}
+}
+.o-smlr-prof__avatar{
+	width: 56px;
+	height: 56px;
+	border-radius: 3px;
+	overflow: hidden;
+	float: left;
+	img{
+		width: 100%;
+	}
+}
+.o-smlr-prof__user-info{
+	float: left;
+	margin-top: 5px;
+}
