@@ -13,8 +13,8 @@ const routes: Routes = [
     path: '',
     component: DirectoryComponent,
     children: [
-      { path: '', redirectTo: 'listing' },
-      { path: 'listing', component: DirectoryListComponent }
+      { path: '', redirectTo: 'home' },
+      { path: 'home', component: DirectoryListComponent }
     ]
   }
 ];
