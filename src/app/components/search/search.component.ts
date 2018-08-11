@@ -373,7 +373,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
                 const searchEventParams = {
                   scrollId: '',
                   /* TODO: need to remove searchType once API gets updated */
-                  searchType: 'recommended',
+                  searchType: '',
                   searchText: this.searchString,
                   filtersMap: []
                 }

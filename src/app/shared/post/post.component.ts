@@ -42,6 +42,8 @@ export class PostComponent implements OnInit {
   userState$: Observable<any>;
   messageText: string;
   comment_post_loading: any;
+  desText: string;
+  isEdit: boolean;
 
   userImage: string;
 
@@ -89,7 +91,12 @@ export class PostComponent implements OnInit {
     this.mediaType = this.mediaData.mtype;
     this.commentCount = this.mediaData.commentsCount;
     this.comments = this.mediaData.commentsList;
+    this.desText = this.mediaData.description;
     // console.log(this.mediaId)
+  }
+
+  onContentEdit() {
+    this.isEdit = true;
   }
 
   /**

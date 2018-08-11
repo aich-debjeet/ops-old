@@ -15,6 +15,14 @@ import { ProfileActions } from '../actions/profile.action';
 
 @Injectable()
 export class ProfileEffect {
+  @Effect()
+  postChannelStatus$ = this.actions$
+    .ofType(ProfileActions.POST_CHANNEL_STATUS)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.postChannelStatus(payload)
+      .map(res => ({ type: ProfileActions.POST_CHANNEL_STATUS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.POST_CHANNEL_STATUS_FAILED, payload: res }))
+    );
 
   /**
    * for: portfolio

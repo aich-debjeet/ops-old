@@ -1,15 +1,17 @@
 <div class="col-12 col-sm-4 col-md-4 col-lg-3 col-xl-3">
   <div class="o-aplcnts-card">
     <div class="o-aplcnts-card__head">
-      <div class="o-aplcnts__prof-img">
-        <img src="{{ baseUrl + applicationDetails?.userImage }}" alt="">
-      </div>
-      <div class="o-aplcnts__user c-text_lg">{{ applicationDetails?.userName | truncate:[20, '...'] }}</div>
+      <a routerLink="{{ '/profile/u/' + applicationDetails?.userUserName }}">
+        <div class="o-aplcnts__prof-img">
+          <img src="{{ baseUrl + applicationDetails?.userImage }}" alt="">
+        </div>
+        <div class="o-aplcnts__user c-text_lg">{{ applicationDetails?.userName | truncate:[20, '...'] }}</div>
+      </a>
     </div>
     <div class="o-aplcnts-card__body m-t-16">
       <div class="c-text_sm color-grey-dark ltr-space text_uppercase m-b-8">Skills</div>
       <div *ngFor="let skill of applicationDetails?.skill" class="c-skill__tags">
-        {{ skill }}
+        {{ skill | firstCharCaps }}
       </div>
       <div class="o-aplcnts__info">
         <div class="c-text_sm">{{ applicationDetails?.message }}</div>

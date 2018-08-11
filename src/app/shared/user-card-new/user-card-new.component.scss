@@ -1,3 +1,4 @@
+@import './src/assets/scss/helpers/_variables.scss';
 .o-search-result-block {
     width: 100%;
     float: left;
@@ -46,7 +47,7 @@
 }
 
 .o-people-result__follow-btn {
-    color: #FF7B84;
+    color: $color-theme;
     font-size: 11px;
     letter-spacing: 1px;
     line-height: 15px;

@@ -132,9 +132,9 @@
         .nav-tabs > li.active > a,
         .nav-tabs > li.active > a:hover,
         .nav-tabs > li.active > a:focus {
-            color: #ff7b84;
+            color: $color-theme;
             background-color: transparent;
-            border-bottom: solid 3px #ff7b84;
+            border-bottom: solid 3px $color-theme;
             cursor: default;
         }
     }
@@ -370,7 +370,7 @@
                             margin-top: 1px; 
                         }
                         .ops_radio_sm input[type="checkbox"]:checked + span:after {
-                            background: #ff7b84;
+                            background: $color-theme;
                             position: absolute;
                             border-radius: 50px;
                             left: -2px;

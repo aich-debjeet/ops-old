@@ -72,7 +72,7 @@
                   </div>
               </div>
               <div class="col-md-1">
-                  <div class="c-text_md color-grey-dark p-8">years</div>
+                  <div class="c-text_md color-grey-dark p-8">Annually</div>
               </div>
               <p *ngIf="(internshipFrm.controls['internshipExperienceFrom'].errors?.required || internshipFrm.controls['internshipExperienceTo'].errors?.required) && createInternshipFrm.submitted" class="c-form__validation error">Experience fields are required!</p>
               <p *ngIf="internshipFrm.controls['internshipExperienceTo'].errors?.invalidExperienceRange && createInternshipFrm.submitted" class="c-form__validation error">Invalid experience range!</p>
@@ -240,8 +240,13 @@
                   <img *ngIf="uploadingFile" [src]="baseUrl + 'img/search-preloader.gif'" class="opp-prel-image" alt="">
                   <img *ngIf="uploadedFile" [src]="uploadedFileSrc" class="opp-prev-image" alt="">
               </div>
-              <div *ngFor="let fileName of internshipAttachments" class="o-oppo-form__img-show">
-                <img [src]="baseUrl + fileName" alt="">
+              <div *ngFor="let fileName of internshipAttachments" class="o-oppo-form__img-show"
+                [ngStyle]="{'background-image': 'url(' + baseUrl + fileName + ')',
+                'background-size': 'cover',
+                'background-position': 'center'}">
+                <span class="o-oppo-img-close" title="Remove">
+                    <a (click)="removeAttachedMedia(fileName)"><img [src]="baseUrl + 'v2/svg/ico_create-close.svg'"></a>
+                </span>
               </div>
           </div>
       </div>

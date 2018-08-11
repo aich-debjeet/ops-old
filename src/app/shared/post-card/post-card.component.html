@@ -1,53 +1,72 @@
 <div class="c-card" *ngIf="!loader">
-    <!-- card media (img, video & audio) -->
-    <div class="c-card__media">
-        <a [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
-            <img [src]="imageLink + mediaData?.thumbNails?.mediumLarge" class="img-responsive c-card__image">
-        </a>
-        <span *ngIf="checkFileType(mediaData?.repopath, 'Audio')">
-      <img [src]="imageLink + 'img/svg/ico_audio.svg'" class="c-card__icon">
-    </span>
-        <span *ngIf="checkFileType(mediaData?.repopath, 'Video')">
-        <img [src]="imageLink + 'img/svg/ico_video.svg'" class="c-card__icon">
-    </span>
-        <span *ngIf="checkFileType(mediaData?.repopath, 'Image')">
-        <img [src]="imageLink + 'img/svg/ico_image.svg'" class="c-card__icon">
-    </span>
-        <div class="c-media--hover">
-            <div class="">
-                <div class="c-user" *ngIf="!mediaData?.isOwner">
-                    <a routerLink="{{ '/profile/u/' + mediaData?.ownerUserName }}" class="c-user__avatar c-avatar--feed2">
-                        <img class="c-user__image" [src]="userImage">
-                    </a>
-                    <a routerLink="{{ '/profile/u/' + mediaData?.ownerUserName }}" class="c-user__name2">{{ mediaData?.ownerName }}</a>
-                </div>
-                <div class="c-user" *ngIf="mediaData?.isOwner">
-                    <a routerLink="/profile" class="c-user__avatar c-avatar--feed2">
-                        <img class="c-user__image" [src]="userImage">
-                    </a>
-                    <a routerLink="/profile" class="c-user__name2">{{ mediaData?.ownerName }}</a>
-                </div>
-                <div class="dropdown" *ngIf="mediaData?.isOwner">
-                    <div class="dropup" appDropdown>
-                        <a href="javascript:void(0);" appDropdownOpen>
-                            <img [src]="imageLink + 'img/svg/ico_option_white.svg'" class="c-status__options pull-right m-t-8">
+    <ng-container *ngIf="mediaData?.contentType !== 'status'">
+        <!-- card media (img, video & audio) -->
+        <div class="c-card__media">
+            <a [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
+                <img [src]="imageLink + mediaData?.thumbNails?.mediumLarge" class="img-responsive c-card__image">
+            </a>
+            <span *ngIf="checkFileType(mediaData?.repopath, 'Audio')">
+                <img [src]="imageLink + 'img/svg/ico_audio.svg'" class="c-card__icon">
+            </span>
+            <span *ngIf="checkFileType(mediaData?.repopath, 'Video')">
+                <img [src]="imageLink + 'img/svg/ico_video.svg'" class="c-card__icon">
+            </span>
+            <span *ngIf="checkFileType(mediaData?.repopath, 'Image')">
+                <img [src]="imageLink + 'img/svg/ico_image.svg'" class="c-card__icon">
+            </span>
+            <div class="c-media--hover">
+                <div class="">
+                    <div class="c-user" *ngIf="!mediaData?.isOwner">
+                        <a routerLink="{{ '/profile/u/' + mediaData?.ownerUserName }}" class="c-user__avatar c-avatar--feed2">
+                            <img class="c-user__image" [src]="userImage">
                         </a>
-                        <ul class="dropdown-menu pull-right">
-                            <li><a href="javascript:void(0);" (click)="onContentDelete($event)">Delete</a></li>
-                        </ul>
+                        <a routerLink="{{ '/profile/u/' + mediaData?.ownerUserName }}" class="c-user__name2">{{ mediaData?.ownerName }}</a>
+                    </div>
+                    <div class="c-user" *ngIf="mediaData?.isOwner">
+                        <a routerLink="/profile" class="c-user__avatar c-avatar--feed2">
+                            <img class="c-user__image" [src]="userImage">
+                        </a>
+                        <a routerLink="/profile" class="c-user__name2">{{ mediaData?.ownerName }}</a>
+                    </div>
+                    <div class="dropdown" *ngIf="mediaData?.isOwner">
+                        <div class="dropup" appDropdown>
+                            <a href="javascript:void(0);" appDropdownOpen>
+                                <img [src]="imageLink + 'img/svg/ico_option_white.svg'" class="c-status__options pull-right m-t-8">
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="javascript:void(0);" (click)="onContentDelete($event)">Delete</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- //card media (img, video & audio) -->
-    <!-- card body -->
-    <div class="c-card__body">
-        <div class="c-text_sm">
-            {{ mediaData?.description | truncate:[70, '...'] }}
+        <!-- //card media (img, video & audio) -->
+        <!-- card body -->
+        <div class="c-card__body">
+            <div class="c-text_sm">
+                {{ mediaData?.description | truncate:[70, '...'] }}
+            </div>
         </div>
+        <!-- //card body -->
+    </ng-container>
+
+    <!-- status card body -->
+    <div *ngIf="mediaData?.contentType === 'status'" class="c-status-main">
+        <div class="c-status__user-info">
+            <a routerLink="{{ '/profile/u/' + mediaData?.ownerUserName }}" class="c-user__avatar c-avatar--feed">
+                <img class="c-user__image" [src]="userImage">
+            </a>
+            <a routerLink="{{ '/profile/u/' + mediaData?.ownerUserName }}" class="c-text_md color-grey-darker m-l-8">{{ mediaData?.ownerName }}</a>
+        </div>
+        <a class="c-status__link">
+            <div class="c-status__body">
+                <p class="c-text_lg-bold">{{ mediaData?.description }}</p>
+            </div>
+        </a>
     </div>
-    <!-- //card body -->
+    <!-- //status card body -->
+    
     <!-- card footer links -->
     <div class="c-card__links p-t-0">
         <div class="c-links">
@@ -72,55 +91,18 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right o-share__profile p-16">
                         <div class="c-text_md">Share this Profile</div>
-                        <!-- <div class="c-invite--search m-0">
-                            <form class="fill-grey-light">
-                                <div class="c-form__group c-form--sm c-form--noeffect c-form__faded--sm">
-                                    <input class="c-form__input p-l-24" required="" type="text">
-                                    <label class="p-l-16">Input with icon</label>
-                                    <span>
-                                        <img [src]="imageLink + 'img/svg/ico_search.svg'" class="c-form__input--lefticon">
-                                    </span>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="o-share__recent m-t-b-16">Recent Contacts</div>
-                        <div class="c-invite__block">
-                            <a class="c-user__avatar c-avatar--status">
-                                <img src="https://ops-v2.netlify.com/assets/demo/new/avatar.png" class="o-share__avatar">
-                            </a>
-                            <a class="c-text_md c-invite--user">Seth Chevz1</a>
-                        </div>
-                        <div class="c-invite__block">
-                            <a class="c-user__avatar c-avatar--status">
-                                <img src="https://ops-v2.netlify.com/assets/demo/new/avatar.png" class="o-share__avatar">
-                            </a>
-                            <a class="c-text_md c-invite--user">Seth Chevz2</a>
-                        </div>
-                        <div class="c-invite__block">
-                            <a class="c-user__avatar c-avatar--status">
-                                <img src="https://ops-v2.netlify.com/assets/demo/new/avatar.png" class="o-share__avatar">
-                            </a>
-                            <a class="c-text_md c-invite--user">Seth Chevz3</a>
-                        </div>
-                        <div class="c-invite__block">
-                            <a class="c-user__avatar c-avatar--status">
-                                <img src="https://ops-v2.netlify.com/assets/demo/new/avatar.png" class="o-share__avatar">
-                            </a>
-                            <a class="c-text_md c-invite--user">Seth Chevz4</a>
-                        </div> -->
-
                         <div class="o-share__social">
                             <div class="o-share__social-icon p-l-0" shareButton="google" [sbUrl]="domainLink + 'media/' + mediaData?.id">
-                                <img src="https://ops-v2.netlify.com/assets/svg/googleplus.svg">
+                                <img [src]="imageLink + 'v2/svg/googleplus.svg'">
                             </div>
                             <div class="o-share__social-icon" shareButton="twitter" [sbUrl]="domainLink + 'media/' + mediaData?.id">
-                                <img src="https://ops-v2.netlify.com/assets/svg/twitter.svg">
+                                <img [src]="imageLink + 'v2/svg/twitter.svg'">
                             </div>
                             <div class="o-share__social-icon" [shareButton]="'facebook'" [sbUrl]="domainLink + 'media/' + mediaData?.id">
-                                <img src="https://ops-v2.netlify.com/assets/svg/facebook.svg">
+                                <img [src]="imageLink + 'v2/svg/facebook.svg'">
                             </div>
                             <div class="o-share__social-icon p-r-0" shareButton="twitter" [sbUrl]="domainLink + 'media/' + mediaData?.id">
-                                <img src="https://ops-v2.netlify.com/assets/svg/envelope.svg">
+                                <img [src]="imageLink + 'v2/svg/envelope.svg'">
                             </div>
                         </div>
                     </div>

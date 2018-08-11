@@ -144,7 +144,7 @@
 //     text-transform: capitalize;
 // }
 .color-theme {
-    color: #FF7B84 !important;
+    color: $color-theme !important;
 }
 
 .user-list__li {
@@ -200,9 +200,9 @@
 }
 
 .btn-default {
-    color: #FF7B84;
+    color: $color-theme;
     background: #ffffff;
-    border-color: #FF7B84;
+    border-color: $color-theme;
     text-shadow: 0 1px rgba(0, 0, 0, 0.25);
     box-shadow: 0 1px rgba(0, 0, 0, 0.25);
 }
@@ -253,7 +253,7 @@
 }
 
 .c-follow__seeall {
-    color: #FC6371;
+    color: $color-theme;
     font-size: 11px;
     letter-spacing: 1px;
     line-height: 15px;

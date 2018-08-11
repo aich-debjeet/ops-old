@@ -59,7 +59,8 @@
         "styles.scss"
       ],
       "scripts": [
-        "assets/js/imagesloaded.pkgd.min.js"
+        "assets/js/imagesloaded.pkgd.min.js",
+        "../node_modules/pusher-js/dist/web/pusher.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

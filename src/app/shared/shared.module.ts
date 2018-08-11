@@ -64,6 +64,8 @@ import { PortfolioViewMediaComponent } from './portfolio-view-media/portfolio-vi
 import { OpportunityApplicationCardComponent } from './opportunity-application-card/opportunity-application-card.component';
 import { OpporunitySearchCardComponent } from './opporunity-search-card/opporunity-search-card.component';
 import { EventSearchCardComponent } from './event-search-card/event-search-card.component';
+import { UserCardSearchComponent } from './user-card-search/user-card-search.component';
+import { ConfirmBoxComponent } from './confirm-box/confirm-box.component';
 
 @NgModule({
   imports: [
@@ -125,7 +127,9 @@ import { EventSearchCardComponent } from './event-search-card/event-search-card.
     PortfolioViewMediaComponent,
     OpportunityApplicationCardComponent,
     OpporunitySearchCardComponent,
-    EventSearchCardComponent
+    EventSearchCardComponent,
+    UserCardSearchComponent,
+    ConfirmBoxComponent
   ],
   exports: [
     OpportunityCardComponent,
@@ -165,7 +169,9 @@ import { EventSearchCardComponent } from './event-search-card/event-search-card.
     PortfolioViewMediaComponent,
     OpportunityApplicationCardComponent,
     OpporunitySearchCardComponent,
-    EventSearchCardComponent
+    EventSearchCardComponent,
+    UserCardSearchComponent,
+    ConfirmBoxComponent
   ]
 })
 export class SharedModule { }

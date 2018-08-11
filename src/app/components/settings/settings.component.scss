@@ -241,14 +241,14 @@
 .o-s-pop-resend {
     font-size: 11px;
     font-weight: normal;
-    color: #FF7B84;
+    color: $color-theme;
     margin-top: 28px;
     display: block;
     &:hover {
-        color: #FF7B84;
+        color: $color-theme;
     }
     &:focus {
-        color: #FF7B84;
+        color: $color-theme;
     }
 }
 
@@ -314,7 +314,7 @@
 }
 
 input:checked+.slider {
-    background-color: #FF7B84;
+    background-color: $color-theme;
 }
 
 input:focus+.slider {
@@ -465,13 +465,13 @@ input:checked+.slider:before {
 .o-org-country-items input[type="radio"]:checked+label:before {
     content: '';
     display: inline-block;
-    border: 2px solid #FF7B84;
+    border: 2px solid $color-theme;
 }
 
 .o-org-country-items input[type="radio"]:checked+label:after {
     content: '';
     display: inline-block;
-    background: #FF7B84;
+    background: $color-theme;
     width: 6px;
     height: 6px;
     border-radius: 50%;
@@ -549,7 +549,7 @@ input:checked+.slider:before {
 }
 
 .o-set-acc-type-block input[type=checkbox]:checked+.o-set-acc-type {
-    border: 1px solid #FF7B84;
+    border: 1px solid $color-theme;
     border-radius: 3px;
     background-color: #FFFFFF;
     box-shadow: 0 0 4px 0 rgba(102, 45, 145, 0.18);

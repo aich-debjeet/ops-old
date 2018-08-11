@@ -1,0 +1,89 @@
+@import './src/assets/scss/helpers/_variables.scss';
+.c-scard-block {
+    width: 25%;
+    float: left;
+    padding: 8px;
+}
+
+.c-scard {
+    width: 100%;
+    float: left;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.15);
+    background-color: #ffffff;
+    padding: 24px 0;
+    position: relative;
+    border: 1px solid #F3F5F7;
+    height: 228px;
+}
+
+.c-scard__img {
+    width: 90px;
+    height: 90px;
+    overflow: hidden;
+    margin: 0 auto;
+    position: relative;
+}
+
+.c-scard__img2 {
+    width: 100%;
+    border-radius: 50%;
+}
+
+.c-scard__active {
+    width: 11px;
+    position: absolute;
+    right: 8px;
+    bottom: 0px;
+}
+
+.c-scard_name {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 24px;
+    text-align: center;
+    color: #333333;
+    display: block;
+    margin: 8px 0;
+}
+
+.c-scard_btn {
+    width: 100%;
+    position: absolute;
+    bottom: 16px;
+    text-align: center;
+}
+
+.btn-primary {
+    color: #ffffff;
+    background-color: $color-theme;
+    border-color: $color-theme;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 1px rgba(0, 0, 0, 0.25);
+}
+
+.btn-sm, .btn-group-sm > .btn {
+    padding: 3px 7px;
+    font-size: 11px;
+    line-height: 15px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+.w100 {
+    width: 100%;
+}
+
+.clb {
+    clear: both;
+}
+
+.c-scard_folllow {
+    font-size: 11px;
+    letter-spacing: 1px;
+    line-height: 15px;
+    color: #929292;
+    text-align: center;
+}

@@ -109,7 +109,7 @@
                                     <img *ngIf="file.fileType === 'video'" width="14" [src]="baseUrl + 'img/svg/ico_video.svg'">
                                 </div>
                                 <div class="o-media_delet">
-                                    <img (click)="removeFile(file)" [src]="baseUrl + 'img/svg/ico_create-close.svg'">
+                                    <img (click)="removeFile(file)" [src]="baseUrl + 'v2/svg/ico_create-close.svg'">
                                 </div>
                             </div>
                             <div class="o-media-progress-main" *ngIf="file?.pre > 0 && file?.pre < 100">
@@ -153,7 +153,7 @@
                             </div><!-- add media channel head sec end -->
                         </div>
                         <div class="col-md-4 col-xs-3 p-0 text-right">
-                            <!-- <p class="c-text_sm color-grey-dark">12 Media selected</p> -->
+                            <!-- <p class="c-text_sm color-grey-dark">12 Megit dia selected</p> -->
                         </div>
                         </div><!-- add media channel head sec end -->
                     </div>
@@ -220,21 +220,6 @@
                                 </div>
                                 </div>
                             </div>
-            
-                            <div class="col-md-12 float_left p-0  m-t-b-16">
-                                <div class="c-form__group ">
-                                    <select class="c-form-control p-l-0" formControlName="mediaType" [(ngModel)]="selectedChannel">
-                                        <option value="" disabled="true" [selected]="!selectedChannel">Select Channel Type</option>
-                                        <option value="5">Any</option>
-                                        <option value="1">Image</option>
-                                        <option value="2">Audio</option>
-                                        <option value="3">Video</option>
-                                        <option value="4">Text</option>
-                                    </select>
-                                </div>
-                            </div>
-            
-                            
                             <div class="o-create-channel__btn">
                                 <button type="button" class="btn btn-default btn-md m-r-8 float_left" (click)="changeState(2)">Cancel</button>
                                 <button class="btn btn-primary btn-md float_right" (click)="createChannel(channelForm.value)">Save</button>

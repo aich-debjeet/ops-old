@@ -2,7 +2,7 @@
     <nav class="navbar navbar-default navbar-fixed-top ">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand" routerLink="/"><img [src]="imageBaseUrl + 'img/ops_icon.png'"></a>
+                <a class="navbar-brand" routerLink="/"><img [src]="imageBaseUrl + 'v2/ops_icon.png'"></a>
                 <!-- for mobile -->
                 <div class="m-nav">
                     <div class="m-nav__icons" *ngIf="isProfileSet === false">
@@ -98,7 +98,7 @@
                                     <a routerLink="/home">Home</a>
                                 </div>
                                 <div class="dropdown__item p-b-8 text-uppercase">
-                                    <a routerLink="/explore">Explore</a>
+                                    <a [routerLink]="['/explore']" [queryParams]="{type:'post'}">Explore</a>
                                 </div>
                                 <div class="dropdown__item p-b-8 text-uppercase">
                                     <a [routerLink]="['/opportunity/search']" [queryParams]="{q:'', type:'recommended'}">Opportunity</a>

@@ -1,3 +1,4 @@
+@import './src/assets/scss/helpers/_variables.scss';
 .dib {
     display: inline-block;
 }
@@ -60,7 +61,7 @@
 }
 
 .c-portactive {
-    border: 2px solid #FF7B84;
+    border: 2px solid $color-theme;
     border-radius: 3px;
 }
 

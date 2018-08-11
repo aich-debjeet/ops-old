@@ -2,6 +2,10 @@ import { Action } from '@ngrx/store';
 
 export class ProfileActions {
 
+  static POST_CHANNEL_STATUS = 'POST_CHANNEL_STATUS';
+  static POST_CHANNEL_STATUS_SUCCESS = 'POST_CHANNEL_STATUS_SUCCESS';
+  static POST_CHANNEL_STATUS_FAILED = 'POST_CHANNEL_STATUS_FAILED';
+
   /**
    * for: portfolio
    */

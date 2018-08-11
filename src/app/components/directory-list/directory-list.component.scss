@@ -1,3 +1,4 @@
+@import './src/assets/scss/helpers/_variables.scss';
 // directory css
 .o-directory {
   margin-top: 83px;
@@ -223,7 +224,7 @@
 .o-dir-tag__list {}
 
 .o-dir-tag {
-  color: #FF7B84;
+  color: $color-theme;
   font-size: 11px;
   line-height: 15px;
   background-color: #fff;
@@ -233,7 +234,7 @@
 }
 
 .o-dir-tag--more {
-  color: #FF7B84;
+  color: $color-theme;
   font-size: 11px;
   line-height: 15px;
 }
@@ -342,7 +343,7 @@
 }
 .o-dirfill-item input[type="radio"]:checked + span{   
   transition:.25s;
-  background: #ff7b84;
+  background: $color-theme;
   color: #fff;
 }
 .o-dirfill-block{

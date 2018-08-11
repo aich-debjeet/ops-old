@@ -162,7 +162,7 @@
                             <li class="o-org-form__item ">
                                 <div *ngIf="editingField != 'email'" id="o-org-about-contact-mail" class="o-org-about__contact-mail ">
                                     <span class="o-org-about__contact-ico">
-                                        <img [src]="baseUrl + 'img/svg/ico_envelope.svg'" alt="">
+                                        <img [src]="baseUrl + 'v2/svg/ico_envelope.svg'" alt="">
                                     </span>
                                     <span class="o-org-about__contact-txt c-text_sm color-grey-dark">
                                         {{ orgProfile?.profile_details?.email }}
@@ -172,7 +172,7 @@
                                 <div *ngIf="editingField == 'email'" id="o-org-about-contact-mail-edit" class="o-org-about__contact-ph-edit ">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
                                         <input class="c-form__input fpadding_l32" type="text" [(ngModel)]="aboutEmail" [ngModelOptions]="{standalone: true}" value="{{ orgProfile?.profile_details?.email }}">
-                                        <span><img [src]="baseUrl + 'img/svg/ico_envelope.svg'" class="c-form__input--lefticon"></span>
+                                        <span><img [src]="baseUrl + 'v2/svg/ico_envelope.svg'" class="c-form__input--lefticon"></span>
                                     </div>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>

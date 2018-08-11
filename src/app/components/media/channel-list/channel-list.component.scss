@@ -164,7 +164,7 @@ input[type="radio"]+label {
 
 .o-channel-items:hover {
     label {
-        background-color: #FF7B84;
+        background-color: $color-theme;
     }
     .o-channel-private__img-tic {
         display: block;
@@ -187,7 +187,7 @@ input[type="radio"]+label {
 
 .o-create-channel__title {
     font-size: 14px;
-    color: #FF7B84;
+    color: $color-theme;
     font-weight: normal;
     float: left;
     padding-left: 7px;

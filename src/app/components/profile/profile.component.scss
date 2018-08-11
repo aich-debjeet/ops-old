@@ -305,7 +305,7 @@
         font-size: 18px;
         font-weight: bold;
         margin: 20px 0;
-        color: #ff7b84;
+        color: $color-theme;
     }
     .pro_canlender-date {
         text-align: center;
@@ -316,7 +316,7 @@
             padding: 0 7px;
         }
         .active {
-            background-color: #ff7b84;
+            background-color: $color-theme;
             box-shadow: 0 4px 7px 0 rgba(102, 45, 145, 0.2);
             color: white;
             border-radius: 50%;

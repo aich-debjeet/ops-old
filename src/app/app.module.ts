@@ -108,7 +108,6 @@ import { SpotfeedPremiumComponent } from './components/spotfeed-premium/spotfeed
 import { NotificationComponent } from './components/notification/notification.component';
 // import { SearchComponent } from './components/search/search.component';
 import { SettingsComponent } from './components/settings/settings.component';
-import { ExploreComponent } from './components/explore/explore.component';
 import { ChannelListComponent } from './components/channel-list/channel-list.component';
 import { LogoutHomeComponent } from './components/logout-home/logout-home.component';
 import { LogoutComponent } from './components/logout/logout.component';
@@ -126,7 +125,6 @@ import { AboutComponent } from './components/about/about.component';
     SpotfeedPremiumComponent,
     NotificationComponent,
     SettingsComponent,
-    ExploreComponent,
     ChannelListComponent,
     LogoutHomeComponent,
     LogoutComponent,
