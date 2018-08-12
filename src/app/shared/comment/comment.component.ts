@@ -75,24 +75,19 @@ export class CommentComponent implements OnInit {
       }
       this.store.dispatch({ type: MediaActions.POST_COMMENT, payload: send});
       this.submitComment.emit();
-      this.addNewComment();
+      this.store.select('mediaStore')
+        .first(media => media['media_post_success'] === true)
+        .subscribe( data => {
+          this.addNewComment(data['current_comment']);
+        });
       this.messageText = '';
       return
     }
   }
 
-  addNewComment() {
+  addNewComment(comment) {
     this.store.dispatch({ type: ProfileActions.COMMENT_COUNT_INCREMENT, payload: this.mediaId });
-    const commentData = {
-      comment: this.messageText,
-      isOwner: true,
-      ownerImage: this.userData.profileImage,
-      ownerName: this.userData.name,
-      createdDate: +new Date(),
-      postId: this.mediaId
-    }
-
-    this.store.dispatch({ type: ProfileActions.COMMENT_POST_LIST, payload: commentData });
+    this.store.dispatch({ type: ProfileActions.COMMENT_POST_LIST, payload: comment });
   }
 
   deleteBacend(comment) {
@@ -101,6 +96,7 @@ export class CommentComponent implements OnInit {
       'commentType': this.mediaType,
       'parent': this.mediaId
     }
+
     this.store.dispatch({ type: MediaActions.DELETE_COMMENT, payload: send});
     this.store.dispatch({ type: ProfileActions.COMMENT_POST_DELETE, payload: send});
   }

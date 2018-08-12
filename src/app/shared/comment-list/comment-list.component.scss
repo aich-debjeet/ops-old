@@ -43,6 +43,8 @@
     font-size: 12px;
     line-height: 17px;
     cursor: pointer;
+    float: left;
+    padding-right: 10px;
     &:hover {
         color: #333;
     }
@@ -52,8 +54,8 @@
     color: #929292;
     font-size: 11px;
     line-height: 18px;
-    margin-left: 8px;
-    display: inline;
+    margin-left: 0;
+    display: block;
 }
 
 .c-post__input {
@@ -303,6 +305,8 @@
     font-size: 12px;
     line-height: 17px;
     cursor: pointer;
+    float: left;
+    padding-right: 5px;
     &:hover {
         color: #333;
     }
@@ -312,8 +316,8 @@
     color: #929292;
     font-size: 11px;
     line-height: 18px;
-    margin-left: 8px;
-    display: inline;
+    margin-left: 0;
+    display: block;
 }
 
 .c-post__input {

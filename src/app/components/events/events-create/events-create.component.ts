@@ -488,7 +488,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
           isFeatured: false,
           eventTiming: {
             startDate : this.reverseDate(value.event_startdate) + 'T00:00:00.001',
-            endDate : this.reverseDate(value.event_enddate) + 'T12:00:00.000',
+            endDate : this.reverseDate(value.event_enddate) + 'T23:59:59.000',
           },
           venue : {
             location: this.address,
@@ -500,7 +500,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
             coverImage: this.eventCoverImage,
             ticket: [{
               startDate: this.reverseDate(value.ts_startTime) + 'T00:00:00.001',
-              endDate: this.reverseDate(value.ts_endTime) + 'T12:00:00.000',
+              endDate: this.reverseDate(value.ts_endTime) + 'T23:59:59.000',
               maximum: value.ts_quantity
             }]
           },

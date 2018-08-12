@@ -552,7 +552,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Get User Media Post
      */
     case ProfileActions.LOAD_USER_MEDIA:
-    console.log(payload);
       if (payload.scrollID === '') {
         return Object.assign({}, state, {
           user_posts_loading: true,
@@ -1732,12 +1731,13 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
             ],
         });
       }
+
       if (profile_post_delete_List) {
         return Object.assign({}, state, {
           user_posts: [
-            ...state.user_following_posts.slice(0, profile_list_delete_index),
+            ...state.user_posts.slice(0, profile_list_delete_index),
             Object.assign({}, profile_post_delete_List, {commentsList: profile_post_delete_List.commentsList.filter(comment => comment.commentsId !== payload.id) }),
-            ...state.user_following_posts.slice(profile_list_delete_index + 1)
+            ...state.user_posts.slice(profile_list_delete_index + 1)
           ],
         });
       }
@@ -1749,7 +1749,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
     const profile_post_List = state.user_posts.find(t => t.id === payload.postId);
     const profile_list_index = state.user_posts.indexOf(profile_post_List);
-
+      console.log(payload);
     if (home_post_List) {
       return Object.assign({}, state, {
         user_following_posts: [
