@@ -20,8 +20,7 @@
           [aspectRatio]="4 / 4"
           format="png"
           (imageCroppedBase64)="imageCropped($event)"
-          (imageLoaded)="imageLoaded()"
-          (loadImageFailed)="loadImageFailed()">
+          (imageLoaded)="imageLoaded()">
         </image-cropper>
         <img [src]="croppedImage" *ngIf="!hidePreview" class="preview-image" />
         <div *ngIf="stateProfile?.profile_img_upload_loading">
