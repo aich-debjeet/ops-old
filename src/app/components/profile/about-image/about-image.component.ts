@@ -144,9 +144,13 @@ export class AboutImageComponent implements OnInit {
         handle: userHandle,
         image: this.data.image.split((/,(.+)/)[1])
       };
-
       this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_IMAGE, payload: imageData });
       this.changingImage = false;
+      this._store.select('profileTags')
+        .first(state => state['image_upload_success'] === true)
+        .subscribe(() => {
+          this.isClosed(null);
+        });
     }
   }
 

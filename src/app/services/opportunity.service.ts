@@ -7,6 +7,13 @@ export class OpportunityService {
   constructor(private api: ApiService) { }
 
   /**
+   * cancel application
+   */
+  cancelApplication(params: any) {
+    return this.api.delete('/portal/opportunity/job/cancel/application/' + params['jobId'], '');
+  }
+
+  /**
    * remove opportunity application
    */
   removeApplication(appDetails: any) {

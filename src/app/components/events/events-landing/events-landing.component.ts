@@ -305,12 +305,12 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
         this.filterStartDate = startDate[0]+"T00:00:00.001";
         let x = moment(date).add('days', 6).format();
         let endDate = x.split('T');
-        this.filterEndDate = endDate[0]+"T12:00:00.000";
+        this.filterEndDate = endDate[0]+"T23:59:59.000";
         this.serachApi();
       } else {
         let d = date.split('T');
         this.filterStartDate  = d[0]+"T00:00:00.001";
-        this.filterEndDate = d[0]+"T12:00:00.000";
+        this.filterEndDate = d[0]+"T23:59:59.000";
         this.serachApi();
       }
     }
@@ -329,7 +329,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
     if(event !== undefined){
     const d = moment(event._d).format('YYYY-MM-DD')
     this.filterStartDate  = d+"T00:00:00.001";
-    this.filterEndDate = d+"T12:00:00.000";
+    this.filterEndDate = d+"T23:59:59.000";
     this.serachApi();
     }
   }

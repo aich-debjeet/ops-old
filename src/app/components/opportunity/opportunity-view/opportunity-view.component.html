@@ -54,7 +54,8 @@
           </div><!-- cmpny address end -->
           <div class="o-oppo-post__actions m-t-b-24">
             <div class="o-oppo-post__action-icons float_left ">
-              <button type="button" class="btn btn-primary btn-md float_left m-r-16" data-toggle="modal" data-target="#apply_job" *ngIf="!isOwnOpportunity" (click)="applyForJob()" [disabled]="applyingForOpp || hasApplied">Apply</button>
+              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && !hasApplied" (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
+              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied" (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
               <a class="o-action-icons__link m-r-16">
                 <img width="24" src="https://ops-v2.netlify.com/assets/svg/ico_share-02.svg">
               </a>
@@ -115,7 +116,8 @@
             </div>
             <div class="o-oppo-post__media-action">
               <div class="o-oppo-post__action-icons float_left ">
-                <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity" (click)="applyForJob()" [disabled]="applyingForOpp || hasApplied">Apply</button>
+                <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && !hasApplied" (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
+                <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied" (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
                 <a class="o-action-icons__link m-r-16">
                   <img width="24" src="https://ops-v2.netlify.com/assets/svg/ico_share-02.svg">
                 </a>
@@ -190,7 +192,8 @@
           </div><!-- oppo short det end -->
           <div class="o-oppo-post__actions float_left width100 m-t-b-24">
             <div class="o- oppo-post__apply float_left m-r-16">
-              <button type="button" class="btn btn-primary btn-md" *ngIf="!isOwnOpportunity" (click)="applyForJob()" [disabled]="applyingForOpp || hasApplied">Apply</button>
+              <button type="button" class="btn btn-primary btn-md" *ngIf="!isOwnOpportunity && !hasApplied" (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
+              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied" (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
             </div>
             <div class="o-oppo-post__action-icons float_left ">
               <!-- <a class="o-action-icons__link m-r-16">
@@ -237,7 +240,8 @@
               </ul>
             </ng-container>
             <div class="o-oppo-post__media-action">
-              <button type="button" class="btn btn-primary btn-md m-r-8 float_left" *ngIf="!isOwnOpportunity" (click)="applyForJob()" [disabled]="applyingForOpp || hasApplied">Apply</button>
+              <button type="button" class="btn btn-primary btn-md m-r-8 float_left" *ngIf="!isOwnOpportunity && !hasApplied" (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
+              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied" (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
               <div class="o-oppo-post__action-icons float_left ">
                 <!-- <a class="o-action-icons__link m-r-16">
                   <div class="c-links__spots m-0">
@@ -293,7 +297,8 @@
           </div><!-- oppo title end -->
           <div class="o-oppo-post__actions m-t-b-24">
             <div class="o-oppo-post__action-icons float_left ">
-              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity" (click)="applyForJob()" [disabled]="applyingForOpp || hasApplied">Apply</button>
+              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && !hasApplied" (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
+              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied" (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
               <a class="o-action-icons__link m-r-16">
                 <img width="24" [src]="baseUrl + 'img/svg/ico_share-02.svg'">
               </a>
@@ -329,7 +334,8 @@
             </div>
             <div class="o-oppo-post__media-action">
               <div class="o-oppo-post__action-icons float_left ">
-                <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity" (click)="applyForJob()" [disabled]="applyingForOpp || hasApplied">Apply</button>
+                <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && !hasApplied" (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
+                <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied" (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
                 <a class="o-action-icons__link m-r-16">
                   <img width="24" [src]="baseUrl + 'img/svg/ico_share-02.svg'">
                 </a>
@@ -405,7 +411,8 @@
           </div><!-- oppo short det end -->
           <div class="o-oppo-post__actions float_left width100 m-t-b-24">
             <div class="o- oppo-post__apply float_left m-r-16">
-              <button type="button" class="btn btn-primary btn-md" *ngIf="!isOwnOpportunity" (click)="applyForJob()" [disabled]="applyingForOpp || hasApplied">Apply</button>
+              <button type="button" class="btn btn-primary btn-md" *ngIf="!isOwnOpportunity && !hasApplied" (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
+              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied" (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
             </div>
             <div class="o-oppo-post__action-icons float_left ">
               <!-- <a class="o-action-icons__link m-r-16">
@@ -452,7 +459,8 @@
                 </ul>
             </ng-container>
             <div class="o-oppo-post__media-action">
-              <button type="button" class="btn btn-primary btn-md m-r-8 float_left" *ngIf="!isOwnOpportunity" (click)="applyForJob()" [disabled]="applyingForOpp || hasApplied">Apply</button>
+              <button type="button" class="btn btn-primary btn-md m-r-8 float_left" *ngIf="!isOwnOpportunity && !hasApplied" (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
+              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied" (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
               <div class="o-oppo-post__action-icons float_left ">
                 <!-- <a class="o-action-icons__link m-r-16">
                   <div class="c-links__spots m-0">
@@ -517,7 +525,8 @@
         </div>
         <div class="o-oppo-post__actions m-t-b-24">
           <div class="o-oppo-post__action-icons float_left ">
-            <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity" (click)="applyForJob()" [disabled]="applyingForOpp || hasApplied">Apply</button>
+            <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && !hasApplied" (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
+            <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied" (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
             <a class="o-action-icons__link m-r-16">
               <img width="24" [src]="baseUrl + 'img/svg/ico_share-02.svg'">
             </a>
@@ -554,7 +563,8 @@
           </ng-container>
           <div class="o-oppo-post__media-action">
             <div class="o-oppo-post__action-icons float_left ">
-              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity" (click)="applyForJob()" [disabled]="applyingForOpp || hasApplied">Apply</button>
+              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && !hasApplied" (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
+              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied" (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
               <a class="o-action-icons__link m-r-16">
                 <img width="24" [src]="baseUrl + 'img/svg/ico_share-02.svg'">
               </a>
@@ -608,7 +618,8 @@
           </div><!-- cmpny address end -->
           <div class="o-oppo-post__actions m-t-b-24">
             <div class="o-oppo-post__action-icons float_left ">
-              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity" (click)="applyForJob()" [disabled]="applyingForOpp || hasApplied">Apply</button>
+              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && !hasApplied" (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
+              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied" (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
               <a class="o-action-icons__link m-r-16">
                 <img width="24" [src]="baseUrl + 'img/svg/ico_share-02.svg'">
               </a>
@@ -729,3 +740,10 @@
 <app-modal [modalTitle]="''" [blocking]='false' modalId='reportPopUp'>
   <app-report-popoup [reportQues]="questions" [reportContentId]="reportId" [reportType]="reportType" (onclose)= "closeReport()" ></app-report-popoup>
 </app-modal>
+
+
+<app-modal-new #cancelApplicationModal modalClass="o-comodal_main in">
+  <modal-content>
+    <app-confirm-box [message]="'Are you sure you want to cancel this application?'" (confirmAction)="confirmation($event)" (closeModal)="closeCancelApplicationModal()"></app-confirm-box>
+  </modal-content>
+</app-modal-new>

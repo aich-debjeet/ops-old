@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 // actions
@@ -17,6 +17,7 @@ import { ISubscription } from 'rxjs/Subscription';
 import { ToastrService } from 'ngx-toastr';
 import { GeneralUtilities } from '../../../helpers/general.utils';
 import { ModalService } from '../../../shared/modal/modal.component.service';
+import { Modal } from '../../../shared/modal-new/Modal';
 
 @Component({
   selector: 'app-opportunity-view',
@@ -33,7 +34,7 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
   profileState$: any;
   hasApplied: boolean;
   routerSub: any;
-  applyingForOpp = false;
+  userActionLoading = false;
 
   baseUrl = environment.API_IMAGE;
   private oppsSub: ISubscription;
@@ -43,6 +44,7 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
   reportId: string;
   questions: any;
   reportType: string;
+  @ViewChild('cancelApplicationModal') cancelApplicationModal: Modal;
 
   constructor(
     private route: ActivatedRoute,
@@ -134,20 +136,25 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
   /**
    * apply for job
    */
-  applyForJob() {
-    this.applyingForOpp = true;
-    const reqBody = {
-      jobId: this.jobId
-    }
-    this.store.dispatch({
-      type: OpportunityActions.APPLY_FOR_AN_OPPORTUNITY,
-      payload: reqBody
-    });
-    this.store.select('opportunityTags')
-      .first(state => state['applying_for_an_opportunity'] === false && state['apply_for_an_opportunity_success'] === true)
-      .subscribe(state => {
-        this.toastr.success('Successfully applied for the opportunity!', 'Success!');
+  userOppAction(action: string) {
+    if (action === 'apply') {
+      this.userActionLoading = true;
+      const reqBody = {
+        jobId: this.jobId
+      }
+      this.store.dispatch({
+        type: OpportunityActions.APPLY_FOR_AN_OPPORTUNITY,
+        payload: reqBody
       });
+      this.store.select('opportunityTags')
+        .first(state => state['applying_for_an_opportunity'] === false && state['apply_for_an_opportunity_success'] === true)
+        .subscribe(() => {
+          this.userActionLoading = false;
+          this.toastr.success('Successfully applied for the opportunity!', 'Success!');
+        });
+    } else if (action === 'cancel') {
+      this.cancelApplicationModal.open();
+    }
   }
 
   deleteOpp(oppId: string) {
@@ -167,6 +174,28 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
 
   closeReport() {
     this.modalService.close('reportPopUp');
+  }
+
+  confirmation(action: string) {
+    this.closeCancelApplicationModal();
+    if (action === 'yes') {
+      this.userActionLoading = true;
+      this.store.dispatch({
+        type: OpportunityActions.CANCEL_APPLICATION,
+        payload: { jobId: this.jobId }
+      });
+      this.store.select('opportunityTags')
+        .first(state => state['cancel_application'] === false && state['cancel_application_success'] === true)
+        .subscribe(() => {
+          this.hasApplied = false;
+          this.userActionLoading = false;
+          this.toastr.success('Application cancelled!', 'Success!');
+        });
+    }
+  }
+
+  closeCancelApplicationModal() {
+    this.cancelApplicationModal.close();
   }
 
 }
