@@ -25,6 +25,7 @@ export class AboutImageComponent implements OnInit {
 
   imageChangedEvent = '';
   croppedImage = '';
+  hidePreview = false;
 
   constructor(
     public tokenService: TokenService,
@@ -92,6 +93,7 @@ export class AboutImageComponent implements OnInit {
   // event for image crop
   imageCropped(image: string) {
     this.croppedImage = image;
+    this.hidePreview = true;
   }
 
   // image loaded

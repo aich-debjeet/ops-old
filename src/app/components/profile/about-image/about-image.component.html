@@ -23,7 +23,7 @@
           (imageLoaded)="imageLoaded()"
           (loadImageFailed)="loadImageFailed()">
         </image-cropper>
-        <img [src]="croppedImage" />
+        <img [src]="croppedImage" *ngIf="!hidePreview" class="preview-image" />
         <div *ngIf="stateProfile?.profile_img_upload_loading">
           <div class="sticky sticky__top">
             <div class="loader">Loading...</div>
