@@ -28,6 +28,7 @@ export class ProfilePostComponent implements OnInit, OnDestroy, AfterViewInit {
   tagState$: Observable<ProfileModal>;
   mediaState$: Observable<Media>;
   private subscription: ISubscription;
+  private navigationSubscription: ISubscription;
   userMedia = initialTag;
   mediaDetails = initialMedia;
   sub: any;
@@ -52,6 +53,7 @@ export class ProfilePostComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private _router: Router,
     public route: ActivatedRoute,
+    private router: Router,
     private modalService: ModalService,
     private _store: Store<Media>
   ) {
@@ -71,6 +73,11 @@ export class ProfilePostComponent implements OnInit, OnDestroy, AfterViewInit {
         }
     });
 
+    this.navigationSubscription = this.router.events.subscribe((e: any) => {
+      // If it is a NavigationEnd event re-initalise the component
+
+    });
+
   }
 
   ngOnInit() {
@@ -84,6 +91,9 @@ export class ProfilePostComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy() {
+    if (this.navigationSubscription) {
+      this.navigationSubscription.unsubscribe();
+   }
     this.subscription.unsubscribe();
   }
 
