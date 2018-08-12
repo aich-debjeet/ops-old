@@ -1,16 +1,14 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { DatePipe, Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { ModalService } from '../../../shared/modal/modal.component.service';
-import { FormGroup } from '@angular/forms';
 import { TokenService } from '../../../helpers/token.service';
 
 import { ProfileActions } from '../../../actions/profile.action';
 import { environment } from '../../../../environments/environment.prod';
 
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-about-cover',
