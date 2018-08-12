@@ -72,8 +72,8 @@ export class AboutCoverComponent implements OnInit {
 
   loadCoverImage() {
     let profileImageURL;
-    if (typeof this.stateProfile.profile_navigation_details.profileImage !== 'undefined') {
-      profileImageURL = this.baseUrl + this.stateProfile.profile_navigation_details.profileImage;
+    if (typeof this.stateProfile.profile_navigation_details.coverImage !== 'undefined') {
+      profileImageURL = this.baseUrl + this.stateProfile.profile_navigation_details.coverImage;
     } else {
       profileImageURL = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
     }
