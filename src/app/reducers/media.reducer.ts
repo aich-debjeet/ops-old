@@ -109,6 +109,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
       });
 
     case MediaActions.POST_COMMENT_SUCCESS:
+      console.log(payload['comment']);
       return Object.assign({}, state, {
         media_post_success: true,
         comment_post_loading: false,
