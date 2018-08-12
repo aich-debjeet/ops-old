@@ -26,6 +26,7 @@ export class AboutImageComponent implements OnInit {
   imageChangedEvent = '';
   croppedImage = '';
   hidePreview = false;
+  disableSave = true;
 
   constructor(
     public tokenService: TokenService,
@@ -70,6 +71,7 @@ export class AboutImageComponent implements OnInit {
         handle: userHandle,
         image: this.croppedImage.split((/,(.+)/)[1])
       };
+      this.disableSave = true;
       this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_IMAGE, payload: imageData });
       this.changingImage = false;
       this._store.select('profileTags')
@@ -87,6 +89,7 @@ export class AboutImageComponent implements OnInit {
 
   // event to check for file selection
   fileChangeEvent(event: any): void {
+    this.disableSave = false;
     this.imageChangedEvent = event;
   }
 
