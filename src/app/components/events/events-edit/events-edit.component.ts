@@ -299,8 +299,8 @@ export class EventsEditComponent implements OnInit {
   // }
 
   eventAgenda(data){
-    if(data['event_agenda'] === undefined){
-      console.log('not undefined')
+    if(data['event_agenda'] !== undefined){
+      // console.log('not undefined')
       let newFormGroup = [];
       for (let i = 0; i < data['event_agenda'].length; i++){
         let fg = this.fb.group({
@@ -313,7 +313,7 @@ export class EventsEditComponent implements OnInit {
         }
       }
     } else {
-      console.log('undefined')
+      // console.log('undefined')
       let newFormGroup = [];
       let fg = this.fb.group({
         startTime: ['',[Validators.required, this.agendaDateComp.bind(this)]],
@@ -569,8 +569,8 @@ export class EventsEditComponent implements OnInit {
           creationDate: this.eventDetail.creationDate,
           event_media: this.eventDetail.event_media,
           eventTiming: {
-            startDate : this.reverseDate(value.event_startdate) + 'T05:00:00',
-            endDate : this.reverseDate(value.event_enddate) + 'T05:00:00',
+            startDate : this.reverseDate(value.event_startdate) + 'T00:00:00.001',
+            endDate : this.reverseDate(value.event_enddate) + 'T23:59:59.000',
           },
           venue : {
             location: this.address || value.event_venue,
@@ -581,8 +581,8 @@ export class EventsEditComponent implements OnInit {
           extras: {
             coverImage: this.eventCoverImage,
             ticket: [{
-              startDate: this.reverseDate(value.ts_startTime) + 'T05:00:00',
-              endDate: this.reverseDate(value.ts_endTime) + 'T05:00:00',
+              startDate: this.reverseDate(value.ts_startTime) + 'T00:00:00.001',
+              endDate: this.reverseDate(value.ts_endTime) + 'T23:59:59.000',
               maximum: value.ts_quantity,
               ticketId: this.eventDetail.extras.ticket[0].ticketId
             }]

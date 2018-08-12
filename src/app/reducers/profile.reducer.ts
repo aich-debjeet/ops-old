@@ -466,6 +466,26 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
       /**
+       * Load user data details
+       */
+      case ProfileActions.LOAD_USER_DATA_DETAILS:
+      return Object.assign({}, state, {
+        details_loaded: false
+      });
+
+      case ProfileActions.LOAD_USER_DATA_DETAILS_SUCCESS:
+      return Object.assign({}, state, {
+        user_details: payload,
+        details_loaded: true
+      });
+
+      case ProfileActions.LOAD_USER_DATA_DETAILS_FAILED:
+      return Object.assign({}, state, {
+        details_loaded: false
+      });
+
+
+      /**
        * Load image to database
        */
       case ProfileActions.LOAD_PROFILE_IMAGE:
@@ -771,6 +791,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.LOAD_PROFILE_UPDATE_SUCCESS:
+    console.log(payload)
       return Object.assign({}, state, {
         profileUpdate: payload,
         profileUpdateSuccess: true
@@ -779,6 +800,26 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_PROFILE_UPDATE_FAILED:
       return Object.assign({}, state, {
         profileUpdateSuccess: false
+      });
+
+    /**
+     * updating user details
+     */
+    case ProfileActions.LOAD_USER_UPDATE:
+    return Object.assign({}, state, {
+      success: true,
+      userUpdateSuccess: false,
+    });
+
+    case ProfileActions.LOAD_USER_UPDATE_SUCCESS:
+      return Object.assign({}, state, {
+        userUpdate: payload,
+        userUpdateSuccess: true
+      });
+
+    case ProfileActions.LOAD_USER_UPDATE_FAILED:
+      return Object.assign({}, state, {
+        userUpdateSuccess: false
       });
 
 

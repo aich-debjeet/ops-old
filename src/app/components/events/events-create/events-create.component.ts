@@ -60,6 +60,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
   eventCover: File;
   eventTypeList: any;
   invalidDate: boolean = false;
+  requiredAgenda: boolean = false;
     // Address --
     address: string;
     country: string;
@@ -478,6 +479,12 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
     if (this.eventForm.valid) {
       if (this.eventCoverImage === '') {
         this.imageUpload = true;
+        return;
+      }
+      console.log(value.event_agenda)
+      if(value.event_agenda.length <= 0){
+        console.log(value.event_agenda)
+        this.requiredAgenda = true;
         return;
       }
       this.imageUpload = false;
