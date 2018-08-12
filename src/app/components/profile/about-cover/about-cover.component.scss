@@ -20,7 +20,8 @@
 .o-cover-upload__media{
     width: 100%;
     float: left;
-    // padding: 10px;
+    position: relative;
+    overflow: hidden;
 }
 .o-cover-media__image{
     width: 100%;
@@ -133,5 +134,9 @@ span.search_close {
     }
 }
 
-
-
+.preview-image {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}

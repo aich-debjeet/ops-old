@@ -12,7 +12,17 @@
         </h2>
       </div>
       <div class="o-cover-upload__media">
-        <img-cropper #cropper class="o-cover-media__image" [image]="data" [settings]="cropperSettings"></img-cropper>
+        <!-- <img-cropper #cropper class="o-cover-media__image" [image]="data" [settings]="cropperSettings"></img-cropper> -->
+        <image-cropper 
+          class="o-cover-media__image"
+          [imageChangedEvent]="imageChangedEvent"
+          [maintainAspectRatio]="true"
+          [aspectRatio]="4 / 4"
+          format="png"
+          (imageCroppedBase64)="imageCropped($event)"
+          (imageLoaded)="imageLoaded()">
+        </image-cropper>
+        <img [src]="croppedImage" *ngIf="!hidePreview" class="preview-image" />
         <div *ngIf="stateProfile?.profile_img_upload_loading">
           <div class="sticky sticky__top">
             <div class="loader">Loading...</div>
@@ -21,7 +31,7 @@
         <div class="o-cover-media__browse">
           <div class="upload-btn-wrapper">
             <button class="btn btn-network btn-sm text_uppercase">Browse</button>
-            <input type="file" accept="image/*" name="myfile" (change)="fileChangeListener($event)" />
+            <input type="file" accept="image/*" name="myfile" (change)="fileChangeEvent($event)" />
           </div>
         </div>
       </div>
@@ -29,7 +39,7 @@
         <!--<p class="p_text">Successfully updated</p>-->
         <div class="o-cover-footer__btn">
           <button type="button" (click)="isClosed($event)" class="btn btn-network btn-sm text_uppercase">Cancel</button>
-          <button type="button" (click)="saveImageClick()" class="btn btn-primary btn-sm"> &nbsp; Save &nbsp; </button>
+          <button type="button" (click)="saveImageClick()" class="btn btn-primary btn-sm" [disabled]="disableSave"> &nbsp; Save &nbsp; </button>
         </div>
       </div>
     </div>
