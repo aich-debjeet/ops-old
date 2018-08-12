@@ -76,3 +76,29 @@
 	float: left;
 	margin-top: 5px;
 }
+
+.c-timeline__img {
+    background-size: cover;
+    height: 360px;
+    width: 100%;
+    position: relative;
+}
+
+.c-profile__userimg {
+    width: 142px;
+    height: 142px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.26);
+    border: solid 3px #ffffff;
+    float: left;
+    background-color: #f8f8f8;
+}
+
+.img-circle {
+    border-radius: 50%;
+}
+
+.img-responsive {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
