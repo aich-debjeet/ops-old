@@ -295,6 +295,13 @@ export class ProfileService {
   userProfileUpdate(body: any) {
     return this.api.put('/portal/profile/updateProfile', body);
   }
+  
+  /**
+   * update user details
+   */
+  userDetailUpdate(body: any) {
+    return this.api.put('/portal/auth/user/update', body);
+  }
 
   /**
    * Update Profile Object

@@ -8,7 +8,8 @@ export class ProfileModal {
   editWork?: string[];
   profile_details?: any;
   user_details: any;
-  profileUpdateSuccess: boolean
+  profileUpdateSuccess: boolean;
+  userUpdateSuccess: boolean;
   editWorksuccess?: boolean;
   channelEntity?: any;
   loadedProfile?: any;
@@ -100,6 +101,7 @@ export class ProfileForm {
 
 export const initialTag: ProfileModal = {
   profileUpdateSuccess: false,
+  userUpdateSuccess: false,
   completed: [],
   loading:  false,
   success: true,

@@ -313,6 +313,21 @@ export class ProfileEffect {
     );
 
   /**
+   * update user details
+   */
+  @Effect()
+  userDetaileUpdate$ = this.actions$
+    .ofType(ProfileActions.LOAD_USER_UPDATE)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.userDetailUpdate(payload)
+      .map(res => ({ type: ProfileActions.LOAD_USER_UPDATE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.LOAD_USER_UPDATE_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
+  /**
    * Add Current user work
    */
   @Effect()

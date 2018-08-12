@@ -203,6 +203,13 @@ export class ProfileActions {
   static LOAD_PROFILE_UPDATE_SUCCESS = 'LOAD_PROFILE_UPDATE_SUCCESS';
   static LOAD_PROFILE_UPDATE_FAILED = 'LOAD_PROFILE_UPDATE_FAILED';
 
+
+  /**
+   * Load logged in user update
+   */
+  static LOAD_USER_UPDATE = 'LOAD_USER_UPDATE';
+  static LOAD_USER_UPDATE_SUCCESS = 'LOAD_USER_UPDATE_SUCCESS';
+  static LOAD_USER_UPDATE_FAILED = 'LOAD_USER_UPDATE_FAILED';
   /**
    * Delete user work
    */

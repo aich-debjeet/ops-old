@@ -792,6 +792,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.LOAD_PROFILE_UPDATE_SUCCESS:
+    console.log(payload)
       return Object.assign({}, state, {
         profileUpdate: payload,
         profileUpdateSuccess: true
@@ -800,6 +801,26 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_PROFILE_UPDATE_FAILED:
       return Object.assign({}, state, {
         profileUpdateSuccess: false
+      });
+
+    /**
+     * updating user details
+     */
+    case ProfileActions.LOAD_USER_UPDATE:
+    return Object.assign({}, state, {
+      success: true,
+      userUpdateSuccess: false,
+    });
+
+    case ProfileActions.LOAD_USER_UPDATE_SUCCESS:
+      return Object.assign({}, state, {
+        userUpdate: payload,
+        userUpdateSuccess: true
+      });
+
+    case ProfileActions.LOAD_USER_UPDATE_FAILED:
+      return Object.assign({}, state, {
+        userUpdateSuccess: false
       });
 
 
