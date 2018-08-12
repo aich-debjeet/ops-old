@@ -86,7 +86,6 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
         this.industries = state['industries'];
       }
     });
-    this.resetOppsTypeCount();
   }
 
   // trigger opps search action
@@ -208,6 +207,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
   }
 
   ngOnInit() {
+    this.resetOppsTypeCount();
     this.routeSub = this.route.queryParams
       .subscribe(params => {
         this.triggerSearch(params);
