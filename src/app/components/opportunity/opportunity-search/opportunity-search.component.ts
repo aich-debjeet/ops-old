@@ -110,7 +110,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
    * Preparing opp counts to display
    */
   prepareFilters(filterList: any) {
-    this.resetOppsTypeCount();
+    // this.resetOppsTypeCount();
     for (let i = 0; i < filterList.length; i++) {
       if (filterList[i].hasOwnProperty('title')) {
         // for opportunity type filter
@@ -120,8 +120,10 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
               for (let j = 0; j < filterList[i].filters.length; j++) {
                 if (filterList[i].filters[j].hasOwnProperty('name') && filterList[i].filters[j].hasOwnProperty('count')) {
                   const oppType = this.generalUtils.capitalizeFirstLetter(filterList[i].filters[j].name);
-                  this.opportunitiesCount[oppType]
-                   = filterList[i].filters[j].count;
+                  const count = filterList[i].filters[j].count;
+                  if (count > 0) {
+                    this.opportunitiesCount[oppType] = count;
+                  }
                 }
               }
             }
