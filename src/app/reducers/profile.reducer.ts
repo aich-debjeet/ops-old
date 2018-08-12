@@ -1702,10 +1702,11 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     const home_post_comment = state.user_following_posts.find(t => t.id === payload[0].postId);
     const home_list_comment_index = state.user_following_posts.indexOf(home_post_comment);
 
-    const profile_post_comment = state.user_following_posts.find(t => t.id === payload[0].postId);
-    const profile_list_comment_index = state.user_following_posts.indexOf(profile_post_comment);
+    const profile_post_comment = state.user_posts.find(t => t.id === payload[0].postId);
+    const profile_list_comment_index = state.user_posts.indexOf(profile_post_comment);
 
-      return Object.assign({}, state, {
+      if (home_post_comment) {
+        return Object.assign({}, state, {
           user_following_posts: [
               ...state.user_following_posts.slice(0, home_list_comment_index),
               Object.assign({}, home_post_comment, {
@@ -1713,7 +1714,31 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
               }),
               ...state.user_following_posts.slice(home_list_comment_index + 1)
           ]
-      });
+        });
+      }
+
+      if (profile_post_comment) {
+        return Object.assign({}, state, {
+          user_posts: [
+              ...state.user_posts.slice(0, profile_list_comment_index),
+              Object.assign({}, profile_post_comment, {
+                commentsList: payload
+              }),
+              ...state.user_posts.slice(profile_list_comment_index + 1)
+          ]
+        });
+      }
+      return state;
+
+    //   return Object.assign({}, state, {
+    //     user_following_posts: [
+    //         ...state.user_following_posts.slice(0, home_list_comment_index),
+    //         Object.assign({}, home_post_comment, {
+    //           commentsList: payload
+    //         }),
+    //         ...state.user_following_posts.slice(home_list_comment_index + 1)
+    //     ]
+    // });
 
     case ProfileActions.COMMENT_POST_DELETE:
       const home_post_delete = state.user_following_posts.find(t => t.id === payload.parent);
