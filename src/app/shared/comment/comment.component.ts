@@ -101,6 +101,7 @@ export class CommentComponent implements OnInit {
       'commentType': this.mediaType,
       'parent': this.mediaId
     }
+
     this.store.dispatch({ type: MediaActions.DELETE_COMMENT, payload: send});
     this.store.dispatch({ type: ProfileActions.COMMENT_POST_DELETE, payload: send});
   }

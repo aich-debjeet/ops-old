@@ -11,7 +11,7 @@ import { TextMaskModule } from 'angular2-text-mask';
 // import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
 // External Service
-import { ImageCropperModule } from 'ng2-img-cropper/index';
+import { ImageCropperModule } from 'ngx-image-cropper';
 import { ToastrModule } from 'ngx-toastr';
 import { ShareButtonsModule } from 'ngx-sharebuttons';
 import { NguCarouselModule } from '@ngu/carousel';
