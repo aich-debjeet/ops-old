@@ -72,12 +72,6 @@ export class ProfilePostComponent implements OnInit, OnDestroy, AfterViewInit {
           this.people_follow_id = state.people_follow_scroll_id_prof
         }
     });
-
-    this.navigationSubscription = this.router.events.subscribe((e: any) => {
-      // If it is a NavigationEnd event re-initalise the component
-
-    });
-
   }
 
   ngOnInit() {
@@ -91,9 +85,6 @@ export class ProfilePostComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy() {
-    if (this.navigationSubscription) {
-      this.navigationSubscription.unsubscribe();
-   }
     this.subscription.unsubscribe();
   }
 

@@ -56,11 +56,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
    */
 
   ngOnInit() {
-    console.log('onclick');
     window.scrollTo(0, 0);
     this.routerSubscription  = this.route.params
       .subscribe(params => {
-        console.log(params);
         this.userName = params['id'];
         // console.log('this.userName', this.userName);
         if (this.userName && this.userName.length > 0 && localStorage.getItem('currentUser') === null) {
@@ -113,11 +111,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.routerSubscription) {
-      console.log('unsubscribe');
-      this.routerSubscription.unsubscribe();
-   }
-
     this.tagStateSubscription.unsubscribe();
   }
 }

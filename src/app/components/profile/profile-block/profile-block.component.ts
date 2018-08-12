@@ -36,7 +36,6 @@ export class ProfileBlockComponent implements OnInit, OnDestroy {
   private subscription: ISubscription;
   private oppSub: ISubscription;
   private eveSub: ISubscription;
-  private navigationSubscription: ISubscription;
   userQuickAccess = initialTag;
   router: any;
   activeUser: string;
@@ -123,12 +122,6 @@ export class ProfileBlockComponent implements OnInit, OnDestroy {
         this.eventList = state['event_list'];
       }
     });
-
-    this.navigationSubscription = this.router.events.subscribe((e: any) => {
-      // If it is a NavigationEnd event re-initalise the component
-      console.log(e);
-
-    });
   }
 
   ngOnInit(): void {
@@ -199,9 +192,6 @@ export class ProfileBlockComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.navigationSubscription) {
-      this.navigationSubscription.unsubscribe();
-   }
     this.subscription.unsubscribe();
   }
 
