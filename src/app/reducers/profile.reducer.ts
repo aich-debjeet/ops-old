@@ -1212,27 +1212,27 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     /**
      * [TEMP] Load All directory
      */
-    case ProfileActions.LOAD_DIRECTORY:
-      if (payload.offset === 0) {
-        return Object.assign({}, state, {
-          dir_list: [],
-          dir_list_loaded: false,
-        });
-      }
-      return Object.assign({}, state, {
-        dir_list_loading: true,
-        dir_list_loaded: false,
-      });
+    // case ProfileActions.LOAD_DIRECTORY:
+    //   if (payload.offset === 0) {
+    //     return Object.assign({}, state, {
+    //       dir_list: [],
+    //       dir_list_loaded: false,
+    //     });
+    //   }
+    //   return Object.assign({}, state, {
+    //     dir_list_loading: true,
+    //     dir_list_loaded: false,
+    //   });
 
-    case ProfileActions.LOAD_DIRECTORY_SUCCESS:
-      const list = payload['profileResponse'];
-      const dir_lists = state.dir_list.concat(list)
-      return Object.assign({}, state, {
-        user_directory_scroll_id: payload['scrollId'],
-        dir_list_loading: false,
-        dir_list_loaded: true,
-        dir_list: dir_lists,
-      });
+    // case ProfileActions.LOAD_DIRECTORY_SUCCESS:
+    //   const list = payload['profileResponse'];
+    //   const dir_lists = state.dir_list.concat(list)
+    //   return Object.assign({}, state, {
+    //     user_directory_scroll_id: payload['scrollId'],
+    //     dir_list_loading: false,
+    //     dir_list_loaded: true,
+    //     dir_list: dir_lists,
+    //   });
 
     /**
      *  Get List of Block Users
