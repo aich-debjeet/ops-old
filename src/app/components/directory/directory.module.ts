@@ -8,6 +8,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { SharedModule } from '../../shared/shared.module';
 import { DirectoryProfileComponent } from './directory-profile/directory-profile.component';
+import { SharedPipesModule } from '../../pipes/shared-pipes.module';
 
 const routes: Routes = [
   {
@@ -29,6 +30,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     InfiniteScrollModule,
     LazyLoadImageModule,
+    SharedPipesModule,
     RouterModule.forChild(routes)
   ],
   declarations: [
