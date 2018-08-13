@@ -146,7 +146,7 @@ export class SettingsComponent implements OnInit {
     this.storeState$ = this._store.select('profileTags');
 
     this.storeState$.subscribe((state) => {
-       console.log('state', state)
+      //  console.log('state', state)
       if (typeof state !== 'undefined') {
         this.userProfile = state['user_details'];
         this.userHandle = state['user_details'].profileId;
@@ -178,31 +178,31 @@ export class SettingsComponent implements OnInit {
         if(state.details_loaded === true){
           if(state['user_details']['name']['firstName'].length > 0){
             this.name = state['user_details']['name']['firstName'];
-            console.log(this.name)
+            // console.log(this.name)
           }
           if(state['user_details']['gender'].length > 0){
             this.gender = state['user_details']['gender'];
-            console.log(this.gender)
+            // console.log(this.gender)
           }
           if(state['user_details']['other']['dateOfBirth'].length > 0){
             this.birth = state['user_details']['other']['dateOfBirth'];
-            console.log(this.birth)
+            // console.log(this.birth)
           }
           if(state['user_details']['email'].length > 0){
             this.email = state['user_details']['email'];
-            console.log(this.email)
+            // console.log(this.email)
           }
           if(state['user_details']['contact']['contactNumber'].length > 0){
             this.phone = state['user_details']['contact']['contactNumber'];
-            console.log(this.phone)
+            // console.log(this.phone)
           }
           if(state['user_details']['username'].length > 0){
             this.userName = state['user_details']['username'];
-            console.log(this.userName)
+            // console.log(this.userName)
           }
           if(state['user_details']['contact']['shortCode'].length > 0){
             this.shortCode = state['user_details']['contact']['shortCode'];
-            console.log(this.shortCode)
+            // console.log(this.shortCode)
           }
         }
       }
@@ -230,7 +230,7 @@ export class SettingsComponent implements OnInit {
    * update country
    */
   saveCountry(country: any, frmType: string) {
-    console.log(country,frmType )
+    // console.log(country,frmType )
     this.country = country;
     this.store.dispatch({ type: AuthActions.STORE_COUNTRY_CODE, payload: this.country.callingCodes[0] });
     // trigger phone number check
@@ -328,7 +328,7 @@ export class SettingsComponent implements OnInit {
       };
       contactDetails.contactNumber = this.phone.trim();
       contactDetails.countryCode = this.country.callingCodes[0];
-        console.log(contactDetails)
+        // console.log(contactDetails)
         this.authService.mobileNumberCheck(contactDetails).subscribe( data => {
           if (data.SUCCESS.code === 1) {
              this.isMobileUnique = true;
@@ -374,7 +374,7 @@ export class SettingsComponent implements OnInit {
 
       // focus on next otp number
   nextOtpNum(e: any, pos: number) {
-    console.log(e,pos)
+    // console.log(e,pos)
     if (e.keyCode === 8) {
       if (pos > 0 && pos < 7) {
         const prevNum = pos - 1;
@@ -498,7 +498,7 @@ export class SettingsComponent implements OnInit {
             gender: ''
         };
         reqBody.gender = val;
-        console.log(reqBody)
+        // console.log(reqBody)
         this._store.dispatch({ type: ProfileActions.LOAD_USER_UPDATE, payload: reqBody});
         this.cancelEdit();
         this._store.select('profileTags').
@@ -518,9 +518,11 @@ export class SettingsComponent implements OnInit {
     let reqBody;
     if (fieldName === 'name' && this.name.length > 0) {
       reqBody = {
-        name: ''
+        name: {
+          firstName:''
+        }
       };
-      reqBody.name = this.name.trim();
+      reqBody.name.firstName = this.name.trim();
     }
     if (fieldName === 'dob' && this.dob.length > 0) {
       reqBody = {
@@ -597,7 +599,7 @@ export class SettingsComponent implements OnInit {
     //   };
     //   reqBody.email = this.email.trim();
     // }
-    console.log(reqBody)
+    // console.log(reqBody)
     this._store.dispatch({ type: ProfileActions.LOAD_USER_UPDATE, payload: reqBody});
     this._store.select('profileTags').
     first(data => data['userUpdateSuccess']).
