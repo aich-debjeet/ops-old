@@ -8,6 +8,8 @@ import { ISubscription } from 'rxjs/Subscription';
 import { ProfileModal } from '../../../models/profile.model';
 import { environment } from 'environments/environment';
 import { ProfileActions } from '../../../actions/profile.action';
+import { DirectoryActions } from '../../../actions/directory.action';
+import { DirectoryModel } from '../../../models/directory.model';
 
 @Component({
   selector: 'app-directory-list',
@@ -15,7 +17,8 @@ import { ProfileActions } from '../../../actions/profile.action';
   styleUrls: ['./directory-list.component.scss']
 })
 export class DirectoryListComponent implements OnInit, OnDestroy {
-  tagState$: Observable<ProfileModal>;
+  profileState$: Observable<ProfileModal>;
+  directoryState$: Observable<DirectoryModel>;
   dirList: any;
   page_start = 0;
   page_end = 20;
@@ -32,20 +35,26 @@ export class DirectoryListComponent implements OnInit, OnDestroy {
     {name: 'verified', value: 'verified', checked: false}
   ]
 
-  private subscription: ISubscription;
+  private profSub: ISubscription;
+  private dirSub: ISubscription;
 
   constructor(
-    private _store: Store<ProfileModal>,
+    private profileStore: Store<ProfileModal>,
+    private directoryStore: Store<DirectoryModel>,
     private route: ActivatedRoute,
   ) {
-      this.tagState$ = this._store.select('profileTags');
-      this.subscription =  this.tagState$.subscribe((state) => {
-        if (state.dir_list_loaded ) {
+    this.profileState$ = this.profileStore.select('profileTags');
+    this.profSub =  this.profileState$.subscribe((state) => {});
+    this.directoryState$ = this.directoryStore.select('directoryTags');
+    this.dirSub =  this.directoryState$.subscribe((state) => {
+      if (state) {
+        if (state.dir_list_loaded) {
           this.dir_scroll_id = state.user_directory_scroll_id;
           this.dirList = state.dir_list;
         }
-      });
-      this.loadDir('');
+      }
+    });
+    this.loadDir('');
   }
 
   ngOnInit() {
@@ -91,7 +100,7 @@ export class DirectoryListComponent implements OnInit, OnDestroy {
         scrollId: scroll_id
       }
     }
-    this._store.dispatch({ type: ProfileActions.LOAD_DIRECTORY, payload: data });
+    this.directoryStore.dispatch({ type: DirectoryActions.LOAD_DIRECTORY, payload: data });
   }
 
   /**
@@ -116,15 +125,16 @@ export class DirectoryListComponent implements OnInit, OnDestroy {
     const handle = this.dirList[index].handle;
     if (this.dirList[index].extra.isFollowing) {
       this.dirList[index].extra.isFollowing = false;
-      this._store.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: handle });
+      this.profileStore.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: handle });
     }else {
       this.dirList[index].extra.isFollowing = true;
-      this._store.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: handle  });
+      this.profileStore.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: handle  });
     }
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.profSub.unsubscribe();
+    this.dirSub.unsubscribe();
   }
 
 }

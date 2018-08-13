@@ -12,7 +12,7 @@ export class DirectoryService {
      * Load directory profiles
      */
     loadDirectory(body: any) {
-      return this.api.put('/portal/directory', body);
+        return this.api.put('/portal/directory', body);
     }
 
 }
