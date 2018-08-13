@@ -60,6 +60,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
   eventCover: File;
   eventTypeList: any;
   invalidDate: boolean = false;
+  requiredAgenda: boolean = false;
     // Address --
     address: string;
     country: string;
@@ -480,6 +481,12 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
         this.imageUpload = true;
         return;
       }
+      console.log(value.event_agenda)
+      if(value.event_agenda.length <= 0){
+        console.log(value.event_agenda)
+        this.requiredAgenda = true;
+        return;
+      }
       this.imageUpload = false;
       const data = {
           title : value.event_name,
@@ -488,7 +495,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
           isFeatured: false,
           eventTiming: {
             startDate : this.reverseDate(value.event_startdate) + 'T00:00:00.001',
-            endDate : this.reverseDate(value.event_enddate) + 'T12:00:00.000',
+            endDate : this.reverseDate(value.event_enddate) + 'T23:59:59.000',
           },
           venue : {
             location: this.address,
@@ -500,7 +507,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
             coverImage: this.eventCoverImage,
             ticket: [{
               startDate: this.reverseDate(value.ts_startTime) + 'T00:00:00.001',
-              endDate: this.reverseDate(value.ts_endTime) + 'T12:00:00.000',
+              endDate: this.reverseDate(value.ts_endTime) + 'T23:59:59.000',
               maximum: value.ts_quantity
             }]
           },

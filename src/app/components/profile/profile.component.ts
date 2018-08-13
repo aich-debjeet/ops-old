@@ -111,7 +111,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.routerSubscription.unsubscribe();
     this.tagStateSubscription.unsubscribe();
   }
 }

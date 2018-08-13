@@ -148,6 +148,13 @@ export class ProfileActions {
   static LOAD_CURRENT_USER_PROFILE_DETAILS_FAILED = 'LOAD_CURRENT_USER_PROFILE_DETAILS_FAILED';
 
   /**
+   * load user data
+   */
+  static LOAD_USER_DATA_DETAILS = 'LOAD_USER_DATA_DETAILS';
+  static LOAD_USER_DATA_DETAILS_SUCCESS = 'LOAD_USER_DATA_DETAILS_SUCCESS';
+  static LOAD_USER_DATA_DETAILS_FAILED = 'LOAD_USER_DATA_DETAILS_FAILED';
+
+  /**
    * Load home page spotfeeds
    */
   static LOAD_HOME_PAGE_SPOTFEEDS = 'LOAD_HOME_PAGE_SPOTFEEDS';
@@ -196,6 +203,13 @@ export class ProfileActions {
   static LOAD_PROFILE_UPDATE_SUCCESS = 'LOAD_PROFILE_UPDATE_SUCCESS';
   static LOAD_PROFILE_UPDATE_FAILED = 'LOAD_PROFILE_UPDATE_FAILED';
 
+
+  /**
+   * Load logged in user update
+   */
+  static LOAD_USER_UPDATE = 'LOAD_USER_UPDATE';
+  static LOAD_USER_UPDATE_SUCCESS = 'LOAD_USER_UPDATE_SUCCESS';
+  static LOAD_USER_UPDATE_FAILED = 'LOAD_USER_UPDATE_FAILED';
   /**
    * Delete user work
    */

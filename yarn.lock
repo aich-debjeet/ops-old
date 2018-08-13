@@ -4207,6 +4207,10 @@ ngx-chips@^1.5.3:
   dependencies:
     ng2-material-dropdown "0.7.10"
 
+ngx-image-cropper@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/ngx-image-cropper/-/ngx-image-cropper-1.0.1.tgz#beabe802b303a98b8c268cf346bb9534401662ca"
+
 ngx-infinite-scroll@^0.5.2:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/ngx-infinite-scroll/-/ngx-infinite-scroll-0.5.2.tgz#f31aefc5e78e6b352e68f286f16c4dead180d43c"

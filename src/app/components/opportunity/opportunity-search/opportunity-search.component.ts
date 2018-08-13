@@ -42,7 +42,14 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
   // default search type
   searchType = 'recommended';
   isSearching = false;
-  opportunitiesCount: any;
+  opportunitiesCount = {
+    Audition: '0',
+    Project: '0',
+    Job: '0',
+    Internship: '0',
+    Volunteer: '0',
+    Freelance: '0'
+  };
   // industryCount = [];
   industries = [];
   globalFilter = [];
@@ -86,7 +93,6 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
         this.industries = state['industries'];
       }
     });
-    this.resetOppsTypeCount();
   }
 
   // trigger opps search action
@@ -110,7 +116,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
    * Preparing opp counts to display
    */
   prepareFilters(filterList: any) {
-    this.resetOppsTypeCount();
+    // this.resetOppsTypeCount();
     for (let i = 0; i < filterList.length; i++) {
       if (filterList[i].hasOwnProperty('title')) {
         // for opportunity type filter
@@ -120,8 +126,10 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
               for (let j = 0; j < filterList[i].filters.length; j++) {
                 if (filterList[i].filters[j].hasOwnProperty('name') && filterList[i].filters[j].hasOwnProperty('count')) {
                   const oppType = this.generalUtils.capitalizeFirstLetter(filterList[i].filters[j].name);
-                  this.opportunitiesCount[oppType]
-                   = filterList[i].filters[j].count;
+                  const count = filterList[i].filters[j].count;
+                  if (count > 0) {
+                    this.opportunitiesCount[oppType] = count;
+                  }
                 }
               }
             }
@@ -153,8 +161,8 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
   resetOppsTypeCount() {
     this.opportunitiesCount = {
       Audition: '0',
-      Projects: '0',
-      Jobs: '0',
+      Project: '0',
+      Job: '0',
       Internship: '0',
       Volunteer: '0',
       Freelance: '0'
@@ -206,6 +214,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
   }
 
   ngOnInit() {
+    this.resetOppsTypeCount();
     this.routeSub = this.route.queryParams
       .subscribe(params => {
         this.triggerSearch(params);

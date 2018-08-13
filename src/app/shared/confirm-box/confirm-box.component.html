@@ -1,0 +1,17 @@
+<div class="modal-dialog o-comodal">
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" (click)="close()">×</button>
+      <h4 class="modal-title c-text_lg text-center m-t-8"></h4>
+    </div>
+    <div class="modal-body">
+      <div class="c-text_md text-center color-grey-dark">{{ message }}</div>
+    </div>
+    <div class="modal-footer">
+      <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+      <button type="button" class="btn btn-default btn-sm" (click)="confirm('no')">No</button>
+      <button type="button" class="btn btn-primary btn-sm" (click)="confirm('yes')">Yes</button>
+    </div>
+  </div>
+</div>

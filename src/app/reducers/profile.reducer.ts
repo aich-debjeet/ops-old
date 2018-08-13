@@ -466,6 +466,26 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
       /**
+       * Load user data details
+       */
+      case ProfileActions.LOAD_USER_DATA_DETAILS:
+      return Object.assign({}, state, {
+        details_loaded: false
+      });
+
+      case ProfileActions.LOAD_USER_DATA_DETAILS_SUCCESS:
+      return Object.assign({}, state, {
+        user_details: payload,
+        details_loaded: true
+      });
+
+      case ProfileActions.LOAD_USER_DATA_DETAILS_FAILED:
+      return Object.assign({}, state, {
+        details_loaded: false
+      });
+
+
+      /**
        * Load image to database
        */
       case ProfileActions.LOAD_PROFILE_IMAGE:
@@ -532,7 +552,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Get User Media Post
      */
     case ProfileActions.LOAD_USER_MEDIA:
-    console.log(payload);
       if (payload.scrollID === '') {
         return Object.assign({}, state, {
           user_posts_loading: true,
@@ -772,6 +791,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.LOAD_PROFILE_UPDATE_SUCCESS:
+    console.log(payload)
       return Object.assign({}, state, {
         profileUpdate: payload,
         profileUpdateSuccess: true
@@ -780,6 +800,26 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_PROFILE_UPDATE_FAILED:
       return Object.assign({}, state, {
         profileUpdateSuccess: false
+      });
+
+    /**
+     * updating user details
+     */
+    case ProfileActions.LOAD_USER_UPDATE:
+    return Object.assign({}, state, {
+      success: true,
+      userUpdateSuccess: false,
+    });
+
+    case ProfileActions.LOAD_USER_UPDATE_SUCCESS:
+      return Object.assign({}, state, {
+        userUpdate: payload,
+        userUpdateSuccess: true
+      });
+
+    case ProfileActions.LOAD_USER_UPDATE_FAILED:
+      return Object.assign({}, state, {
+        userUpdateSuccess: false
       });
 
 
@@ -1662,10 +1702,11 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     const home_post_comment = state.user_following_posts.find(t => t.id === payload[0].postId);
     const home_list_comment_index = state.user_following_posts.indexOf(home_post_comment);
 
-    const profile_post_comment = state.user_following_posts.find(t => t.id === payload[0].postId);
-    const profile_list_comment_index = state.user_following_posts.indexOf(profile_post_comment);
+    const profile_post_comment = state.user_posts.find(t => t.id === payload[0].postId);
+    const profile_list_comment_index = state.user_posts.indexOf(profile_post_comment);
 
-      return Object.assign({}, state, {
+      if (home_post_comment) {
+        return Object.assign({}, state, {
           user_following_posts: [
               ...state.user_following_posts.slice(0, home_list_comment_index),
               Object.assign({}, home_post_comment, {
@@ -1673,7 +1714,31 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
               }),
               ...state.user_following_posts.slice(home_list_comment_index + 1)
           ]
-      });
+        });
+      }
+
+      if (profile_post_comment) {
+        return Object.assign({}, state, {
+          user_posts: [
+              ...state.user_posts.slice(0, profile_list_comment_index),
+              Object.assign({}, profile_post_comment, {
+                commentsList: payload
+              }),
+              ...state.user_posts.slice(profile_list_comment_index + 1)
+          ]
+        });
+      }
+      return state;
+
+    //   return Object.assign({}, state, {
+    //     user_following_posts: [
+    //         ...state.user_following_posts.slice(0, home_list_comment_index),
+    //         Object.assign({}, home_post_comment, {
+    //           commentsList: payload
+    //         }),
+    //         ...state.user_following_posts.slice(home_list_comment_index + 1)
+    //     ]
+    // });
 
     case ProfileActions.COMMENT_POST_DELETE:
       const home_post_delete = state.user_following_posts.find(t => t.id === payload.parent);
@@ -1691,12 +1756,13 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
             ],
         });
       }
+
       if (profile_post_delete_List) {
         return Object.assign({}, state, {
           user_posts: [
-            ...state.user_following_posts.slice(0, profile_list_delete_index),
+            ...state.user_posts.slice(0, profile_list_delete_index),
             Object.assign({}, profile_post_delete_List, {commentsList: profile_post_delete_List.commentsList.filter(comment => comment.commentsId !== payload.id) }),
-            ...state.user_following_posts.slice(profile_list_delete_index + 1)
+            ...state.user_posts.slice(profile_list_delete_index + 1)
           ],
         });
       }
@@ -1800,7 +1866,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
       case ProfileActions.TRENDING_POST_SUCCESS:
         return Object.assign({}, state, {
-          trending_post: payload['mediaResponse'][0]
+          trending_post: payload['mediaResponse']
         });
     // }
 

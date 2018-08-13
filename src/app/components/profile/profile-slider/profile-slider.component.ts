@@ -623,7 +623,7 @@ export class ProfileSliderComponent implements OnInit {
           const data = {
             'receiver_id': this.otherProfileHandle,
             'questionnaire': {
-                'purpose': 'Hey ' + this.otherProfileName + ' I want to network with you.',
+                'purpose': 'Hey ' + this.otherProfileName + ' I want to connect with you.',
                 'brief': '',
             }
         }
@@ -637,7 +637,7 @@ export class ProfileSliderComponent implements OnInit {
             const data = {
               'receiver_id': this.otherProfileHandle,
               'questionnaire': {
-                  'purpose': 'Hey ' + this.otherProfileName + ' I want to network with you.',
+                  'purpose': 'Hey ' + this.otherProfileName + ' I want to connect with you.',
                   'brief': value.message,
               }
             };

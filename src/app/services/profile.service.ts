@@ -132,7 +132,12 @@ export class ProfileService {
   getLoggedInProfileDetails() {
     return this.api.get('/portal/loggedInProfile/', '');
   }
-
+  /**
+   * current logged in user details
+   */
+  getLoggedInUserDetails(){
+    return this.api.get('/portal/auth/user/loggedUser');
+  }
   /**
    * Current LoggedIn Quick Access.
    */
@@ -289,6 +294,13 @@ export class ProfileService {
    */
   userProfileUpdate(body: any) {
     return this.api.put('/portal/profile/updateProfile', body);
+  }
+  
+  /**
+   * update user details
+   */
+  userDetailUpdate(body: any) {
+    return this.api.put('/portal/auth/user/update', body);
   }
 
   /**
@@ -624,7 +636,7 @@ export class ProfileService {
 
   trendingPost() {
     const body = {
-      limit: 1
+      limit: 2
     }
     return this.api.post(`/portal/cdn/media/search`, body);
   }

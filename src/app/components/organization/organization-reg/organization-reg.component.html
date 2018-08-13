@@ -8,7 +8,7 @@
           <img class="o-logo__img" src="{{ imageBaseLink }}img/logo_white.svg" alt="">
         </div>
         <div class="o-hero-head-title">
-          <h3 class="c-h3 o-head--title">Organization</h3>
+          <h3 class="c-h3 o-head--title">Organisation</h3>
         </div>
       </div>
       <div class="o-hero__content-container">
@@ -29,15 +29,15 @@
 <section class="o-org-container">
   <div class="container">
       <div class="col-md-8 col-md-offset-2 o-org-content-block">
-        <h3 class="c-h3 o-org__create-head">Create Organization</h3>
+        <h3 class="c-h3 o-org__create-head">Create Organisation</h3>
         <div class="o-org-reg-block">
           <form [formGroup]="orgReg" novalidate (ngSubmit) = "submitForm(orgReg.value)"  #orgForm="ngForm">
             <div class="c-form__group">
               <input class="c-form__input" required="" type="text" formControlName="org_name">
               <span class="c-form__highlight"></span>
               <span class="c-form__bar"></span>
-              <label>Name of organization</label>
-              <p class="error_alert" *ngIf="orgReg.controls['org_name'].errors?.required && orgForm.submitted">Name of organization is required</p>
+              <label>Name of organisation</label>
+              <p class="error_alert" *ngIf="orgReg.controls['org_name'].errors?.required && orgForm.submitted">Name of organisation is required</p>
             </div>
             <div class="c-form__group">
               <input class="c-form__input" required="" type="text" formControlName="org_username">
@@ -51,7 +51,7 @@
               <p class="error_alert" *ngIf="orgReg.controls['org_username'].errors?.isUsernameUnique">This username is already taken</p>
               <p class="error_alert" *ngIf="orgReg.controls['org_username'].errors?.invalidLength">Username length limit is 3 to 15 characters</p>
             </div>
-            <h6 class="c-text_md o-org--type">Choose organization type</h6>
+            <h6 class="c-text_md o-org--type">Choose organisation type</h6>
             <div class="o-org-reg__choose">
               <select class="c-form-control p-0" formControlName="org_type">
                 <option [selected]="true" value="Education - University /  Academy /  School / College" >Education - University /  Academy /  School / College</option>
@@ -71,14 +71,14 @@
                 <option value="Corporate / Industrial Company">Corporate / Industrial Company</option>
                 <option value="Others">Others</option>
               </select>
-              <p class="error_alert" *ngIf="orgReg.controls['org_type'].errors?.required && orgForm.submitted">Type of organization is required</p>
+              <p class="error_alert" *ngIf="orgReg.controls['org_type'].errors?.required && orgForm.submitted">Type of organisation is required</p>
             </div>
-            <h6 class="c-text_md o-org--type">Select organization industry</h6>
+            <h6 class="c-text_md o-org--type">Select organisation industry</h6>
             <div class="c-form__group margin_b_32">
               <select class="c-form-control p-0" formControlName="org_industry_type">
                   <option *ngFor="let industry of industries" [value]="industry.code" >{{ industry.name }}</option>
               </select>
-              <!-- <label>Select organization industry</label> -->
+              <!-- <label>Select organisation industry</label> -->
               <p class="error_alert" *ngIf="orgReg.controls['org_industry_type'].errors?.required && orgForm.submitted">Type of industry is required</p>
             </div>
             <div class="c-form__group margin_b_32">

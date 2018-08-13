@@ -28,6 +28,7 @@ export class ProfilePostComponent implements OnInit, OnDestroy, AfterViewInit {
   tagState$: Observable<ProfileModal>;
   mediaState$: Observable<Media>;
   private subscription: ISubscription;
+  private navigationSubscription: ISubscription;
   userMedia = initialTag;
   mediaDetails = initialMedia;
   sub: any;
@@ -52,6 +53,7 @@ export class ProfilePostComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private _router: Router,
     public route: ActivatedRoute,
+    private router: Router,
     private modalService: ModalService,
     private _store: Store<Media>
   ) {
@@ -70,7 +72,6 @@ export class ProfilePostComponent implements OnInit, OnDestroy, AfterViewInit {
           this.people_follow_id = state.people_follow_scroll_id_prof
         }
     });
-
   }
 
   ngOnInit() {

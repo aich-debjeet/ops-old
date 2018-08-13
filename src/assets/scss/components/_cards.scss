@@ -288,6 +288,7 @@
 .c-card__event2 {
   height: 140px;
   overflow: hidden;
+  width: 100%;
   img {
       width: 100%;
   }
@@ -902,7 +903,7 @@
 .c-avatar--status5 {
   width: 25px;
   height: 25px;
-      margin-top: 4px;
+      // margin-top: 4px;
 }
 .c-user--align {
   margin-left: 16px; // margin-top: 8px;
