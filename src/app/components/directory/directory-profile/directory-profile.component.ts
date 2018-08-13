@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ISubscription } from 'rxjs/Subscription';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DirectoryModel } from '../../../models/directory.model';
 import { DirectoryActions } from '../../../actions/directory.action';
@@ -21,10 +21,12 @@ export class DirectoryProfileComponent implements OnInit, OnDestroy {
   dirState: any;
   dirSub: ISubscription;
   profileDetails: any;
+  // profileFound: boolean;
 
   constructor(
     private dirStore: Store<DirectoryModel>,
     private route: ActivatedRoute,
+    private router: Router,
     private gUtils: GeneralUtilities
   ) {
     this.dirState$ = this.dirStore.select('directoryTags');
@@ -37,7 +39,13 @@ export class DirectoryProfileComponent implements OnInit, OnDestroy {
         ) {
           this.showPreloader = false;
           if (this.gUtils.checkNestedKey(state, ['getDirectoryProfileData'])) {
-            this.profileDetails = state['getDirectoryProfileData'];
+            if (state['getDirectoryProfileData'] === null) {
+              // this.profileFound = false;
+              // this.router.navigateByUrl('/page-not-found');
+            } else {
+              // this.profileFound = true;
+              this.profileDetails = state['getDirectoryProfileData'];
+            }
           }
         }
       }

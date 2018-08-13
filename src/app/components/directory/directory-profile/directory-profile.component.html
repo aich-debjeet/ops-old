@@ -9,6 +9,7 @@
     </div>
   </div>
   <!-- prelaoder -->
+  <!-- <div *ngIf="!showPreloader && profileFound" class="container"> -->
   <div *ngIf="!showPreloader" class="container">
     <div class="col-12 col-sm-3 col-md-3 col-lg-3 col-xl-3">
       <div class="c-profile__userblock o-dir-prof__img">
@@ -18,21 +19,18 @@
         <h3 class="f-w_500">{{ profileDetails?.name }}</h3>
         <div class="c-text_sm color-grey-dark">Unofficial Profile</div>
         <div class="c-text_md color-grey-dark m-t-24 o-dir-prof__title">Born</div>
-        <div class="c-text_md">
-          December 18, 1963 in Shawnee,
-          <br> Oklahoma, USA
-        </div>
-        <div class="c-text_md color-grey-dark m-t-24 o-dir-prof__title">Birth Name</div>
+        <div class="c-text_md">{{ profileDetails?.dob | utcDate | date: 'dd MMM, yyyy' }}</div>
+        <!-- <div class="c-text_md color-grey-dark m-t-24 o-dir-prof__title">Birth Name</div>
         <div class="c-text_md">William Bradley Pitt</div>
         <div class="c-text_md color-grey-dark m-t-24 o-dir-prof__title">Height</div>
-        <div class="c-text_md">5' 11" (1.8 m)</div>
+        <div class="c-text_md">5' 11" (1.8 m)</div> -->
       </div>
     </div>
     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
       <div class="c-text_md ltr-space o-dir-prof__main-title">Bio</div>
       <div class="c-text_md" [innerHtml]="profileDetails?.content | newLine | safeHtml"></div>
     </div>
-    <div class="col-12 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+    <!-- <div class="col-12 col-sm-3 col-md-3 col-lg-3 col-xl-3">
       <div class="o-related-news">
         <div class="c-text_md ltr-space f-w_600 text_uppercase">Related news</div>
         <ul class="o-news">
@@ -158,6 +156,8 @@
           </li>
         </ul>
       </div>
-    </div>
+    </div> -->
   </div>
+
+  <!-- <p *ngIf="!showPreloader && !profileFound" class="profile-not-found">Profile not found!</p> -->
 </section>
