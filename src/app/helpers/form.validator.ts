@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Http, Headers, Response } from '@angular/http';
 import { Store } from '@ngrx/store';
+import {Moment} from 'moment';
+import * as moment from 'moment';
 
 // state
 import { ProfileModal, initialTag } from '../models/profile.model';
@@ -93,7 +95,7 @@ export class DatabaseValidator {
                 return;
             }
             const dateArr =  control.value.split('-');
-            console.log('dateArr', dateArr);
+            // console.log('dateArr', dateArr);
 
             // if (!Date.parse(control.value)) {
             //     console.log('INVALID DATE');
@@ -198,8 +200,10 @@ export class DatabaseValidator {
             // if (control.value.indexOf('_') !== -1 || control.value === '') {
             // return resolve(null);
             // }
-
+            const today = moment();
+            // console.log(moment(today).format('YYYYMMDD'))
             const dateArr =  control.value.split('-');
+            // console.log(dateArr)
 
             const day = dateArr[0];
             const month = dateArr[1];
@@ -221,6 +225,12 @@ export class DatabaseValidator {
             }
 
              this.fromDate = new Date(year, month, day);
+             
+            //  console.log(this.fromDate)
+             if(moment(control.value).format('YYYYMMDD') > moment(today).format('YYYYMMDD')){
+                //  console.log('here')
+                resolve({ 'invalidWorkDate': true });
+             }
             // const age = this.calculateAge(birthDate);
 
             // if (age <= 13) {

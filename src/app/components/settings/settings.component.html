@@ -202,7 +202,7 @@
                                         <div id="acc-info-username__edit" class="o-set-list__edit" *ngIf="editingField == 'username'">
                                             <div class="col-md-4 p-0">
                                                 <div class="c-form__group c-form--sm c-form--noeffect">
-                                                    <input class="c-form__input c-form__input--alert p-0" [ngModel]="userName" (ngModelChange)="userExistCheck($event)" type="text" value="onepagespotlight.com/tobias">
+                                                    <input class="c-form__input c-form__input--alert p-0" [ngModel]="userName" (ngModelChange)="userExistCheck($event)" type="text">
                                                     <p class="c-form__validation" *ngIf="isRequired">Username is required</p>
                                                     <p class="c-form__validation" *ngIf="whitespace || capitalLetters || specialChars">Capital letters, spaces and special characters are not allowed</p>
                                                     <p class="c-form__validation" *ngIf="invalidLength">Username length limit is 3 to 15 characters</p>
@@ -217,7 +217,7 @@
                                             </div>
                                             <div class="col-md-6 p-0">
                                                 <div class="o-set-list-edit__actions">
-                                                    <button type="button" class="btn btn-primary btn-sm" (click)="updateAbout('username')">Save</button>
+                                                    <button type="button" class="btn btn-primary btn-sm" (click)="updateAbout('username')" [disabled]="petTag.user_unique">Save</button>
                                                     <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()">Cancel</button>
                                                 </div>
                                             </div>
