@@ -43,11 +43,14 @@ export class HomePostComponent implements OnInit, OnDestroy {
     this.subscription = this.tagState$.subscribe((state) => {
       this.userProfile = state;
       this.userData = state['profile_navigation_details']
+
+      // User folling posts
       if (state.user_following_posts_loaded) {
         this.posts = this.userProfile.user_following_posts;
         this.post_scroll_id = state.user_following_post_scroll_id
       }
 
+      // Trending post state
       if (state['trending_post']) {
         this.trendingPost = state['trending_post']
       }

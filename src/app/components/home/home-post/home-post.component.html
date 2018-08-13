@@ -29,12 +29,12 @@
     <div class="o-hf_usercard m-t-16">
       <div class="o-trending-block">
             <div class="o-trending-heading m-t-b-8">Trending Post</div>
-            <div class="col-md-12 float_left p-0">
+            <div class="col-md-12 float_left p-0" *ngFor="let trending of trendingPost | slice:0:1">
               <div class="c-card o-trending-post">
                 <!-- card media (img, video & audio) -->
                 <div class="c-card__media">
-                  <a href="javascript:void(0)" data-toggle="modal" data-target="#imgModal">
-                    <img [src]="imageLink + trendingPost?.thumbNails?.mediumLarge" class="c-card__image">
+                  <a [routerLink]="['', { outlets: { media : ['media', trending?.id]}}]">
+                    <img [src]="imageLink + trending?.thumbNails?.mediumLarge" class="c-card__image">
                   </a>
                   <!--  <span>
                     <img src="assets/svg/ico_image.svg" alt="" class="c-card__icon">
@@ -65,7 +65,7 @@
                 <!-- card body -->
                 <div class="c-card__body">
                   <div class="c-text_sm">
-                    {{ trendingPost?.title}}
+                    {{ trending?.title}}
                   </div>
                 </div>
                 <!-- //card body -->
@@ -74,19 +74,19 @@
                   <div class="c-links">
                     <div class="c-links__spots">
                       <img [src]="imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
-                      <span class="c-links__count">{{ trendingPost?.spotsCount }}</span>
+                      <span class="c-links__count">{{ trending?.spotsCount }}</span>
                     </div>
                     <div class="c-links__comments">
                       <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
-                      <span class="c-links__count">{{ trendingPost?.commentsCount }}</span>
+                      <span class="c-links__count">{{ trending?.commentsCount }}</span>
                     </div>
-                    <div class="c-links__actions">
+                    <!-- <div class="c-links__actions">
                         <span class="c-links__add">
                           <a href="javascript:void(0)">
                             <img [src]="imageLink + 'img/svg/ico_addtochannel.svg'" class="c-action__image">
                           </a>
                         </span>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
                   <!-- //card footer links -->
@@ -94,12 +94,12 @@
             </div>
 
             <div class="o-trending-heading m-t-b-8">Sponsored Post</div>
-            <div class="col-md-12 float_left p-0">
+            <div class="col-md-12 float_left p-0" *ngFor="let trending of trendingPost | slice:0:1">
               <div class="c-card o-trending-post">
                 <!-- card media (img, video & audio) -->
                 <div class="c-card__media">
-                  <a href="javascript:void(0)" data-toggle="modal" data-target="#videoModal">
-                    <img [src]="imageLink + 'img/s06.jpg'" class="c-card__image">
+                  <a [routerLink]="['', { outlets: { media : ['media', trending?.id]}}]">
+                    <img [src]="imageLink + trending?.thumbNails?.mediumLarge" class="c-card__image">
                   </a>
                   <span>
                     <img [src]="imageLink + 'img/svg/ico_video.svg'" class="c-card__icon">
@@ -132,7 +132,7 @@
                 <!-- card body -->
                 <div class="c-card__body">
                   <div class="c-text_sm">
-                    There are many variations of passages of Lorem Ipsum available, but the majority...
+                    {{ trending?.title}}
                   </div>
                 </div>
                 <!-- //card body -->
@@ -141,11 +141,11 @@
                   <div class="c-links">
                     <div class="c-links__spots">
                       <img [src]="imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
-                      <span class="c-links__count">705</span>
+                      <span class="c-links__count">{{ trending?.spotsCount }}</span>
                     </div>
                     <div class="c-links__comments">
                       <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
-                      <span class="c-links__count">24</span>
+                      <span class="c-links__count">{{ trending?.commentsCount }}</span>
                     </div>
                     <div class="c-links__actions">
                       <span class="c-links__add">
