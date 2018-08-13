@@ -1,4 +1,5 @@
 <div class="selector">
   <select *ngIf="countrySelForm === 'reg'" [(ngModel)]="selectedCountry" (ngModelChange)="onSelectCountry($event)" class="form-control cs-icon-select" name="choices-single-no-sorting" id="country-options-reg" placeholder="This is a placeholder"></select>
   <select *ngIf="countrySelForm === 'otp'" [(ngModel)]="selectedCountry" (ngModelChange)="onSelectCountry($event)" class="form-control cs-icon-select" name="choices-single-no-sorting" id="country-options-otp" placeholder="This is a placeholder"></select>
+  <select *ngIf="countrySelForm === 'set'" [(ngModel)]="selectedCountry" (ngModelChange)="onSelectCountry($event)" class="form-control cs-icon-select" name="choices-single-no-sorting" id="country-options-set" placeholder="This is a placeholder"></select>
 </div>

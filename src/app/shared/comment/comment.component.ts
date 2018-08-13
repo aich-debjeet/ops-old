@@ -47,7 +47,6 @@ export class CommentComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.loadMedia()
   }
 
   /**

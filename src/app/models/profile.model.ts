@@ -7,12 +7,15 @@ export class ProfileModal {
   profile_cards?: any;
   editWork?: string[];
   profile_details?: any;
-  profileUpdateSuccess: boolean
+  user_details: any;
+  profileUpdateSuccess: boolean;
+  userUpdateSuccess: boolean;
   editWorksuccess?: boolean;
   channelEntity?: any;
   loadedProfile?: any;
   activeProfile?: ProfileCard;
   profile_loaded: boolean;
+  details_loaded: boolean;
   profile_other?: any;
   profile_other_loading: boolean;
   profile_other_loaded?: boolean;
@@ -98,14 +101,17 @@ export class ProfileForm {
 
 export const initialTag: ProfileModal = {
   profileUpdateSuccess: false,
+  userUpdateSuccess: false,
   completed: [],
   loading:  false,
   success: true,
   profile_details: [],
+  user_details: [],
   profile_navigation_details: [],
   profile_cards: [],
   channelEntity: false,
   profile_loaded: false,
+  details_loaded: false,
   userQuickAccess: [],
   // Profile Other
   profile_other: [],

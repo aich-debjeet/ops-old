@@ -42,7 +42,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
   // default search type
   searchType = 'recommended';
   isSearching = false;
-  opportunitiesCount: any;
+  opportunitiesCount = {};
   // industryCount = [];
   industries = [];
   globalFilter = [];
@@ -154,8 +154,8 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
   resetOppsTypeCount() {
     this.opportunitiesCount = {
       Audition: '0',
-      Projects: '0',
-      Jobs: '0',
+      Project: '0',
+      Job: '0',
       Internship: '0',
       Volunteer: '0',
       Freelance: '0'
