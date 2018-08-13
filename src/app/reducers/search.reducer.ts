@@ -7,6 +7,40 @@ export const SearchReducer: ActionReducer<any> = (state, {payload, type}: Action
 
   switch (type) {
 
+    /* search wiki profiles reducers */
+    case SearchActions.SEARCH_WIKI_PROFILES:
+      return Object.assign({}, state, {
+        searching_wiki_profiles: true,
+        search_wiki_profiles_params: payload,
+        search_wiki_profiles_success: false
+      });
+
+    case SearchActions.SEARCH_WIKI_PROFILES_SUCCESS:
+      // // update state for pagination
+      let wiki_profiles_data;
+      if (state.search_wiki_profiles_params && state.search_wiki_profiles_params.searchText) {
+        wiki_profiles_data = payload.wikiResponse;
+      } else {
+        wiki_profiles_data = [...state.search_wiki_profiles_data.wikiResponse, ...payload.wikiResponse];
+      }
+      return Object.assign({}, state, {
+        searching_wiki_profiles: false,
+        search_wiki_profiles_data: {
+          scrollId: payload.scrollId,
+          total: payload.total,
+          wikiResponse: wiki_profiles_data
+        },
+        // search_wiki_profiles_data: payload,
+        search_wiki_profiles_success: true
+      });
+
+    case SearchActions.SEARCH_WIKI_PROFILES_FAILED:
+      return Object.assign({}, state, {
+        searching_wiki_profiles: false,
+        search_wiki_profiles_success: false
+      });
+    /* search wiki profiles reducers */
+
     /* search all reducers */
     case SearchActions.SEARCH_ALL:
       return Object.assign({}, state, {
