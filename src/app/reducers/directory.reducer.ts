@@ -1,7 +1,6 @@
 import { ActionReducer, Action } from '@ngrx/store';
 import { DirectoryActions } from '../actions/directory.action';
 
-
 export const DirectoryReducer: ActionReducer<any> = (state, {payload, type}: Action) =>  {
 
     switch (type) {
@@ -28,6 +27,26 @@ export const DirectoryReducer: ActionReducer<any> = (state, {payload, type}: Act
                 dir_list_loading: false,
                 dir_list_loaded: true,
                 dir_list: dir_lists,
+            });
+
+        case DirectoryActions.GET_PROFILE:
+            return Object.assign({}, state, {
+                getDirectoryProfile: true,
+                getDirectoryProfileSuccess: false,
+                getDirectoryProfileParams: payload
+            });
+
+        case DirectoryActions.GET_PROFILE_SUCCESS:
+            return Object.assign({}, state, {
+                getDirectoryProfile: false,
+                getDirectoryProfileSuccess: true,
+                getDirectoryProfileData: payload['SUCCESS']
+            });
+
+        case DirectoryActions.GET_PROFILE_FAILED:
+            return Object.assign({}, state, {
+                getDirectoryProfile: false,
+                getDirectoryProfileSuccess: false
             });
 
         default:

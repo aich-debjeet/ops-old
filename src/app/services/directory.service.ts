@@ -15,4 +15,11 @@ export class DirectoryService {
         return this.api.put('/portal/directory', body);
     }
 
+    /**
+     * Get directory profile
+     */
+    getProfile(profileId: string) {
+        return this.api.get('/portal/import/get/wikiData/' + profileId);
+    }
+
 }

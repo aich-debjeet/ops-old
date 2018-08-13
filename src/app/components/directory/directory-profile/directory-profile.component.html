@@ -1,25 +1,21 @@
-<div class="c-timeline__img" style="background-image: url('https://ops-v2-2.netlify.com/assets/demo/new/s03.jpg')">
-  <div class="container">
-    <span class="c-timeline__imgchange">
-      <a href="javascript:void(0)" data-toggle="modal" data-target="#cover-upload">
-        <div class="c-timeline__changecover">
-          <img src="assets/svg/edit_red.svg" class="c-timeline__icon"> Change cover
-        </div>
-      </a>
-    </span>
-  </div>
-  <div class="c-timeline__gradient">
-  </div>
-</div>
+<div class="c-timeline__img" style="background-image: url('https://ops-v2-2.netlify.com/assets/demo/new/s03.jpg')"></div>
 
 <section class="o-dir-prof-container">
-  <div class="container">
+
+  <!-- prelaoder -->
+  <div *ngIf="showPreloader">
+    <div class="sticky">
+      <div class="loader">Loading...</div>
+    </div>
+  </div>
+  <!-- prelaoder -->
+  <div *ngIf="!showPreloader" class="container">
     <div class="col-12 col-sm-3 col-md-3 col-lg-3 col-xl-3">
       <div class="c-profile__userblock o-dir-prof__img">
-        <img src="https://ops-v2-2.netlify.com/assets/demo/new/avatar.png" class="img-responsive img-circle c-profile__userimg">
+        <img src="{{ profileDetails?.image }}" class="img-responsive img-circle c-profile__userimg">
       </div>
       <div class="o-dir-prof__user-info">
-        <h3 class="f-w_500">Zane Lowe</h3>
+        <h3 class="f-w_500">{{ profileDetails?.name }}</h3>
         <div class="c-text_sm color-grey-dark">Unofficial Profile</div>
         <div class="c-text_md color-grey-dark m-t-24 o-dir-prof__title">Born</div>
         <div class="c-text_md">
@@ -34,48 +30,7 @@
     </div>
     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
       <div class="c-text_md ltr-space o-dir-prof__main-title">Bio</div>
-      <p class="c-text_md m-b-8">
-        An actor and producer known as much for his versatility as he is for his handsome face, Golden Globe-winner Brad Pitt's most
-        widely recognized role may be Tyler Durden in Fight Club (1999). However, his portrayals of Billy Beane in Moneyball
-        (2011), and Rusty Ryan in the remake of Ocean's Eleven (2001) and its sequels, also loom large in his filmography.
-      </p>
-      <p class="c-text_md m-b-8">
-        Pitt was born William Bradley Pitt on December 18th, 1963, in Shawnee, Oklahoma, and was raised in Springfield, Missouri.
-        He is the son of Jane Etta (Hillhouse), a school counselor, and William Alvin Pitt, a truck company manager. He has
-        a younger brother, Douglas (Doug) Pitt, and a younger sister, Julie Neal Pitt. At Kickapoo High School, Pitt was
-        involved in sports, debating, student government and school musicals. Pitt attended the University of Missouri, where
-        he majored in journalism with a focus on advertising. He occasionally acted in fraternity shows. He left college
-        two credits short of graduating to move to California. Before he became successful at acting, Pitt supported himself
-        by driving strippers in limos, moving refrigerators and dressing as a giant chicken while working for "el Pollo Loco".
-      </p>
-      <p class="c-text_md m-b-8">
-        Pitt's earliest credited roles were in television, starting on the daytime soap opera Another World (1964) before appearing
-        in the recurring role of Randy on the legendary prime time soap opera Dallas (1978). Following a string of guest
-        appearances on various television series through the 1980s, Pitt gained widespread attention with a small part in
-        Thelma & Louise (1991), in which he played a sexy criminal who romanced and conned Geena Davis. This lead to starring
-        roles in badly received films such as Johnny Suede (1991) and Cool World (1992).
-      </p>
-      <p class="c-text_md m-b-8">
-        But Pitt's career hit an upswing with his casting in A River Runs Through It (1992), which cemented his status as an multi-layered
-        actor as opposed to just a pretty face. Pitt's subsequent projects were as quirky and varied in tone as his performances,
-        ranging from his unforgettably comic cameo as stoner roommate Floyd in True Romance (1993) to romantic roles in such
-        visually lavish films as Interview with the Vampire: The Vampire Chronicles (1994) and Legends of the Fall (1994),
-        to an emotionally tortured detective in the horror-thriller Se7en (1995). His portrayal of frenetic oddball Jeffrey
-        Goines in Twelve Monkeys (1995) won him a Globe for Best Performance by an Actor in a Supporting Role.
-      </p>
-      <p class="c-text_md m-b-8">
-        Pitt's portrayal of Achilles in the big-budget period drama Troy (2004) helped establish his appeal as action star and was
-        closely followed by a co-starring role in the stylish spy-versus-spy flick Mr. & Mrs. Smith (2005). It was on the
-        set of Mr. & Mrs. Smith that Pitt, who married Jennifer Aniston in a highly publicized ceremony in 2000, met his
-        current partner Angelina Jolie. Pitt left Aniston for Jolie in 2005, a break-up that continues to fuel tabloid stories
-        years after its occurrence.
-      </p>
-      <p class="c-text_md m-b-8">
-        He continues to wildly vary his film choices, appearing in everything from high-concept popcorn flicks such as Megamind (2010)
-        to adventurous critic-bait like Inglourious Basterds (2009) and The Tree of Life (2011). He has received two Best
-        Actor Oscar nominations, for The Curious Case of Benjamin Button (2008) and Moneyball (2011). In 2014, he starred
-        in the war film Fury (2014), opposite Shia LaBeouf, Logan Lerman, Jon Bernthal, and Michael PeÃ±a.
-      </p>
+      <div class="c-text_md" [innerHtml]="profileDetails?.content | newLine | safeHtml"></div>
     </div>
     <div class="col-12 col-sm-3 col-md-3 col-lg-3 col-xl-3">
       <div class="o-related-news">
