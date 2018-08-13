@@ -114,6 +114,8 @@ import { MediaComponent } from './components/media/media.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { TermsComponent } from './components/terms/terms.component';
 import { AboutComponent } from './components/about/about.component';
+import { DirectoryEffect } from './effects/directory.effect';
+import { DirectoryService } from './services/directory.service';
 
 @NgModule({
   declarations: [
@@ -179,6 +181,7 @@ import { AboutComponent } from './components/about/about.component';
     EffectsModule.run(ExploreEffect),
     EffectsModule.run(ClaimProfileEffect),
     EffectsModule.run(CommunitiesEffect),
+    EffectsModule.run(DirectoryEffect),
     // Video
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     VgCoreModule,
@@ -215,7 +218,8 @@ import { AboutComponent } from './components/about/about.component';
     ExploreService,
     ClaimProfileService,
     FileService,
-    CommunitiesService
+    CommunitiesService,
+    DirectoryService
   ],
   bootstrap: [AppComponent]
 })
