@@ -1,0 +1,7 @@
+export class DirectoryActions {
+
+    static LOAD_DIRECTORY = 'LOAD_DIRECTORY';
+    static LOAD_DIRECTORY_SUCCESS = 'LOAD_DIRECTORY_SUCCESS';
+    static LOAD_DIRECTORY_FAILED = 'LOAD_DIRECTORY_FAILED';
+
+}
