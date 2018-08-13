@@ -1774,7 +1774,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
     const profile_post_List = state.user_posts.find(t => t.id === payload.postId);
     const profile_list_index = state.user_posts.indexOf(profile_post_List);
-      console.log(payload);
+
     if (home_post_List) {
       return Object.assign({}, state, {
         user_following_posts: [
