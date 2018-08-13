@@ -636,7 +636,7 @@ export class ProfileService {
 
   trendingPost() {
     const body = {
-      limit: 1
+      limit: 2
     }
     return this.api.post(`/portal/cdn/media/search`, body);
   }

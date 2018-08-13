@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { initialMedia, Media } from '../../models/media.model';
 import { environment } from './../../../environments/environment';
 import { MediaActions } from '../../actions/media.action';
@@ -29,7 +30,6 @@ export class CommentComponent implements OnInit {
   @Output() updateComment: EventEmitter<any> = new EventEmitter<any>();
   imageLink: string = environment.API_IMAGE;
   comment_post_loading: boolean = false;
-  moreComment: boolean = true
 
   constructor(
     private store: Store<Media>
@@ -53,7 +53,6 @@ export class CommentComponent implements OnInit {
    * Load Comments
    */
   loadMedia() {
-    this.moreComment = false;
     const send = {
       'media_id': this.mediaId,
       'commentType': this.mediaType
@@ -62,15 +61,16 @@ export class CommentComponent implements OnInit {
     return
   }
 
+
   /**
    * Submit Comment
    */
-  keyDownFunction(mediaId: string) {
-    if (this.messageText.trim().length !== 0) {
+  postComment(form: NgForm) {
+    if (form.value.comment.trim().length !== 0) {
       const send = {
-        'content': this.messageText,
+        'content': form.value.comment,
         'commentType': this.mediaType,
-        'parent': mediaId
+        'parent': this.mediaId
       }
       this.store.dispatch({ type: MediaActions.POST_COMMENT, payload: send});
       this.submitComment.emit();
@@ -79,9 +79,9 @@ export class CommentComponent implements OnInit {
         .subscribe( data => {
           this.addNewComment(data['current_comment']);
         });
-      this.messageText = '';
+      form.reset();
       return
-    }
+     }
   }
 
   addNewComment(comment) {
