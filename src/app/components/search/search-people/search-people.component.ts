@@ -29,7 +29,7 @@ export class SearchPeopleComponent implements OnInit {
   baseUrl: string;
   showPreloader = true;
 
-  artists: any[];
+  people: any[];
 
   /* scroll */
   canScroll = true;
@@ -64,7 +64,7 @@ export class SearchPeopleComponent implements OnInit {
       // console.log('this.searchState', this.searchState);
       if (state) {
         if (typeof state['search_people_data'] !== 'undefined' && state['search_people_data']['profileResponse']) {
-          this.artists = state['search_people_data']['profileResponse'];
+          this.people = state['search_people_data']['profileResponse'];
         }
         // hide preloader
         if (typeof state['searching_people'] !== 'undefined'
