@@ -197,104 +197,104 @@ export class AboutBioComponent implements OnInit, OnDestroy {
   updateAbout(fieldName: string) {
     let reqBody;
     // for about update
-    if (fieldName === 'aboutMe' && this.aboutMe.length > 0) {
-      reqBody = {
+    if (fieldName === 'aboutMe') {
+       reqBody = {
         extras: {
           aboutMe: ''
         }
       };
-      reqBody.extras.aboutMe = this.aboutMe.trim();
+      if(this.aboutMe.length <= 0){
+        reqBody.extras.aboutMe = '';
+      } else {
+        reqBody.extras.aboutMe = this.aboutMe.trim();
+      }
     }
-    if (fieldName === 'dob' && this.dob.length > 0){
+    if (fieldName === 'dob'){
       reqBody = {
         physical: {
           dateOfBirth: ''
         }
       };
-      const dateArr =  this.dob.split('-');
-      const day = dateArr[0];
-      const month = dateArr[1];
-      const year = dateArr[2];
-
-      // check for valid day number
-      if (parseInt(day, 10) > 31) {
+      if(this.dob.length <= 0){
         this.invalidDOB = true;
-         return
-        //  { invalidDOB: true };
+        return;
+      } else {
+          const dateArr =  this.dob.split('-');
+          const day = dateArr[0];
+          const month = dateArr[1];
+          const year = dateArr[2];
+
+          // check for valid day number
+          if (parseInt(day, 10) > 31) {
+            this.invalidDOB = true;
+            return
+            //  { invalidDOB: true };
+          }
+
+        // check for valid month number
+        if (parseInt(month, 10) > 12) {
+          this.invalidDOB = true;
+          return
+        }
+
+        // check if year is not greater that current
+        if (new Date().getUTCFullYear() < year) {
+          this.invalidDOB = true;
+          return
+        }
+
+        const birthDate = new Date(year, month, day);
+        const age = this.calculateAge(birthDate);
+
+        if (age <= 13) {
+          this.isUnderAge = true;
+          return
+        } else if (age >= 100) {
+          this.isOverAge = true;
+          return
+        }
+
+        reqBody.physical.dateOfBirth = this.reverseDate(this.dob) + 'T05:00:00';
       }
-
-    // check for valid month number
-    if (parseInt(month, 10) > 12) {
-      this.invalidDOB = true;
-      return
-    }
-
-    // check if year is not greater that current
-    if (new Date().getUTCFullYear() < year) {
-      this.invalidDOB = true;
-      return
-    }
-
-    const birthDate = new Date(year, month, day);
-    const age = this.calculateAge(birthDate);
-
-    if (age <= 13) {
-      this.isUnderAge = true;
-      return
-    } else if (age >= 100) {
-      this.isOverAge = true;
-      return
-    }
-
-    reqBody.physical.dateOfBirth = this.reverseDate(this.dob) + 'T05:00:00';
-    
     // return null;
     }
-    if (fieldName === 'height' && this.height.length > 0) {
-      // reqBody = {
-      //   physical: {
-      //     height: ''
-      //   }
-      // };
-      // reqBody.physical.height = parseFloat(this.height);
-      if(isNaN(this.height)){
-        this.validHeight =true;
-        return false;
+    if (fieldName === 'height') {
+      reqBody = {
+        physical: {
+          height: ''
+        }
+      };
+      if(this.height.length <= 0){
+        reqBody.physical.height = 0.0;
       } else {
-        this.validHeight = false;
-        reqBody = {
-              physical: {
-                height: ''
-            }
-          };
-        reqBody.physical.height = parseFloat(this.height);
+        if(isNaN(this.height)){
+          this.validHeight =true;
+          return;
+        } else {
+          this.validHeight = false;
+          reqBody.physical.height = parseFloat(this.height);
+        }
       }      
     }
-    if (fieldName === 'weight' && this.weight.length > 0) {
-      // if (this.ischar) {
-      //   return false;
-      // } else {
-      //   reqBody = {
-      //     physical: {
-      //     weight: ''
-      //   }
-      // };
-      //   reqBody.physical.weight = parseFloat(this.weight);
-      // }     
-      if(isNaN(this.weight)){
-        this.validWeight =true;
-        return false;
+    if (fieldName === 'weight') {
+      reqBody = {
+        physical: {
+          weight: ''
+        }
+      };
+      if(this.weight.length <= 0){
+        reqBody.physical.weight = 0.0;        
       } else {
-        this.validWeight = false;
-        reqBody = {
-              physical: {
-              weight: ''
-            }
-          };
-        reqBody.physical.weight = parseFloat(this.weight);
+        if(isNaN(this.weight)){
+          this.validWeight =true;
+          return false;
+        } else {
+          this.validWeight = false;
+          reqBody.physical.weight = parseFloat(this.weight);
+        }
       }
     }
-    if (fieldName === 'language' && this.lang.length > 0) {
+    if (fieldName === 'language') {
       reqBody = {
         extras: {
           association: {
@@ -302,12 +302,16 @@ export class AboutBioComponent implements OnInit, OnDestroy {
           }
         }
       };
-      const lang = this.lang.trim() === '' ? [] : this.lang.split(',').map(function(item) {
-              return item.trim();
-            });
-      reqBody.extras.association.languages = lang;
+      if(this.lang.length <= 0){
+        reqBody.extras.association.languages = [];
+      } else{
+        const lang = this.lang.trim() === '' ? [] : this.lang.split(',').map(function(item) {
+                return item.trim();
+              });
+        reqBody.extras.association.languages = lang;
+      }
     }
-    if (fieldName === 'address' && (this.addressOne.length > 0 || this.city.length > 0 || this.country.length > 0 || this.pinCode.length > 0)) {
+    if (fieldName === 'address') {
       reqBody = {
         address: {
           city: '',
@@ -317,23 +321,27 @@ export class AboutBioComponent implements OnInit, OnDestroy {
           postalCode: '',
         }
       };
-      reqBody.address.city = this.city.charAt(0).toUpperCase().trim() + this.city.slice(1).trim() || '';
-      reqBody.address.country = this.country.trim() || '';
-      reqBody.address.line1 = this.addressOne.trim() || '';
+      reqBody.address.city = this.city?this.city.charAt(0).toUpperCase().trim() + this.city.slice(1).trim() : '';
+      reqBody.address.country = this.country?this.country.trim(): '';
+      reqBody.address.line1 = this.addressOne?this.addressOne.trim():'';
       // reqBody.address.line2 = this.addressTwo.trim() || '';
-      reqBody.address.postalCode = this.pinCode.trim() || '';
+      reqBody.address.postalCode = this.pinCode?this.pinCode.trim():'';
 
     }
 
-    if (fieldName === 'ethnicity' && this.ethnicity.length > 0) {
+    if (fieldName === 'ethnicity') {
       reqBody = {
         physical: {
           ethnicity: ''
         }
       };
-      reqBody.physical.ethnicity = this.ethnicity.trim() || '';
+      if(this.ethnicity.length <= 0){
+        reqBody.physical.ethnicity ='';
+      } else{
+         reqBody.physical.ethnicity = this.ethnicity.trim() || '';
+      }
     }
-     if (fieldName === 'skills') {
+    if (fieldName === 'skills') {
       reqBody = {
         profileTypeList: ''
       };
@@ -344,8 +352,8 @@ export class AboutBioComponent implements OnInit, OnDestroy {
         reqBody.profileTypeList = '';
         this.findSkill.industries = [];
       }
-      
-     }
+    }
+    //  console.log(reqBody)
     this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: reqBody});
     this.toastr.success('Your profile has been updated successfully!');
     this.cancelEdit();
