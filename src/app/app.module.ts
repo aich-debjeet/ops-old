@@ -8,6 +8,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TextMaskModule } from 'angular2-text-mask';
+import { NgxMyDatePickerModule } from 'ngx-mydatepicker';
 // import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
 // External Service
@@ -116,6 +117,7 @@ import { TermsComponent } from './components/terms/terms.component';
 import { AboutComponent } from './components/about/about.component';
 import { DirectoryEffect } from './effects/directory.effect';
 import { DirectoryService } from './services/directory.service';
+import { InvitePeopleComponent } from './components/invite-people/invite-people.component';
 
 @NgModule({
   declarations: [
@@ -143,6 +145,7 @@ import { DirectoryService } from './services/directory.service';
     PrivacyPolicyComponent,
     TermsComponent,
     AboutComponent,
+    InvitePeopleComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ops-app'}),
@@ -159,6 +162,7 @@ import { DirectoryService } from './services/directory.service';
     TextMaskModule,
     StoreModule.provideStore(reducer),
     RouterModule.forRoot(routes),
+    NgxMyDatePickerModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 1000,
       preventDuplicates: true,

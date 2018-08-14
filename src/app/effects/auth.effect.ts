@@ -17,6 +17,16 @@ import { AuthActions } from '../actions/auth.action';
 
 @Injectable()
 export class AuthEffect {
+
+  @Effect()
+  sendInvitation$ = this.actions$
+    .ofType(AuthActions.SEND_INVITATION)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.sendInvitation(payload)
+      .map(res => ({ type: AuthActions.SEND_INVITATION_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.SEND_INVITATION_FAILED, payload: res }))
+    );
+
   @Effect()
   signupSkillSearch$ = this.actions$
     .ofType(AuthActions.SIGNUP_SEARCH_SKILL)
