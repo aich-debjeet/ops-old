@@ -19,15 +19,14 @@ export const SearchReducer: ActionReducer<any> = (state, {payload, type}: Action
       // // update state for pagination
       let wiki_profiles_data;
       if (state.search_wiki_profiles_params && state.search_wiki_profiles_params.searchText) {
-        wiki_profiles_data = payload.wikiResponse;
+        wiki_profiles_data = payload.SUCCESS.wikiResponse;
       } else {
-        wiki_profiles_data = [...state.search_wiki_profiles_data.wikiResponse, ...payload.wikiResponse];
+        wiki_profiles_data = [...state.search_wiki_profiles_data.wikiResponse, ...payload.SUCCESS.wikiResponse];
       }
       return Object.assign({}, state, {
         searching_wiki_profiles: false,
         search_wiki_profiles_data: {
-          scrollId: payload.scrollId,
-          total: payload.total,
+          scrollId: payload.SUCCESS.scrollId,
           wikiResponse: wiki_profiles_data
         },
         // search_wiki_profiles_data: payload,

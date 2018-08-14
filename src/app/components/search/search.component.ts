@@ -63,6 +63,8 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   globalFilter: any;
   selectedProfileFilters: any;
 
+  profileTypeSearch = 'registered';
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -335,15 +337,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
               // making a dispatch depending on the search type
               if (this.searchType === 'people') {
-                const searchPeopleParams = {
-                  isHuman: '1',
-                  status: ['active'],
-                  offset: 0,
-                  limit: this.recordsPerPage,
-                  searchText: this.searchString
-                }
-                this.isSearching = true;
-                this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchPeopleParams });
+                this.loadPepoleProfiles();
               } else if (this.searchType === 'channel') {
                 const searchChannelParams = {
                   offset: 0,
@@ -405,6 +399,10 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       if (this.searchString.length === 0) {
         // trigger search get request
         this.searchGetRequest({});
+
+        if (this.profileTypeSearch === 'unregistered') {
+          this.loadWikiProfiles();
+        }
       }
 
       // preparing get query params for the search get request
@@ -473,6 +471,36 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       state: e.state
     };
     this.profileStore.dispatch({ type: ProfileActions.CHANNEL_FOLLOW, payload: req });
+  }
+
+  profileTypeSwitch(pType: string) {
+    this.profileTypeSearch = pType;
+    if (this.profileTypeSearch === 'unregistered') {
+      this.loadWikiProfiles();
+    } else {
+      this.loadPepoleProfiles();
+    }
+  }
+
+  loadPepoleProfiles() {
+    const searchPeopleParams = {
+      isHuman: '1',
+      status: ['active'],
+      offset: 0,
+      limit: this.recordsPerPage,
+      searchText: this.searchString
+    }
+    this.isSearching = true;
+    this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchPeopleParams });
+  }
+
+  loadWikiProfiles() {
+    const reqBody = {
+      scrollId: '',
+      limit: this.recordsPerPage,
+      searchText: this.searchString
+    };
+    this.store.dispatch({ type: SearchActions.SEARCH_WIKI_PROFILES, payload: reqBody });
   }
 
 }
