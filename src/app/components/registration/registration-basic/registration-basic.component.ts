@@ -419,7 +419,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
           name: 'Artist',
           typeName: 'individual'
         }],
-        dateOfBirth: this.reverseDate(value.dob) + 'T05:00:00',
+        dateOfBirth: this.reverseDate(value.dob.formatted) + 'T05:00:00',
       }
     };
     this.uploadingFormData = true;
