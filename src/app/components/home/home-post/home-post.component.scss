@@ -299,6 +299,9 @@ a {
 
 .c-mediamodal__input {
     padding: 4px 0 0 16px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        margin-left: 5px;
+    }
 }
 
 .m-b-0 {

@@ -277,7 +277,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
           }
         ]
       }
-      // console.log(data)
+       console.log(data)
     }
     this.store.dispatch({ type: EventActions.EVENT_SEARCH, payload: data });
   }
@@ -296,7 +296,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
       if (date === this.weekend) {
         let startDate = date.split('T');
         this.filterStartDate = startDate[0] + 'T00:00:00.001';
-        let x = moment(date).add('days', 6).format();
+        let x = moment(date).add('days', 1).format();
         let endDate = x.split('T');
         this.filterEndDate = endDate[0] + 'T23:59:59.000';
         this.serachApi();

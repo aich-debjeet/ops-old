@@ -22,6 +22,7 @@ export class DirectoryProfileComponent implements OnInit, OnDestroy {
   dirSub: ISubscription;
   profileDetails: any;
   // profileFound: boolean;
+  defaultImage = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
 
   constructor(
     private dirStore: Store<DirectoryModel>,
