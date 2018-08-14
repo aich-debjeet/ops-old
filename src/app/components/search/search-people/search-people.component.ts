@@ -1,17 +1,9 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-
 import { SearchActions } from './../../../actions/search.action';
 import { SearchModel } from './../../../models/search.model';
-
 import { ProfileActions } from './../../../actions/profile.action';
-import { ProfileModal } from './../../../models/profile.model';
-
 import { environment } from './../../../../environments/environment.prod';
-
-// rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-
 import { Store } from '@ngrx/store';
 
 @Component({
