@@ -29,6 +29,14 @@ export class SearchService {
   }
 
   /**
+   * Get wiki profiles by search query
+   * @param search query
+   */
+  getWikiProfiles(params: any) {
+    return this.api.put('/portal/import/search/wikiData', params);
+  }
+
+  /**
    * Get search result
    * @param search request params
    */

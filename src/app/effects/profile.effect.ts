@@ -835,17 +835,17 @@ export class ProfileEffect {
   /**
    *  Load my Directory
    */
-  @Effect()
-  directory$ = this.actions$
-    .ofType(ProfileActions.LOAD_DIRECTORY)
-    .map(toPayload)
-    .switchMap((payload) => this.profileService.loadDirectory(payload)
-      .map(res => ({ type: ProfileActions.LOAD_DIRECTORY_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({
-        type: ProfileActions.LOAD_DIRECTORY_FAILED,
-        payload: { errorStatus: res.status }
-      }))
-    );
+  // @Effect()
+  // directory$ = this.actions$
+  //   .ofType(ProfileActions.LOAD_DIRECTORY)
+  //   .map(toPayload)
+  //   .switchMap((payload) => this.profileService.loadDirectory(payload)
+  //     .map(res => ({ type: ProfileActions.LOAD_DIRECTORY_SUCCESS, payload: res }))
+  //     .catch((res) => Observable.of({
+  //       type: ProfileActions.LOAD_DIRECTORY_FAILED,
+  //       payload: { errorStatus: res.status }
+  //     }))
+  //   );
 
   /**
    * Get List of Block Users

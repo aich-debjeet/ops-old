@@ -398,9 +398,9 @@ export class ProfileActions {
 
 
   // [TEMP into move other directory] Load directory
-  static LOAD_DIRECTORY = 'LOAD_DIRECTORY';
-  static LOAD_DIRECTORY_SUCCESS = 'LOAD_DIRECTORY_SUCCESS';
-  static LOAD_DIRECTORY_FAILED = 'LOAD_DIRECTORY_FAILED';
+  // static LOAD_DIRECTORY = 'LOAD_DIRECTORY';
+  // static LOAD_DIRECTORY_SUCCESS = 'LOAD_DIRECTORY_SUCCESS';
+  // static LOAD_DIRECTORY_FAILED = 'LOAD_DIRECTORY_FAILED';
 
   // Get list of block users
   static LOAD_BLOCK_USERS = 'LOAD_BLOCK_USERS';

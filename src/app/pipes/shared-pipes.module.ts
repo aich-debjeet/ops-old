@@ -6,6 +6,8 @@ import { SearchUniquePipe } from './uniquesearch.pipe';
 import { StringReplacePipe } from './string-replace.pipe';
 import { FirstCharCapsPipe } from './first-char-caps.pipe';
 import { ChannelFilterPipe } from './channel-filter.pipe';
+import { NewLinePipe } from './new-line.pipe';
+import { SafeHtmlPipe } from './safehtml.pipe';
 
 @NgModule({
   imports: [ CommonModule ],
@@ -14,14 +16,18 @@ import { ChannelFilterPipe } from './channel-filter.pipe';
     SearchUniquePipe,
     StringReplacePipe,
     FirstCharCapsPipe,
-    ChannelFilterPipe
+    ChannelFilterPipe,
+    NewLinePipe,
+    SafeHtmlPipe
   ],
   exports: [
     TruncatePipe,
     SearchUniquePipe,
     StringReplacePipe,
     FirstCharCapsPipe,
-    ChannelFilterPipe
+    ChannelFilterPipe,
+    NewLinePipe,
+    SafeHtmlPipe
   ]
 })
 
