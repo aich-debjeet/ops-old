@@ -16,6 +16,16 @@ import { EventService } from '../services/event.service';
 export class SearchEffect {
 
   @Effect()
+  getWikiProfiles$ = this.actions$
+    .ofType(SearchActions.SEARCH_WIKI_PROFILES)
+    .debounceTime(500)
+    .map(toPayload)
+    .switchMap((payload) => this.apiService.getWikiProfiles(payload)
+      .map(res => ({ type: SearchActions.SEARCH_WIKI_PROFILES_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: SearchActions.SEARCH_WIKI_PROFILES_FAILED, payload: res }))
+    );
+
+  @Effect()
   allSearch$ = this.actions$
     .ofType(SearchActions.SEARCH_ALL)
     .debounceTime(500)

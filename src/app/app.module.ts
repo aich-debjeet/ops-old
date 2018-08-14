@@ -102,7 +102,6 @@ import { StatusListComponent } from './components/status-list/status-list.compon
 import { PlannerComponent } from './components/planner/planner.component';
 import { NetworkComponent } from './components/network/network.component';
 import { ProjectComponent } from './components/project/project.component';
-import { DirectoryListComponent } from './components/directory-list/directory-list.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { SpotfeedComponent } from './components/spotfeed/spotfeed.component';
 import { SpotfeedPremiumComponent } from './components/spotfeed-premium/spotfeed-premium.component';
@@ -116,6 +115,8 @@ import { MediaComponent } from './components/media/media.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { TermsComponent } from './components/terms/terms.component';
 import { AboutComponent } from './components/about/about.component';
+import { DirectoryEffect } from './effects/directory.effect';
+import { DirectoryService } from './services/directory.service';
 
 @NgModule({
   declarations: [
@@ -140,7 +141,6 @@ import { AboutComponent } from './components/about/about.component';
     PlannerComponent,
     NetworkComponent,
     ProjectComponent,
-    DirectoryListComponent,
     PrivacyPolicyComponent,
     TermsComponent,
     AboutComponent,
@@ -183,6 +183,7 @@ import { AboutComponent } from './components/about/about.component';
     EffectsModule.run(ExploreEffect),
     EffectsModule.run(ClaimProfileEffect),
     EffectsModule.run(CommunitiesEffect),
+    EffectsModule.run(DirectoryEffect),
     // Video
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     VgCoreModule,
@@ -219,7 +220,8 @@ import { AboutComponent } from './components/about/about.component';
     ExploreService,
     ClaimProfileService,
     FileService,
-    CommunitiesService
+    CommunitiesService,
+    DirectoryService
   ],
   bootstrap: [AppComponent]
 })
