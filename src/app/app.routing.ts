@@ -24,6 +24,7 @@ import { AboutComponent } from './components/about/about.component';
 // Guard
 import { AuthGuard } from './guard/auth.guard';
 import { AuthlogoutGuard } from './guard/authlogout.guard';
+import { InvitePeopleComponent } from './components/invite-people/invite-people.component';
 
 export const routes: Routes = [
  { path: '', component: LogoutHomeComponent, canActivate: [AuthlogoutGuard] },
@@ -58,6 +59,7 @@ export const routes: Routes = [
  { path: 'org', loadChildren: './components/organization/organization.module#OrganizationModule'},
  { path: 'opportunity', loadChildren: './components/opportunity/opportunity.module#OpportunityModule', canActivate: [AuthGuard] },
  { path: 'directory', loadChildren: './components/directory/directory.module#DirectoryModule', canActivate: [AuthGuard] },
+ { path: 'invite', component: InvitePeopleComponent },
  { path: 'page-not-found', component: NotFoundPageComponent },
  { path: '**', redirectTo: 'page-not-found' },
 ];

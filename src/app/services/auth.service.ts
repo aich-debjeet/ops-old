@@ -38,6 +38,10 @@ export class AuthService {
       this.headers = this.api.getHeaders();
     }
 
+    sendInvitation(reqBody: any) {
+      return this.api.post('/portal/auth/inviteByEmail', reqBody);
+    }
+
     /**
      * search skill for signup step 2
      */
