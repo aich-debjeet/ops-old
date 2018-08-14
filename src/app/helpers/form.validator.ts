@@ -154,10 +154,11 @@ export class DatabaseValidator {
             // return resolve(null);
             // }
 
+            const today = moment();
             const dateArr =  control.value.split('-');
 
-            const day = dateArr[0];
-            const month = dateArr[1];
+            const month = dateArr[0];
+            const day = dateArr[1];
             const year = dateArr[2];
 
             // check for valid day number
@@ -179,7 +180,10 @@ export class DatabaseValidator {
              if (this.fromDate > toDate) {
                 resolve({ 'isvalid': true });
              }
-
+             if(moment(control.value).format('YYYYMMDD') > moment(today).format('YYYYMMDD')){
+                //  console.log('here')
+                resolve({ 'invalidWorkDate': true });
+             }
             // const age = this.calculateAge(birthDate);
 
             // if (age <= 13) {
@@ -201,12 +205,12 @@ export class DatabaseValidator {
             // return resolve(null);
             // }
             const today = moment();
-            // console.log(moment(today).format('YYYYMMDD'))
+             console.log(moment(today).format('YYYYMMDD'))
             const dateArr =  control.value.split('-');
             // console.log(dateArr)
 
-            const day = dateArr[0];
-            const month = dateArr[1];
+            const month = dateArr[0];
+            const day = dateArr[1];
             const year = dateArr[2];
 
             // check for valid day number
@@ -225,10 +229,10 @@ export class DatabaseValidator {
             }
 
              this.fromDate = new Date(year, month, day);
-             
-            //  console.log(this.fromDate)
+             console.log(control.value)
+             console.log(moment(control.value).format('YYYYMMDD'))
              if(moment(control.value).format('YYYYMMDD') > moment(today).format('YYYYMMDD')){
-                //  console.log('here')
+                  console.log('here')
                 resolve({ 'invalidWorkDate': true });
              }
             // const age = this.calculateAge(birthDate);
