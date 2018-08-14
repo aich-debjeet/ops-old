@@ -1,26 +1,17 @@
 import { Component, OnInit, OnDestroy, NgZone, ViewChild, ElementRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { NguCarousel } from '@ngu/carousel';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { UtcDatePipe } from './../../../pipes/utcdate.pipe';
-import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
 import { environment } from '../../../../environments/environment';
 import {IDatePickerConfig} from 'ng2-date-picker';
-import {DatePickerComponent} from 'ng2-date-picker';
-
-// Model
-import { EventModal, initialTagEve  } from '../../../models/event.model';
-
-// action
+import { EventModal  } from '../../../models/event.model';
 import { EventActions } from '../../../actions/event.action';
-
-// rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription, ISubscription } from 'rxjs/Subscription';
+import { ISubscription } from 'rxjs/Subscription';
 
-import { AgmCoreModule, MapsAPILoader } from '@agm/core';
+import { MapsAPILoader } from '@agm/core';
 import {} from '@types/googlemaps';
 import { TruncatePipe } from 'app/pipes/truncate.pipe';
 
@@ -65,9 +56,9 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   state: string;
   postalCode: string;
   city: string;
-  event_loading: boolean = true;
+  event_loading = true;
   scrollId: any;
-  locPop: boolean = false;
+  locPop = false;
   selectedDate: any;
 
   sum = 10;
@@ -76,7 +67,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   scrollingLoad = 800;
 
   dayStatus: string;
-  calendar: boolean=false;
+  calendar = false;
 
   config: IDatePickerConfig = {
     locale: 'en'
@@ -125,7 +116,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
           this.filterEndDate = '';
           this.dayStatus = '';
         }
-        if (!params['status']){
+        if (!params['status']) {
           this.filterStatus = 'recommended';
           this.filterEventType = '';
           this.filterLocation = '';
@@ -204,13 +195,15 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   }
 
 
-  calendarPop(){
+  calendarPop() {
     // console.log('calendar')
-    if(!this.calendar){
+    if (!this.calendar) {
       this.calendar = true;
-    } else this.calendar = false;  
+    } else {
+      this.calendar = false;
+    }
   }
-  
+
   serachApi() {
     // const data = {
     //   startDate: this.filterStartDate || '',
@@ -223,64 +216,64 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
     //   limit: 50,
     // }
     let data;
-    if(this.filterEventType === '' && (this.filterStartDate === '' && this.filterEndDate === '')){
+    if (this.filterEventType === '' && (this.filterStartDate === '' && this.filterEndDate === '')) {
        data = {
         scrollId: '',
         searchType: this.filterStatus,
-        searchText:this.filterLocation || '',
-        filtersMap:[]
+        searchText: this.filterLocation || '',
+        filtersMap: []
       }
       // console.log(data)
     }
-    if (this.filterEventType !== ''  && (this.filterStartDate === '' && this.filterEndDate === '')){
+    if (this.filterEventType !== ''  && (this.filterStartDate === '' && this.filterEndDate === '')) {
        data = {
         scrollId: '',
         searchType: this.filterStatus,
-        searchText:this.filterLocation || '',
-        filtersMap:[
+        searchText: this.filterLocation || '',
+        filtersMap: [
           {
-            'key': 'EVENT_TYPE',
-		        'value': this.filterEventType.name
+            key: 'EVENT_TYPE',
+            value: this.filterEventType.name
           }
         ]
       }
       // console.log(data)
     }
-    if (this.filterEventType === '' && (this.filterStartDate !== '' && this.filterEndDate !== '')){
+    if (this.filterEventType === '' && (this.filterStartDate !== '' && this.filterEndDate !== '')) {
       data = {
         scrollId: '',
         searchType: this.filterStatus,
-        searchText:this.filterLocation || '',
-        filtersMap:[
+        searchText: this.filterLocation || '',
+        filtersMap: [
           {
-            'key': 'START_DATE',
-		        'value': this.filterStartDate
+            key: 'START_DATE',
+            value: this.filterStartDate + 'Z'
           },
           {
-            'key': 'END_DATE',
-		        'value': this.filterEndDate
+            key: 'END_DATE',
+            value: this.filterEndDate + 'Z'
           }
         ]
       }
       // console.log(data)
     }
-    if (this.filterEventType !== '' && (this.filterStartDate !== '' && this.filterEndDate !== '')){
+    if (this.filterEventType !== '' && (this.filterStartDate !== '' && this.filterEndDate !== '')) {
       data = {
         scrollId: '',
         searchType: this.filterStatus,
-        searchText:this.filterLocation || '',
-        filtersMap:[
+        searchText: this.filterLocation || '',
+        filtersMap: [
           {
-            'key': 'EVENT_TYPE',
-		        'value': this.filterEventType.name
+            key: 'EVENT_TYPE',
+            value: this.filterEventType.name
           },
           {
-            'key': 'START_DATE',
-		        'value': this.filterStartDate
+            key: 'START_DATE',
+            value: this.filterStartDate + 'Z'
           },
           {
-            'key': 'END_DATE',
-		        'value': this.filterEndDate
+            key: 'END_DATE',
+            value: this.filterEndDate + 'Z'
           }
         ]
       }
@@ -289,28 +282,28 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
     this.store.dispatch({ type: EventActions.EVENT_SEARCH, payload: data });
   }
 
-  filter(filter: any){
+  filter(filter: any) {
     this.filterEventType = filter;
-    if(this.filterEventType){
+    if (this.filterEventType) {
       this.serachApi();
     }
   }
 
-  filterDate(date: any, filterDay: string){
-    if(date){
+  filterDate(date: any, filterDay: string) {
+    if (date) {
       // console.log(filterDay)
-      this.dayStatus= filterDay;
-      if(date === this.weekend){
+      this.dayStatus = filterDay;
+      if (date === this.weekend) {
         let startDate = date.split('T');
-        this.filterStartDate = startDate[0]+"T00:00:00.001";
+        this.filterStartDate = startDate[0] + 'T00:00:00.001';
         let x = moment(date).add('days', 6).format();
         let endDate = x.split('T');
-        this.filterEndDate = endDate[0]+"T23:59:59.000";
+        this.filterEndDate = endDate[0] + 'T23:59:59.000';
         this.serachApi();
       } else {
         let d = date.split('T');
-        this.filterStartDate  = d[0]+"T00:00:00.001";
-        this.filterEndDate = d[0]+"T23:59:59.000";
+        this.filterStartDate  = d[0] + 'T00:00:00.001';
+        this.filterEndDate = d[0] + 'T23:59:59.000';
         this.serachApi();
       }
     }
@@ -326,11 +319,11 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   onDateChange(event) {
     // console.log(event)
     // console.log(event._d)
-    if(event !== undefined){
-    const d = moment(event._d).format('YYYY-MM-DD')
-    this.filterStartDate  = d+"T00:00:00.001";
-    this.filterEndDate = d+"T23:59:59.000";
-    this.serachApi();
+    if (event !== undefined) {
+      const d = moment(event._d).format('YYYY-MM-DD')
+      this.filterStartDate  = d + 'T00:00:00.001';
+      this.filterEndDate = d + 'T23:59:59.000';
+      this.serachApi();
     }
   }
 
@@ -398,7 +391,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
         this.longitude = place.geometry.location.lng();
         this.zoom = 12;
 
-        if(this.address !== '') {
+        if (this.address !== '') {
           this.filterLocation = this.address;
           this.serachApi();
         }
@@ -416,19 +409,20 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
       });
     }
   }
-  openDropbox(){
-    if(this.locPop){
+  openDropbox() {
+    if (this.locPop) {
       this.locPop = false;
       this.locForm.reset();
+    } else {
+      this.locPop = true;
     }
-    else this.locPop = true;
   }
   reset() {
     this.locForm.patchValue({
-      location:''
-  });
+      location: ''
+    });
   }
-  manualSearch(value: string){
+  manualSearch(value: string) {
     this.filterLocation = value;
     this.serachApi();
   }

@@ -226,7 +226,7 @@
                 <!-- search all -->
                 
                 <!-- search people result -->
-                <app-search-people *ngIf="searchString?.length > 0 && !isSearching && searchType === 'people'"></app-search-people>
+                <app-search-people *ngIf="searchString?.length > 0 && !isSearching && searchType === 'people'" [profileType]="profileTypeSearch" (onProfileTypeSwitch)="profileTypeSwitch($event)" ></app-search-people>
                 <!-- search people result -->
 
                 <!-- search channels result -->

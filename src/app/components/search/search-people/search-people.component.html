@@ -1,47 +1,12 @@
-<!-- <div *ngIf="artists?.length > 0" infinite-scroll (scrolled)="onScroll($event)" class="o-search-result-block m-t-16 p-b-24 m-b-50">
-    <div *ngFor="let artist of artists" class="o-search-people-single">
-        <div class="o-search-people__prof-pic">
-            <a [routerLink]="'/profile/u/' + artist?.extra?.username" class="c-artist__avatar">
-                <img *ngIf="artist.profileImage; else default_profile_image" [src]="baseUrl + artist?.profileImage">
-                <ng-template #default_profile_image>
-                    <img [src]="baseUrl + 'img/avatar.png'" class="c-artist__img">
-                </ng-template>
-            </a>
-        </div>
-        <div class="o-search-people__info">
-            <a [routerLink]="'/profile/u/' + artist?.extra?.username" class="c-artist__avatar">
-                <div class="o-search-people__name width100 c-text_lg f-w_600">{{ artist?.name | truncate:[12, '...'] }}</div>
-                <div class="o-search-people__det width100 c-text_md color-grey-dark m-b-8">@{{ artist?.extra?.username }}</div>
-            </a>
-            <div class="o-search-people__followers width100">
-                <div class="c-text_sm float_left text_uppercase ltr-space">{{ artist?.followersCount }} <span class="color-grey-dark">Followers</span></div>
-                <div class="c-text_sm float_left text_uppercase ltr-space p-l-16">{{ artist?.extra?.postCount }} <span class="color-grey-dark">Posts</span></div>
-            </div>
-            <div *ngIf="!disableFollowForSelf(artist?.extra?.username)">
-                <div *ngIf="artist?.extra?.isImported; else not_imported">
-                    <a routerLink="{{ '/profile/u/' + artist?.extra?.username }}" class="o-people-result__follow-btn o-people-result__claim-btn">CLAIM</a>
-                </div>
-                <ng-template #not_imported>
-                    <button (click)="unfollowUser(artist)" *ngIf="artist?.extra?.isFollowing" type="button" class="btn btn-xs btn-basic btn-following">UNFOLLOW</button>
-                    <button (click)="followUser(artist)" *ngIf="!artist?.extra?.isFollowing" type="button" class="btn btn-xs btn-basic btn-following">FOLLOW</button>
-                </ng-template>
-            </div>
-        </div>
-        <div class="o-search-people__post-img">
-            <div class="o-search-people-post__block" style="background: url(assets/demo/new/s05.jpg); background-size: cover;"></div>
-            <div class="o-search-people-post__block" style="background: url(assets/demo/new/s06.jpg); background-size: cover;"></div>
-            <div class="o-search-people-post__block" style="background: url(assets/demo/new/s07.jpg); background-size: cover;"></div>
-            <div class="o-search-people-post__block" style="background: url(assets/demo/new/s08.jpg); background-size: cover;"></div>
-            <div class="o-search-people-post__block" style="background: url(assets/demo/new/s09.jpg); background-size: cover;">
-                <a href="#" class="c-text_sm color-white o-search-people-post__seemore">see more</a>
-            </div>
-        </div>
-    </div>
-</div> -->
+<div class="c-text_md float_left width100 m-b-8">
+    <a *ngIf="profileType === 'registered'" (click)="toggleProfileType()" class="color-theme">See unregistered users</a>
+    <a *ngIf="profileType !== 'registered'" (click)="toggleProfileType()" class="color-theme">See registered users</a>
+</div>
 
-<div *ngIf="artists?.length > 0" infinite-scroll (scrolled)="onScroll($event)" class="o-search-result-block">
-    <div *ngFor="let artist of artists" class="col-3 c-scard-block">
-        <app-user-card-search [artist]="artist"></app-user-card-search>
+<div *ngIf="people?.length > 0" infinite-scroll (scrolled)="onScroll($event)" class="o-search-result-block m-r--8 m-l--8">
+    <div *ngFor="let person of people" class="col-3 c-scard-block">
+        <app-user-card-search *ngIf="profileType === 'registered'" [artist]="person"></app-user-card-search>
+        <app-wiki-profile-card *ngIf="profileType !== 'registered'" [profileDetails]="person"></app-wiki-profile-card>
     </div>
 </div>
 
