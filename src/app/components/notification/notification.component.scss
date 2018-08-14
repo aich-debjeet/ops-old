@@ -564,4 +564,8 @@
 
 .list-inline {
     margin-left: 0;
+    display: inline-block;
+    width: 100%;
+    clear: both;
+    padding: 18px !important;
 }
