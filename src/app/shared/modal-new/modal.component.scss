@@ -92,6 +92,12 @@
     width: 1170px;
     margin: auto;
     margin-top: 47px;
+    @include mq($from: $mobile_lg, $until: $tablet) {
+        width: 95%;
+    }
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 90%;
+    }
 }
 
 .pop-container-md{

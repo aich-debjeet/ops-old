@@ -412,6 +412,9 @@
     background: white;
     width: 406px;
     padding: 0 16px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 100%;
+    }
 }
 
 .c-post__comment__blank {
