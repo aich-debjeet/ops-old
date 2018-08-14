@@ -66,6 +66,7 @@ import { OpporunitySearchCardComponent } from './opporunity-search-card/opporuni
 import { EventSearchCardComponent } from './event-search-card/event-search-card.component';
 import { UserCardSearchComponent } from './user-card-search/user-card-search.component';
 import { ConfirmBoxComponent } from './confirm-box/confirm-box.component';
+import { WikiProfileCardComponent } from './wiki-profile-card/wiki-profile-card.component';
 
 @NgModule({
   imports: [
@@ -129,7 +130,8 @@ import { ConfirmBoxComponent } from './confirm-box/confirm-box.component';
     OpporunitySearchCardComponent,
     EventSearchCardComponent,
     UserCardSearchComponent,
-    ConfirmBoxComponent
+    ConfirmBoxComponent,
+    WikiProfileCardComponent
   ],
   exports: [
     OpportunityCardComponent,
@@ -171,7 +173,8 @@ import { ConfirmBoxComponent } from './confirm-box/confirm-box.component';
     OpporunitySearchCardComponent,
     EventSearchCardComponent,
     UserCardSearchComponent,
-    ConfirmBoxComponent
+    ConfirmBoxComponent,
+    WikiProfileCardComponent
   ]
 })
 export class SharedModule { }

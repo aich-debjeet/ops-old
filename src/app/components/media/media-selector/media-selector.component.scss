@@ -218,6 +218,7 @@
 .o-add-media__upload {
     width: 100%;
     float: left;
+    margin-bottom: 56px;
 }
 
 .o-add-media-upload__icon {
@@ -962,4 +963,12 @@ div#create-channel form {
 
 .o-channel-input {
     border: none!important;
+}
+
+.o-add-media__main-block{
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        display: flex;
+        justify-content: center;
+        flex-direction: column-reverse;
+    }
 }

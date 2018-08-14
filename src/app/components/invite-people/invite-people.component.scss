@@ -1,0 +1,138 @@
+@import './src/assets/scss/helpers/_variables.scss';
+@import '~sass-mq/_mq.scss';
+// invite css
+
+.o-invite-sec{
+	width: 100%;
+	height: 93vh;
+	background: url('https://ops-v2-2.netlify.com/assets/invite/invite_bg.jpg') no-repeat center center;
+	background-position: cover;
+}
+.o-invite-container{
+	width: 100%;
+	height: 93vh;
+	display: flex;
+	align-items:center;
+	justify-content:center
+}
+.o-invite-block{
+	width: 482px;
+	height: 416px;
+	background: #fff;
+	padding:64px;
+	display: flex;
+	justify-content:center;
+	align-items:center;
+	flex-direction:column;
+	@include mq($from: $mobile_sm, $until: $tablet){
+		width: 100%!important;
+		padding:24px;
+	}
+}
+.o-gmail__invite{
+	width:241px;
+	height: 65px;
+	border: 1px solid #F3F5F7;
+	border-radius: 3px;
+	background-color: #FFFFFF;
+	box-shadow: 0 0 4px 0 rgba(51,51,51,0.19);
+	margin-top: 40px;
+	padding:20px;
+	&:focus{
+		outline: none;
+	}
+}
+.o-gmail__icon{
+	width: 40px;
+	height: 30px;
+	float: left;
+	margin-right: 16px;
+	img{
+		width: 100%;
+	}
+}
+.o-invite__email{
+	width: 100%;
+	margin-top: 48px;
+}
+
+// for pop
+
+.o-invite-pop{
+	padding:24px;
+}
+.o-invite__search{
+	width: 100%;
+	float: left;
+}
+.c-form__input--border-none{
+	border:none!important;
+}
+
+.o-invite-select__all{
+	width: 100%;
+	float: left;
+	border-bottom: 1px solid #F3F5F7;
+	padding:8px 0px;
+}
+.o-invite__people-container{
+	width: 100%;
+	min-height: 400px;
+	max-height: 400px;
+	padding-top: 16px;
+	float: left;
+	overflow-y: scroll;
+	border-bottom: 1px solid #F3F5F7;
+}
+.o-invite__people-name{
+	width:94%;
+	float: right;
+	padding-right: 16px;
+}
+// for checkbox
+.invite-check {
+  font-size: 14px;
+  text-transform: capitalize;
+  margin: 0px 0px 0px 0px;
+  position: relative;
+}
+.invite-check label {
+  cursor: pointer;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+  font-size: 13px;
+  font-weight: normal;
+  color: #333;
+  pointer-events: auto;
+  top: 0;
+  width: 100%;
+}
+.invite-check input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 2px 9px 0 0;
+  position: relative;
+  outline: 0;
+  left: 0;
+  background-image: url(https://cdn.onepagespotlight.com/img/directory/checkboxdisabled.svg);
+  float: left;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-size: cover;
+  border:none!important;
+}
+.invite-check input[type="checkbox"]:checked{
+  background: url(https://cdn.onepagespotlight.com/img/directory/checkboxactived.svg);
+  background-size: cover;
+}
+
+// footer
+
+.o-invite-pop-footer{
+	width: 100%;
+	float: left;
+}

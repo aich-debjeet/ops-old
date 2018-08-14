@@ -96,7 +96,7 @@
                         </label>
                     </div>
                     <div class="c-form__group ">
-                        <input class="c-form__input d-in" type="text" tabindex="3" formControlName="dob" [dpDayPicker]="datePickerConfig" theme="dp-material" placeholder="Date of Birth">
+                        <input class="c-form__input d-in" type="text" tabindex="3" formControlName="dob" ngx-mydatepicker [options]="myOptions" placeholder="Date of Birth" #dp="ngx-mydatepicker" (click)="dp.toggleCalendar()" autocomplete="off" readonly>
                         <span class="c-form__highlight"></span>
                         <span class="c-form__bar"></span>
                         <!-- <label>Date of Birth</label> -->

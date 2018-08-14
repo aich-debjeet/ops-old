@@ -1,60 +1,62 @@
 <section class="o-add-status" *ngIf="uploadState === 1" >
     <div class="container">
-        <!-- add status  -->
-        <div class="o-add-status__block">
-            <div class="c-card__user">
-                <div class="c-user">
-                    <a class="c-user__avatar c-avatar--feed">
-                        <img class="c-user__image" [src]="baseUrl + activeUser?.image">
-                    </a>
-                    <a class="c-user__name c-user__name--addpost">{{ activeUser?.name }}</a>
-                    <img [src]="baseUrl + 'img/svg/arrow2.svg'" class="o-addpost__arrow" *ngIf="nameActive">
-                    <span class="c-text_md color-grey-dark o-addpost__commtxt"  *ngIf="nameActive">{{ct_name}}</span>
+        <div class="o-add-media__main-block">
+            <!-- add status  -->
+            <div class="o-add-status__block">
+                <div class="c-card__user">
+                    <div class="c-user">
+                        <a class="c-user__avatar c-avatar--feed">
+                            <img class="c-user__image" [src]="baseUrl + activeUser?.image">
+                        </a>
+                        <a class="c-user__name c-user__name--addpost">{{ activeUser?.name }}</a>
+                        <img [src]="baseUrl + 'img/svg/arrow2.svg'" class="o-addpost__arrow" *ngIf="nameActive">
+                        <span class="c-text_md color-grey-dark o-addpost__commtxt"  *ngIf="nameActive">{{ct_name}}</span>
+                    </div>
                 </div>
-            </div>
-            <div class="o-add-status__txt">
-                <textarea id="txtarea" maxlength="220" [(ngModel)]="statusMessage" class="o-add-status--textarea c-text_lg-light" rows='1' data-min-rows='0' placeholder="Tell something…"></textarea>
-            </div>
-            <div class="o-add-status_actions">
-                <ul class="o-status-action">
-                    <li class="o-action-list">
-                        <div class="dropdown" appDropdown>
-                            <span class="com-head" appDropdownOpen>
-                            <div class="o-action__ico">
-                              <img src="{{ (privacy == 0) ? baseUrl + 'img/svg/ico_web.svg': baseUrl + 'img/svg/Ico-private.svg' }}">
+                <div class="o-add-status__txt">
+                    <textarea id="txtarea" maxlength="220" [(ngModel)]="statusMessage" class="o-add-status--textarea c-text_lg-light" rows='1' data-min-rows='0' placeholder="Tell something…"></textarea>
+                </div>
+                <div class="o-add-status_actions">
+                    <ul class="o-status-action">
+                        <li class="o-action-list">
+                            <div class="dropdown" appDropdown>
+                                <span class="com-head" appDropdownOpen>
+                                <div class="o-action__ico">
+                                <img src="{{ (privacy == 0) ? baseUrl + 'img/svg/ico_web.svg': baseUrl + 'img/svg/Ico-private.svg' }}">
+                                </div>
+                                <div class="o-action__ico-arrow">
+                                <img [src]="baseUrl + 'img/svg/ico-arrow-down.svg'">
+                                </div>
+                            </span>
+                                <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
+                                    <li>
+                                        <a class="c-opsdropdown__list" (click)="choosePrivacy(0)">
+                                            <img [src]="baseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
+                                            <span class="c-opsdropdown--text">Public</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="c-opsdropdown__list" (click)="choosePrivacy(1)">
+                                            <img [src]="baseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
+                                            <span class="c-opsdropdown--text">Private</span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
-                            <div class="o-action__ico-arrow">
-                              <img [src]="baseUrl + 'img/svg/ico-arrow-down.svg'">
-                            </div>
-                          </span>
-                            <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
-                                <li>
-                                    <a class="c-opsdropdown__list" (click)="choosePrivacy(0)">
-                                        <img [src]="baseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
-                                        <span class="c-opsdropdown--text">Public</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="c-opsdropdown__list" (click)="choosePrivacy(1)">
-                                        <img [src]="baseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
-                                        <span class="c-opsdropdown--text">Private</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
+                        </li>
 
-                    <li class="o-action-list float-right">
-                        <button type="button" *ngIf="!external_post_active" (click)="submitStatusForm()" class="btn btn-primary btn-md" [disabled]="statusMessage.length === 0">NEXT</button>
-                        <button type="button" *ngIf="external_post_active" (click)="publishToChannel()" class="btn btn-primary btn-md" [disabled]="statusMessage.length === 0">PUBLISH</button>
-                    </li>
-                    <li class="o-action-list float-right">
-                        <span class="o-status-action__count">
-                          {{ (220) - (statusMessage?.length) }}
-                        </span>
+                        <li class="o-action-list float-right">
+                            <button type="button" *ngIf="!external_post_active" (click)="submitStatusForm()" class="btn btn-primary btn-md" [disabled]="statusMessage.length === 0">NEXT</button>
+                            <button type="button" *ngIf="external_post_active" (click)="publishToChannel()" class="btn btn-primary btn-md" [disabled]="statusMessage.length === 0">PUBLISH</button>
+                        </li>
+                        <li class="o-action-list float-right">
+                            <span class="o-status-action__count">
+                            {{ (220) - (statusMessage?.length) }}
+                            </span>
 
-                    </li>
-                </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
         <!-- add status end -->

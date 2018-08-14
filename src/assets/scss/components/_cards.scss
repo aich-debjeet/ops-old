@@ -725,6 +725,11 @@
   img {
       border-radius: 3px;
   }
+  @include mq($from: $mobile_sm, $until: $tablet) {
+    width: 85%;
+    margin: 0 23px;
+    min-height: 100px;
+  }
 }
 .c-feed__adult {
   width: 100%;

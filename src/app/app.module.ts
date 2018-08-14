@@ -8,6 +8,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TextMaskModule } from 'angular2-text-mask';
+import { NgxMyDatePickerModule } from 'ngx-mydatepicker';
 // import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
 // External Service
@@ -101,7 +102,6 @@ import { StatusListComponent } from './components/status-list/status-list.compon
 import { PlannerComponent } from './components/planner/planner.component';
 import { NetworkComponent } from './components/network/network.component';
 import { ProjectComponent } from './components/project/project.component';
-import { DirectoryListComponent } from './components/directory-list/directory-list.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { SpotfeedComponent } from './components/spotfeed/spotfeed.component';
 import { SpotfeedPremiumComponent } from './components/spotfeed-premium/spotfeed-premium.component';
@@ -115,6 +115,9 @@ import { MediaComponent } from './components/media/media.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { TermsComponent } from './components/terms/terms.component';
 import { AboutComponent } from './components/about/about.component';
+import { DirectoryEffect } from './effects/directory.effect';
+import { DirectoryService } from './services/directory.service';
+import { InvitePeopleComponent } from './components/invite-people/invite-people.component';
 
 @NgModule({
   declarations: [
@@ -139,10 +142,10 @@ import { AboutComponent } from './components/about/about.component';
     PlannerComponent,
     NetworkComponent,
     ProjectComponent,
-    DirectoryListComponent,
     PrivacyPolicyComponent,
     TermsComponent,
     AboutComponent,
+    InvitePeopleComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ops-app'}),
@@ -159,6 +162,7 @@ import { AboutComponent } from './components/about/about.component';
     TextMaskModule,
     StoreModule.provideStore(reducer),
     RouterModule.forRoot(routes),
+    NgxMyDatePickerModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 1000,
       preventDuplicates: true,
@@ -181,6 +185,7 @@ import { AboutComponent } from './components/about/about.component';
     EffectsModule.run(ExploreEffect),
     EffectsModule.run(ClaimProfileEffect),
     EffectsModule.run(CommunitiesEffect),
+    EffectsModule.run(DirectoryEffect),
     // Video
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     VgCoreModule,
@@ -217,7 +222,8 @@ import { AboutComponent } from './components/about/about.component';
     ExploreService,
     ClaimProfileService,
     FileService,
-    CommunitiesService
+    CommunitiesService,
+    DirectoryService
   ],
   bootstrap: [AppComponent]
 })

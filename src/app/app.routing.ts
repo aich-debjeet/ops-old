@@ -17,7 +17,6 @@ import { NotFoundPageComponent } from './components/not-found-page/not-found-pag
 import { StatusListComponent } from './components/status-list/status-list.component';
 import { PlannerComponent } from './components/planner/planner.component';
 import { ProjectComponent } from './components/project/project.component';
-import { DirectoryListComponent } from './components/directory-list/directory-list.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { TermsComponent } from './components/terms/terms.component';
 import { AboutComponent } from './components/about/about.component';
@@ -25,6 +24,7 @@ import { AboutComponent } from './components/about/about.component';
 // Guard
 import { AuthGuard } from './guard/auth.guard';
 import { AuthlogoutGuard } from './guard/authlogout.guard';
+import { InvitePeopleComponent } from './components/invite-people/invite-people.component';
 
 export const routes: Routes = [
  { path: '', component: LogoutHomeComponent, canActivate: [AuthlogoutGuard] },
@@ -44,7 +44,6 @@ export const routes: Routes = [
  { path: 'user/media/list', loadChildren: './components/media-list/media-list.module#MediaListModule', canActivate: [AuthGuard]},
  { path: 'spotfeed/:id', component: SpotfeedComponent, canActivate: [AuthGuard] },
  { path: 'spotfeed-premium', component: SpotfeedPremiumComponent, canActivate: [AuthGuard] },
- { path: 'directory', component: DirectoryListComponent, canActivate: [AuthGuard] },
  { path: 'notification', component: NotificationComponent, canActivate: [AuthGuard] },
  { path: 'user/message', loadChildren: './components/message/message.module#MessageModule', canActivate: [AuthGuard] },
  { path: 'portfolio', loadChildren: './components/portfolio/portfolio.module#PortfolioModule' },
@@ -59,6 +58,8 @@ export const routes: Routes = [
  { path: 'search', loadChildren: './components/search/search.module#SearchModule', canActivate: [AuthGuard] },
  { path: 'org', loadChildren: './components/organization/organization.module#OrganizationModule'},
  { path: 'opportunity', loadChildren: './components/opportunity/opportunity.module#OpportunityModule', canActivate: [AuthGuard] },
+ { path: 'directory', loadChildren: './components/directory/directory.module#DirectoryModule', canActivate: [AuthGuard] },
+ { path: 'invite', component: InvitePeopleComponent },
  { path: 'page-not-found', component: NotFoundPageComponent },
  { path: '**', redirectTo: 'page-not-found' },
 ];
