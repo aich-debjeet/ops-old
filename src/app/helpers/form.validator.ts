@@ -205,7 +205,7 @@ export class DatabaseValidator {
             // return resolve(null);
             // }
             const today = moment();
-             console.log(moment(today).format('YYYYMMDD'))
+            //  console.log(moment(today).format('YYYYMMDD'))
             const dateArr =  control.value.split('-');
             // console.log(dateArr)
 
@@ -229,10 +229,10 @@ export class DatabaseValidator {
             }
 
              this.fromDate = new Date(year, month, day);
-             console.log(control.value)
-             console.log(moment(control.value).format('YYYYMMDD'))
+            //  console.log(control.value)
+            //  console.log(moment(control.value).format('YYYYMMDD'))
              if(moment(control.value).format('YYYYMMDD') > moment(today).format('YYYYMMDD')){
-                  console.log('here')
+                //   console.log('here')
                 resolve({ 'invalidWorkDate': true });
              }
             // const age = this.calculateAge(birthDate);
