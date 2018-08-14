@@ -130,3 +130,11 @@
 .o-add-media {
     margin-top: 24px;
 }
+
+.o-add-media__main-block{
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        display: flex;
+        justify-content: center;
+        flex-direction: column-reverse;
+    }
+}
