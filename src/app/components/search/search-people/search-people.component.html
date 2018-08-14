@@ -3,9 +3,10 @@
     <a *ngIf="profileType !== 'registered'" (click)="toggleProfileType()" class="color-theme">See registered users</a>
 </div>
 
-<div *ngIf="!showPreloader && people?.length > 0" infinite-scroll (scrolled)="onScroll($event)" class="o-search-result-block">
+<div *ngIf="people?.length > 0" infinite-scroll (scrolled)="onScroll($event)" class="o-search-result-block">
     <div *ngFor="let person of people" class="col-3 c-scard-block">
-        <app-user-card-search [artist]="person"></app-user-card-search>
+        <app-user-card-search *ngIf="profileType === 'registered'" [artist]="person"></app-user-card-search>
+        <app-wiki-profile-card *ngIf="profileType !== 'registered'" [profileDetails]="person"></app-wiki-profile-card>
     </div>
 </div>
 
