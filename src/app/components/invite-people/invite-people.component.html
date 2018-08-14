@@ -1,0 +1,171 @@
+<app-navigation></app-navigation>
+<section class="o-invite-sec">
+  <div class="container">
+    <div class="o-invite-container">
+      <div class="o-invite-block">
+        <h2 class="c-h2">Invite your friends</h2>
+        <!-- <a class="o-gmail__invite" href="javascript:void(0)" data-toggle="modal" data-target="#invite_gmail">
+          <span class="o-gmail__icon">
+            <img src="assets/invite/gmail_logo.png" alt="">
+          </span>
+          <span class="c-text_lg color-grey-dark float_left">Invite gmail contacts</span>
+        </a> -->
+        <form [formGroup]="inviteForm" (ngSubmit)="sendInvite(inviteForm.value)" #myform="ngForm">
+          <div class="o-invite__email">
+            <div class="col-md-8 p-r-8">
+              <div class="c-form__group c-form--lg">
+                <input class="c-form__input" formControlName="email" type="text">
+                <span class="c-form__highlight"></span>
+                <span class="c-form__bar"></span>
+                <label>Enter email</label>
+                <!-- <p class="error_alert" *ngIf="inviteForm.controls['email'].errors?.required && myform.submitted">Email is required</p>
+                <p class="error_alert" *ngIf="inviteForm.controls['email'].errors?.isInvalidEmail && myform.submitted">Email is not valid</p> -->
+              </div>
+            </div>
+            <div class="col-md-4 p-0">
+              <button type="submit" class="btn btn-primary btn-md" style="margin-top: 6px;" [disabled]="disableSubmit">send invite</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- invite pop -->
+<div id="invite_gmail" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal body-->
+    <div class="modal-body p-0">
+      <div class="pop-container-md o-invite-pop">
+        <div class="pop-head m-b-16">
+          <h5 class="c-text_lg">Choose your contacts to invite</h5>
+          <span class="pop-close">
+            <a href="javascript:void(0)" data-dismiss="modal">
+              <img src="assets/svg/ico_close-38.svg" alt="">
+            </a>
+          </span>
+        </div>
+        <!-- pop head -->
+        <div class="o-invite__search">
+          <div class="c-form__group  fill-grey-light">
+            <input class="c-form__input c-form__input--border-none fpadding_l32" required type="text" placeholder="Search">
+            <span>
+              <img src="assets/svg/ico_search.svg" class="c-form__input--lefticon">
+            </span>
+          </div>
+          <div class="o-invite-select__all">
+            <div class="invite-check">
+              <label for="organization">Select All
+                <input id="organization" type="checkbox" />
+              </label>
+            </div>
+          </div>
+          <div id="ops_scrollbar" class="o-invite__people-container">
+            <div class="invite-check m-t-b-8">
+              <label for="1">
+                <p class="c-text_md o-invite__people-name">Maud Garrett
+                  <span class="float_right c-text_sm color-grey-dark">eriberto.wunsch@helen.biz</span>
+                </p>
+                <input id="1" type="checkbox" />
+              </label>
+            </div>
+            <div class="invite-check m-t-b-8">
+              <label for="2">
+                <p class="c-text_md o-invite__people-name">Samuel Manning
+                  <span class="float_right c-text_sm color-grey-dark">kovacek.rosemarie@hotmail.com</span>
+                </p>
+                <input id="2" type="checkbox" />
+              </label>
+            </div>
+            <div class="invite-check m-t-b-8">
+              <label for="3">
+                <p class="c-text_md o-invite__people-name">Maud Garrett
+                  <span class="float_right c-text_sm color-grey-dark">eriberto.wunsch@helen.biz</span>
+                </p>
+                <input id="3" type="checkbox" />
+              </label>
+            </div>
+            <div class="invite-check m-t-b-8">
+              <label for="4">
+                <p class="c-text_md o-invite__people-name">Samuel Manning
+                  <span class="float_right c-text_sm color-grey-dark">kovacek.rosemarie@hotmail.com</span>
+                </p>
+                <input id="4" type="checkbox" />
+              </label>
+            </div>
+            <div class="invite-check m-t-b-8">
+              <label for="5">
+                <p class="c-text_md o-invite__people-name">Maud Garrett
+                  <span class="float_right c-text_sm color-grey-dark">eriberto.wunsch@helen.biz</span>
+                </p>
+                <input id="5" type="checkbox" />
+              </label>
+            </div>
+            <div class="invite-check m-t-b-8">
+              <label for="6">
+                <p class="c-text_md o-invite__people-name">Samuel Manning
+                  <span class="float_right c-text_sm color-grey-dark">kovacek.rosemarie@hotmail.com</span>
+                </p>
+                <input id="6" type="checkbox" />
+              </label>
+            </div>
+            <div class="invite-check m-t-b-8">
+              <label for="7">
+                <p class="c-text_md o-invite__people-name">Maud Garrett
+                  <span class="float_right c-text_sm color-grey-dark">eriberto.wunsch@helen.biz</span>
+                </p>
+                <input id="7" type="checkbox" />
+              </label>
+            </div>
+            <div class="invite-check m-t-b-8">
+              <label for="8">
+                <p class="c-text_md o-invite__people-name">Samuel Manning
+                  <span class="float_right c-text_sm color-grey-dark">kovacek.rosemarie@hotmail.com</span>
+                </p>
+                <input id="8" type="checkbox" />
+              </label>
+            </div>
+            <div class="invite-check m-t-b-8">
+              <label for="9">
+                <p class="c-text_md o-invite__people-name">Maud Garrett
+                  <span class="float_right c-text_sm color-grey-dark">eriberto.wunsch@helen.biz</span>
+                </p>
+                <input id="9" type="checkbox" />
+              </label>
+            </div>
+            <div class="invite-check m-t-b-8">
+              <label for="10">
+                <p class="c-text_md o-invite__people-name">Samuel Manning
+                  <span class="float_right c-text_sm color-grey-dark">kovacek.rosemarie@hotmail.com</span>
+                </p>
+                <input id="10" type="checkbox" />
+              </label>
+            </div>
+            <div class="invite-check m-t-b-8">
+              <label for="11">
+                <p class="c-text_md o-invite__people-name">Maud Garrett
+                  <span class="float_right c-text_sm color-grey-dark">eriberto.wunsch@helen.biz</span>
+                </p>
+                <input id="11" type="checkbox" />
+              </label>
+            </div>
+            <div class="invite-check m-t-b-8">
+              <label for="12">
+                <p class="c-text_md o-invite__people-name">Samuel Manning
+                  <span class="float_right c-text_sm color-grey-dark">kovacek.rosemarie@hotmail.com</span>
+                </p>
+                <input id="12" type="checkbox" />
+              </label>
+            </div>
+          </div>
+          <div class="o-invite-pop-footer m-t-16">
+            <span class="c-text_sm color-grey-dark float_left">0 contacts selected</span>
+            <button type="button" class="btn btn-primary btn-md float_right">Send invite</button>
+          </div>
+        </div>
+        <!-- invite container end -->
+      </div>
+    </div>
+  </div>

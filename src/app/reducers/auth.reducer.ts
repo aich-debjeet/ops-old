@@ -6,6 +6,25 @@ import { AuthActions } from '../actions/auth.action';
 
 export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, type}: Action) =>  {
   switch (type) {
+
+    case AuthActions.SEND_INVITATION:
+      return Object.assign({}, state, {
+        send_invite: true,
+        send_invite_success: false,
+        send_invite_params: payload
+      });
+    case AuthActions.SEND_INVITATION_SUCCESS:
+      return Object.assign({}, state, {
+        send_invite: false,
+        send_invite_success: true,
+        send_invite_response: payload
+      });
+    case AuthActions.SEND_INVITATION_FAILED:
+      return Object.assign({}, state, {
+        send_invite: false,
+        send_invite_success: false
+      });
+
     /* search skills */
     case AuthActions.SIGNUP_SEARCH_SKILL:
       return Object.assign({}, state, {
