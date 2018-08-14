@@ -1,4 +1,5 @@
 @import './src/assets/scss/helpers/_variables.scss';
+@import '~sass-mq/_mq.scss';
 .channel_empty{
     display: inline;
     margin: 0px auto;
@@ -11,11 +12,20 @@
     background: #fff;
     padding: 24px 32px;
     float: left;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        padding:16px 16px;
+    }
 }
 
 .o-add-media-channel-main {
     width: 863px;
     margin: 0px auto;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        width: 100%;
+    }
+    @include mq($from: $tablet, $until: $desktop_sm) {
+        width: 100%;
+    }
 }
 
 .o-add-media-channel__head {
@@ -38,6 +48,10 @@
     float: left;
     margin-top: 16px;
     padding: 0px 100px;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        width: 100%;
+        padding: 0px;
+    }
 }
 
 .m-t-16 {
@@ -116,6 +130,10 @@
     min-height: 328px;
     overflow-y: scroll;
     overflow-x: hidden;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        width: 100%;
+        padding: 0px;
+    }
 }
 
 .o-channel-list-container {
