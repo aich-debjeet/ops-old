@@ -1,6 +1,7 @@
 <div class="c-scard">
   <div class="c-scard__img">
-      <img *ngIf="profileDetails?.image" [src]="profileDetails?.image" class="c-scard__img2">
+      <img *ngIf="profileDetails?.image && profileDetails?.image !== ''" [src]="profileDetails?.image" class="c-scard__img2">
+      <img *ngIf="!profileDetails?.image || profileDetails?.image === ''" [src]="defaultImage" class="c-scard__img2">
       <span class="c-scard__active">
           <img src="https://ops-v2.netlify.com/assets/directory/inactive.svg">
       </span>
