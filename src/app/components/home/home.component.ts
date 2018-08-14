@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Channel } from '../../models/home.model';
 import { NguCarousel } from '@ngu/carousel';
@@ -23,7 +23,7 @@ import { ISubscription } from 'rxjs/Subscription';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy {
 
   public metaShow: Meta;
   tagState$: Observable<ProfileModal>;
@@ -63,59 +63,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
-    // console.log(document.body.scrollTop);
-    // document.body.scrollTop = 0;
-    // this.title.setTitle('Home / Angular SSR');
-    // this.meta.updateTag({
-    //     'description': 'Welcome to home section'
-    // });
-
     window.scrollTo(0, 0);
-    this.carouselOne = {
-      grid: {xs: 3, sm: 3, md: 10, lg: 10, all: 0},
-      slide: 2,
-      speed: 4000,
-      // interval: 400000,
-      // custom: 'banner',
-      point: {
-        visible: true,
-        pointStyles: `
-          .ngucarouselPoint {
-            list-style-type: none;
-            text-align: center;
-            padding: 12px;
-            margin: 0;
-            white-space: nowrap;
-            overflow: auto;
-            position: absolute;
-            width: 100%;
-            bottom: 20px;
-            left: 0;
-            box-sizing: border-box;
-            display: none;
-          }
-          .ngucarouselPoint li {
-            display: inline;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.55);
-            padding: 5px;
-            margin: 0 3px;
-            transition: .4s ease all;
-          }
-          .ngucarouselPoint li.active {
-              background: white;
-              width: 10px;
-          }
-        `
-      },
-      load: 2,
-      loop: true,
-      touch: true
-    }
   }
-
-  ngAfterViewInit() {
- }
 
   /**
    * Unpin Channels from Quick Access
@@ -144,17 +93,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
 
-  // carouselTileLoad(evt: any) {
-  //   console.log(event)
-  //   // const len = this.carouselTileItems.length
-  //   // if (len <= 30) {
-  //   //   for (let i = len; i < len + 10; i++) {
-  //   //     this.carouselTileItems.push(i);
-  //     // }
-  //   // }
-  // }
-
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }

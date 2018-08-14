@@ -96,6 +96,7 @@ export class SettingsComponent implements OnInit {
   phNumbrReq: boolean =false;
   phMinLent: boolean = false;
   isMobileUnique: boolean = false;
+  validSuccess: boolean = true;
 
     // otp numbers
     @ViewChild('otpNum1') otpNum1: ElementRef;
@@ -519,10 +520,22 @@ export class SettingsComponent implements OnInit {
     if (fieldName === 'name' && this.name.length > 0) {
       reqBody = {
         name: {
-          firstName:''
+          firstName:'',
+          displayName: ''
         }
       };
       reqBody.name.firstName = this.name.trim();
+      reqBody.name.displayName = this.name.trim();
+      this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: reqBody});
+      this._store.select('profileTags').
+      first(data => data['profileUpdateSuccess']).
+      subscribe((state) => {
+                if (state['profileUpdateSuccess'] === true) {
+                  this._store.dispatch({ type: ProfileActions.LOAD_USER_DATA_DETAILS });
+                }
+            })
+      this.cancelEdit();
+      return;
     }
     if (fieldName === 'dob' && this.dob.length > 0) {
       reqBody = {
@@ -539,7 +552,6 @@ export class SettingsComponent implements OnInit {
       if (parseInt(day, 10) > 31) {
         this.invalidDOB = true;
          return
-        //  { invalidDOB: true };
       }
 
     // check for valid month number
@@ -565,28 +577,14 @@ export class SettingsComponent implements OnInit {
       return
     }
       reqBody.other.dateOfBirth = this.reverseDate(this.dob) + 'T05:00:00';
+      this.invalidDOB = false;
+      this.isUnderAge = false;
+      this.isOverAge = false;
     }
     if (fieldName === 'username') {
-      if(this.userName.length <= 0){
-        this.isRequired = true;
-        return null;
+      if(this.specialChars || this.isRequired || this.capitalLetters || this.whitespace || this.invalidLength){
+        return;
       } else {
-        if(this.userName.indexOf(' ') >= 0){
-          this.whitespace = true;
-          return null;
-        }
-        if (/[A-Z]/.test(this.userName)) {
-          this.capitalLetters= true;
-          return null;
-        }
-        if (this.userName.length < 3 || this.userName.length > 15) {
-          this.invalidLength= true;
-          return null;
-        }
-        if (/[ !@#$%^&*()+\-=\[\]{};':"\\|,.<>\/?]/.test(this.userName)) {
-          this.specialChars = true;
-          return null;
-        }
         reqBody = {
           username: ''
         };
@@ -599,7 +597,7 @@ export class SettingsComponent implements OnInit {
     //   };
     //   reqBody.email = this.email.trim();
     // }
-    // console.log(reqBody)
+    console.log(reqBody)
     this._store.dispatch({ type: ProfileActions.LOAD_USER_UPDATE, payload: reqBody});
     this._store.select('profileTags').
     first(data => data['userUpdateSuccess']).
@@ -613,12 +611,47 @@ export class SettingsComponent implements OnInit {
 
     // user user exists
     userExistCheck(value) {
+      console.log('username validation',value.length, value)
+      if(value.length <= 0){
+        console.log('username validation',value.length)
+        this.isRequired = true;
+        this.validSuccess = false;
+      } else {this.isRequired = false;
+        this.validSuccess = true;}
+
+      if(value.indexOf(' ') >= 0){
+        this.whitespace = true;
+        this.validSuccess = false;
+      } else {this.whitespace = false;
+        this.validSuccess = true}
+
+      if (/[A-Z]/.test(value)) {
+        this.capitalLetters= true;
+        this.validSuccess = false;
+      } else {this.capitalLetters = false;
+        this.validSuccess = true}
+
+      if (value.length < 3 || value.length > 15) {
+        this.invalidLength= true;
+        this.validSuccess = false;
+      } else {this.invalidLength = false;
+        this.validSuccess = true}
+
+      if (/[ !@#$%^&*()+\-=\[\]{};':"\\|,.<>\/?]/.test(value)) {
+        this.specialChars = true;
+        this.validSuccess = false;
+      } else {this.specialChars = false;
+        this.validSuccess = true}
+
       if (value.length >= 4) {
         this.store.dispatch({ type: AuthActions.USER_EXISTS_CHECK, payload: value });
       } else {
         if (this.petTag && this.petTag.user_unique) {
           this.petTag.user_unique = false;
         }
+      }
+      if((value.length >= 4 && value.length <= 15) && this.validSuccess === true){
+        this.userName = value;
       }
     }
   /**
