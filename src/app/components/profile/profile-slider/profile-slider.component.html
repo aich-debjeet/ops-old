@@ -58,9 +58,9 @@
                         <li class="list-line-item">
                             <a routerLinkActive="activein" [routerLink]="['/portfolio/u', profileObject?.userHandle]">Portfolio</a>
                         </li>
-                        <li class="list-line-item hidden-xs" *ngIf = "isOwner">
+                        <!-- <li class="list-line-item hidden-xs" *ngIf = "isOwner">
                             <a routerLinkActive="activein" routerLink="/planner">Planner</a>
-                        </li>
+                        </li> -->
                         <li class="list-line-item" *ngIf = "isOwner">
                             <a routerLinkActive="activein" [routerLink]="['network']">Network</a>
                         </li>
