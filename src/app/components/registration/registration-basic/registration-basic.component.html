@@ -96,12 +96,9 @@
                         </label>
                     </div>
                     <div class="c-form__group ">
-                        <input class="c-form__input d-in" type="text" tabindex="3" formControlName="dob" ngx-mydatepicker [options]="myOptions" placeholder="Date of Birth" #dp="ngx-mydatepicker" autocomplete="off">
+                        <input class="c-form__input d-in" type="text" tabindex="3" formControlName="dob" ngx-mydatepicker [options]="myOptions" placeholder="Date of Birth" #dp="ngx-mydatepicker" (click)="dp.toggleCalendar()" autocomplete="off" readonly>
                         <span class="c-form__highlight"></span>
                         <span class="c-form__bar"></span>
-                        <button type="button" class="btn btn-default" (click)="dp.toggleCalendar()">
-                                <i class="glyphicon glyphicon-calendar"></i>
-                            </button>
                         <!-- <label>Date of Birth</label> -->
                         <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.required && regform.submitted">DOB is required</p>
                         <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.invalidDOB">Invalid Date of Birth</p>

@@ -50,7 +50,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   claimActive = false;
 
   myOptions: INgxMyDpOptions = {
-    // other options...
+    showTodayBtn: false,
     dateFormat: 'dd-mm-yyyy',
   };
 
