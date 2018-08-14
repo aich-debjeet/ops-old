@@ -1,6 +1,7 @@
 // ng imports
 import { Component, OnInit, ElementRef, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
+import {INgxMyDpOptions} from 'ngx-mydatepicker';
 import { Router } from '@angular/router';
 import { Modal } from '../../../shared/modal-new/Modal';
 
@@ -47,6 +48,11 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   claimValue: any;
   claimData: any;
   claimActive = false;
+
+  myOptions: INgxMyDpOptions = {
+    // other options...
+    dateFormat: 'dd-mm-yyyy',
+  };
 
   @ViewChild('claimPopup') claimPopup: Modal;
   @ViewChild('otpPopup') otpPopup: Modal;
@@ -384,6 +390,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
    * @param value: form data
    */
   submitForm(value) {
+    console.log(value);
     // checking if all required fields with valid info available before submitting the form
     if (!this.regFormBasic.valid) {
       // console.log('invalid', this.regFormBasic);

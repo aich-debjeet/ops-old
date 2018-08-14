@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchFilterPipe } from '../../pipes/search.pipe';
 import { DpDatePickerModule } from 'ng2-date-picker';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { NgxMyDatePickerModule } from 'ngx-mydatepicker';
 
 // components
 import { RegistrationComponent } from './registration.component';
@@ -29,6 +30,7 @@ export const routes = [
     FormsModule,
     InfiniteScrollModule,
     RouterModule.forChild(routes),
+    NgxMyDatePickerModule.forRoot(),
     DpDatePickerModule
   ],
   declarations: [

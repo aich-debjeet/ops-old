@@ -379,37 +379,38 @@ export class ProfileUpdateValidator {
 export class FormValidation {
 
     static validateAge(control: AbstractControl) {
-        const dob = control.value;
-        const dateArr =  control.value.split('-');
+        const dob = control.value.formatted;
+        if (control.value.formatted) {
+            const dateArr =  control.value.formatted.split('-');
+            const day = dateArr[0];
+            const month = dateArr[1];
+            const year = dateArr[2];
 
-        const day = dateArr[0];
-        const month = dateArr[1];
-        const year = dateArr[2];
+            // check for valid day number
+            if (parseInt(day, 10) > 31) {
+                return { invalidDOB: true };
+            }
 
-        // check for valid day number
-        if (parseInt(day, 10) > 31) {
-            return { invalidDOB: true };
-        }
+            // check for valid month number
+            if (parseInt(month, 10) > 12) {
+                return { invalidDOB: true };
+            }
 
-        // check for valid month number
-        if (parseInt(month, 10) > 12) {
-            return { invalidDOB: true };
-        }
+            // check if year is not greater that current
+            if (new Date().getUTCFullYear() < year) {
+                return { invalidDOB: true };
+            }
 
-        // check if year is not greater that current
-        if (new Date().getUTCFullYear() < year) {
-            return { invalidDOB: true };
-        }
+            const birthDate = new Date(year, month, day);
+            const ageDifMs = Date.now() - birthDate.getTime();
+            const ageDate = new Date(ageDifMs); // miliseconds from epoch
+            const age = Math.abs(ageDate.getUTCFullYear() - 1970);
 
-        const birthDate = new Date(year, month, day);
-        const ageDifMs = Date.now() - birthDate.getTime();
-        const ageDate = new Date(ageDifMs); // miliseconds from epoch
-        const age = Math.abs(ageDate.getUTCFullYear() - 1970);
-
-        if (age <= 13) {
-            return { isUnderAge: true };
-        } else if (age >= 100) {
-            return { isOverAge: true };
+            if (age <= 13) {
+                return { isUnderAge: true };
+            } else if (age >= 100) {
+                return { isOverAge: true };
+            }
         }
         return null;
     }

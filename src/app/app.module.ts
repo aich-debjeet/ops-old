@@ -8,6 +8,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TextMaskModule } from 'angular2-text-mask';
+import { NgxMyDatePickerModule } from 'ngx-mydatepicker';
 // import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
 // External Service
@@ -159,6 +160,7 @@ import { AboutComponent } from './components/about/about.component';
     TextMaskModule,
     StoreModule.provideStore(reducer),
     RouterModule.forRoot(routes),
+    NgxMyDatePickerModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 1000,
       preventDuplicates: true,
