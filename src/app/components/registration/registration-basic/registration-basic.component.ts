@@ -390,7 +390,6 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
    * @param value: form data
    */
   submitForm(value) {
-    console.log(value);
     // checking if all required fields with valid info available before submitting the form
     if (!this.regFormBasic.valid) {
       // console.log('invalid', this.regFormBasic);
