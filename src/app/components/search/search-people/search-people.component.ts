@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 import { SearchActions } from './../../../actions/search.action';
 import { SearchModel } from './../../../models/search.model';
@@ -20,6 +20,9 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./search-people.component.scss']
 })
 export class SearchPeopleComponent implements OnInit {
+
+  @Output() onProfileTypeSwitch: EventEmitter<any> = new EventEmitter<any>();
+  @Input() profileType: String;
 
   searchState$: Observable<SearchModel>;
   searchState: any;
@@ -123,6 +126,15 @@ export class SearchPeopleComponent implements OnInit {
   unfollowUser(user: any) {
     this.profileStore.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: user.handle });
     user.extra.isFollowing = false;
+  }
+
+  toggleProfileType() {
+    if (this.profileType === 'registered') {
+      this.profileType = 'unregistered';
+    } else {
+      this.profileType = 'registered';
+    }
+    this.onProfileTypeSwitch.emit(this.profileType);
   }
 
 }
