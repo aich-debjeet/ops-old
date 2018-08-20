@@ -29,16 +29,12 @@
     margin: 50px auto;
     display: table;
     margin-top: 0px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg){
+        width: 100%;
+    }
 }
 
 // Leave popup
-.modal-channel__create {
-    width: 446px;
-    margin: 50px auto;
-    display: table;
-    margin-top: 0px;
-}
-
 .modal-o-comodal2 {
     width: 564px;
     margin: 50px auto;
