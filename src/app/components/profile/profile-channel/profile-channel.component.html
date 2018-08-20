@@ -1,5 +1,5 @@
 <div *ngIf="channels" infinite-scroll (scrolled)="onScroll($event)">
-    <div class="col-xs-12 col-sm-6 col-md-3 p-l-r-8 m-t-8" *ngFor="let channel of (tagState$ | async).other_channel; let i = index">
+    <div class="col-xs-12 col-sm-6 col-md-3 desktop-css" *ngFor="let channel of (tagState$ | async).other_channel; let i = index">
         <app-channel [currentUser]="isOwner" [channelData]="channel" (onFollow)="followChannel($event)" (onDelete)="deleteChannel($event)"></app-channel>
     </div>
     <div *ngIf="profileChannel?.other_channels_loading" >
