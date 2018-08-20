@@ -2,9 +2,9 @@
     <div class="container">
         <div class="navbar-header">
             <a class="navbar-brand"><img [src]="image_base_url + 'v2/ops_logo.png'"></a>
-        </div>
-        <div class="signup_next">
-            <button [disabled]="!skillsSelected || uploadingSkills" (click)="saveSkills()" class="btn btn-primary btn-md">CONTINUE</button>
+            <div class="signup_next">
+                <button [disabled]="!skillsSelected || uploadingSkills" (click)="saveSkills()" class="btn btn-primary btn-md">CONTINUE</button>
+            </div>
         </div>
     </div>
     <!-- /.container-fluid -->
