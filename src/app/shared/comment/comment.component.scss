@@ -532,7 +532,7 @@
     }
 }
 .c-post_extraspace {
-    padding-top: 5px !important;
+    padding-top: 2px !important;
     @include mq($from: $mobile_sm, $until: $mobile_lg){
       padding: 0 !important;
     }
