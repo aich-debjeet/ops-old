@@ -262,11 +262,17 @@
 .c-post__comment--left {
     width: 7%;
     float: left;
+    @include mq($from: $mobile_sm, $until: $mobile_lg){
+      width: auto;
+    }
 }
 
 .c-post__comment--right {
     width: 90%;
     float: left;
+    @include mq($from: $mobile_sm, $until: $mobile_lg){
+      padding-left: 10px !important;
+    }
 }
 
 .c-post__comment__blank {
