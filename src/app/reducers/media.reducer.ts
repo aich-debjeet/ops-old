@@ -202,7 +202,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
         });
     case MediaActions.MEDIA_POST_REPORT_FAILED:
         return Object.assign({}, state, {
-          reports:[]
+          reports: []
         });
 
     default:
