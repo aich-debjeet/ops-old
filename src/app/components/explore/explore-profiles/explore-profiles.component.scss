@@ -1,5 +1,11 @@
+@import './src/assets/scss/helpers/_variables.scss';
+@import '~sass-mq/_mq.scss';
+
 .c-scard-block {
     width: 20%;
     float: left;
     padding: 8px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 100%;
+    }
 }
