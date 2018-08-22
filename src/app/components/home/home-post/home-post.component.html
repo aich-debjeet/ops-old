@@ -72,8 +72,8 @@
                 <!-- card footer links -->
                 <div class="c-card__links p-t-0">
                   <div class="c-links">
-                    <div class="c-links__spots">
-                      <img [src]="imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
+                    <div class="c-links__spots" (click)="isSpoted(trending)">
+                      <img [src]="trending?.isSpotted ? imageLink + 'img/svg/spot_icon.svg' : imageLink + 'img/svg/spot_icon_default.svg'"  class="c-links__image">
                       <span class="c-links__count">{{ trending?.spotsCount }}</span>
                     </div>
                     <div class="c-links__comments">
@@ -139,8 +139,8 @@
                 <!-- card footer links -->
                 <div class="c-card__links p-t-0">
                   <div class="c-links">
-                    <div class="c-links__spots">
-                      <img [src]="imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
+                    <div class="c-links__spots" (click)="isSpoted(trending)">
+                      <img [src]="trending?.isSpotted ? imageLink + 'img/svg/spot_icon.svg' : imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
                       <span class="c-links__count">{{ trending?.spotsCount }}</span>
                     </div>
                     <div class="c-links__comments">
