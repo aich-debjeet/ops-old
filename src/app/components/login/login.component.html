@@ -8,7 +8,7 @@
             <div class="col-md-6 col-sm-6 col-xs-12 ops_signup_left">
                 <img width="100%;" [src]="imageBaseUrl + 'img/login_illustration.png'" alt="">
                 <div class="ops_heading text-center">
-                    Don't have an account ? <a [routerLink]="['/reg/information']" [queryParams]="queryParam ? this.route.snapshot.queryParams : ''" class="text-theme">Sign up</a>
+                    Don't have an account? <a [routerLink]="['/reg/information']" [queryParams]="queryParam ? this.route.snapshot.queryParams : ''" class="text-theme">Sign up</a>
                 </div>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12 ops_signup_right">
@@ -36,7 +36,7 @@
                     <p class="c-form__validation m-t-b-8" *ngIf="loginState?.error_description?.error_desc === 'INCORRECT_CREDENTIALS'">Username or Password is incorrect</p>
                     <p class="c-form__validation m-t-b-8" *ngIf="loginState?.error_description?.error_desc === 'Multi_Account_Error'">We found more than one account with that number. <br>Please try again with your username or email.</p>
                     <div class="signup_privacy">
-                        <p class="text-grey"><a routerLink="/account/password_reset" class="text-theme">Forgot Password ?</a></p>
+                        <p class="text-grey"><a routerLink="/account/password_reset" class="text-theme">Forgot Password?</a></p>
                         <button type="button" [className]="'btn btn-primary btn-lg pull-right'" tabindex="3" [disabled]="loginState?.login_uploading_data" [ngClass]="{'sending' : loginState?.login_uploading_data}" [type]="'submit'" data-disable-with="...">LOG IN</button>
                     </div>
                 </form>

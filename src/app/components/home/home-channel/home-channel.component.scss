@@ -62,3 +62,10 @@
         width: 100%;
     }
 }
+
+.md-m-r-8 {
+    margin-right: 8px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg){
+        margin: 0;
+    }
+}

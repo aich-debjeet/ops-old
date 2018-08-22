@@ -1,5 +1,11 @@
+@import './src/assets/scss/helpers/_variables.scss';
+@import '~sass-mq/_mq.scss';
+
 .o-explore-channel {
     width: 18%;
     float: left;
     margin: 8px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 100%;
+    }
 }

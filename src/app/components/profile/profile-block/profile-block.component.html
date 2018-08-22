@@ -1,10 +1,10 @@
 <div class="container" *ngIf="!profileObject?.extra?.isImported">
-    <div class="row m-t-b-24 m-l-r-0">
-        <!-- left feed -->
-        <div class="col-md-3 col-sm-3 hidden-sm hidden-xs">
-            <!-- <div class="row m-t-16"> -->
-                <!-- calender -->
-                <!-- <div class="c-card">
+  <div class="row m-t-b-24 m-l-r-0">
+    <!-- left feed -->
+    <div class="col-md-3 col-sm-3 hidden-sm hidden-xs">
+      <!-- <div class="row m-t-16"> -->
+      <!-- calender -->
+      <!-- <div class="c-card">
                     <div class="c-text_md padding_16 color-grey-dark f-w_600 text_uppercase ltr-space">OPPORTUNITIES CREATED</div>
                     <div class="opp_center" *ngIf="opportunities && opportunities.length === 0; else opportunities_found;">
                         <p class="result-not-found">No records found!</p>
@@ -28,114 +28,67 @@
                         </a>
                     </ng-template>
                 </div> -->
-            <!-- </div> -->
+      <!-- </div> -->
 
-            <!-- attend event -->
-            <div class="row m-t-16">
-                <div class="c-card">
-                    <div class="c-card__project p-l-r-16 p-t-16">
-                        <div class="c-text_md color-grey-dark c-text-semibold" *ngIf="isCurrentUser">
-                            EVENTS CREATED
-                        </div>
-                        <div class="c-text_md color-grey-dark c-text-semibold" *ngIf="!isCurrentUser">
-                                EVENTS RECOMMENDED
-                        </div>
-                    </div>
-                    <ng-container *ngIf="eventList">
-                        <div class="empty_message" *ngIf="eventList?.length === 0">
-                            <p>There is no event</p>
-                        </div>
-                        <div class="p-16" *ngFor="let event of eventList.slice(0,2)">
-                            <!-- card media (img, video & audio) -->
-                            <div class="c-card__event2 float_left">
-                                <a [routerLink]="'/event/inner/' + event?.id">
-                                    <img [src]="imageBaseUrl + event?.imagePath[0]" alt="" class="c-card__image">
-                                </a>
-                            </div>
-                            <!-- //card media (img, video & audio) -->
-                            <div class="c-card__project p-t-8">{{event?.eventType }}</div>
-                            <!-- card body -->
-                            <div class="c-card__body p-0">
-                                <div class="c-text_lg">
-                                        {{event?.title | truncate:[40, '...']}}
-                                </div>
-                                <div class="c-text_md color-grey-dark m-t-8 m-b-24">{{ event?.startDate | utcDate | date: 'dd, MMM'}} - {{ event?.endDate | utcDate | date: 'dd, MMM'}}</div>
-                            </div>
-                            <!-- //card body -->
-                        </div>
-                    </ng-container>
-                    <p class="text-center p-t-b-16" *ngIf="eventList && eventList.length > 2">
-                        <a routerLink="/event" class="c-text_md color-theme">See All</a>
-                    </p>
-                </div>
+      <!-- attend event -->
+      <div class="row m-t-16">
+        <div class="c-card">
+          <div class="c-card__project p-l-r-16 p-t-16">
+            <div class="c-text_md color-grey-dark c-text-semibold" *ngIf="isCurrentUser">
+              EVENTS CREATED
             </div>
-        </div>
-        <!-- //left feed -->
-        <!-- right feed -->
-        <div class="col-md-9 col-sm-12 p-r-0 o-profile__rightbar">
-            <!-- <div class="row m-0" *ngIf="isCurrentUser===true">
-                <div class="col-md-12 col-sm-12 p-0">
-                    <div class="c-text_lg m-b-8">
-                        Quick Access
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2">
-                            <div class="c-qt m-t-8 hidden-xs">
-                                <div class="c-qt__block c-qt--align c-dropup m-r-0" appDropdown>
-                                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" appDropdownOpen>
-                                        <div class="c-qt__imgblock">
-                                            <img [src]="imageBaseUrl +'img/svg/plus-red.svg'" class="c-qt__block__img">
-                                        </div>
-                                        <div class="c-qt__block__text m-t-8">Add More</div>
-                                    </a>
-                                    <div class="dropdown-menu o-share__profile3 p-16" *ngIf="!pinListEmpty">
-                                        <div class="c-invite__block o-tagname__overflow" *ngFor="let channel of userQuickAccess?.other_channel; let i = index">
-                                            <a class="c-text_md c-invite--user" *ngIf="!channel?.isPinned" (click)="pinChannel(channel?.spotfeedId)">{{channel.spotfeedName}}</a>
-                                            <span class="c-skill_act-tick" *ngIf="!channel?.isPinned"><img [src]="imageBaseUrl + 'img/svg/ico_tick.svg'"></span>
-                                        </div>
-                                    </div>
-                                    <div class="dropdown-menu o-share__profile3 p-16" *ngIf="pinListEmpty">                                            
-                                        <div class="c-invite__block">
-                                            <span class="c-text_md c-invite--user">ADD CHANNELS TO PIN</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-10">
-                            <div class="col-md-12 col-sm-12 col-xs-12 p-0">
-                                <ngu-carousel [inputs]="carouselOne">
-                                    <button NguCarouselPrev class='leftRs'>&lt;</button>
-                                    <button NguCarouselNext class='rightRs'>&gt;</button>
-                                    <ngu-tile NguCarouselItem *ngFor="let quickAccess of userQuickAccess.userQuickAccess; let i = index">
-                                        <div class="c-qt">
-                                            <app-quick-access [quickAccessData]="quickAccess"></app-quick-access>
-                                        </div>
-                                    </ngu-tile>
-
-                                </ngu-carousel>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-            <!-- tabs -->
-            <div class="row m-0">
-                <div class="col-md-12 col-sm-12 p-0">
-                    <div class="c-ops__tabs">
-                        <ul class="nav nav-tabs m-l-8">
-                            <li routerLinkActive="active"><a [routerLink]="['post']">Posts</a></li>
-                            <li routerLinkActive="active"><a class="p-l-8" [routerLink]="['channel']">Channel</a></li>
-                            <!-- <li routerLinkActive="active" *ngIf="isCurrentUser===true"><a [routerLink]="['spotfeed']">spotfeed</a></li> -->
-                        </ul>
-                        <div id="home_channel" class="tab-content">
-                            <router-outlet></router-outlet>
-                        </div>
-                    </div>
-                </div>
+            <div class="c-text_md color-grey-dark c-text-semibold" *ngIf="!isCurrentUser">
+              EVENTS RECOMMENDED
             </div>
-            <!-- tabs -->
+          </div>
+          <ng-container *ngIf="eventList">
+            <div class="empty_message" *ngIf="eventList?.length === 0">
+              <p>There is no event</p>
+            </div>
+            <div class="p-16" *ngFor="let event of eventList.slice(0,2)">
+              <!-- card media (img, video & audio) -->
+              <div class="c-card__event2 float_left">
+                <a [routerLink]="'/event/inner/' + event?.id">
+                  <img [src]="imageBaseUrl + event?.imagePath[0]" alt="" class="c-card__image">
+                </a>
+              </div>
+              <!-- //card media (img, video & audio) -->
+              <div class="c-card__project p-t-8">{{event?.eventType }}</div>
+              <!-- card body -->
+              <div class="c-card__body p-0">
+                <div class="c-text_lg">
+                  {{event?.title | truncate:[40, '...']}}
+                </div>
+                <div class="c-text_md color-grey-dark m-t-8 m-b-24">{{ event?.startDate | utcDate | date: 'dd, MMM'}} - {{ event?.endDate | utcDate | date: 'dd, MMM'}}</div>
+              </div>
+              <!-- //card body -->
+            </div>
+          </ng-container>
+          <p class="text-center p-t-b-16" *ngIf="eventList && eventList.length > 2">
+            <a routerLink="/event" class="c-text_md color-theme">See All</a>
+          </p>
         </div>
-        <!-- //right feed -->
+      </div>
     </div>
+    <!-- //left feed -->
+    <!-- right feed -->
+    <div class="col-md-9 col-sm-12 desktop-css">
+      <div class="c-ops__tabs">
+        <ul class="nav nav-tabs m-l-8">
+          <li routerLinkActive="active">
+            <a [routerLink]="['post']">Posts</a>
+          </li>
+          <li routerLinkActive="active">
+            <a class="p-l-8" [routerLink]="['channel']">Channel</a>
+          </li>
+          <!-- <li routerLinkActive="active" *ngIf="isCurrentUser===true"><a [routerLink]="['spotfeed']">spotfeed</a></li> -->
+        </ul>
+        <div id="home_channel" class="tab-content">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+      <!-- tabs -->
+    </div>
+    <!-- //right feed -->
+  </div>
 </div>

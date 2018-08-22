@@ -1,5 +1,6 @@
 @import './src/assets/scss/components/_tabs.scss';
 @import './src/assets/scss/helpers/_variables.scss';
+@import '~sass-mq/_mq.scss';
 
 /* ------------------------- explore style --------------------------- */
 .o-explore-top-block{
@@ -47,6 +48,9 @@
     width: 18%;
     float: left;
     margin:8px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 100%;
+    }
 }
 
 .result-not-found {
@@ -66,4 +70,9 @@
 
 .text-shadow {
     text-shadow: 0 0 10px #000;
+}
+
+.sticky {
+    width: 100%;
+    clear: both;
 }

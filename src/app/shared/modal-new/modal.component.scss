@@ -197,4 +197,7 @@
     .body {
         width: 100%;
     }
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        width: 96%;
+    }
 }
