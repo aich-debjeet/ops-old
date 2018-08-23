@@ -1,3 +1,5 @@
+@import './src/assets/scss/helpers/_variables.scss';
+@import '~sass-mq/_mq.scss';
 .modal-body {
     display: flex;
 }
@@ -8,6 +10,9 @@
 }
 .modal-lg {
     width: 1170px;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        width: 96%;
+    }
 }
 .view-port-modal-content {
     position: relative;

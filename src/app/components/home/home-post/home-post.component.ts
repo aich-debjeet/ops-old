@@ -36,9 +36,9 @@ export class HomePostComponent implements OnInit, OnDestroy {
 
   constructor(
     public route: ActivatedRoute,
-    private profileStore: Store<ProfileModal>
+    private store: Store<ProfileModal>
   ) {
-    this.tagState$ = this.profileStore.select('profileTags');
+    this.tagState$ = this.store.select('profileTags');
     this.posts = [];
     this.subscription = this.tagState$.subscribe((state) => {
       this.userProfile = state;
@@ -67,7 +67,7 @@ export class HomePostComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.profileStore.dispatch({ type: ProfileActions.TRENDING_POST });
+    this.store.dispatch({ type: ProfileActions.TRENDING_POST });
   }
 
   postLoad() {
@@ -75,14 +75,14 @@ export class HomePostComponent implements OnInit, OnDestroy {
       limit: 10,
       scrollId: null
     }
-    this.profileStore.dispatch({ type: ProfileActions.LOAD_USER_FOLLOWING_POSTS, payload: data });
+    this.store.dispatch({ type: ProfileActions.LOAD_USER_FOLLOWING_POSTS, payload: data });
   }
   postDelete(post) {
     const index: number = this.posts.indexOf(post);
     if (index !== -1) {
       this.posts.splice(index, 1);
       const id = post.id;
-      this.profileStore.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id});
+      this.store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id});
     }
   }
   onScroll(e) {
@@ -92,7 +92,23 @@ export class HomePostComponent implements OnInit, OnDestroy {
       const data = {
         scrollId: this.post_scroll_id,
       }
-      this.profileStore.dispatch({ type: ProfileActions.LOAD_USER_FOLLOWING_POSTS, payload: data });
+      this.store.dispatch({ type: ProfileActions.LOAD_USER_FOLLOWING_POSTS, payload: data });
+    }
+  }
+
+  // is spoted ture or false
+  isSpoted(value) {
+    const data = {
+      'mediaType': value.mtype,
+      'id': value.id
+    }
+
+    if (value.isSpotted === false) {
+      this.store.dispatch({ type: MediaActions.MEDIA_SPOT, payload: data });
+      this.store.dispatch({ type: ProfileActions.POST_SPOT, payload: value.id });
+    }else {
+      this.store.dispatch({ type: MediaActions.MEDIA_UNSPOT, payload: data });
+      this.store.dispatch({ type: ProfileActions.POST_UNSPOT, payload: value.id });
     }
   }
 

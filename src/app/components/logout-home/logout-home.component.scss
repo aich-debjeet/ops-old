@@ -734,23 +734,10 @@ line-height: 24px;
      width: 100%;
  }
 }
-.o-product_det{
- width: 71%;
- float: left;
- margin-left: 24px;
- margin-bottom: 24px;
-}
 .o-product-det__title{
  font-size: 15px;
  color: #333;
  font-weight: 600;
-}
-.o-product-det__txt{
- font-size:13px;
- color: #747474;
- font-weight: normal;
- margin-top: 8px;
- line-height: 22px;
 }
 .view_btn{
  background: transparent;
@@ -767,19 +754,4 @@ line-height: 24px;
  &:hover{
      color:$color-theme;
  }
-}
-
-.landing-signup{
- background: #fff;
- color: $color-theme;
- font-size: 16px;
- font-weight: 600;
- border:none;
-}
-.landing-login{
- background: none;
- color: #fff;
- font-size: 16px;
- font-weight: 600;
- border:1px #fff solid;
 }

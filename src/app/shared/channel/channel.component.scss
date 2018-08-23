@@ -341,16 +341,14 @@ a {
 }
 
 .c-channel__card {
-    //width: 24%;
     float: left;
-    //margin: 5px;
     position: relative;
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
         width: 100%;
-        margin: 5px;
+        margin: 5px 0;
     }
     @include mq($from: $mobile_lg, $until: $desktop_sm) {
         width: 48%;
-        margin: 5px;
+        margin: 5px 0;
     }
 }
