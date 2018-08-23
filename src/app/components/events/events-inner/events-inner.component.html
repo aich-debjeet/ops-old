@@ -45,7 +45,7 @@
       <div *ngIf="eventDetail?.event_agenda?.length > 0">
         <div class="c-text_lg m-t-b-16">Event Agenda</div>
         <ul class="list-group o-eventinner__agenda">
-            <li class="list-group-item" *ngFor="let agenda of eventDetail?.event_agenda">{{ agenda?.startTime }} <span class="m-l-16">{{ agenda?.startDate | utcDate | date: 'h:mm a'}}</span> <span class="m-l-16">{{ agenda?.description }}</span> </li> 
+            <li class="list-group-item" *ngFor="let agenda of eventDetail?.event_agenda">{{ agenda?.startTime }} <span class="m-l-16">{{ agenda?.startDate | utcDate | date: 'h:mm a'}}</span> <span class="m-l-16">{{ agenda?.description | truncate:[80, '...'] }}</span> </li> 
         </ul>
       </div>
     </div>
