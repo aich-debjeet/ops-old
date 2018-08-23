@@ -267,8 +267,8 @@ a {
     color: #929292;
     font-size: 11px;
     line-height: 18px;
-    margin-left: 8px;
-    display: inline;
+    margin-left: 0;
+    display: block;
 }
 
 .c-post__comment--time {
@@ -299,6 +299,9 @@ a {
 
 .c-mediamodal__input {
     padding: 4px 0 0 16px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        margin-left: 5px;
+    }
 }
 
 .m-b-0 {

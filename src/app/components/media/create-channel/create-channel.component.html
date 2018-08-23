@@ -23,17 +23,6 @@
                             <span class="c-form__bar"></span>
                             <label class="o-ng_channel-space">About channel</label>
                         </div>
-                        <p class="c-text_md color-grey-dark m-t-32" >Channel Type</p>
-                        <div class="c-form__group m-b-16">
-                            <select class="c-form-control p-0" formControlName="mediaType" [(ngModel)]="selectedChannel">
-                                <option value="" disabled="true" [selected]="!selectedChannel">Select Channel Type</option>
-                                <option value="5">Any</option>
-                                <option value="1">Image</option>
-                                <option value="2">Audio</option>
-                                <option value="3">Video</option>
-                                <option value="4">Text</option>
-                            </select>
-                        </div>
                         <div class="channel-industry__block ">
                             <div class="c-form__group">
                                 <select formControlName="type" class="c-form-control p-0" [(ngModel)]="selectedIndustry">
@@ -50,7 +39,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-12 p-0 text-right m-t-32">
+                        <div class="col-md-12 p-0 text-right m-t-32 pin">
                             <button type="button" class="btn btn-default btn-md m-r-16" (click)="channelCreate.close()">Cancel</button>
                             <button type="button" class="btn btn-primary btn-md" (click)="createChannel(channelForm.value)">Create</button>
                         </div>

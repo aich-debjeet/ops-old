@@ -447,7 +447,9 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS:
       return Object.assign({}, state, {
         success: true,
-        profile_loaded: false
+        profile_loaded: false,
+        user_post_scrollId: '',
+        user_posts: []
       });
 
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS_SUCCESS:
@@ -462,6 +464,26 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         success: false,
         profile_loaded: false
       });
+
+      /**
+       * Load user data details
+       */
+      case ProfileActions.LOAD_USER_DATA_DETAILS:
+      return Object.assign({}, state, {
+        details_loaded: false
+      });
+
+      case ProfileActions.LOAD_USER_DATA_DETAILS_SUCCESS:
+      return Object.assign({}, state, {
+        user_details: payload,
+        details_loaded: true
+      });
+
+      case ProfileActions.LOAD_USER_DATA_DETAILS_FAILED:
+      return Object.assign({}, state, {
+        details_loaded: false
+      });
+
 
       /**
        * Load image to database
@@ -530,11 +552,12 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Get User Media Post
      */
     case ProfileActions.LOAD_USER_MEDIA:
-      if (payload.page_start === 0) {
+      if (payload.scrollID === '') {
         return Object.assign({}, state, {
           user_posts_loading: true,
           user_posts_loaded: false,
-          user_posts: []
+          user_posts: [],
+          user_post_scrollId: []
         });
       }
       return Object.assign({}, state, {
@@ -544,13 +567,14 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
 
     case ProfileActions.LOAD_USER_MEDIA_SUCCESS:
-      const posts = payload['SUCCESS'] || [];
+      const posts = payload['SUCCESS']['mediaResponse'] || [];
       const new_post = state.user_posts.concat(posts)
       return Object.assign({}, state, {
         mediaEntity: payload,
         user_posts_loaded: true,
         user_posts_loading: false,
-        user_posts: new_post
+        user_posts: new_post,
+        user_post_scrollId: payload['SUCCESS']['scrollId']
       });
 
     case ProfileActions.LOAD_USER_MEDIA_FAILED:
@@ -767,6 +791,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.LOAD_PROFILE_UPDATE_SUCCESS:
+    console.log(payload)
       return Object.assign({}, state, {
         profileUpdate: payload,
         profileUpdateSuccess: true
@@ -775,6 +800,26 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_PROFILE_UPDATE_FAILED:
       return Object.assign({}, state, {
         profileUpdateSuccess: false
+      });
+
+    /**
+     * updating user details
+     */
+    case ProfileActions.LOAD_USER_UPDATE:
+    return Object.assign({}, state, {
+      success: true,
+      userUpdateSuccess: false,
+    });
+
+    case ProfileActions.LOAD_USER_UPDATE_SUCCESS:
+      return Object.assign({}, state, {
+        userUpdate: payload,
+        userUpdateSuccess: true
+      });
+
+    case ProfileActions.LOAD_USER_UPDATE_FAILED:
+      return Object.assign({}, state, {
+        userUpdateSuccess: false
       });
 
 
@@ -1001,6 +1046,27 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         media_channel_posted: false
       });
 
+    /**
+     * Post status to Channel
+     */
+    case ProfileActions.POST_CHANNEL_STATUS:
+      return Object.assign({}, state, {
+        status_channel_posting: true,
+        status_channel_posted: false
+      });
+
+    case ProfileActions.POST_CHANNEL_STATUS_SUCCESS:
+      return Object.assign({}, state, {
+        status_channel_posting: false,
+        status_channel_posted: true
+      });
+
+    case ProfileActions.POST_CHANNEL_STATUS_FAILED:
+      return Object.assign({}, state, {
+        status_channel_posting: false,
+        status_channel_posted: false
+      });
+
     // Get single spotfeed details
     case ProfileActions.GET_SPOTFEED_DETAILS:
       if (payload.page_start === 0) {
@@ -1146,27 +1212,27 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     /**
      * [TEMP] Load All directory
      */
-    case ProfileActions.LOAD_DIRECTORY:
-      if (payload.offset === 0) {
-        return Object.assign({}, state, {
-          dir_list: [],
-          dir_list_loaded: false,
-        });
-      }
-      return Object.assign({}, state, {
-        dir_list_loading: true,
-        dir_list_loaded: false,
-      });
+    // case ProfileActions.LOAD_DIRECTORY:
+    //   if (payload.offset === 0) {
+    //     return Object.assign({}, state, {
+    //       dir_list: [],
+    //       dir_list_loaded: false,
+    //     });
+    //   }
+    //   return Object.assign({}, state, {
+    //     dir_list_loading: true,
+    //     dir_list_loaded: false,
+    //   });
 
-    case ProfileActions.LOAD_DIRECTORY_SUCCESS:
-      const list = payload['profileResponse'];
-      const dir_lists = state.dir_list.concat(list)
-      return Object.assign({}, state, {
-        user_directory_scroll_id: payload['scrollId'],
-        dir_list_loading: false,
-        dir_list_loaded: true,
-        dir_list: dir_lists,
-      });
+    // case ProfileActions.LOAD_DIRECTORY_SUCCESS:
+    //   const list = payload['profileResponse'];
+    //   const dir_lists = state.dir_list.concat(list)
+    //   return Object.assign({}, state, {
+    //     user_directory_scroll_id: payload['scrollId'],
+    //     dir_list_loading: false,
+    //     dir_list_loaded: true,
+    //     dir_list: dir_lists,
+    //   });
 
     /**
      *  Get List of Block Users
@@ -1189,13 +1255,36 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      */
     case ProfileActions.UNBLOCK_USER:
       return Object.assign({}, state, {
+        isUnBlocked: false
       });
 
     case ProfileActions.UNBLOCK_USER_SUCCESS:
       return Object.assign({}, state, {
+        isUnBlocked: true
       });
     case ProfileActions.UNBLOCK_USER_FAILED:
       return Object.assign({}, state, {
+        isUnBlocked: false
+      });
+
+    /**
+     * Block user
+     */
+
+    case ProfileActions.BLOCK_USER:
+      return Object.assign({}, state, {
+        isBlocked: false,
+      });
+
+    case ProfileActions.BLOCK_USER_SUCCESS:
+    console.log(payload)
+      return Object.assign({}, state, {
+        isBlocked: true,
+      });
+
+    case ProfileActions.BLOCK_USER_FAILED:
+      return Object.assign({}, state, {
+        isBlocked: false,
       });
 
     /**
@@ -1636,10 +1725,11 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     const home_post_comment = state.user_following_posts.find(t => t.id === payload[0].postId);
     const home_list_comment_index = state.user_following_posts.indexOf(home_post_comment);
 
-    const profile_post_comment = state.user_following_posts.find(t => t.id === payload[0].postId);
-    const profile_list_comment_index = state.user_following_posts.indexOf(profile_post_comment);
+    const profile_post_comment = state.user_posts.find(t => t.id === payload[0].postId);
+    const profile_list_comment_index = state.user_posts.indexOf(profile_post_comment);
 
-      return Object.assign({}, state, {
+      if (home_post_comment) {
+        return Object.assign({}, state, {
           user_following_posts: [
               ...state.user_following_posts.slice(0, home_list_comment_index),
               Object.assign({}, home_post_comment, {
@@ -1647,7 +1737,31 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
               }),
               ...state.user_following_posts.slice(home_list_comment_index + 1)
           ]
-      });
+        });
+      }
+
+      if (profile_post_comment) {
+        return Object.assign({}, state, {
+          user_posts: [
+              ...state.user_posts.slice(0, profile_list_comment_index),
+              Object.assign({}, profile_post_comment, {
+                commentsList: payload
+              }),
+              ...state.user_posts.slice(profile_list_comment_index + 1)
+          ]
+        });
+      }
+      return state;
+
+    //   return Object.assign({}, state, {
+    //     user_following_posts: [
+    //         ...state.user_following_posts.slice(0, home_list_comment_index),
+    //         Object.assign({}, home_post_comment, {
+    //           commentsList: payload
+    //         }),
+    //         ...state.user_following_posts.slice(home_list_comment_index + 1)
+    //     ]
+    // });
 
     case ProfileActions.COMMENT_POST_DELETE:
       const home_post_delete = state.user_following_posts.find(t => t.id === payload.parent);
@@ -1665,12 +1779,13 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
             ],
         });
       }
+
       if (profile_post_delete_List) {
         return Object.assign({}, state, {
           user_posts: [
-            ...state.user_following_posts.slice(0, profile_list_delete_index),
+            ...state.user_posts.slice(0, profile_list_delete_index),
             Object.assign({}, profile_post_delete_List, {commentsList: profile_post_delete_List.commentsList.filter(comment => comment.commentsId !== payload.id) }),
-            ...state.user_following_posts.slice(profile_list_delete_index + 1)
+            ...state.user_posts.slice(profile_list_delete_index + 1)
           ],
         });
       }
@@ -1759,28 +1874,59 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
         })
 
-        case ProfileActions.PROFILE_REPORT:
-        return Object.assign({}, state, {
-          reports: []
-        });
-        case ProfileActions.PROFILE_REPORT_SUCCESS:
-        return Object.assign({}, state, {
-          reports: payload.Success.questions
-        });
-        case ProfileActions.PROFILE_REPORT_FAILED:
-        return Object.assign({}, state, {
-          reports: []
-        });
+    case ProfileActions.PROFILE_REPORT:
+      return Object.assign({}, state, {
+        reports: []
+      });
+    case ProfileActions.PROFILE_REPORT_SUCCESS:
+      return Object.assign({}, state, {
+        reports: payload.Success.questions
+      });
+    case ProfileActions.PROFILE_REPORT_FAILED:
+      return Object.assign({}, state, {
+        reports: []
+      });
 
-      case ProfileActions.TRENDING_POST_SUCCESS:
-        return Object.assign({}, state, {
-          trending_post: payload['mediaResponse'][0]
-        });
-    // }
+  case ProfileActions.TRENDING_POST_SUCCESS:
+    return Object.assign({}, state, {
+      trending_post: payload['mediaResponse']
+    });
 
-    // return Object.assign({}, state, {
+  case ProfileActions.POST_SPOT:
+    const trend_spot_inc = state.trending_post.find(t => t.id === payload);
+    const trend_spot_inc_index = state.trending_post.indexOf(trend_spot_inc);
+    const trend_spot_inc_count = trend_spot_inc ? trend_spot_inc.spotsCount + 1 : 0;
+    if (trend_spot_inc) {
+      return Object.assign({}, state, {
+        trending_post: [
+          ...state.trending_post.slice(0, trend_spot_inc_index),
+          Object.assign({}, trend_spot_inc , {
+            spotsCount: trend_spot_inc_count,
+            isSpotted: true
+          }),
+          ...state.trending_post.slice(trend_spot_inc_index + 1)
+        ],
+      });
+    }
+    return state;
 
-    // })
+  case ProfileActions.POST_UNSPOT:
+    const trend_spot_dec = state.trending_post.find(t => t.id === payload);
+    const trend_spot_dec_index = state.trending_post.indexOf(trend_spot_dec);
+    const trend_spot_dec_count = trend_spot_dec ? trend_spot_dec.spotsCount - 1 : 0;
+    if (trend_spot_dec) {
+      return Object.assign({}, state, {
+        trending_post: [
+          ...state.trending_post.slice(0, trend_spot_dec_index),
+          Object.assign({}, trend_spot_dec , {
+            spotsCount: trend_spot_dec_count,
+            isSpotted: false
+          }),
+          ...state.trending_post.slice(trend_spot_dec_index + 1)
+        ],
+      });
+    }
+    return state;
 
     default:
       return state;

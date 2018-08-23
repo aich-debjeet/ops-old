@@ -61,6 +61,12 @@ import { PlaceholderNotificationComponent } from './placeholder-notification/pla
 import { PortfolioMediaComponent } from './portfolio-media/portfolio-media.component';
 import { ReportPopoupComponent } from './report-popoup/report-popoup.component';
 import { PortfolioViewMediaComponent } from './portfolio-view-media/portfolio-view-media.component';
+import { OpportunityApplicationCardComponent } from './opportunity-application-card/opportunity-application-card.component';
+import { OpporunitySearchCardComponent } from './opporunity-search-card/opporunity-search-card.component';
+import { EventSearchCardComponent } from './event-search-card/event-search-card.component';
+import { UserCardSearchComponent } from './user-card-search/user-card-search.component';
+import { ConfirmBoxComponent } from './confirm-box/confirm-box.component';
+import { WikiProfileCardComponent } from './wiki-profile-card/wiki-profile-card.component';
 
 @NgModule({
   imports: [
@@ -119,7 +125,13 @@ import { PortfolioViewMediaComponent } from './portfolio-view-media/portfolio-vi
     PlaceholderNotificationComponent,
     PortfolioMediaComponent,
     ReportPopoupComponent,
-    PortfolioViewMediaComponent
+    PortfolioViewMediaComponent,
+    OpportunityApplicationCardComponent,
+    OpporunitySearchCardComponent,
+    EventSearchCardComponent,
+    UserCardSearchComponent,
+    ConfirmBoxComponent,
+    WikiProfileCardComponent
   ],
   exports: [
     OpportunityCardComponent,
@@ -156,7 +168,13 @@ import { PortfolioViewMediaComponent } from './portfolio-view-media/portfolio-vi
     ReadMoreComponent,
     PortfolioMediaComponent,
     ReportPopoupComponent,
-    PortfolioViewMediaComponent
+    PortfolioViewMediaComponent,
+    OpportunityApplicationCardComponent,
+    OpporunitySearchCardComponent,
+    EventSearchCardComponent,
+    UserCardSearchComponent,
+    ConfirmBoxComponent,
+    WikiProfileCardComponent
   ]
 })
 export class SharedModule { }

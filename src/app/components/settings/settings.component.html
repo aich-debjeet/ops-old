@@ -42,108 +42,70 @@
                         <div class="tab-pane active" id="general" *ngIf="this.selectedView === 'General'">
                             <h6 class="c-text_lg m-b-24 p-l-8">General Settings</h6>
                             <ul class="o-set-list">
-                                <li class="o-set-list_items o-set-list_items--active">
-                                    <div class="col-md-3 p-0">
+                                <li class="o-set-list_items">
+                                    <div class="col-md-3 col-xs-12 p-0">
                                         <span class="o-set-item__title c-text_md">
                                             Name
                                         </span>
                                     </div>
                                     <div class="col-md-9 col-xs-12 p-0">
-                                        <div id="acc_info-name" class="o-set-list__data" *ngIf="!nameActive">
-                                            <span class="c-text_md color-grey-dark">{{ userProfile?.name }}</span>
+                                        <div id="acc_info-name" class="o-set-list__data"  *ngIf="editingField != 'name'">
+                                            <span class="c-text_md color-grey-dark">{{userProfile?.name?.firstName}}</span>
                                             <span class="o-set-list__edit-btn">
-                                            <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="nameToggle()" >
-                                                <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span> Edit
-                                            </a>
+                                                <a class="o-set-list-edit__link c-text_md" (click)="editField('name')">
+                                                    <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span>
+                                                        Edit
+                                                </a>
                                             </span>
-                                        </div>
-                                        <!-- data end -->
-                                        <div id="acc-info-name__edit" class="o-set-list__edit" *ngIf="nameActive">
-                                            <form [formGroup]="nameForm" novalidate (ngSubmit)="nameUpdate(nameForm.value)" #nform="ngForm">
-                                                <div class="col-md-6 p-0">
-                                                    <div class="c-form__group c-form--sm c-form--noeffect m-0">
-                                                        <input class="c-form__input p-0" type="text" formControlName="name">
-                                                        <p class="c-form__validation" *ngIf="nameForm.controls['name'].errors?.required && nform.submitted">Name is required</p>
-                                                    </div>
-                                                </div>
-                                                <!-- <div class="col-md-2 p-0">
-                                                    <div class="dropdown margin_l_16">
-                                                        <span class="com-head" data-toggle="dropdown" aria-expanded="true">
-                                                            <div class="o-action__ico">
-                                                                <img src="{{ imageBaseLink }}img/svg/ico-public.svg" alt="">
-                                                            </div>
-                                                            <div class="o-action__ico-arrow">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="10px" height="6px" viewBox="0 0 16 10" version="1.1">
-                                                                    <defs></defs>
-                                                                    <g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                                        <polyline id="Path-2-Copy" stroke="#333" stroke-width="2" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) " points="1 1 8 8 15 1"></polyline>
-                                                                    </g>
-                                                                </svg>
-                                                            </div>
-                                                        </span>
-                                                        <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
-                                                            <li>
-                                                                <a href="#" class="c-opsdropdown__list">
-                                                                    <img src="{{ imageBaseLink }}img/svg/ico-public.svg" class="c-opsdropdown--icons">
-                                                                    <span class="c-opsdropdown--text">Public</span>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#" class="c-opsdropdown__list">
-                                                                    <img src="{{ imageBaseLink }}img/svg/Ico-private.svg" class="c-opsdropdown--icons">
-                                                                    <span class="c-opsdropdown--text">Private</span>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div> -->
-                                                <div class="col-md-6 p-0">
-                                                    <div class="o-set-list-edit__actions">
-                                                        <button type="button" class="btn btn-primary btn-sm" [type]="'submit'">Save</button>
-                                                        <button type="button" class="btn btn-default btn-sm" (click)="nameToggle()">Cancel</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <!-- edit data end -->
+                                        </div><!-- data end -->
+                                        <div id="acc-info-name__edit" class="o-set-list__edit" *ngIf="editingField == 'name'">
+                                            <div class="col-md-6 p-0">
+                                            <div class="c-form__group c-form--sm c-form--noeffect m-0">
+                                                <input class="c-form__input p-0" [(ngModel)]="name" type="text" value="Tobias Van Schneider">
+                                            </div>
+                                            </div>
+                                            <div class="col-md-6 p-0">
+                                            <div class="o-set-list-edit__actions">
+                                                <button type="button" class="btn btn-primary btn-sm" (click)="updateAbout('name')">Save</button>
+                                                <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()">Cancel</button>
+                                            </div>
+                                            </div>
+                                        </div><!-- edit data end -->
                                     </div>
-                                </li>
-                                <!-- name end -->
+                                </li><!-- name end -->
                                 <li class="o-set-list_items">
                                     <div class="col-md-3 col-xs-12 p-0">
                                         <span class="o-set-item__title c-text_md">
-                                        Date of Birth
-                                    </span>
+                                            Date of Birth
+                                        </span>
                                     </div>
                                     <div class="col-md-9 col-xs-12 p-0">
-                                        <div id="acc_info-dob" class="o-set-list__data" *ngIf="!dobActive">
-                                            <span class="c-text_md color-grey-dark">{{ userProfile?.physical?.dateOfBirth | date:'longDate'}}</span>
+                                        <div id="acc_info-dob" class="o-set-list__data" *ngIf="editingField != 'dob'">
+                                            <span class="c-text_md color-grey-dark">{{ userProfile?.other?.dateOfBirth | date:'longDate'}}</span>
                                             <span class="o-set-list__edit-btn">
-                                              <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="dobToggle()" >
-                                                    <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span> Edit
+                                            <a class="o-set-list-edit__link c-text_md" (click)="editField('dob')">
+                                                <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span>
+                                                Edit
                                             </a>
                                             </span>
-                                        </div>
-                                        <!-- data end -->
-                                        <div id="acc-info-dob__edit" class="o-set-list__edit" *ngIf="dobActive">
-                                            <form [formGroup]="dateForm" novalidate (ngSubmit)="dateFormUpdate(dateForm.value)" #dobform="ngForm">
-                                                <div class="col-md-4 p-0">
-                                                    <div class="c-form__group c-form--sm c-form--noeffect m-0">
-                                                        <input class="c-form__input p-0" type="text" required [textMask]="{mask: dateMask}" formControlName="dob">
-                                                        <p class="c-form__validation" *ngIf="dateForm.controls['dob'].errors?.required && dobform.submitted">DOB is required</p>
-                                                        <p class="c-form__validation" *ngIf="dateForm.controls['dob'].errors?.invalidDOB">Invalid Date of Birth</p>
-                                                        <p class="c-form__validation" *ngIf="dateForm.controls['dob'].errors?.isUnderAge">You should be above 13</p>
-                                                        <p class="c-form__validation" *ngIf="dateForm.controls['dob'].errors?.isOverAge">You should be below 100</p>
-                                                    </div>
+                                        </div><!-- data end -->
+                                        <div id="acc-info-dob__edit" class="o-set-list__edit" *ngIf="editingField == 'dob'">
+                                            <div class="col-md-4 p-0">
+                                                <div class="c-form__group c-form--sm c-form--noeffect m-0">
+                                                    <input class="c-form__input p-0" [(ngModel)]="dob" [textMask]="{mask: dateMask}" type="text" value="DD-MM-YYYY">
+                                                    <p class="error_alert" *ngIf="invalidDOB">Invalid Date of Birth</p>
+                                                    <p class="error_alert" *ngIf="isUnderAge">You should be above 13</p>
+                                                    <p class="error_alert" *ngIf="isOverAge">You should be below 100</p>
                                                 </div>
-                                                <div class="col-md-2 p-0">
-                                                    <div class="dropdown margin_l_16">
-                                                        <span class="com-head" data-toggle="dropdown" aria-expanded="true">
+                                            </div>
+                                            <div class="col-md-2 p-0">
+                                                <div class="dropdown margin_l_16">   
+                                                    <span class="com-head" data-toggle="dropdown" aria-expanded="true">
                                                         <div class="o-action__ico">
                                                             <img src="{{ imageBaseLink }}img/svg/ico-public.svg" alt="">
                                                         </div>
                                                         <div class="o-action__ico-arrow">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="10px" height="6px" viewBox="0 0 16 10" version="1.1">
+                                                            <svg xmlns="http://www.w3.set/2000/svg" xmlns:xlink="http://www.w3.set/1999/xlink" width="10px" height="6px" viewBox="0 0 16 10" version="1.1">
                                                                 <defs></defs>
                                                                 <g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                                                     <polyline id="Path-2-Copy" stroke="#333" stroke-width="2" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) " points="1 1 8 8 15 1"></polyline>
@@ -151,295 +113,189 @@
                                                             </svg>
                                                         </div>
                                                     </span>
-                                                        <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
-                                                            <li>
-                                                                <a href="#" class="c-opsdropdown__list">
-                                                                    <img src="{{ imageBaseLink }}img/svg/ico-public.svg" class="c-opsdropdown--icons">
-                                                                    <span class="c-opsdropdown--text">Public</span>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#" class="c-opsdropdown__list">
-                                                                    <img src="{{ imageBaseLink }}img/svg/Ico-private.svg" class="c-opsdropdown--icons">
-                                                                    <span class="c-opsdropdown--text">Private</span>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
+                                                    <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
+                                                        <li>
+                                                            <a href="javascript:void(0)" class="c-opsdropdown__list">
+                                                                <img src="{{ imageBaseLink }}img/svg/ico-public.svg" class="c-opsdropdown--icons">
+                                                                <span class="c-opsdropdown--text">Public</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:void(0)" class="c-opsdropdown__list">
+                                                                <img src="{{ imageBaseLink }}img/svg/Ico-private.svg" class="c-opsdropdown--icons">
+                                                                <span class="c-opsdropdown--text">Private</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
                                                 </div>
-                                                <div class="col-md-6 p-0">
-                                                    <div class="o-set-list-edit__actions">
-                                                        <button type="button" class="btn btn-primary btn-sm" [type]="'submit'">Save</button>
-                                                        <button type="button" class="btn btn-default btn-sm" (click)="dobToggle()">Cancel</button>
-                                                    </div>
+                                            </div>
+                                            <div class="col-md-6 p-0">
+                                                <div class="o-set-list-edit__actions">
+                                                    <button type="button" class="btn btn-primary btn-sm" (click)="updateAbout('dob')">Save</button>
+                                                    <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()">Cancel</button>
                                                 </div>
-                                            </form>
-                                        </div>
-                                        <!-- edit data end -->
+                                            </div>
+                                        </div><!-- edit data end -->
                                     </div>
-                                </li>
-                                <!-- dob end -->
-                                <li class="o-set-list_items">
+                              </li><!-- dob end -->
+                              <li class="o-set-list_items">
                                     <div class="col-md-3 p-0">
-                                        <span class="o-set-item__title c-text_md">
+                                    <span class="o-set-item__title c-text_md">
                                         Gender 
                                     </span>
                                     </div>
                                     <div class="col-md-9 p-0">
-                                        <div id="acc_info-gender" class="o-set-list__data" *ngIf="!genderActive">
-                                            <span class="c-text_md color-grey-dark">{{ userProfile?.physical?.gender }}</span>
+                                        <div id="acc_info-gender" class="o-set-list__data">
+                                            <span class="c-text_md color-grey-dark" *ngIf="userProfile?.gender === 'M' && editingField != 'gender'">Male</span>
+                                            <span class="c-text_md color-grey-dark" *ngIf="userProfile?.gender === 'F' && editingField != 'gender'">Female</span>
+                                            <span class="c-text_md color-grey-dark" *ngIf="userProfile?.gender === 'O' && editingField != 'gender'">Others</span>
                                             <span class="o-set-list__edit-btn">
-                                            <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="genderToggle()" >
-                                                <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span> Edit
-                                            </a>
+                                                <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="editField('gender')">
+                                                    <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span>
+                                                    Edit
+                                                </a>
                                             </span>
-                                        </div>
-                                        <!-- data end -->
-                                        <div id="acc-info-gender__edit" class="o-set-list__edit" *ngIf="genderActive">
-                                            <form [formGroup]="genderForm" novalidate (ngSubmit)="genderFormUpdate(genderForm.value)" #gendForm="ngForm">
-                                                <div class="col-md-6 p-0">
-                                                    <div class="edit-about-gender c-radio__sm">
-                                                        <div class="c-radio__sm">
-                                                            <label class="col-md-4">
-                                                                <input type="radio" value="M" formControlName="gender"><span></span>Male
-                                                            </label>
-                                                            <label class="col-md-4">
-                                                                <input type="radio" value="F" formControlName="gender"><span></span>Female
-                                                            </label>
-                                                            <label class="col-md-4">
-                                                                <input type="radio" value="O" formControlName="gender"><span></span>Others
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>    
-                                                <!-- <div class="col-md-4 p-0">
-                                                    <div class="c-form__group c-form--sm c-form--noeffect m-0">
-                                                        <input class="c-form__input p-0" type="text" formControlName="gender">
-                                                    </div>
-                                                </div> -->
-                                                <div class="col-md-2 p-0">
-                                                </div>
-                                                <div class="col-md-6 p-0">
-                                                    <div class="o-set-list-edit__actions">
-                                                        <button type="button" class="btn btn-primary btn-sm" [type]="'submit'">Save</button>
-                                                        <button type="button" class="btn btn-default btn-sm" (click)="genderToggle()">Cancel</button>
+                                        </div><!-- data end -->
+                                        <div id="acc-info-gender__edit" class="o-set-list__edit" *ngIf="editingField == 'gender'">
+                                            <div class="col-md-6 p-0">
+                                                <div class="edit-about-gender c-radio__sm">
+                                                    <div class="c-radio__sm">
+                                                        <label class="col-md-4">
+                                                            <input name="demo" type="radio" [value]="M" [checked]="gender === 'M'" class="c-form__bar2"  (change)="onSelectionChange('M')"><span></span>Male
+                                                        </label>
+                                                        <label class="col-md-4">
+                                                            <input name="demo" type="radio" [value]="F" [checked]="gender === 'F'" class="c-form__bar2"  (change)="onSelectionChange('F')"><span></span>Female
+                                                        </label>
+                                                        <label class="col-md-4">
+                                                            <input name="demo" type="radio" [value]="O" [checked]="gender === 'O'" class="c-form__bar2"  (change)="onSelectionChange('O')"><span></span>Others
+                                                        </label>
                                                     </div>
                                                 </div>
-                                            </form>
-                                        </div>
-                                        <!-- edit data end -->
+                                            </div>
+                                            <div class="col-md-2 p-0">
+                                            </div>
+                                            <!-- <div class="col-md-6 p-0">
+                                                <div class="o-set-list-edit__actions">
+                                                    <button type="button" class="btn btn-primary btn-sm" (click)="updateAbout('gender')">Save</button>
+                                                    <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()">Cancel</button>
+                                                </div>
+                                            </div> -->
+                                        </div><!-- edit data end -->
                                     </div>
-                                </li>
-                                <!-- gender end -->
-                                <li class="o-set-list_items">
+                              </li><!-- gender end -->
+                              <li class="o-set-list_items">
                                     <div class="col-md-3 p-0">
                                         <span class="o-set-item__title c-text_md">
                                             Username  
                                         </span>
                                     </div>
                                     <div class="col-md-9 p-0">
-                                        <div id="acc_info-username" class="o-set-list__data" *ngIf="!userActive">
-                                            <span class="c-text_md color-grey-dark">{{ userProfile?.extra?.username }}</span>
+                                        <div id="acc_info-username" class="o-set-list__data" *ngIf="editingField != 'username'">
+                                            <span class="c-text_md color-grey-dark">{{ userProfile?.username }}</span>
                                             <span class="o-set-list__edit-btn">
-                                            <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="userToggle()" >
-                                                <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span> Edit
-                                            </a>
+                                                <a class="o-set-list-edit__link c-text_md" (click)="editField('username')">
+                                                    <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span>
+                                                    Edit
+                                                </a>
                                             </span>
-                                        </div>
-                                        <!-- data end -->
-                                        <div id="acc-info-username__edit" class="o-set-list__edit" *ngIf="userActive">
-                                            <form [formGroup]="usernameForm" novalidate (ngSubmit)="userFormUpdate(usernameForm.value)" #userform="ngForm">
-                                                <div class="col-md-4 p-0">
-                                                    <div class="c-form__group c-form--sm c-form--noeffect">
-                                                        <input class="c-form__input c-form__input--alert p-0" required="" type="text" formControlName="username">
-                                                        <!-- <p class="c-form__validation">Validation Messages</p> -->
-                                                        <p class="c-form__validation" *ngIf="usernameForm.controls['username'].errors?.required && userform.submitted">Username is required</p>
-                                                        <p class="c-form__validation" *ngIf="usernameForm.controls['username'].errors?.whitespace|| usernameForm.controls['username'].errors?.capitalLetters || usernameForm.controls['username'].errors?.specialChars">Capital letters, spaces and special characters are not allowed</p>
-                                                        <p class="c-form__validation" *ngIf="usernameForm.controls['username'].errors?.invalidLength">Username length limit is 3 to 15 character</p>
-                                                        <p class="c-form__validation" *ngIf="usernameForm.controls['username'].errors?.isUsernameUnique">This username is already taken</p>
-                                                        <!-- <ul class="username_error" *ngIf="petTag.user_unique">
-                                                            <li *ngFor="let username of petTag?.user_exist; let isLast=last">
-                                                                <span title="{{username}}" class="suggestions" (click)="useThisUsername(username)">{{username}}{{isLast ? '' : ',&nbsp;'}}</span>
-                                                            </li>
-                                                        </ul> -->
-                                                    </div>
+                                        </div><!-- data end -->
+                                        <div id="acc-info-username__edit" class="o-set-list__edit" *ngIf="editingField == 'username'">
+                                            <div class="col-md-4 p-0">
+                                                <div class="c-form__group c-form--sm c-form--noeffect">
+                                                    <input class="c-form__input c-form__input--alert p-0" [ngModel]="userName" (ngModelChange)="userExistCheck($event)" type="text">
+                                                    <p class="c-form__validation" *ngIf="isRequired">Username is required</p>
+                                                    <p class="c-form__validation" *ngIf="whitespace || capitalLetters || specialChars">Capital letters, spaces and special characters are not allowed</p>
+                                                    <p class="c-form__validation" *ngIf="invalidLength">Username length limit is 3 to 15 characters</p>
+                                                    <ul class="username_error" *ngIf="petTag.user_unique">
+                                                        <li *ngFor="let username of petTag?.user_exist; let isLast=last">
+                                                            <span title="{{username}}" class="suggestions" (click)="useThisUsername(username)">{{username}}{{isLast ? '' : ',&nbsp;'}}</span>
+                                                        </li>
+                                                    </ul>
                                                 </div>
-                                                <div class="col-md-2 p-0">
+                                            </div>
+                                            <div class="col-md-2 p-0">
+                                            </div>
+                                            <div class="col-md-6 p-0">
+                                                <div class="o-set-list-edit__actions">
+                                                    <button type="button" class="btn btn-primary btn-sm" (click)="updateAbout('username')" [disabled]="petTag.user_unique">Save</button>
+                                                    <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()">Cancel</button>
                                                 </div>
-                                                <div class="col-md-6 p-0">
-                                                    <div class="o-set-list-edit__actions">
-                                                        <button type="button" class="btn btn-primary btn-sm" [type]="'submit'">Save</button>
-                                                        <button type="button" class="btn btn-default btn-sm" (click)="userToggle()">Cancel</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <!-- edit data end -->
+                                            </div>
+                                        </div><!-- edit data end -->
                                     </div>
-                                </li>
-                                <!-- username end -->
-                                <li class="o-set-list_items">
+                              </li><!-- username end -->
+                              <li class="o-set-list_items">
                                     <div class="col-md-3 p-0">
                                         <span class="o-set-item__title c-text_md">
                                             Email  
                                         </span>
                                     </div>
                                     <div class="col-md-9 p-0">
-                                        <div id="acc_info-mail" class="o-set-list__data" *ngIf="!emailActive">
+                                        <div id="acc_info-mail" class="o-set-list__data" *ngIf="editingField != 'email'">
                                             <span class="c-text_md color-grey-dark">{{ userProfile?.email }}</span>
-                                            <span class="o-set-list__edit-btn">
-                                                <a href="javascrpit:void(0)" class="o-set-list-edit__link c-text_md" (click)="emailToggle()" >
-                                                    <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span> Edit
+                                            <!-- <span class="o-set-list__edit-btn">
+                                            <a class="o-set-list-edit__link c-text_md" (click)="editField('email')">
+                                                <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span>
+                                                Edit
                                             </a>
-                                            </span>
-                                        </div>
-                                        <!-- data end -->
-                                        <div id="acc-info-mail__edit" class="o-set-list__edit" *ngIf="emailActive">
-                                            <form [formGroup]="emailForm" novalidate (ngSubmit)="emailFormUpdate(emailForm.value)" #eform="ngForm">
-                                                <div class="col-md-8 p-0">
-                                                    <div class="c-form__group c-form--sm c-form--noeffect m-0">
-                                                        <input class="c-form__input p-0" required="" type="email" formControlName="email">
-                                                        <p class="c-form__validation" *ngIf="emailForm.controls['email'].errors?.isEmailUnique && eform.submitted ">Mail account already exists</p>
-                                                        <p class="c-form__validation" *ngIf="emailForm.controls['email'].errors?.email || emailForm.controls['email'].errors?.isInvalidEmail && eform.submitted">Email is not valid</p>
-                                                        <p class="c-form__validation" *ngIf="emailForm.controls['email'].errors?.required && eform.submitted">Email is required</p>
-                                                    </div>
-                                                    <p class="c-text_sm color-grey-dark">Verify your mail by clicking the link sent to your mail id</p>
-                                                </div>
-                                                <div class="col-md- p-0">
-                                                </div>
-                                                <div class="col-md-4 p-0">
-                                                    <div class="o-set-list-edit__actions">
-                                                        <button type="button" class="btn btn-primary btn-sm" [type]="'submit'">Verify</button>
-                                                        <button type="button" class="btn btn-default btn-sm" (click)="emailToggle()">Cancel</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <!-- edit data end -->
+                                            </span> -->
+                                        </div><!-- data end -->
+                                        <!-- <div id="acc-info-mail__edit" class="o-set-list__edit" *ngIf="editingField == 'email'">
+                                            <div class="col-md-8 p-0">
+                                            <div class="c-form__group c-form--sm c-form--noeffect m-0">
+                                                <input class="c-form__input p-0" type="text" [(ngModel)]="email" value="tobias@tobias.com">
+                                            </div>
+                                            <p class="c-text_sm color-grey-dark">Verify your mail clicking the link that send to your mail id</p>
+                                            </div>
+                                            <div class="col-md- p-0">
+                                            </div>
+                                            <div class="col-md-4 p-0">
+                                            <div class="o-set-list-edit__actions">
+                                                <button type="button" class="btn btn-primary btn-sm" (click)="updateAbout('email')">Verify</button>
+                                                <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()">Cancel</button>
+                                            </div>
+                                            </div>
+                                        </div>edit data end -->
                                     </div>
-                                </li>
-                                <!-- mail end -->
-                                <li class="o-set-list_items">
+                              </li><!-- mail end -->
+                              <li class="o-set-list_items">
                                     <div class="col-md-3 p-0">
                                         <span class="o-set-item__title c-text_md">
                                             Phone Number 
                                         </span>
                                     </div>
                                     <div class="col-md-9 p-0">
-                                        <div id="acc_info-phone" class="o-set-list__data" *ngIf="!phoneActive">
-                                            <span class="c-text_md color-grey-dark">{{ userProfile?.contact?.mobile?.mobile }}</span>
+                                        <div id="acc_info-phone" class="o-set-list__data" *ngIf="editingField != 'phone'">
+                                            <span class="c-text_md color-grey-dark">{{ userProfile?.contact?.contactNumber }}</span>
                                             <span class="o-set-list__edit-btn">
-                                            <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="phoneToggle()" >
-                                                <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span> Edit
-                                            </a>
+                                                <a class="o-set-list-edit__link c-text_md" (click)="editField('phone')">
+                                                    <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span>
+                                                    Edit
+                                                </a>
                                             </span>
-                                        </div>
-                                        <!-- data end -->
-                                        <div id="acc-info-phone__edit" class="o-set-list__edit" *ngIf="phoneActive">
-                                            <form [formGroup]="phoneForm" novalidate (ngSubmit)="resendOtpOnNewNumber(phoneForm.value)" #pform="ngForm">
-                                                <div class="col-md-4 p-0">
-                                                    <div class="c-form__group c-form--sm c-form--noeffect m-0">
-                                                        <input class="c-form__input p-0" required="" type="Phone" formControlName="mobile">
-                                                        <p class="c-form__validation" *ngIf="phoneForm.controls['mobile'].errors?.required && pform.submitted">Phone is required</p>
-                                                        <p class="c-form__validation" *ngIf="phoneForm.controls['mobile'].errors?.isMobileUnique">This phone number is already registered</p>
-                                                        <!-- <p class="c-form__validation" *ngIf="phoneForm.controls['mobile'].errors?.minlength">Phone number must be min length 4</p> -->
-                                                    </div>
+                                        </div><!-- data end -->
+                                        <div id="acc-info-phone__edit" class="o-set-list__edit" *ngIf="editingField == 'phone'">
+                                            <div class="col-md-4 p-0">
+                                                <div class="c-form__group c-form--sm c-form--noeffect m-0">
+                                                    <input class="c-form__input p-l" type="text" [(ngModel)]="phone">
+                                                    <p class="error_alert" *ngIf="phNumbrReq">Phone Number is required</p>
+                                                    <p class="error_alert" *ngIf="phMinLent">Phone number must have a minimum length of 4</p>
+                                                    <p class="error_alert" *ngIf="isMobileUnique">This phone number is already registered</p>
+                                                    <app-country-selector [ngStyle]="{'margin-top': '-5px'}" [countryCode]="shortCode" [countrySelForm]="'set'" #countrySelSet (onCountrySelection)="saveCountry($event, 'set')"></app-country-selector>
                                                 </div>
-                                                <div class="col-md-2 p-0">
-                                                </div>
-                                                <div class="col-md-6 p-0">
-                                                    <div class="o-set-list-edit__actions">
-                                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#phone-verify" [type]="'submit'">verify</button>
-                                                        <button type="button" class="btn btn-default btn-sm" (click)="phoneToggle()">Cancel</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <!-- edit data end -->
-                                    </div>
-                                </li>
-                                <!-- phone end -->
-                                <!-- <li class="o-set-list_items"> -->
-                                    <!-- <div class="col-md-3 p-0">
-                                        <span class="o-set-item__title c-text_md">
-                                            Profile Type
-                                        </span>
-                                    </div>
-                                    <div class="col-md-9 p-0">
-                                        <div id="acc_info-protype" class="o-set-list__data" *ngIf="!profileTypeActive">
-                                            <span class="c-text_md color-grey-dark">Talent, Stagecraft </span>
-                                            <span class="o-set-list__edit-btn">
-                                            <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="profileTypeToggle()" >
-                                                <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span> Edit
-                                            </a>
-                                            </span>
-                                        </div> -->
-                                        <!-- data end -->
-                                        <!-- <div id="acc-info-protype__edit" class="o-set-acc-type-block" *ngIf="profileTypeActive"> -->
-                                            <!-- <input type="checkbox" name="rGroup" value="1" id="r1" />
-                                            <label class="o-set-acc-type m-l-0" for="r1">
-                                                <span class="c-text_lg">Talent</span>
-                                                  <p class="c-text_sm color-grey-dark m-t-8">
-                                                    Eg: Performing arts, movement arts, audio arts, visual arts, fine arts, applied arts
-                                                  </p>
-                                            </label> -->
-                                            <!-- talent end -->
-
-                                            <!-- <input type="checkbox" name="rGroup" value="1" id="r2" />
-                                            <label class="o-set-acc-type" for="r2">
-                                              <span class="c-text_lg">Stagecrafters</span>
-                                                  <p class="c-text_sm color-grey-dark m-t-8">
-                                                    Eg: Sound Engineer, Light Engineer, Wardrobe supervisor
-                                                  </p>
-                                            </label> -->
-                                            <!-- Stagecrafters end -->
-
-                                            <!-- <input type="checkbox" name="rGroup" value="1" id="r3" />
-                                            <label class="o-set-acc-type" for="r3">
-                                              <span class="c-text_lg">Techies</span>
-                                                  <p class="c-text_sm color-grey-dark m-t-8">
-                                                    Eg: VR, Game Programmers, Software Developers, Editors
-                                                  </p>
-                                            </label> -->
-                                            <!-- Techies end -->
-
-                                            <!-- <input type="checkbox" name="rGroup" value="1" id="r4" />
-                                            <label class="o-set-acc-type m-l-0" for="r4">
-                                              <span class="c-text_lg">Corporates</span>
-                                                  <p class="c-text_sm color-grey-dark m-t-8">
-                                                    Eg: Theatre Manager, Account Manager, Marketing, Legal, Finance & Accounting
-                                                  </p>
-                                            </label> -->
-                                            <!-- Corporates end -->
-
-                                            <!-- <input type="checkbox" name="rGroup" value="1" id="r5" />
-                                            <label class="o-set-acc-type" for="r5">
-                                              <span class="c-text_lg">Teachers</span>
-                                                  <p class="c-text_sm color-grey-dark m-t-8">
-                                                    Eg: Trainers, Coaches, Mentors, Guides
-                                                  </p>
-                                           </label> -->
-                                            <!-- Teachers end -->
-
-                                            <!-- <input type="checkbox" name="rGroup" value="1" id="r6" />
-                                            <label class="o-set-acc-type" for="r6">
-                                                <span class="c-text_lg">Art Lovers</span>
-                                                  <p class="c-text_sm color-grey-dark m-t-8">
-                                                    Eg: Followers of art forms & artists, entertainment seekers, connoisseurs
-                                                  </p>
-                                            </label> -->
-                                            <!-- Art Lovers end -->
-
-                                            <!-- <div class="col-md-12 p-0 p-t-b-16">
-                                                <button type="button" class="btn btn-primary btn-sm">Save</button>
-                                                <button type="button" class="btn btn-default btn-sm" (click)="profileTypeToggle()">Cancel</button>
                                             </div>
-
-                                        </div> -->
-                                        <!-- edit data end -->
-                                    <!-- </div>
-                                </li> -->
-                                <!-- profile type end -->
+                                            <div class="col-md-2 p-0">
+                                            </div>
+                                            <div class="col-md-6 p-0">
+                                                <div class="o-set-list-edit__actions">
+                                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#phone-verify" (click)="updateContactNumber()">verify</button>
+                                                    <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div><!-- edit data end -->
+                                    </div>
+                              </li><!-- phone end -->
+                             
                             </ul>
                             <div class="col-md-12 col-sm-12 col-xs-12 p-0 p-l-8 m-b-24">
                                 <div class="switch_btn">
@@ -455,17 +311,19 @@
                             <!-- <div class="col-md-12 col-sm-12 col-xs-12 p-0 ">
                                 <div class="col-md-8 p-0 p-l-8">
                                     <span class="c-text_md p-b-8">
-                                      Delete Account
+                                    Delete Account
                                     </span>
                                     <p class="c-text_sm p-t-8">
-                                        By deleting your account you remove your personal information from One page spotlight. Your account cannot be restored.
+                                        By deleting your account you remove your personal information from One Page Spotlight. 
+                                        Your account cannot be restored.
                                     </p>
                                 </div>
                                 <div class="col-md-4 p-0 text-right">
                                     <button type="button" class="btn btn-primary btn-md m-t-16">Delete</button>
                                 </div>
                             </div> -->
-                        </div>
+                            
+                          </div>
                         <!-- general end -->
                         <div class="tab-pane active" id="Security_Privacy" *ngIf="this.selectedView === 'Security'">
                             <h6 class="c-text_lg m-b-24 p-l-8">Security & Privacy</h6>
@@ -795,9 +653,9 @@
 <!-- OTP Confirm Modal -->
 
 <!-- OTP Modal-->
-<app-modal [modalTitle]="'OTP'" [blocking]='false' modalId='otpWindow'>
+<!-- <app-modal [modalTitle]="'OTP'" [blocking]='false' modalId='otpWindow'>
     <div name="otp" class="otp__modal">
-        <!-- <div class="modal fade" id="phone-verify" role="dialog"> -->
+        
         <div class="modal-content o-settings-pop-contianer">
             <div class="o-s-pop_content">
                 <h3 class="o-s-pop-head m-b-24">Enter OTP</h3>
@@ -809,7 +667,7 @@
                     <div class="o-s-pop-form">
                         <div class="c-form__group">
                             <input class="c-form__input" required="" type="text" formControlName="otpNumber" placeholder="Type the code">
-                            <!-- <span>00:59</span> -->
+                            
                         </div>
                         <p class="c-form__validation" *ngIf="!petTag?.user_otp_success && petTag?.user_otp_success !== 'undefined'">Invalid OTP</p>
                         <p class="c-form__validation" *ngIf="otpForm.controls['otpNumber'].errors?.invalid && oform.submitted">Please enter your 6 digit OTP number</p>
@@ -820,9 +678,9 @@
                 </form>
             </div>
         </div>
-        <!-- </div> -->
+        
     </div>
-</app-modal>
+</app-modal> -->
 
 <!-- <div class="modal fade" id="phone-verify" role="dialog">
     <div class="modal-content o-settings-pop-contianer">
@@ -844,3 +702,66 @@
         </div>
     </div>
 </div> -->
+
+<!-- OTP Modal -->
+<app-modal-new  #otpPopup [closeOnEscape]="false" [closeOnOutsideClick]="false" modalClass="reg_step1_otp modal-test-claim">
+    <modal-content>
+    <!-- otp popup code -->
+    <div class="reg_step1_otp" id="otpModal" role="dialog">
+        <!-- otp modal -->
+        <div class="modal-dialog" id="modal-test-2">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header with_border_none">
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <h5 class="text-center">Enter the 6 digit OTP that you have received <br> by email or phone </h5>
+                        <p class="text-center m-t-16">
+                            <a *ngIf="!resendingOtp" (click)="resendOtp()" class="color-theme">Resend OTP</a>
+                            <a *ngIf="resendingOtp">Sending OTP, please wait...</a>
+                        </p>
+                        <form [formGroup]="otpForm" (ngSubmit)="otpSubmit(otpForm.value)" #myform="ngForm" [ngStyle]="{'width': '400px', 'margin': '0 auto','padding-bottom': '10%'}">
+                            <div class="row">
+                                <div class="col-sm-6 c-text_md m-8 m-l-24">Enter OTP</div>
+                                <div class="col-sm-5">
+                                    <!-- <div class="c-text_md pull-right color-theme m-8 m-r-16 m-r-0">00:50</div> -->
+                                </div>
+                            </div>
+                            <div class="form_group o-otp_form">
+                                <input #otpNum1 (keydown)="nextOtpNum($event, 1)" class="form_input" type="text" maxlength="1" formControlName="otpNum1">
+                            </div>
+                            <div class="form_group o-otp_form">
+                                <input #otpNum2 (keydown)="nextOtpNum($event, 2)" class="form_input" type="text" maxlength="1" formControlName="otpNum2">
+                            </div>
+                            <div class="form_group o-otp_form">
+                                <input #otpNum3 (keydown)="nextOtpNum($event, 3)" class="form_input" type="text" maxlength="1" formControlName="otpNum3">
+                            </div>
+                            <div class="form_group o-otp_form">
+                                <input #otpNum4 (keydown)="nextOtpNum($event, 4)" class="form_input" type="text" maxlength="1" formControlName="otpNum4">
+                            </div>
+                            <div class="form_group o-otp_form">
+                                <input #otpNum5 (keydown)="nextOtpNum($event, 5)" class="form_input" type="text" maxlength="1" formControlName="otpNum5">
+                            </div>
+                            <div class="form_group o-otp_form">
+                                <input #otpNum6 (keydown)="nextOtpNum($event, 6)" class="form_input" type="text" maxlength="1" formControlName="otpNum6">
+                            </div>
+                            <p class="error_alert text-center" *ngIf="petTag?.user_otp_failed">Invalid OTP</p>
+                            <p class="error_alert text-center" *ngIf="myform.submitted && (otpForm.controls['otpNum1'].errors?.required || otpForm.controls['otpNum2'].errors?.required || otpForm.controls['otpNum3'].errors?.required || otpForm.controls['otpNum4'].errors?.required || otpForm.controls['otpNum5'].errors?.required || otpForm.controls['otpNum6'].errors?.required)">Please enter your 6 digit OTP number</p>
+                            <!-- <div class="text-center otp-dont-get" *ngIf="!claimActive">
+                                <a (click)="otpNotRecieved()" class="color-theme">Didn't get your OTP?</a>
+                            </div> -->
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-lg capitalize">Validate</button>
+                            </div>
+                        </form>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <!-- //otp modal -->
+    </div>
+    </modal-content>
+    <!-- //otp popup code -->
+</app-modal-new>
+<!-- OTP Modal -->

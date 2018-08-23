@@ -12,114 +12,116 @@
 </div>
 <section class="o-add-media" *ngIf="uploadState === 1">
     <div class="container">
-        <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-7 col-sm-7 col-xs-12 p-0" *ngIf="uploadState === 1">
-                <div class="o-add-media__block" [ngClass]="(uploadedFiles.length === 0)? 'o-block__fade' : ''">
-                    <div class="">
-                        <div class="c-user">
-                            <a class="c-user__avatar c-avatar--feed">
-                                <img class="c-user__image" [src]="baseUrl + activeUser?.image">
-                            </a>
-                            <a class="c-user__name c-user__name--addpost">{{ activeUser?.name }}</a>
-                            <img [src]="baseUrl + 'img/svg/arrow2.svg'" class="o-addpost__arrow" *ngIf="nameActive">
-                            <span class="c-text_md color-grey-dark o-addpost__commtxt"  *ngIf="nameActive">{{ct_name}}</span>
-                        </div>
-                    </div>
-                    <div class="o-add-status__txt">
-                        <textarea class="o-add-post--textarea c-text_lg-light with_border_bottom" rows="1" data-min-rows="0" [(ngModel)]="desc" [disabled]="uploadedFiles.length === 0" rows='3' data-min-rows='0' placeholder="Tell us about this media. Don't forget to add tags"></textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-5 col-xs-12 p-0">
-                <div class="o-add-post-rightbar">
-                    <div class="o-rightbar-footer with_border_top">
-                        <div class="c-form__group">
-                            <select [(ngModel)]="license" class="c-form-control c-form-control--color">
-                      <option value="none">Copyright and License type</option>
-                      <option value="by">CC: Attribution Share Alike</option>
-                      <option value="by-sa">CC: Attribution Non-Derivative</option>
-                      <option value="by-nd">CC: Attribution-NonCommercial</option>
-                      <option value="by-nc">CC: Attribution-NonCommercial-ShareAlike</option>
-                      <option value="by-nc-sa">CC: Attribution-NonCommercial-NoDerivs No License</option>
-                    </select>
-                        </div>
-                        <div class="o-add-post-right__actions">
-                            <div class="o-add-post__switch_btn">
-                                <label class="o-add-post__switch">
-                        <input type="checkbox" value="0" [(ngModel)]="isNSFW">
-                        <span class="o-add-post__slider o-add-post__round"></span>
-                      </label>
+        <div class="o-add-media__main-block">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-7 col-sm-7 col-xs-12 p-0" *ngIf="uploadState === 1">
+                    <div class="o-add-media__block" [ngClass]="(uploadedFiles.length === 0)? 'o-block__fade' : ''">
+                        <div class="">
+                            <div class="c-user">
+                                <a class="c-user__avatar c-avatar--feed">
+                                    <img class="c-user__image" [src]="baseUrl + activeUser?.image">
+                                </a>
+                                <a class="c-user__name c-user__name--addpost">{{ activeUser?.name }}</a>
+                                <img [src]="baseUrl + 'img/svg/arrow2.svg'" class="o-addpost__arrow" *ngIf="nameActive">
+                                <span class="c-text_md color-grey-dark o-addpost__commtxt"  *ngIf="nameActive">{{ct_name}}</span>
                             </div>
-                            <ul class="o-status-action ">
-                                <li class="o-action-list">
-                                    <a class="o-action-help" href="javascript:void(0)" title="Contains nudity, Not Suitable For Work">NSFW <span class="help_ico">?</span></a>
-                                </li>
-                                <li class="o-action-list float-right">
-                                    <button type="button" *ngIf="!external_post_active" [disabled]="uploadedFiles?.length === 0 || uploadedFiles?.length !== cards?.length" class="btn btn-primary btn-md btn-inverse" (click)="formNext()">Next</button>
-                                    <button type="button" *ngIf="external_post_active" [disabled]="uploadedFiles?.length === 0 || uploadedFiles?.length !== cards?.length" class="btn btn-primary btn-md btn-inverse" (click)="publishPost()">Publish</button>
-                                </li>
-                            </ul>
+                        </div>
+                        <div class="o-add-status__txt">
+                            <textarea class="o-add-post--textarea c-text_lg-light with_border_bottom" rows="1" data-min-rows="0" [(ngModel)]="desc" [disabled]="uploadedFiles.length === 0" rows='3' data-min-rows='0' placeholder="Tell us about this media. Don't forget to add tags"></textarea>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-1"></div>
-        </div>
-        <!-- add media  -->
-        <div class="col-md-12 padding_none">
-            <div class="o-add-media__upload text-center" *ngIf="cards?.length === 0">
-                <div class="o-add-media-upload__icon">
-                    <img width="95" [src]="baseUrl + 'img/svg/upload.svg'" alt="">
-                </div>
-                <h3 class="c-h3 o-upload__head">Upload images, videos and audios</h3>
-                <p class="c-text_sm o-add-media-upload__type">You can upload jpg, png, gif, mp3, ogg, mp4, avi, mov</p>
-                <div class="o-add-media-btn">
-                    <input type="file" class="o-add-media_upload" (ngxf-select)="uploadFileList($event)" multiple accept="image/*,.mp3,.ogg,.mp4,.avi,.mov" name="photo" id="upload-photo">
-                    <div class="btn btn-primary btn-lg o-add-media__upload-btn">
-                        <span class="o-media-upload-btn m-r-5"></span> Upload
+                <div class="col-md-3 col-sm-5 col-xs-12 p-0">
+                    <div class="o-add-post-rightbar">
+                        <div class="o-rightbar-footer with_border_top">
+                            <div class="c-form__group">
+                                <select [(ngModel)]="license" class="c-form-control c-form-control--color">
+                        <option value="none">Copyright and License type</option>
+                        <option value="by">CC: Attribution Share Alike</option>
+                        <option value="by-sa">CC: Attribution Non-Derivative</option>
+                        <option value="by-nd">CC: Attribution-NonCommercial</option>
+                        <option value="by-nc">CC: Attribution-NonCommercial-ShareAlike</option>
+                        <option value="by-nc-sa">CC: Attribution-NonCommercial-NoDerivs No License</option>
+                        </select>
+                            </div>
+                            <div class="o-add-post-right__actions">
+                                <div class="o-add-post__switch_btn">
+                                    <label class="o-add-post__switch">
+                            <input type="checkbox" value="0" [(ngModel)]="isNSFW">
+                            <span class="o-add-post__slider o-add-post__round"></span>
+                        </label>
+                                </div>
+                                <ul class="o-status-action ">
+                                    <li class="o-action-list">
+                                        <a class="o-action-help" href="javascript:void(0)" title="Contains nudity, Not Suitable For Work">NSFW <span class="help_ico">?</span></a>
+                                    </li>
+                                    <li class="o-action-list float-right">
+                                        <button type="button" *ngIf="!external_post_active" [disabled]="uploadedFiles?.length === 0 || uploadedFiles?.length !== cards?.length" class="btn btn-primary btn-md btn-inverse" (click)="formNext()">Next</button>
+                                        <button type="button" *ngIf="external_post_active" [disabled]="uploadedFiles?.length === 0 || uploadedFiles?.length !== cards?.length" class="btn btn-primary btn-md btn-inverse" (click)="publishPost()">Publish</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <div class="col-md-1"></div>
             </div>
+            <!-- add media  -->
+            <div class="col-md-12 padding_none">
+                <div class="o-add-media__upload text-center" *ngIf="cards?.length === 0">
+                    <div class="o-add-media-upload__icon">
+                        <img width="95" [src]="baseUrl + 'img/svg/upload.svg'" alt="">
+                    </div>
+                    <h3 class="c-h3 o-upload__head">Upload images, videos and audios</h3>
+                    <p class="c-text_sm o-add-media-upload__type">You can upload jpg, png, gif, mp3, ogg, mp4, avi, mov</p>
+                    <div class="o-add-media-btn">
+                        <input type="file" class="o-add-media_upload" (ngxf-select)="uploadFileList($event)" multiple accept="image/*,.mp3,.ogg,.mp4,.avi,.mov" name="photo" id="upload-photo">
+                        <div class="btn btn-primary btn-lg o-add-media__upload-btn">
+                            <span class="o-media-upload-btn m-r-5"></span> Upload
+                        </div>
+                    </div>
+                </div>
 
-            <div class="o-add-media__upload text-center" *ngIf="cards?.length > 0">
-                <ul class="o-file-list">
-                    <li class="o-file_item">
-                        <div class="o-media-more">
-                            <input type="file" class="o-media_upload" name="photo" id="upload-photo" (ngxf-select)="uploadFileList($event)" multiple accept="image/*,.mp3,.mp4">
-                            <div class="o-media_add-icon">
-                                <img width="42" [src]="baseUrl + 'img/svg/upload.svg'">
-                            </div>
-                            <div class="o-media_add-txt">
-                                <p>Upload More</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="o-file_item selected" [ngClass]="{ 'selected': isSelectedFile(file) }" *ngFor="let file of cards">
-                        <div class="o-media-block" >
-                            <figure class="o-media_img"> 
-                                    <img class="obj-fit-fill" [src]="file?.preview">
-                                <!-- <img  *ngIf="file.fileType === 'image' || file.fileType === 'audio'" class="obj-fit-fill" [src]="file?.preview"> -->
-                                <!-- <video *ngIf="file.fileType === 'video'"  class="obj-fit-fill" [src]="file?.preview" ></video> -->
-                            </figure>
-                            <div class="o-media__info">
-                                <div class="o-media_type">
-                                    <img *ngIf="file.fileType === 'image'" width="14" [src]="baseUrl + 'img/svg/ico_media_img.svg'">
-                                    <img *ngIf="file.fileType === 'audio'" width="14" [src]="baseUrl + 'img/svg/volume-white.svg'">
-                                    <img *ngIf="file.fileType === 'video'" width="14" [src]="baseUrl + 'img/svg/ico_video.svg'">
+                <div class="o-add-media__upload text-center" *ngIf="cards?.length > 0">
+                    <ul class="o-file-list">
+                        <li class="o-file_item">
+                            <div class="o-media-more">
+                                <input type="file" class="o-media_upload" name="photo" id="upload-photo" (ngxf-select)="uploadFileList($event)" multiple accept="image/*,.mp3,.mp4">
+                                <div class="o-media_add-icon">
+                                    <img width="42" [src]="baseUrl + 'img/svg/upload.svg'">
                                 </div>
-                                <div class="o-media_delet">
-                                    <img (click)="removeFile(file)" [src]="baseUrl + 'img/svg/ico_create-close.svg'">
+                                <div class="o-media_add-txt">
+                                    <p>Upload More</p>
                                 </div>
                             </div>
-                            <div class="o-media-progress-main" *ngIf="file?.pre > 0 && file?.pre < 100">
-                                <div class="o-media-progress__bar">
-                                  <span class="o-media-progress__value" [style.width.%]="file?.pre"></span>
+                        </li>
+                        <li class="o-file_item selected" [ngClass]="{ 'selected': isSelectedFile(file) }" *ngFor="let file of cards">
+                            <div class="o-media-block" >
+                                <figure class="o-media_img"> 
+                                        <img class="obj-fit-fill" [src]="file?.preview">
+                                    <!-- <img  *ngIf="file.fileType === 'image' || file.fileType === 'audio'" class="obj-fit-fill" [src]="file?.preview"> -->
+                                    <!-- <video *ngIf="file.fileType === 'video'"  class="obj-fit-fill" [src]="file?.preview" ></video> -->
+                                </figure>
+                                <div class="o-media__info">
+                                    <div class="o-media_type">
+                                        <img *ngIf="file.fileType === 'image'" width="14" [src]="baseUrl + 'img/svg/ico_media_img.svg'">
+                                        <img *ngIf="file.fileType === 'audio'" width="14" [src]="baseUrl + 'img/svg/volume-white.svg'">
+                                        <img *ngIf="file.fileType === 'video'" width="14" [src]="baseUrl + 'img/svg/ico_video.svg'">
+                                    </div>
+                                    <div class="o-media_delet">
+                                        <img (click)="removeFile(file)" [src]="baseUrl + 'v2/svg/ico_create-close.svg'">
+                                    </div>
+                                </div>
+                                <div class="o-media-progress-main" *ngIf="file?.pre > 0 && file?.pre < 100">
+                                    <div class="o-media-progress__bar">
+                                    <span class="o-media-progress__value" [style.width.%]="file?.pre"></span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>
-                </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -153,7 +155,7 @@
                             </div><!-- add media channel head sec end -->
                         </div>
                         <div class="col-md-4 col-xs-3 p-0 text-right">
-                            <!-- <p class="c-text_sm color-grey-dark">12 Media selected</p> -->
+                            <!-- <p class="c-text_sm color-grey-dark">12 Megit dia selected</p> -->
                         </div>
                         </div><!-- add media channel head sec end -->
                     </div>
@@ -220,21 +222,6 @@
                                 </div>
                                 </div>
                             </div>
-            
-                            <div class="col-md-12 float_left p-0  m-t-b-16">
-                                <div class="c-form__group ">
-                                    <select class="c-form-control p-l-0" formControlName="mediaType" [(ngModel)]="selectedChannel">
-                                        <option value="" disabled="true" [selected]="!selectedChannel">Select Channel Type</option>
-                                        <option value="5">Any</option>
-                                        <option value="1">Image</option>
-                                        <option value="2">Audio</option>
-                                        <option value="3">Video</option>
-                                        <option value="4">Text</option>
-                                    </select>
-                                </div>
-                            </div>
-            
-                            
                             <div class="o-create-channel__btn">
                                 <button type="button" class="btn btn-default btn-md m-r-8 float_left" (click)="changeState(2)">Cancel</button>
                                 <button class="btn btn-primary btn-md float_right" (click)="createChannel(channelForm.value)">Save</button>

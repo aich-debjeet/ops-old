@@ -9,9 +9,21 @@ import 'rxjs/add/operator/switchMap';
 
 import { SearchActions } from '../actions/search.action';
 import { SearchService } from '../services/search.service';
+import { OpportunityService } from '../services/opportunity.service';
+import { EventService } from '../services/event.service';
 
 @Injectable()
 export class SearchEffect {
+
+  @Effect()
+  getWikiProfiles$ = this.actions$
+    .ofType(SearchActions.SEARCH_WIKI_PROFILES)
+    .debounceTime(500)
+    .map(toPayload)
+    .switchMap((payload) => this.apiService.getWikiProfiles(payload)
+      .map(res => ({ type: SearchActions.SEARCH_WIKI_PROFILES_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: SearchActions.SEARCH_WIKI_PROFILES_FAILED, payload: res }))
+    );
 
   @Effect()
   allSearch$ = this.actions$
@@ -53,8 +65,30 @@ export class SearchEffect {
       .catch((res) => Observable.of({ type: SearchActions.SEARCH_CHANNEL_FAILED, payload: res }))
     );
 
+  @Effect()
+  opportunitySearch$ = this.actions$
+    .ofType(SearchActions.SEARCH_OPPORTUNITY)
+    .debounceTime(500)
+    .map(toPayload)
+    .switchMap((payload) => this.opportunityService.searchOpportunities(payload)
+      .map(res => ({ type: SearchActions.SEARCH_OPPORTUNITY_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: SearchActions.SEARCH_OPPORTUNITY_FAILED, payload: res }))
+    );
+
+  @Effect()
+  eventSearchData$ = this.actions$
+    .ofType(SearchActions.SEARCH_EVENT)
+    .debounceTime(500)
+    .map(toPayload)
+    .switchMap((payload) => this.eventService.eventSearchData(payload)
+      .map(res => ({ type: SearchActions.SEARCH_EVENT_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: SearchActions.SEARCH_EVENT_FAILED, payload: res }))
+    );
+
   constructor(
       private actions$: Actions,
-      private apiService: SearchService
+      private apiService: SearchService,
+      private eventService: EventService,
+      private opportunityService: OpportunityService
   ) {}
 }

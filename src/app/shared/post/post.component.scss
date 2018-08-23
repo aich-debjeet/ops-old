@@ -198,17 +198,6 @@ a {
     float: left;
 }
 
-.c-links__count {
-    float: left;
-    margin-left: 6px;
-    font-weight: 500;
-    color: #929292;
-    font-size: 11px;
-    line-height: 18px;
-    top: 4px;
-    position: relative;
-}
-
 .c-links__comments {
     display: inline;
     float: left;
@@ -280,8 +269,8 @@ a {
     color: #929292;
     font-size: 11px;
     line-height: 18px;
-    margin-left: 8px;
-    display: inline;
+    margin-left: 0;
+    display: block;
 }
 
 .c-post__comment--time {

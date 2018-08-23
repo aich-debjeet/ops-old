@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Http, Headers, Response } from '@angular/http';
 import { Store } from '@ngrx/store';
+import {Moment} from 'moment';
+import * as moment from 'moment';
 
 // state
 import { ProfileModal, initialTag } from '../models/profile.model';
@@ -93,7 +95,7 @@ export class DatabaseValidator {
                 return;
             }
             const dateArr =  control.value.split('-');
-            console.log('dateArr', dateArr);
+            // console.log('dateArr', dateArr);
 
             // if (!Date.parse(control.value)) {
             //     console.log('INVALID DATE');
@@ -152,10 +154,11 @@ export class DatabaseValidator {
             // return resolve(null);
             // }
 
+            const today = moment();
             const dateArr =  control.value.split('-');
 
-            const day = dateArr[0];
-            const month = dateArr[1];
+            const month = dateArr[0];
+            const day = dateArr[1];
             const year = dateArr[2];
 
             // check for valid day number
@@ -177,7 +180,10 @@ export class DatabaseValidator {
              if (this.fromDate > toDate) {
                 resolve({ 'isvalid': true });
              }
-
+             if(moment(control.value).format('YYYYMMDD') > moment(today).format('YYYYMMDD')){
+                //  console.log('here')
+                resolve({ 'invalidWorkDate': true });
+             }
             // const age = this.calculateAge(birthDate);
 
             // if (age <= 13) {
@@ -198,11 +204,13 @@ export class DatabaseValidator {
             // if (control.value.indexOf('_') !== -1 || control.value === '') {
             // return resolve(null);
             // }
-
+            const today = moment();
+            //  console.log(moment(today).format('YYYYMMDD'))
             const dateArr =  control.value.split('-');
+            // console.log(dateArr)
 
-            const day = dateArr[0];
-            const month = dateArr[1];
+            const month = dateArr[0];
+            const day = dateArr[1];
             const year = dateArr[2];
 
             // check for valid day number
@@ -221,6 +229,12 @@ export class DatabaseValidator {
             }
 
              this.fromDate = new Date(year, month, day);
+            //  console.log(control.value)
+            //  console.log(moment(control.value).format('YYYYMMDD'))
+             if(moment(control.value).format('YYYYMMDD') > moment(today).format('YYYYMMDD')){
+                //   console.log('here')
+                resolve({ 'invalidWorkDate': true });
+             }
             // const age = this.calculateAge(birthDate);
 
             // if (age <= 13) {
@@ -364,42 +378,60 @@ export class ProfileUpdateValidator {
     }
 }
 
+@Injectable()
+export class EmailValidator {
+    public static isValid(email: FormControl) {
+        const q = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                if (re.test(String(email).toLowerCase())) {
+                    resolve({ isInvalidEmail: false });
+                } else {
+                    resolve({ isInvalidEmail: true });
+                }
+            }, 100);
+        });
+        return q;
+    }
+}
+
 // Match password
 @Injectable()
 export class FormValidation {
 
     static validateAge(control: AbstractControl) {
-        const dob = control.value;
-        const dateArr =  control.value.split('-');
+        const dob = control.value.formatted;
+        if (control.value.formatted) {
+            const dateArr =  control.value.formatted.split('-');
+            const day = dateArr[0];
+            const month = dateArr[1];
+            const year = dateArr[2];
 
-        const day = dateArr[0];
-        const month = dateArr[1];
-        const year = dateArr[2];
+            // check for valid day number
+            if (parseInt(day, 10) > 31) {
+                return { invalidDOB: true };
+            }
 
-        // check for valid day number
-        if (parseInt(day, 10) > 31) {
-            return { invalidDOB: true };
-        }
+            // check for valid month number
+            if (parseInt(month, 10) > 12) {
+                return { invalidDOB: true };
+            }
 
-        // check for valid month number
-        if (parseInt(month, 10) > 12) {
-            return { invalidDOB: true };
-        }
+            // check if year is not greater that current
+            if (new Date().getUTCFullYear() < year) {
+                return { invalidDOB: true };
+            }
 
-        // check if year is not greater that current
-        if (new Date().getUTCFullYear() < year) {
-            return { invalidDOB: true };
-        }
+            const birthDate = new Date(year, month, day);
+            const ageDifMs = Date.now() - birthDate.getTime();
+            const ageDate = new Date(ageDifMs); // miliseconds from epoch
+            const age = Math.abs(ageDate.getUTCFullYear() - 1970);
 
-        const birthDate = new Date(year, month, day);
-        const ageDifMs = Date.now() - birthDate.getTime();
-        const ageDate = new Date(ageDifMs); // miliseconds from epoch
-        const age = Math.abs(ageDate.getUTCFullYear() - 1970);
-
-        if (age <= 13) {
-            return { isUnderAge: true };
-        } else if (age >= 100) {
-            return { isOverAge: true };
+            if (age <= 13) {
+                return { isUnderAge: true };
+            } else if (age >= 100) {
+                return { isOverAge: true };
+            }
         }
         return null;
     }

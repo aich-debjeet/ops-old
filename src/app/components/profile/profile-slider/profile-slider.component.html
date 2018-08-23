@@ -4,7 +4,7 @@
             <span class="c-timeline__imgchange" appDropdown>
                <a data-toggle="modal" data-target="#cover-upload" appDropdownOpen>
                     <div class="c-timeline__changecover">
-                        <a routerLink="/profile/about/cover_image"><img [src]="baseUrl + 'img/svg/edit_red.svg'" class="c-timeline__icon"> Change cover</a>
+                        <a routerLink="/profile/about/cover_image"><img [src]="baseUrl + 'v2/svg/edit_red.svg'" class="c-timeline__icon"> Change cover</a>
                     </div>
                 </a>
             </span>
@@ -22,7 +22,7 @@
                     <img *ngIf="!profileObject?.image?.profile" [src]="defaultImage" class="img-responsive img-circle c-profile__userimg">
                     <span *ngIf="this.isOwner" class="c-profile__imgchange">
                         <a  data-toggle="modal" data-target="#profile-upload">
-                           <a routerLink="/profile/about/image"> <img [src]="baseUrl + 'img/svg/edit_red.svg'" class="c-profile__imgchange--icon"></a>
+                           <a routerLink="/profile/about/image"> <img [src]="baseUrl + 'v2/svg/edit_red.svg'" class="c-profile__imgchange--icon"></a>
                         </a>
                     </span>
                 </div>
@@ -58,9 +58,9 @@
                         <li class="list-line-item">
                             <a routerLinkActive="activein" [routerLink]="['/portfolio/u', profileObject?.userHandle]">Portfolio</a>
                         </li>
-                        <li class="list-line-item hidden-xs" *ngIf = "isOwner">
+                        <!-- <li class="list-line-item hidden-xs" *ngIf = "isOwner">
                             <a routerLinkActive="activein" routerLink="/planner">Planner</a>
-                        </li>
+                        </li> -->
                         <li class="list-line-item" *ngIf = "isOwner">
                             <a routerLinkActive="activein" [routerLink]="['network']">Network</a>
                         </li>
@@ -75,6 +75,10 @@
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li class="p-t-0 p-b-0">
                                     <a (click)="reportModalOpen()" data-toggle="modal" data-target="#reportmodal">Report</a>
+                                </li>
+                                <li class="p-t-0 p-b-0">
+                                    <a (click)="blockModal.open()" data-toggle="modal" *ngIf="!isBlocked" data-target="#reportmodal">BLock</a>
+                                    <a (click)="unBlockUser(profileObject?.userDetails?.handle)" data-toggle="modal" *ngIf="isBlocked" data-target="#reportmodal">Unblock</a>
                                 </li>
                             </ul>
                         </li>
@@ -251,6 +255,70 @@
 <app-modal [modalTitle]="''" [blocking]='false' modalId='reportPopUp' *ngIf="!this.isOwner">
     <app-report-popoup [reportQues]="questions" [reportContentId]="otherProfileHandle" [reportType]="reportType" (onclose)= "closeReport()" ></app-report-popoup>
 </app-modal>
+
+<app-modal-new #blockModal modalClass="modal-cus__sm">
+    <modal-content>
+        <div class="modal-dialog modal-lg" id="report_2">
+            <div class="modal-content report_container">
+                <div class="report_pop_head">
+                    <!-- <div class="c-text_lg-bold text-center">Block</div> -->
+                    <span class="search_close" (click)="blockModal.close()">
+                        <a><img [src]="baseUrl + 'img/svg/ico_close-38.svg'" alt=""></a>
+                    </span>
+                </div>
+                <div class="row">
+                    <div class="c-text_lg text-center">
+                        <strong>Are you sure you want to block {{ profileObject?.name }}?</strong>
+                        <br>
+                        <br> {{ profileObject?.name }} will no longer be able to:
+                    </div>
+                    <ul class="c-text_md col-md-7 col-md-offset-4 m-t-16">
+                        <li>See things you post</li>
+                        <li class="m-t-8">Tag you</li>
+                        <li class="m-t-8">Invite you to communities</li>
+                        <li class="m-t-8">Start a conversation with you</li>
+                    </ul>
+                </div>
+                <div class="report_bottom">
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary btn-md" (click)="subResponse(profileObject?.userDetails?.handle);blockModal.close();" data-toggle="modal">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </modal-content>
+</app-modal-new>
+
+<app-modal-new #blockSuccessful modalClass="modal-cus__sm">
+    <modal-content>
+        <div class="modal-dialog modal-lg" id="report_thank2">
+            <div class="modal-content report_container">
+                <div class="report_pop_head">
+                    <div class="c-text_lg-bold text-center">Blocked</div>
+                    <span class="search_close" (click)="updateState()">
+                        <a>
+                            <img [src]="baseUrl + 'img/svg/ico_close-38.svg'" alt="">
+                        </a>
+                    </span>
+                </div>
+                <div class="report_content_sec">
+                    <div class="msg_report_container c-text_lg text-center">
+                        You have successfully blocked this user. We're sorry that
+                        <br>you've had this experience.
+                    </div>
+                </div>
+                <div class="report_bottom">
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary btn-md" data-dismiss="modal" (click)="updateState()">
+                            Done
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </modal-content>
+</app-modal-new>
+
 <!--Skill more -->
 
 <app-modal-new #skillModal modalClass="modal-cus__sm">
@@ -323,7 +391,7 @@
                             <label class="col-md-8 col-md-offset-2 o-network_option m-t-16">
                                 <input name="request" type="radio" class="c-form__bar2" value="network" (click)="openMsg('network')" formControlName="request">
                                 <span></span>
-                                <div class="c-radio--label">Hey {{ profileObject?.name }}, I want to network with you.</div>
+                                <div class="c-radio--label">Hey {{ profileObject?.name }}, I want to connect with you.</div>
                             </label>
                             <label class="col-md-8 col-md-offset-2 o-network_option m-t-16">
                                 <!-- <input id="hereShow" name="request" type="radio" class="c-form__bar2" value="personalMessage" formControlName="request"> -->

@@ -241,14 +241,14 @@
 .o-s-pop-resend {
     font-size: 11px;
     font-weight: normal;
-    color: #FF7B84;
+    color: $color-theme;
     margin-top: 28px;
     display: block;
     &:hover {
-        color: #FF7B84;
+        color: $color-theme;
     }
     &:focus {
-        color: #FF7B84;
+        color: $color-theme;
     }
 }
 
@@ -314,7 +314,7 @@
 }
 
 input:checked+.slider {
-    background-color: #FF7B84;
+    background-color: $color-theme;
 }
 
 input:focus+.slider {
@@ -465,13 +465,13 @@ input:checked+.slider:before {
 .o-org-country-items input[type="radio"]:checked+label:before {
     content: '';
     display: inline-block;
-    border: 2px solid #FF7B84;
+    border: 2px solid $color-theme;
 }
 
 .o-org-country-items input[type="radio"]:checked+label:after {
     content: '';
     display: inline-block;
-    background: #FF7B84;
+    background: $color-theme;
     width: 6px;
     height: 6px;
     border-radius: 50%;
@@ -549,8 +549,65 @@ input:checked+.slider:before {
 }
 
 .o-set-acc-type-block input[type=checkbox]:checked+.o-set-acc-type {
-    border: 1px solid #FF7B84;
+    border: 1px solid $color-theme;
     border-radius: 3px;
     background-color: #FFFFFF;
     box-shadow: 0 0 4px 0 rgba(102, 45, 145, 0.18);
+}
+.suggestions {
+    cursor: pointer;
+}
+.p-l{
+    padding-left: 45px!important;
+}
+
+.m-r-0 {
+    margin-right: 0 !important;
+}
+.reg_step1_otp {
+    .modal-lg {
+        width: 850px;
+        @include mq($from: $mobile_sm, $until: $mobile_lg) {
+            width: 90%;
+        }
+        @include mq($from: $mobile_lg, $until: $desktop) {
+            width: 90%;
+        }
+    }
+    a {
+        font-size: 11px;
+    }
+    .modal-title {
+        padding: 5% 0;
+    }
+    .btn {
+        margin-top: 20px;
+    }
+    p {
+        margin-top: 8px;
+    }
+}
+.phone_number_error {
+    color: #FF7B84 !important;
+    font-size: 16px !important;
+    line-height: 22px;
+    text-align: center;
+}
+
+.o-otp_form {
+    float: left;
+    margin-left: 22px;
+    input {
+        color: #333333;
+        line-height: 34px;
+        text-align: center;
+        font-size: 24px;
+        border: 1px solid #DEDEDE;
+        background-color: #F8F8F8;
+        border-radius: 3px;
+        outline: none;
+        width: 44px;
+        height: 38px;
+        padding: initial;
+    }
 }

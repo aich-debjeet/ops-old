@@ -8,12 +8,12 @@ import { EffectsModule } from '@ngrx/effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TextMaskModule } from 'angular2-text-mask';
+import { NgxMyDatePickerModule } from 'ngx-mydatepicker';
 // import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
 // External Service
-import { ImageCropperModule } from 'ng2-img-cropper/index';
+import { ImageCropperModule } from 'ngx-image-cropper';
 import { ToastrModule } from 'ngx-toastr';
-import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 import { ShareButtonsModule } from 'ngx-sharebuttons';
 import { NguCarouselModule } from '@ngu/carousel';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
@@ -39,16 +39,6 @@ import { AuthlogoutGuard } from './guard/authlogout.guard';
 import { routes } from './app.routing';
 
 // Reducers
-import { AuthReducer } from './reducers/auth.reducer';
-import { MediaReducer } from './reducers/media.reducer';
-import { HomeReducer } from './reducers/home.reducer';
-import { SharedReducer } from './reducers/shared.reducer';
-import { ProfileReducer } from './reducers/profile.reducer';
-import { MessageReducer } from './reducers/messages.reducer';
-import { UserSearchReducer } from './reducers/user-search.reducer';
-import { OpportunityReducer } from './reducers/opportunity.reducer';
-import { ExploreReducer } from './reducers/explore.reducer';
-import { ClaimProfileReducer } from './reducers/claim-profile.reducer';
 import { reducer } from './app.reducer';
 
 // Effects
@@ -112,14 +102,12 @@ import { StatusListComponent } from './components/status-list/status-list.compon
 import { PlannerComponent } from './components/planner/planner.component';
 import { NetworkComponent } from './components/network/network.component';
 import { ProjectComponent } from './components/project/project.component';
-import { DirectoryListComponent } from './components/directory-list/directory-list.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { SpotfeedComponent } from './components/spotfeed/spotfeed.component';
 import { SpotfeedPremiumComponent } from './components/spotfeed-premium/spotfeed-premium.component';
 import { NotificationComponent } from './components/notification/notification.component';
 // import { SearchComponent } from './components/search/search.component';
 import { SettingsComponent } from './components/settings/settings.component';
-import { ExploreComponent } from './components/explore/explore.component';
 import { ChannelListComponent } from './components/channel-list/channel-list.component';
 import { LogoutHomeComponent } from './components/logout-home/logout-home.component';
 import { LogoutComponent } from './components/logout/logout.component';
@@ -127,6 +115,8 @@ import { MediaComponent } from './components/media/media.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { TermsComponent } from './components/terms/terms.component';
 import { AboutComponent } from './components/about/about.component';
+import { DirectoryEffect } from './effects/directory.effect';
+import { DirectoryService } from './services/directory.service';
 
 @NgModule({
   declarations: [
@@ -137,7 +127,6 @@ import { AboutComponent } from './components/about/about.component';
     SpotfeedPremiumComponent,
     NotificationComponent,
     SettingsComponent,
-    ExploreComponent,
     ChannelListComponent,
     LogoutHomeComponent,
     LogoutComponent,
@@ -152,14 +141,12 @@ import { AboutComponent } from './components/about/about.component';
     PlannerComponent,
     NetworkComponent,
     ProjectComponent,
-    DirectoryListComponent,
     PrivacyPolicyComponent,
     TermsComponent,
-    AboutComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ops-app'}),
-    DragulaModule,
     SharedPipesModule,
     SharedModule,
     MediaModule,
@@ -173,6 +160,7 @@ import { AboutComponent } from './components/about/about.component';
     TextMaskModule,
     StoreModule.provideStore(reducer),
     RouterModule.forRoot(routes),
+    NgxMyDatePickerModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 1000,
       preventDuplicates: true,
@@ -195,6 +183,7 @@ import { AboutComponent } from './components/about/about.component';
     EffectsModule.run(ExploreEffect),
     EffectsModule.run(ClaimProfileEffect),
     EffectsModule.run(CommunitiesEffect),
+    EffectsModule.run(DirectoryEffect),
     // Video
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     VgCoreModule,
@@ -231,7 +220,8 @@ import { AboutComponent } from './components/about/about.component';
     ExploreService,
     ClaimProfileService,
     FileService,
-    CommunitiesService
+    CommunitiesService,
+    DirectoryService
   ],
   bootstrap: [AppComponent]
 })

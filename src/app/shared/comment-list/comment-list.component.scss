@@ -43,6 +43,8 @@
     font-size: 12px;
     line-height: 17px;
     cursor: pointer;
+    float: left;
+    padding-right: 10px;
     &:hover {
         color: #333;
     }
@@ -52,8 +54,8 @@
     color: #929292;
     font-size: 11px;
     line-height: 18px;
-    margin-left: 8px;
-    display: inline;
+    margin-left: 0;
+    display: block;
 }
 
 .c-post__input {
@@ -260,11 +262,17 @@
 .c-post__comment--left {
     width: 7%;
     float: left;
+    @include mq($from: $mobile_sm, $until: $mobile_lg){
+      width: auto;
+    }
 }
 
 .c-post__comment--right {
     width: 90%;
     float: left;
+    @include mq($from: $mobile_sm, $until: $mobile_lg){
+      padding-left: 10px !important;
+    }
 }
 
 .c-post__comment__blank {
@@ -303,6 +311,8 @@
     font-size: 12px;
     line-height: 17px;
     cursor: pointer;
+    float: left;
+    padding-right: 5px;
     &:hover {
         color: #333;
     }
@@ -312,8 +322,8 @@
     color: #929292;
     font-size: 11px;
     line-height: 18px;
-    margin-left: 8px;
-    display: inline;
+    margin-left: 0;
+    display: block;
 }
 
 .c-post__input {

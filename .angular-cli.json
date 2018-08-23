@@ -27,7 +27,8 @@
       ],
       "scripts": [
         "assets/js/imagesloaded.pkgd.min.js",
-        "../node_modules/pusher-js/dist/web/pusher.min.js"
+        "../node_modules/pusher-js/dist/web/pusher.min.js",
+        "../node_modules/ngx-mydatepicker/bundles/ngx-mydatepicker.umd.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
@@ -59,7 +60,9 @@
         "styles.scss"
       ],
       "scripts": [
-        "assets/js/imagesloaded.pkgd.min.js"
+        "assets/js/imagesloaded.pkgd.min.js",
+        "../node_modules/pusher-js/dist/web/pusher.min.js",
+        "../node_modules/ngx-mydatepicker/bundles/ngx-mydatepicker.umd.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

@@ -192,7 +192,7 @@
     font-size: 16px;
     font-weight: 600;
     margin: 20px 0;
-    color: #ff7b84;
+    color: $color-theme;
     text-align: center;
     clear: both
 }
@@ -206,7 +206,7 @@
         padding: 0 7px;
     }
     .active {
-        background-color: #ff7b84;
+        background-color: $color-theme;
         box-shadow: 0 4px 7px 0 rgba(102, 45, 145, 0.2);
         color: white;
         border-radius: 50%;
@@ -256,10 +256,10 @@
     text-transform: uppercase;
 }
 
-.o-profile__rightbar {
+.desktop-css {
     padding: 0px 0px 0px 24px;
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        // padding: 0px;
+        padding: 0 15px;
     }
 }
 

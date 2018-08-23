@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../models/profile.model';
 import {initialBasicRegTag, BasicRegTag} from '../../models/auth.model';
 import { ModalService } from '../../shared/modal/modal.component.service';
+import { Modal } from '../../shared/modal-new/Modal';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { FormValidation, ProfileUpdateValidator, DatabaseValidator } from '../../helpers/form.validator';
 import { DatePipe } from '@angular/common';
 import { Http, Headers, Response } from '@angular/http';
 import { TokenService } from './../../helpers/token.service';
 import { environment } from '../../../environments/environment';
-import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
+import { CountrySelectorComponent } from '../../shared/country-selector/country-selector.component';
 
+import { AuthService } from '../../services/auth.service';
 // action
 import { ProfileActions } from '../../actions/profile.action';
 import { AuthActions } from '../../actions/auth.action'
@@ -23,10 +25,13 @@ import { Subscription } from 'rxjs/Subscription';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  providers: [ModalService, ProfileUpdateValidator, DatabaseValidator, DragulaService],
+  providers: [ModalService, ProfileUpdateValidator, DatabaseValidator],
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
+  country = {
+    callingCodes: ['91']
+  };
   storeState$: Observable<ProfileModal>;
   userProfile = initialTag;
   tagState$: Observable<BasicRegTag>;
@@ -40,7 +45,7 @@ export class SettingsComponent implements OnInit {
   emailForm: FormGroup;
   phoneForm: FormGroup;
   profileForm: FormGroup;
-  otpForm: FormGroup;
+  // otpForm: FormGroup;
   emailActive: boolean;
   phoneActive: boolean;
   userActive: boolean;
@@ -58,7 +63,9 @@ export class SettingsComponent implements OnInit {
   default: any;
   resendingOtp = false;
   number: any;
+  birth: any;
   notificationOption = []
+  editingField: string;
   private dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   // commentsOption: any; // = {name: 'Comments', value: 'Comments', checked: true};
   // spotsOption: any; // = {name: 'Spots', value: 'Spots', checked: true};
@@ -69,16 +76,48 @@ export class SettingsComponent implements OnInit {
   // networkOption: any; // = {name: 'Network', value: 'Network', checked: true};
   adult: any;
   privateAccount: any;
+ //ngModel binding options
+  name: any;
+  dob: any;
+  userName: any;
+  email: any;
+  phone: any;
+  gender: any;
+  invalidDOB: boolean = false;
+  isUnderAge: boolean = false;
+  isOverAge: boolean = false;
+  isRequired: boolean= false;
+  whitespace: boolean = false;
+  capitalLetters : boolean =false;
+  invalidLength: boolean = false;
+  specialChars: boolean = false;
+  shortCode: string;
+  public otpForm: FormGroup;
+  phNumbrReq: boolean =false;
+  phMinLent: boolean = false;
+  isMobileUnique: boolean = false;
+  validSuccess: boolean = true;
+
+    // otp numbers
+    @ViewChild('otpNum1') otpNum1: ElementRef;
+    @ViewChild('otpNum2') otpNum2: ElementRef;
+    @ViewChild('otpNum3') otpNum3: ElementRef;
+    @ViewChild('otpNum4') otpNum4: ElementRef;
+    @ViewChild('otpNum5') otpNum5: ElementRef;
+    @ViewChild('otpNum6') otpNum6: ElementRef;
+
+  @ViewChild('countrySelSet') countrySelectorSet: CountrySelectorComponent;
+  @ViewChild('otpPopup') otpPopup: Modal;
 
   constructor(
     private _modalService: ModalService,
+    private authService: AuthService,
     private http: Http,
     private _fb: FormBuilder,
     private tokenService: TokenService,
     private _store: Store<ProfileModal>,
     private store: Store<BasicRegTag>,
-    private databaseValidator: DatabaseValidator,
-    private dragula: DragulaService,
+    private databaseValidator: DatabaseValidator
   ) {
     // this.dragula.drop.subscribe((value) => {
     //   this.onDrop(value.slice(1));
@@ -87,28 +126,31 @@ export class SettingsComponent implements OnInit {
     this.tagState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
         this.petTag = state;
-        if (state['user_number_cng_success'] === true ) {
-          this._modalService.open('otpWindow');
-        }
+        // if (state['user_number_cng_success'] === true ) {
+        //   this._modalService.open('otpWindow');
+        // }
 
-        if (state && state['user_otp_success'] && state['user_otp_success'] === true) {
-          this.otpForm.controls['otpNumber'].setValue('')
-          this._modalService.close('otpWindow');
-          // this._modalService.open('otpSuccess');
-            this.phoneFormUpdate();
-        }
+        // if (state && state['user_otp_success'] && state['user_otp_success'] === true) {
+        //   this.otpForm.controls['otpNumber'].setValue('')
+        //   this._modalService.close('otpWindow');
+        //   // this._modalService.open('otpSuccess');
+        //     this.phoneFormUpdate();
+        // }
 
-        if ( state && state['user_otp_failed'] && state['user_otp_failed'] === true ) {
+        if (state['user_otp_success'] === true) {
+          this._store.dispatch({ type: ProfileActions.LOAD_USER_DATA_DETAILS });
+          this.otpPopup.close();
+          this.cancelEdit();
         }
       }
     });
     this.storeState$ = this._store.select('profileTags');
 
     this.storeState$.subscribe((state) => {
-      // console.log('state', state)
+      //  console.log('state', state)
       if (typeof state !== 'undefined') {
-        this.userProfile = state['profile_details'];
-        this.userHandle = state['profile_details'].handle;
+        this.userProfile = state['user_details'];
+        this.userHandle = state['user_details'].profileId;
         this.blockedUsers = state.blockedUsers;
         if (state.default_notification) {
           this.default = state.default_notification;
@@ -131,77 +173,73 @@ export class SettingsComponent implements OnInit {
         //   console.log('here')
         //   // this.pwdForm.reset();
         // }
+        
+      }
+      if(state.user_details){
+        if(state.details_loaded === true){
+          if(state['user_details']['name']['firstName'].length > 0){
+            this.name = state['user_details']['name']['firstName'];
+            // console.log(this.name)
+          }
+          if(state['user_details']['gender'].length > 0){
+            this.gender = state['user_details']['gender'];
+            // console.log(this.gender)
+          }
+          if(state['user_details']['other']['dateOfBirth'].length > 0){
+            this.birth = state['user_details']['other']['dateOfBirth'];
+            // console.log(this.birth)
+          }
+          if(state['user_details']['email'].length > 0){
+            this.email = state['user_details']['email'];
+            // console.log(this.email)
+          }
+          if(state['user_details']['contact']['contactNumber'].length > 0){
+            this.phone = state['user_details']['contact']['contactNumber'];
+            // console.log(this.phone)
+          }
+          if(state['user_details']['username'].length > 0){
+            this.userName = state['user_details']['username'];
+            // console.log(this.userName)
+          }
+          if(state['user_details']['contact']['shortCode'].length > 0){
+            this.shortCode = state['user_details']['contact']['shortCode'];
+            // console.log(this.shortCode)
+          }
+        }
       }
     });
 
-    // Username update form init
-    this.usernameForm = this._fb.group({
-       'username' : ['' , [
-             Validators.required,
-             FormValidation.usernameLengthValidator,
-             FormValidation.noSpecialCharsValidator,
-             FormValidation.noCapitalLettersValidator,
-             FormValidation.noWhitespaceValidator],
-             this.databaseValidator.userNameValidation.bind(this.databaseValidator)
-            ],
-    });
-    // name update
-    this.nameForm = this._fb.group({
-      'name' : ['', [Validators.required]]
-    });
-    // date update
-    this.dateForm = this._fb.group({
-      'dob' : ['', [Validators.required], this.databaseValidator.validAge.bind(this.databaseValidator)]
-    });
-    // gender update
-    this.genderForm = this._fb.group({
-      'gender' : ['', [Validators.required]]
-    });
-    // email update
-    this.emailForm = this._fb.group({
-    'email' : ['',  [
-      Validators.required,
-      Validators.min(1),
-      // Validators.email
-      FormValidation.validEmail
-      ],
-      this.databaseValidator.checkEmail.bind(this.databaseValidator)]
-    });
-    // phone update
-    this.phoneForm = this._fb.group({
-    'mobile' : ['', [Validators.required,
-       Validators.minLength(4)
-      ],
-    this.databaseValidator.checkMobile.bind(this.databaseValidator)
-  ],
-    });
-    // profile Type update
-    // this.genderForm = this._fb.group({
-    // 'profile' : ['', [Validators.required]]
-    // });
-    // OTP Form Builder
     this.otpForm = this._fb.group({
-      'otpNumber': ['', [
-          FormValidation.validOtp.bind(this)
-        ],
-      ]
+      otpNum1: ['', [Validators.required]],
+      otpNum2: ['', [Validators.required]],
+      otpNum3: ['', [Validators.required]],
+      otpNum4: ['', [Validators.required]],
+      otpNum5: ['', [Validators.required]],
+      otpNum6: ['', [Validators.required]]
     })
     this.passwordformInit();
-
-    this.emailActive = false;
-    this.phoneActive = false;
-    this.nameActive = false;
-    this.genderActive = false;
-    this.dobActive = false;
-    this.profileTypeActive = false;
-    this.passwordActive = false;
    }
 
   ngOnInit() {
-    // this.selectedView = 'General';
     this.displayView('General')
-    this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
+    this._store.dispatch({ type: ProfileActions.LOAD_USER_DATA_DETAILS });
+    this.store.dispatch({ type: AuthActions.STORE_COUNTRY_CODE, payload: this.country.callingCodes[0] });
     // this._store.dispatch({ type: ProfileActions.DEFAULT_NOTIFICATION_SETTINGS });
+  }
+
+    /**
+   * update country
+   */
+  saveCountry(country: any, frmType: string) {
+    // console.log(country,frmType )
+    this.country = country;
+    this.store.dispatch({ type: AuthActions.STORE_COUNTRY_CODE, payload: this.country.callingCodes[0] });
+    // trigger phone number check
+    // if (frmType === 'reg') {
+    //   this.regFormBasic.controls['phone'].updateValueAndValidity();
+    // } else if (frmType === 'otp') {
+    //   this.newNumberForm.controls['newNumber'].updateValueAndValidity();
+    // }
   }
   /**
    * drag and drop method
@@ -220,139 +258,171 @@ export class SettingsComponent implements OnInit {
   //   .subscribe(response => {
   //   });
 
+  // /**
+  //  * email form update
+  //  */
+  // emailFormUpdate(value) {
+  //   if ( this.emailForm.valid === true ) {
+  //     const form =  {
+  //       'email': value.email
+  //     }
+  //     this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
+  //     this.emailActive = false;
+  //   }
   // }
-  /**
-   * User Form Update
-   */
-  userFormUpdate(value) {
-    if ( this.usernameForm.valid === true ) {
-      const form =  {
-        'username': value.username
-      }
-      this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
-      this.userActive = false;
-    }
-  }
-
-  /**
-   * name Update
-   */
-  nameUpdate(value) {
-    if ( this.nameForm.valid === true ) {
-      const form =  {
-        'name': {
-          'firstName': value.name,
-        'displayName': value.name
-        }
-      }
-      this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
-      this.nameActive = false;
-    }
-  }
-
-   /**
-   * dob form Update
-   */
-  dateFormUpdate(value) {
-    if ( this.dateForm.valid === true ) {
-      const form =  {'physical': {
-        'dateOfBirth': this.reverseDate(value.dob) + 'T05:00:00',
-      }
-    }
-      this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
-      this.dobActive = false;
-    }
-  }
-
-  /**
-   * gender update
-   */
-  genderFormUpdate(value) {
-    if ( this.genderForm.valid === true ) {
-      const form =  {'physical': {
-        'gender': value.gender
-      }
-    }
-      this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
-      this.genderActive = false;
-    }
-  }
-
-  /**
-   * email form update
-   */
-  emailFormUpdate(value) {
-    if ( this.emailForm.valid === true ) {
-      const form =  {
-        'email': value.email
-      }
-      this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
-      this.emailActive = false;
-    }
-  }
   /**
    * phone form update
    */
-  phoneFormUpdate() {
-    if ( this.number !== 'undefined' ) {
-      const form =   {
-        'extras': {
-            'contact': {
-              'mobile':
-              {
-                'mobile': this.number
+//   phoneFormUpdate() {
+//     if ( this.number !== 'undefined' ) {
+//       const form =   {
+//         'extras': {
+//             'contact': {
+//               'mobile':
+//               {
+//                 'mobile': this.number
+//               }
+//             }
+//       }
+//     }
+//       this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
+//      // this._modalService.close('otpSuccess')
+//       this.phoneActive = false;
+//     //   this._store.select('profileTags').subscribe((state) => {
+//     //     if (state['profileUpdateSuccess'] === true) {
+//     //     }
+//     // })
+//   }
+// }
+
+  // // OTP Validation
+  // otpSubmit(value) {
+  //   if (this.otpForm.valid === true) {
+  //      let number = null;
+  //     if (this.phoneForm.value.mobile !== undefined && this.phoneForm.value.mobile.length > 5) {
+  //       this.number = this.phoneForm.value.mobile;
+  //     } else {
+  //       number = this.number;
+  //     }
+  //     const send = {
+  //       'number': this.number,
+  //       'otp': value.otpNumber
+  //     }
+  //     this.store.dispatch({ type: AuthActions.OTP_SUBMIT, payload: send });
+  //   }
+  // }
+
+  updateContactNumber() {
+    if(this.phone.length < 4){
+      if(this.phone.length <= 0){
+        this.phNumbrReq = true;
+        this.phMinLent = false;
+      } else {
+        this.phMinLent = true;
+        this.phNumbrReq = false;
+      }
+      return
+    } else {
+      const contactDetails = {
+          contactNumber: '',
+          countryCode: ''
+      };
+      contactDetails.contactNumber = this.phone.trim();
+      contactDetails.countryCode = this.country.callingCodes[0];
+        // console.log(contactDetails)
+        this.authService.mobileNumberCheck(contactDetails).subscribe( data => {
+          if (data.SUCCESS.code === 1) {
+             this.isMobileUnique = true;
+          } else {
+            const contactDetail = {
+              contact: {
+                contactNumber: contactDetails.contactNumber,
+                countryCode: contactDetails.countryCode
               }
             }
+            this.store.dispatch({ type: AuthActions.OTP_NUMBER_CHANGE, payload: contactDetail });
+            this.otpPopup.open();
+          }
+          });
+        // this.store.dispatch({ type: AuthActions.OTP_NUMBER_CHANGE, payload: contactDetails });
+        // this.otpPopup.open();
+        
       }
-    }
-      this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
-     // this._modalService.close('otpSuccess')
-      this.phoneActive = false;
-    //   this._store.select('profileTags').subscribe((state) => {
-    //     if (state['profileUpdateSuccess'] === true) {
-    //     }
-    // })
   }
-}
-
-  // OTP Validation
-  otpSubmit(value) {
-    if (this.otpForm.valid === true) {
-       let number = null;
-      if (this.phoneForm.value.mobile !== undefined && this.phoneForm.value.mobile.length > 5) {
-        this.number = this.phoneForm.value.mobile;
-      } else {
-        number = this.number;
-      }
-      const send = {
-        'number': this.number,
-        'otp': value.otpNumber
-      }
-      this.store.dispatch({ type: AuthActions.OTP_SUBMIT, payload: send });
-    }
-  }
-
-  resendOtpOnNewNumber(value) {
-    if ( this.phoneForm.valid === true ) {
-      this.number = value.mobile;
-      const reqBody = {
-        contact: {
-          'contactNumber': value.mobile
+    // OTP Validation
+    otpSubmit(value) {
+      if (this.otpForm.valid === true) {
+        let phoneNumber = null;
+        phoneNumber = this.phone;
+        // if (this.phone !== undefined && this.phone.value.length > 5) {
+        //   phoneNumber = this.phone;
+        // }
+        // console.log('otp form data', value); return;
+        const otpValue = value.otpNum1.toString() +
+                         value.otpNum2.toString() +
+                         value.otpNum3.toString() +
+                         value.otpNum4.toString() +
+                         value.otpNum5.toString() +
+                         value.otpNum6.toString();
+        const otpData = {
+          contactNumber: phoneNumber,
+          countryCode: this.country.callingCodes[0],
+          otp: otpValue
         }
+        this.store.dispatch({ type: AuthActions.OTP_SUBMIT, payload: otpData });
       }
-      this.store.dispatch({ type: AuthActions.OTP_NUMBER_CHANGE, payload: reqBody });
     }
+
+      // focus on next otp number
+  nextOtpNum(e: any, pos: number) {
+    // console.log(e,pos)
+    if (e.keyCode === 8) {
+      if (pos > 0 && pos < 7) {
+        const prevNum = pos - 1;
+        if (prevNum > 0) {
+          const prevOtpInput = 'otpNum' + prevNum.toString();
+          setTimeout(() => { this[prevOtpInput].nativeElement.focus(); }, 10);
+        }
+        return true;
+      }
+    } else if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
+      if (pos > 0 && pos < 6) {
+        const nextNum = pos + 1;
+        const nextOtpInput = 'otpNum' + nextNum.toString();
+        setTimeout(() => { this[nextOtpInput].nativeElement.focus(); }, 10);
+      }
+      return true;
+    }
+    return false;
   }
 
+
+    /**
+   * Resend OTP on existing number
+   */
   resendOtp() {
     this.resendingOtp = true;
-    const number = this.phoneForm.value.mobile;
-    this.store.dispatch({ type: AuthActions.OTP_RESEND_SUBMIT, payload: number });
-    this.store.select('loginTags').subscribe(data => {
-      setTimeout(() => {
-        this.resendingOtp = false;
-      }, 1500);
-    })
+    const resendOtpData = {
+      contactNumber: this.getContactDetails('number'),
+      countryCode: this.getContactDetails('country')
+    }
+    this.store.dispatch({ type: AuthActions.OTP_RESEND_SUBMIT, payload: resendOtpData });
+    setTimeout(() => {
+      this.resendingOtp = false;
+    }, 1500);
+  }
+
+  getContactDetails(cType: string) {
+    if (this.petTag['reg_basic_form_data']
+      && this.petTag['reg_basic_form_data']['contact']
+    ) {
+      if (cType === 'number' && this.petTag['reg_basic_form_data']['contact']['contactNumber']) {
+        return this.petTag['reg_basic_form_data']['contact']['contactNumber'];
+      }
+      if (cType === 'country' && this.petTag['reg_basic_form_data']['contact']['countryCode']) {
+        return this.petTag['reg_basic_form_data']['contact']['countryCode'];
+      }
+    }
   }
 
   /**
@@ -404,74 +474,198 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-  /**
-   * toggle of email
-   */
-  emailToggle() {
-    if (this.emailActive === true) {
-      this.emailActive = false;
-    }else {
-      this.emailActive = true;
+  editField(fieldName: string) {
+    if(fieldName === 'dob'){
+      this.dob = this.removeUtc(this.birth)
     }
-    this.emailForm.setValue({
-      email: this.userProfile['email'],
-    });
+    if(fieldName === 'phone'){
+      this.editingField = fieldName;
+      setTimeout(() => {
+        this.countrySelectorSet.initCountrySelector('country-options-set');
+      }, 50);
+    }
+    this.editingField = fieldName;
   }
 
-  /**
-   * toggle of phone
-   */
-  phoneToggle() {
-    if (this.phoneActive === true) {
-      this.phoneActive = false;
-    }else {
-      this.phoneActive = true;
-    }
-    this.phoneForm.setValue({
-      mobile: this.userProfile['contact']['mobile'].mobile,
-    });
+  cancelEdit() {
+    this.editingField = '';
   }
 
-  /**
-   * toggle of name field
-   */
-  nameToggle() {
-    if (this.nameActive === true) {
-      this.nameActive = false;
-    }else {
-      this.nameActive = true;
+  onSelectionChange(val) {
+    let reqBody;
+      // for about update
+      if (val.length > 0) {
+        reqBody = {
+            gender: ''
+        };
+        reqBody.gender = val;
+        // console.log(reqBody)
+        this._store.dispatch({ type: ProfileActions.LOAD_USER_UPDATE, payload: reqBody});
+        this.cancelEdit();
+        this._store.select('profileTags').
+        first(data => data['userUpdateSuccess']).
+        subscribe((state) => {
+              if (state['userUpdateSuccess'] === true) {
+                this._store.dispatch({ type: ProfileActions.LOAD_USER_DATA_DETAILS });
+              }
+          })
+      }
     }
-    this.nameForm.setValue({
-      name: this.userProfile['name'],
-    });
+
+    /**
+   * Update about individual field
+   */
+  updateAbout(fieldName: string) {
+    let reqBody;
+    if (fieldName === 'name' && this.name.length > 0) {
+      reqBody = {
+        name: {
+          firstName:'',
+          displayName: ''
+        }
+      };
+      reqBody.name.firstName = this.name.trim();
+      reqBody.name.displayName = this.name.trim();
+      this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: reqBody});
+      this._store.select('profileTags').
+      first(data => data['profileUpdateSuccess']).
+      subscribe((state) => {
+                if (state['profileUpdateSuccess'] === true) {
+                  this._store.dispatch({ type: ProfileActions.LOAD_USER_DATA_DETAILS });
+                }
+            })
+      this.cancelEdit();
+      return;
+    }
+    if (fieldName === 'dob' && this.dob.length > 0) {
+      reqBody = {
+        other: {
+          'dateOfBirth': ''
+        }
+      };
+      const dateArr =  this.dob.split('-');
+      const day = dateArr[0];
+      const month = dateArr[1];
+      const year = dateArr[2];
+
+      // check for valid day number
+      if (parseInt(day, 10) > 31) {
+        this.invalidDOB = true;
+         return
+      }
+
+    // check for valid month number
+    if (parseInt(month, 10) > 12) {
+      this.invalidDOB = true;
+      return
+    }
+
+    // check if year is not greater that current
+    if (new Date().getUTCFullYear() < year) {
+      this.invalidDOB = true;
+      return
+    }
+
+    const birthDate = new Date(year, month, day);
+    const age = this.calculateAge(birthDate);
+
+    if (age <= 13) {
+      this.isUnderAge = true;
+      return
+    } else if (age >= 100) {
+      this.isOverAge = true;
+      return
+    }
+      reqBody.other.dateOfBirth = this.reverseDate(this.dob) + 'T05:00:00';
+      this.invalidDOB = false;
+      this.isUnderAge = false;
+      this.isOverAge = false;
+    }
+    if (fieldName === 'username') {
+      if(this.specialChars || this.isRequired || this.capitalLetters || this.whitespace || this.invalidLength){
+        return;
+      } else {
+        reqBody = {
+          username: ''
+        };
+        reqBody.username = this.userName.trim();
+      }
+    }
+    // if (fieldName === 'email' && this.email.length > 0) {
+    //   reqBody = {
+    //     email: ''
+    //   };
+    //   reqBody.email = this.email.trim();
+    // }
+    console.log(reqBody)
+    this._store.dispatch({ type: ProfileActions.LOAD_USER_UPDATE, payload: reqBody});
+    this._store.select('profileTags').
+    first(data => data['userUpdateSuccess']).
+    subscribe((state) => {
+              if (state['userUpdateSuccess'] === true) {
+                this._store.dispatch({ type: ProfileActions.LOAD_USER_DATA_DETAILS });
+              }
+          })
+    this.cancelEdit();
   }
 
-  /**
-   * tooggle of gender field
-   */
-  genderToggle() {
-    if (this.genderActive === true) {
-      this.genderActive = false;
-    }else {
-      this.genderActive = true;
+    // user user exists
+    userExistCheck(value) {
+      console.log('username validation',value.length, value)
+      if(value.length <= 0){
+        console.log('username validation',value.length)
+        this.isRequired = true;
+        this.validSuccess = false;
+      } else {this.isRequired = false;
+        this.validSuccess = true;}
+
+      if(value.indexOf(' ') >= 0){
+        this.whitespace = true;
+        this.validSuccess = false;
+      } else {this.whitespace = false;
+        this.validSuccess = true}
+
+      if (/[A-Z]/.test(value)) {
+        this.capitalLetters= true;
+        this.validSuccess = false;
+      } else {this.capitalLetters = false;
+        this.validSuccess = true}
+
+      if (value.length < 3 || value.length > 15) {
+        this.invalidLength= true;
+        this.validSuccess = false;
+      } else {this.invalidLength = false;
+        this.validSuccess = true}
+
+      if (/[ !@#$%^&*()+\-=\[\]{};':"\\|,.<>\/?]/.test(value)) {
+        this.specialChars = true;
+        this.validSuccess = false;
+      } else {this.specialChars = false;
+        this.validSuccess = true}
+
+      if (value.length >= 4) {
+        this.store.dispatch({ type: AuthActions.USER_EXISTS_CHECK, payload: value });
+      } else {
+        if (this.petTag && this.petTag.user_unique) {
+          this.petTag.user_unique = false;
+        }
+      }
+      if((value.length >= 4 && value.length <= 15) && this.validSuccess === true){
+        this.userName = value;
+      }
     }
-    this.genderForm.setValue({
-      gender: this.userProfile['physical'].gender,
-    });
+  /**
+   * select username from suggestions
+   * @param selectUsername
+   */
+  useThisUsername(selectUsername: string) {
+    this.userName = selectUsername;
   }
 
-  /**
-   * dob toggle field
-   */
-  dobToggle() {
-    if (this.dobActive === true) {
-      this.dobActive = false;
-    }else {
-      this.dobActive = true;
-    }
-    this.dateForm.setValue({
-      dob: this.removeUtc(this.userProfile['physical'].dateOfBirth),
-    });
+  calculateAge(birthday) {
+    const ageDifMs = Date.now() - birthday.getTime();
+    const ageDate = new Date(ageDifMs); // miliseconds from epoch
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
   }
   /**
    * profileType toggle field
@@ -483,20 +677,7 @@ export class SettingsComponent implements OnInit {
       this.profileTypeActive = true;
     }
   }
-  /**
-   * toggle of user
-   */
-  userToggle() {
-    if (this.userActive === true) {
-      this.userActive = false;
-    }else {
-      this.userActive = true;
-    }
 
-    this.usernameForm.setValue({
-      username: this.userProfile['extra'].username,
-    });
-  }
   /**
    * password toggle field
    */

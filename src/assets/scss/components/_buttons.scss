@@ -9,7 +9,7 @@
     letter-spacing: $letter-spacing1;
     font-weight: $font-500;
     .btn-label-icon {
-        background-image: url(https://cdn.onepagespotlight.com/img/svg/plus-red.svg);
+        background-image: url(https://cdn.onepagespotlight.com/v2/svg/plus-red.svg);
         background-repeat: no-repeat;
         background-size: contain;
         width: 10px;
@@ -79,7 +79,7 @@
     letter-spacing: $letter-spacing1;
     font-weight: $font-500;
     .btn-label-icon {
-        background-image: url(https://cdn.onepagespotlight.com/img/svg/plus-red.svg);
+        background-image: url(https://cdn.onepagespotlight.com/v2/svg/plus-red.svg);
         background-repeat: no-repeat;
         background-size: contain;
         width: 11px;
@@ -149,7 +149,7 @@
     letter-spacing: $letter-spacing1;
     font-weight: $font-500;
     .btn-label-icon {
-        background-image: url(https://cdn.onepagespotlight.com/img/svg/plus-red.svg);
+        background-image: url(https://cdn.onepagespotlight.com/v2/svg/plus-red.svg);
         background-repeat: no-repeat;
         background-size: contain;
         width: 15px;
@@ -219,7 +219,7 @@
     letter-spacing: $letter-spacing1;
     font-weight: $font-600;
     .btn-label-icon {
-        background-image: url(https://cdn.onepagespotlight.com/img/svg/plus-red.svg);
+        background-image: url(https://cdn.onepagespotlight.com/v2/svg/plus-red.svg);
         background-repeat: no-repeat;
         background-size: contain;
         width: 16px;
@@ -807,7 +807,7 @@ fieldset[disabled] .btn {
             }
         }
         .btn-label-icon2 {
-            background-image: url(https://cdn.onepagespotlight.com/img/svg/plus-red.svg);
+            background-image: url(https://cdn.onepagespotlight.com/v2/svg/plus-red.svg);
             &:hover {
                 background-image: url(https://cdn.onepagespotlight.com/img/svg/ico_plus_white.svg);
             }
@@ -968,7 +968,7 @@ fieldset[disabled] .btn {
 .tag__username {
     background-color: #FFF7F8;
     border-radius: 2px;
-    border: 1px solid #FF7B84;
+    border: 1px solid $color-theme;
     color: #333333;
     font-size: 12px;
     line-height: 17px;
@@ -977,7 +977,7 @@ fieldset[disabled] .btn {
     span {
         font-size: 14px;
         line-height: 19px;
-        color: #FF7B84;
+        color: $color-theme;
         cursor: pointer;
         margin-left: 8px;
     }

@@ -336,6 +336,9 @@
 .c-post__comment--left {
     width: 7%;
     float: left;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: auto;
+    }
 }
 
 .c-post__comment--right {
@@ -388,8 +391,8 @@
     color: #929292;
     font-size: 11px;
     line-height: 18px;
-    margin-left: 8px;
-    display: inline;
+    margin-left: 0;
+    display: block;
 }
 
 .c-post__input {
@@ -412,6 +415,9 @@
     background: white;
     width: 406px;
     padding: 0 16px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 100%;
+    }
 }
 
 .c-post__comment__blank {
@@ -442,8 +448,8 @@
     float: left;
     margin-left: 8px;
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
-            width: 81%;
-            margin-top: 8px;
+        width: 81%;
+        margin-top: 8px;
     }
 }
 
@@ -495,18 +501,18 @@
     color: #929292;
     font-size: 11px;
     line-height: 18px;
-    margin-left: 8px;
-    display: inline;
+    margin-left: 0;
+    display: block;
 }
 .c-post__comment_rm {
-    color: #FF7B84;
+    color: $color-theme;
     font-size: 11px;
     line-height: 18px;
     &:hover {
-        color: #FF7B84;
+        color: $color-theme;
     }
     &:visited {
-        color: #FF7B84;
+        color: $color-theme;
     }
 }
 #c-comment_readMore {
@@ -526,7 +532,10 @@
     }
 }
 .c-post_extraspace {
-    padding-top: 5px !important;
+    padding-top: 2px !important;
+    @include mq($from: $mobile_sm, $until: $mobile_lg){
+      padding: 0 !important;
+    }
 }
 .c-post_viewmore2 {
     width: 100%;
@@ -539,4 +548,17 @@
     line-height: 18px;
     color: #929292;
     }
+}
+
+.c-form__input {
+  @include mq($from: $mobile_sm, $until: $mobile_lg){
+    margin-top: 10px;
+    padding: 0 !important;
+  }
+}
+
+.c-form__group {
+  @include mq($from: $mobile_sm, $until: $mobile_lg){
+    margin-top: 10px;
+  } 
 }

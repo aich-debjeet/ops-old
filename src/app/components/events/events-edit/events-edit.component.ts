@@ -118,8 +118,8 @@ export class EventsEditComponent implements OnInit {
       'event_genres': ['',[Validators.required]],
       'event_industry': ['',[Validators.required]],
       'event_venue': ['',[Validators.required]],
-      'event_startdate' : ['', [Validators.required, FormValidation.datevalidation]],
-      'event_enddate' : ['',[Validators.required, FormValidation.oldEndDatevalidation]],
+      'event_startdate' : ['', [Validators.required, FormValidation.datevalidation, this.dateCompare.bind(this)]],
+      'event_enddate' : ['',[Validators.required, FormValidation.oldEndDatevalidation, this.dateComparision.bind(this)]],
       'access': '0',
       'event_type': 'Free',
       'event_agenda' : this.fb.array([this.agendaItem()]),
@@ -266,8 +266,8 @@ export class EventsEditComponent implements OnInit {
       'event_genres': [data['event_detail']['Type']['eventType'],[Validators.required]],
       'event_industry': [data['event_detail']['industry'][0],[Validators.required]],
       'event_venue': [data['event_detail']['venue']['location'],[Validators.required]],
-      'event_startdate' : [this.removeTime(data['event_detail']['eventTiming']['startDate']), [Validators.required, FormValidation.datevalidation]],
-      'event_enddate' : [this.removeTime(data['event_detail']['eventTiming']['endDate']),[Validators.required, FormValidation.oldEndDatevalidation]],
+      'event_startdate' : [this.removeTime(data['event_detail']['eventTiming']['startDate']), [Validators.required, FormValidation.datevalidation, this.dateCompare.bind(this)]],
+      'event_enddate' : [this.removeTime(data['event_detail']['eventTiming']['endDate']),[Validators.required, FormValidation.oldEndDatevalidation, this.dateComparision.bind(this)]],
       'access': '0',
       'event_type': 'Free',
       'event_agenda' : this.fb.array(this.eventAgenda(data['event_detail'])),
@@ -299,13 +299,13 @@ export class EventsEditComponent implements OnInit {
   // }
 
   eventAgenda(data){
-    if(data['event_agenda'] === undefined){
-      console.log('not undefined')
+    if(data['event_agenda'] !== undefined){
+      // console.log('not undefined')
       let newFormGroup = [];
       for (let i = 0; i < data['event_agenda'].length; i++){
         let fg = this.fb.group({
-          startTime: [data['event_agenda'][i].startTime],
-          description: [data['event_agenda'][i].description]
+          startTime: [data['event_agenda'][i].startTime,[Validators.required, this.agendaDateComp.bind(this)]],
+          description: [data['event_agenda'][i].description, [Validators.required]]
         });
         newFormGroup.push(fg);
         if (i >= (data['event_agenda'].length - 1)) {
@@ -313,28 +313,76 @@ export class EventsEditComponent implements OnInit {
         }
       }
     } else {
-      console.log('undefined')
+      // console.log('undefined')
       let newFormGroup = [];
       let fg = this.fb.group({
-        startTime: [''],
-        description: ['']
+        startTime: ['',[Validators.required, this.agendaDateComp.bind(this)]],
+        description: ['', [Validators.required]]
       });
       newFormGroup.push(fg);
       return newFormGroup;
     }  
   }
 
+  agendaDateComp(control: AbstractControl){
+    if (control.value === '' || control.value === undefined) {
+      // console.log('undefined')
+      return null;
+    } else {
+      const startDate = this.eventForm.controls['event_startdate'].value.split('-').reverse().join('-');
+      const endtDate = this.eventForm.controls['event_enddate'].value.split('-').reverse().join('-');
+      const startSelect = moment(startDate).format('YYYYMMDD');
+      const endSelect = moment(endtDate).format('YYYYMMDD');
+      const date = control.value.split(' ');
+      const agenda = date[0].split('-').reverse().join('-');
+      const agendaDate = moment(agenda).format('YYYYMMDD');
+      // console.log(agendaDate)
+      if(agendaDate < startSelect || agendaDate > endSelect){
+        // console.log(agendaDate)
+        return {invalidAgendDate: true};
+      } else {
+        return null;;
+      }
+    }
+
+  }
+  
   dateComparision(control: AbstractControl){
     if (control.value === '') {
-      return;
+      return null;
+    } else {
+      const startDate = this.eventForm.controls['event_startdate'].value.split('-').reverse().join('-');
+      // const startDate = AC.get('event_startdate').value.split('-').reverse().join('-');
+      const endData = control.value.split('-').reverse().join('-');
+      const startSelect = moment(startDate).format('YYYYMMDD');
+      const endSelect = moment(endData).format('YYYYMMDD');
+      if (endSelect < startSelect && !isNaN(Number(startSelect))) {
+        // console.log('validating')
+        // console.log('validating',startSelect)
+        return { endDateLess: true };
+      } else {
+        return null;
+      }
     }
-    const startDate = this.eventForm.controls['event_startdate'].value.split('-').reverse().join('-');
-    // const startDate = AC.get('event_startdate').value.split('-').reverse().join('-');
-    const endData = control.value.split('-').reverse().join('-');
-    const startSelect = moment(startDate).format('YYYYMMDD');
-    const endSelect = moment(endData).format('YYYYMMDD');
-    if (endSelect < startSelect) {
-      return { endDateLess: true };
+
+  }
+
+  dateCompare(control: AbstractControl){
+    if (control.value === '') {
+      return null;
+    } else {
+      const endData = this.eventForm.controls['event_enddate'].value.split('-').reverse().join('-');
+      // const startDate = AC.get('event_startdate').value.split('-').reverse().join('-');
+      const startDate = control.value.split('-').reverse().join('-');
+      const startSelect = moment(startDate).format('YYYYMMDD');
+      const endSelect = moment(endData).format('YYYYMMDD');
+      if (startSelect > endSelect && !isNaN(Number(startSelect))) {
+        // console.log('validating')
+        // console.log('validating',startSelect)
+        return { endDateLess: true };
+      } else {
+        return null;
+      }
     }
 
   }
@@ -469,8 +517,8 @@ export class EventsEditComponent implements OnInit {
    */
   agendaItem() {
     return this.fb.group({
-      startTime: [''],
-      description: ['']
+      startTime: ['',[Validators.required, this.agendaDateComp.bind(this)]],
+      description: ['', [Validators.required]]
     })
   }
 
@@ -521,8 +569,8 @@ export class EventsEditComponent implements OnInit {
           creationDate: this.eventDetail.creationDate,
           event_media: this.eventDetail.event_media,
           eventTiming: {
-            startDate : this.reverseDate(value.event_startdate) + 'T05:00:00',
-            endDate : this.reverseDate(value.event_enddate) + 'T05:00:00',
+            startDate : this.reverseDate(value.event_startdate) + 'T00:00:00.001',
+            endDate : this.reverseDate(value.event_enddate) + 'T23:59:59.000',
           },
           venue : {
             location: this.address || value.event_venue,
@@ -533,8 +581,8 @@ export class EventsEditComponent implements OnInit {
           extras: {
             coverImage: this.eventCoverImage,
             ticket: [{
-              startDate: this.reverseDate(value.ts_startTime) + 'T05:00:00',
-              endDate: this.reverseDate(value.ts_endTime) + 'T05:00:00',
+              startDate: this.reverseDate(value.ts_startTime) + 'T00:00:00.001',
+              endDate: this.reverseDate(value.ts_endTime) + 'T23:59:59.000',
               maximum: value.ts_quantity,
               ticketId: this.eventDetail.extras.ticket[0].ticketId
             }]

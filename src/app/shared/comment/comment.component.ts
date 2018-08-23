@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { initialMedia, Media } from '../../models/media.model';
 import { environment } from './../../../environments/environment';
 import { MediaActions } from '../../actions/media.action';
@@ -29,7 +30,6 @@ export class CommentComponent implements OnInit {
   @Output() updateComment: EventEmitter<any> = new EventEmitter<any>();
   imageLink: string = environment.API_IMAGE;
   comment_post_loading: boolean = false;
-  moreComment: boolean = true
 
   constructor(
     private store: Store<Media>
@@ -47,14 +47,12 @@ export class CommentComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.loadMedia()
   }
 
   /**
    * Load Comments
    */
   loadMedia() {
-    this.moreComment = false;
     const send = {
       'media_id': this.mediaId,
       'commentType': this.mediaType
@@ -63,36 +61,32 @@ export class CommentComponent implements OnInit {
     return
   }
 
+
   /**
    * Submit Comment
    */
-  keyDownFunction(mediaId: string) {
-    if (this.messageText.trim().length !== 0) {
+  postComment(form: NgForm) {
+    if (form.value.comment.trim().length !== 0) {
       const send = {
-        'content': this.messageText,
+        'content': form.value.comment,
         'commentType': this.mediaType,
-        'parent': mediaId
+        'parent': this.mediaId
       }
       this.store.dispatch({ type: MediaActions.POST_COMMENT, payload: send});
       this.submitComment.emit();
-      this.addNewComment();
-      this.messageText = '';
+      this.store.select('mediaStore')
+        .first(media => media['media_post_success'] === true)
+        .subscribe( data => {
+          this.addNewComment(data['current_comment']);
+        });
+      form.reset();
       return
-    }
+     }
   }
 
-  addNewComment() {
+  addNewComment(comment) {
     this.store.dispatch({ type: ProfileActions.COMMENT_COUNT_INCREMENT, payload: this.mediaId });
-    const commentData = {
-      comment: this.messageText,
-      isOwner: true,
-      ownerImage: this.userData.profileImage,
-      ownerName: this.userData.name,
-      createdDate: +new Date(),
-      postId: this.mediaId
-    }
-
-    this.store.dispatch({ type: ProfileActions.COMMENT_POST_LIST, payload: commentData });
+    this.store.dispatch({ type: ProfileActions.COMMENT_POST_LIST, payload: comment });
   }
 
   deleteBacend(comment) {
@@ -101,6 +95,7 @@ export class CommentComponent implements OnInit {
       'commentType': this.mediaType,
       'parent': this.mediaId
     }
+
     this.store.dispatch({ type: MediaActions.DELETE_COMMENT, payload: send});
     this.store.dispatch({ type: ProfileActions.COMMENT_POST_DELETE, payload: send});
   }

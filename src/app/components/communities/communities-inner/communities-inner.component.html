@@ -12,7 +12,7 @@
                     <div class="o-commu__prof-img2">
                             
                         </div>
-                <div class="o-commu__prof-img" [style.background-image]=" details?.image ? 'url('+ basePath + details?.image+')' : 'url(https://ops-v2.netlify.com/assets/demo/new/s16.jpg)'">
+                <div class="o-commu__prof-img" [style.background-image]=" details?.image ? 'url('+ basePath + details?.image+')' : 'url(https://cdn.onepagespotlight.com/img/demo/s16.jpg)'">
                     <div class="c-commu__imgcover" *ngIf="details?.isOwner">
                         <input type="file" class="o-commu-cover-media" name="photo" id="upload-photo" (ngxf-select)="uploadFileList($event)" accept="image/*,.svg">
                         <div class="o-commu-cover-media__btn c-text_sm">
@@ -105,7 +105,7 @@
                         <!-- <a href="" class="c-text_sm c-org--seemore">See More</a> -->
                     </div>
                     <div class="o-community-show-block m-t-16" *ngFor="let community of relatedCommunity">
-                        <span class="o-community-show__thumb"></span>
+                        <span class="o-community-show__thumb" [style.background-image]=" community?.image ? 'url('+ basePath + community?.image+')' : 'url(https://cdn.onepagespotlight.com/img/demo/s16.jpg)'"></span>
                         <span class="o-community-show__name m-l-8">
                             <h6 class="c-text_md"><a [routerLink]="['/communities', community?.communityId]">{{community?.title}}</a></h6>
                             <p class="c-text_sm letter_space color-grey">{{community?.memberCount}} memberes</p>

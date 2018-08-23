@@ -208,7 +208,7 @@ vg-scrub-bar {
     .nav-tabs>li.active>a,
     .nav-tabs>li.active>a:hover,
     .nav-tabs>li.active>a:focus {
-        color: #ff7b84!important;
+        color: $color-theme!important;
         background-color: transparent;
         border: 0;
         border-bottom-color: transparent;
@@ -230,8 +230,8 @@ vg-scrub-bar {
 
 .btn-primary {
     color: #fff;
-    background-color: #ff7b84;
-    border-color: #ff7b84;
+    background-color: $color-theme;
+    border-color: $color-theme;
 }
 
 .modal__tiny {
@@ -446,10 +446,10 @@ vg-scrub-bar {
         height: 45px!important;
     }
     .dp-calendar-day.dp-selected {
-        background: #ff7b84;
+        background: $color-theme;
     }
     .dp-material .dp-current-day {
-        border: 1px solid #ff7b84;
+        border: 1px solid $color-theme;
     }
 }
 
@@ -615,7 +615,7 @@ button.sb-wrapper.sb-facebook {
     float: inherit;
     margin-top: 15px;
     a {
-        background-color: #ff7b84!important;
+        background-color: $color-theme !important;
         border-radius: 0!important;
         padding: 0.3em 1em!important;
         &:hover{

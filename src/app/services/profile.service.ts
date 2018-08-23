@@ -20,6 +20,12 @@ export class ProfileService {
     this.headers = this.api.getHeaders();
   }
 
+  postChannelStatus(payload: any) {
+    const channelId = payload.channelId;
+    const reqBody = payload.reqBody;
+    return this.api.put('/portal/network/spotfeed/' + channelId, reqBody);
+  }
+
   /**
    * for: portfolio
    */
@@ -126,7 +132,12 @@ export class ProfileService {
   getLoggedInProfileDetails() {
     return this.api.get('/portal/loggedInProfile/', '');
   }
-
+  /**
+   * current logged in user details
+   */
+  getLoggedInUserDetails(){
+    return this.api.get('/portal/auth/user/loggedUser');
+  }
   /**
    * Current LoggedIn Quick Access.
    */
@@ -284,6 +295,13 @@ export class ProfileService {
   userProfileUpdate(body: any) {
     return this.api.put('/portal/profile/updateProfile', body);
   }
+  
+  /**
+   * update user details
+   */
+  userDetailUpdate(body: any) {
+    return this.api.put('/portal/auth/user/update', body);
+  }
 
   /**
    * Update Profile Object
@@ -377,13 +395,13 @@ export class ProfileService {
     return this.api.get(`/portal/profile/user/username/${userName}`);
   }
 
-  // loadProfileByUsername(userName: string) {
-  //   return this.http.get(`${this.apiLink}/portal/profile/user/username/` + userName)
-  //     .map((data: Response) => {
-  //       localStorage.setItem('portfolioUserHandle', data.json().handle);
-  //       return data.json()
-  //     });
-  // }
+  loadProfileByUsernameForPortfolio(userName: string) {
+    return this.http.get(`${this.apiLink}/portal/profile/user/username/` + userName)
+      .map((data: Response) => {
+        localStorage.setItem('portfolioUserHandle', data.json().handle);
+        return data.json()
+      });
+  }
 
   /**
    * Load a user profile
@@ -436,9 +454,9 @@ export class ProfileService {
    * Get User media
    */
   getUserMedia(payload: any) {
-    const params = payload.handle + '/' + payload.page_start + '/' + payload.page_end;
-    return this.api.get('/portal/cdn/media/otherProfile/', params);
+    return this.api.post('/portal/cdn/media/profile/posts', payload);
   }
+
   /**
    *
    * @param payload get posts followed by the user
@@ -534,6 +552,13 @@ export class ProfileService {
     return this.api.put('/portal/network/block/unblock', body);
   }
 
+  /**
+   * blocj user
+   */
+  blockUser(body: any){
+    return this.api.put('/portal/network/block/block', body)
+  }
+
   getdefaultNotifications() {
     return this.api.get('/portal/profile/profileSettings/default/settings', '' );
   }
@@ -618,7 +643,7 @@ export class ProfileService {
 
   trendingPost() {
     const body = {
-      limit: 1
+      limit: 2
     }
     return this.api.post(`/portal/cdn/media/search`, body);
   }

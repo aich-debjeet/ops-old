@@ -129,13 +129,18 @@
           </div>
           <div class="col-md-9 p-0">
               <div class="o-oppo-form__file-type">
-                  <input *ngIf="!uploadedFile" class="o-oppo-file" type="file" accept="image/*" (change)="fileSelectedAction($event)" multiple>
+                  <input class="o-oppo-file" type="file" accept="image/*" (change)="fileSelectedAction($event)" multiple>
                   <p *ngIf="!uploadingFile" class="c-text_sm o-oppo-file__text">upload<br>image</p>
                   <img *ngIf="uploadingFile" [src]="baseUrl + 'img/search-preloader.gif'" class="opp-prel-image" alt="">
                   <img *ngIf="uploadedFile" [src]="uploadedFileSrc" class="opp-prev-image" alt="">
               </div>
-              <div *ngFor="let fileName of freelanceAttachments" class="o-oppo-form__img-show">
-                <img [src]="baseUrl + fileName" alt="">
+              <div *ngFor="let fileName of freelanceAttachments" class="o-oppo-form__img-show"
+                [ngStyle]="{'background-image': 'url(' + baseUrl + fileName + ')',
+                'background-size': 'cover',
+                'background-position': 'center'}">
+                <span class="o-oppo-img-close" title="Remove">
+                    <a (click)="removeAttachedMedia(fileName)"><img [src]="baseUrl + 'v2/svg/ico_create-close.svg'"></a>
+                </span>
               </div>
           </div>
       </div>

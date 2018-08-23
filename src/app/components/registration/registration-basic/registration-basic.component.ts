@@ -1,6 +1,7 @@
 // ng imports
 import { Component, OnInit, ElementRef, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
+import {INgxMyDpOptions} from 'ngx-mydatepicker';
 import { Router } from '@angular/router';
 import { Modal } from '../../../shared/modal-new/Modal';
 
@@ -47,6 +48,11 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   claimValue: any;
   claimData: any;
   claimActive = false;
+
+  myOptions: INgxMyDpOptions = {
+    showTodayBtn: false,
+    dateFormat: 'dd-mm-yyyy',
+  };
 
   @ViewChild('claimPopup') claimPopup: Modal;
   @ViewChild('otpPopup') otpPopup: Modal;
@@ -412,7 +418,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
           name: 'Artist',
           typeName: 'individual'
         }],
-        dateOfBirth: this.reverseDate(value.dob) + 'T05:00:00',
+        dateOfBirth: this.reverseDate(value.dob.formatted) + 'T05:00:00',
       }
     };
     this.uploadingFormData = true;

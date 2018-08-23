@@ -17,6 +17,7 @@ import { combineReducers, ActionReducer } from '@ngrx/store';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { compose } from '@ngrx/core/compose';
 import { environment } from '../environments/environment';
+import { DirectoryReducer } from './reducers/directory.reducer';
 // import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
 const reducers = {
@@ -33,7 +34,8 @@ const reducers = {
   notificationTags: NotificationReducer,
   exploreTags: ExploreReducer,
   eventTags: EventReducer,
-  communitiesTags: CommunitiesReducer
+  communitiesTags: CommunitiesReducer,
+  directoryTags: DirectoryReducer
 }
 
 /**

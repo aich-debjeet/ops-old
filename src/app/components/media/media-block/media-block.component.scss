@@ -2,6 +2,30 @@
 @import './src/assets/scss/helpers/_helpers.scss';
 @import './src/assets/scss/components/_feed-card.scss';
 @import './src/assets/scss/base/_base.scss';
+@import '~sass-mq/_mq.scss';
+
+.o-share__social {
+    border-top: 1px solid #F3F5F7;
+    padding-top: 16px;
+}
+.o-share__social-icon {
+    display: inline;
+    padding: 0 21px;
+}
+.c-block__inline{
+    display: inline-block;
+}
+
+.o-share__profile2 {
+    width: 260px;
+    border: none;
+    color: #808080;
+    font-size: 13px;
+    line-height: 20px;
+    border-radius: 3px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.26);
+    right: 0px;
+}
 
 .p-t-80{
     margin-top: 80px
@@ -71,12 +95,22 @@
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
         background: white;
         display: flex;
+        @include mq($from: $mobile_sm, $until: $mobile_lg) {
+            justify-content:center;
+            flex-direction:column;
+        }
     }
 }
 
 .c-modal--size1 {
     width: 1170px;
     margin-top: 47px;
+    @include mq($from: $mobile_lg, $until: $tablet) {
+        width: 95%;
+    }
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 90%;
+    }
 }
 
 .c-modal__close {
@@ -96,7 +130,11 @@
     // border-right: solid 1px rgba(0, 0, 0, 0.1);
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
-    float: left
+    float: left;
+    @include mq($from: $mobile_sm, $until: $mobile_lg){
+        width: 100%;
+        height: auto;
+    }
 }
 
 .c-mediamodal__left__block {
@@ -163,6 +201,9 @@
     overflow-y: scroll;
     position: relative;
     background: #F3F5F7;
+    @include mq($from: $mobile_sm, $until: $mobile_lg){
+        width: 100%;
+    }
 }
 
 .c-media__right--feed {
@@ -215,6 +256,9 @@
 
 .c-mediamodal__input {
     padding: 4px 0 0 16px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        margin-left: 5px;
+    }
 }
 
 .c-mediamodal__inputfixed {
@@ -223,6 +267,9 @@
     background: white;
     width: 397px;
     padding: 0 16px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 100%;
+    }
 }
 
 // for contenteditable
@@ -620,7 +667,7 @@
 //                 li a {
 //                     &:hover {
 //                         background-color: #fff;
-//                         color: #ff7b84;
+//                         color: $color-theme;
 //                     }
 //                 }
 //             }
@@ -830,7 +877,7 @@
 // .read-more-link{
 //     float: right;
 //     span{
-//         color: #ff7b84;
+//         color: $color-theme;
 //         font-size: 12px;
 //         text-decoration: underline;
 //         cursor: pointer;

@@ -1,0 +1,100 @@
+@import './src/assets/scss/helpers/_variables.scss';
+.o-aplcnts-card {
+    width: 100%;
+    float: left;
+    background: #fff;
+    padding: 16px;
+    margin-top: 16px;
+}
+
+.o-aplcnts-card__head {
+    width: 100%;
+    float: left;
+}
+
+.o-aplcnts__prof-img {
+    width: 56px;
+    height: 56px;
+    float: left;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.o-aplcnts__prof-img img {
+    width: 100%;
+}
+
+.o-aplcnts__user {
+    margin-top: 15px;
+    margin-left: 8px;
+    float: left;
+}
+
+.o-aplcnts-card__body {
+    width: 100%;
+    float: left;
+}
+
+.c-skill__tags {
+    color: #333333;
+    font-size: 11px;
+    line-height: 15px;
+    float: left;
+    margin-bottom: 8px;
+    margin-right: 8px;
+    background-color: #FFFFFF;
+    border-radius: 3px;
+    border: 1px solid #F3F5F7;
+    display: inline;
+    padding: 2px 6px;
+    cursor: pointer;
+}
+
+.o-aplcnts__info {
+    width: 100%;
+    float: left;
+    padding: 16px 0px;
+}
+
+.o-aplcnts__resume {
+    width: 100%;
+    float: left;
+    padding: 8px 0px;
+    border-top: 1px solid #F3F5F7;
+    border-bottom: 1px solid #F3F5F7;
+}
+
+a {
+    color: #979797;
+    text-decoration: none !important;
+    outline: none;
+}
+
+.o-attachement-icon {
+    width: 16px;
+    height: 16px;
+    float: left;
+}
+
+.o-aplcnts__footer {
+    width: 100%;
+    float: left;
+    text-align: right;
+    margin-top: 16px;
+}
+
+.btn-default {
+    color: $color-theme;
+    background: #ffffff;
+    border-color: $color-theme;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 1px rgba(0, 0, 0, 0.25);
+}
+
+.btn-primary {
+    color: #ffffff;
+    background-color: $color-theme;
+    border-color: $color-theme;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 1px rgba(0, 0, 0, 0.25);
+}

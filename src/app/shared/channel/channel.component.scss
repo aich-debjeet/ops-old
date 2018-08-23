@@ -320,8 +320,8 @@ a {
 
 .btn-primary {
     color: #ffffff;
-    background-color: #FF7B84;
-    border-color: #FF7B84;
+    background-color: $color-theme;
+    border-color: $color-theme;
     text-shadow: 0 1px rgba(0, 0, 0, 0.25);
     box-shadow: 0 1px rgba(0, 0, 0, 0.25);
 }
@@ -341,16 +341,14 @@ a {
 }
 
 .c-channel__card {
-    //width: 24%;
     float: left;
-    //margin: 5px;
     position: relative;
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
         width: 100%;
-        margin: 5px;
+        margin: 5px 0;
     }
     @include mq($from: $mobile_lg, $until: $desktop_sm) {
         width: 48%;
-        margin: 5px;
+        margin: 5px 0;
     }
 }

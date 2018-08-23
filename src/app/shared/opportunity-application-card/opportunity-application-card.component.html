@@ -1,0 +1,33 @@
+<div class="col-12 col-sm-4 col-md-4 col-lg-3 col-xl-3">
+  <div class="o-aplcnts-card">
+    <div class="o-aplcnts-card__head">
+      <a routerLink="{{ '/profile/u/' + applicationDetails?.userUserName }}">
+        <div class="o-aplcnts__prof-img">
+          <img src="{{ baseUrl + applicationDetails?.userImage }}" alt="">
+        </div>
+        <div class="o-aplcnts__user c-text_lg">{{ applicationDetails?.userName | truncate:[20, '...'] }}</div>
+      </a>
+    </div>
+    <div class="o-aplcnts-card__body m-t-16">
+      <div class="c-text_sm color-grey-dark ltr-space text_uppercase m-b-8">Skills</div>
+      <div *ngFor="let skill of applicationDetails?.skill" class="c-skill__tags">
+        {{ skill | firstCharCaps }}
+      </div>
+      <div class="o-aplcnts__info">
+        <div class="c-text_sm">{{ applicationDetails?.message }}</div>
+      </div>
+      <!-- <div class="o-aplcnts__resume">
+        <a href="#">
+          <span class="o-attachement-icon"></span>
+          <span class="o-attachement__name">
+            <span class="c-text_sm color-grey-dark">My resume.pdf</span>
+          </span>
+        </a>
+      </div> -->
+      <div class="o-aplcnts__footer">
+        <button [disabled]="disableRemove" (click)="userAction('remove')" type="button" class="btn btn-default btn-sm">Remove</button>
+        <button [disabled]="disableReachout" (click)="userAction('reachout')" type="button" class="btn btn-primary btn-sm">Reach out</button>
+      </div>
+    </div>
+  </div>
+</div>

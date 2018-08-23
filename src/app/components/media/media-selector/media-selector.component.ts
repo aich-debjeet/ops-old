@@ -362,7 +362,6 @@ export class MediaSelectorComponent implements OnInit {
     this.channelForm = this.fb.group({
       title: ['', Validators.required ],
       desc: ['', Validators.required ],
-      mediaType: ['', Validators.required ],
       privacy: [0, Validators.required ],
       type: [0, Validators.required ]
     })
@@ -565,7 +564,7 @@ export class MediaSelectorComponent implements OnInit {
    * Form Builder
    */
   createChannel(value: any) {
-    const mediaTypeList = this.channelTypeConfig(Number(value.mediaType));
+    const mediaTypeList = ['image', 'video', 'audio', 'text'];
     if ( this.channelForm.valid === true ) {
       const channelObj = {
         name: value.title,
@@ -583,32 +582,6 @@ export class MediaSelectorComponent implements OnInit {
     }else {
       this.toastr.warning('Please fill all required fields');
     }
-  }
-
-  /**
-   * Limit Channel Media Type based on Selection
-   * @param type
-   */
-  channelTypeConfig(type) {
-    let flag;
-    switch (type) {
-      case 1:
-        flag = ['image'];
-        break;
-      case 2:
-        flag = ['audio'];
-        break;
-      case 3:
-        flag = ['video'];
-        break;
-      case 4:
-        flag = ['text'];
-        break;
-      default:
-        flag = ['image', 'video', 'audio', 'text'];
-        break;
-    }
-    return flag;
   }
 
   /**

@@ -12,7 +12,7 @@
 }
 
 .text-theme {
-    color: #ff7b84 !important;
+    color: $color-theme !important;
 }
 
 input[type=number]::-webkit-inner-spin-button, 
@@ -87,8 +87,8 @@ input[type=number]::-webkit-outer-spin-button {
     min-height: calc(100vh - 122px);
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
         height: auto;
-        margin-top: 50px;
-        margin-bottom: 100px;
+        margin-top: 0;
+        margin-bottom: 0;
     }
     .ops_signup_left {
         padding: 0 48px;
@@ -218,7 +218,7 @@ input[type=number]::-webkit-outer-spin-button {
     }
 }
 .phone_number_error {
-    color: #FF7B84 !important;
+    color: $color-theme !important;
     font-size: 16px !important;
     line-height: 22px;
     text-align: center;
@@ -312,7 +312,7 @@ input[type=number]::-webkit-outer-spin-button {
     }
 }
 .reg-claim-close{
-    color: #FF7B84;
+    color: $color-theme;
     font-size: 11px;    
     line-height: 18px;  
     text-align: center;

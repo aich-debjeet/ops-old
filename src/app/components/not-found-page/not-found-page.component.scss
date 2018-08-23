@@ -1,3 +1,4 @@
+@import './src/assets/scss/helpers/_variables.scss';
 // 404 page styles
 // learn 404 first
 .comming-soon-container{
@@ -25,7 +26,7 @@
 .comingsoon_main{
 	width: 100%;
     height: 100vh;
-    background: #ff7b84;
+    background: $color-theme;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -60,7 +61,7 @@
 			margin: 8px 0px;
 			line-height: 22px;
 			float: left;
-			padding-left: 8px;
+			padding-right: 8px;
 		}
 		span{
 			color: #f2707c;

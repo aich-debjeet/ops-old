@@ -15,6 +15,14 @@ import { ProfileActions } from '../actions/profile.action';
 
 @Injectable()
 export class ProfileEffect {
+  @Effect()
+  postChannelStatus$ = this.actions$
+    .ofType(ProfileActions.POST_CHANNEL_STATUS)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.postChannelStatus(payload)
+      .map(res => ({ type: ProfileActions.POST_CHANNEL_STATUS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.POST_CHANNEL_STATUS_FAILED, payload: res }))
+    );
 
   /**
    * for: portfolio
@@ -197,6 +205,21 @@ export class ProfileEffect {
     );
 
   /**
+   * Get LoggedIn user data details
+   */
+  @Effect()
+  loadUserDataDetails$ = this.actions$
+    .ofType(ProfileActions.LOAD_USER_DATA_DETAILS)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getLoggedInUserDetails()
+      .map(res => ({ type: ProfileActions.LOAD_USER_DATA_DETAILS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.LOAD_USER_DATA_DETAILS_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
+  /**
    * Get current user media profile
    */
   @Effect()
@@ -285,6 +308,21 @@ export class ProfileEffect {
       .map(res => ({ type: ProfileActions.LOAD_PROFILE_UPDATE_SUCCESS, payload: res }))
       .catch((res) => Observable.of({
         type: ProfileActions.LOAD_PROFILE_UPDATE_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
+  /**
+   * update user details
+   */
+  @Effect()
+  userDetaileUpdate$ = this.actions$
+    .ofType(ProfileActions.LOAD_USER_UPDATE)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.userDetailUpdate(payload)
+      .map(res => ({ type: ProfileActions.LOAD_USER_UPDATE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.LOAD_USER_UPDATE_FAILED,
         payload: { errorStatus: res.status }
       }))
     );
@@ -610,7 +648,7 @@ export class ProfileEffect {
   profLoadProfile$ = this.actions$
     .ofType(ProfileActions.PORTFOLIO_PROFILE_LOAD)
     .map(toPayload)
-    .switchMap((payload) => this.profileService.loadProfileByUsername(payload)
+    .switchMap((payload) => this.profileService.loadProfileByUsernameForPortfolio(payload)
       .map(res => ({ type: ProfileActions.PORTFOLIO_PROFILE_LOAD_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: ProfileActions.PORTFOLIO_PROFILE_LOAD_FAILED, payload: res }))
     );
@@ -797,17 +835,17 @@ export class ProfileEffect {
   /**
    *  Load my Directory
    */
-  @Effect()
-  directory$ = this.actions$
-    .ofType(ProfileActions.LOAD_DIRECTORY)
-    .map(toPayload)
-    .switchMap((payload) => this.profileService.loadDirectory(payload)
-      .map(res => ({ type: ProfileActions.LOAD_DIRECTORY_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({
-        type: ProfileActions.LOAD_DIRECTORY_FAILED,
-        payload: { errorStatus: res.status }
-      }))
-    );
+  // @Effect()
+  // directory$ = this.actions$
+  //   .ofType(ProfileActions.LOAD_DIRECTORY)
+  //   .map(toPayload)
+  //   .switchMap((payload) => this.profileService.loadDirectory(payload)
+  //     .map(res => ({ type: ProfileActions.LOAD_DIRECTORY_SUCCESS, payload: res }))
+  //     .catch((res) => Observable.of({
+  //       type: ProfileActions.LOAD_DIRECTORY_FAILED,
+  //       payload: { errorStatus: res.status }
+  //     }))
+  //   );
 
   /**
    * Get List of Block Users
@@ -838,6 +876,19 @@ export class ProfileEffect {
       payload: { errorStatus: res.status }
     }))
   );
+
+  /**
+   * Block users
+   */
+  @Effect()
+  blockUser$ = this.actions$
+    .ofType(ProfileActions.BLOCK_USER)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.blockUser(payload)
+      .map(res =>({type: ProfileActions.BLOCK_USER_SUCCESS, payload:res}))
+      .catch((res) => Observable.of({type: ProfileActions.BLOCK_USER_FAILED, payload: res})
+      )
+    );
 
   // @Effect()
   // UpdateblockedUsers$ = this.actions$

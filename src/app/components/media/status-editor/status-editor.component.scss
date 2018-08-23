@@ -127,62 +127,14 @@
     float: right;
 }
 
-// $btn-color: #ff7b84;
-// .form___textarea {
-//   width: 100%;
-//   border: none;
-//   color: #979797;
-//   font-size: 18px;
-//   outline: none;
-//   min-height: 60px;
-//   resize:none;
-// }
-// .c-status {
-//   background-color: #fff;
-//   width: 70%;
-//   margin-left: auto;
-//   margin-right: auto;
-// }
-// .u-right {
-//   display: inline-block;
-//   float: right;
-// }
-// .c-status__block {
-//   padding-bottom: 1rem;
-// }
-// .c-status{
-//   background-color: #fff;
-//   padding: 2rem;
-//   border-radius: 4px;
-// }
-// .btn__primary {
-//   padding: 6px 18px;
-//   font-size: 14px;
-//   line-height: 1.0;
-//   border-radius: 3px;
-//   font-weight: 700;
-//   color: #ffffff;
-//   background-color: $btn-color;
-//   border-color: $btn-color;
-//   text-transform: uppercase;
-// }
-// .message {
-//   color: #7c9e7c;
-//   background-color: #f6fdf6;
-//   padding: 1rem;
-// }
-// .width-50 {
-//   width: 50%;
-//   select {
-//     width: 100px;
-//   }
-// }
-// .float-left {
-//   float: left;
-// }
-// .float-right {
-//   float: right;
-// }
-// .cursor-pointer {
-//   cursor: pointer;
-// }
+.o-add-media {
+    margin-top: 24px;
+}
+
+.o-add-media__main-block{
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        display: flex;
+        justify-content: center;
+        flex-direction: column-reverse;
+    }
+}

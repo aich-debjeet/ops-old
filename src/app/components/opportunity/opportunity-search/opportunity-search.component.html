@@ -23,90 +23,66 @@
   			<li class="o-quicklink__item" (click)="toggleOppTypeFilter('OPPORTUNITY_TYPE', 'audition')">
 				  <label>
 				  	<span class="o-quicklink__ico">
-				  		<img width="62" [src]="baseUrl + 'img/opportunities/audition.png'" alt="">
+				  		<img width="62" [src]="baseUrl + 'v2/opportunities/audition.png'" alt="">
 				  	</span>
-				  	<span class="o-quicklink__title">
+				  	<span [ngClass]="{'color-theme': !isSelected('audition')}" class="o-quicklink__title">
 				  		<p class="c-text_lg">Audition</p>
-				  		<p *ngIf="opportunitiesCount.Audition" class="c-text_sm color-grey-dark">{{ opportunitiesCount.Audition }} Opportunities</p>
-				  	</span>
-				  	<span class="o-quicklink__title-show">
-				  		<p class="c-text_md color-theme">Audition</p>
-				  		<p class="c-text_sm color-theme">What does it take to be successful?</p>
+				  		<p *ngIf="opportunitiesCount?.Audition" class="c-text_sm color-grey-dark">{{ opportunitiesCount?.Audition }} Opportunities</p>
 				  	</span>
 				  </label>
   			</li><!-- audition end -->
   			<li class="o-quicklink__item" (click)="toggleOppTypeFilter('OPPORTUNITY_TYPE', 'projects')">
 				  <label>
 				  	<span class="o-quicklink__ico">
-				  		<img width="62" [src]="baseUrl + 'img/opportunities/projects.png'" alt="">
+				  		<img width="62" [src]="baseUrl + 'v2/opportunities/projects.png'" alt="">
 				  	</span>
-				  	<span class="o-quicklink__title">
+				  	<span [ngClass]="{'color-theme': !isSelected('projects')}" class="o-quicklink__title">
 				  		<p class="c-text_lg">Projects</p>
-				  		<p *ngIf="opportunitiesCount.Projects" class="c-text_sm color-grey-dark">{{ opportunitiesCount.Projects }} Opportunities</p>
-				  	</span>
-				  	<span class="o-quicklink__title-show">
-				  		<p class="c-text_md color-theme">Projects</p>
-				  		<p class="c-text_sm color-theme">What does it take to be successful?</p>
+				  		<p *ngIf="opportunitiesCount?.Project" class="c-text_sm color-grey-dark">{{ opportunitiesCount?.Project }} Opportunities</p>
 				  	</span>
 				  </label>
   			</li><!-- Projects end -->
   			<li class="o-quicklink__item" (click)="toggleOppTypeFilter('OPPORTUNITY_TYPE', 'job')">
 				  <label>
 				  	<span class="o-quicklink__ico">
-				  		<img width="62" [src]="baseUrl + 'img/opportunities/job.png'" alt="">
+				  		<img width="62" [src]="baseUrl + 'v2/opportunities/job.png'" alt="">
 				  	</span>
-				  	<span class="o-quicklink__title">
+				  	<span [ngClass]="{'color-theme': !isSelected('job')}" class="o-quicklink__title">
 				  		<p class="c-text_lg">Jobs</p>
-				  		<p *ngIf="opportunitiesCount.Jobs" class="c-text_sm color-grey-dark">{{ opportunitiesCount.Jobs }} Opportunities</p>
-				  	</span>
-				  	<span class="o-quicklink__title-show">
-				  		<p class="c-text_md color-theme">Jobs</p>
-				  		<p class="c-text_sm color-theme">What does it take to be successful?</p>
+				  		<p *ngIf="opportunitiesCount?.Job" class="c-text_sm color-grey-dark">{{ opportunitiesCount?.Job }} Opportunities</p>
 				  	</span>
 				  </label>
   			</li><!-- Jobs end -->
   			<li class="o-quicklink__item" (click)="toggleOppTypeFilter('OPPORTUNITY_TYPE', 'internship')">
 				  <label>
 				  	<span class="o-quicklink__ico">
-				  		<img width="62" [src]="baseUrl + 'img/opportunities/internship.png'" alt="">
+				  		<img width="62" class="w-36" [src]="baseUrl + 'v2/opportunities/internship.png'" alt="">
 				  	</span>
-				  	<span class="o-quicklink__title">
+				  	<span [ngClass]="{'color-theme': !isSelected('internship')}" class="o-quicklink__title">
 				  		<p class="c-text_lg">Internship</p>
-				  		<p *ngIf="opportunitiesCount.Internship" class="c-text_sm color-grey-dark">{{ opportunitiesCount.Internship }} Opportunities</p>
-				  	</span>
-				  	<span class="o-quicklink__title-show">
-				  		<p class="c-text_md color-theme">Internship</p>
-				  		<p class="c-text_sm color-theme">What does it take to be successful?</p>
+				  		<p *ngIf="opportunitiesCount?.Internship" class="c-text_sm color-grey-dark">{{ opportunitiesCount?.Internship }} Opportunities</p>
 				  	</span>
 				  </label>
   			</li><!-- Internship end -->
   			<li class="o-quicklink__item" (click)="toggleOppTypeFilter('OPPORTUNITY_TYPE', 'freelance')">
 				  <label>
 				  	<span class="o-quicklink__ico">
-				  		<img width="62" [src]="baseUrl + 'img/opportunities/freelance.png'" alt="">
+				  		<img width="62" [src]="baseUrl + 'v2/opportunities/freelance.png'" alt="">
 				  	</span>
-				  	<span class="o-quicklink__title">
+				  	<span [ngClass]="{'color-theme': !isSelected('freelance')}" class="o-quicklink__title">
 				  		<p class="c-text_lg">Freelance</p>
-				  		<p *ngIf="opportunitiesCount.Freelance" class="c-text_sm color-grey-dark">{{ opportunitiesCount.Freelance }} Opportunities</p>
-				  	</span>
-				  	<span class="o-quicklink__title-show">
-				  		<p class="c-text_md color-theme">Freelance</p>
-				  		<p class="c-text_sm color-theme">What does it take to be successful?</p>
+				  		<p *ngIf="opportunitiesCount?.Freelance" class="c-text_sm color-grey-dark">{{ opportunitiesCount?.Freelance }} Opportunities</p>
 				  	</span>
 				  </label>
   			</li><!-- Freelance end -->
   			<li class="o-quicklink__item m-r-0" (click)="toggleOppTypeFilter('OPPORTUNITY_TYPE', 'volunteer')">
 				  <label>
 				  	<span class="o-quicklink__ico">
-				  		<img width="62" [src]="baseUrl + 'img/opportunities/volunteer.png'" alt="">
+				  		<img width="62" [src]="baseUrl + 'v2/opportunities/volunteer.png'" alt="">
 				  	</span>
-				  	<span class="o-quicklink__title">
+				  	<span [ngClass]="{'color-theme': !isSelected('volunteer')}" class="o-quicklink__title">
 				  		<p class="c-text_lg">Volunteer</p>
-				  		<p *ngIf="opportunitiesCount.Volunteer" class="c-text_sm color-grey-dark">{{ opportunitiesCount.Volunteer }} Opportunities</p>
-				  	</span>
-				  	<span class="o-quicklink__title-show">
-				  		<p class="c-text_md color-theme">Volunteer</p>
-				  		<p class="c-text_sm color-theme">What does it take to be successful?</p>
+				  		<p *ngIf="opportunitiesCount?.Volunteer" class="c-text_sm color-grey-dark">{{ opportunitiesCount?.Volunteer }} Opportunities</p>
 				  	</span>
 				  </label>
   			</li><!-- Volunteer end -->
@@ -169,7 +145,7 @@
   				</li> -->
 				  <!-- filter ico end -->
   				<li class="o-filter-list__item m-r-0">
-  					<a routerLink="/opportunity/create" class="btn btn-primary btn-md ">Create job</a>
+  					<a routerLink="/opportunity/create" class="btn btn-primary btn-md ">Create</a>
   				</li><!-- create button end -->
   			</ul>
   		</div>

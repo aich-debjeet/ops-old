@@ -33,6 +33,7 @@ export class MediaBlockComponent implements OnInit {
 
   public metaShow: Meta;
   imageLink: string = environment.API_IMAGE;
+  domainLink: string = environment.API_DOMAIN;
   chosenChannel: any = 0;
   @Input() userChannels;
   @Input() profileImage;
@@ -103,13 +104,24 @@ export class MediaBlockComponent implements OnInit {
     .first(media => media['media_detail'].channelId)
     .subscribe( data => {
       this.meta.updateTag({ name: 'description', content: data['media_detail'].description });
-      // meta.addTags([
-      //   { name: 'description', content: data['media_detail'].description },
-      //   { name: 'og:image', content: this.imageLink + data['media_detail'].repopath },
-      // ]);
-      // this.metaShow = meta;
+      this.meta.updateTag({ property: 'og:image', content: this.imageLink + data['media_detail'].thumbNails.large });
+      this.meta.updateTag({ property: 'og:url', content: this.domainLink + 'media/' + data['media_detail'].id });
+      this.meta.updateTag({ property: 'og:type', content: 'Media' });
+      this.meta.updateTag({ property: 'og:title', content: 'OPS - Media' });
+      this.meta.updateTag({ property: 'og:description', content: data['media_detail'].description });
+      this.meta.updateTag({ property: 'og:image:width', content: '640' });
+      this.meta.updateTag({ property: 'og:image:height', content: '442'});
+      this.meta.updateTag({ property: 'fb:app_id', content: '678678015828014' });
     });
     this.loadMedia();
+  }
+
+  ngOnInit() {
+    // this.meta.addTags([
+    //     { name: 'description', content: 'Media Title working' },
+    //     { property: 'og:image', content: 'https://cdn.onepagespotlight.com/images/N_79749C80_8FD1_4048_942A_75B6BDF7090F/9450954a-c7f6-45d4-8931-eea4a8bc63f2_lar.jpeg' }
+    //   ]);
+    //   this.metaShow = this.meta;
   }
 
   closeFunction() {
@@ -212,7 +224,6 @@ export class MediaBlockComponent implements OnInit {
     this.store.dispatch({ type: MediaActions.MEDIA_EDIT, payload: data});
   }
 
-  ngOnInit() {
-  }
+  
 
 }

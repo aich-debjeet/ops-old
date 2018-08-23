@@ -14,6 +14,42 @@ import { OpportunityService } from '../services/opportunity.service';
 export class OpportunityEffect {
 
   /**
+   * remove opportunity application
+   */
+  @Effect()
+  cancelApplication$ = this.actions$
+    .ofType(OpportunityActions.CANCEL_APPLICATION)
+    .map(toPayload)
+    .switchMap((payload) => this.opportunityService.cancelApplication(payload)
+      .map((res) => ({ type: OpportunityActions.CANCEL_APPLICATION_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: OpportunityActions.CANCEL_APPLICATION_FAILED, payload: res }))
+    );
+
+  /**
+   * remove opportunity application
+   */
+  @Effect()
+  removeApplication$ = this.actions$
+    .ofType(OpportunityActions.REMOVE_APPLICATION)
+    .map(toPayload)
+    .switchMap((payload) => this.opportunityService.removeApplication(payload)
+      .map((res) => ({ type: OpportunityActions.REMOVE_APPLICATION_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: OpportunityActions.REMOVE_APPLICATION_FAILED, payload: res }))
+    );
+
+  /**
+   * load opportunity applications
+   */
+  @Effect()
+  getApplications$ = this.actions$
+    .ofType(OpportunityActions.GET_APPLICATIONS)
+    .map(toPayload)
+    .switchMap((payload) => this.opportunityService.getApplications(payload)
+      .map((res) => ({ type: OpportunityActions.GET_APPLICATIONS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: OpportunityActions.GET_APPLICATIONS_FAILED, payload: res }))
+    );
+
+  /**
    * Create opportunity effect
    */
   @Effect()

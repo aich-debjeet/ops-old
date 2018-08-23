@@ -9,6 +9,7 @@ import { GeneralUtilities } from '../../../../helpers/general.utils';
 import { OpportunityActions } from '../../../../actions/opportunity.action';
 import { OpportunityModel } from '../../../../models/opportunity.model';
 import { environment } from 'environments/environment';
+import { pull as _pull } from 'lodash';
 
 @Component({
   selector: 'app-opportunity-freelance',
@@ -118,7 +119,7 @@ export class OpportunityFreelanceComponent implements OnInit, OnDestroy {
       opportunityFreelance: {
         title: formData.freelanceTitle,
         description: formData.freelanceDescription,
-        industry: formData.freelanceIndustry,
+        category: formData.freelanceIndustry,
         payType: formData.freelancePaymentMethod,
         engagement: formData.freelanceEngagement,
         skills: formData.freelanceSkills,
@@ -149,6 +150,13 @@ export class OpportunityFreelanceComponent implements OnInit, OnDestroy {
       image: fileObj
     };
     this.oppStore.dispatch({ type: OpportunityActions.OPPORTUNITY_FILE_UPLOAD, payload: imageData });
+  }
+
+  /**
+   * Remove media from the attachments
+   */
+  removeAttachedMedia(fileName: string) {
+    _pull(this.freelanceAttachments, fileName);
   }
 
 }

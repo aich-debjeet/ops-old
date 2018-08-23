@@ -15,7 +15,7 @@
                             <div class="o-event-form-upload__container">
                                 <img *ngIf="eventCoverImage" class="event-image" [src]="baseUrl + eventCoverImage">
                                 <div *ngIf="!eventCoverImage" class="c-text_md f-w_600 text_uppercase color-theme ltr-space">Upload event image</div>
-                                <a href= "javascript:void(0)" class="o-event-upload__close" (click)="removePhoto()"><img [src]="baseUrl + 'img/svg/ico_create-close.svg'"></a>
+                                <a href= "javascript:void(0)" class="o-event-upload__close" (click)="removePhoto()"><img [src]="baseUrl + 'v2/svg/ico_create-close.svg'"></a>
                             </div>
                         </div>
                         <p class="c-form__validation text-center" *ngIf="imageUpload">Event Cover is required</p>
@@ -154,7 +154,7 @@
                                 <p class="c-form__validation" *ngIf="eventForm.controls['event_startdate'].errors?.oldate">Please choose upcoming date</p>
                                 <p class="c-form__validation" *ngIf="eventForm.controls['event_enddate'].errors?.startdate">Please choose start date </p>
                                 <p class="c-form__validation" *ngIf="eventForm.controls['event_enddate'].errors?.old_even_end_date">Please choose upcoming date </p>
-                                <p class="c-form__validation" *ngIf="eventForm.controls['event_enddate'].errors?.endDateLess">Please choose upcoming date</p>
+                                <p class="c-form__validation" *ngIf="(eventForm.controls['event_enddate'].errors?.endDateLess || eventForm.controls['event_startdate'].errors?.endDateLess) && ecfrom.submitted">Event end date should be greater than the event start date</p>
                                 <p class="c-form__validation" *ngIf="eventForm.controls['event_startdate'].errors?.required && ecfrom.submitted">Start Date and End Date is required</p>
                             </div>
                         </div>
@@ -192,15 +192,15 @@
                                     <div class="col-md-3 p-0">
                                     </div>
                                     <div class="col-md-9 offset-md-3 p-0">
-                                        <p class="c-form__validation" *ngIf="eventForm.controls.event_agenda.controls[i].controls.startTime.errors?.required && ecfrom.submitted">Date is required</p>
-                                        <!--<p class="c-form__validation" *ngIf="eventForm.controls.event_agenda.controls[i].controls.description.errors?.required && ecfrom.submitted">Program  is required</p>-->
-                                        <!--<p class="error_alert" *ngIf="eventForm.controls['description'].errors?.required && ecfrom.submitted">Program is required</p>-->
+                                            <p class="c-form__validation" *ngIf="eventForm.controls['event_agenda'].controls[i].controls['startTime'].errors?.invalidAgendDate">Agenda Date should be between the event start date and end date</p>
+                                            <p class="c-form__validation" *ngIf="eventForm.controls['event_agenda'].controls[i].controls['startTime'].errors?.required && ecfrom.submitted">Date is required</p>
+                                            <p class="c-form__validation" *ngIf="eventForm.controls['event_agenda'].controls[i].controls['description'].errors?.required && ecfrom.submitted">Program  is required</p>
                                     </div>
                                 </div>
                                 <!-- agenda add det sec end -->
                                 <div class="o-form-add-link">
                                     <a (click)="pushAgenda()" class="o-form__add-btn">
-                                        <span class="o-form__add-ico"><img [src]="baseUrl + 'img/svg/plus-red.svg'" alt=""></span>
+                                        <span class="o-form__add-ico"><img [src]="baseUrl + 'v2/svg/plus-red.svg'" alt=""></span>
                                         <p class="c-text_md color-theme m-l-8 o-form__add-title">Add more agenda</p>
                                     </a>
                                 </div>

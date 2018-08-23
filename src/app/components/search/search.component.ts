@@ -46,7 +46,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   lastScrollTop = 0;
   canScroll = true;
 
-  recordsPerPage = 10;
+  recordsPerPage = 12;
   showPreloader = false;
 
   resultCount = 0;
@@ -55,14 +55,15 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   /* global result store */
   all_channels: any[];
   all_artists: any[];
+  all_events: any[];
   all_posts: any[];
+  all_opps: any[];
   /* global result store */
 
-  channels: any[];
-  artists: any[];
-  posts: any[];
   globalFilter: any;
   selectedProfileFilters: any;
+
+  profileTypeSearch = 'registered';
 
   constructor(
     private router: Router,
@@ -112,9 +113,15 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       }
 
       // check for the http request response status
-      if (state && (state.searching_all === false || state.searching_people === false || state.searching_post === false || state.searching_channel === false)) {
-          this.isSearching = false;
-          this.showPreloader = false;
+      if (state && (state.searching_all === false
+          || state.searching_people === false
+          || state.searching_post === false
+          || state.searching_channel === false
+          || state.searching_opportunity === false
+          || state.searching_event === false)
+        ) {
+        this.isSearching = false;
+        this.showPreloader = false;
       }
 
       // load global artists
@@ -130,6 +137,16 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       // load global channels
       if (state && state['search_all_data'] && state['search_all_data']['channels']) {
         this.all_channels = state['search_all_data']['channels'];
+      }
+
+      // load global opportunities
+      if (state && state['search_all_data'] && state['search_all_data']['opportunity']) {
+        this.all_opps = state['search_all_data']['opportunity'];
+      }
+
+      // load global opportunities
+      if (state && state['search_all_data'] && state['search_all_data']['events']) {
+        this.all_events = state['search_all_data']['events'];
       }
 
       if (state
@@ -152,6 +169,14 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       // check if active search is channel and update the count
       if (state && state['search_channel_data'] && state['search_channel_data']['total'] && this.searchType === 'channel') {
         this.resultCount = state['search_channel_data']['total'];
+      }
+      // check if active search is opportunity and update the count
+      if (state && state['search_opportunity_data'] && state['search_opportunity_data']['total'] && this.searchType === 'opportunity') {
+        this.resultCount = state['search_opportunity_data']['total'];
+      }
+      // check if active search is event and update the count
+      if (state && state['search_event_data'] && state['search_event_data']['total'] && this.searchType === 'event') {
+        this.resultCount = state['search_event_data']['total'];
       }
     });
 
@@ -312,35 +337,42 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
               // making a dispatch depending on the search type
               if (this.searchType === 'people') {
-                const searchPeopleParams = {
-                  isHuman: '1',
-                  status: ['active'],
-                  offset: 0,
-                  limit: 10,
-                  searchText: this.searchString
-                }
-                this.isSearching = true;
-                this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchPeopleParams });
-              }
-
-              if (this.searchType === 'channel') {
+                this.loadPepoleProfiles();
+              } else if (this.searchType === 'channel') {
                 const searchChannelParams = {
                   offset: 0,
-                  limit: 10,
+                  limit: this.recordsPerPage,
                   searchText: this.searchString
                 }
                 this.isSearching = true;
                 this.store.dispatch({ type: SearchActions.SEARCH_CHANNEL, payload: searchChannelParams });
-              }
-
-              if (this.searchType === 'post') {
+              } else if (this.searchType === 'post') {
                 const searchPostParams = {
                   offset: 0,
-                  limit: 10,
+                  limit: this.recordsPerPage,
                   searchText: this.searchString
                 }
                 this.isSearching = true;
                 this.store.dispatch({ type: SearchActions.SEARCH_POST, payload: searchPostParams });
+              } else if (this.searchType === 'opportunity') {
+                const searchOppsParams = {
+                  limit: this.recordsPerPage,
+                  scrollId: '',
+                  filtersMap: [],
+                  searchText: this.searchString
+                }
+                this.isSearching = true;
+                this.store.dispatch({ type: SearchActions.SEARCH_OPPORTUNITY, payload: searchOppsParams });
+              } else if (this.searchType === 'event') {
+                const searchEventParams = {
+                  scrollId: '',
+                  /* TODO: need to remove searchType once API gets updated */
+                  searchType: '',
+                  searchText: this.searchString,
+                  filtersMap: []
+                }
+                this.isSearching = true;
+                this.store.dispatch({ type: SearchActions.SEARCH_EVENT, payload: searchEventParams });
               }
 
             }
@@ -367,6 +399,10 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       if (this.searchString.length === 0) {
         // trigger search get request
         this.searchGetRequest({});
+
+        if (this.profileTypeSearch === 'unregistered') {
+          this.loadWikiProfiles();
+        }
       }
 
       // preparing get query params for the search get request
@@ -435,6 +471,36 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       state: e.state
     };
     this.profileStore.dispatch({ type: ProfileActions.CHANNEL_FOLLOW, payload: req });
+  }
+
+  profileTypeSwitch(pType: string) {
+    this.profileTypeSearch = pType;
+    if (this.profileTypeSearch === 'unregistered') {
+      this.loadWikiProfiles();
+    } else {
+      this.loadPepoleProfiles();
+    }
+  }
+
+  loadPepoleProfiles() {
+    const searchPeopleParams = {
+      isHuman: '1',
+      status: ['active'],
+      offset: 0,
+      limit: this.recordsPerPage,
+      searchText: this.searchString
+    }
+    this.isSearching = true;
+    this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchPeopleParams });
+  }
+
+  loadWikiProfiles() {
+    const reqBody = {
+      scrollId: '',
+      limit: this.recordsPerPage,
+      searchText: this.searchString
+    };
+    this.store.dispatch({ type: SearchActions.SEARCH_WIKI_PROFILES, payload: reqBody });
   }
 
 }

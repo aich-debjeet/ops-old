@@ -38,6 +38,10 @@ export class AuthService {
       this.headers = this.api.getHeaders();
     }
 
+    sendInvitation(reqBody: any) {
+      return this.api.post('/portal/auth/inviteByEmail', reqBody);
+    }
+
     /**
      * search skill for signup step 2
      */
@@ -49,9 +53,17 @@ export class AuthService {
      * Set temp access token for not logged in user
      */
     getTempAuthHeaders() {
+      let accessToken = '';
       const tempAccessToken = JSON.parse(localStorage.getItem('tempAccessToken'));
+      if (tempAccessToken) {
+        accessToken = tempAccessToken;
+      }
+      const user = JSON.parse(localStorage.getItem('currentUser'));
+      if (user && user.access_token) {
+        accessToken = user.access_token;  
+      }
       const headers = new Headers({ 'Content-Type': 'application/json'});
-      headers.append('Authorization', 'Bearer ' + tempAccessToken.access_token);
+      headers.append('Authorization', 'Bearer ' + accessToken);
       return headers;
     }
 

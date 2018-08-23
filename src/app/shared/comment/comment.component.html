@@ -11,11 +11,14 @@
         </div>
         <div class="c-post__comment--right c-mediamodal__input">
             <div class="c-form__group c-form--noeffect m-t-8">
-                <div>
+                <form class="card comment-form"  #commentForm="ngForm" (ngSubmit)="postComment(commentForm)" autocomplete="off">
+                    <input class="c-form__input with_border_none c-post_extraspace" placeholder="Write a comment..." type="text" name="comment"  ngModel>    
+                </form>
+                <!-- <div>
                     <input class="c-form__input with_border_none" type="text" type="text" [disabled]="comment_post_loading" [(ngModel)]="messageText" required (keyup.enter)="keyDownFunction(mediaId)">
                     <span class="c-form__highlight"></span>
                     <label>Write a comment...</label>
-                </div>
+                </div> -->
             </div>
         </div>
 
@@ -24,8 +27,8 @@
 
 
 <div *ngIf="commentsType === 'media-list'"> 
-    <app-comment-list *ngFor="let comment of comments; let i = index" [commentData]="comment" (commentDelete)="onCommentDelete(comment, $event)" (commentEdited)="onCommentEdit(comment, $event)"></app-comment-list>
-    <div class="c-post_viewmore2"  *ngIf="commentCount > 3 && moreComment"><a (click)="loadMedia()">View more comments</a></div>
+    <app-comment-list *ngFor="let comment of comments; let i = index" [commentData]="comment" (commentDelete)="onCommentDelete(comment)" (commentEdited)="onCommentEdit(comment, $event)"></app-comment-list>
+    <div class="c-post_viewmore2"  *ngIf="commentCount > 3 && !(comments.length >= commentCount)"><a (click)="loadMedia()">View more comments</a></div>
     <div class="c-post__comment p-t-0 with_border_top">
         <div class="c-post__comment--left m-t-16">
             <a class="c-user__avatar c-avatar--status5">
@@ -35,9 +38,10 @@
         <div class="c-post__comment--right p-l-0">
             <div class="c-form__group c-form--noeffect m-b-8">
                 <div>
-                    <input class="c-form__input with_border_none c-post_extraspace"  type="text" [disabled]="comment_post_loading" [(ngModel)]="messageText" required (keyup.enter)="keyDownFunction(mediaId)">
-                    <span class="c-form__highlight"></span>
-                    <label class="m-t--8">Write a comment...</label>
+                    <!-- <input class="c-form__input with_border_none c-post_extraspace"  type="text" [disabled]="comment_post_loading" [(ngModel)]="messageText" required > -->
+                    <form class="card comment-form"  #commentForm="ngForm" (ngSubmit)="postComment(commentForm)" autocomplete="off">
+                        <input class="c-form__input with_border_none c-post_extraspace" placeholder="Write a comment..." type="text" name="comment"  ngModel>    
+                    </form>
                 </div>
             </div>
         </div>

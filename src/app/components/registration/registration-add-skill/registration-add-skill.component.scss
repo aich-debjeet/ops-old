@@ -415,7 +415,7 @@
 }
 
 .signup_next {
-    width: 150px;
+    width: auto;
     float: right;
 }
 
@@ -498,4 +498,12 @@
     font-weight: normal;
     margin-right: 16px;
     margin-bottom: 16px;
+}
+
+.navbar-header {
+    width: 100%;
+    @include mq($from: $mobile_sm, $until: $mobile_lg){
+        width: auto;
+        margin-right: 0;
+    }
 }

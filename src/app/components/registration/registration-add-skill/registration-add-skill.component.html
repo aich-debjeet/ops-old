@@ -1,10 +1,10 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" [routerLink]="['/']"><img [src]="image_base_url + 'img/logo_black.svg'"></a>
-        </div>
-        <div class="signup_next">
-            <button [disabled]="!skillsSelected || uploadingSkills" (click)="saveSkills()" class="btn btn-primary btn-md">CONTINUE</button>
+            <a class="navbar-brand"><img [src]="image_base_url + 'v2/ops_logo.png'"></a>
+            <div class="signup_next">
+                <button [disabled]="!skillsSelected || uploadingSkills" (click)="saveSkills()" class="btn btn-primary btn-md">CONTINUE</button>
+            </div>
         </div>
     </div>
     <!-- /.container-fluid -->
@@ -14,8 +14,8 @@
     <div class="o-skill-selection-top">
         <div class="container">
             <h3 class="c-h3 f-w_500 text-center m-t-32">Select your skills</h3>
-            <div class="c-text_md color-grey-dark text-center m-t-8">The 12 steps to acquire mind-power is intended to build positive visuals,
-                <br> acquire mind power and help you achieve your
+            <div class="c-text_md color-grey-dark text-center m-t-8">
+                Please enter you'r skills and select from the list below.
             </div>
             <form [formGroup]="searchSkillForm">
                 <div class="o-skill-search m-t-16">
@@ -71,9 +71,9 @@
                     <div class="sticky"><div class="loader">Loading...</div></div>
                 </div>
                 <div *ngIf="skills?.length === 0 && skillSelectionState?.signup_search_skill === false && skillSelectionState?.signup_search_skill_success === true" class="o-skill-more">
-                    <p class="c-text_lg m-t-24 f-w_300">Nothing found. Add "{{ search }}" as a skill</p>
+                    <p class="c-text_lg m-t-24 f-w_300">Sorry we couldn't find anything. you may add '{{ search }}' as a skill</p>
                     <button type="button" (click)="addNewSkill(search)" class="o-skill-btn-add m-t-8">{{ search }}
-                        <span class="o-add-skill-btn-ico"><img src="https://ops-v2.netlify.com/assets/svg/plus-red.svg" alt=""></span>
+                        <span class="o-add-skill-btn-ico"><img [src]="image_base_url + 'v2/svg/plus-red.svg'" alt=""></span>
                     </button>
                 </div>
             </div>

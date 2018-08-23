@@ -59,6 +59,8 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
   eventDetail: any;
   eventCover: File;
   eventTypeList: any;
+  invalidDate: boolean = false;
+  requiredAgenda: boolean = false;
     // Address --
     address: string;
     country: string;
@@ -75,16 +77,17 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
 
   private configDateTime = {
     locale: 'en',
-    format: 'DD/MM/YYYY hh:mm A',
-    min: moment().format('MM/DD/YYYY'),
-    closeOnSelect: true,
+    format: 'DD/MM/YYYY',
+    // min: moment().format('MM/DD/YYYY'),
+    // closeOnSelect: true,
     disableKeypress: 'Disabled',
     returnedValueType: 'Moment'
 
   };
 
   config: IDatePickerConfig = {
-    locale: 'en'
+    locale: 'en',
+    showSeconds: false
   };
 
   process: number[] = [];
@@ -148,7 +151,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
    */
 
   fileChangeListener($event) {
-    console.log($event)
+    // console.log($event)
     const data = new FormData();
 
     if ($event.target.files.length > 0) {
@@ -215,8 +218,8 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
       'event_genres': ['', [Validators.required]],
       'event_industry': ['', [Validators.required]],
       'event_venue': ['', [Validators.required]],
-      'event_startdate' : ['', [Validators.required, FormValidation.datevalidation]],
-      'event_enddate' : ['', [Validators.required, FormValidation.oldEndDatevalidation, this.dateComparision.bind(this)]],
+      'event_startdate' : ['', [Validators.required, FormValidation.datevalidation, this.dateCompare.bind(this), this.validDate.bind(this)]],
+      'event_enddate' : ['', [Validators.required, FormValidation.oldEndDatevalidation, this.dateComparision.bind(this), this.validDate.bind(this)]],
       'access': '0',
       'event_type': 'Free',
       'event_agenda' : this.fb.array([this.agendaItem()]),
@@ -235,7 +238,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
 
   dateComparision(control: AbstractControl){
     if (control.value === '') {
-      return;
+      return null;
     } else {
       const startDate = this.eventForm.controls['event_startdate'].value.split('-').reverse().join('-');
       // const startDate = AC.get('event_startdate').value.split('-').reverse().join('-');
@@ -243,21 +246,53 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
       const startSelect = moment(startDate).format('YYYYMMDD');
       const endSelect = moment(endData).format('YYYYMMDD');
       if (endSelect < startSelect && !isNaN(Number(startSelect))) {
-        console.log('validating')
-        console.log('validating',startSelect)
+        // console.log('validating')
+        // console.log('validating',startSelect)
         return { endDateLess: true };
       } else {
-        return { endDateLess: false };
+        return null;
       }
-      // return null;
+    }
+
+  }
+  validDate(control: AbstractControl){
+    if (control.value === '') {
+      this.invalidDate = false;
+      return null;
+    } else {
+      if(!moment(control.value, "DD-MM-YYYY", true).isValid()){
+        console.log('invalid');
+        this.invalidDate = true;
+      } else {
+        this.invalidDate = false;
+      }
+    }    
+  }
+
+  dateCompare(control: AbstractControl){
+    if (control.value === '') {
+      return null;
+    } else {
+      const endData = this.eventForm.controls['event_enddate'].value.split('-').reverse().join('-');
+      // const startDate = AC.get('event_startdate').value.split('-').reverse().join('-');
+      const startDate = control.value.split('-').reverse().join('-');
+      const startSelect = moment(startDate).format('YYYYMMDD');
+      const endSelect = moment(endData).format('YYYYMMDD');
+      if (startSelect > endSelect && !isNaN(Number(startSelect))) {
+        // console.log('validating')
+        // console.log('validating',startSelect)
+        return { endDateLess: true };
+      } else {
+        return null;
+      }
     }
 
   }
 
   agendaDateComp(control: AbstractControl){
     if (control.value === '' || control.value === undefined) {
-      console.log('undefined')
-      return;
+      // console.log('undefined')
+      return null;
     } else {
       const startDate = this.eventForm.controls['event_startdate'].value.split('-').reverse().join('-');
       const endtDate = this.eventForm.controls['event_enddate'].value.split('-').reverse().join('-');
@@ -266,14 +301,13 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
       const date = control.value.split(' ');
       const agenda = date[0].split('-').reverse().join('-');
       const agendaDate = moment(agenda).format('YYYYMMDD');
-      console.log(agendaDate)
+      // console.log(agendaDate)
       if(agendaDate < startSelect || agendaDate > endSelect){
-        console.log(agendaDate)
+        // console.log(agendaDate)
         return {invalidAgendDate: true};
       } else {
-        return {invalidAgendDate: false};
+        return null;;
       }
-      // return null;
     }
 
   }
@@ -365,7 +399,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
       this.ngZone.run(() => {
         // get the place result
         const place: google.maps.places.PlaceResult = autocomplete.getPlace();
-         console.log(place)
+        //  console.log(place)
 
         for (let i = 0; i < place.address_components.length; i++) {
           const addressType = place.address_components[i].types[0];
@@ -408,8 +442,8 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
    */
   agendaItem() {
     return this.fb.group({
-      startTime: ['',[this.agendaDateComp.bind(this)]],
-      description: ['']
+      startTime: ['',[Validators.required, this.agendaDateComp.bind(this)]],
+      description: ['', [Validators.required]]
     })
   }
 
@@ -445,7 +479,13 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
     if (this.eventForm.valid) {
       if (this.eventCoverImage === '') {
         this.imageUpload = true;
-        return
+        return;
+      }
+      console.log(value.event_agenda)
+      if(value.event_agenda.length <= 0){
+        console.log(value.event_agenda)
+        this.requiredAgenda = true;
+        return;
       }
       this.imageUpload = false;
       const data = {
@@ -455,7 +495,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
           isFeatured: false,
           eventTiming: {
             startDate : this.reverseDate(value.event_startdate) + 'T00:00:00.001',
-            endDate : this.reverseDate(value.event_enddate) + 'T12:00:00.000',
+            endDate : this.reverseDate(value.event_enddate) + 'T23:59:59.000',
           },
           venue : {
             location: this.address,
@@ -467,7 +507,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
             coverImage: this.eventCoverImage,
             ticket: [{
               startDate: this.reverseDate(value.ts_startTime) + 'T00:00:00.001',
-              endDate: this.reverseDate(value.ts_endTime) + 'T12:00:00.000',
+              endDate: this.reverseDate(value.ts_endTime) + 'T23:59:59.000',
               maximum: value.ts_quantity
             }]
           },

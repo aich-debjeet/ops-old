@@ -207,7 +207,7 @@
     .header_compose a {
         font-size: 12px;
         font-weight: bold;
-        color: #ff7b84;
+        color: $color-theme;
         text-transform: uppercase;
     }
     li > ul {
@@ -236,7 +236,7 @@
         font-size: 12px;
         font-weight: bold;
         text-transform: uppercase;
-        color: #ff7b84
+        color: $color-theme
     }
 }
 
@@ -286,7 +286,7 @@
     .header_compose a {
         font-size: 12px;
         font-weight: bold;
-        color: #ff7b84;
+        color: $color-theme;
         text-transform: uppercase;
     }
     li > ul {
@@ -318,7 +318,7 @@
         font-size: 12px;
         font-weight: bold;
         text-transform: uppercase;
-        color: #ff7b84
+        color: $color-theme
     }
 }
 // search tab people
@@ -440,7 +440,7 @@
     .header_compose a {
         font-size: 15px;
         font-weight: normal;
-        color: #ff7b84; // text-transform: capitalize;
+        color: $color-theme; // text-transform: capitalize;
     }
     li>ul {
         padding: 24px; // height: 74px;
@@ -471,7 +471,7 @@
         font-size: 12px;
         font-weight: bold;
         text-transform: uppercase;
-        color: #ff7b84
+        color: $color-theme
     }
 }
 
@@ -564,4 +564,8 @@
 
 .list-inline {
     margin-left: 0;
+    display: inline-block;
+    width: 100%;
+    clear: both;
+    padding: 18px !important;
 }

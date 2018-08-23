@@ -5,6 +5,10 @@
     border: none;
 }
 
+.item{
+    width: auto !important;
+}
+
 .leftRs,
 .rightRs {
     z-index: 1;
@@ -205,7 +209,7 @@
 .o-location--drop {
     width: 254px !important;
     right: 0;
-    padding: 16px;
+    padding: 0px 16px;
     display: block;
 }
 
@@ -230,7 +234,7 @@
 }
 
 .o-calendar__list:hover {
-    background-color: #FF7B84;
+    background-color: $color-theme;
 }
 
 .o-calendar__list:hover .o-calendar--color {
@@ -248,7 +252,7 @@
 }
 
 .o-calendar--active {
-    background-color: #FF7B84;
+    background-color: $color-theme;
 }
 
 .o-calendar--active .o-calendar--color {
@@ -304,4 +308,13 @@
 }
 .point {
     cursor: pointer;
+}
+.disp_cal {
+    display: block;
+}
+
+.cal_pos {
+    position: absolute;
+    right: 110px;
+    top: 50px;
 }

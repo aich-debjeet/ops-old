@@ -62,16 +62,16 @@ export class HomeChannelComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.loadChannels();
+    this.loadChannels(null);
   }
 
   /**
    * Check and Load Channels
    */
-  loadChannels() {
+  loadChannels(scroll_id: any) {
     const body = {
       limit: 12,
-      scrollId: this.channel_scroll_id,
+      scrollId: scroll_id,
     }
 
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL, payload: body });
@@ -93,7 +93,7 @@ export class HomeChannelComponent implements OnInit, OnDestroy {
 
     if (this.scrollingLoad <= this.scrolling) {
       this.scrollingLoad += 500
-      this.loadChannels();
+      this.loadChannels(this.channel_scroll_id);
     }
   }
 

@@ -1,3 +1,4 @@
+@import './src/assets/scss/helpers/_variables.scss';
 // feed Card style ----------------------------------------------------
 .c-card {
   width: 100%;
@@ -294,8 +295,8 @@
 
 .c-feed__img-readmore {
   float: right;
-  color: #ff7b84;
+  color: $color-theme;
   &:hover {
-      color: red;
+      color: $color-theme;
   }
 }

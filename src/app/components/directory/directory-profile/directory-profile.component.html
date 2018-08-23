@@ -1,0 +1,164 @@
+<div class="c-timeline__img" style="background-image: url('https://ops-v2-2.netlify.com/assets/demo/new/s03.jpg')"></div>
+
+<section class="o-dir-prof-container">
+
+  <!-- prelaoder -->
+  <div *ngIf="showPreloader">
+    <div class="sticky">
+      <div class="loader">Loading...</div>
+    </div>
+  </div>
+  <!-- prelaoder -->
+  <!-- <div *ngIf="!showPreloader && profileFound" class="container"> -->
+  <div *ngIf="!showPreloader" class="container">
+    <div class="col-12 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+      <div class="c-profile__userblock o-dir-prof__img">
+        <img *ngIf="profileDetails?.image && profileDetails?.image !== ''" src="{{ profileDetails?.image }}" class="img-responsive img-circle c-profile__userimg">
+        <img *ngIf="!profileDetails?.image || profileDetails?.image === ''" src="{{ defaultImage }}" class="img-responsive img-circle c-profile__userimg">
+      </div>
+      <div class="o-dir-prof__user-info">
+        <h3 class="f-w_500">{{ profileDetails?.name }}</h3>
+        <div class="c-text_sm color-grey-dark">Unofficial Profile</div>
+        <div class="c-text_md color-grey-dark m-t-24 o-dir-prof__title">Born</div>
+        <div class="c-text_md">{{ profileDetails?.dob | utcDate | date: 'dd MMM, yyyy' }}</div>
+        <!-- <div class="c-text_md color-grey-dark m-t-24 o-dir-prof__title">Birth Name</div>
+        <div class="c-text_md">William Bradley Pitt</div>
+        <div class="c-text_md color-grey-dark m-t-24 o-dir-prof__title">Height</div>
+        <div class="c-text_md">5' 11" (1.8 m)</div> -->
+      </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+      <div class="c-text_md ltr-space o-dir-prof__main-title">Bio</div>
+      <div class="c-text_md m-b-50" [innerHtml]="profileDetails?.content | newLine | safeHtml"></div>
+    </div>
+    <!-- <div class="col-12 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+      <div class="o-related-news">
+        <div class="c-text_md ltr-space f-w_600 text_uppercase">Related news</div>
+        <ul class="o-news">
+          <li class="o-news__list with_border_bottom">
+            <div class="c-text_md">
+              <a href="#">
+                Why was the release of Dulquer-Irrfan starrer â€˜Karwaanâ€™ advanced?
+              </a>
+            </div>
+            <div class="c-text_sm m-t-8 color-grey-dark">
+              1 day ago | The News Minute
+            </div>
+          </li>
+          <li class="o-news__list with_border_bottom">
+            <div class="c-text_md">
+              <a href="#">
+                Why was the release of Dulquer-Irrfan starrer â€˜Karwaanâ€™ advanced?
+              </a>
+            </div>
+            <div class="c-text_sm m-t-8 color-grey-dark">
+              1 day ago | The News Minute
+            </div>
+          </li>
+          <li class="o-news__list with_border_bottom">
+            <div class="c-text_md">
+              <a href="#">
+                Why was the release of Dulquer-Irrfan starrer â€˜Karwaanâ€™ advanced?
+              </a>
+            </div>
+            <div class="c-text_sm m-t-8 color-grey-dark">
+              1 day ago | The News Minute
+            </div>
+          </li>
+          <li class="o-news__list with_border_bottom">
+            <div class="c-text_md">
+              <a href="#">
+                Why was the release of Dulquer-Irrfan starrer â€˜Karwaanâ€™ advanced?
+              </a>
+            </div>
+            <div class="c-text_sm m-t-8 color-grey-dark">
+              1 day ago | The News Minute
+            </div>
+          </li>
+          <li class="o-news__list ">
+            <div class="c-text_md">
+              <a href="#">
+                Why was the release of Dulquer-Irrfan starrer â€˜Karwaanâ€™ advanced?
+              </a>
+            </div>
+            <div class="c-text_sm m-t-8 color-grey-dark">
+              1 day ago | The News Minute
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="o-similiar-prof">
+        <div class="c-text_md ltr-space f-w_600 text_uppercase">Similar Profiles</div>
+        <ul class="o-smlr-prof">
+          <li class="o-smlr-prof__list">
+            <a href="#">
+              <div class="o-smlr-prof__avatar">
+                <img src="assets/demo/avatar.jpg" alt="">
+              </div>
+              <div class="o-smlr-prof__user-info m-l-8">
+                <div class="c-text_lg f-w_600">Jeff Murray</div>
+                <div class="c-text_sm color-grey-dark">
+                  Film Actor, Producer, Singer
+                </div>
+              </div>
+            </a>
+          </li>
+          <li class="o-smlr-prof__list">
+            <a href="#">
+              <div class="o-smlr-prof__avatar">
+                <img src="assets/demo/avatar.jpg" alt="">
+              </div>
+              <div class="o-smlr-prof__user-info m-l-8">
+                <div class="c-text_lg f-w_600">Jeff Murray</div>
+                <div class="c-text_sm color-grey-dark">
+                  Film Actor, Producer, Singer
+                </div>
+              </div>
+            </a>
+          </li>
+          <li class="o-smlr-prof__list">
+            <a href="#">
+              <div class="o-smlr-prof__avatar">
+                <img src="assets/demo/avatar.jpg" alt="">
+              </div>
+              <div class="o-smlr-prof__user-info m-l-8">
+                <div class="c-text_lg f-w_600">Jeff Murray</div>
+                <div class="c-text_sm color-grey-dark">
+                  Film Actor, Producer, Singer
+                </div>
+              </div>
+            </a>
+          </li>
+          <li class="o-smlr-prof__list">
+            <a href="#">
+              <div class="o-smlr-prof__avatar">
+                <img src="assets/demo/avatar.jpg" alt="">
+              </div>
+              <div class="o-smlr-prof__user-info m-l-8">
+                <div class="c-text_lg f-w_600">Jeff Murray</div>
+                <div class="c-text_sm color-grey-dark">
+                  Film Actor, Producer, Singer
+                </div>
+              </div>
+            </a>
+          </li>
+          <li class="o-smlr-prof__list">
+            <a href="#">
+              <div class="o-smlr-prof__avatar">
+                <img src="assets/demo/avatar.jpg" alt="">
+              </div>
+              <div class="o-smlr-prof__user-info m-l-8">
+                <div class="c-text_lg f-w_600">Jeff Murray</div>
+                <div class="c-text_sm color-grey-dark">
+                  Film Actor, Producer, Singer
+                </div>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div> -->
+  </div>
+
+  <!-- <p *ngIf="!showPreloader && !profileFound" class="profile-not-found">Profile not found!</p> -->
+</section>

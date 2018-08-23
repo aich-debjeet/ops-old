@@ -30,9 +30,13 @@ p.result-not-found {
 	background-color: #fff;
 	float: left;
 	box-shadow: 0 2px 4px 0 rgba(102,45,145,0.1);
-	background: url(https://cdn.onepagespotlight.com/img/opportunities/opportunities_bg.jpg) no-repeat;
+	background: url(https://cdn.onepagespotlight.com/v2/opportunities/opportunities_bg.jpg) no-repeat;
 	background-size: cover;
     margin-top: 3.5%;
+	@include mq($from: $mobile_sm, $until: $tablet){
+		padding:0px 15px 15px 15px;
+		height: 460px;
+	}
 }
 // top text and search
 
@@ -50,6 +54,9 @@ p.result-not-found {
 	border-radius: 3px;
 	box-shadow: 0 11px 4px 0 rgba(102,45,145,0.1);
 	padding:8px 16px;
+	@include mq($from: $mobile_sm, $until: $tablet){
+		width: 100%;
+	}
 }
 .o-opp-search__input{
 	width: 400px;
@@ -57,9 +64,12 @@ p.result-not-found {
 	font-weight: 300;	
 	line-height: 24px;
 	border :none;
-  float: left;
-  color: #000;
-  outline: none;
+    float: left;
+    color: #000;
+    outline: none;
+	@include mq($from: $mobile_sm, $until: $tablet){
+		width: 53%;
+	}
 }
 .o-opp-search__select{
 	width: 100px!important;
@@ -83,6 +93,15 @@ p.result-not-found {
 	margin:0px auto 24px auto;
 	text-align: center;
 	height: 40px;
+	@include mq($from: $mobile_sm, $until: $desktop){
+		width: 100%;
+	}
+	@include mq($from: $mobile_sm, $until: $tablet){
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    flex-wrap: wrap;
+	}
 }
 
 // top quick link
@@ -92,11 +111,6 @@ p.result-not-found {
 	// float: left;
 	padding:32px 0px 24px 0px;
 }
-.o-quicklink-list{
-	width: 100%;
-	list-style: none;
-	overflow: hidden;
-}
 .o-quicklink__item input {
     cursor: pointer;
     margin-top: 0;
@@ -105,23 +119,28 @@ p.result-not-found {
 .o-quicklink__item{
 	list-style-type: none;
 	width: 181px;
-	height: 78px;
+	height: 95px;
 	position: relative;
 	float: left;
-	margin-right: 16px;
+    margin-right: 16px;
+    cursor: pointer;
+    & label {
+        border-radius: 3px;
+        cursor: pointer;
+    }
 }
 .o-quicklink__item [type="radio"]:not(:checked),
 .o-quicklink__item [type="radio"]:checked {
   opacity: 0;
   position: absolute;
   width: 181px;
-	height: 78px;
+	height: 95px;
 }
 .o-quicklink__item [type="radio"] + label {
   cursor: pointer;
   position: absolute;
   width: 181px;
-	height: 78px;
+	height: 95px;
 	top: 0;
 	border-radius: 3px;
 	border: 1px solid #fff;	
@@ -138,10 +157,9 @@ p.result-not-found {
 }
 .o-quicklink__item:hover label {
 	background-color: #F3F5F7;
-	border-radius: 3px;
 }
 .o-quicklink__item [type="radio"]:checked + label {
-	border: 1px solid #FF7B84;	
+	border: 1px solid $color-theme;	
 	border-radius: 3px;	
 	background-color: #FFFFFF;	
 	background-color: #F3F5F7;
@@ -164,7 +182,6 @@ p.result-not-found {
 }
 .o-quicklink__title-show{
 	float: left;
-	display: none;
 	transition:.25s;
 	width: 100px;
 }
@@ -425,7 +442,7 @@ p.result-not-found {
     font-weight: 600;
     letter-spacing: 1px;
     line-height: 18px;
-    color: #FC6371;
+    color: $color-theme;
     text-transform: uppercase;
 }
 
@@ -439,16 +456,21 @@ p.result-not-found {
 .o-quicklink-list{
 	width: 100%;
 	list-style: none;
-	overflow: hidden;
-	@include mq($from: $tablet, $until: $desktop){
-		display: flex;
-    justify-content: center;
-  }
+    overflow: hidden;
+    @include mq($from: $tablet, $until: $desktop){
+        display: flex;
+        justify-content: center;
+    }
+    @include mq($from: $mobile_sm, $until: $tablet){
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
 }
 .o-quicklink__item{
 	list-style-type: none;
 	width: 181px;
-	height: 78px;
+	height: 95px;
 	position: relative;
 	float: left;
 	margin-right: 16px;
@@ -465,16 +487,17 @@ p.result-not-found {
   opacity: 0;
   position: absolute;
   width: 181px;
-	height: 78px;
+	height: 95px;
 	@include mq($from: $mobile_sm, $until: $desktop){
 		width: 86px;
-		height: 38px;	}
+        height: 38px;
+    }
 }
 .o-quicklink__item [type="radio"] + label {
   cursor: pointer;
   position: absolute;
   width: 181px;
-	height: 78px;
+	height: 95px;
 	top: 0;
 	border-radius: 3px;
 	border: 1px solid #fff;	
@@ -491,40 +514,34 @@ p.result-not-found {
   display: flex;
   align-items:center;
 	background: #fff;
-
+    cursor: pointer;
 }
 .o-quicklink__item:hover label {
 	background-color: #F3F5F7;
 	border-radius: 3px;
 }
 .o-quicklink__item [type="radio"]:checked + label {
-	border: 1px solid #FF7B84;	
+	border: 1px solid $color-theme;	
 	border-radius: 3px;	
 	background-color: #FFFFFF;	
 	background-color: #F3F5F7;
 }
 .o-quicklink__ico{
-	width: 62px;
-	float: left;
-	margin-right: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  img{
-  	width: 42px;
-  }
-  @include mq($from: $mobile_sm, $until: $desktop){
-		display: none;
-	}
+    width: 62px;
+    float: left;
+    margin-right: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img{
+        width: 42px;    
+    }
+    @include mq($from: $mobile_sm, $until: $desktop){
+        display: none;
+    }
 }
 .o-quicklink__title{
 	float: left;
-	transition:.25s;
-	width: 100px;
-}
-.o-quicklink__title-show{
-	float: left;
-	display: none;
 	transition:.25s;
 	width: 100px;
 }
@@ -539,4 +556,80 @@ p.result-not-found {
 	@include mq($from: $mobile_sm, $until: $desktop){
 		display: none;
 	}
+}
+
+.color-theme .c-text_lg, .color-theme .c-text_sm {
+    color: $color-theme !important;
+}
+
+.w-36 {
+    width: 36px !important;
+}
+
+.o-oppertunity-filter-sec{
+    width: 100%;
+    float: left;
+    background: #fff;
+    padding: 16px 24px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg){
+        padding:16px 10px;
+    }
+}
+.o-filter-list-block{
+    list-style: none;
+    float: right;
+    @include mq($from: $mobile_sm, $until: $desktop){
+        width: 100%;
+    }
+}
+.o-filter-list__item{
+    list-style-type: none;
+    margin-right: 8px;
+    float: left;
+    margin:0px 8px;
+}
+.o-filter-item__location{
+    width: 100%;
+    float: left;
+    padding-top: 5px;
+}
+.o-select-location__ico{
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    padding-right: 8px;
+    float: left;
+}
+
+// filter icon
+
+.o-filter__fil-icon{
+    width: 17px;
+    padding-top: 8px;
+}
+
+// oppertunity card list block
+
+.o-opportunity-list-block{
+    float: left;
+    width: 100%;
+    margin-top: -35px;
+}
+
+// tabs
+
+.o-opportunity-tabs {
+    .nav-tabs > li > a {
+        font-size: 13px!important;
+        font-weight: 600!important;
+        text-align: left;
+        color: #929292;
+        background: transparent;
+        border: none;
+        text-transform: uppercase!important;
+        letter-spacing: 1px;
+        @include mq($from: $mobile_sm, $until: $tablet){
+            font-size: 11px!important;
+        }
+    }
 }

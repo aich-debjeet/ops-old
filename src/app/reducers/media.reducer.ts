@@ -105,13 +105,15 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
     // Media comment success
     case MediaActions.POST_COMMENT:
       return Object.assign({}, state, {
-        comment_post_loading: true
+        comment_post_loading: true,
+        media_post_success: false
       });
 
     case MediaActions.POST_COMMENT_SUCCESS:
       return Object.assign({}, state, {
         media_post_success: true,
         comment_post_loading: false,
+        current_comment: payload['comment'],
         media_comment: state.media_comment ? state.media_comment.concat(payload['comment']) : []
       });
 
@@ -200,7 +202,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
         });
     case MediaActions.MEDIA_POST_REPORT_FAILED:
         return Object.assign({}, state, {
-          reports:[]
+          reports: []
         });
 
     default:

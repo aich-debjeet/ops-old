@@ -42,7 +42,14 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
   // default search type
   searchType = 'recommended';
   isSearching = false;
-  opportunitiesCount: any;
+  opportunitiesCount = {
+    Audition: '0',
+    Project: '0',
+    Job: '0',
+    Internship: '0',
+    Volunteer: '0',
+    Freelance: '0'
+  };
   // industryCount = [];
   industries = [];
   globalFilter = [];
@@ -51,6 +58,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
   opportunities = [];
   recordsPerPage = 8;
   insdustryType = '';
+  opportunityType = '';
 
   constructor(
     private router: Router,
@@ -85,7 +93,6 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
         this.industries = state['industries'];
       }
     });
-    this.resetOppsTypeCount();
   }
 
   // trigger opps search action
@@ -109,7 +116,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
    * Preparing opp counts to display
    */
   prepareFilters(filterList: any) {
-    this.resetOppsTypeCount();
+    // this.resetOppsTypeCount();
     for (let i = 0; i < filterList.length; i++) {
       if (filterList[i].hasOwnProperty('title')) {
         // for opportunity type filter
@@ -119,8 +126,10 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
               for (let j = 0; j < filterList[i].filters.length; j++) {
                 if (filterList[i].filters[j].hasOwnProperty('name') && filterList[i].filters[j].hasOwnProperty('count')) {
                   const oppType = this.generalUtils.capitalizeFirstLetter(filterList[i].filters[j].name);
-                  this.opportunitiesCount[oppType]
-                   = filterList[i].filters[j].count;
+                  const count = filterList[i].filters[j].count;
+                  if (count > 0) {
+                    this.opportunitiesCount[oppType] = count;
+                  }
                 }
               }
             }
@@ -152,8 +161,8 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
   resetOppsTypeCount() {
     this.opportunitiesCount = {
       Audition: '0',
-      Projects: '0',
-      Jobs: '0',
+      Project: '0',
+      Job: '0',
       Internship: '0',
       Volunteer: '0',
       Freelance: '0'
@@ -165,6 +174,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
    * select opportunity filter
    */
   toggleOppTypeFilter(parentNode: string, oppType: string) {
+    this.opportunityType = oppType;
     if (parentNode.length > 0 && oppType.length > 0) {
       const fltrObj = { key: parentNode, value: oppType };
       // check if filter contains the value already
@@ -176,12 +186,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
           return !(obj.key === parentNode && obj.value === oppType);
         });
       }
-      const params = {
-        q: this.searchString,
-        type: this.searchType,
-        filters: true
-      };
-      this.oppsSearchGetRequest(params);
+      this.triggerSearch(null);
     }
   }
 
@@ -197,12 +202,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
       } else {
         this.globalFilter.push({ key: parentNode, value: indValue });
       }
-      const params = {
-        q: this.searchString,
-        type: this.searchType,
-        filters: true
-      };
-      this.oppsSearchGetRequest(params);
+      this.triggerSearch(null);
     }
   }
 
@@ -214,30 +214,32 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
   }
 
   ngOnInit() {
+    this.resetOppsTypeCount();
     this.routeSub = this.route.queryParams
       .subscribe(params => {
-        // check if search type is available
-        if (params.type && params.type.length > 0) {
-          // giving back the search type
-          this.searchType = params.type;
-        }
-        // check if search type is available
-        if (this.searchType.length > 0) {
-          const searchOppsParams = {
-            limit: this.recordsPerPage,
-            scrollId: '',
-            filtersMap: [],
-            searchType: this.searchType,
-            searchText: this.searchString
-          }
-          if (params.filters && params.filters === 'true') {
-            searchOppsParams.filtersMap = this.globalFilter
-          }
-          this.isSearching = true;
-          this.showPreloader = true;
-          this.store.dispatch({ type: OpportunityActions.SEARCH_OPPORTUNITIES, payload: searchOppsParams });
-        }
+        this.triggerSearch(params);
       });
+  }
+
+  triggerSearch(params: any) {
+    // check if search type is available
+    if (params && params.type && params.type.length > 0) {
+      // giving back the search type
+      this.searchType = params.type;
+    }
+    // check if search type is available
+    if (this.searchType.length > 0) {
+      const searchOppsParams = {
+        limit: this.recordsPerPage,
+        scrollId: '',
+        filtersMap: this.globalFilter,
+        searchType: this.searchType,
+        searchText: this.searchString
+      }
+      this.isSearching = true;
+      this.showPreloader = true;
+      this.store.dispatch({ type: OpportunityActions.SEARCH_OPPORTUNITIES, payload: searchOppsParams });
+    }
   }
 
   ngOnDestroy() {
@@ -292,6 +294,15 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
       this.showPreloader = true;
       this.store.dispatch({ type: OpportunityActions.SEARCH_OPPORTUNITIES, payload: searchOppsParams });
     }
+  }
+
+  isSelected(sType: string) {
+    const fltrObj = { key: 'OPPORTUNITY_TYPE', value: sType };
+    // check if filter contains the value already
+    if (!_.find(this.globalFilter, fltrObj)) {
+      return true;
+    }
+    return false;
   }
 
 }

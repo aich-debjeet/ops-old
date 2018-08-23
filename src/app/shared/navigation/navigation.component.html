@@ -2,7 +2,7 @@
     <nav class="navbar navbar-default navbar-fixed-top ">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand" routerLink="/"><img [src]="imageBaseUrl + 'img/ops_icon.png'"></a>
+                <a class="navbar-brand" routerLink="/"><img [src]="imageBaseUrl + 'v2/ops_icon.png'"></a>
                 <!-- for mobile -->
                 <div class="m-nav">
                     <div class="m-nav__icons" *ngIf="isProfileSet === false">
@@ -98,7 +98,7 @@
                                     <a routerLink="/home">Home</a>
                                 </div>
                                 <div class="dropdown__item p-b-8 text-uppercase">
-                                    <a routerLink="/explore">Explore</a>
+                                    <a [routerLink]="['/explore']" [queryParams]="{type:'post'}">Explore</a>
                                 </div>
                                 <div class="dropdown__item p-b-8 text-uppercase">
                                     <a [routerLink]="['/opportunity/search']" [queryParams]="{q:'', type:'recommended'}">Opportunity</a>
@@ -115,9 +115,9 @@
                                 <div class="dropdown__item p-b-8 text-uppercase">
                                     <a routerLink="/communities">Community</a>
                                 </div>
-                                <div class="dropdown__item p-b-8 text-uppercase with_border_bottom">
+                                <!-- <div class="dropdown__item p-b-8 text-uppercase with_border_bottom">
                                     <a routerLink="/directory">Directory</a>
-                                </div>
+                                </div> -->
                                 <div *ngIf="!showCreateOrg" class="dropdown__item with_border_bottom p-t-b-8">
                                     <div class="navdrop__switchto">Switch to</div>
                                     <div class="navdrop__imgblock2">
@@ -140,8 +140,8 @@
                                     <!-- <a *ngIf="this.userCards.active.isOrg === false" routerLink="/user/settings">Settings</a> -->
                                     <a>Settings</a>
                                 </div>
-                                <div routerLink="/invite/friends" class="dropdown__item p-t-b-8">
-                                    <a>Invite Friends</a>
+                                <div class="dropdown__item p-t-b-8">
+                                    <a routerLink="/invite">Invite Friends</a>
                                 </div>
                                 <div routerLink="/about" class="dropdown__item p-b-8 with_border_bottom">
                                     <a>About One Page Spotlight</a>
@@ -164,7 +164,7 @@
                     <!-- <li routerLinkActive="active"><a routerLink="/learn">Learn</a></li>
                     <li routerLinkActive="active"><a routerLink="/resources">Resource</a></li> -->
                     <li routerLinkActive="active"><a routerLink="/communities">Community</a></li>
-                    <li routerLinkActive="active"><a routerLink="/directory">Directory</a></li>
+                    <!-- <li routerLinkActive="active"><a routerLink="/directory">Directory</a></li> -->
                 </ul>
                 <ul class="nav navbar-nav nav__right" *ngIf="isProfileSet === false">
                     <a class="signIn" routerLink="/login">
@@ -297,8 +297,8 @@
                                 <!-- <a *ngIf="this.userCards.active.isOrg === false" routerLink="/user/settings">Settings</a> -->
                                 <a>Settings</a>
                             </div>
-                            <div routerLink="/invite/friends" class="dropdown__item p-t-b-16">
-                                <a>Invite Friends</a>
+                            <div class="dropdown__item p-t-b-16">
+                                <a routerLink="/invite">Invite Friends</a>
                             </div>
                             <div routerLink="/about" class="dropdown__item p-b-16 with_border_bottom">
                                 <a>About One Page Spotlight</a>
