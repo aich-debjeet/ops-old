@@ -448,11 +448,6 @@ p.result-not-found {
 
 // top quick link
 
-.o-top-quicklink{
-	width: 100%;
-	// float: left;
-	padding:32px 0px 24px 0px;
-}
 .o-quicklink-list{
 	width: 100%;
 	list-style: none;
@@ -631,5 +626,25 @@ p.result-not-found {
         @include mq($from: $mobile_sm, $until: $tablet){
             font-size: 11px!important;
         }
+    }
+}
+
+
+.o-quicklink__count {
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        display: none;
+    }
+}
+
+.o-quicklink__item {
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        height: 50px;
+    }
+}
+
+.desktop-margin {
+    margin: 0 -8px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        margin: auto;
     }
 }
