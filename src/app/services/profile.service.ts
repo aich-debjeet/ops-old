@@ -552,6 +552,13 @@ export class ProfileService {
     return this.api.put('/portal/network/block/unblock', body);
   }
 
+  /**
+   * blocj user
+   */
+  blockUser(body: any){
+    return this.api.put('/portal/network/block/block', body)
+  }
+
   getdefaultNotifications() {
     return this.api.get('/portal/profile/profileSettings/default/settings', '' );
   }
