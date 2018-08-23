@@ -1321,3 +1321,113 @@
     margin-left: 415px;
     font-size: x-small;
 }
+
+// report and block popup
+.report_container {
+    width: 563px;
+    margin: 0px auto;
+    .report_pop_head {
+        width: 100%;
+        padding: 16px 0px;
+        position: relative;
+        .search_close {
+            width: 12px;
+            position: absolute;
+            right: 22px;
+            top: 22px;
+            img {
+                width: 14px;
+                height: 14px;
+            }
+        }
+    }
+    .report_content_sec {
+        width: 570px;
+        margin: 0px auto;
+        a {
+            color: #FF7B84;
+        }
+        .txt {
+            font-weight: normal;
+        }
+        ul {
+            width: 340px;
+            margin: 0px auto;
+            li {
+                text-align: left;
+                width: 100%; // display: inline-block;
+                min-height: 208px;
+                .c-radio__sm {
+                    label {
+                        padding: 8px 0px;
+                        .radio-text {
+                            text-align: left;
+                            font-size: 13px;
+                            font-weight: 600;
+                            color: #333;
+                            margin-left: 20px;
+                            font-weight: 500;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+        ul.block_list {
+            width: 180px;
+            min-height: 100px;
+            li {
+                list-style-type: disc;
+                font-size: 12px;
+                color: #333;
+                margin: 8px 0px;
+                min-height: 100%;
+            }
+            li.msg_rprt_list {
+                list-style-type: none;
+            }
+        }
+        .thank_you_container {
+            width: 360px;
+            margin: 80px auto;
+            p.thankyou_text {
+                font-size: 24px;
+                color: #333;
+                text-align: center;
+                font-weight: 700;
+            }
+            p {
+                text-align: center;
+                font-size: 14px;
+                font-weight: normal;
+                color: #333;
+            }
+            .block_text {
+                font-size: 16px;
+                font-weight: 700;
+                color: #333;
+                text-align: center;
+            }
+        }
+        .msg_report_container {
+            width: 485px;
+            margin: 24px auto;
+            .msg_report_txt {
+                font-size: 16px;
+                color: #333;
+                text-align: center;
+                font-weight: 700;
+                padding-bottom: 8px;
+            }
+            p {
+                font-size: 12px;
+                font-weight: 500;
+            }
+        }
+    }
+    .report_bottom {
+        padding: 32px 0px;
+        width: 100%;
+        display: inline-block;
+    }
+}

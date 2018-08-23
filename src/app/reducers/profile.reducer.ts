@@ -1255,13 +1255,36 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      */
     case ProfileActions.UNBLOCK_USER:
       return Object.assign({}, state, {
+        isUnBlocked: false
       });
 
     case ProfileActions.UNBLOCK_USER_SUCCESS:
       return Object.assign({}, state, {
+        isUnBlocked: true
       });
     case ProfileActions.UNBLOCK_USER_FAILED:
       return Object.assign({}, state, {
+        isUnBlocked: false
+      });
+
+    /**
+     * Block user
+     */
+
+    case ProfileActions.BLOCK_USER:
+      return Object.assign({}, state, {
+        isBlocked: false,
+      });
+
+    case ProfileActions.BLOCK_USER_SUCCESS:
+    console.log(payload)
+      return Object.assign({}, state, {
+        isBlocked: true,
+      });
+
+    case ProfileActions.BLOCK_USER_FAILED:
+      return Object.assign({}, state, {
+        isBlocked: false,
       });
 
     /**
