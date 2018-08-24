@@ -48,7 +48,7 @@ export class VideplayerComponent implements OnInit, AfterViewInit {
       // console.log('videoElem loaded');
       const vidH = videoElem.videoHeight;
       const vidW = videoElem.videoWidth;
-      console.log(vidH, vidW);
+      // console.log(vidH, vidW);
 
       // check if video is portrait
       if (vidH > vidW) {
