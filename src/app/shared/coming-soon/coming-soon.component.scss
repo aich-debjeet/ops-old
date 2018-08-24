@@ -1,11 +1,15 @@
 @import './src/assets/scss/helpers/_variables.scss';
+@import '~sass-mq/_mq.scss';
 .comming-soon-container{
     width: 100%;
     padding: 130px;
     background: #fff;
     margin-top: 60px;
     float: left;
-    margin-bottom: 100px;
+	margin-bottom: 100px;
+	@include mq($from: $mobile_sm, $until: $mobile_lg) {
+		padding: 16px;
+	}
 	.comming-soon_txt{
 		h2{
 			font-size: 28px;
