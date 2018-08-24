@@ -1,17 +1,19 @@
 @import '~sass-mq/_mq.scss';
 @import './src/assets/scss/helpers/_variables.scss';
-.event-main {
-    margin-top: 50px;
-}
+@import './src/assets/scss/base/base.scss';
+// .event-main {
+//     margin-top: 50px;
+// }
 
 
 
 //left block
 .o-eventinner_left {
-    width: 75%;
+    width: 100%;
     float: left;
     background-color: #FFFFFF;
     box-shadow: 0 2px 4px 0 rgba(102, 45, 145, 0.15);
+    padding: 16px;
     @include mq($from: $mobile_sm, $until: $tablet) {
         width: 100%;
         padding: 0px;
@@ -23,6 +25,13 @@
         width: 69%;
     }
 }
+.o-event-left-main{
+    width: 75%;
+    float: left;
+    @include mq($from: $mobile_sm, $until: $tablet){
+        width: 100%;
+    }
+}
 
 .o-eventinner__imgblock {
     width: 100%;
@@ -32,9 +41,9 @@
     background: url(https://ops-v2.netlify.com/assets/demo/photography1.jpg) no-repeat;
     background-size:cover;
     background-position:center;
-    @include mq($from: $mobile_sm, $until: $tablet) {
-        height: 100%;
-    }
+    // @include mq($from: $mobile_sm, $until: $tablet) {
+    //     height: 100%;
+    // }
 }
 
 .o-eventinner__img {
@@ -236,4 +245,8 @@
 
 a {
     color: $color-theme;
+}
+
+.o-contianer--p_none {
+    padding: 0px !important;
 }
