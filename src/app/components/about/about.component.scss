@@ -68,6 +68,9 @@
     margin-top: 25px;
     background: #fff;
     padding: 48px 58px 58px 58px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 100%;
+    }
 }
 
 .o-dwc-contact__textarea {
