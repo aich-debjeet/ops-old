@@ -113,7 +113,7 @@
             <!-- search filters -->
             
             <!-- search result -->
-            <div class="col-md-9 col-sm-8 col-xs-12 p-0 m-t--32" [ngClass]="{'col-md-12 col-sm-12': searchType !== 'all'}">
+            <div class="col-md-9 col-sm-8 col-xs-12 sm-p-0 m-t--32" [ngClass]="{'col-md-12 col-sm-12': searchType !== 'all'}">
 
                 <div class="o-search-result-block">
                     <div class="o-search-info-top">
@@ -206,8 +206,8 @@
                         <h6 class="c-text_lg m-t-24">Opportunity 
                             <a (click)="seeAll('opportunity')" class="color-theme float_right">See all</a>
                         </h6>
-                        <div class="row">
-                            <div *ngFor="let opportunity of all_opps | slice:0:3" class="col-md-4 col-sm-4 col-xs-12 p-8">
+                        <div class="sm-row">
+                            <div *ngFor="let opportunity of all_opps | slice:0:3" class="col-md-4 col-sm-4 col-xs-12 sm-p-8">
                                 <app-opporunity-search-card [opportunityDetails]="opportunity"></app-opporunity-search-card>
                             </div>
                         </div>
