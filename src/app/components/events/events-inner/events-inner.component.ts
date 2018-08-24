@@ -17,10 +17,13 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { ModalService } from '../../../shared/modal/modal.component.service';
 
+import { TruncatePipe } from 'app/pipes/truncate.pipe';
+
 @Component({
   selector: 'app-events-inner',
   templateUrl: './events-inner.component.html',
-  styleUrls: ['./events-inner.component.scss']
+  styleUrls: ['./events-inner.component.scss'],
+  providers: [ TruncatePipe ]
 })
 export class EventsInnerComponent implements OnInit, OnDestroy {
   id: any;

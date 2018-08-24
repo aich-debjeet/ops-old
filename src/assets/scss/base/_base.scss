@@ -331,3 +331,10 @@ select {
     background-color: #c1c1c1;
     border-radius: 50px;
 }
+
+.p-l-r-14 {
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        padding-left:14px;
+        padding-right: 14px;
+    }
+}
