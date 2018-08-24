@@ -25,6 +25,10 @@
   border-radius: 3px;
   box-shadow: 0 11px 4px 0 rgba(102,45,145,0.1);
   padding:8px 16px;
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    width: 100%;
+    padding: 8px 12px;
+  }
 }
 .o-search__input{
   width: 95%;
@@ -36,6 +40,9 @@
   color:#333;
   &:focus{
     outline: none;
+  }
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    width: 90%;
   }
 }
 .o-search__input::placeholder {
@@ -64,6 +71,9 @@
   align-items: center;
   flex-direction: column;
   margin: 100px auto;
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    width: 60%;
+  }
 }
 .o-search-empty__icon{
   width: 62px;
