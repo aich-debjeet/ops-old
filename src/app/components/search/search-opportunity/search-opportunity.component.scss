@@ -1,3 +1,6 @@
+@import './src/assets/scss/helpers/_variables.scss';
+@import '~sass-mq/_mq.scss';
+
 .result-not-found {
     margin: 80px 0;
     text-align: center;
@@ -34,4 +37,8 @@
     padding-left: 5px;
     padding-right: 5px;
     margin-top: 10px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        float: left;
+        width: 100%;
+    }
 }
