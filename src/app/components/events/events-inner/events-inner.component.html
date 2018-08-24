@@ -1,140 +1,142 @@
 <app-navigation></app-navigation>
 
-<section class="event-main">
-  <div class="container">
-    <div class="o-eventinner_left m-t-16 p-16">
-      <!-- <div class="o-eventinner__imgblock"> -->
-        <!-- <img [src]="baseUrl + eventDetail?.extras?.coverImage" class="o-eventinner__img"> -->
-        <div class="o-eventinner__imgblock" [ngStyle]="{'background-image': 'url(' + baseUrl + eventDetail?.extras?.coverImage + ')', 'background-size': 'cover',
-                'background-position': 'center',
-                'width': '100%'}"></div>
-      <!-- </div> -->
-      <div class="o-eventinner__cat">{{ eventDetail?.Type?.eventType }}</div>
-      <div class="o-eventinner__heading">{{ eventDetail?.title }}
-          <div class="pull-right dropdown c-dropdown" appDropdown>
-              <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
-                  <img [src]="baseUrl + 'img/svg/ico_options.svg'" class="c-status__options">
-              </span>
-              <ul class="dropdown-menu dropdown-menu-right m-r-8" *ngIf = "eventDetail?.isOwner">
+<section>
+  <div class="container o-contianer--p_none">
+    <div class="o-event-left-main">
+      <div class="o-eventinner_left m-t-16">
+        <!-- <div class="o-eventinner__imgblock"> -->
+          <!-- <img [src]="baseUrl + eventDetail?.extras?.coverImage" class="o-eventinner__img"> -->
+          <div class="o-eventinner__imgblock" [ngStyle]="{'background-image': 'url(' + baseUrl + eventDetail?.extras?.coverImage + ')', 'background-size': 'cover',
+                  'background-position': 'center',
+                  'width': '100%'}"></div>
+        <!-- </div> -->
+        <div class="o-eventinner__cat">{{ eventDetail?.Type?.eventType }}</div>
+        <div class="o-eventinner__heading">{{ eventDetail?.title }}
+            <div class="pull-right dropdown c-dropdown" appDropdown>
+                <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
+                    <img [src]="baseUrl + 'img/svg/ico_options.svg'" class="c-status__options">
+                </span>
+                <ul class="dropdown-menu dropdown-menu-right m-r-8" *ngIf = "eventDetail?.isOwner">
+                    <li>
+                        <a [routerLink] = "'/event/edit/'+ eventDetail?.id">Edit</a>
+                    </li>
+                    <li>
+                        <a (click) = "deleteEvent(eventDetail?.id)">Delete</a>
+                    </li>
+                </ul>
+                <ul class="dropdown-menu dropdown-menu-right m-r-8" *ngIf = "!eventDetail?.isOwner">
                   <li>
-                      <a [routerLink] = "'/event/edit/'+ eventDetail?.id">Edit</a>
-                  </li>
-                  <li>
-                      <a (click) = "deleteEvent(eventDetail?.id)">Delete</a>
+                      <a (click)="reportModalOpen(eventDetail?.id)">Report</a>
                   </li>
               </ul>
-              <ul class="dropdown-menu dropdown-menu-right m-r-8" *ngIf = "!eventDetail?.isOwner">
-                <li>
-                    <a (click)="reportModalOpen(eventDetail?.id)">Report</a>
-                </li>
-            </ul>
-          </div>
-      </div>
-      <div class="o-eventinner__detail">
-          <div class="o-eventinner__date">
-              <img [src]="baseUrl + 'img/svg/calendar.svg'" class="o-eventinner__detail--img"> {{ eventDetail?.eventTiming?.startDate | utcDate | date: 'dd, LLLL'}}
-          </div>
-          <div class="o-eventinner__address">
-            <img [src]="baseUrl + 'img/svg/ico_location2.svg'" class="o-eventinner__detail--img"> {{ eventDetail?.venue?.location }}
-          </div>
+            </div>
+        </div>
+        <div class="o-eventinner__detail">
+            <div class="o-eventinner__date">
+                <img [src]="baseUrl + 'img/svg/calendar.svg'" class="o-eventinner__detail--img"> {{ eventDetail?.eventTiming?.startDate | utcDate | date: 'dd, LLLL'}}
+            </div>
+            <div class="o-eventinner__address">
+              <img [src]="baseUrl + 'img/svg/ico_location2.svg'" class="o-eventinner__detail--img"> {{ eventDetail?.venue?.location }}
+            </div>
+        </div>
+
+        <div class="c-text_lg p-l-r-14">Event Brief</div>
+        <div class="c-text_md color-grey-dark m-t-b-8 p-l-r-14" [innerHtml]="eventDetail?.brief | safeHtml"></div>
+        
+        <div *ngIf="eventDetail?.event_agenda?.length > 0">
+          <div class="c-text_lg m-t-b-16 p-l-r-14">Event Agenda</div>
+          <ul class="list-group o-eventinner__agenda p-l-r-14 m-b-8">
+              <li class="list-group-item" *ngFor="let agenda of eventDetail?.event_agenda">{{ agenda?.startTime }} <span class="m-l-16">{{ agenda?.startDate | utcDate | date: 'h:mm a'}}</span> <span class="m-l-16">{{ agenda?.description | truncate:[25, '...'] }}</span> </li> 
+          </ul>
+        </div>
       </div>
 
-      <div class="c-text_lg">Event Brief</div>
-      <div class="c-text_md color-grey-dark m-t-b-8" [innerHtml]="eventDetail?.brief | safeHtml"></div>
-      
-      <div *ngIf="eventDetail?.event_agenda?.length > 0">
-        <div class="c-text_lg m-t-b-16">Event Agenda</div>
-        <ul class="list-group o-eventinner__agenda">
-            <li class="list-group-item" *ngFor="let agenda of eventDetail?.event_agenda">{{ agenda?.startTime }} <span class="m-l-16">{{ agenda?.startDate | utcDate | date: 'h:mm a'}}</span> <span class="m-l-16">{{ agenda?.description | truncate:[80, '...'] }}</span> </li> 
-        </ul>
-      </div>
+      <!-- <div class="o-eventinner_right m-t-16 p-16">
+        <div class="o-eventinner__ticket">Tickets</div>
+        <div class="c-text_sm color-grey-dark m-t-b-8">Ticket selling started from {{ eventDetail?.eventTiming?.startDate | utcDate | date: 'dd, MMM'}} till {{ eventDetail?.eventTiming?.endDate | utcDate | date: 'dd, MMM'}}</div> -->
+        <!-- <app-events-carditem *ngFor="let ticket of eventDetail?.extras?.ticket[0]?.ticketType" [cartItem]="ticket" (countChange)="totalCountChange($event)"></app-events-carditem> -->
+          <!--<div class="o-eventinner__ticket__total">Ticket <span class="pull-right">Total</span></div>
+          <div class="o-eventinner__ticket__totalmrp">{{  totalTicket }}<span class="pull-right">Rs. {{ totalAmount }}</span></div>
+          <button type="button" class="btn btn-primary btn-lg btn-block m-t-16" disabled>Buy Tickets</button>-->
+          <!-- <button type="button" (click)="attendEvent()" class="btn btn-primary btn-lg btn-block m-t-16">{{isAttend ? 'ATTENDING' : 'ATTEND'}}</button>
+      </div> -->
+      <!-- <div class="o-event-right-main">
+      <div class="o-eventinner_right p-16">
+              <div class="o-event-attending__head">
+                <span class="color-grey-darker">{{attendeeList?.length}}</span> attending
+              </div>
+              <div id="ops_scrollbar" class="o-event-attending-block">
+                <ul class="o-event-attending__list">
+    
+                  <li class="o-event-attending__info"  *ngFor= "let list of attendeeList">
+                    <div class="o-event-attending__prof-pic">
+                      <img class="c-user__image" [src]="baseUrl + list?.ownerImage">
+                    </div>
+                    <span class="c-text_lg m-l-8">{{list?.ownerName}}</span> -->
+                    <!-- <span class="c-text_sm color-grey-dark m-l-8">3 Tickets</span> -->
+                  <!-- </li> -->
+    
+                  <!-- <li class="o-event-attending__info">
+                    <div class="o-event-attending__prof-pic">
+                      <img class="c-user__image" src="assets/demo/avatar.jpg">
+                    </div>
+                    <span class="c-text_lg m-l-8">Ethel Kennedy</span>
+                    <span class="c-text_sm color-grey-dark m-l-8">3 Tickets</span>
+                  </li>
+    
+                  <li class="o-event-attending__info">
+                    <div class="o-event-attending__prof-pic">
+                      <img class="c-user__image" src="assets/demo/avatar.jpg">
+                    </div>
+                    <span class="c-text_lg m-l-8">Ethel Kennedy</span>
+                    <span class="c-text_sm color-grey-dark m-l-8">3 Tickets</span>
+                  </li>
+    
+                  <li class="o-event-attending__info">
+                    <div class="o-event-attending__prof-pic">
+                      <img class="c-user__image" src="assets/demo/avatar.jpg">
+                    </div>
+                    <span class="c-text_lg m-l-8">Ethel Kennedy</span>
+                    <span class="c-text_sm color-grey-dark m-l-8">3 Tickets</span>
+                  </li>
+    
+                  <li class="o-event-attending__info">
+                    <div class="o-event-attending__prof-pic">
+                      <img class="c-user__image" src="assets/demo/avatar.jpg">
+                    </div>
+                    <span class="c-text_lg m-l-8">Ethel Kennedy</span>
+                    <span class="c-text_sm color-grey-dark m-l-8">3 Tickets</span>
+                  </li>
+    
+                  <li class="o-event-attending__info">
+                    <div class="o-event-attending__prof-pic">
+                      <img class="c-user__image" src="assets/demo/avatar.jpg">
+                    </div>
+                    <span class="c-text_lg m-l-8">Ethel Kennedy</span>
+                    <span class="c-text_sm color-grey-dark m-l-8">3 Tickets</span>
+                  </li>
+    
+                  <li class="o-event-attending__info">
+                    <div class="o-event-attending__prof-pic">
+                      <img class="c-user__image" src="assets/demo/avatar.jpg">
+                    </div>
+                    <span class="c-text_lg m-l-8">Ethel Kennedy</span>
+                    <span class="c-text_sm color-grey-dark m-l-8">3 Tickets</span>
+                  </li>
+    
+                  <li class="o-event-attending__info">
+                    <div class="o-event-attending__prof-pic">
+                      <img class="c-user__image" src="assets/demo/avatar.jpg">
+                    </div>
+                    <span class="c-text_lg m-l-8">Ethel Kennedy</span>
+                    <span class="c-text_sm color-grey-dark m-l-8">3 Tickets</span>
+                  </li> -->
+    
+                <!-- </ul>
+              </div>
+            </div>
+          </div> -->
     </div>
-
-    <!-- <div class="o-eventinner_right m-t-16 p-16">
-      <div class="o-eventinner__ticket">Tickets</div>
-      <div class="c-text_sm color-grey-dark m-t-b-8">Ticket selling started from {{ eventDetail?.eventTiming?.startDate | utcDate | date: 'dd, MMM'}} till {{ eventDetail?.eventTiming?.endDate | utcDate | date: 'dd, MMM'}}</div> -->
-      <!-- <app-events-carditem *ngFor="let ticket of eventDetail?.extras?.ticket[0]?.ticketType" [cartItem]="ticket" (countChange)="totalCountChange($event)"></app-events-carditem> -->
-        <!--<div class="o-eventinner__ticket__total">Ticket <span class="pull-right">Total</span></div>
-        <div class="o-eventinner__ticket__totalmrp">{{  totalTicket }}<span class="pull-right">Rs. {{ totalAmount }}</span></div>
-        <button type="button" class="btn btn-primary btn-lg btn-block m-t-16" disabled>Buy Tickets</button>-->
-        <!-- <button type="button" (click)="attendEvent()" class="btn btn-primary btn-lg btn-block m-t-16">{{isAttend ? 'ATTENDING' : 'ATTEND'}}</button>
-    </div> -->
-    <!-- <div class="o-event-right-main">
-    <div class="o-eventinner_right p-16">
-            <div class="o-event-attending__head">
-              <span class="color-grey-darker">{{attendeeList?.length}}</span> attending
-            </div>
-            <div id="ops_scrollbar" class="o-event-attending-block">
-              <ul class="o-event-attending__list">
-  
-                <li class="o-event-attending__info"  *ngFor= "let list of attendeeList">
-                  <div class="o-event-attending__prof-pic">
-                    <img class="c-user__image" [src]="baseUrl + list?.ownerImage">
-                  </div>
-                  <span class="c-text_lg m-l-8">{{list?.ownerName}}</span> -->
-                  <!-- <span class="c-text_sm color-grey-dark m-l-8">3 Tickets</span> -->
-                <!-- </li> -->
-  
-                <!-- <li class="o-event-attending__info">
-                  <div class="o-event-attending__prof-pic">
-                    <img class="c-user__image" src="assets/demo/avatar.jpg">
-                  </div>
-                  <span class="c-text_lg m-l-8">Ethel Kennedy</span>
-                  <span class="c-text_sm color-grey-dark m-l-8">3 Tickets</span>
-                </li>
-  
-                <li class="o-event-attending__info">
-                  <div class="o-event-attending__prof-pic">
-                    <img class="c-user__image" src="assets/demo/avatar.jpg">
-                  </div>
-                  <span class="c-text_lg m-l-8">Ethel Kennedy</span>
-                  <span class="c-text_sm color-grey-dark m-l-8">3 Tickets</span>
-                </li>
-  
-                <li class="o-event-attending__info">
-                  <div class="o-event-attending__prof-pic">
-                    <img class="c-user__image" src="assets/demo/avatar.jpg">
-                  </div>
-                  <span class="c-text_lg m-l-8">Ethel Kennedy</span>
-                  <span class="c-text_sm color-grey-dark m-l-8">3 Tickets</span>
-                </li>
-  
-                <li class="o-event-attending__info">
-                  <div class="o-event-attending__prof-pic">
-                    <img class="c-user__image" src="assets/demo/avatar.jpg">
-                  </div>
-                  <span class="c-text_lg m-l-8">Ethel Kennedy</span>
-                  <span class="c-text_sm color-grey-dark m-l-8">3 Tickets</span>
-                </li>
-  
-                <li class="o-event-attending__info">
-                  <div class="o-event-attending__prof-pic">
-                    <img class="c-user__image" src="assets/demo/avatar.jpg">
-                  </div>
-                  <span class="c-text_lg m-l-8">Ethel Kennedy</span>
-                  <span class="c-text_sm color-grey-dark m-l-8">3 Tickets</span>
-                </li>
-  
-                <li class="o-event-attending__info">
-                  <div class="o-event-attending__prof-pic">
-                    <img class="c-user__image" src="assets/demo/avatar.jpg">
-                  </div>
-                  <span class="c-text_lg m-l-8">Ethel Kennedy</span>
-                  <span class="c-text_sm color-grey-dark m-l-8">3 Tickets</span>
-                </li>
-  
-                <li class="o-event-attending__info">
-                  <div class="o-event-attending__prof-pic">
-                    <img class="c-user__image" src="assets/demo/avatar.jpg">
-                  </div>
-                  <span class="c-text_lg m-l-8">Ethel Kennedy</span>
-                  <span class="c-text_sm color-grey-dark m-l-8">3 Tickets</span>
-                </li> -->
-  
-              <!-- </ul>
-            </div>
-          </div>
-        </div> -->
   </div>
 </section>
 
