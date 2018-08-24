@@ -48,6 +48,11 @@
     margin: 100px auto;
     display: table;
     background: #fff;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 80%;
+        margin: 30px auto;
+        border-radius: 6px;
+    }
 }
 .modal-cus__sm{
     width: 675px;
