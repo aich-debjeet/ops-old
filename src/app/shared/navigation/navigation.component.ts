@@ -124,9 +124,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
         if (typeof state['recieved_notifications'] !== 'undefined') {
           let noti;
           noti = state['recieved_notifications'];
-          console.log(noti)
+          // console.log(noti)
           this.notifications = _uniqBy(noti, noti.notificationId);
-          console.log(this.notifications)
+          // console.log(this.notifications)
           this.processNotifications();
         }
         if (typeof state['marking_as_read_response'] !== 'undefined') {
@@ -251,7 +251,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
       });
     });
     this.pusherService.notificationsChannel.bind('Network_Accepted', (message) => {
-       console.log(message)
+      //  console.log(message)
       this.notify = true;
       this.notificationStore.dispatch({
         type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,

@@ -438,7 +438,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   }
 
   tabMediaScroll(e) {
-    console.log('tabMediaScroll', this.activeTab);
+    // console.log('tabMediaScroll', this.activeTab);
     this.tabMediaScrolling = e.currentScrollPosition;
     if (this.tabMediaScrollingLoad <= this.tabMediaScrolling) {
       this.tabMediaScrollingLoad += 500;
