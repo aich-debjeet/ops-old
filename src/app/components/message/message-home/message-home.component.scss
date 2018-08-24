@@ -283,3 +283,49 @@
     width: 100%;
     bottom: 0;
 }
+
+.xs-m-l-r-0 {
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        margin-right: 0;
+        margin-left: 0;
+    }
+}
+
+.desktop-p-l-0 {
+    padding-left: 0;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+}
+
+.xs-message-box {
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 80%;
+    }
+}
+
+.xs-chat-box {
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        margin-top: 20px;
+    }
+}
+
+.mess_block {
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        background: transparent;
+        box-shadow: none;
+    }
+}
+
+.mess_left, .mess_right {
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        background: #fff;
+    }
+}
+
+.mess_right {
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        margin-bottom: 20px;
+    }
+}

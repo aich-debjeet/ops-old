@@ -46,7 +46,7 @@ export class AboutAwardsComponent implements OnInit, OnDestroy {
     // this.test = 'salabeel';
     this.subscription = this.tagState$.subscribe((state) => {
       this.stateProfile = state;
-      console.log('state', this.stateProfile)
+      // console.log('state', this.stateProfile)
       if (state.profile_user_info) {
         if (this.stateProfile.profile_user_info.isCurrentUser === false && this.stateProfile.profile_other_loaded === true) {
           this.ownProfile = false;

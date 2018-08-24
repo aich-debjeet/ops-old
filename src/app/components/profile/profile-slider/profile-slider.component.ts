@@ -26,6 +26,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { find as _find, forEach as _forEach  } from 'lodash';
 import { ProfileHelper } from '../../../helpers/profile.helper';
+import { GeneralUtilities } from '../../../helpers/general.utils';
 
 @Component({
   selector: 'app-profile-slider',
@@ -37,6 +38,8 @@ import { ProfileHelper } from '../../../helpers/profile.helper';
 export class ProfileSliderComponent implements OnInit {
   // @ViewChild('profileImage') fileInput;
   @ViewChild('networkModal') NetworktypeModal: Modal;
+  @ViewChild('blockSuccessful') blockSuccessful: Modal;
+  @ViewChild('blockModal') blockModal: Modal;
   @Input() profileData: any;
   @Input() isOtherProfile: any;
   @Input() userName: string;
@@ -77,6 +80,7 @@ export class ProfileSliderComponent implements OnInit {
   showThis = false;
   questions: any;
   reportType: string;
+  isBlocked: boolean;
 
   hasFollowed: boolean;
   @ViewChild('skillModal') UsertypeModal: Modal;
@@ -92,7 +96,8 @@ export class ProfileSliderComponent implements OnInit {
     public tokenService: TokenService,
     private profileStore: Store<ProfileModal>,
     private utils: ProfileHelper,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private generalUtils: GeneralUtilities,
   ) {
 
     document.body.scrollTop = 0;
@@ -139,6 +144,9 @@ export class ProfileSliderComponent implements OnInit {
             this.profileObject = this.loadProfile( state, 'other' );
             this.otherProfileHandle = this.profileObject.userDetails.handle;
             this.otherProfileName = this.profileObject.name;
+            if(this.profileObject.extra){
+              this.isBlocked = this.profileObject.extra.isBlocked;
+            }
           }
           this.isOwner = false;
         }
@@ -665,6 +673,37 @@ export class ProfileSliderComponent implements OnInit {
   } else {
     this.showThis = false;
   }
+ }
+
+ subResponse(handle: any){
+   const data = {
+     blockedHandle: handle
+    }
+   this.profileStore.dispatch({type: ProfileActions.BLOCK_USER, payload: data});
+   this.profileStore.select('profileTags')
+   .first(state => state['isBlocked'])
+   .subscribe( data => {
+     if (data['isBlocked'] === true) {
+       this.blockSuccessful.open();
+       this.isBlocked = true;
+     }
+   });
+ }
+ updateState(){
+   this.blockSuccessful.close();
+ }
+ unBlockUser(handle: any){
+  const data = {
+    blockedHandle: handle
+   }
+  this.profileStore.dispatch({type: ProfileActions.UNBLOCK_USER, payload: data});
+  this.profileStore.select('profileTags')
+   .first(state => state['isUnBlocked'])
+   .subscribe( data => {
+     if (data['isUnBlocked'] === true) {
+      this.isBlocked = false;
+     }
+   });
  }
 }
 

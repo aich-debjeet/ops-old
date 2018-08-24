@@ -256,10 +256,10 @@
     text-transform: uppercase;
 }
 
-.o-profile__rightbar {
+.desktop-css {
     padding: 0px 0px 0px 24px;
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        // padding: 0px;
+        padding: 0 15px;
     }
 }
 

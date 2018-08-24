@@ -4,14 +4,21 @@
 @import '~sass-mq/_mq.scss';
 // events form
 .o-events-form {
+    margin-top: 50px;
+    float: left;
     width: 100%;
-    margin-top: 40px;
+    margin-bottom: 80px;
+}
+
+.o-contianer--p_none {
+    padding: 0px !important;
 }
 
 .o-events-form-container {
     width: 100%;
     float: left;
     background: #fff;
+    margin-top: 32px;
     @include mq($from: $mobile_sm, $until: $desktop_sm) {
         margin-top: 0px;
     }
@@ -43,6 +50,7 @@
 
 .o-events-form-title {
     padding: 10px 0px;
+    margin-top: 16px;
 }
 
 // for add sec
@@ -58,7 +66,7 @@
 
 .o-form__add-btn {
     display: block;
-    cursor: pointer;
+    // cursor: pointer;
 }
 
 .o-form__add-ico {
@@ -82,7 +90,7 @@
 .o-form-trash__ico {
     width: 24px;
     height: 24px;
-    cursor: pointer;
+    // cursor: pointer;
     img {
         width: 100%;
     }
@@ -116,6 +124,13 @@
     align-items: center;
     justify-content: center;
     float: right;
+    overflow: hidden;
+    @include mq($from: $mobile_sm, $until: $desktop_sm) {
+        width: 100%;
+    }
+    img{
+        width: 100%;
+    }
 }
 
 .o-event-upload__info {
@@ -145,6 +160,9 @@ quill-editor {
     p{
         font-size: 14px !important;
     }
+}
+.p-b-32{
+    padding-bottom: 32px !important;
 }
 
 // .container {

@@ -1,5 +1,7 @@
 
 export class ProfileModal {
+  isBlocked: boolean;
+  isUnBlocked: boolean;  
   completed: string[];
   loading: false;
   success: true;
@@ -100,6 +102,8 @@ export class ProfileForm {
 }
 
 export const initialTag: ProfileModal = {
+  isBlocked: false,
+  isUnBlocked: false,
   profileUpdateSuccess: false,
   userUpdateSuccess: false,
   completed: [],

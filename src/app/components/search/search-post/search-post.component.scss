@@ -1,3 +1,6 @@
+@import './src/assets/scss/helpers/_variables.scss';
+@import '~sass-mq/_mq.scss';
+
 .c-card {
     width: 100%;
     height: auto;
@@ -192,4 +195,10 @@ a {
 
 .m-b-50 {
     margin-bottom: 50px;
+}
+
+.xs-m-t-70 {
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        margin-top: 70px !important;
+    }
 }

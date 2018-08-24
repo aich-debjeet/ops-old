@@ -27,7 +27,7 @@
 				  	</span>
 				  	<span [ngClass]="{'color-theme': !isSelected('audition')}" class="o-quicklink__title">
 				  		<p class="c-text_lg">Audition</p>
-				  		<p *ngIf="opportunitiesCount?.Audition" class="c-text_sm color-grey-dark">{{ opportunitiesCount?.Audition }} Opportunities</p>
+				  		<p *ngIf="opportunitiesCount?.Audition" class="c-text_sm color-grey-dark o-quicklink__count">{{ opportunitiesCount?.Audition }} Opportunities</p>
 				  	</span>
 				  </label>
   			</li><!-- audition end -->
@@ -38,7 +38,7 @@
 				  	</span>
 				  	<span [ngClass]="{'color-theme': !isSelected('projects')}" class="o-quicklink__title">
 				  		<p class="c-text_lg">Projects</p>
-				  		<p *ngIf="opportunitiesCount?.Project" class="c-text_sm color-grey-dark">{{ opportunitiesCount?.Project }} Opportunities</p>
+				  		<p *ngIf="opportunitiesCount?.Project" class="c-text_sm color-grey-dark o-quicklink__count">{{ opportunitiesCount?.Project }} Opportunities</p>
 				  	</span>
 				  </label>
   			</li><!-- Projects end -->
@@ -49,7 +49,7 @@
 				  	</span>
 				  	<span [ngClass]="{'color-theme': !isSelected('job')}" class="o-quicklink__title">
 				  		<p class="c-text_lg">Jobs</p>
-				  		<p *ngIf="opportunitiesCount?.Job" class="c-text_sm color-grey-dark">{{ opportunitiesCount?.Job }} Opportunities</p>
+				  		<p *ngIf="opportunitiesCount?.Job" class="c-text_sm color-grey-dark o-quicklink__count">{{ opportunitiesCount?.Job }} Opportunities</p>
 				  	</span>
 				  </label>
   			</li><!-- Jobs end -->
@@ -60,7 +60,7 @@
 				  	</span>
 				  	<span [ngClass]="{'color-theme': !isSelected('internship')}" class="o-quicklink__title">
 				  		<p class="c-text_lg">Internship</p>
-				  		<p *ngIf="opportunitiesCount?.Internship" class="c-text_sm color-grey-dark">{{ opportunitiesCount?.Internship }} Opportunities</p>
+				  		<p *ngIf="opportunitiesCount?.Internship" class="c-text_sm color-grey-dark o-quicklink__count">{{ opportunitiesCount?.Internship }} Opportunities</p>
 				  	</span>
 				  </label>
   			</li><!-- Internship end -->
@@ -71,7 +71,7 @@
 				  	</span>
 				  	<span [ngClass]="{'color-theme': !isSelected('freelance')}" class="o-quicklink__title">
 				  		<p class="c-text_lg">Freelance</p>
-				  		<p *ngIf="opportunitiesCount?.Freelance" class="c-text_sm color-grey-dark">{{ opportunitiesCount?.Freelance }} Opportunities</p>
+				  		<p *ngIf="opportunitiesCount?.Freelance" class="c-text_sm color-grey-dark o-quicklink__count">{{ opportunitiesCount?.Freelance }} Opportunities</p>
 				  	</span>
 				  </label>
   			</li><!-- Freelance end -->
@@ -82,7 +82,7 @@
 				  	</span>
 				  	<span [ngClass]="{'color-theme': !isSelected('volunteer')}" class="o-quicklink__title">
 				  		<p class="c-text_lg">Volunteer</p>
-				  		<p *ngIf="opportunitiesCount?.Volunteer" class="c-text_sm color-grey-dark">{{ opportunitiesCount?.Volunteer }} Opportunities</p>
+				  		<p *ngIf="opportunitiesCount?.Volunteer" class="c-text_sm color-grey-dark o-quicklink__count">{{ opportunitiesCount?.Volunteer }} Opportunities</p>
 				  	</span>
 				  </label>
   			</li><!-- Volunteer end -->
@@ -145,12 +145,12 @@
   				</li> -->
 				  <!-- filter ico end -->
   				<li class="o-filter-list__item m-r-0">
-  					<a routerLink="/opportunity/create" class="btn btn-primary btn-md ">Create job</a>
+  					<a routerLink="/opportunity/create" class="btn btn-primary btn-md ">Create</a>
   				</li><!-- create button end -->
   			</ul>
   		</div>
   	</div><!-- filter section end -->
-		<div class="tab-content m-r--8 m-l--8"
+		<div class="tab-content desktop-margin"
 			infiniteScroll
 			[infiniteScrollDistance]="2"
 			[infiniteScrollThrottle]="1000"

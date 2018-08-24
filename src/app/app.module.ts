@@ -117,7 +117,6 @@ import { TermsComponent } from './components/terms/terms.component';
 import { AboutComponent } from './components/about/about.component';
 import { DirectoryEffect } from './effects/directory.effect';
 import { DirectoryService } from './services/directory.service';
-import { InvitePeopleComponent } from './components/invite-people/invite-people.component';
 
 @NgModule({
   declarations: [
@@ -144,8 +143,7 @@ import { InvitePeopleComponent } from './components/invite-people/invite-people.
     ProjectComponent,
     PrivacyPolicyComponent,
     TermsComponent,
-    AboutComponent,
-    InvitePeopleComponent
+    AboutComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ops-app'}),

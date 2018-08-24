@@ -152,8 +152,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       } else {
         new_portfolio_user_profile['extra']['isPublished'] = false;
       }
-      console.log('payload', payload);
-      console.log('new state', new_portfolio_user_profile['extra']['isPublished']);
+      // console.log('payload', payload);
+      // console.log('new state', new_portfolio_user_profile['extra']['isPublished']);
       return Object.assign({}, state, {
         portfolio_publish_action: true,
         portfolio_publish_action_success: false,
@@ -791,7 +791,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.LOAD_PROFILE_UPDATE_SUCCESS:
-    console.log(payload)
+    // console.log(payload)
       return Object.assign({}, state, {
         profileUpdate: payload,
         profileUpdateSuccess: true
@@ -1255,13 +1255,36 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      */
     case ProfileActions.UNBLOCK_USER:
       return Object.assign({}, state, {
+        isUnBlocked: false
       });
 
     case ProfileActions.UNBLOCK_USER_SUCCESS:
       return Object.assign({}, state, {
+        isUnBlocked: true
       });
     case ProfileActions.UNBLOCK_USER_FAILED:
       return Object.assign({}, state, {
+        isUnBlocked: false
+      });
+
+    /**
+     * Block user
+     */
+
+    case ProfileActions.BLOCK_USER:
+      return Object.assign({}, state, {
+        isBlocked: false,
+      });
+
+    case ProfileActions.BLOCK_USER_SUCCESS:
+    // console.log(payload)
+      return Object.assign({}, state, {
+        isBlocked: true,
+      });
+
+    case ProfileActions.BLOCK_USER_FAILED:
+      return Object.assign({}, state, {
+        isBlocked: false,
       });
 
     /**
@@ -1851,28 +1874,59 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
         })
 
-        case ProfileActions.PROFILE_REPORT:
-        return Object.assign({}, state, {
-          reports: []
-        });
-        case ProfileActions.PROFILE_REPORT_SUCCESS:
-        return Object.assign({}, state, {
-          reports: payload.Success.questions
-        });
-        case ProfileActions.PROFILE_REPORT_FAILED:
-        return Object.assign({}, state, {
-          reports: []
-        });
+    case ProfileActions.PROFILE_REPORT:
+      return Object.assign({}, state, {
+        reports: []
+      });
+    case ProfileActions.PROFILE_REPORT_SUCCESS:
+      return Object.assign({}, state, {
+        reports: payload.Success.questions
+      });
+    case ProfileActions.PROFILE_REPORT_FAILED:
+      return Object.assign({}, state, {
+        reports: []
+      });
 
-      case ProfileActions.TRENDING_POST_SUCCESS:
-        return Object.assign({}, state, {
-          trending_post: payload['mediaResponse']
-        });
-    // }
+  case ProfileActions.TRENDING_POST_SUCCESS:
+    return Object.assign({}, state, {
+      trending_post: payload['mediaResponse']
+    });
 
-    // return Object.assign({}, state, {
+  case ProfileActions.POST_SPOT:
+    const trend_spot_inc = state.trending_post.find(t => t.id === payload);
+    const trend_spot_inc_index = state.trending_post.indexOf(trend_spot_inc);
+    const trend_spot_inc_count = trend_spot_inc ? trend_spot_inc.spotsCount + 1 : 0;
+    if (trend_spot_inc) {
+      return Object.assign({}, state, {
+        trending_post: [
+          ...state.trending_post.slice(0, trend_spot_inc_index),
+          Object.assign({}, trend_spot_inc , {
+            spotsCount: trend_spot_inc_count,
+            isSpotted: true
+          }),
+          ...state.trending_post.slice(trend_spot_inc_index + 1)
+        ],
+      });
+    }
+    return state;
 
-    // })
+  case ProfileActions.POST_UNSPOT:
+    const trend_spot_dec = state.trending_post.find(t => t.id === payload);
+    const trend_spot_dec_index = state.trending_post.indexOf(trend_spot_dec);
+    const trend_spot_dec_count = trend_spot_dec ? trend_spot_dec.spotsCount - 1 : 0;
+    if (trend_spot_dec) {
+      return Object.assign({}, state, {
+        trending_post: [
+          ...state.trending_post.slice(0, trend_spot_dec_index),
+          Object.assign({}, trend_spot_dec , {
+            spotsCount: trend_spot_dec_count,
+            isSpotted: false
+          }),
+          ...state.trending_post.slice(trend_spot_dec_index + 1)
+        ],
+      });
+    }
+    return state;
 
     default:
       return state;

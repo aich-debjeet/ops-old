@@ -10,14 +10,22 @@
           </span>
           <span class="c-text_lg color-grey-dark float_left">Invite gmail contacts</span>
         </a> -->
-        <form [formGroup]="inviteForm" (ngSubmit)="sendInvite(inviteForm.value)" #myform="ngForm">
+        <form [formGroup]="inviteForm" (ngSubmit)="sendInvite()" #myform="ngForm">
           <div class="o-invite__email">
             <div class="col-md-8 p-r-8">
               <div class="c-form__group c-form--lg">
-                <input class="c-form__input" formControlName="email" type="text">
+                <!-- <input class="c-form__input" formControlName="emailIds" type="text"> -->
+                <tag-input
+                  formControlName="emailIds"
+                  [addOnBlur]="'true'"
+                  [placeholder]="'Enter email ID\'s'"
+                  [secondaryPlaceholder]="'Enter email ID\'s'"
+                  [validators]="emailValidator"
+                  [errorMessages]="emailValidatorErrorMsgs"
+                  ></tag-input>
                 <span class="c-form__highlight"></span>
                 <span class="c-form__bar"></span>
-                <label>Enter email</label>
+                <!-- <label>Enter email</label> -->
                 <!-- <p class="error_alert" *ngIf="inviteForm.controls['email'].errors?.required && myform.submitted">Email is required</p>
                 <p class="error_alert" *ngIf="inviteForm.controls['email'].errors?.isInvalidEmail && myform.submitted">Email is not valid</p> -->
               </div>

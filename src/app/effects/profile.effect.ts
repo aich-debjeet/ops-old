@@ -877,6 +877,19 @@ export class ProfileEffect {
     }))
   );
 
+  /**
+   * Block users
+   */
+  @Effect()
+  blockUser$ = this.actions$
+    .ofType(ProfileActions.BLOCK_USER)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.blockUser(payload)
+      .map(res =>({type: ProfileActions.BLOCK_USER_SUCCESS, payload:res}))
+      .catch((res) => Observable.of({type: ProfileActions.BLOCK_USER_FAILED, payload: res})
+      )
+    );
+
   // @Effect()
   // UpdateblockedUsers$ = this.actions$
   // .ofType(ProfileActions.UNBLOCK_USER_SUCCESS)

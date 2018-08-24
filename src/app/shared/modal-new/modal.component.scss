@@ -29,16 +29,12 @@
     margin: 50px auto;
     display: table;
     margin-top: 0px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg){
+        width: 100%;
+    }
 }
 
 // Leave popup
-.modal-channel__create {
-    width: 446px;
-    margin: 50px auto;
-    display: table;
-    margin-top: 0px;
-}
-
 .modal-o-comodal2 {
     width: 564px;
     margin: 50px auto;
@@ -52,6 +48,11 @@
     margin: 100px auto;
     display: table;
     background: #fff;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 80%;
+        margin: 30px auto;
+        border-radius: 6px;
+    }
 }
 .modal-cus__sm{
     width: 675px;
@@ -123,7 +124,7 @@
 }
 
 .modal-term-policy{
-    width: 900px;
+    width: 100%;
     margin: 30px auto;
     position: relative;
 }
@@ -200,5 +201,8 @@
     margin: auto;
     .body {
         width: 100%;
+    }
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        width: 96%;
     }
 }

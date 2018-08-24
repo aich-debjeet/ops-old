@@ -147,7 +147,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
     this.store.dispatch({ type: EventActions.BANNER_SEARCH});
     this.dayStatus = '';
     this.carouselOne = {
-      grid: {xs: 3, sm: 3, md: 3, lg: 3, all: 0},
+      grid: {xs: 1, sm: 1, md: 2, lg: 2, all: 0},
       slide: 1,
       speed: 4000,
       interval: 400000,
