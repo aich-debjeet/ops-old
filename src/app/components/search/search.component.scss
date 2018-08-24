@@ -797,3 +797,27 @@ a {
   line-height: 20px;
   font-weight: 500;
 }
+
+.sm-p-8 {
+  padding: 8px;
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    padding: 8px 0;
+  }
+}
+
+.sm-row {
+  margin-left: -15px;
+  margin-right: -15px;
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.sm-p-0 {
+  padding: 0;
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
