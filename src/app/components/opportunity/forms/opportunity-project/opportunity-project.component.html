@@ -26,7 +26,8 @@
           </div>
           <div class="col-md-9 p-0">
               <div class="c-form__group m-t-0 c-form--sm">
-                  <textarea formControlName="projectDescription" class="c-textarea__block c-textarea--style" placeholder="Describe audition"></textarea>
+                  <!-- <textarea formControlName="projectDescription" class="c-textarea__block c-textarea--style" placeholder="Describe audition"></textarea> -->
+                  <quill-editor [style]="{height: '250px'}" class="quill-editor" [placeholder]="'Describe about opportunity'" formControlName="projectDescription"></quill-editor>
               </div>
               <p *ngIf="projectFrm.controls['projectDescription'].errors?.required && createProjFrm.submitted" class="c-form__validation error">Description is required!</p>
           </div>
