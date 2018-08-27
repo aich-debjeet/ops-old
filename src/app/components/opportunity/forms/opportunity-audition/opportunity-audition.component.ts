@@ -76,7 +76,7 @@ export class OpportunityAuditionComponent implements OnInit, OnDestroy {
       ],
       auditionCategory: [
         this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'category']) ? data['opportunityAudition']['category'] : '',
-        []
+        [Validators.required]
       ],
       auditionDate: [
         this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'auditionDate']) ? data['opportunityAudition']['auditionDate'] : '',
