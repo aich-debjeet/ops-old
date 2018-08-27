@@ -87,6 +87,8 @@
     position: relative;
     @include mq($from: $mobile_sm, $until: $tablet) {
         box-shadow: none;
+        margin-left: 0px;
+        margin-right: 0px;
     }
 }
 
@@ -1430,4 +1432,7 @@
         width: 100%;
         display: inline-block;
     }
+}
+.dropdown-menu{
+    min-width: 0px;
 }

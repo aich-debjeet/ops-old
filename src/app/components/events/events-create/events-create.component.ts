@@ -261,7 +261,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
       return null;
     } else {
       if(!moment(control.value, "DD-MM-YYYY", true).isValid()){
-        console.log('invalid');
+        // console.log('invalid');
         this.invalidDate = true;
       } else {
         this.invalidDate = false;
@@ -477,15 +477,24 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
    */
   submitForm(value) {
     if (this.eventForm.valid) {
+      let event_agenda = [];
       if (this.eventCoverImage === '') {
         this.imageUpload = true;
         return;
       }
-      console.log(value.event_agenda)
       if(value.event_agenda.length <= 0){
-        console.log(value.event_agenda)
         this.requiredAgenda = true;
         return;
+      } else {
+        for(let i in value.event_agenda) {
+          let agenda = {
+            description: '',
+            startTime: ''
+          }
+          agenda.description = value.event_agenda[i].description;
+          agenda.startTime = this.parseDate(value.event_agenda[i].startTime);
+          event_agenda.push(agenda);
+        }
       }
       this.imageUpload = false;
       const data = {
@@ -502,7 +511,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
             latitude: this.latitude.toString(),
             longitude: this.longitude.toString(),
           },
-          event_agenda: value.event_agenda,
+          event_agenda: event_agenda,
           extras: {
             coverImage: this.eventCoverImage,
             ticket: [{
@@ -538,6 +547,12 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
    */
   reverseDate(string) {
     return string.split('-').reverse().join('-');
+  }
+  parseDate(string){
+    let parsedDate;
+    const date = string.split(' ');
+    parsedDate = date[0].split('-').reverse().join('-') + 'T' + date[1];
+    return parsedDate;
   }
 
 }
