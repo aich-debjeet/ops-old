@@ -84,7 +84,7 @@ export class MediaViewComponent {
       if (state['media_edit_msg'] && this.editMsg) {
        this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
        this.toastr.success('Post Edited');
-       this.doClose(event);
+       this.doClose();
        this.editMsg = false;
      }
     });
@@ -94,17 +94,15 @@ export class MediaViewComponent {
       if (state['media_delete_msg'] && this.deleteMsg) {
         this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
         this.toastr.warning('Post Deleted');
-        this.doClose(event);
+        this.doClose();
         this.deleteMsg = false;
       }
     });
-
-
     this.loadMedia();
   }
 
   closeFunction() {
-    this.doClose(event);
+    this.doClose();
   }
 
   mediaNext(value) {
@@ -166,7 +164,7 @@ export class MediaViewComponent {
   /**
    * Close
    */
-  doClose(event) {
+  doClose() {
     // console.log('event', event)
     this.router.navigate(['.', { outlets: { media: null } }], {
       relativeTo: this.route.parent

@@ -152,8 +152,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       } else {
         new_portfolio_user_profile['extra']['isPublished'] = false;
       }
-      console.log('payload', payload);
-      console.log('new state', new_portfolio_user_profile['extra']['isPublished']);
+      // console.log('payload', payload);
+      // console.log('new state', new_portfolio_user_profile['extra']['isPublished']);
       return Object.assign({}, state, {
         portfolio_publish_action: true,
         portfolio_publish_action_success: false,
@@ -718,7 +718,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Get current user following channel
      */
     case ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL:
-    if (payload.scrollId === '') {
+    if (payload.scrollId === null) {
       return Object.assign({}, state, {
         user_following_channels_loading: true,
         user_following_channels_loaded: false,
@@ -791,7 +791,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.LOAD_PROFILE_UPDATE_SUCCESS:
-    console.log(payload)
+    // console.log(payload)
       return Object.assign({}, state, {
         profileUpdate: payload,
         profileUpdateSuccess: true
@@ -1277,7 +1277,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.BLOCK_USER_SUCCESS:
-    console.log(payload)
+    // console.log(payload)
       return Object.assign({}, state, {
         isBlocked: true,
       });
