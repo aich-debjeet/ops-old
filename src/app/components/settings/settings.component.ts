@@ -673,7 +673,7 @@ export class SettingsComponent implements OnInit {
   profileTypeToggle() {
     if (this.profileTypeActive === true) {
       this.profileTypeActive = false;
-    }else {
+    } else {
       this.profileTypeActive = true;
     }
   }
@@ -685,7 +685,7 @@ export class SettingsComponent implements OnInit {
     if (this.passwordActive === true) {
       this.passwordActive = false;
       this.rebuild();
-    }else {
+    } else {
       this.passwordActive = true;
     }
   }

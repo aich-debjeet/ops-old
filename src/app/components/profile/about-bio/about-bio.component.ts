@@ -304,7 +304,7 @@ export class AboutBioComponent implements OnInit, OnDestroy {
       };
       if (this.lang.length <= 0) {
         reqBody.extras.association.languages = [];
-      } else{
+      } else {
         const lang = this.lang.trim() === '' ? [] : this.lang.split(',').map(function(item) {
                 return item.trim();
               });
@@ -337,7 +337,7 @@ export class AboutBioComponent implements OnInit, OnDestroy {
       };
       if (this.ethnicity.length <= 0) {
         reqBody.physical.ethnicity ='';
-      } else{
+      } else {
          reqBody.physical.ethnicity = this.ethnicity.trim() || '';
       }
     }

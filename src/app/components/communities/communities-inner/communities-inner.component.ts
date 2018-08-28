@@ -160,7 +160,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
         communityId: this.id
       }
       this.store.dispatch({ type: CommunitiesActions.COMMUNITY_UNJOIN, payload: data });
-    }else {
+    } else {
       const data = {
         communityId: this.id
       }
@@ -195,7 +195,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
     if ( this.communityAdminForm.valid === true ) {
       this.CommuityLeaveModal.close();
       this.CommunityLeaveConfirmModal.open();
-    }else {
+    } else {
       this.toastr.warning('Please select admin');
     }
   }
@@ -298,7 +298,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
         this.CommunityUpdate.close();
         return
       });
-    }else {
+    } else {
       this.toastr.warning('Please fill all required fields');
     }
   }

@@ -251,7 +251,7 @@ export class ProfileSliderComponent implements OnInit {
       this.profileStore.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: handle });
       // this.isFollowing = false;
       // this.profileObject.follwerCount -= 1;
-    }else {
+    } else {
       this.profileStore.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: handle  });
       // this.isFollowing = true;
       // this.profileObject.follwerCount += 1;

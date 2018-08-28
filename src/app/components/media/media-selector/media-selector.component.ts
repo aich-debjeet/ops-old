@@ -285,7 +285,7 @@ export class MediaSelectorComponent implements OnInit {
       }
       if (fileType === 'video') {
         this.files[i]['preview'] = this.baseUrl + 'img/svg/video_thumb.png';
-      }else {
+      } else {
         this.files[i]['preview'] = this.baseUrl + 'img/svg/audio_thumb.png';
       }
       const createdate = new Date().getTime().toString();
@@ -316,7 +316,7 @@ export class MediaSelectorComponent implements OnInit {
       (event: UploadEvent) => {
         if (event.status === UploadStatus.Uploading) {
           this.updateProgress(files, event.percent)
-        }else {
+        } else {
           if (event.data) {
             // @TODO__URGENT Make list appendable for files
             const latestUploaded = event.data['SUCCESS'];
@@ -579,7 +579,7 @@ export class MediaSelectorComponent implements OnInit {
 
       this.saveChannel( channelObj );
 
-    }else {
+    } else {
       this.toastr.warning('Please fill all required fields');
     }
   }
@@ -674,7 +674,7 @@ export class MediaSelectorComponent implements OnInit {
       const selectedFile = this.editingFile.fileName;
       if (fileName === selectedFile) {
         return true;
-      }else {
+      } else {
         return false;
       }
     } else {

@@ -100,7 +100,7 @@ export class ProfileChannelComponent implements OnInit, OnDestroy {
         superType: 'channel',
         owner: this.handle,
       }
-    }else {
+    } else {
       body = {
         limit: 30,
         superType: 'channel',

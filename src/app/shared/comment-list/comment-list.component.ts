@@ -45,7 +45,7 @@ export class CommentListComponent implements OnInit {
     if (this.commentData.isOwner) {
       this.router.navigate([{ outlets: { media: null } }])
       .then(() => this.router.navigate(['/profile/user/']));
-    }else {
+    } else {
       this.router.navigate([{ outlets: { media: null } }])
       .then(() => this.router.navigate(['/profile/u/' + this.commentData.ownerUserName]));
    }

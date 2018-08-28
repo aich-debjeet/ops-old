@@ -278,7 +278,7 @@ export class ProfileUpdateValidator {
                         resolve(null);
                         });
                 }, 1000);
-            }else {
+            } else {
                 resolve(null);
             }
         });
@@ -300,7 +300,7 @@ export class ProfileUpdateValidator {
                             });
                     }, 1000);
                 }
-            }else {
+            } else {
                 resolve(null);
             }
         });
@@ -320,7 +320,7 @@ export class ProfileUpdateValidator {
                         resolve(null);
                         });
                 }, 1000);
-            }else {
+            } else {
                 resolve(null);
             }
         });

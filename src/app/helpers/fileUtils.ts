@@ -14,7 +14,7 @@ export default class FilesHelper {
     const res = _find(group, function(o) { return o === exten; });
     if (res) {
       return true;
-    }else {
+    } else {
       return false
     }
   }
@@ -48,7 +48,7 @@ export default class FilesHelper {
       }
 
       // Chekc if it
-    }else {
+    } else {
       return false;
     }
   }
