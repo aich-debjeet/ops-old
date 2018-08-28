@@ -9,6 +9,7 @@ import { GeneralUtilities } from '../../../../helpers/general.utils';
 import { IDatePickerConfig } from 'ng2-date-picker';
 import { ToastrService } from 'ngx-toastr';
 import { FormValidation } from './../../../../helpers/form.validator';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-opportunity-audition',
@@ -41,6 +42,7 @@ export class OpportunityAuditionComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
+    private location: Location,
     private toastr: ToastrService,
     private scrollHelper: ScrollHelper,
     private generalUtils: GeneralUtilities,
@@ -223,6 +225,10 @@ export class OpportunityAuditionComponent implements OnInit, OnDestroy {
     }
     this.oppSubmitting = true;
     this.formSubmitted.emit(reqBody);
+  }
+
+  cancelUpdate() {
+    this.location.back();
   }
 
 }
