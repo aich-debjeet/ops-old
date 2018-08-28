@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
@@ -12,6 +11,18 @@ import { OpportunityService } from '../services/opportunity.service';
 
 @Injectable()
 export class OpportunityEffect {
+
+  /**
+   * Get similar opportunities
+   */
+  @Effect()
+  searchSimilarOpps$ = this.actions$
+    .ofType(OpportunityActions.GET_SIMILAR_OPPORTUNITIES)
+    .map(toPayload)
+    .switchMap((payload) => this.opportunityService.searchOpportunities(payload)
+      .map((res) => ({ type: OpportunityActions.GET_SIMILAR_OPPORTUNITIES_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: OpportunityActions.GET_SIMILAR_OPPORTUNITIES_FAILED, payload: res }))
+    );
 
   /**
    * remove opportunity application

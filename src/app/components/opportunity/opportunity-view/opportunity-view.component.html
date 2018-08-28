@@ -679,50 +679,14 @@
       </div>
       <div *ngIf="!isOwnOpportunity" class="o-oppo-post-right-block m-b-16 hidden-xs">
         <h6 class="c-text_lg m-b-8">Similar Opportunities</h6>
-        <div class="o-similar-oppo-card">
-          <div class="o-oppo-post-right__title">
-            <span class="c-text_sm text_uppercase color-grey-dark">Opportunities</span>
-            <span class="c-text_sm float_right color-grey-dark">2 hours ago</span>
-            <h6 class="c-text_lg o-oppo-post__oppo-title m-t-b-8">Mean stack developer</h6>
+        <div *ngIf="opportunityState?.getSimilarOppsLoading === true">
+          <div class="sticky">
+            <div class="loader">Loading...</div>
           </div>
-          <div class="c-card__opportunity__details">
-            <div class="col-md-5 p-0">
-              <p class="c-text_sm color-grey text_uppercase ltr-space">Experience:</p>
-              <p class="c-text_lg">2-5 years</p>
-            </div>
-            <div class="col-md-7 p-0">
-              <p class="c-text_sm color-grey text_uppercase ltr-space">Salary:</p>
-              <p class="c-text_lg">500K - 800K</p>
-            </div>
-          </div>
-          <div class="c-card__location m-0 p-b-16 with_border_bottom">
-            <img src="https://ops-v2.netlify.com/assets/svg/ico_location2.svg">
-            <p class="c-text_sm color-grey-dark o-similar-oppo__location">Bangalore, India</p>
-          </div>
-        </div><!-- similar oppo card end -->
-
-        <div class="o-similar-oppo-card m-t-16 hidden-xs">
-          <div class="o-oppo-post-right__title">
-            <span class="c-text_sm text_uppercase color-grey-dark">Opportunities</span>
-            <span class="c-text_sm float_right color-grey-dark">2 hours ago</span>
-            <h6 class="c-text_lg o-oppo-post__oppo-title m-t-b-8">Mean stack developer</h6>
-          </div>
-          <div class="c-card__opportunity__details">
-            <div class="col-md-5 p-0">
-              <p class="c-text_sm color-grey text_uppercase ltr-space">Experience:</p>
-              <p class="c-text_lg">2-5 years</p>
-            </div>
-            <div class="col-md-7 p-0">
-              <p class="c-text_sm color-grey text_uppercase ltr-space">Salary:</p>
-              <p class="c-text_lg">500K - 800K</p>
-            </div>
-          </div>
-          <div class="c-card__location m-0 p-b-16 with_border_bottom">
-            <img src="https://ops-v2.netlify.com/assets/svg/ico_location2.svg">
-            <p class="c-text_sm color-grey-dark o-similar-oppo__location">Bangalore, India</p>
-          </div>
-        </div><!-- similar oppo card end -->
-
+        </div>
+        <ng-container *ngIf="opportunityState?.getSimilarOppsLoading === false && opportunityState?.getSimilarOppsResult?.length > 0">
+          <app-opporunity-search-card *ngFor="let opportunity of opportunityState?.getSimilarOppsResult.slice(0, 2)" [opportunityDetails]="opportunity"></app-opporunity-search-card>
+        </ng-container>
       </div>
       <div *ngIf="isOwnOpportunity" class="o-applicant-list-container">
         <div class="o-applicant-list__heading">
