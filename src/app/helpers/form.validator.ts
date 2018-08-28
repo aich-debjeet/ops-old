@@ -399,6 +399,17 @@ export class EmailValidator {
 @Injectable()
 export class FormValidation {
 
+    // old date validation
+    static validateOldDate(AC: AbstractControl) {
+        const date = AC.value;
+        const currentDate = moment().format('YYYYMMDD');
+        const chooseDate = moment(date).format('YYYYMMDD');
+        if (currentDate > chooseDate) {
+            return { oldDate: true };
+        }
+        return null;
+    }
+
     static validateAge(control: AbstractControl) {
         const dob = control.value.formatted;
         if (control.value.formatted) {
