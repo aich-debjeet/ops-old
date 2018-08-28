@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { ISubscription } from 'rxjs/Subscription';
 import { GeneralUtilities } from '../../../../helpers/general.utils';
 import { ToastrService } from 'ngx-toastr';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-opportunity-project',
@@ -32,6 +33,7 @@ export class OpportunityProjectComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
+    private location: Location,
     private toastr: ToastrService,
     private scrollHelper: ScrollHelper,
     private generalUtils: GeneralUtilities,
@@ -95,6 +97,10 @@ export class OpportunityProjectComponent implements OnInit, OnDestroy {
     }
     this.oppSubmitting = true;
     this.formSubmitted.emit(reqBody);
+  }
+
+  cancelUpdate() {
+    this.location.back();
   }
 
 }
