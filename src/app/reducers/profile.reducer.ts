@@ -756,7 +756,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
           other_channels_loading: true,
           other_channels_loaded: false,
         });
-      } elsee {
+      } else {
         return Object.assign({}, state, {
           other_channels_loading: true,
           other_channels_loaded: false,
@@ -1076,7 +1076,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
           spotfeed_request_params: payload,
           spotfeed_detail: []
         });
-      } elsee {
+      } else {
         return Object.assign({}, state, {
           success: true,
           spotfeed_loading: false,
@@ -1092,7 +1092,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
           spotfeed_loading: false,
           spotfeed_detail: new_spotfeed
         });
-      } elsee {
+      } else {
         // appending the new spotfeeds and profile to the existing records in the state
         state.spotfeed_detail.spotfeedMedia = [...state.spotfeed_detail.spotfeedMedia, ...new_spotfeed.spotfeedMedia];
         state.spotfeed_detail.spotfeedProfiles = [...state.spotfeed_detail.spotfeedProfiles, ...new_spotfeed.spotfeedProfiles];
