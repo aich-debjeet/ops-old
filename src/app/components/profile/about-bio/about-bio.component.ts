@@ -268,13 +268,13 @@ export class AboutBioComponent implements OnInit, OnDestroy {
         reqBody.physical.height = 0.0;
       } else {
         if (isNaN(this.height)) {
-          this.validHeight =true;
+          this.validHeight = true;
           return;
         } else {
           this.validHeight = false;
           reqBody.physical.height = parseFloat(this.height);
         }
-      }      
+      }
     }
     if (fieldName === 'weight') {
       reqBody = {
@@ -283,10 +283,10 @@ export class AboutBioComponent implements OnInit, OnDestroy {
         }
       };
       if (this.weight.length <= 0) {
-        reqBody.physical.weight = 0.0;        
+        reqBody.physical.weight = 0.0;
       } else {
         if (isNaN(this.weight)) {
-          this.validWeight =true;
+          this.validWeight = true;
           return false;
         } else {
           this.validWeight = false;
@@ -306,8 +306,8 @@ export class AboutBioComponent implements OnInit, OnDestroy {
         reqBody.extras.association.languages = [];
       } else {
         const lang = this.lang.trim() === '' ? [] : this.lang.split(',').map(function(item) {
-                return item.trim();
-              });
+          return item.trim();
+        });
         reqBody.extras.association.languages = lang;
       }
     }
@@ -321,11 +321,11 @@ export class AboutBioComponent implements OnInit, OnDestroy {
           postalCode: '',
         }
       };
-      reqBody.address.city = this.city?this.city.charAt(0).toUpperCase().trim() + this.city.slice(1).trim() : '';
-      reqBody.address.country = this.country?this.country.trim(): '';
-      reqBody.address.line1 = this.addressOne?this.addressOne.trim():'';
+      reqBody.address.city = this.city ? this.city.charAt(0).toUpperCase().trim() + this.city.slice(1).trim() : '';
+      reqBody.address.country = this.country ? this.country.trim() : '';
+      reqBody.address.line1 = this.addressOne ? this.addressOne.trim() : '';
       // reqBody.address.line2 = this.addressTwo.trim() || '';
-      reqBody.address.postalCode = this.pinCode?this.pinCode.trim():'';
+      reqBody.address.postalCode = this.pinCode ? this.pinCode.trim() : '';
 
     }
 
@@ -336,7 +336,7 @@ export class AboutBioComponent implements OnInit, OnDestroy {
         }
       };
       if (this.ethnicity.length <= 0) {
-        reqBody.physical.ethnicity ='';
+        reqBody.physical.ethnicity = '';
       } else {
          reqBody.physical.ethnicity = this.ethnicity.trim() || '';
       }
