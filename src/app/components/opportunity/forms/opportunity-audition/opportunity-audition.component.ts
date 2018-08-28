@@ -8,6 +8,7 @@ import { ISubscription } from 'rxjs/Subscription';
 import { GeneralUtilities } from '../../../../helpers/general.utils';
 import { IDatePickerConfig } from 'ng2-date-picker';
 import { ToastrService } from 'ngx-toastr';
+import { FormValidation } from './../../../../helpers/form.validator';
 
 @Component({
   selector: 'app-opportunity-audition',
@@ -82,7 +83,7 @@ export class OpportunityAuditionComponent implements OnInit, OnDestroy {
       ],
       auditionDate: [
         this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'auditionDate']) ? data['opportunityAudition']['auditionDate'] : '',
-        [Validators.required]
+        [Validators.required, FormValidation.validateOldDate]
       ],
       auditionLocation: [
         this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'location', 'location']) ? data['opportunityAudition']['location']['location'] : '',
