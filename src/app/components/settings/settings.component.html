@@ -6,7 +6,7 @@
                 <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 o-settings-leftbar ">
                     <div class="o-settings_head">
                         <div class="o-settings_ico">
-                            <img src="{{ imageBaseLink }}img/svg/ico_settings.svg" class="msg_setting_icon">
+                            <img [src]="imageBaseLink + 'img/svg/ico_settings.svg'" class="msg_setting_icon">
                         </div>
                         <div class="settings_head_txt">
                             Settings
@@ -16,17 +16,17 @@
                     <ul class=" o-settings-tabs">
                         <li class=" o-settings-tab_list active">
                             <a class="o-settings-tab_links " data-toggle="tab" (click)="displayView('General')" [ngClass]="{'active': selectedView == 'General'}">
-                                General <span class="arrow_ico"><img src="{{ imageBaseLink }}img/svg/ico-arrow-down.svg" alt=""></span>
+                                General <span class="arrow_ico"><img [src]="imageBaseLink + 'img/svg/ico-arrow-down.svg'" alt=""></span>
                             </a>
                         </li>
                         <li class=" o-settings-tab_list">
                             <a class="o-settings-tab_links " data-toggle="tab" (click)="displayView('Security')" [ngClass]="{'active': selectedView == 'Security'}">
-                                Security & Privacy <span class="arrow_ico"><img src="{{ imageBaseLink }}img/svg/ico-arrow-down.svg" alt=""></span>
+                                Security & Privacy <span class="arrow_ico"><img [src]="imageBaseLink + 'img/svg/ico-arrow-down.svg'" alt=""></span>
                             </a>
                         </li>
                         <li class="o-settings-tab_list">
                             <a class="o-settings-tab_links" data-toggle="tab" (click)="displayView('Notification')" [ngClass]="{'active': selectedView == 'Notification'}">
-                                Notification<span class="arrow_ico"><img src="{{ imageBaseLink }}img/svg/ico-arrow-down.svg" alt=""></span>
+                                Notification<span class="arrow_ico"><img [src]="imageBaseLink + 'img/svg/ico-arrow-down.svg'" alt=""></span>
                             </a>
                         </li>
                         <!-- <li class="o-settings-tab_list">
@@ -53,7 +53,7 @@
                                             <span class="c-text_md color-grey-dark">{{userProfile?.name?.firstName}}</span>
                                             <span class="o-set-list__edit-btn">
                                                 <a class="o-set-list-edit__link c-text_md" (click)="editField('name')">
-                                                    <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span>
+                                                    <span class="o-set-list-edit__icon"><img [src]="imageBaseLink + 'img/svg/editpencil.svg'" alt=""></span>
                                                         Edit
                                                 </a>
                                             </span>
@@ -84,7 +84,7 @@
                                             <span class="c-text_md color-grey-dark">{{ userProfile?.other?.dateOfBirth | date:'longDate'}}</span>
                                             <span class="o-set-list__edit-btn">
                                             <a class="o-set-list-edit__link c-text_md" (click)="editField('dob')">
-                                                <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span>
+                                                <span class="o-set-list-edit__icon"><img [src]="imageBaseLink + 'img/svg/editpencil.svg'" alt=""></span>
                                                 Edit
                                             </a>
                                             </span>
@@ -102,7 +102,7 @@
                                                 <div class="dropdown margin_l_16">   
                                                     <span class="com-head" data-toggle="dropdown" aria-expanded="true">
                                                         <div class="o-action__ico">
-                                                            <img src="{{ imageBaseLink }}img/svg/ico-public.svg" alt="">
+                                                            <img [src]="imageBaseLink + 'img/svg/ico-public.svg'" alt="">
                                                         </div>
                                                         <div class="o-action__ico-arrow">
                                                             <svg xmlns="http://www.w3.set/2000/svg" xmlns:xlink="http://www.w3.set/1999/xlink" width="10px" height="6px" viewBox="0 0 16 10" version="1.1">
@@ -116,13 +116,13 @@
                                                     <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
                                                         <li>
                                                             <a href="javascript:void(0)" class="c-opsdropdown__list">
-                                                                <img src="{{ imageBaseLink }}img/svg/ico-public.svg" class="c-opsdropdown--icons">
+                                                                <img [src]="imageBaseLink + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
                                                                 <span class="c-opsdropdown--text">Public</span>
                                                             </a>
                                                         </li>
                                                         <li>
                                                             <a href="javascript:void(0)" class="c-opsdropdown__list">
-                                                                <img src="{{ imageBaseLink }}img/svg/Ico-private.svg" class="c-opsdropdown--icons">
+                                                                <img [src]="imageBaseLink + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
                                                                 <span class="c-opsdropdown--text">Private</span>
                                                             </a>
                                                         </li>
@@ -151,7 +151,7 @@
                                             <span class="c-text_md color-grey-dark" *ngIf="userProfile?.gender === 'O' && editingField != 'gender'">Others</span>
                                             <span class="o-set-list__edit-btn">
                                                 <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="editField('gender')">
-                                                    <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span>
+                                                    <span class="o-set-list-edit__icon"><img [src]="imageBaseLink + 'img/svg/editpencil.svg'" alt=""></span>
                                                     Edit
                                                 </a>
                                             </span>
@@ -194,7 +194,7 @@
                                             <span class="c-text_md color-grey-dark">{{ userProfile?.username }}</span>
                                             <span class="o-set-list__edit-btn">
                                                 <a class="o-set-list-edit__link c-text_md" (click)="editField('username')">
-                                                    <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span>
+                                                    <span class="o-set-list-edit__icon"><img [src]="imageBaseLink + 'img/svg/editpencil.svg'" alt=""></span>
                                                     Edit
                                                 </a>
                                             </span>
@@ -269,7 +269,7 @@
                                             <span class="c-text_md color-grey-dark">{{ userProfile?.contact?.contactNumber }}</span>
                                             <span class="o-set-list__edit-btn">
                                                 <a class="o-set-list-edit__link c-text_md" (click)="editField('phone')">
-                                                    <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span>
+                                                    <span class="o-set-list-edit__icon"><img [src]="imageBaseLink + 'img/svg/editpencil.svg'" alt=""></span>
                                                     Edit
                                                 </a>
                                             </span>
@@ -339,7 +339,7 @@
                                             <span class="c-h3 line-height15 color-grey-dark">………………</span>
                                             <span class="o-set-list__edit-btn">
                                                 <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="passwordToggle()" >
-                                                    <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span> Change
+                                                    <span class="o-set-list-edit__icon"><img [src]="imageBaseLink + 'img/svg/editpencil.svg'" alt=""></span> Change
                                             </a>
                                             </span>
                                         </div>
