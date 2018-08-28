@@ -11,6 +11,28 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
 
   switch (type) {
 
+    /* search opportunities */
+    case OpportunityActions.GET_SIMILAR_OPPORTUNITIES:
+      return Object.assign({}, state, {
+        getSimilarOppsLoading: true,
+        getSimilarOppsSuccess: false,
+        getSimilarOppsParams: payload
+      });
+
+    case OpportunityActions.GET_SIMILAR_OPPORTUNITIES_SUCCESS:
+      return Object.assign({}, state, {
+        getSimilarOppsLoading: false,
+        getSimilarOppsSuccess: true,
+        getSimilarOppsResult: payload['SUCCESS']['opportunityResponse']
+      });
+
+    case OpportunityActions.GET_SIMILAR_OPPORTUNITIES_FAILED:
+      return Object.assign({}, state, {
+        getSimilarOppsParams: false,
+        getSimilarOppsSuccess: false
+      });
+    /* search opportunities */
+
     /* remove application by id */
     case OpportunityActions.CANCEL_APPLICATION:
       return Object.assign({}, state, {
