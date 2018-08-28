@@ -10,6 +10,7 @@ import { OpportunityActions } from '../../../../actions/opportunity.action';
 import { OpportunityModel } from '../../../../models/opportunity.model';
 import { environment } from 'environments/environment';
 import { pull as _pull } from 'lodash';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-opportunity-freelance',
@@ -48,6 +49,7 @@ export class OpportunityFreelanceComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
+    private toastr: ToastrService,
     private scrollHelper: ScrollHelper,
     private generalUtils: GeneralUtilities,
     private loginStore: Store<any>,
@@ -109,6 +111,7 @@ export class OpportunityFreelanceComponent implements OnInit, OnDestroy {
   submitFreelanceForm(formData: any) {
     // freelance form validation
     if (!this.freelanceFrm.valid) {
+      this.toastr.warning('Please check for errors in the form.');
       this.scrollHelper.scrollToFirst('error');
       return;
     }

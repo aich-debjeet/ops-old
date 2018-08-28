@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { ISubscription } from 'rxjs/Subscription';
 import { GeneralUtilities } from '../../../../helpers/general.utils';
 import { IDatePickerConfig } from 'ng2-date-picker';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-opportunity-audition',
@@ -39,6 +40,7 @@ export class OpportunityAuditionComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
+    private toastr: ToastrService,
     private scrollHelper: ScrollHelper,
     private generalUtils: GeneralUtilities,
     private loginStore: Store<any>
@@ -187,6 +189,7 @@ export class OpportunityAuditionComponent implements OnInit, OnDestroy {
   submitAuditionForm(formData: any) {
     // audition form validation
     if (!this.auditionFrm.valid) {
+      this.toastr.warning('Please check for errors in the form.');
       this.scrollHelper.scrollToFirst('error');
       return;
     }
