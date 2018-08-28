@@ -175,33 +175,33 @@ export class SettingsComponent implements OnInit {
         // }
         
       }
-      if(state.user_details){
-        if(state.details_loaded === true){
-          if(state['user_details']['name']['firstName'].length > 0){
+      if (state.user_details) {
+        if (state.details_loaded === true) {
+          if (state['user_details']['name']['firstName'].length > 0) {
             this.name = state['user_details']['name']['firstName'];
             // console.log(this.name)
           }
-          if(state['user_details']['gender'].length > 0){
+          if (state['user_details']['gender'].length > 0) {
             this.gender = state['user_details']['gender'];
             // console.log(this.gender)
           }
-          if(state['user_details']['other']['dateOfBirth'].length > 0){
+          if (state['user_details']['other']['dateOfBirth'].length > 0) {
             this.birth = state['user_details']['other']['dateOfBirth'];
             // console.log(this.birth)
           }
-          if(state['user_details']['email'].length > 0){
+          if (state['user_details']['email'].length > 0) {
             this.email = state['user_details']['email'];
             // console.log(this.email)
           }
-          if(state['user_details']['contact']['contactNumber'].length > 0){
+          if (state['user_details']['contact']['contactNumber'].length > 0) {
             this.phone = state['user_details']['contact']['contactNumber'];
             // console.log(this.phone)
           }
-          if(state['user_details']['username'].length > 0){
+          if (state['user_details']['username'].length > 0) {
             this.userName = state['user_details']['username'];
             // console.log(this.userName)
           }
-          if(state['user_details']['contact']['shortCode'].length > 0){
+          if (state['user_details']['contact']['shortCode'].length > 0) {
             this.shortCode = state['user_details']['contact']['shortCode'];
             // console.log(this.shortCode)
           }
@@ -313,8 +313,8 @@ export class SettingsComponent implements OnInit {
   // }
 
   updateContactNumber() {
-    if(this.phone.length < 4){
-      if(this.phone.length <= 0){
+    if (this.phone.length < 4) {
+      if (this.phone.length <= 0) {
         this.phNumbrReq = true;
         this.phMinLent = false;
       } else {
@@ -475,10 +475,10 @@ export class SettingsComponent implements OnInit {
   }
 
   editField(fieldName: string) {
-    if(fieldName === 'dob'){
+    if (fieldName === 'dob') {
       this.dob = this.removeUtc(this.birth)
     }
-    if(fieldName === 'phone'){
+    if (fieldName === 'phone') {
       this.editingField = fieldName;
       setTimeout(() => {
         this.countrySelectorSet.initCountrySelector('country-options-set');
@@ -582,7 +582,7 @@ export class SettingsComponent implements OnInit {
       this.isOverAge = false;
     }
     if (fieldName === 'username') {
-      if(this.specialChars || this.isRequired || this.capitalLetters || this.whitespace || this.invalidLength){
+      if (this.specialChars || this.isRequired || this.capitalLetters || this.whitespace || this.invalidLength) {
         return;
       } else {
         reqBody = {
@@ -612,14 +612,14 @@ export class SettingsComponent implements OnInit {
     // user user exists
     userExistCheck(value) {
       console.log('username validation',value.length, value)
-      if(value.length <= 0){
+      if (value.length <= 0) {
         console.log('username validation',value.length)
         this.isRequired = true;
         this.validSuccess = false;
       } else {this.isRequired = false;
         this.validSuccess = true;}
 
-      if(value.indexOf(' ') >= 0){
+      if (value.indexOf(' ') >= 0) {
         this.whitespace = true;
         this.validSuccess = false;
       } else {this.whitespace = false;
@@ -650,7 +650,7 @@ export class SettingsComponent implements OnInit {
           this.petTag.user_unique = false;
         }
       }
-      if((value.length >= 4 && value.length <= 15) && this.validSuccess === true){
+      if ((value.length >= 4 && value.length <= 15) && this.validSuccess === true) {
         this.userName = value;
       }
     }

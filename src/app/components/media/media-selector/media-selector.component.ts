@@ -843,12 +843,12 @@ export class MediaSelectorComponent implements OnInit {
    * @param file
    */
   removeFile(file: any) {
-    this.cards = _remove(this.cards, function(n){
+    this.cards = _remove(this.cards, function(n) {
       return n.createDate !== file.createDate;
     });
 
 
-    this.uploadedFiles = _remove(this.uploadedFiles, function(n){
+    this.uploadedFiles = _remove(this.uploadedFiles, function(n) {
       return n.repoPath !== file.repoPath;
     });
   }

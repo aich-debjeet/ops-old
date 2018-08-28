@@ -22,7 +22,7 @@ export class EventService {
      * Search Banner
      */
 
-    searchBanner(){
+    searchBanner() {
       return this.api.get('/portal/event/get/eventsBanner');
     }
 
@@ -37,7 +37,7 @@ export class EventService {
      * list of attendee
      */
 
-    listOfAttendee(id: any){
+    listOfAttendee(id: any) {
       return this.api.get('/portal/eventAttendee/' + id + '/0/10');
     }
 
@@ -195,7 +195,7 @@ export class EventService {
       return this.api.post( '/portal/application/postApplication', value);
   }
 
-  getReports(type: string){
+  getReports(type: string) {
     return this.api.get('/portal/report/questions/getByType/' + type)
   }
 }

@@ -144,7 +144,7 @@ export class ProfileSliderComponent implements OnInit {
             this.profileObject = this.loadProfile( state, 'other' );
             this.otherProfileHandle = this.profileObject.userDetails.handle;
             this.otherProfileName = this.profileObject.name;
-            if(this.profileObject.extra){
+            if (this.profileObject.extra) {
               this.isBlocked = this.profileObject.extra.isBlocked;
             }
           }
@@ -291,7 +291,7 @@ export class ProfileSliderComponent implements OnInit {
     //   });
   }
 
-  closeReport(){
+  closeReport() {
     // console.log('comming')
     this.modalService.close('reportPopUp');
   }
@@ -622,7 +622,7 @@ export class ProfileSliderComponent implements OnInit {
     //   alert('Invalid!');
     // }
     // return false;
-    // if(this.networkForm.valid) {
+    // if (this.networkForm.valid) {
       if (value.request === '') {
         this.error = true;
       }
@@ -675,7 +675,7 @@ export class ProfileSliderComponent implements OnInit {
   }
  }
 
- subResponse(handle: any){
+ subResponse(handle: any) {
    const data = {
      blockedHandle: handle
     }
@@ -689,10 +689,10 @@ export class ProfileSliderComponent implements OnInit {
      }
    });
  }
- updateState(){
+ updateState() {
    this.blockSuccessful.close();
  }
- unBlockUser(handle: any){
+ unBlockUser(handle: any) {
   const data = {
     blockedHandle: handle
    }

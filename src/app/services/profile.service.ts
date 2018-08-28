@@ -135,7 +135,7 @@ export class ProfileService {
   /**
    * current logged in user details
    */
-  getLoggedInUserDetails(){
+  getLoggedInUserDetails() {
     return this.api.get('/portal/auth/user/loggedUser');
   }
   /**
@@ -555,7 +555,7 @@ export class ProfileService {
   /**
    * blocj user
    */
-  blockUser(body: any){
+  blockUser(body: any) {
     return this.api.put('/portal/network/block/block', body)
   }
 
@@ -573,7 +573,7 @@ export class ProfileService {
   /**
    * get network send request list
    */
-  getNetworkRequestList(handle: string){
+  getNetworkRequestList(handle: string) {
     // console.log('handle', handle)
     return this.api.get('/portal/network/sent_requests/'+ handle + '/0/10')  
   }
@@ -629,7 +629,7 @@ export class ProfileService {
   /**
    * get reports
    */
-  getReports(type: string){
+  getReports(type: string) {
     return this.api.get('/portal/report/questions/getByType/' + type)
   }
 
