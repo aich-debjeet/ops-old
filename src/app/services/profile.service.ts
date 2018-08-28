@@ -645,6 +645,6 @@ export class ProfileService {
     const body = {
       limit: 2
     }
-    return this.api.post(`/portal/cdn/media/search`, body);
+    return this.api.post(`/portal/cdn/media/trendingpost`, body);
   }
 }
