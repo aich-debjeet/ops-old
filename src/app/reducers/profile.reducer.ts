@@ -756,7 +756,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
           other_channels_loading: true,
           other_channels_loaded: false,
         });
-      }else {
+      } else {
         return Object.assign({}, state, {
           other_channels_loading: true,
           other_channels_loaded: false,

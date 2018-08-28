@@ -77,7 +77,7 @@ export class OpportunityService {
 /**
  * opportunity report
  */
-  getReports(type: string){
+  getReports(type: string) {
     return this.api.get('/portal/report/questions/getByType/' + type)
   }
 

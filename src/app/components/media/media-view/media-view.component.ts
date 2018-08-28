@@ -151,7 +151,7 @@ export class MediaViewComponent {
     if (this.spot === true) {
       this.spotCount++;
       this.store.dispatch({ type: MediaActions.MEDIA_SPOT, payload: data });
-    }else {
+    } else {
       this.spotCount--;
       this.store.dispatch({ type: MediaActions.MEDIA_UNSPOT, payload: data });
     }

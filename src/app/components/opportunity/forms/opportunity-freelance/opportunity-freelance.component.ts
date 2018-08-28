@@ -11,6 +11,7 @@ import { OpportunityModel } from '../../../../models/opportunity.model';
 import { environment } from 'environments/environment';
 import { pull as _pull } from 'lodash';
 import { ToastrService } from 'ngx-toastr';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-opportunity-freelance',
@@ -49,6 +50,7 @@ export class OpportunityFreelanceComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
+    private location: Location,
     private toastr: ToastrService,
     private scrollHelper: ScrollHelper,
     private generalUtils: GeneralUtilities,
@@ -160,6 +162,10 @@ export class OpportunityFreelanceComponent implements OnInit, OnDestroy {
    */
   removeAttachedMedia(fileName: string) {
     _pull(this.freelanceAttachments, fileName);
+  }
+
+  cancelUpdate() {
+    this.location.back();
   }
 
 }

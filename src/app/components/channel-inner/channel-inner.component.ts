@@ -140,7 +140,7 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
       this.following (type = false, channelId)
       this.isfollowing = false;
       return
-    }else {
+    } else {
       this.following (type = true, channelId);
       this.isfollowing = true;
       return

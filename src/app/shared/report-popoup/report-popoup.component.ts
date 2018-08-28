@@ -59,9 +59,9 @@ export class ReportPopoupComponent implements OnInit {
     this.profileThankYou = false;
     this.onclose.emit();
   }
-  onSelectionChange(que){
+  onSelectionChange(que) {
     // console.log(que)
-    if(que === 'Other issues'){
+    if (que === 'Other issues') {
       this.describe = true;
     } else {
       this.describe = false;

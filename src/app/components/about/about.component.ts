@@ -66,7 +66,7 @@ export class AboutComponent implements OnInit {
         this.buildForm();
         return
       });
-    }else {
+    } else {
       this.toastr.warning('Please fill all required fields');
     }
   }

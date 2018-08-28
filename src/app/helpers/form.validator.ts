@@ -180,7 +180,7 @@ export class DatabaseValidator {
              if (this.fromDate > toDate) {
                 resolve({ 'isvalid': true });
              }
-             if(moment(control.value).format('YYYYMMDD') > moment(today).format('YYYYMMDD')){
+             if (moment(control.value).format('YYYYMMDD') > moment(today).format('YYYYMMDD')) {
                 //  console.log('here')
                 resolve({ 'invalidWorkDate': true });
              }
@@ -231,7 +231,7 @@ export class DatabaseValidator {
              this.fromDate = new Date(year, month, day);
             //  console.log(control.value)
             //  console.log(moment(control.value).format('YYYYMMDD'))
-             if(moment(control.value).format('YYYYMMDD') > moment(today).format('YYYYMMDD')){
+             if (moment(control.value).format('YYYYMMDD') > moment(today).format('YYYYMMDD')) {
                 //   console.log('here')
                 resolve({ 'invalidWorkDate': true });
              }
@@ -278,7 +278,7 @@ export class ProfileUpdateValidator {
                         resolve(null);
                         });
                 }, 1000);
-            }else {
+            } else {
                 resolve(null);
             }
         });
@@ -300,7 +300,7 @@ export class ProfileUpdateValidator {
                             });
                     }, 1000);
                 }
-            }else {
+            } else {
                 resolve(null);
             }
         });
@@ -320,7 +320,7 @@ export class ProfileUpdateValidator {
                         resolve(null);
                         });
                 }, 1000);
-            }else {
+            } else {
                 resolve(null);
             }
         });
