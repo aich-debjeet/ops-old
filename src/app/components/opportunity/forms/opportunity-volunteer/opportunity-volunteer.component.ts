@@ -6,6 +6,7 @@ import { ProfileModal } from '../../../../models/profile.model';
 import { Observable } from 'rxjs/Observable';
 import { ISubscription } from 'rxjs/Subscription';
 import { GeneralUtilities } from '../../../../helpers/general.utils';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-opportunity-volunteer',
@@ -31,6 +32,7 @@ export class OpportunityVolunteerComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
+    private toastr: ToastrService,
     private scrollHelper: ScrollHelper,
     private generalUtils: GeneralUtilities,
     private loginStore: Store<any>
@@ -74,6 +76,7 @@ export class OpportunityVolunteerComponent implements OnInit, OnDestroy {
   submitVolunteerForm(formData: any) {
     // volunteer form validation
     if (!this.volunteerFrm.valid) {
+      this.toastr.warning('Please check for errors in the form.');
       this.scrollHelper.scrollToFirst('error');
       return;
     }

@@ -10,6 +10,7 @@ import { OpportunityActions } from '../../../../actions/opportunity.action';
 import { OpportunityModel } from '../../../../models/opportunity.model';
 import { environment } from 'environments/environment';
 import { pull as _pull } from 'lodash';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-opportunity-internship',
@@ -48,6 +49,7 @@ export class OpportunityInternshipComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
+    private toastr: ToastrService,
     private scrollHelper: ScrollHelper,
     private generalUtils: GeneralUtilities,
     private loginStore: Store<any>,
@@ -184,6 +186,7 @@ export class OpportunityInternshipComponent implements OnInit, OnDestroy {
   submitInternshipForm(formData: any) {
     // internship form validation
     if (!this.internshipFrm.valid) {
+      this.toastr.warning('Please check for errors in the form.');
       this.scrollHelper.scrollToFirst('error');
       return;
     }
