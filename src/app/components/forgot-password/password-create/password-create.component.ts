@@ -30,7 +30,7 @@ export class PasswordCreateComponent implements OnInit {
   tagState$: Observable<Login>;
   forgotP = initialTag;
   passwordShow = false;
-  pwdCreateChecked = false;
+  showLogin = false;
 
   constructor(
     private fb: FormBuilder,
@@ -55,14 +55,6 @@ export class PasswordCreateComponent implements OnInit {
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
       this.forgotP = state;
-      // console.log('this.forgotP', this.forgotP);
-
-      // check if password has been successfully updated
-      if (!this.pwdCreateChecked && this.forgotP && this.forgotP['fp_create_success'] && this.forgotP['fp_create_success'] === true) {
-        this.pwdCreateChecked = true;
-        // console.log('IF fp_create_success');
-        // form reset password feilds
-      }
     });
   }
 
@@ -82,6 +74,11 @@ export class PasswordCreateComponent implements OnInit {
         identity: this.forgotP.fp_user_input
       };
       this.store.dispatch({ type: AuthActions.FP_CREATE_PASS, payload: form });
+      this.store.select('loginTags')
+      .first(resp => resp['fp_create_success'] === true)
+      .subscribe(data => {
+        this.showLogin = true;
+      });
     }
   }
 
