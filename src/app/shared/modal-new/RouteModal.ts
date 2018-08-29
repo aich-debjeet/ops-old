@@ -149,7 +149,7 @@ export class RouteModal implements OnInit, OnDestroy {
         this.backdropElement = document.createElement("div");
         this.backdropElement.classList.add("fade");
         this.backdropElement.classList.add("in");
-        if(this.backdrop) {
+        if (this.backdrop) {
             this.backdropElement.classList.add("modal-backdrop");
         }
     }

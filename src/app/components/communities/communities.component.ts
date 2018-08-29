@@ -147,7 +147,7 @@ export class CommunitiesComponent implements OnInit, AfterViewInit, OnDestroy {
             return
           }
       });
-    }else {
+    } else {
       this.toastr.warning('Please fill all required fields');
     }
   }

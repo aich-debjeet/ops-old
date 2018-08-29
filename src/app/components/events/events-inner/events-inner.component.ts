@@ -111,7 +111,7 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
         status: 'NotGoing'
       }
       this.updateAttend(data);
-    }else {
+    } else {
       this.isAttend = true;
       const data = {
         id: this.id,

@@ -119,7 +119,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
     // observe the store value
     this.subscriptionOne = this.notificationsState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
-        // if(typeof state['recieved_pushed_notifications_success']){
+        // if(typeof state['recieved_pushed_notifications_success']) {
         // }
         if (typeof state['recieved_notifications'] !== 'undefined') {
           let noti;

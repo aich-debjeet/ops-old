@@ -100,7 +100,7 @@ export class ProfileChannelComponent implements OnInit, OnDestroy {
         superType: 'channel',
         owner: this.handle,
       }
-    }else {
+    } else {
       body = {
         limit: 30,
         superType: 'channel',
@@ -162,7 +162,7 @@ export class ProfileChannelComponent implements OnInit, OnDestroy {
    * @param file
    */
   removeChannel(channelId: any) {
-    const list = _remove(this.channels, function(n){
+    const list = _remove(this.channels, function(n) {
       return n.spotfeedId === channelId;
     });
 

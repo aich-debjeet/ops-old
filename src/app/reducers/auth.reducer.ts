@@ -78,7 +78,7 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
           is_data: true,
           success: true
         });
-      }else {
+      } else {
         return Object.assign({}, state, {
           success: true,
           is_data: false

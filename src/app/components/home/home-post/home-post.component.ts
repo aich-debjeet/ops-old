@@ -106,7 +106,7 @@ export class HomePostComponent implements OnInit, OnDestroy {
     if (value.isSpotted === false) {
       this.store.dispatch({ type: MediaActions.MEDIA_SPOT, payload: data });
       this.store.dispatch({ type: ProfileActions.POST_SPOT, payload: value.id });
-    }else {
+    } else {
       this.store.dispatch({ type: MediaActions.MEDIA_UNSPOT, payload: data });
       this.store.dispatch({ type: ProfileActions.POST_UNSPOT, payload: value.id });
     }

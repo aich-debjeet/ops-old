@@ -12,7 +12,7 @@ export class DropdownNotClosableZoneDirective {
     }
 
     contains(element: HTMLElement) {
-        if (this.dropdownNotClosabledZone === false){
+        if (this.dropdownNotClosabledZone === false) {
             return false;
         }
         const thisElement: HTMLElement = this.elementRef.nativeElement;

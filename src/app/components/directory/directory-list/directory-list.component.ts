@@ -126,7 +126,7 @@ export class DirectoryListComponent implements OnInit, OnDestroy {
     if (this.dirList[index].extra.isFollowing) {
       this.dirList[index].extra.isFollowing = false;
       this.profileStore.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: handle });
-    }else {
+    } else {
       this.dirList[index].extra.isFollowing = true;
       this.profileStore.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: handle  });
     }

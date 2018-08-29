@@ -180,7 +180,7 @@ export class DatabaseValidator {
              if (this.fromDate > toDate) {
                 resolve({ 'isvalid': true });
              }
-             if(moment(control.value).format('YYYYMMDD') > moment(today).format('YYYYMMDD')){
+             if (moment(control.value).format('YYYYMMDD') > moment(today).format('YYYYMMDD')) {
                 //  console.log('here')
                 resolve({ 'invalidWorkDate': true });
              }
@@ -231,7 +231,7 @@ export class DatabaseValidator {
              this.fromDate = new Date(year, month, day);
             //  console.log(control.value)
             //  console.log(moment(control.value).format('YYYYMMDD'))
-             if(moment(control.value).format('YYYYMMDD') > moment(today).format('YYYYMMDD')){
+             if (moment(control.value).format('YYYYMMDD') > moment(today).format('YYYYMMDD')) {
                 //   console.log('here')
                 resolve({ 'invalidWorkDate': true });
              }
@@ -278,7 +278,7 @@ export class ProfileUpdateValidator {
                         resolve(null);
                         });
                 }, 1000);
-            }else {
+            } else {
                 resolve(null);
             }
         });
@@ -300,7 +300,7 @@ export class ProfileUpdateValidator {
                             });
                     }, 1000);
                 }
-            }else {
+            } else {
                 resolve(null);
             }
         });
@@ -320,7 +320,7 @@ export class ProfileUpdateValidator {
                         resolve(null);
                         });
                 }, 1000);
-            }else {
+            } else {
                 resolve(null);
             }
         });
@@ -398,6 +398,17 @@ export class EmailValidator {
 // Match password
 @Injectable()
 export class FormValidation {
+
+    // old date validation
+    static validateOldDate(AC: AbstractControl) {
+        const date = AC.value;
+        const currentDate = moment().format('YYYYMMDD');
+        const chooseDate = moment(date).format('YYYYMMDD');
+        if (currentDate > chooseDate) {
+            return { oldDate: true };
+        }
+        return null;
+    }
 
     static validateAge(control: AbstractControl) {
         const dob = control.value.formatted;

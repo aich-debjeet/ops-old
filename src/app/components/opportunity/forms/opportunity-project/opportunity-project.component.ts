@@ -6,6 +6,8 @@ import { ProfileModal } from '../../../../models/profile.model';
 import { Observable } from 'rxjs/Observable';
 import { ISubscription } from 'rxjs/Subscription';
 import { GeneralUtilities } from '../../../../helpers/general.utils';
+import { ToastrService } from 'ngx-toastr';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-opportunity-project',
@@ -31,6 +33,8 @@ export class OpportunityProjectComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
+    private location: Location,
+    private toastr: ToastrService,
     private scrollHelper: ScrollHelper,
     private generalUtils: GeneralUtilities,
     private loginStore: Store<any>
@@ -72,6 +76,7 @@ export class OpportunityProjectComponent implements OnInit, OnDestroy {
   submitProjectForm(formData: any) {
     // project form validation
     if (!this.projectFrm.valid) {
+      this.toastr.warning('Please check for errors in the form.');
       this.scrollHelper.scrollToFirst('error');
       return;
     }
@@ -92,6 +97,10 @@ export class OpportunityProjectComponent implements OnInit, OnDestroy {
     }
     this.oppSubmitting = true;
     this.formSubmitted.emit(reqBody);
+  }
+
+  cancelUpdate() {
+    this.location.back();
   }
 
 }

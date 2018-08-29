@@ -57,15 +57,15 @@ export class AboutBioComponent implements OnInit, OnDestroy {
   skillsArray = [];
   editingField: string;
   imageBaseUrl = environment.API_IMAGE;
-  invalidDOB: boolean = false;
-  isUnderAge: boolean = false;
-  isOverAge: boolean = false;
+  invalidDOB = false;
+  isUnderAge = false;
+  isOverAge = false;
   findSkill: any;
   skillState$: Observable<any>;
   skill: any;
   txtQueryChanged: Subject<string> = new Subject<string>();
-  validWeight: boolean = false;
-  validHeight: boolean = false;
+  validWeight = false;
+  validHeight = false;
 
   constructor(
     private _modalService: ModalService,
@@ -87,68 +87,68 @@ export class AboutBioComponent implements OnInit, OnDestroy {
         if (this.stateProfile.profile_user_info.isCurrentUser === false && this.stateProfile.profile_other_loaded === true) {
           this.ownProfile = false;
           this.userProfile = this.stateProfile.profile_other;
-          if (this.stateProfile.profile_other && this.stateProfile['profile_other']['profileType']){
+          if (this.stateProfile.profile_other && this.stateProfile['profile_other']['profileType']) {
             this.skillsArray = this.stateProfile['profile_other']['profileType']
           }
-        }else {
+        } else {
           this.ownProfile = true;
           this.userProfile = this.stateProfile.profile_details;
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['aboutMe']){
+          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['aboutMe']) {
             this.aboutMe = this.stateProfile['profile_details']['aboutMe']
           }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['profileType']){
+          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['profileType']) {
             this.loadSkill();
             // this.skillsArray = this.stateProfile['profile_details']['profileType']
           }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['physical']['gender']){
+          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['physical']['gender']) {
             this.gender = this.stateProfile['profile_details']['physical']['gender']
           }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['extra']['address']['line1']){
+          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['extra']['address']['line1']) {
             this.addressOne = this.stateProfile['profile_details']['extra']['address']['line1']
           }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['extra']['address']['line2']){
+          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['extra']['address']['line2']) {
             this.addressTwo = this.stateProfile['profile_details']['extra']['address']['line2']
           }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['extra']['address']['city']){
+          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['extra']['address']['city']) {
             this.city = this.stateProfile['profile_details']['extra']['address']['city']
           }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['extra']['address']['country']){
+          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['extra']['address']['country']) {
             this.country = this.stateProfile['profile_details']['extra']['address']['country']
           }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['extra']['address']['postalCode']){
+          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['extra']['address']['postalCode']) {
             this.pinCode = this.stateProfile['profile_details']['extra']['address']['postalCode']
           }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['physical']['height']){
+          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['physical']['height']) {
             this.height = this.stateProfile['profile_details']['physical']['height']
           }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['physical']['weight']){
+          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['physical']['weight']) {
             this.weight = this.stateProfile['profile_details']['physical']['weight']
           }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['languages']){
+          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['languages']) {
             this.lang = this.stateProfile['profile_details'].languages.toString()
           }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['physical']['ethnicity']){
+          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['physical']['ethnicity']) {
             this.ethnicity = this.stateProfile['profile_details']['physical']['ethnicity']
           }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['physical']['complexion']){
+          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['physical']['complexion']) {
             this.complexion = this.stateProfile['profile_details']['physical']['complexion']
           }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['email']){
+          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['email']) {
             this.email = this.stateProfile['profile_details']['email']
           }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['contact']['mobile']['mobile']){
+          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['contact']['mobile']['mobile']) {
             this.number = this.stateProfile['profile_details']['contact']['mobile']['mobile']
           }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['contact']['website']['website']){
+          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['contact']['website']['website']) {
             this.website = this.stateProfile['profile_details']['contact']['website']['website']
           }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['contact']['website']['access']){
+          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['contact']['website']['access']) {
             this.websitePrivacy = this.stateProfile['profile_details']['contact']['website']['access']
           }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['contact']['mobile']['access']){
+          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['contact']['mobile']['access']) {
             this.mobilePrivacy = this.stateProfile['profile_details']['contact']['mobile']['access']
           }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['physical']['dateOfBirth']){
+          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['physical']['dateOfBirth']) {
             this.dob = this.datepipe.transform(this.stateProfile['profile_details']['physical']['dateOfBirth'], 'dd-MM-yyyy');
           }
         }
@@ -203,19 +203,19 @@ export class AboutBioComponent implements OnInit, OnDestroy {
           aboutMe: ''
         }
       };
-      if(this.aboutMe.length <= 0){
+      if (this.aboutMe.length <= 0) {
         reqBody.extras.aboutMe = '';
       } else {
         reqBody.extras.aboutMe = this.aboutMe.trim();
       }
     }
-    if (fieldName === 'dob'){
+    if (fieldName === 'dob') {
       reqBody = {
         physical: {
           dateOfBirth: ''
         }
       };
-      if(this.dob.length <= 0){
+      if (this.dob.length <= 0) {
         this.invalidDOB = true;
         return;
       } else {
@@ -264,17 +264,17 @@ export class AboutBioComponent implements OnInit, OnDestroy {
           height: ''
         }
       };
-      if(this.height.length <= 0){
+      if (this.height.length <= 0) {
         reqBody.physical.height = 0.0;
       } else {
-        if(isNaN(this.height)){
-          this.validHeight =true;
+        if (isNaN(this.height)) {
+          this.validHeight = true;
           return;
         } else {
           this.validHeight = false;
           reqBody.physical.height = parseFloat(this.height);
         }
-      }      
+      }
     }
     if (fieldName === 'weight') {
       reqBody = {
@@ -282,11 +282,11 @@ export class AboutBioComponent implements OnInit, OnDestroy {
           weight: ''
         }
       };
-      if(this.weight.length <= 0){
-        reqBody.physical.weight = 0.0;        
+      if (this.weight.length <= 0) {
+        reqBody.physical.weight = 0.0;
       } else {
-        if(isNaN(this.weight)){
-          this.validWeight =true;
+        if (isNaN(this.weight)) {
+          this.validWeight = true;
           return false;
         } else {
           this.validWeight = false;
@@ -302,12 +302,12 @@ export class AboutBioComponent implements OnInit, OnDestroy {
           }
         }
       };
-      if(this.lang.length <= 0){
+      if (this.lang.length <= 0) {
         reqBody.extras.association.languages = [];
-      } else{
+      } else {
         const lang = this.lang.trim() === '' ? [] : this.lang.split(',').map(function(item) {
-                return item.trim();
-              });
+          return item.trim();
+        });
         reqBody.extras.association.languages = lang;
       }
     }
@@ -321,11 +321,11 @@ export class AboutBioComponent implements OnInit, OnDestroy {
           postalCode: '',
         }
       };
-      reqBody.address.city = this.city?this.city.charAt(0).toUpperCase().trim() + this.city.slice(1).trim() : '';
-      reqBody.address.country = this.country?this.country.trim(): '';
-      reqBody.address.line1 = this.addressOne?this.addressOne.trim():'';
+      reqBody.address.city = this.city ? this.city.charAt(0).toUpperCase().trim() + this.city.slice(1).trim() : '';
+      reqBody.address.country = this.country ? this.country.trim() : '';
+      reqBody.address.line1 = this.addressOne ? this.addressOne.trim() : '';
       // reqBody.address.line2 = this.addressTwo.trim() || '';
-      reqBody.address.postalCode = this.pinCode?this.pinCode.trim():'';
+      reqBody.address.postalCode = this.pinCode ? this.pinCode.trim() : '';
 
     }
 
@@ -335,9 +335,9 @@ export class AboutBioComponent implements OnInit, OnDestroy {
           ethnicity: ''
         }
       };
-      if(this.ethnicity.length <= 0){
-        reqBody.physical.ethnicity ='';
-      } else{
+      if (this.ethnicity.length <= 0) {
+        reqBody.physical.ethnicity = '';
+      } else {
          reqBody.physical.ethnicity = this.ethnicity.trim() || '';
       }
     }
@@ -345,7 +345,7 @@ export class AboutBioComponent implements OnInit, OnDestroy {
       reqBody = {
         profileTypeList: ''
       };
-      if(this.skillsArray.length > 0){
+      if (this.skillsArray.length > 0) {
         reqBody.profileTypeList = this.skillsArray;
         this.findSkill.industries = [];
       } else {
@@ -416,7 +416,7 @@ export class AboutBioComponent implements OnInit, OnDestroy {
   //       this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
   //       this.toastr.success('Your profile has been updated successfully!');
   //       this._modalService.close('bioEdit');
-  //   }else {
+  //   } else {
   //     this.toastr.error('Please fill out all required fields');
   //   }
   // }
@@ -577,7 +577,7 @@ onSelectionChange(val) {
   loadSkill() {
     this.skillsArray = [];
     const skill = this.stateProfile['profile_details']['profileType']
-    if(skill.length > 0){
+    if (skill.length > 0) {
       for (let i = 0; i < skill.length; i++) {
         this.skillsArray.push({
           'name': skill[i].name,

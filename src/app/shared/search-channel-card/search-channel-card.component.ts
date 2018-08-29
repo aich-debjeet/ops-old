@@ -99,7 +99,7 @@ export class SearchChannelCardComponent implements OnInit {
         'profileHandle': this.userHandle
       }
       this._store.dispatch({ type: ProfileActions.PIN_CHANNEL, payload: data });
-    }else {
+    } else {
       this.ispin = false;
       const data = {
         'spotfeedId': spotfeedId,

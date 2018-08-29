@@ -109,7 +109,7 @@ export class PostCardComponent implements OnInit {
       this.following = true;
       this.followingCount++;
       this.store.dispatch({ type: MediaActions.MEDIA_SPOT, payload: data });
-    }else {
+    } else {
       this.store.dispatch({ type: MediaActions.MEDIA_UNSPOT, payload: data });
       this.following = false
       this.followingCount--;

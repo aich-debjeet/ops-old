@@ -10,6 +10,8 @@ import { OpportunityActions } from '../../../../actions/opportunity.action';
 import { OpportunityModel } from '../../../../models/opportunity.model';
 import { environment } from 'environments/environment';
 import { pull as _pull } from 'lodash';
+import { ToastrService } from 'ngx-toastr';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-opportunity-job',
@@ -48,6 +50,8 @@ export class OpportunityJobComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
+    private location: Location,
+    private toastr: ToastrService,
     private scrollHelper: ScrollHelper,
     private generalUtils: GeneralUtilities,
     private loginStore: Store<any>,
@@ -184,6 +188,7 @@ export class OpportunityJobComponent implements OnInit, OnDestroy {
   submitJobForm(formData: any) {
     // job form validation
     if (!this.jobFrm.valid) {
+      this.toastr.warning('Please check for errors in the form.');
       this.scrollHelper.scrollToFirst('error');
       return;
     }
@@ -246,6 +251,10 @@ export class OpportunityJobComponent implements OnInit, OnDestroy {
    */
   removeAttachedMedia(fileName: string) {
     _pull(this.jobAttachments, fileName);
+  }
+
+  cancelUpdate() {
+    this.location.back();
   }
 
 }

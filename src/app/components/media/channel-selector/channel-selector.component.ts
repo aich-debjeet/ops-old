@@ -94,7 +94,7 @@ export class ChannelSelectorComponent implements OnInit {
   channelButton() {
     if (this.channelCreatebtn === true) {
       this.channelCreatebtn = false;
-    }else {
+    } else {
       this.channelCreatebtn = true;
     }
   }
@@ -149,7 +149,7 @@ export class ChannelSelectorComponent implements OnInit {
   isChosenChannel(channel: any) {
     if (this.chosenChannel === null) {
       return false;
-    }else {
+    } else {
       if (this.chosenChannel.spotfeedId === channel.spotfeedId) {
         return true;
       } else {
