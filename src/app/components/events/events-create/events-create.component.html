@@ -11,14 +11,23 @@
                 <form [formGroup]="eventForm" novalidate (ngSubmit)="submitForm(eventForm.value)" #ecfrom="ngForm">
                     <div class="col-md-4 col-sm-12 o-event-form-right">
                         <div class="o-event-form-upload-img">
-                            <input type="file" #fileupload accept=".jpg,.jpeg" [(ngModel)]="eventCover" [ngModelOptions]="{standalone: true}" class="o-event-upload__file" name="eventCover" (change)="fileChangeListener($event)">
+                            <div class="o-event-form-upload__container">
+                                <div *ngIf="!eventCoverImage" class="c-text_md f-w_600 text_uppercase color-theme ltr-space">* Upload event image</div>
+                                <img *ngIf="eventCoverImage" class="event-image" [src]="baseUrl + eventCoverImage">
+                                <span class="c-profile__imgchange">
+                                    <a (click)="openModel()" data-toggle="modal" data-target="#imageUpload">
+                                        <a><img [src]="baseUrl + 'v2/svg/edit_red.svg'" class="c-profile__imgchange--icon"></a>
+                                    </a>
+                                </span>
+                            </div>
+                            <!-- <input type="file" #fileupload accept=".jpg,.jpeg" [(ngModel)]="eventCover" [ngModelOptions]="{standalone: true}" class="o-event-upload__file" name="eventCover" (change)="fileChangeListener($event)">
                             <div class="o-event-form-upload__container">
                                 <img *ngIf="eventCoverImage" class="event-image" [src]="baseUrl + eventCoverImage">
                                 <div *ngIf="!eventCoverImage" class="c-text_md f-w_600 text_uppercase color-theme ltr-space">* Upload event image</div>
                                 
-                            </div>
+                            </div> -->
                         </div>
-                        <p class="c-form__validation text-center" *ngIf="imageUpload">Event Cover is required</p>
+                        <!-- <p class="c-form__validation text-center" *ngIf="imageUpld">Event Cover is required</p> -->
                         <p class="c-text_sm text-center color-grey-dark o-event-upload__info">
                             We recommend using at least a 800x400px (2:1)<br>image that's no larger than 10MB.
                         </p>
@@ -352,7 +361,7 @@
                                     <label>Quantity</label>
                                 </div>
                                 <p class="c-form__validation" *ngIf="eventForm.controls['ts_quantity'].errors?.required && ecfrom.submitted">Quantity is required</p>
-                                <!-- <p class="c-form__validation" *ngIf="imageUpload">Event Cover is required</p> -->
+                                <!-- <p class="c-form__validation" *ngIf="imageUpld">Event Cover is required</p> -->
                             </div>
                             <!--<input type="hidden" name="coverimage" value="{{eventCoverImage}}" formControlName="event_cover">-->
                         </div>
@@ -373,3 +382,51 @@
         </div>
     </div>
 </section>
+<app-modal-new #imageUpload modalClass="tiny__profile_upload">
+    <modal-content>
+        <div id="profile-upload">
+                <div class="o-profile-upload">
+                    <div class="o-cover-upload__head">
+                    <h2 class="o-cover-head--heading">Upload Event Image
+                        <span class="pop-close">
+                        <a (click)="imageUpload.close()">
+                            <img [src]="baseUrl + 'img/svg/ico_close-38.svg'" alt="">
+                        </a>
+                        </span>
+                    </h2>
+                    </div>
+                    <div class="o-cover-upload__media">
+                    <!-- <img-cropper #cropper class="o-cover-media__image" [image]="data" [settings]="cropperSettings"></img-cropper> -->
+                    <image-cropper 
+                        class="o-cover-media__image"
+                        [imageChangedEvent]="imageChangedEvent"
+                        [maintainAspectRatio]="true"
+                        [aspectRatio]="2 / 1"
+                        format="jpeg,jpg"
+                        (imageCroppedBase64)="imageCropped($event)"
+                        (imageLoaded)="imageLoaded()">
+                    </image-cropper>
+                    <img [src]="croppedImage" *ngIf="!hidePreview" class="preview-image" />
+                    <!-- <div *ngIf="stateProfile?.profile_img_upload_loading">
+                        <div class="sticky sticky__top">
+                        <div class="loader">Loading...</div>
+                        </div>
+                    </div> -->
+                    <div class="o-cover-media__browse">
+                        <div class="upload-btn-wrapper">
+                        <button class="btn btn-network btn-sm text_uppercase">Browse</button>
+                        <input type="file" accept=".jpg,.jpeg" name="myfile" [(ngModel)]="eventCover" [ngModelOptions]="{standalone: true}" (change)="fileChangeListener($event)" />
+                        </div>
+                    </div>
+                    </div>
+                    <div class="o-cover-upload-footer">
+                    <!--<p class="p_text">Successfully updated</p>-->
+                    <div class="o-cover-footer__btn">
+                        <button type="button" (click)="imageUpload.close()" class="btn btn-network btn-sm text_uppercase">Cancel</button>
+                        <button type="button" (click)="uploadCoverImage()" class="btn btn-primary btn-sm" [disabled]="disableSave"> &nbsp; Save &nbsp; </button>
+                    </div>
+                    </div>
+                </div>
+                </div>
+    </modal-content>
+</app-modal-new>

@@ -102,11 +102,13 @@
 }
 
 .o-channel-content__name {
-    float: left;
     display: flex;
     justify-content: center;
     flex-direction: column;
     height: 40px;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
 }
 
 .o-channel__private {
@@ -126,10 +128,7 @@
     width: 100%;
     float: left;
     padding: 0px 100px;
-    max-height: 328px;
-    min-height: 328px;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    overflow: hidden;
     @include mq($from: $mobile_sm, $until: $tablet) {
         width: 100%;
         padding: 0px;
@@ -139,7 +138,11 @@
 .o-channel-list-container {
     width: 100%;
     float: left;
+    max-height: 328px;
+    min-height: 328px;
     margin-bottom: 16px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .o-channel-block {

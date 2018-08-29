@@ -76,7 +76,7 @@
                     <h3 class="c-h3 o-upload__head">Upload images, videos and audios</h3>
                     <p class="c-text_sm o-add-media-upload__type">You can upload jpg, png, gif, mp3, ogg, mp4, avi, mov</p>
                     <div class="o-add-media-btn">
-                        <input type="file" class="o-add-media_upload" (ngxf-select)="uploadFileList($event)" multiple accept="image/*,.mp3,.ogg,.mp4,.avi,.mov" name="photo" id="upload-photo">
+                        <input type="file" class="o-add-media_upload" (ngxf-select)="uploadFileList($event)" multiple accept=".jpg,.jpeg,.png,.gif,.mp3,.ogg,.mp4,.avi,.mov,image/*,audio/mp3,audio/ogg,video/mp4,video/x-m4v,video/avi,video/mov" name="photo" id="upload-photo">
                         <div class="btn btn-primary btn-lg o-add-media__upload-btn">
                             <span class="o-media-upload-btn m-r-5"></span> Upload
                         </div>
@@ -87,7 +87,7 @@
                     <ul class="o-file-list">
                         <li class="o-file_item">
                             <div class="o-media-more">
-                                <input type="file" class="o-media_upload" name="photo" id="upload-photo" (ngxf-select)="uploadFileList($event)" multiple accept="image/*,.mp3,.mp4">
+                                <input type="file" class="o-media_upload" name="photo" id="upload-photo" (ngxf-select)="uploadFileList($event)" multiple accept=".jpg,.jpeg,.png,.gif,.mp3,.ogg,.mp4,.avi,.mov,image/*,audio/mp3,audio/ogg,video/mp4,video/x-m4v,video/avi,video/mov">
                                 <div class="o-media_add-icon">
                                     <img width="42" [src]="baseUrl + 'img/svg/upload.svg'">
                                 </div>
@@ -140,7 +140,7 @@
     <div class="container">
         <div class="o-add-media">
             <div class="o-add-media-channel-main">
-                <div class="o-create-channel m-t-8 m-l-8 p-t-16 hidden-sm hidden-xs">
+                <div class="o-create-channel desktop-css">
                 <div id="create-channel" class="o-create-channel-container ">
                     <div class="col-md-12 p-0">
                         <div class="o-add-media-channel__head m-b-16">
@@ -158,8 +158,6 @@
                             <!-- <p class="c-text_sm color-grey-dark">12 Megit dia selected</p> -->
                         </div>
                         </div><!-- add media channel head sec end -->
-                    </div>
-                    <div class=" c-text_lg o-add-media-channel__link">
                     </div>
                     <div class="o-create-channel__form">
                         <form [formGroup]="channelForm" novalidate #myform="ngForm">

@@ -18,6 +18,7 @@ export class ChannelListComponent {
   baseUrl = environment.API_IMAGE;
   chosenChannel: any;
   searchChannel: string;
+  isChannelSelected = false;
   constructor() {
     //
   }
@@ -49,10 +50,12 @@ export class ChannelListComponent {
    */
 
   chooseChannel(channel: any) {
-
-    this.chosenChannel = channel;
-    this.onSelection.emit(channel);
-    this.onPostMedia.emit({});
+    if (!this.isChannelSelected) {
+      this.chosenChannel = channel;
+      this.onSelection.emit(channel);
+      this.onPostMedia.emit({});
+      this.isChannelSelected = true;
+    }
   }
 
   onScroll() {
