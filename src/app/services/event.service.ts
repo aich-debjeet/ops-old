@@ -94,7 +94,7 @@ export class EventService {
    * @TODO: check why it is failing on for single file end point
    */
   uploadImage(value: any, handle: string = '') {
-    return this.api.postFile('/portal/cdn/media/upload/multiple?handle=' + handle, value.image);
+    return this.api.postFile('/portal/cdn/media/upload/multiple?handle=' + handle, value);
   }
 
   /**
@@ -120,13 +120,13 @@ export class EventService {
    * @param formValue
    * @param type
    */
-  fileUpload(formValue: any, type: string = 'base64') {
+  fileUpload(formValue: any) {
     let fileData;
-    if (type === 'base64') {
+    // if (type === 'base64') {
       fileData = this.buildImageForm(formValue);
-    } else {
-      fileData = formValue;
-    }
+    // } else {
+    //   fileData = formValue;
+    // }
     return this.uploadImage(fileData, formValue.handle);
   }
 
