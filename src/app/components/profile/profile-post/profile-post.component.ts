@@ -31,6 +31,7 @@ export class ProfilePostComponent implements OnInit, OnDestroy, AfterViewInit {
   private navigationSubscription: ISubscription;
   userMedia = initialTag;
   mediaDetails = initialMedia;
+  userData: any;
   sub: any;
   userName: any;
   handle: string;
@@ -62,6 +63,7 @@ export class ProfilePostComponent implements OnInit, OnDestroy, AfterViewInit {
     this.counter = 0;
     this.posts = [];
     this.subscription = this.tagState$.subscribe((state) => {
+      this.userData = state['profile_navigation_details']
       this.userMedia = state;
        this.posts = this.userMedia.user_posts;
        this.post_scroll_id = this.userMedia.user_post_scrollId

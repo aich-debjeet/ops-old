@@ -46,7 +46,6 @@ export class HomeChannelComponent implements OnInit, OnDestroy {
     this.channelList = [];
 
     this.tagState$ = store.select('profileTags');
-    this.myProfile$ = store.select('profileTags').take(3);
     this.subscriptionOne = this.tagState$.subscribe((state) => {
       this.userState = state;
       if (state.user_following_channels_loaded) {
@@ -56,6 +55,7 @@ export class HomeChannelComponent implements OnInit, OnDestroy {
       if (state['user_following_channels_loading'] !== null) {
          this.channel_load = state['user_following_channels_loading']
       }
+      console.log(state);
     });
 
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS })

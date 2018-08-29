@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, AfterViewInit, Output, OnChanges, ViewChild} from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, Output, ViewChild} from '@angular/core';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 
 import { Router, ActivatedRoute } from '@angular/router';
@@ -27,7 +27,7 @@ import { UtcDatePipe } from './../../../pipes/utcdate.pipe';
   styleUrls: ['./media-view.component.scss']
 })
 
-export class MediaViewComponent {
+export class MediaViewComponent implements OnDestroy {
   imageLink: string = environment.API_IMAGE;
   chosenChannel: any = 0;
   @Input() userChannels;
@@ -67,8 +67,7 @@ export class MediaViewComponent {
     this.spot = false;
     this.mediaState$ = store.select('mediaStore');
 
-    this.mediaState$.subscribe((state) => {
-      //  console.log('state', state)
+    this.mediaStateSubscription = this.mediaState$.subscribe((state) => {
       this.mediaStore = state;
       this.channelId = this.mediaStore.channel_detail['channelId']
       this.data = this.mediaStore.media_detail;
@@ -99,6 +98,10 @@ export class MediaViewComponent {
       }
     });
     this.loadMedia();
+  }
+
+  ngOnDestroy() {
+    this.mediaStateSubscription.unsubscribe();
   }
 
   closeFunction() {

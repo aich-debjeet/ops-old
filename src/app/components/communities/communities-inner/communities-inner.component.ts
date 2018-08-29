@@ -63,6 +63,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   token: any;
   profile: any;
   handle: any;
+  userData: any;
   constructor(
     private fb: FormBuilder,
     private store: Store<any>,
@@ -118,6 +119,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
 
       this.profile = store.select('profileTags');
       this.profile.subscribe(event => {
+        this.userData = event['profile_navigation_details']
         if (event.profile_navigation_details && event.profile_navigation_details.handle) {
           this.handle = event.profile_navigation_details.handle;
         }

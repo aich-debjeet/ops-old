@@ -1,7 +1,9 @@
-import { Component, EventEmitter, Input, Output, OnInit, Inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, Inject, OnDestroy, ViewChild } from '@angular/core';
 import { environment } from './../../../environments/environment';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { ISubscription } from 'rxjs/Subscription';
+import { Modal } from '../../shared/modal-new/Modal';
 
 import { PLATFORM_ID } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
@@ -22,15 +24,17 @@ import { ModalService } from '../../shared/modal/modal.component.service';
   providers: [ ModalService, DatePipe ],
   styleUrls: ['./post.component.scss']
 })
-export class PostComponent implements OnInit {
+export class PostComponent implements OnInit, OnDestroy {
   @Input() mediaData;
+  @Input() userData;
   @Input() className: string;
   @Input() type: string;
   @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
   @Output() postDelete = new EventEmitter();
+  @ViewChild('reportModal') reportModal: Modal;
   dotMenuState: boolean;
+  private subscription: ISubscription;
   comments: any;
-  userData: any;
   following: boolean;
   followingCount: any;
   commentCount: any;
@@ -41,15 +45,13 @@ export class PostComponent implements OnInit {
   reportId: string;
   userState$: Observable<any>;
   messageText: string;
-  comment_post_loading: any;
   desText: string;
   isEdit: boolean;
-
   userImage: string;
+  popupActive: boolean = false;
 
   imageLink: string = environment.API_IMAGE;
   questions: any;
-  reportType: string;
   domainLink: string = environment.API_DOMAIN;
 
   constructor(
@@ -61,20 +63,14 @@ export class PostComponent implements OnInit {
     this.dotMenuState = false;
     this.mediaState$ = store.select('mediaStore');
 
-    this.mediaState$.subscribe((state) => {
-      this.mediaStore = state;
-      if (state['reports']) {
-        this.questions = state['reports'];
-        this.reportType = 'post';
-        // console.log(this.questions)
-      }
-
-      this.comment_post_loading = state.comment_post_loading;
-    });
-    this.userState$ = store.select('profileTags');
-    this.userState$.subscribe((state) => {
-      this.userData = state['profile_navigation_details'];
-    });
+    // this.subscription = this.mediaState$.subscribe((state) => {
+    //   // this.mediaStore = state;
+    //   // if (state['reports']) {
+    //   //   this.questions = state['reports'];
+    //   //   // console.log(this.questions)
+    //   // }
+    //   console.log('POST', state);
+    // });
 
   }
 
@@ -146,14 +142,15 @@ export class PostComponent implements OnInit {
    * open report modal
   */
   reportModalOpen(id: string) {
+    this.popupActive = true;
+    this.reportModal.open();
     this.reportId = id;
     this.modalService.open('reportPopUp');
     this.store.dispatch({ type: MediaActions.MEDIA_POST_REPORT, payload: 'post' });
   }
 
   closeReport() {
-    // console.log('comming')
-    this.modalService.close('reportPopUp');
+    this.reportModal.close();
   }
 
   /**
@@ -170,6 +167,10 @@ export class PostComponent implements OnInit {
       // this.addNewComment();
       this.messageText = null;
     }
+  }
+
+  ngOnDestroy() {
+    // this.subscription.unsubscribe();
   }
 
 }
