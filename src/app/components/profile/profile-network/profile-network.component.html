@@ -34,7 +34,7 @@
              <li class="list-inline-item noti_cont">
                 <span class="c-text_sm cursor_pointer" [routerLink]="'/profile/u/' + request?.owner?.username">{{request.owner.name}}</span>
                 <span class="c-text_sm color-grey-dark">accepted your network request</span>
-                <div class="pull-right c-text_sm color-grey-dark">{{request.questionaire.date | date:'short'}}</div>
+                <div class="pull-right c-text_sm color-grey-dark">{{request.questionaire.date| utcDate | date:'dd MMM yyyy, hh:mm a'}}</div>
              </li>
           </ul>
           <ul class="list-inline request_flex" *ngIf = "!request.questionaire.isConfirm">
@@ -46,7 +46,7 @@
                <span class="c-text_sm color-grey-dark">waiting to accept request
                  <a class="color-theme" (click) = "cancelRequest(request.owner.handle)">Cancel Request</a>
                </span>
-               <div class="pull-right c-text_sm color-grey-dark">{{request.questionaire.date |  date:'short'}}</div>
+               <div class="pull-right c-text_sm color-grey-dark">{{request.questionaire.date | utcDate | date:'dd MMM yyyy, hh:mm a'}}</div>
             </li>
          </ul>
        </li>

@@ -105,7 +105,7 @@
                                             <input class="form_input" type="text" formControlName="from" [textMask]="{mask: dateMask}" required>
                                             <span class="form_highlight"></span>
                                             <span class="form_bar"></span>
-                                            <label>from</label>
+                                            <label>from (MM-DD-YYYY)</label>
                                             <p class="error_alert" *ngIf="workForm.controls['from'].errors?.required && myform.submitted">From Date is required</p>
                                             <p class="error_alert" *ngIf="workForm.controls['from'].errors?.invalidWorkDate">Invalid Date</p>
                                         </div>
@@ -113,7 +113,7 @@
                                             <input class="form_input" type="text" formControlName="to" [textMask]="{mask: dateMask}" required>
                                             <span class="form_highlight"></span>
                                             <span class="form_bar"></span>
-                                            <label>To</label>
+                                            <label>To (MM-DD-YYYY)</label>
                                             <p class="error_alert" *ngIf="workForm.controls['to'].errors?.required && myform.submitted">To Date is required</p>
                                             <p class="error_alert" *ngIf="workForm.controls['to'].errors?.invalidWorkDate">Invalid Date</p>
                                             <p class="error_alert" *ngIf="workForm.controls['to'].errors?.isvalid">From Date can not be greater than To Date</p>
