@@ -495,6 +495,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         });
 
       case ProfileActions.LOAD_PROFILE_IMAGE_SUCCESS:
+      console.log(payload)
         return Object.assign({}, state, {
           profileImage: payload,
           image_upload_success: true,
