@@ -18,12 +18,12 @@ export class CommentComponent implements OnInit {
   @Input() mediaId: string;
   @Input() mediaType: string;
   @Input() comments: any;
+  @Input() userData: any;
   @Input() commentCount: any;
   @Input() commentsType = 'media-list'; // media-list or media-popup
   userState$: Observable<Media>;
   mediaState$: Observable<Media>;
   mediaStore = initialMedia;
-  userData: any;
   messageText: string = '';
   @Output() submitComment: EventEmitter<any> = new EventEmitter<any>();
   @Output() deleteComment: EventEmitter<any> = new EventEmitter<any>();
@@ -34,12 +34,9 @@ export class CommentComponent implements OnInit {
   constructor(
     private store: Store<Media>
   ) {
-    this.userState$ = store.select('profileTags');
     this.mediaState$ = store.select('mediaStore');
 
-    this.userState$.subscribe((state) => {
-      this.userData = state['profile_navigation_details'];
-    });
+
 
     this.mediaState$.subscribe((state) => {
       this.comment_post_loading = state.comment_post_loading;

@@ -37,7 +37,7 @@
             </ul>
             <ul class="dropdown-menu dropdown-menu-right" *ngIf="!mediaData?.isOwner">
                 <li>
-                    <a (click)="reportModalOpen(mediaData.id)" data-toggle="modal" data-target="#reportmodal">Report</a>
+                    <a (click)="reportModalOpen(mediaData.id)">Report</a>
                 </li>
             </ul>
         </div>
@@ -163,9 +163,17 @@
             </div>
         </div>
     </div>
-    <app-comment [mediaId]="mediaId" [commentsType]="'media-list'" [comments]="comments" [mediaType]="mediaType"  [commentCount]="commentCount"></app-comment>
+    <app-comment [mediaId]="mediaId" [commentsType]="'media-list'" [userData]="userData" [comments]="comments" [mediaType]="mediaType"  [commentCount]="commentCount"></app-comment>
 </div>
 
-<app-modal [modalTitle]="''" [blocking]='false' modalId='reportPopUp'>
-    <app-report-popoup [reportQues]="questions" [reportContentId]="reportId" [reportType]="reportType" (onclose)= "closeReport()" ></app-report-popoup>
-</app-modal>
+<app-modal-new #reportModal modalClass="modal-report__popup" >
+    <modal-content>
+            <app-report-popoup  [reportContentId]="reportId" [reportType]="'post'" (onclose)= "closeReport()" ></app-report-popoup>
+    </modal-content>
+</app-modal-new>
+
+
+
+<!-- <app-modal [modalTitle]="''" [blocking]='false' modalId='reportPopUp' >
+    <app-report-popoup *ngIf="popupActive" [reportQues]="questions" [reportContentId]="reportId" [reportType]="'post'" (onclose)= "closeReport()" ></app-report-popoup>
+</app-modal> -->

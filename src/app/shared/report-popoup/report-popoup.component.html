@@ -1,4 +1,4 @@
-<div class="modal-dialog modal-lg" id="report_1" *ngIf ="!profileThankYou">
+<div id="report_1" *ngIf ="!profileThankYou">
   <div class="modal-content report_container">
       <form [formGroup]="repPop" novalidate (ngSubmit)="submitForm(repPop.value)" #repform="ngForm">
         <div class="report_pop_head">
@@ -39,7 +39,7 @@
   </div>
 </div>
 
-<div class="modal-dialog modal-lg" id="report_thank" *ngIf ="profileThankYou && reportType === 'profile'">
+<div id="report_thank" *ngIf ="profileThankYou && reportType === 'profile'">
     <div class="modal-content report_container">
         <div class="report_pop_head">
             <div class="c-text_lg-bold text-center">Report</div>
@@ -65,7 +65,7 @@
     </div>
 </div>
 
-<div class="modal-dialog modal-lg " id="report_thank4" *ngIf ="profileThankYou && reportType === 'post'">
+<div id="report_thank4" *ngIf ="profileThankYou && reportType === 'post'">
     <div class="modal-content report_container">
         <div class="report_pop_head">
             <div class="c-text_lg-bold text-center">Report</div>
@@ -91,7 +91,7 @@
     </div>
 </div>
 
-<div class="modal-dialog modal-lg " id="report_thank4" *ngIf ="profileThankYou && reportType === 'event'">
+<div id="report_thank4" *ngIf ="profileThankYou && reportType === 'event'">
     <div class="modal-content report_container">
         <div class="report_pop_head">
             <div class="c-text_lg-bold text-center">Report</div>
@@ -117,7 +117,7 @@
     </div>
 </div>
 
-<div class="modal-dialog modal-lg " id="report_thank4" *ngIf ="profileThankYou && reportType === 'opportunity'">
+<div id="report_thank4" *ngIf ="profileThankYou && reportType === 'opportunity'">
     <div class="modal-content report_container">
         <div class="report_pop_head">
             <div class="c-text_lg-bold text-center">Report</div>

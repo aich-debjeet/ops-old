@@ -581,5 +581,9 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
     return parsedDate;
   }
 
+  imageLoaded() {
+
+  }
+
 }
 
