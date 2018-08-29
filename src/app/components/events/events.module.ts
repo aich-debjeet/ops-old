@@ -24,7 +24,7 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 
-
+import { ImageCropperModule } from 'ngx-image-cropper';
 import { NgxfUploaderModule } from 'ngxf-uploader';
 import { EventsEditComponent } from './events-edit/events-edit.component';
 
@@ -62,7 +62,8 @@ const routes: Routes = [
     HttpClientModule,
     InfiniteScrollModule,
     NgxfUploaderModule.forRoot(),
-    QuillModule
+    QuillModule,
+    ImageCropperModule
   ],
   declarations: [
     EventsComponent,
