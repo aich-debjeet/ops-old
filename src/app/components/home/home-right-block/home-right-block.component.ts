@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ProfileActions } from '../../../actions/profile.action';
@@ -21,7 +21,7 @@ import { GeneralUtilities } from '../../../helpers/general.utils';
   // providers: [ TruncatePipe ]
 })
 
-export class HomeRightBlockComponent implements OnInit, OnDestroy, AfterViewInit {
+export class HomeRightBlockComponent implements OnInit, OnDestroy {
   @Output() followUpdate: EventEmitter<any> = new EventEmitter<any>();
   private subscription: ISubscription;
   private profileSub: ISubscription;
@@ -46,18 +46,6 @@ export class HomeRightBlockComponent implements OnInit, OnDestroy, AfterViewInit
     private router: Router,
     private generalUtils: GeneralUtilities
   ) {
-    this.myProfile$ = store.select('profileTags');
-    this.profileSub = this.myProfile$.subscribe((profile) => {
-      if (typeof profile !== 'undefined') {
-        if (profile['user_profiles_all'] !== 'undefined') {
-          this.profiles = profile.user_profiles_all;
-        }
-        if (profile.user_profiles_all_loaded) {
-          this.people_follow_id = profile.people_follow_scroll_id
-        }
-      }
-    });
-
     this.opportunityState$ = this.store.select('opportunityTags');
     this.subscription = this.opportunityState$.subscribe((state) => {
       if (this.generalUtils.checkNestedKey(state, ['search_opportunities_result', 'opportunityResponse'])) {
@@ -67,12 +55,21 @@ export class HomeRightBlockComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   ngOnInit() {
-    // this.loadProfiles();
-    // this.loadRecomOpps();
-  }
 
-  ngAfterViewInit() {
-    this.loadProfiles();
+    this.loadProfiles(null);
+
+    this.myProfile$ = this.store.select('profileTags');
+    this.profileSub = this.myProfile$.subscribe((profile) => {
+      if (typeof profile !== 'undefined') {
+        if (profile['user_profiles_all']) {
+          this.profiles = profile.user_profiles_all;
+        }
+        if (profile.user_profiles_all_loaded) {
+          this.people_follow_id = profile.people_follow_scroll_id
+        }
+      }
+    });
+
     this.loadRecomOpps();
   }
 
@@ -146,11 +143,11 @@ export class HomeRightBlockComponent implements OnInit, OnDestroy, AfterViewInit
     }
     return false;
   }
-  loadProfiles() {
+  loadProfiles(value) {
     this.store.dispatch({ type: ProfileActions.LOAD_ALL_PROFILES, payload: {
       'isHuman' : '1' ,
       'name': {
-        'scrollId': this.people_follow_id
+        'scrollId': value === null ? null : this.people_follow_id
        }
       }});
   }
@@ -158,7 +155,7 @@ export class HomeRightBlockComponent implements OnInit, OnDestroy, AfterViewInit
     this.scrolling = e.currentScrollPosition;
     if (this.scrollingLoad <= this.scrolling) {
       this.scrollingLoad += 100;
-      this.loadProfiles();
+      this.loadProfiles(this.people_follow_id);
     }
   }
 

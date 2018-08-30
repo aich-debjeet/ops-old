@@ -1172,9 +1172,16 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
        * [TEMP] Load all profiles
        */
     case ProfileActions.LOAD_ALL_PROFILES:
+      if (payload.name.scrollId === null) {
+        return Object.assign({}, state, {
+          user_profiles_all: [],
+          people_follow_scroll_id: null
+        });
+      }
       return Object.assign({}, state, {
         user_profiles_all_loaded: false
       });
+
     case ProfileActions.LOAD_ALL_PROFILES_SUCCESS:
       const resp = payload.profileResponse;
       const profile_list = state.user_profiles_all.concat(resp)
