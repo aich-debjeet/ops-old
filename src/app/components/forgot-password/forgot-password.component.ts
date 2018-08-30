@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 
@@ -7,7 +7,7 @@ import { AuthActions } from '../../actions/auth.action'
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 import { Store } from '@ngrx/store';
 import { Login, initialTag } from '../../models/auth.model';
@@ -17,17 +17,18 @@ import { Login, initialTag } from '../../models/auth.model';
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.scss']
 })
-export class ForgotPasswordComponent implements OnInit {
+export class ForgotPasswordComponent implements OnInit, OnDestroy {
   forgotPass: FormGroup;
   tagState$: Observable<Login>;
   forgotP = initialTag;
+  fpSub: ISubscription;
 
   constructor(fb: FormBuilder, private store: Store<Login>, private router: Router, private route: ActivatedRoute) {
     this.forgotPass = fb.group({
       identity: ['', Validators.required]
     });
     this.tagState$ = store.select('loginTags');
-    this.tagState$.subscribe((state) => {
+    this.fpSub = this.tagState$.subscribe((state) => {
       this.forgotP = state;
     });
   }
@@ -38,16 +39,15 @@ export class ForgotPasswordComponent implements OnInit {
 
   // submit the identity
   submitForm(value: any) {
-
-    if (value.identity === '') {
-      return;
-    }
-
+    if (value.identity === '') { return; }
     const form = {
       forgetPasswordtype: 'userCheck',
       value: value.identity.trim()
     }
-
     this.store.dispatch({ type: AuthActions.FP_USER_EXISTS, payload: form });
+  }
+
+  ngOnDestroy() {
+    this.fpSub.unsubscribe();
   }
 }
