@@ -580,6 +580,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
     parsedDate = date[0].split('-').reverse().join('-') + 'T' + date[1];
     return parsedDate;
   }
+  imageLoaded(){}
 
 }
 

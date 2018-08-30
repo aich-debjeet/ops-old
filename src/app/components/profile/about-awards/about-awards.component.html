@@ -91,7 +91,7 @@
                                                 <input class="form_input" type="text" required="" formControlName="timeperiod" placeholder="" [textMask]="{mask: dateMask}">
                                                 <span class="form_highlight"></span>
                                                 <span class="form_bar"></span>
-                                                <label>Date of Award (MM-DD-YYYY)</label>
+                                                <label>Date of Award (DD-MM-YYYY)</label>
                                                 <p class="error_alert" *ngIf="awardForm.controls['timeperiod'].errors?.required && myform.submitted">Date of Award is required</p>
                                                 <p class="error_alert" *ngIf="awardForm.controls['timeperiod'].errors?.invalidWorkDate">Invalid Date</p>
                                             </div>

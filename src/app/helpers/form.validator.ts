@@ -157,8 +157,8 @@ export class DatabaseValidator {
             const today = moment();
             const dateArr =  control.value.split('-');
 
-            const month = dateArr[0];
-            const day = dateArr[1];
+            const month = dateArr[1];
+            const day = dateArr[0];
             const year = dateArr[2];
 
             // check for valid day number
@@ -177,10 +177,10 @@ export class DatabaseValidator {
             }
 
              const toDate = new Date(year, month, day);
-             if (this.fromDate > toDate) {
+             if (toDate <= this.fromDate) {
                 resolve({ 'isvalid': true });
              }
-             if (moment(control.value).format('YYYYMMDD') > moment(today).format('YYYYMMDD')) {
+             if (moment(new Date(year, month, day)).format('YYYYMMDD') > moment(today).format('YYYYMMDD')) {
                 //  console.log('here')
                 resolve({ 'invalidWorkDate': true });
              }
@@ -200,17 +200,19 @@ export class DatabaseValidator {
      * @param control: Form birth date input
      */
     validWorkFromDate(control: AbstractControl) {
+        console.log(control)
         const q = new Promise((resolve, reject) => {
             // if (control.value.indexOf('_') !== -1 || control.value === '') {
             // return resolve(null);
             // }
             const today = moment();
+            
             //  console.log(moment(today).format('YYYYMMDD'))
             const dateArr =  control.value.split('-');
             // console.log(dateArr)
 
-            const month = dateArr[0];
-            const day = dateArr[1];
+            const month = dateArr[1];
+            const day = dateArr[0];
             const year = dateArr[2];
 
             // check for valid day number
@@ -229,9 +231,11 @@ export class DatabaseValidator {
             }
 
              this.fromDate = new Date(year, month, day);
-            //  console.log(control.value)
+            //  console.log(this.fromDate)
+            //   console.log(control.value)
             //  console.log(moment(control.value).format('YYYYMMDD'))
-             if (moment(control.value).format('YYYYMMDD') > moment(today).format('YYYYMMDD')) {
+            //  console.log(moment(new Date(year, month, day)).format('YYYYMMDD'))
+             if (moment(new Date(year, month, day)).format('YYYYMMDD') > moment(today).format('YYYYMMDD')) {
                 //   console.log('here')
                 resolve({ 'invalidWorkDate': true });
              }
