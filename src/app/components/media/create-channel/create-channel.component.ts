@@ -15,9 +15,6 @@ import { map as _map } from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import * as _ from 'lodash';
 
-// Blog
-import { TokenService } from '../../../helpers/token.service';
-
 @Component({
   selector: 'app-create-channel',
   templateUrl: './create-channel.component.html',
@@ -33,7 +30,6 @@ export class CreateChannelComponent implements OnInit, OnDestroy {
   loginTagState$: Observable<any>;
   profileChannel = initialTag;
   channelType: number;
-  handle: string;
   channelSavedHere: boolean;
   channelSaved = false;
   private apiLink: string = environment.API_ENDPOINT;
@@ -50,7 +46,6 @@ export class CreateChannelComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private router: Router,
     private toastr: ToastrService,
-    private tokenService: TokenService,
     private generalHelper: GeneralUtilities,
     private store: Store<Media>
   ) {
@@ -59,11 +54,6 @@ export class CreateChannelComponent implements OnInit, OnDestroy {
     this.stepNumber = 1;
     this.channelSaved = false;
     this.channelSavedHere = false;
-
-    this.handle = '';
-    if (this.handle !== '') {
-      this.handle = this.tokenService.getHandle();
-    }
 
     this.loginTagState$ = store.select('loginTags');
     this.loginSub = this.loginTagState$.subscribe((state) => {
