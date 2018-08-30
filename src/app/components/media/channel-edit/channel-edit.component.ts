@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Router, ActivatedRoute } from '@angular/router';
@@ -21,7 +21,7 @@ import { ToastrService } from 'ngx-toastr';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
 import * as _ from 'lodash';
@@ -29,11 +29,11 @@ import * as _ from 'lodash';
 @Component({
   selector: 'app-channel-edit',
   templateUrl: './channel-edit.component.html',
-  providers: [ ModalService ],
+  providers: [ModalService],
   styleUrls: ['./channel-edit.component.scss']
 })
 
-export class EditChannelComponent implements OnInit {
+export class EditChannelComponent implements OnInit, OnDestroy {
   @ViewChild('channelUpdate') channelUpdateModal: Modal;
   channelForm: FormGroup;
   mediaState$: Observable<Media>;
@@ -53,6 +53,7 @@ export class EditChannelComponent implements OnInit {
   forIndustries: any;
   channelSaved = false;
   channelSavedHere: boolean;
+  mediaSub: ISubscription;
 
   private apiLink: string = environment.API_ENDPOINT;
   imageBaseLink: string = environment.API_IMAGE;
@@ -68,7 +69,7 @@ export class EditChannelComponent implements OnInit {
     this.mediaState$ = store.select('mediaStore');
     this.editState$ = store.select('mediaStore').take(5);
 
-    this.mediaState$.subscribe((state) => {
+    this.mediaSub = this.mediaState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
         this.mediaStore = state;
         if (typeof this.mediaStore.channel_detail['industryList'] !== 'undefined') {
@@ -89,7 +90,7 @@ export class EditChannelComponent implements OnInit {
       this.channelSaved = this.profileChannel.channel_updated;
 
       // Success message
-      if (this.channelSavedHere && this.channelSaved === true ) {
+      if (this.channelSavedHere && this.channelSaved === true) {
         this.channelSavedHere = false;
         this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
       }
@@ -115,7 +116,7 @@ export class EditChannelComponent implements OnInit {
   ngOnInit() {
 
     // loading industry list
-    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES});
+    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
 
     // reading route
     this.route.params.subscribe(params => {
@@ -131,11 +132,11 @@ export class EditChannelComponent implements OnInit {
       const channel = event.channel_detail;
       this.userHandle = channel.ownerHandle;
       this.channelForm = this.fb.group({
-        id: [channel.channelId, Validators.required ],
-        title: [channel.channelName, Validators.required ],
-        type: [this.selectedIndustry, Validators.required ],
-        desc: [channel.description, Validators.required ],
-        privacy: [this.selectedPrivacy, Validators.required ]
+        id: [channel.channelId, Validators.required],
+        title: [channel.channelName, Validators.required],
+        type: [this.selectedIndustry, Validators.required],
+        desc: [channel.description, Validators.required],
+        privacy: [this.selectedPrivacy, Validators.required]
       });
 
     });
@@ -159,7 +160,7 @@ export class EditChannelComponent implements OnInit {
     const userHandle = this.userHandle || '';
     const mediaTypeList = [];
 
-    if ( this.channelForm.valid === true && userHandle !== '' ) {
+    if (this.channelForm.valid === true && userHandle !== '') {
 
       if (!this.hashTags) {
         this.hashTags = [];
@@ -169,9 +170,9 @@ export class EditChannelComponent implements OnInit {
         id: value.id,
         name: value.title,
         description: value.desc,
-        industryList: [ value.type ],
+        industryList: [value.type],
         access: Number(value.privacy),
-        accessSettings : { access : Number(value.privacy) },
+        accessSettings: { access: Number(value.privacy) },
         hashTags: this.hashTags
       }
 
@@ -183,12 +184,12 @@ export class EditChannelComponent implements OnInit {
       }
       this.store.dispatch({ type: ProfileActions.CHANNEL_UPDATE, payload: reqParams });
       this.store.select('profileTags')
-      .first(channel => channel['channel_updated'] === true)
-      .subscribe(data => {
-        this.channelUpdateModal.close();
-        this.toastr.success('Successfully updated channel', 'Success!');
-        return;
-      });
+        .first(channel => channel['channel_updated'] === true)
+        .subscribe(data => {
+          this.channelUpdateModal.close();
+          this.toastr.success('Successfully updated channel', 'Success!');
+          return;
+        });
     } else {
       this.toastr.warning('Please fill all required fields');
     }
@@ -208,5 +209,9 @@ export class EditChannelComponent implements OnInit {
       }
     }
 
+  }
+
+  ngOnDestroy() {
+    this.mediaSub.unsubscribe();
   }
 }
