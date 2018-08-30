@@ -17,7 +17,6 @@ import * as _ from 'lodash';
 
 // Blog
 import { TokenService } from '../../../helpers/token.service';
-import { LocalStorageService } from './../../../services/local-storage.service';
 
 @Component({
   selector: 'app-create-channel',
