@@ -577,14 +577,19 @@ export class ProfileEffect {
   /**
    *  Save image to ProfileUI
    */
-   @Effect()
-   loadProfileImageSuccess$ = this.actions$
+  @Effect()
+    updateprofileImage1$ = this.actions$
    .ofType(ProfileActions.LOAD_PROFILE_IMAGE_SUCCESS)
-   .map(toPayload)
-   .switchMap((payload) => this.profileService.saveProfileImage(payload)
-     .map(res => ({ type: ProfileActions.SAVE_PROFILE_IMAGE_SUCCESS, payload: res }))
-     .catch((res) => Observable.of({ type: ProfileActions.SAVE_PROFILE_IMAGE_FAILED, payload: res }))
-    );
+   .mergeMap(data => {
+      return Observable.of({  type: ProfileActions.LOAD_CURRENT_USER_PROFILE })
+    });
+
+  @Effect()
+   updateprofileImage2$ = this.actions$
+   .ofType(ProfileActions.LOAD_PROFILE_IMAGE_SUCCESS)
+   .mergeMap(data => {
+      return Observable.of({  type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS })
+    });
 
   /**
    *  Save on profile image url
