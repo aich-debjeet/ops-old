@@ -55,8 +55,8 @@ export class CreateChannelComponent implements OnInit, OnDestroy {
   selectedChannel = '';
   hashTags: string[];
   activeUser: UserCard;
-  private subscriptionOne: ISubscription;
-  private subscriptionTwo: ISubscription;
+  private loginSub: ISubscription;
+  private profileSub: ISubscription;
 
   constructor(
     private fb: FormBuilder,
@@ -79,14 +79,14 @@ export class CreateChannelComponent implements OnInit, OnDestroy {
       }
 
       this.loginTagState$ = store.select('loginTags');
-      this.subscriptionOne = this.loginTagState$.subscribe((state) => {
+      this.loginSub = this.loginTagState$.subscribe((state) => {
         if (typeof state !== 'undefined') {
           this.industries = state.industries;
         }
       });
 
       this.tagState$ = this.store.select('profileTags');
-      this.subscriptionOne = this.tagState$.subscribe((state) => {
+      this.profileSub = this.tagState$.subscribe((state) => {
         if (typeof state !== 'undefined') {
           this.profileChannel = state;
           this.channelSaved = this.profileChannel.channel_saved;
@@ -108,7 +108,8 @@ export class CreateChannelComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscriptionOne.unsubscribe();
+    this.loginSub.unsubscribe();
+    this.profileSub.unsubscribe();
   }
 
   /**
