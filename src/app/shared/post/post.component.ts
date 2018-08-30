@@ -1,12 +1,9 @@
 import { Component, EventEmitter, Input, Output, OnInit, Inject, OnDestroy, ViewChild } from '@angular/core';
 import { environment } from './../../../environments/environment';
 import { Router } from '@angular/router';
-import { DatePipe } from '@angular/common';
+import { DatePipe, PlatformLocation } from '@angular/common';
 import { ISubscription } from 'rxjs/Subscription';
 import { Modal } from '../../shared/modal-new/Modal';
-
-import { PLATFORM_ID } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
 
 import FilesHelper from '../../helpers/fileUtils';
 import { initialMedia, Media } from '../../models/media.model';
@@ -52,26 +49,17 @@ export class PostComponent implements OnInit, OnDestroy {
 
   imageLink: string = environment.API_IMAGE;
   questions: any;
-  domainLink: string = environment.API_DOMAIN;
+  domainLink: string;
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId: Object, meta: Meta, title: Title,
     private router: Router,
     private store: Store<Media>,
+    platformLocation: PlatformLocation,
     public modalService: ModalService,
   ) {
+    this.domainLink = (platformLocation as any).location.origin;
     this.dotMenuState = false;
     this.mediaState$ = store.select('mediaStore');
-
-    // this.subscription = this.mediaState$.subscribe((state) => {
-    //   // this.mediaStore = state;
-    //   // if (state['reports']) {
-    //   //   this.questions = state['reports'];
-    //   //   // console.log(this.questions)
-    //   // }
-    //   console.log('POST', state);
-    // });
-
   }
 
   ngOnInit() {

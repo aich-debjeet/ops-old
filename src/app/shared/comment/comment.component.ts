@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { initialMedia, Media } from '../../models/media.model';
 import { environment } from './../../../environments/environment';
@@ -7,6 +7,7 @@ import { ProfileActions } from '../../actions/profile.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
+import { ISubscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -14,7 +15,8 @@ import { Store } from '@ngrx/store';
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss']
 })
-export class CommentComponent implements OnInit {
+export class CommentComponent implements OnInit, OnDestroy {
+  private subscription: ISubscription;
   @Input() mediaId: string;
   @Input() mediaType: string;
   @Input() comments: any;
@@ -35,15 +37,16 @@ export class CommentComponent implements OnInit {
     private store: Store<Media>
   ) {
     this.mediaState$ = store.select('mediaStore');
-
-
-
-    this.mediaState$.subscribe((state) => {
+    this.subscription = this.mediaState$.subscribe((state) => {
       this.comment_post_loading = state.comment_post_loading;
     });
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   /**

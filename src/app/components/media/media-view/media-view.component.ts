@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, Output, ViewChild} from '@angular/core';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
-
+import { PlatformLocation } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from './../../../../environments/environment';
 import { ModalService } from '../../../shared/modal/modal.component.service';
@@ -35,7 +35,7 @@ export class MediaViewComponent implements OnDestroy {
   @Output() onComment: EventEmitter<any> = new EventEmitter<any>();
   @Output() onMediaNext: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('firstModal') modal: any;
-  domainLink: string = environment.API_DOMAIN;
+  domainLink: string;
   messageText: string;
   statusForm: FormGroup;
   private mediaStateSubscription: Subscription;
@@ -61,9 +61,10 @@ export class MediaViewComponent implements OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private toastr: ToastrService,
+    platformLocation: PlatformLocation,
     private store: Store<Media>
   ) {
-    // console.log(this.router.url)
+    this.domainLink = (platformLocation as any).location.origin;
     this.spot = false;
     this.mediaState$ = store.select('mediaStore');
 
