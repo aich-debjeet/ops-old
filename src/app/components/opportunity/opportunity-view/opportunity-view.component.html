@@ -295,6 +295,12 @@
               </div>
             </div>
           </div><!-- oppo title end -->
+          <div class="o-oppo-post__address m-t-8">
+            <span class="o-oppo-post__cmpny-location float_left c-text_md color-grey-dark">
+              <span class="o-oppo-post__location-icon"><img src="https://ops-v2.netlify.com/assets/svg/ico_location2.svg" alt=""></span>
+              {{ opportunity?.opportunityProject?.location?.location }}
+            </span>
+          </div>
           <div class="o-oppo-post__actions m-t-b-24">
             <div class="o-oppo-post__action-icons float_left ">
               <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && !hasApplied" (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
@@ -515,6 +521,12 @@
             </div>
           </div>
         </div><!-- oppo title end -->
+        <div class="o-oppo-post__address m-t-8">
+          <span class="o-oppo-post__cmpny-location float_left c-text_md color-grey-dark">
+            <span class="o-oppo-post__location-icon"><img src="https://ops-v2.netlify.com/assets/svg/ico_location2.svg" alt=""></span>
+            {{ opportunity?.opportunityFreelance?.location?.location }}
+          </span>
+        </div>
         <div class="o-oppo-post__address m-t-8">
           <span class="o-oppo-post__cmpny-location float_left c-text_md color-grey-dark">
             Payment: <span class="color-black"> {{ opportunity?.opportunityFreelance?.payType }}</span>
