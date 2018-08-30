@@ -705,6 +705,20 @@
             </div>
           </div>
         </div><!-- detail end -->
+        <div class="o-oppo-post__actions m-t-b-24">
+          <div class="o-oppo-post__action-icons float_left ">
+            <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && !hasApplied"
+              (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
+            <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied"
+              (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
+            <a class="o-action-icons__link m-r-16">
+              <img width="24" [src]="baseUrl + 'img/svg/ico_share-02.svg'">
+            </a>
+            <!-- <a class="o-action-icons__link m-r-16">
+                <img width="24" [src]="baseUrl + 'img/svg/bookmark.svg'">
+              </a> -->
+          </div>
+        </div>
       </div>
       <!-- volunteer -->
 
