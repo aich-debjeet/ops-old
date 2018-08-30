@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { environment } from './../../../environments/environment';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../models/profile.model';
@@ -9,6 +9,7 @@ import { ProfileActions } from '../../actions/profile.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
+import { ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-channel',
@@ -16,7 +17,7 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./channel.component.scss']
 })
 
-export class ChannelComponent implements OnInit {
+export class ChannelComponent implements OnInit, OnDestroy {
   @Input() className: string;
   @Input() channelData;
   @Input() currentUser: boolean;
@@ -26,7 +27,7 @@ export class ChannelComponent implements OnInit {
   @Output() onDelete: EventEmitter<any> = new EventEmitter<any>();
   @Output() onEdit: EventEmitter<any> = new EventEmitter<any>();
   imageBaseLink: string = environment.API_IMAGE;
-
+  private subscriptionOne: ISubscription;
   // Its for admin spefic edit option
   @Input() type: boolean;
   userImage: string;
@@ -42,11 +43,9 @@ export class ChannelComponent implements OnInit {
     private _store: Store<ProfileModal>
   ) {
     this.storeState$ = this._store.select('profileTags');
-
-     this.storeState$.subscribe((state) => {
+    this.subscriptionOne = this.storeState$.subscribe((state) => {
        this.userHandle = state['profile_details'].handle;
        this.userProfile = state;
-      // this.userProfile = state['profile_details'];
     });
   }
 
@@ -62,6 +61,10 @@ export class ChannelComponent implements OnInit {
         this.userImage = this.image_base_url + this.channelData.ownerImage;
       }
     }
+  }
+
+  ngOnDestroy() {
+    this.subscriptionOne.unsubscribe();
   }
 
   /**
