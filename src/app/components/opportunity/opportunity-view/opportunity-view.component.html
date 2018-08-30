@@ -3,88 +3,90 @@
 
     <!-- left container -->
     <div class="col-md-9 col-sm-7 col-xs-12 m-t-16 o-oppo-inner-left">
-      
+
       <!-- audition -->
       <div *ngIf="opportunity?.opportunityType === 'audition'" class="o-opportunity-detail">
-          <div class="o-oppo-post__head color-grey-dark">Audition</div>
-          <div class="o-oppo-post__title m-t-8">
-            <h4 class="c-h4 o-oppo-post--title-width">{{ opportunity?.opportunityAudition?.title }}</h4>
-            <div class="o-oppo-post__edit">
-              <div class="dropdown" appDropdown>
-                <span class="com-head" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
-                  <img width="16" [src]="baseUrl + 'img/svg/ico_options.svg'">
-                </span>
-                <ul *ngIf="isOwnOpportunity" class="dropdown-menu c-opsdropdown--size-oppo">
-                  <li>
-                    <a [routerLink]="'/opportunity/edit/' + opportunity?.id" class="o-oppo-edit__drop">
-                      <span class="">Edit</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a (click)="deleteOpp(opportunity?.id)" class="o-oppo-edit__drop">
-                      <span>Delete</span>
-                    </a>
-                  </li>
-                </ul>
-                <ul *ngIf="!isOwnOpportunity" class="dropdown-menu c-opsdropdown--size-oppo">
-                  <li>
-                    <a class="o-oppo-edit__drop" (click)="reportModalOpen(opportunity?.id)">
-                      <span class="">Report</span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
+        <div class="o-oppo-post__head color-grey-dark">Audition</div>
+        <div class="o-oppo-post__title m-t-8">
+          <h4 class="c-h4 o-oppo-post--title-width">{{ opportunity?.opportunityAudition?.title }}</h4>
+          <div class="o-oppo-post__edit">
+            <div class="dropdown" appDropdown>
+              <span class="com-head" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
+                <img width="16" [src]="baseUrl + 'img/svg/ico_options.svg'">
+              </span>
+              <ul *ngIf="isOwnOpportunity" class="dropdown-menu c-opsdropdown--size-oppo">
+                <li>
+                  <a [routerLink]="'/opportunity/edit/' + opportunity?.id" class="o-oppo-edit__drop">
+                    <span class="">Edit</span>
+                  </a>
+                </li>
+                <li>
+                  <a (click)="deleteOpp(opportunity?.id)" class="o-oppo-edit__drop">
+                    <span>Delete</span>
+                  </a>
+                </li>
+              </ul>
+              <ul *ngIf="!isOwnOpportunity" class="dropdown-menu c-opsdropdown--size-oppo">
+                <li>
+                  <a class="o-oppo-edit__drop" (click)="reportModalOpen(opportunity?.id)">
+                    <span class="">Report</span>
+                  </a>
+                </li>
+              </ul>
             </div>
-          </div><!-- oppo title end -->
-          <div class="o-oppo-post__address m-t-8">
-            <span class="o-oppo-post__cmpny-location float_left c-text_md color-grey-dark">
-              <span class="o-oppo-post__location-icon">
-                <img [src]="baseUrl + 'img/svg/ico_location2.svg'" alt="">
-              </span>
-              {{ opportunity?.opportunityAudition?.location?.location }}
+          </div>
+        </div><!-- oppo title end -->
+        <div class="o-oppo-post__address m-t-8">
+          <span class="o-oppo-post__cmpny-location float_left c-text_md color-grey-dark">
+            <span class="o-oppo-post__location-icon">
+              <img [src]="baseUrl + 'img/svg/ico_location2.svg'" alt="">
             </span>
-            <span class="o-oppo-post__info float_left c-text_lg color-grey-dark m-l-r-16">
-              <span class="o-oppo-calander">
-                <span class="o-oppo-calander__ico"><img [src]="baseUrl + 'img/svg/calendar.svg'" alt=""></span>
-                <span class="c-text_md color-grey-dark ">
-                  {{ opportunity?.opportunityAudition?.auditionDate }}
-                </span>
+            {{ opportunity?.opportunityAudition?.location?.location }}
+          </span>
+          <span class="o-oppo-post__info float_left c-text_lg color-grey-dark m-l-r-16">
+            <span class="o-oppo-calander">
+              <span class="o-oppo-calander__ico"><img [src]="baseUrl + 'img/svg/calendar.svg'" alt=""></span>
+              <span class="c-text_md color-grey-dark ">
+                {{ opportunity?.opportunityAudition?.auditionDate }}
               </span>
             </span>
-          </div><!-- cmpny address end -->
-          <div class="o-oppo-post__actions m-t-b-24">
-            <div class="o-oppo-post__action-icons float_left ">
-              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && !hasApplied" (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
-              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied" (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
-              <a class="o-action-icons__link m-r-16">
-                <img width="24" src="https://ops-v2.netlify.com/assets/svg/ico_share-02.svg">
-              </a>
-              <!-- <a class="o-action-icons__link m-r-16">
+          </span>
+        </div><!-- cmpny address end -->
+        <div class="o-oppo-post__actions m-t-b-24">
+          <div class="o-oppo-post__action-icons float_left ">
+            <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && !hasApplied"
+              (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
+            <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied"
+              (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
+            <a class="o-action-icons__link m-r-16">
+              <img width="24" src="https://ops-v2.netlify.com/assets/svg/ico_share-02.svg">
+            </a>
+            <!-- <a class="o-action-icons__link m-r-16">
                 <img width="24" src="https://ops-v2.netlify.com/assets/svg/bookmark.svg">
               </a> -->
-            </div><!-- action icons end -->
-            <div class="o-oppo-post__uplod-info">
-              <span class="o-oppo-post__det c-text_sm color-grey-dark m-l-24">
-                <span class="ltr-space text_uppercase m-l-24">Applicants: </span>
-                <span class="color-grey-darker">{{ opportunity?.applicationCount }}</span>
-                <span class="ltr-space text_uppercase m-l-24">Posted: </span>
-                <span class="color-grey-darker">
-                  {{ opportunity?.createdDate | utcDate | date:'d MMM hh:mm a' }}
-                </span>
+          </div><!-- action icons end -->
+          <div class="o-oppo-post__uplod-info">
+            <span class="o-oppo-post__det c-text_sm color-grey-dark m-l-24">
+              <span class="ltr-space text_uppercase m-l-24">Applicants: </span>
+              <span class="color-grey-darker">{{ opportunity?.applicationCount }}</span>
+              <span class="ltr-space text_uppercase m-l-24">Posted: </span>
+              <span class="color-grey-darker">
+                {{ opportunity?.createdDate | utcDate | date:'d MMM hh:mm a' }}
               </span>
+            </span>
+          </div>
+        </div><!-- oppo post actions end -->
+        <div class="o-oppo-post__description with_border_top p-b-24">
+          <h6 class="c-text_lg m-t-24">Description</h6>
+          <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.opportunityAudition?.description"></p>
+          <h6 class="c-text_lg m-t-24">Candidate Profile</h6>
+          <div class="row m-t-16">
+            <div class="col-md-2 col-sm-4 col-xs-6 c-text_md">Gender</div>
+            <div class="col-md-9 col-sm-8 col-xs-6 p-0 c-text_md color-grey-dark">
+              {{ opportunity?.opportunityAudition?.gender }}
             </div>
-          </div><!-- oppo post actions end -->
-          <div class="o-oppo-post__description with_border_top p-b-24">
-            <h6 class="c-text_lg m-t-24">Description</h6>
-            <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.opportunityAudition?.description"></p>
-            <h6 class="c-text_lg m-t-24">Candidate Profile</h6>
-            <div class="row m-t-16">
-              <div class="col-md-2 col-sm-4 col-xs-6 c-text_md">Gender</div>
-              <div class="col-md-9 col-sm-8 col-xs-6 p-0 c-text_md color-grey-dark">
-                {{ opportunity?.opportunityAudition?.gender }}
-              </div>
-            </div>
-            <!-- <div class="row m-t-16">
+          </div>
+          <!-- <div class="row m-t-16">
               <div class="col-md-2 col-sm-4 col-xs-6 c-text_md">Ethnicity</div>
               <div class="col-md-9 col-sm-8 col-xs-6 p-0 c-text_md color-grey-dark">
                 {{ opportunity?.opportunityAudition?.ethnicity }}
@@ -96,258 +98,285 @@
                 {{ opportunity?.opportunityAudition?.complexion }}
               </div>
             </div> -->
-            <div *ngIf="opportunity?.opportunityAudition?.ageLimit?.from && opportunity?.opportunityAudition?.ageLimit?.to" class="row m-t-16">
-              <div class="col-md-2 col-sm-4 col-xs-6 c-text_md">Age</div>
-              <div class="col-md-9 col-sm-8 col-xs-6 p-0 c-text_md color-grey-dark">
-                {{ opportunity?.opportunityAudition?.ageLimit?.from }} - {{ opportunity?.opportunityAudition?.ageLimit?.to }} years
-              </div>
-            </div>
-            <div *ngIf="opportunity?.opportunityAudition?.height?.from && opportunity?.opportunityAudition?.height?.to" class="row m-t-16">
-              <div class="col-md-2 col-sm-4 col-xs-6 c-text_md">Height</div>
-              <div class="col-md-9 col-sm-8 col-xs-6 p-0 c-text_md color-grey-dark">
-                {{ opportunity?.opportunityAudition?.height?.from }} - {{ opportunity?.opportunityAudition?.height?.to }} cm
-              </div>
-            </div>
-            <div *ngIf="opportunity?.opportunityAudition?.weight?.from && opportunity?.opportunityAudition?.weight?.to" class="row m-t-16">
-              <div class="col-md-2 col-sm-4 col-xs-6 c-text_md">Weight</div>
-              <div class="col-md-9 col-sm-8 col-xs-6 p-0 c-text_md color-grey-dark">
-                {{ opportunity?.opportunityAudition?.weight?.from }} - {{ opportunity?.opportunityAudition?.weight?.to }} kg
-              </div>
-            </div>
-            <div class="o-oppo-post__media-action">
-              <div class="o-oppo-post__action-icons float_left ">
-                <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && !hasApplied" (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
-                <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied" (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
-                <a class="o-action-icons__link m-r-16">
-                  <img width="24" src="https://ops-v2.netlify.com/assets/svg/ico_share-02.svg">
-                </a>
-                <!-- <a class="o-action-icons__link m-r-16">
-                  <img width="24" src="https://ops-v2.netlify.com/assets/svg/bookmark.svg">
-                </a> -->
-              </div>
+          <div *ngIf="opportunity?.opportunityAudition?.ageLimit?.from && opportunity?.opportunityAudition?.ageLimit?.to"
+            class="row m-t-16">
+            <div class="col-md-2 col-sm-4 col-xs-6 c-text_md">Age</div>
+            <div class="col-md-9 col-sm-8 col-xs-6 p-0 c-text_md color-grey-dark">
+              {{ opportunity?.opportunityAudition?.ageLimit?.from }} - {{
+              opportunity?.opportunityAudition?.ageLimit?.to }} years
             </div>
           </div>
+          <div *ngIf="opportunity?.opportunityAudition?.height?.from && opportunity?.opportunityAudition?.height?.to"
+            class="row m-t-16">
+            <div class="col-md-2 col-sm-4 col-xs-6 c-text_md">Height</div>
+            <div class="col-md-9 col-sm-8 col-xs-6 p-0 c-text_md color-grey-dark">
+              {{ opportunity?.opportunityAudition?.height?.from }} - {{ opportunity?.opportunityAudition?.height?.to }}
+              cm
+            </div>
+          </div>
+          <div *ngIf="opportunity?.opportunityAudition?.weight?.from && opportunity?.opportunityAudition?.weight?.to"
+            class="row m-t-16">
+            <div class="col-md-2 col-sm-4 col-xs-6 c-text_md">Weight</div>
+            <div class="col-md-9 col-sm-8 col-xs-6 p-0 c-text_md color-grey-dark">
+              {{ opportunity?.opportunityAudition?.weight?.from }} - {{ opportunity?.opportunityAudition?.weight?.to }}
+              kg
+            </div>
+          </div>
+          <div class="o-oppo-post__media-action">
+            <div class="o-oppo-post__action-icons float_left ">
+              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && !hasApplied"
+                (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
+              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied"
+                (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
+              <a class="o-action-icons__link m-r-16">
+                <img width="24" src="https://ops-v2.netlify.com/assets/svg/ico_share-02.svg">
+              </a>
+              <!-- <a class="o-action-icons__link m-r-16">
+                  <img width="24" src="https://ops-v2.netlify.com/assets/svg/bookmark.svg">
+                </a> -->
+            </div>
+          </div>
+        </div>
       </div>
       <!-- audition -->
 
       <!-- job -->
       <div *ngIf="opportunity?.opportunityType === 'job'" class="o-opportunity-detail">
-          <div class="o-oppo-post__head color-grey-dark">Job</div>
-          <div class="o-oppo-post__title m-t-8">
-            <h4 class="c-h4 o-oppo-post--title-width">
-              {{ opportunity?.opportunityJob?.role }}
-            </h4>
-            <div class="o-oppo-post__edit">
-              <div class="dropdown" appDropdown>
-                <span class="com-head" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
-                  <img width="16" src="https://ops-v2.netlify.com/assets/svg/ico_options.svg">
-                </span>
-                <ul *ngIf="isOwnOpportunity" class="dropdown-menu c-opsdropdown--size-oppo">
-                  <li>
-                    <a [routerLink]="'/opportunity/edit/' + opportunity?.id" class="o-oppo-edit__drop">
-                      <span class="">Edit</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a (click)="deleteOpp(opportunity?.id)" class="o-oppo-edit__drop">
-                      <span>Delete</span>
-                    </a>
-                  </li>
-                </ul>
-                <ul *ngIf="!isOwnOpportunity" class="dropdown-menu c-opsdropdown--size-oppo">
-                  <li>
-                    <a class="o-oppo-edit__drop" (click)="reportModalOpen(opportunity?.id)">
-                      <span class="">Report</span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
+        <div class="o-oppo-post__head color-grey-dark">Job</div>
+        <div class="o-oppo-post__title m-t-8">
+          <h4 class="c-h4 o-oppo-post--title-width">
+            {{ opportunity?.opportunityJob?.role }}
+          </h4>
+          <div class="o-oppo-post__edit">
+            <div class="dropdown" appDropdown>
+              <span class="com-head" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
+                <img width="16" src="https://ops-v2.netlify.com/assets/svg/ico_options.svg">
+              </span>
+              <ul *ngIf="isOwnOpportunity" class="dropdown-menu c-opsdropdown--size-oppo">
+                <li>
+                  <a [routerLink]="'/opportunity/edit/' + opportunity?.id" class="o-oppo-edit__drop">
+                    <span class="">Edit</span>
+                  </a>
+                </li>
+                <li>
+                  <a (click)="deleteOpp(opportunity?.id)" class="o-oppo-edit__drop">
+                    <span>Delete</span>
+                  </a>
+                </li>
+              </ul>
+              <ul *ngIf="!isOwnOpportunity" class="dropdown-menu c-opsdropdown--size-oppo">
+                <li>
+                  <a class="o-oppo-edit__drop" (click)="reportModalOpen(opportunity?.id)">
+                    <span class="">Report</span>
+                  </a>
+                </li>
+              </ul>
             </div>
-          </div><!-- oppo title end -->
-          <div class="o-oppo-post__address m-t-8">
-            <span class="o-oppo-post__cmpny-name float_left c-text_lg color-grey-dark m-r-16">
-              {{ opportunity?.opportunityJob?.organizationName }}
+          </div>
+        </div><!-- oppo title end -->
+        <div class="o-oppo-post__address m-t-8">
+          <span class="o-oppo-post__cmpny-name float_left c-text_lg color-grey-dark m-r-16">
+            {{ opportunity?.opportunityJob?.organizationName }}
+          </span>
+          <span class="o-oppo-post__cmpny-location float_left c-text_md color-grey-dark">
+            <span class="o-oppo-post__location-icon"><img src="https://ops-v2.netlify.com/assets/svg/ico_location2.svg"
+                alt=""></span>
+            {{ opportunity?.opportunityJob?.location?.location }}
+          </span>
+        </div><!-- cmpny address end -->
+        <div class="o-oppo-post__short-det">
+          <span class="o-oppo-post__det c-text_md color-grey-dark m-r-24">
+            Experience Required: <span class="color-grey-darker">
+              {{ opportunity?.opportunityJob?.experience?.from }} - {{ opportunity?.opportunityJob?.experience?.to }}
+              years
             </span>
-            <span class="o-oppo-post__cmpny-location float_left c-text_md color-grey-dark">
-              <span class="o-oppo-post__location-icon"><img src="https://ops-v2.netlify.com/assets/svg/ico_location2.svg" alt=""></span>
-              {{ opportunity?.opportunityJob?.location?.location }}
+          </span>
+          <span class="o-oppo-post__det c-text_md color-grey-dark m-r-24">
+            Salary: <span class="color-grey-darker">
+              {{ opportunity?.opportunityJob?.salary?.amount }} {{ opportunity?.opportunityJob?.salary?.currency }} /
+              {{ opportunity?.opportunityJob?.salary?.salaryType }}
             </span>
-          </div><!-- cmpny address end -->
-          <div class="o-oppo-post__short-det">
-            <span class="o-oppo-post__det c-text_md color-grey-dark m-r-24">
-              Experience Required: <span class="color-grey-darker">
-                {{ opportunity?.opportunityJob?.experience?.from }} - {{ opportunity?.opportunityJob?.experience?.to }} years
-              </span>
+          </span>
+          <span class="o-oppo-post__det c-text_md color-grey-dark m-r-24">
+            Type: <span class="color-grey-darker">
+              {{ opportunity?.opportunityJob?.duration || '-' }}
             </span>
-            <span class="o-oppo-post__det c-text_md color-grey-dark m-r-24">
-              Salary: <span class="color-grey-darker">
-                {{ opportunity?.opportunityJob?.salary?.amount }} {{ opportunity?.opportunityJob?.salary?.currency }} / {{ opportunity?.opportunityJob?.salary?.salaryType }}
-              </span>
-            </span>
-            <span class="o-oppo-post__det c-text_md color-grey-dark m-r-24">
-              Type: <span class="color-grey-darker">
-                {{ opportunity?.opportunityJob?.duration || '-' }}
-              </span>
-            </span>
-          </div><!-- oppo short det end -->
-          <div class="o-oppo-post__actions float_left width100 m-t-b-24">
-            <div class="o- oppo-post__apply float_left m-r-16">
-              <button type="button" class="btn btn-primary btn-md" *ngIf="!isOwnOpportunity && !hasApplied" (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
-              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied" (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
-            </div>
-            <div class="o-oppo-post__action-icons float_left ">
-              <!-- <a class="o-action-icons__link m-r-16">
+          </span>
+        </div><!-- oppo short det end -->
+        <div class="o-oppo-post__actions float_left width100 m-t-b-24">
+          <div class="o- oppo-post__apply float_left m-r-16">
+            <button type="button" class="btn btn-primary btn-md" *ngIf="!isOwnOpportunity && !hasApplied" (click)="userOppAction('apply')"
+              [disabled]="userActionLoading">Apply</button>
+            <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied"
+              (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
+          </div>
+          <div class="o-oppo-post__action-icons float_left ">
+            <!-- <a class="o-action-icons__link m-r-16">
                 <div class="c-links__spots m-0">
                   <img src="https://ops-v2.netlify.com/assets/svg/spot_icon.svg" class="c-links__image">
                   <span class="c-links__count">705</span>
                 </div>
               </a> -->
-              <a class="o-action-icons__link m-r-16">
-                <img width="24" src="https://ops-v2.netlify.com/assets/svg/ico_share-02.svg">
-              </a>
-              <!-- <a class="o-action-icons__link m-r-16">
+            <a class="o-action-icons__link m-r-16">
+              <img width="24" src="https://ops-v2.netlify.com/assets/svg/ico_share-02.svg">
+            </a>
+            <!-- <a class="o-action-icons__link m-r-16">
                 <img width="24" src="https://ops-v2.netlify.com/assets/svg/bookmark.svg">
               </a> -->
-            </div><!-- action icons end -->
-            <div class="o-oppo-post__uplod-info float_right">
-              <span class="o-oppo-post__det c-text_sm color-grey-dark m-l-24">
-                <span class="ltr-space text_uppercase m-l-24">Applicants: </span>
-                <span class="color-grey-darker">{{ opportunity?.applicationCount }}</span>
-                <span class="ltr-space text_uppercase m-l-24">Posted: </span>
-                <span class="color-grey-darker">
-                  {{ opportunity?.createdDate | utcDate | date:'d MMM hh:mm a' }}
-                </span>
+          </div><!-- action icons end -->
+          <div class="o-oppo-post__uplod-info float_right">
+            <span class="o-oppo-post__det c-text_sm color-grey-dark m-l-24">
+              <span class="ltr-space text_uppercase m-l-24">Applicants: </span>
+              <span class="color-grey-darker">{{ opportunity?.applicationCount }}</span>
+              <span class="ltr-space text_uppercase m-l-24">Posted: </span>
+              <span class="color-grey-darker">
+                {{ opportunity?.createdDate | utcDate | date:'d MMM hh:mm a' }}
               </span>
-            </div>
-          </div><!--  oppo post actions end -->
-          <div class="o-oppo-post__description with_border_top p-b-24">
-            <h6 class="c-text_lg m-t-24">Description</h6>
-            <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.opportunityJob?.description"></p>
+            </span>
           </div>
-          <div class="o-oppo-post__description p-b-24">
-            <h6 class="c-text_lg m-t-24">Skills</h6>
-            <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.opportunityJob?.skills"></p>
-          </div>
-          <div class="o-oppo-post__description p-b-24">
-            <h6 class="c-text_lg m-t-24">Education</h6>
-            <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.opportunityJob?.qualifications"></p>
-          </div>
-          <div class="o-oppo-post__description with_border_top">
-            <ng-container *ngIf="opportunity?.opportunityJob?.attachFiles?.length > 0">
-              <h6 class="c-text_lg m-t-24 m-b-16">Attachments</h6>
-              <ul class="o-oppo-post__media-list">
-                <li *ngFor="let attachment of opportunity?.opportunityJob?.attachFiles" [ngStyle]="{'background-image': 'url('+ baseUrl + attachment +')'}" class="o-oppo-post__media-item"></li>
-              </ul>
-            </ng-container>
-            <div class="o-oppo-post__media-action">
-              <button type="button" class="btn btn-primary btn-md m-r-8 float_left" *ngIf="!isOwnOpportunity && !hasApplied" (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
-              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied" (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
-              <div class="o-oppo-post__action-icons float_left ">
-                <!-- <a class="o-action-icons__link m-r-16">
+        </div><!--  oppo post actions end -->
+        <div class="o-oppo-post__description with_border_top p-b-24">
+          <h6 class="c-text_lg m-t-24">Description</h6>
+          <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.opportunityJob?.description"></p>
+        </div>
+        <div class="o-oppo-post__description p-b-24">
+          <h6 class="c-text_lg m-t-24">Skills</h6>
+          <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.opportunityJob?.skills"></p>
+        </div>
+        <div class="o-oppo-post__description p-b-24">
+          <h6 class="c-text_lg m-t-24">Education</h6>
+          <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.opportunityJob?.qualifications"></p>
+        </div>
+        <div class="o-oppo-post__description with_border_top">
+          <ng-container *ngIf="opportunity?.opportunityJob?.attachFiles?.length > 0">
+            <h6 class="c-text_lg m-t-24 m-b-16">Attachments</h6>
+            <ul class="o-oppo-post__media-list">
+              <li *ngFor="let attachment of opportunity?.opportunityJob?.attachFiles" [ngStyle]="{'background-image': 'url('+ baseUrl + attachment +')'}"
+                class="o-oppo-post__media-item"></li>
+            </ul>
+          </ng-container>
+          <div class="o-oppo-post__media-action">
+            <button type="button" class="btn btn-primary btn-md m-r-8 float_left" *ngIf="!isOwnOpportunity && !hasApplied"
+              (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
+            <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied"
+              (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
+            <div class="o-oppo-post__action-icons float_left ">
+              <!-- <a class="o-action-icons__link m-r-16">
                   <div class="c-links__spots m-0">
                     <img src="https://ops-v2.netlify.com/assets/svg/spot_icon.svg" class="c-links__image">
                     <span class="c-links__count">705</span>
                   </div>
                 </a> -->
-                <a class="o-action-icons__link m-r-16">
-                  <img width="24" src="https://ops-v2.netlify.com/assets/svg/ico_share-02.svg">
-                </a>
-                <!-- <a class="o-action-icons__link m-r-16">
+              <a class="o-action-icons__link m-r-16">
+                <img width="24" src="https://ops-v2.netlify.com/assets/svg/ico_share-02.svg">
+              </a>
+              <!-- <a class="o-action-icons__link m-r-16">
                   <img width="24" src="https://ops-v2.netlify.com/assets/svg/bookmark.svg">
                 </a> -->
-              </div>
             </div>
           </div>
+        </div>
       </div>
       <!-- job -->
-      
+
       <!-- project -->
       <div *ngIf="opportunity?.opportunityType === 'project'" class="o-opportunity-detail">
-          <div class="o-oppo-post__head color-grey-dark">Projects</div>
-          <div class="o-oppo-post__title m-t-8">
-            <h4 class="c-h4 o-oppo-post--title-width">
-              {{ opportunity?.opportunityProject?.title }}
-            </h4>
-            <div class="o-oppo-post__edit">
-              <div class="dropdown" appDropdown>
-                <span class="com-head" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
-                  <img width="16" [src]="baseUrl + 'img/svg/ico_options.svg'">
-                </span>
-                <ul *ngIf="isOwnOpportunity" class="dropdown-menu c-opsdropdown--size-oppo">
-                  <li>
-                    <a [routerLink]="'/opportunity/edit/' + opportunity?.id" class="o-oppo-edit__drop">
-                      <span class="">Edit</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a (click)="deleteOpp(opportunity?.id)" class="o-oppo-edit__drop">
-                      <span>Delete</span>
-                    </a>
-                  </li>
-                </ul>
-                <ul *ngIf="!isOwnOpportunity" class="dropdown-menu c-opsdropdown--size-oppo">
-                  <li>
-                    <a class="o-oppo-edit__drop" (click)="reportModalOpen(opportunity?.id)">
-                      <span class="">Report</span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
+        <div class="o-oppo-post__head color-grey-dark">Projects</div>
+        <div class="o-oppo-post__title m-t-8">
+          <h4 class="c-h4 o-oppo-post--title-width">
+            {{ opportunity?.opportunityProject?.title }}
+          </h4>
+          <div class="o-oppo-post__edit">
+            <div class="dropdown" appDropdown>
+              <span class="com-head" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
+                <img width="16" [src]="baseUrl + 'img/svg/ico_options.svg'">
+              </span>
+              <ul *ngIf="isOwnOpportunity" class="dropdown-menu c-opsdropdown--size-oppo">
+                <li>
+                  <a [routerLink]="'/opportunity/edit/' + opportunity?.id" class="o-oppo-edit__drop">
+                    <span class="">Edit</span>
+                  </a>
+                </li>
+                <li>
+                  <a (click)="deleteOpp(opportunity?.id)" class="o-oppo-edit__drop">
+                    <span>Delete</span>
+                  </a>
+                </li>
+              </ul>
+              <ul *ngIf="!isOwnOpportunity" class="dropdown-menu c-opsdropdown--size-oppo">
+                <li>
+                  <a class="o-oppo-edit__drop" (click)="reportModalOpen(opportunity?.id)">
+                    <span class="">Report</span>
+                  </a>
+                </li>
+              </ul>
             </div>
-          </div><!-- oppo title end -->
-          <div class="o-oppo-post__actions m-t-b-24">
+          </div>
+        </div><!-- oppo title end -->
+        <div class="o-oppo-post__address m-t-8">
+          <span class="o-oppo-post__cmpny-location float_left c-text_md color-grey-dark">
+            <span class="o-oppo-post__location-icon"><img src="https://ops-v2.netlify.com/assets/svg/ico_location2.svg"
+                alt=""></span>
+            {{ opportunity?.opportunityProject?.location?.location }}
+          </span>
+        </div>
+        <div class="o-oppo-post__actions m-t-b-24">
+          <div class="o-oppo-post__action-icons float_left ">
+            <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && !hasApplied"
+              (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
+            <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied"
+              (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
+            <a class="o-action-icons__link m-r-16">
+              <img width="24" [src]="baseUrl + 'img/svg/ico_share-02.svg'">
+            </a>
+            <!-- <a class="o-action-icons__link m-r-16">
+                <img width="24" [src]="baseUrl + 'img/svg/bookmark.svg'">
+              </a> -->
+          </div><!-- action icons end -->
+          <div class="o-oppo-post__uplod-info">
+            <span class="o-oppo-post__det c-text_sm color-grey-dark m-l-24">
+              <span class="ltr-space text_uppercase m-l-24">Applicants: </span>
+              <span class="color-grey-darker">{{ opportunity?.applicationCount }}</span>
+              <span class="ltr-space text_uppercase m-l-24">Posted: </span>
+              <span class="color-grey-darker">
+                {{ opportunity?.createdDate | utcDate | date:'d MMM hh:mm a' }}
+              </span>
+            </span>
+          </div>
+        </div><!-- oppo post actions end -->
+        <div class="o-oppo-post__description with_border_top p-b-24">
+          <h6 class="c-text_lg m-t-24">Description</h6>
+          <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.opportunityProject?.description"></p>
+          <h6 class="c-text_lg m-t-24">Skills</h6>
+          <div class="row m-t-16 m-l-0">
+            <div class="col-md-12 p-0 c-text_md color-grey-dark">
+              {{ opportunity?.opportunityProject?.skills }}
+            </div>
+          </div>
+          <h6 class="c-text_lg m-t-24">Name of collaborators</h6>
+          <div class="row m-t-16 m-l-0">
+            <div class="col-md-12 p-0 c-text_md color-grey-dark">
+              {{ opportunity?.opportunityProject?.addCollaborators[0] }}
+            </div>
+          </div>
+          <div class="o-oppo-post__media-action">
             <div class="o-oppo-post__action-icons float_left ">
-              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && !hasApplied" (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
-              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied" (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
+              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && !hasApplied"
+                (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
+              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied"
+                (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
               <a class="o-action-icons__link m-r-16">
                 <img width="24" [src]="baseUrl + 'img/svg/ico_share-02.svg'">
               </a>
               <!-- <a class="o-action-icons__link m-r-16">
-                <img width="24" [src]="baseUrl + 'img/svg/bookmark.svg'">
-              </a> -->
-            </div><!-- action icons end -->
-            <div class="o-oppo-post__uplod-info">
-              <span class="o-oppo-post__det c-text_sm color-grey-dark m-l-24">
-                <span class="ltr-space text_uppercase m-l-24">Applicants: </span>
-                <span class="color-grey-darker">{{ opportunity?.applicationCount }}</span>
-                <span class="ltr-space text_uppercase m-l-24">Posted: </span>
-                <span class="color-grey-darker">
-                  {{ opportunity?.createdDate | utcDate | date:'d MMM hh:mm a' }}
-                </span>
-              </span>
-            </div>
-          </div><!-- oppo post actions end -->
-          <div class="o-oppo-post__description with_border_top p-b-24">
-            <h6 class="c-text_lg m-t-24">Description</h6>
-            <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.opportunityProject?.description"></p>
-            <h6 class="c-text_lg m-t-24">Skills</h6>
-            <div class="row m-t-16 m-l-0">
-              <div class="col-md-12 p-0 c-text_md color-grey-dark">
-                {{ opportunity?.opportunityProject?.skills }}
-              </div>
-            </div>
-            <h6 class="c-text_lg m-t-24">Name of collaborators</h6>
-            <div class="row m-t-16 m-l-0">
-              <div class="col-md-12 p-0 c-text_md color-grey-dark">
-                {{ opportunity?.opportunityProject?.addCollaborators[0] }}
-              </div>
-            </div>
-            <div class="o-oppo-post__media-action">
-              <div class="o-oppo-post__action-icons float_left ">
-                <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && !hasApplied" (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
-                <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied" (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
-                <a class="o-action-icons__link m-r-16">
-                  <img width="24" [src]="baseUrl + 'img/svg/ico_share-02.svg'">
-                </a>
-                <!-- <a class="o-action-icons__link m-r-16">
                   <img width="24" [src]="baseUrl + 'img/svg/bookmark.svg'">
                 </a> -->
-              </div>
             </div>
-          </div>        
+          </div>
+        </div>
       </div>
       <!-- project -->
-      
+
       <!-- internship -->
       <div *ngIf="opportunity?.opportunityType === 'internship'" class="o-opportunity-detail">
         <div class="o-opportunity-detail">
@@ -395,24 +424,29 @@
           <div class="o-oppo-post__short-det">
             <span class="o-oppo-post__det c-text_md color-grey-dark m-r-24">
               Experience Required: <span class="color-grey-darker">
-                {{ opportunity?.opportunityInternship?.experience?.from }} - {{ opportunity?.opportunityInternship?.experience?.to }} years
+                {{ opportunity?.opportunityInternship?.experience?.from }} - {{
+                opportunity?.opportunityInternship?.experience?.to }} years
               </span>
             </span>
             <span class="o-oppo-post__det c-text_md color-grey-dark m-r-24">
               Salary: <span class="color-grey-darker">
-                {{ opportunity?.opportunityInternship?.salary?.amount }} {{ opportunity?.opportunityInternship?.salary?.currency }} / {{ opportunity?.opportunityInternship?.salary?.salaryType }}
+                {{ opportunity?.opportunityInternship?.salary?.amount }} {{
+                opportunity?.opportunityInternship?.salary?.currency }} / {{
+                opportunity?.opportunityInternship?.salary?.salaryType }}
               </span>
             </span>
             <span class="o-oppo-post__det c-text_md color-grey-dark m-r-24">
               Type: <span class="color-grey-darker">
-                  {{ opportunity?.opportunityInternship?.duration || '-' }}
-                </span>
+                {{ opportunity?.opportunityInternship?.duration || '-' }}
+              </span>
             </span>
           </div><!-- oppo short det end -->
           <div class="o-oppo-post__actions float_left width100 m-t-b-24">
             <div class="o- oppo-post__apply float_left m-r-16">
-              <button type="button" class="btn btn-primary btn-md" *ngIf="!isOwnOpportunity && !hasApplied" (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
-              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied" (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
+              <button type="button" class="btn btn-primary btn-md" *ngIf="!isOwnOpportunity && !hasApplied" (click)="userOppAction('apply')"
+                [disabled]="userActionLoading">Apply</button>
+              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied"
+                (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
             </div>
             <div class="o-oppo-post__action-icons float_left ">
               <!-- <a class="o-action-icons__link m-r-16">
@@ -453,14 +487,17 @@
           </div>
           <div class="o-oppo-post__description with_border_top">
             <ng-container *ngIf="opportunity?.opportunityInternship?.attachFiles?.length > 0">
-                <h6 class="c-text_lg m-t-24 m-b-16">Attachments</h6>
-                <ul class="o-oppo-post__media-list">
-                  <li *ngFor="let attachment of opportunity?.opportunityInternship?.attachFiles" [ngStyle]="{'background-image': 'url('+ baseUrl + attachment +')'}" class="o-oppo-post__media-item"></li>
-                </ul>
+              <h6 class="c-text_lg m-t-24 m-b-16">Attachments</h6>
+              <ul class="o-oppo-post__media-list">
+                <li *ngFor="let attachment of opportunity?.opportunityInternship?.attachFiles" [ngStyle]="{'background-image': 'url('+ baseUrl + attachment +')'}"
+                  class="o-oppo-post__media-item"></li>
+              </ul>
             </ng-container>
             <div class="o-oppo-post__media-action">
-              <button type="button" class="btn btn-primary btn-md m-r-8 float_left" *ngIf="!isOwnOpportunity && !hasApplied" (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
-              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied" (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
+              <button type="button" class="btn btn-primary btn-md m-r-8 float_left" *ngIf="!isOwnOpportunity && !hasApplied"
+                (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
+              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied"
+                (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
               <div class="o-oppo-post__action-icons float_left ">
                 <!-- <a class="o-action-icons__link m-r-16">
                   <div class="c-links__spots m-0">
@@ -517,6 +554,13 @@
         </div><!-- oppo title end -->
         <div class="o-oppo-post__address m-t-8">
           <span class="o-oppo-post__cmpny-location float_left c-text_md color-grey-dark">
+            <span class="o-oppo-post__location-icon"><img src="https://ops-v2.netlify.com/assets/svg/ico_location2.svg"
+                alt=""></span>
+            {{ opportunity?.opportunityFreelance?.location?.location }}
+          </span>
+        </div>
+        <div class="o-oppo-post__address m-t-8">
+          <span class="o-oppo-post__cmpny-location float_left c-text_md color-grey-dark">
             Payment: <span class="color-black"> {{ opportunity?.opportunityFreelance?.payType }}</span>
           </span>
           <span class="o-oppo-post__cmpny-location float_left c-text_md color-grey-dark m-l-24">
@@ -525,8 +569,10 @@
         </div>
         <div class="o-oppo-post__actions m-t-b-24">
           <div class="o-oppo-post__action-icons float_left ">
-            <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && !hasApplied" (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
-            <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied" (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
+            <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && !hasApplied"
+              (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
+            <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied"
+              (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
             <a class="o-action-icons__link m-r-16">
               <img width="24" [src]="baseUrl + 'img/svg/ico_share-02.svg'">
             </a>
@@ -555,105 +601,124 @@
             </div>
           </div>
           <div class="o-oppo-post__description">
-          <ng-container *ngIf="opportunity?.opportunityFreelance?.attachFiles?.length > 0">
+            <ng-container *ngIf="opportunity?.opportunityFreelance?.attachFiles?.length > 0">
               <h6 class="c-text_lg m-t-24 m-b-16">Attachments</h6>
               <ul class="o-oppo-post__media-list">
-                <li *ngFor="let attachment of opportunity?.opportunityFreelance?.attachFiles" [ngStyle]="{'background-image': 'url('+ baseUrl + attachment +')'}" class="o-oppo-post__media-item"></li>
+                <li *ngFor="let attachment of opportunity?.opportunityFreelance?.attachFiles" [ngStyle]="{'background-image': 'url('+ baseUrl + attachment +')'}"
+                  class="o-oppo-post__media-item"></li>
               </ul>
-          </ng-container>
-          <div class="o-oppo-post__media-action">
-            <div class="o-oppo-post__action-icons float_left ">
-              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && !hasApplied" (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
-              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied" (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
-              <a class="o-action-icons__link m-r-16">
-                <img width="24" [src]="baseUrl + 'img/svg/ico_share-02.svg'">
-              </a>
-              <!-- <a class="o-action-icons__link m-r-16">
+            </ng-container>
+            <div class="o-oppo-post__media-action">
+              <div class="o-oppo-post__action-icons float_left ">
+                <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && !hasApplied"
+                  (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
+                <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied"
+                  (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
+                <a class="o-action-icons__link m-r-16">
+                  <img width="24" [src]="baseUrl + 'img/svg/ico_share-02.svg'">
+                </a>
+                <!-- <a class="o-action-icons__link m-r-16">
                 <img width="24" [src]="baseUrl + 'img/svg/bookmark.svg'">
               </a> -->
+              </div>
             </div>
           </div>
-        </div>
         </div>
       </div>
       <!-- freelance -->
 
       <!-- volunteer -->
       <div *ngIf="opportunity?.opportunityType === 'volunteer'" class="o-opportunity-detail">
-          <div class="o-oppo-post__head color-grey-dark">Volunteer</div>
-          <div class="o-oppo-post__title m-t-8">
-            <h4 class="c-h4 o-oppo-post--title-width">{{ opportunity?.opportunityVolunteer?.title }}</h4>
-            <div class="o-oppo-post__edit">
-              <div class="dropdown" appDropdown>
-                <span class="com-head" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
-                  <img width="16" [src]="baseUrl + 'img/svg/ico_options.svg'">
-                </span>
-                <ul *ngIf="isOwnOpportunity" class="dropdown-menu c-opsdropdown--size-oppo">
-                  <li>
-                    <a [routerLink]="'/opportunity/edit/' + opportunity?.id" class="o-oppo-edit__drop">
-                      <span class="">Edit</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a (click)="deleteOpp(opportunity?.id)" class="o-oppo-edit__drop">
-                      <span>Delete</span>
-                    </a>
-                  </li>
-                </ul>
-                <ul *ngIf="!isOwnOpportunity" class="dropdown-menu c-opsdropdown--size-oppo">
-                  <li>
-                    <a class="o-oppo-edit__drop" (click)="reportModalOpen(opportunity?.id)">
-                      <span class="">Report</span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
+        <div class="o-oppo-post__head color-grey-dark">Volunteer</div>
+        <div class="o-oppo-post__title m-t-8">
+          <h4 class="c-h4 o-oppo-post--title-width">{{ opportunity?.opportunityVolunteer?.title }}</h4>
+          <div class="o-oppo-post__edit">
+            <div class="dropdown" appDropdown>
+              <span class="com-head" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
+                <img width="16" [src]="baseUrl + 'img/svg/ico_options.svg'">
+              </span>
+              <ul *ngIf="isOwnOpportunity" class="dropdown-menu c-opsdropdown--size-oppo">
+                <li>
+                  <a [routerLink]="'/opportunity/edit/' + opportunity?.id" class="o-oppo-edit__drop">
+                    <span class="">Edit</span>
+                  </a>
+                </li>
+                <li>
+                  <a (click)="deleteOpp(opportunity?.id)" class="o-oppo-edit__drop">
+                    <span>Delete</span>
+                  </a>
+                </li>
+              </ul>
+              <ul *ngIf="!isOwnOpportunity" class="dropdown-menu c-opsdropdown--size-oppo">
+                <li>
+                  <a class="o-oppo-edit__drop" (click)="reportModalOpen(opportunity?.id)">
+                    <span class="">Report</span>
+                  </a>
+                </li>
+              </ul>
             </div>
-          </div><!-- oppo title end -->
-          <div class="o-oppo-post__address m-t-8">
-            <span class="o-oppo-post__cmpny-location float_left c-text_md color-grey-dark">
-              <span class="o-oppo-post__location-icon"><img [src]="baseUrl + 'img/svg/ico_location2.svg'" alt=""></span>
-              {{ opportunity?.opportunityVolunteer?.location?.location }}
-            </span>
-          </div><!-- cmpny address end -->
-          <div class="o-oppo-post__actions m-t-b-24">
-            <div class="o-oppo-post__action-icons float_left ">
-              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && !hasApplied" (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
-              <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied" (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
-              <a class="o-action-icons__link m-r-16">
-                <img width="24" [src]="baseUrl + 'img/svg/ico_share-02.svg'">
-              </a>
-              <!-- <a class="o-action-icons__link m-r-16">
+          </div>
+        </div><!-- oppo title end -->
+        <div class="o-oppo-post__address m-t-8">
+          <span class="o-oppo-post__cmpny-location float_left c-text_md color-grey-dark">
+            <span class="o-oppo-post__location-icon"><img [src]="baseUrl + 'img/svg/ico_location2.svg'" alt=""></span>
+            {{ opportunity?.opportunityVolunteer?.location?.location }}
+          </span>
+        </div><!-- cmpny address end -->
+        <div class="o-oppo-post__actions m-t-b-24">
+          <div class="o-oppo-post__action-icons float_left ">
+            <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && !hasApplied"
+              (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
+            <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied"
+              (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
+            <a class="o-action-icons__link m-r-16">
+              <img width="24" [src]="baseUrl + 'img/svg/ico_share-02.svg'">
+            </a>
+            <!-- <a class="o-action-icons__link m-r-16">
                 <img width="24" [src]="baseUrl + 'img/svg/bookmark.svg'">
               </a> -->
-            </div><!-- action icons end -->
-            <div class="o-oppo-post__uplod-info">
-              <span class="o-oppo-post__det c-text_sm color-grey-dark m-l-24">
-                <span class="ltr-space text_uppercase m-l-24">Applicants: </span>
-                <span class="color-grey-darker">{{ opportunity?.applicationCount }}</span>
-                <span class="ltr-space text_uppercase m-l-24">Posted: </span>
-                <span class="color-grey-darker">
-                  {{ opportunity?.createdDate | utcDate | date:'d MMM hh:mm a' }}
-                </span>
+          </div><!-- action icons end -->
+          <div class="o-oppo-post__uplod-info">
+            <span class="o-oppo-post__det c-text_sm color-grey-dark m-l-24">
+              <span class="ltr-space text_uppercase m-l-24">Applicants: </span>
+              <span class="color-grey-darker">{{ opportunity?.applicationCount }}</span>
+              <span class="ltr-space text_uppercase m-l-24">Posted: </span>
+              <span class="color-grey-darker">
+                {{ opportunity?.createdDate | utcDate | date:'d MMM hh:mm a' }}
               </span>
+            </span>
+          </div>
+        </div><!-- oppo post actions end -->
+        <div class="o-oppo-post__description with_border_top p-b-24">
+          <h6 class="c-text_lg m-t-24">Cause</h6>
+          <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.opportunityVolunteer?.cause"></p>
+          <h6 class="c-text_lg m-t-24">Skills Required</h6>
+          <div class="row m-t-16 m-l-0">
+            <div class="col-md-12 p-0 c-text_md color-grey-dark">
+              {{ opportunity?.opportunityVolunteer?.skills }}
             </div>
-          </div><!-- oppo post actions end -->
-          <div class="o-oppo-post__description with_border_top p-b-24">
-            <h6 class="c-text_lg m-t-24">Cause</h6>
-            <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.opportunityVolunteer?.cause"></p>
-            <h6 class="c-text_lg m-t-24">Skills Required</h6>
-            <div class="row m-t-16 m-l-0">
-              <div class="col-md-12 p-0 c-text_md color-grey-dark">
-                {{ opportunity?.opportunityVolunteer?.skills }}
-              </div>
+          </div>
+          <h6 class="c-text_lg m-t-24">Requirements</h6>
+          <div class="row m-t-16 m-l-0" *ngIf="opportunity?.opportunityVolunteer?.requirements">
+            <div class="col-md-12 p-0 c-text_md color-grey-dark" *ngFor="let requirement of opportunity?.opportunityVolunteer?.requirements">
+              {{ requirement }},
             </div>
-            <h6 class="c-text_lg m-t-24">Requirements</h6>
-            <div class="row m-t-16 m-l-0" *ngIf="opportunity?.opportunityVolunteer?.requirements">
-              <div class="col-md-12 p-0 c-text_md color-grey-dark" *ngFor="let requirement of opportunity?.opportunityVolunteer?.requirements" >
-                {{ requirement }}, 
-              </div>
-            </div>
+          </div>
         </div><!-- detail end -->
+        <div class="o-oppo-post__actions m-t-b-24">
+          <div class="o-oppo-post__action-icons float_left ">
+            <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && !hasApplied"
+              (click)="userOppAction('apply')" [disabled]="userActionLoading">Apply</button>
+            <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && hasApplied"
+              (click)="userOppAction('cancel')" [disabled]="userActionLoading">Cancel Application</button>
+            <a class="o-action-icons__link m-r-16">
+              <img width="24" [src]="baseUrl + 'img/svg/ico_share-02.svg'">
+            </a>
+            <!-- <a class="o-action-icons__link m-r-16">
+                <img width="24" [src]="baseUrl + 'img/svg/bookmark.svg'">
+              </a> -->
+          </div>
+        </div>
       </div>
       <!-- volunteer -->
 
@@ -685,14 +750,16 @@
           </div>
         </div>
         <ng-container *ngIf="opportunityState?.getSimilarOppsLoading === false && opportunityState?.getSimilarOppsResult?.length > 0">
-          <app-opporunity-search-card *ngFor="let opportunity of opportunityState?.getSimilarOppsResult.slice(0, 2)" [opportunityDetails]="opportunity"></app-opporunity-search-card>
+          <app-opporunity-search-card *ngFor="let opportunity of opportunityState?.getSimilarOppsResult.slice(0, 2)"
+            [opportunityDetails]="opportunity"></app-opporunity-search-card>
         </ng-container>
       </div>
       <div *ngIf="isOwnOpportunity" class="o-applicant-list-container">
         <div class="o-applicant-list__heading">
           <h3 class="c-h3">{{ opportunity?.applicationCount }}</h3>
-          <div class="c-text_md">Applicants 
-            <a [routerLink]="'/opportunity/applications/' + opportunity?.id" class="float_right color-theme text_uppercase ltr-space">See Applicants</a>
+          <div class="c-text_md">Applicants
+            <a [routerLink]="'/opportunity/applications/' + opportunity?.id" class="float_right color-theme text_uppercase ltr-space">See
+              Applicants</a>
           </div>
         </div>
       </div>
@@ -702,12 +769,13 @@
 </section>
 
 <app-modal [modalTitle]="''" [blocking]='false' modalId='reportPopUp'>
-  <app-report-popoup [reportQues]="questions" [reportContentId]="reportId" [reportType]="reportType" (onclose)= "closeReport()" ></app-report-popoup>
+  <app-report-popoup [reportQues]="questions" [reportContentId]="reportId" [reportType]="reportType" (onclose)="closeReport()"></app-report-popoup>
 </app-modal>
 
 
 <app-modal-new #cancelApplicationModal modalClass="o-comodal_main in">
   <modal-content>
-    <app-confirm-box [message]="'Are you sure you want to cancel this application?'" (confirmAction)="confirmation($event)" (closeModal)="closeCancelApplicationModal()"></app-confirm-box>
+    <app-confirm-box [message]="'Are you sure you want to cancel this application?'" (confirmAction)="confirmation($event)"
+      (closeModal)="closeCancelApplicationModal()"></app-confirm-box>
   </modal-content>
 </app-modal-new>

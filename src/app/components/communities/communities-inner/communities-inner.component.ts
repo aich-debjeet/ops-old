@@ -42,6 +42,9 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
 
   private subscription: ISubscription;
   private routerSubscription: ISubscription;
+  private profileSubscription: ISubscription;
+  private industrySubscription: ISubscription;
+
   details: any;
   list: any;
   listInvitePeople: any;
@@ -57,12 +60,13 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   communityLoading: boolean = false;
   updateCommunityLoading: boolean = false;
   industryState$: Observable<any>;
+  profileState$: Observable<any>;
   fileData: File;
   api_path = environment.API_ENDPOINT;
   base = this.api_path + '/portal/cdn/media/upload/multiple';
   token: any;
-  profile: any;
   handle: any;
+  userData: any;
   constructor(
     private fb: FormBuilder,
     private store: Store<any>,
@@ -80,7 +84,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
     });
 
     this.industryState$ = store.select('loginTags');
-    this.industryState$.subscribe((state) => {
+    this.industrySubscription = this.industryState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
         this.industries = state.industries;
       }
@@ -116,8 +120,9 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
         this.postLoader = state['post_loading'];
       }
 
-      this.profile = store.select('profileTags');
-      this.profile.subscribe(event => {
+      this.profileState$ = store.select('profileTags');
+      this.profileSubscription = this.profileState$.subscribe(event => {
+        this.userData = event['profile_navigation_details']
         if (event.profile_navigation_details && event.profile_navigation_details.handle) {
           this.handle = event.profile_navigation_details.handle;
         }
@@ -141,7 +146,9 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
-    // this.routerSubscription.unsubscribe();
+    this.routerSubscription.unsubscribe();
+    this.profileSubscription.unsubscribe();
+    this.industrySubscription.unsubscribe();
   }
 
   // Comunity member to admin form

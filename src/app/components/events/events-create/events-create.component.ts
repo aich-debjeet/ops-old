@@ -582,5 +582,9 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
   }
   imageLoaded(){}
 
+  imageLoaded() {
+
+  }
+
 }
 

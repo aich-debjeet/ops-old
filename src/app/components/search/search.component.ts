@@ -17,7 +17,7 @@ import { ScrollHelper } from '../../helpers/scroll.helper';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 
@@ -65,6 +65,8 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
   profileTypeSearch = 'registered';
 
+  searchSub: ISubscription;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -88,7 +90,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     this.searchState$ = this.store.select('searchTags');
 
     // observe the store value
-    this.searchState$.subscribe((state) => {
+    this.searchSub = this.searchState$.subscribe((state) => {
       this.searchState = state;
       // console.log(this.searchState);
 
@@ -441,6 +443,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy() {
     this.routeSub.unsubscribe();
+    this.searchSub.unsubscribe();
   }
 
   /**
