@@ -54,7 +54,7 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
       this.pageLoading = false;
       this.tagState$ = this._store.select('mediaStore');
       this.userState$ = this._store.select('profileTags');
-      this.tagState$.subscribe((state) => {
+      this.tagStateSubscription = this.tagState$.subscribe((state) => {
         this.channel = state;
         this.pageLoading = this.channel.channel_loading;
       });
@@ -82,6 +82,7 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.tagStateSubscription.unsubscribe();
   }
 
   mediaNext($event) {
