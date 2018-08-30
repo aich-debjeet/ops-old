@@ -210,6 +210,10 @@
     color: #333333;
     font-size: 11px;
     line-height: 18px;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    width: 75%;
 }
 
 .c-mediamodal__time {
