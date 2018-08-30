@@ -182,7 +182,13 @@ export class EditChannelComponent implements OnInit {
         channelId: this.channelId
       }
       this.store.dispatch({ type: ProfileActions.CHANNEL_UPDATE, payload: reqParams });
-      this.channelUpdateModal.close();
+      this.store.select('profileTags')
+      .first(channel => channel['channel_updated'] === true)
+      .subscribe(data => {
+        this.channelUpdateModal.close();
+        this.toastr.success('Successfully updated channel', 'Success!');
+        return;
+      });
     } else {
       this.toastr.warning('Please fill all required fields');
     }
