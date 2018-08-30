@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SearchActions } from '../../../actions/search.action';
 import { environment } from 'environments/environment';
 import { SearchModel } from '../../../models/search.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-search-event',
   templateUrl: './search-event.component.html',
   styleUrls: ['./search-event.component.scss']
 })
-export class SearchEventComponent implements OnInit {
+export class SearchEventComponent implements OnInit, OnDestroy {
 
   searchState$: Observable<SearchModel>;
   searchState: any;
@@ -25,6 +26,8 @@ export class SearchEventComponent implements OnInit {
   scrollingLoad = 500;
   /* scroll */
 
+  searchSub: ISubscription;
+
   constructor(
     private store: Store<SearchModel>
   ) {
@@ -37,7 +40,7 @@ export class SearchEventComponent implements OnInit {
   ngOnInit() {
 
     // observe the store value
-    this.searchState$.subscribe((state) => {
+    this.searchSub = this.searchState$.subscribe((state) => {
       this.searchState = state;
       if (state) {
         if (typeof state['search_event_data'] !== 'undefined' && state['search_event_data']['eventResponse']) {
@@ -75,6 +78,10 @@ export class SearchEventComponent implements OnInit {
         this.canScroll = true;
       }, 1000);
     }
+  }
+
+  ngOnDestroy() {
+    this.searchSub.unsubscribe();
   }
 
 }

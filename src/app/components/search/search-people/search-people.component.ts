@@ -1,17 +1,18 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { SearchActions } from './../../../actions/search.action';
 import { SearchModel } from './../../../models/search.model';
 import { ProfileActions } from './../../../actions/profile.action';
 import { environment } from './../../../../environments/environment.prod';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
+import { ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-search-people',
   templateUrl: './search-people.component.html',
   styleUrls: ['./search-people.component.scss']
 })
-export class SearchPeopleComponent implements OnInit {
+export class SearchPeopleComponent implements OnInit, OnDestroy {
 
   @Output() onProfileTypeSwitch: EventEmitter<any> = new EventEmitter<any>();
   @Input() profileType: String;
@@ -31,6 +32,9 @@ export class SearchPeopleComponent implements OnInit {
   userState$: any;
   userProfile: any;
 
+  profSub: ISubscription;
+  searchSub: ISubscription;
+
   constructor(
     private store: Store<SearchModel>,
     private profileStore: Store<SearchModel>
@@ -41,7 +45,7 @@ export class SearchPeopleComponent implements OnInit {
 
     /* ================== current user ========= */
     this.userState$ = this.store.select('profileTags');
-    this.userState$.subscribe((state) => {
+    this.profSub = this.userState$.subscribe((state) => {
       this.userProfile = state;
     });
     // this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
@@ -51,7 +55,7 @@ export class SearchPeopleComponent implements OnInit {
   ngOnInit() {
 
     // observe the store value
-    this.searchState$.subscribe((state) => {
+    this.searchSub = this.searchState$.subscribe((state) => {
       this.searchState = state;
       // console.log('this.searchState', this.searchState);
       if (state) {
@@ -147,6 +151,11 @@ export class SearchPeopleComponent implements OnInit {
       this.profileType = 'registered';
     }
     this.onProfileTypeSwitch.emit(this.profileType);
+  }
+
+  ngOnDestroy() {
+    this.searchSub.unsubscribe();
+    this.profSub.unsubscribe();
   }
 
 }

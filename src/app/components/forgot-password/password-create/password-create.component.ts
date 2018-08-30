@@ -40,13 +40,12 @@ export class PasswordCreateComponent implements OnInit, OnDestroy {
     this.baseUrl = environment.API_IMAGE;
 
     this.createPass = fb.group({
-      password : ['', [
+      password: ['', [
         Validators.required,
         FormValidation.passwordStrength.bind(this)
       ]],
       confirmPassword: ['', [
         Validators.required,
-        // this.passwordMatchCheck.bind(this)
       ]]
     }, {
       validator: PasswordValidation.MatchPassword
