@@ -237,6 +237,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.routerSub.unsubscribe();
+    this.profileSub.unsubscribe();
   }
 
   /**
