@@ -245,9 +245,9 @@
               <ng-container *ngIf="notifState?.requesting_notifications === true">
                 <app-placeholder-notification *ngFor="let n of [0,1]"></app-placeholder-notification>
               </ng-container>
-              <div class="dropdown__item p-16 msg__read">
+              <div *ngIf="notifications?.length > 0;" class="dropdown__item p-16 msg__read">
                 <a routerLink="/notification">
-                  <p class="dropnoti__viewall">View All </p>
+                  <p class="dropnoti__viewall">View All</p>
                 </a>
               </div>
             </div>
@@ -290,12 +290,12 @@
               <div *ngIf="messages?.length === 0" class="o-alert_scroll o-alert__empty" id="ops_scrollbar">
                 <div class="c-text_lg color-grey-dark">You have no messages</div>
               </div>
-              <ng-container *ngIf="msgState?.requesting_messages === true">
+              <ng-container *ngIf="msgState?.getting_messanger_list === true">
                 <app-placeholder-notification *ngFor="let n of [0,1]"></app-placeholder-notification>
               </ng-container>
-              <div class="dropdown__item p-16 msg__read">
+              <div *ngIf="messages?.length > 0;" class="dropdown__item p-16 msg__read">
                 <a routerLink="/user/message">
-                  <p class="dropnoti__viewall">View All </p>
+                  <p class="dropnoti__viewall">View All</p>
                 </a>
               </div>
             </div>
