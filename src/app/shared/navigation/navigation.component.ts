@@ -1,36 +1,32 @@
-import { Component, OnInit, Renderer, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ModalService } from '../modal/modal.component.service';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag, UserCard, ProfileCards } from '../../models/profile.model';
-
-import { LocalStorageService } from './../../services/local-storage.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UtcDatePipe } from './../../pipes/utcdate.pipe';
-
-// action
 import { ProfileActions } from '../../actions/profile.action';
 import { NotificationActions } from './../../actions/notification.action';
-
 import { Observable } from 'rxjs/Observable';
 import { ISubscription } from 'rxjs/Subscription';
 import { environment } from '../../../environments/environment';
-
-import {uniqBy as _uniqBy} from 'lodash';
+import { uniqBy as _uniqBy } from 'lodash';
 import { GeneralUtilities } from '../../helpers/general.utils';
 import { PusherService } from '../../services/pusher.service';
+import { MessageActions } from '../../actions/message.action';
+import { MessageModal } from '../../models/message.model';
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   // changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ ModalService, UtcDatePipe ],
+  providers: [ModalService, UtcDatePipe],
   styleUrls: ['./navigation.component.scss']
 })
 
 export class NavigationComponent implements OnInit, OnDestroy {
 
   topNav: any;
-  imageBaseUrl: string  = environment.API_IMAGE;
+  imageBaseUrl: string = environment.API_IMAGE;
   profileState$: Observable<ProfileModal>;
   activeProfileState = initialTag;
   profileType: string;
@@ -43,26 +39,32 @@ export class NavigationComponent implements OnInit, OnDestroy {
   scrolling = 0;
   scrollingLoad = 100;
   page_start = 1;
-  private subscription: ISubscription;
-  private subscriptionOne: ISubscription;
+  private profSub: ISubscription;
+  private notifSub: ISubscription;
+  private msgSub: ISubscription;
 
   // userCard: UserCard;
   userCards: ProfileCards;
 
   /* ========================== notification ========================== */
   notificationsState$: Observable<Notification>;
+  notifState: any;
   notificationIds: any[];
   notifications: any[];
+  /* ========================== notification ========================== */
+
+  /* ========================== notification ========================== */
+  messagesState$: Observable<MessageModal>;
+  msgState: any;
+  messages: any[];
   /* ========================== notification ========================== */
 
   constructor(
     private store: Store<ProfileModal>,
     private notificationStore: Store<Notification>,
+    private msgStore: Store<MessageModal>,
     public modalService: ModalService,
-    private el: ElementRef,
-    private renderer: Renderer,
     public generalHelper: GeneralUtilities,
-    private localStorageService: LocalStorageService,
     private router: Router,
     private pusherService: PusherService
   ) {
@@ -77,12 +79,11 @@ export class NavigationComponent implements OnInit, OnDestroy {
     };
 
     this.profileState$ = this.store.select('profileTags');
-    this.notificationsState$ = this.store.select('notificationTags');
+    this.notificationsState$ = this.notificationStore.select('notificationTags');
 
     /* Profile state */
-    this.subscription = this.profileState$.subscribe((state) => {
+    this.profSub = this.profileState$.subscribe((state) => {
       this.activeProfileState = state;
-      // console.log('app state', state);
       this.userCards = this.activeProfileState['profile_cards'];
       if (this.userCards
         && this.userCards['other']
@@ -93,11 +94,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
       ) {
         this.showCreateOrg = true;
       } else {
-        // console.log('org data recieved');
-
         // if org just cerated switch the profile and redirect to the org profile
         if (!this.redirectedToCreatedOrg) {
-          // console.log('switching to cerated org');
           if (state && state['org_registration_success'] && state['org_registration_success'] === true) {
             this.redirectedToCreatedOrg = true;
             this.changeProfile(this.userCards, null);
@@ -112,26 +110,32 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
     // if logged in user then get details
     if (localStorage.getItem('currentUser') != null) {
-      // console.log('logged in user');
       /* profile state */
       this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
     }
     // observe the store value
-    this.subscriptionOne = this.notificationsState$.subscribe((state) => {
+    this.notifSub = this.notificationsState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
-        // if(typeof state['recieved_pushed_notifications_success']) {
-        // }
+        this.notifState = state;
         if (typeof state['recieved_notifications'] !== 'undefined') {
-          let noti;
-          noti = state['recieved_notifications'];
-          // console.log(noti)
+          const noti = state['recieved_notifications'];
           this.notifications = _uniqBy(noti, noti.notificationId);
-          // console.log(this.notifications)
+          console.log('this.notifications', this.notifications);
           this.processNotifications();
         }
         if (typeof state['marking_as_read_response'] !== 'undefined') {
           // upadte notification as marked
           this.updateNotifications();
+        }
+      }
+    });
+
+    this.messagesState$ = this.msgStore.select('messageTags');
+    this.msgSub = this.messagesState$.subscribe((state) => {
+      this.msgState = state;
+      if (typeof state !== 'undefined') {
+        if (typeof state['messanger_list_data'] !== 'undefined') {
+          this.messages = state['messanger_list_data'];
         }
       }
     });
@@ -145,27 +149,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   notificationPopup() {
-    this.loadNotifications();
+    if (!this.notifications) {
+      this.loadNotifications();
+    }
     if (this.notify) {
       this.notify = false;
     }
-      // this.notificationStore.dispatch({
-      //   type: NotificationActions.GET_NOTIFICATIONS,
-      //   payload: null
-      // });
-      // observe the store value
-      // this.notificationsState$.subscribe((state) => {
-      //   if (typeof state !== 'undefined') {
-      //     if (typeof state['recieved_notifications'] !== 'undefined') {
-      //       this.notifications = state['recieved_notifications'];
-      //       this.processNotifications();
-      //     }
-      //     if (typeof state['marking_as_read_response'] !== 'undefined') {
-      //       // upadte notification as marked
-      //       this.updateNotifications();
-      //     }
-      //   }
-      // });
   }
   /**
    * Create channel
@@ -259,23 +248,14 @@ export class NavigationComponent implements OnInit, OnDestroy {
       });
     });
     document.body.scrollTop = 0;
-    // check if on org page
-    // const activeRoute = this.router.url;
-    // console.log('activeRoute', activeRoute);
-    // // if activated route is org profile page then load org details
-    // if (activeRoute === '/org/page/profile') {
-    //   this.store.dispatch({
-    //     type: OrganizationActions.LOAD_ORGANIZATION,
-    //   });
-    // }
 
     const profileType = localStorage.getItem('profileType') || 'profile';
 
     this.store.select('profileTags')
-    .first(profile => profile['profile_navigation_details'].name )
-    .subscribe( data => {
-      this.isProfileSet = true;
-    });
+      .first(profile => profile['profile_navigation_details'].name)
+      .subscribe(data => {
+        this.isProfileSet = true;
+      });
   }
 
   /**
@@ -284,11 +264,11 @@ export class NavigationComponent implements OnInit, OnDestroy {
   openLink(notification: any) {
     switch (notification.notificationType) {
       case 'Media_Spot':
-        this.router.navigate([{ outlets: { media : ['media', notification.media.mediaId] } } ]);
+        this.router.navigate([{ outlets: { media: ['media', notification.media.mediaId] } }]);
         break;
 
       case 'Media_Comments':
-        this.router.navigate([{ outlets: { media : ['media', notification.media.mediaId] } } ]);
+        this.router.navigate([{ outlets: { media: ['media', notification.media.mediaId] } }]);
         break;
 
       case 'Status_Spot':
@@ -300,17 +280,17 @@ export class NavigationComponent implements OnInit, OnDestroy {
         break;
 
       case 'Network_Sent':
-      this.router.navigate(['/profile/network']);
+        this.router.navigate(['/profile/network']);
         break;
 
       case 'Network_Accepted':
-      this.router.navigate(['/profile/network']);
+        this.router.navigate(['/profile/network']);
         break;
     }
   }
 
   toggleNav(name: string) {
-    return ;
+    return;
   }
 
   loadNotifications() {
@@ -325,7 +305,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
    * Swap Organization with Profile
    */
   changeProfile(user_cards: any, e: MouseEvent) {
-    // console.log('user_cards', user_cards)
     this.store.dispatch({ type: ProfileActions.CHANGE_PROFILE, payload: user_cards });
     return false;
   }
@@ -338,14 +317,14 @@ export class NavigationComponent implements OnInit, OnDestroy {
     if (typeof this.notifications !== 'undefined'
       && typeof this.notificationIds !== 'undefined'
       && this.notifications.length > 0) {
-        for (let readNotifIndex = 0; readNotifIndex < this.notificationIds.length; readNotifIndex++) {
-          const readNotif = this.notificationIds[readNotifIndex];
-          for (let notifIndex = 0; notifIndex < this.notifications.length; notifIndex++) {
-            if (this.notifications[notifIndex].notificationId === this.notificationIds[readNotifIndex]) {
-              this.notifications[notifIndex].isRead = true;
-            }
+      for (let readNotifIndex = 0; readNotifIndex < this.notificationIds.length; readNotifIndex++) {
+        const readNotif = this.notificationIds[readNotifIndex];
+        for (let notifIndex = 0; notifIndex < this.notifications.length; notifIndex++) {
+          if (this.notifications[notifIndex].notificationId === this.notificationIds[readNotifIndex]) {
+            this.notifications[notifIndex].isRead = true;
           }
         }
+      }
     }
   }
 
@@ -358,22 +337,18 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
         case 'Media_Spot':
           this.notifications[index]['message'] = ' and ' + notif.spotCount + ' others spotted your post';
-          // this.notifications[index]['message'] = ' spotted your post';
           break;
 
         case 'Media_Comments':
           this.notifications[index]['message'] = ' and ' + notif.commentsCount + ' others commented on your post';
-          // this.notifications[index]['message'] = ' commented on your post';
           break;
 
         case 'Status_Spot':
           this.notifications[index]['message'] = ' and ' + notif.spotCount + ' others spotted your status';
-          // this.notifications[index]['message'] = ' spotted your status';
           break;
 
         case 'Status_Comments':
           this.notifications[index]['message'] = ' and ' + notif.commentsCount + ' others commented on your status';
-          // this.notifications[index]['message'] = ' commented on your status';
           break;
 
         case 'Following':
@@ -398,7 +373,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
    * @Param: notification id
    */
   markAsRead(notificationId: string) {
-    console.log(notificationId);
     this.notificationIds = [notificationId];
     this.dispatchReadNotifications();
   }
@@ -423,24 +397,30 @@ export class NavigationComponent implements OnInit, OnDestroy {
   markAllAsRead() {
     this.notificationStore.dispatch({ type: NotificationActions.MARK_AS_ALL_READ });
     this.store.select('notificationTags')
-    .first(notification => notification['mark_as_all_read_success'] === true )
-    .subscribe( data => {
-      this.loadNotifications();
-    });
+      .first(notification => notification['mark_as_all_read_success'] === true)
+      .subscribe(data => {
+        this.loadNotifications();
+      });
   }
 
   logoutSubmit() {
-    const rr = '/'
-    this.router.navigate(['/logout'], {skipLocationChange: true });
-    // this.router.navigate(['/logout'], { replaceUrl: true });
-    // this.router.navigate(['/']);
-    // this.store.dispatch({ type: AuthActions.USER_LOGOUT, payload: ''});
+    this.router.navigate(['/logout'], { skipLocationChange: true });
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
-    this.subscriptionOne.unsubscribe();
+    this.profSub.unsubscribe();
+    this.notifSub.unsubscribe();
+    this.msgSub.unsubscribe();
   }
 
+  messagePopup() {
+    if (!this.messages) {
+      this.loadMessages();
+    }
+  }
+
+  loadMessages() {
+    this.msgStore.dispatch({ type: MessageActions.GET_MESSANGER_LIST, payload: null });
+  }
 
 }
