@@ -108,21 +108,16 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
     // if logged in user then get details
     if (localStorage.getItem('currentUser') != null) {
-      // console.log('logged in user');
       /* profile state */
       this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
     }
     // observe the store value
     this.notifSub = this.notificationsState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
-        // if(typeof state['recieved_pushed_notifications_success']) {
-        // }
         if (typeof state['recieved_notifications'] !== 'undefined') {
           let noti;
           noti = state['recieved_notifications'];
-          // console.log(noti)
           this.notifications = _uniqBy(noti, noti.notificationId);
-          // console.log(this.notifications)
           this.processNotifications();
         }
         if (typeof state['marking_as_read_response'] !== 'undefined') {
