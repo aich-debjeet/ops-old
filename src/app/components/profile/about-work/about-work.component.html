@@ -90,14 +90,14 @@
                                         <span class="form_highlight"></span>
                                         <span class="form_bar"></span>
                                         <label>Company</label>
-                                        <p class="error_alert" *ngIf="workForm.controls['company'].errors?.required && myform.submitted">Company is required</p>
+                                        <p class="error_alert" *ngIf="workForm.controls['company'].errors?.required && workForm.controls['position']?.touched">Company is required</p>
                                     </div>
                                     <div class="form_group">
                                         <input class="form_input" type="text" formControlName="position" required maxlength="40" required>
                                         <span class="form_highlight"></span>
                                         <span class="form_bar"></span>
                                         <label>Position</label>
-                                        <p class="error_alert" *ngIf="workForm.controls['position'].errors?.required && myform.submitted">Position is required</p>
+                                        <p class="error_alert" *ngIf="workForm.controls['position'].errors?.required && workForm.controls['position']?.touched">Position is required</p>
                                     </div>
                                     <div class="add_workplace_time_period">
                                         <h4>Time Period</h4>
@@ -105,18 +105,18 @@
                                             <input class="form_input" type="text" formControlName="from" [textMask]="{mask: dateMask}" required>
                                             <span class="form_highlight"></span>
                                             <span class="form_bar"></span>
-                                            <label>from</label>
-                                            <p class="error_alert" *ngIf="workForm.controls['from'].errors?.required && myform.submitted">From Date is required</p>
+                                            <label>from (DD-MM-YYYY)</label>
+                                            <p class="error_alert" *ngIf="workForm.controls['from'].errors?.required && workForm.controls['from']?.touched">From Date is required</p>
                                             <p class="error_alert" *ngIf="workForm.controls['from'].errors?.invalidWorkDate">Invalid Date</p>
                                         </div>
                                         <div class="form_group" *ngIf = "hide === true">
                                             <input class="form_input" type="text" formControlName="to" [textMask]="{mask: dateMask}" required>
                                             <span class="form_highlight"></span>
                                             <span class="form_bar"></span>
-                                            <label>To</label>
-                                            <p class="error_alert" *ngIf="workForm.controls['to'].errors?.required && myform.submitted">To Date is required</p>
+                                            <label>To (DD-MM-YYYY)</label>
+                                            <p class="error_alert" *ngIf="workForm.controls['to'].errors?.required && workForm.controls['to']?.touched">To Date is required</p>
                                             <p class="error_alert" *ngIf="workForm.controls['to'].errors?.invalidWorkDate">Invalid Date</p>
-                                            <p class="error_alert" *ngIf="workForm.controls['to'].errors?.isvalid">From Date can not be greater than To Date</p>
+                                            <p class="error_alert" *ngIf="workForm.controls['to'].errors?.isvalid">From Date can not be greater or equal To Date</p>
                                         </div>
                                     </div>
                                     <div class="ops_radio_sm">

@@ -131,7 +131,7 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
           'access': Number(value.publicWork)
         }
         this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: body});
-        this.toastr.success('Your work has been updated successfully!');
+        this.toastr.success('Your work has been added successfully!');
         this.modalService.close('userWorkAdd');
       }
      if (this.hideTo === true) {
@@ -144,7 +144,7 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
           'access': Number(value.publicWork)
         }
         this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: body});
-        this.toastr.success('Your work has been updated successfully!');
+        this.toastr.success('Your work has been added successfully!');
         this.modalService.close('userWorkAdd');
       }
       } else {

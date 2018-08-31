@@ -121,6 +121,7 @@ export class AboutEducationComponent implements OnInit {
         this.toastr.success('Your education details has been updated successfully!');
       }
     }
+    this.educationForm.reset();
 
   }
 
@@ -151,6 +152,20 @@ export class AboutEducationComponent implements OnInit {
    */
   educationFormClose() {
     this.modalService.close('userEducationkAdd');
+    this.educationForm.reset();
+  }
+  /**
+   * Reset Form
+   */
+  reset() {
+    this.educationForm.patchValue({
+      institute : '' ,
+      course : '',
+      from : '',
+      to : '',
+      publicWork: '0',
+      id: ''
+    });
   }
 
 }
