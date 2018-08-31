@@ -119,10 +119,10 @@ export class AboutBioComponent implements OnInit, OnDestroy {
             this.pinCode = this.stateProfile['profile_details']['extra']['address']['postalCode']
           }
           if (this.stateProfile.profile_details && this.stateProfile['profile_details']['physical']['height']) {
-            this.height = this.stateProfile['profile_details']['physical']['height']
+            this.height = this.stateProfile['profile_details']['physical']['height'].toFixed(2)
           }
           if (this.stateProfile.profile_details && this.stateProfile['profile_details']['physical']['weight']) {
-            this.weight = this.stateProfile['profile_details']['physical']['weight']
+            this.weight = this.stateProfile['profile_details']['physical']['weight'].toFixed(2)
           }
           if (this.stateProfile.profile_details && this.stateProfile['profile_details']['languages']) {
             this.lang = this.stateProfile['profile_details'].languages.toString()
