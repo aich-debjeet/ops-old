@@ -214,7 +214,7 @@
                 <a (click)="markAllAsRead()" class="pull-right">Mark all as read</a>
                 <div class="dropdown__arrow"><img [src]="imageBaseUrl + 'img/arrow.png'"></div>
               </div>
-              <ng-container *ngIf="notifications?.length > 0; else loadingNotifs">
+              <ng-container *ngIf="notifications?.length > 0">
                 <div class="o-alert_scroll" id="ops_scrollbar">
                   <div class="dropdown__item p-16 msg__unread cursor_pointer" *ngFor="let notification of notifications| slice:0:7"
                     (click)="openLink(notification)" [ngClass]="{'msg__read': notification?.isRead, 'msg__unread': !notification?.isRead}">
@@ -239,9 +239,12 @@
                   </div>
                 </div>
               </ng-container>
-              <ng-template #loadingNotifs>
+              <div *ngIf="notifications?.length === 0" class="o-alert_scroll o-alert__empty" id="ops_scrollbar">
+                <div class="c-text_lg color-grey-dark">You have no notifications</div>
+              </div>
+              <ng-container *ngIf="notifState?.requesting_notifications === true">
                 <app-placeholder-notification *ngFor="let n of [0,1]"></app-placeholder-notification>
-              </ng-template>
+              </ng-container>
               <div class="dropdown__item p-16 msg__read">
                 <a routerLink="/notification">
                   <p class="dropnoti__viewall">View All </p>
@@ -258,7 +261,7 @@
                 <a routerLink="/user/message">Your Messages</a>
                 <div class="dropdown__arrow"><img [src]="imageBaseUrl + 'img/arrow.png'"></div>
               </div>
-              <ng-container *ngIf="messages?.length > 0; else loadingMsgs">
+              <ng-container *ngIf="messages?.length > 0;">
                 <div class="o-alert_scroll" id="ops_scrollbar">
                   <div class="dropdown__item p-16 msg__unread cursor_pointer" *ngFor="let message of messages| slice:0:7"
                     (click)="openLink(message)" [ngClass]="{'msg__read': message?.isRead, 'msg__unread': !message?.isRead}">
@@ -284,9 +287,12 @@
                   </div>
                 </div>
               </ng-container>
-              <ng-template #loadingMsgs>
+              <div *ngIf="messages?.length === 0" class="o-alert_scroll o-alert__empty" id="ops_scrollbar">
+                <div class="c-text_lg color-grey-dark">You have no messages</div>
+              </div>
+              <ng-container *ngIf="msgState?.requesting_messages === true">
                 <app-placeholder-notification *ngFor="let n of [0,1]"></app-placeholder-notification>
-              </ng-template>
+              </ng-container>
               <div class="dropdown__item p-16 msg__read">
                 <a routerLink="/user/message">
                   <p class="dropnoti__viewall">View All </p>

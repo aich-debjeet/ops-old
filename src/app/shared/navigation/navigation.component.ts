@@ -48,12 +48,14 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   /* ========================== notification ========================== */
   notificationsState$: Observable<Notification>;
+  notifState: any;
   notificationIds: any[];
   notifications: any[];
   /* ========================== notification ========================== */
 
   /* ========================== notification ========================== */
   messagesState$: Observable<MessageModal>;
+  msgState: any;
   messages: any[];
   /* ========================== notification ========================== */
 
@@ -114,10 +116,11 @@ export class NavigationComponent implements OnInit, OnDestroy {
     // observe the store value
     this.notifSub = this.notificationsState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
+        this.notifState = state;
         if (typeof state['recieved_notifications'] !== 'undefined') {
-          let noti;
-          noti = state['recieved_notifications'];
+          const noti = state['recieved_notifications'];
           this.notifications = _uniqBy(noti, noti.notificationId);
+          console.log('this.notifications', this.notifications);
           this.processNotifications();
         }
         if (typeof state['marking_as_read_response'] !== 'undefined') {
@@ -129,6 +132,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
     this.messagesState$ = this.msgStore.select('messageTags');
     this.msgSub = this.messagesState$.subscribe((state) => {
+      this.msgState = state;
       if (typeof state !== 'undefined') {
         if (typeof state['messanger_list_data'] !== 'undefined') {
           this.messages = state['messanger_list_data'];
@@ -145,7 +149,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   notificationPopup() {
-    this.loadNotifications();
+    if (!this.notifications) {
+      this.loadNotifications();
+    }
     if (this.notify) {
       this.notify = false;
     }
@@ -408,7 +414,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   messagePopup() {
-    this.loadMessages();
+    if (!this.messages) {
+      this.loadMessages();
+    }
   }
 
   loadMessages() {
