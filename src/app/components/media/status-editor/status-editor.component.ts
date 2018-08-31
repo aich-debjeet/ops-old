@@ -110,7 +110,9 @@ export class StatusEditorComponent implements OnInit, OnDestroy {
     this.privacy = value
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.post_to);
+  }
 
   ngOnDestroy() {
     this.mediaStateSubscription.unsubscribe();
@@ -139,6 +141,29 @@ export class StatusEditorComponent implements OnInit, OnDestroy {
   publishToChannel() {
     const chnlData = {
       spotfeedId: this.ct_id
+    }
+    if (this.post_to === 'community') {
+      const resp = {
+        id: this.ct_id,
+        data: {
+          feedList: [{
+            owner: 'N_79749C80_8FD1_4048_942A_75B6BDF7090F',
+            feed_type: 'status',
+            title: '',
+            description: this.statusMessage,
+            access: this.privacy
+          }]
+        }
+      }
+      this.store.dispatch({ type: ProfileActions.COMMUNITY_MEDIA_POST, payload: resp });
+
+      this.store.select('profileTags')
+      .first(media => media['community_media_success'] === true)
+      .subscribe( data => {
+        this.toastr.success('Your media has been successfully posted', 'Upload');
+        this.router.navigateByUrl('/communities/' + this.ct_id);
+      });
+      return
     }
     this.postStatusToChannel(chnlData);
   }
