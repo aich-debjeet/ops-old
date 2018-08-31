@@ -55,7 +55,6 @@ export class HomeChannelComponent implements OnInit, OnDestroy {
       if (state['user_following_channels_loading'] !== null) {
          this.channel_load = state['user_following_channels_loading']
       }
-      console.log(state);
     });
 
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS })
