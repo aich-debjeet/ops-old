@@ -106,21 +106,17 @@ export class NotificationComponent implements OnInit, OnDestroy {
       case 'Media_Spot':
         this.router.navigate([{ outlets: { media : ['media', notification.media.mediaId] } } ]);
         break;
-
       case 'Media_Comments':
         this.router.navigate([{ outlets: { media : ['media', notification.media.mediaId] } } ]);
         break;
-
       case 'Status_Spot':
         this.router.navigate(['/user/status/list']);
         break;
-
       case 'Status_Comments':
         this.router.navigate(['/user/status/list']);
         break;
-
       case 'Network_Sent':
-      this.router.navigate(['/profile/network']);
+        this.router.navigate(['/profile/network']);
         break;
     }
   }
