@@ -8,14 +8,14 @@ import { Subscription, ISubscription } from 'rxjs/Subscription';
 import { OpportunityModel } from '../../../models/opportunity.model';
 import { Store } from '@ngrx/store';
 
-import { ProfileModal, initialTag } from '../../../models/profile.model';
+import { ProfileModal } from '../../../models/profile.model';
 import { filter as _filter } from 'lodash';
 import { OpportunityActions } from '../../../actions/opportunity.action';
 import { environment } from '../../../../environments/environment';
 import { GeneralUtilities } from '../../../helpers/general.utils';
 
 @Component({
-  selector: 'home-right-block',
+  selector: 'app-home-right-block',
   templateUrl: './home-right-block.component.html',
   styleUrls: ['./home-right-block.component.scss'],
   // providers: [ TruncatePipe ]
