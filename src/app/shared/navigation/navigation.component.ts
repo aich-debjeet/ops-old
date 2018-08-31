@@ -18,6 +18,8 @@ import { environment } from '../../../environments/environment';
 import {uniqBy as _uniqBy} from 'lodash';
 import { GeneralUtilities } from '../../helpers/general.utils';
 import { PusherService } from '../../services/pusher.service';
+import { MessageActions } from '../../actions/message.action';
+import { MessageModal } from '../../models/message.model';
 
 @Component({
   selector: 'app-navigation',
@@ -43,8 +45,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
   scrolling = 0;
   scrollingLoad = 100;
   page_start = 1;
-  private subscription: ISubscription;
-  private subscriptionOne: ISubscription;
+  private profSub: ISubscription;
+  private notifSub: ISubscription;
+  private msgSub: ISubscription;
 
   // userCard: UserCard;
   userCards: ProfileCards;
@@ -55,9 +58,15 @@ export class NavigationComponent implements OnInit, OnDestroy {
   notifications: any[];
   /* ========================== notification ========================== */
 
+  /* ========================== notification ========================== */
+  messagesState$: Observable<MessageModal>;
+  messages: any[];
+  /* ========================== notification ========================== */
+
   constructor(
     private store: Store<ProfileModal>,
     private notificationStore: Store<Notification>,
+    private msgStore: Store<MessageModal>,
     public modalService: ModalService,
     private el: ElementRef,
     private renderer: Renderer,
@@ -77,10 +86,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
     };
 
     this.profileState$ = this.store.select('profileTags');
-    this.notificationsState$ = this.store.select('notificationTags');
+    this.notificationsState$ = this.notificationStore.select('notificationTags');
 
     /* Profile state */
-    this.subscription = this.profileState$.subscribe((state) => {
+    this.profSub = this.profileState$.subscribe((state) => {
       this.activeProfileState = state;
       // console.log('app state', state);
       this.userCards = this.activeProfileState['profile_cards'];
@@ -117,7 +126,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
       this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
     }
     // observe the store value
-    this.subscriptionOne = this.notificationsState$.subscribe((state) => {
+    this.notifSub = this.notificationsState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
         // if(typeof state['recieved_pushed_notifications_success']) {
         // }
@@ -132,6 +141,15 @@ export class NavigationComponent implements OnInit, OnDestroy {
         if (typeof state['marking_as_read_response'] !== 'undefined') {
           // upadte notification as marked
           this.updateNotifications();
+        }
+      }
+    });
+
+    this.messagesState$ = this.msgStore.select('messageTags');
+    this.msgSub = this.messagesState$.subscribe((state) => {
+      if (typeof state  !== 'undefined') {
+        if (typeof state['messanger_list_data'] !== 'undefined') {
+          this.messages = state['messanger_list_data'];
         }
       }
     });
@@ -438,9 +456,17 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
-    this.subscriptionOne.unsubscribe();
+    this.profSub.unsubscribe();
+    this.notifSub.unsubscribe();
+    this.msgSub.unsubscribe();
   }
 
+  messagePopup() {
+    this.loadMessages();
+  }
+
+  loadMessages() {
+    this.msgStore.dispatch({ type: MessageActions.GET_MESSANGER_LIST, payload: null });
+  }
 
 }

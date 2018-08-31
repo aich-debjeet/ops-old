@@ -40,7 +40,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right nav__dropdown3">
                                 <div class="dropdown__item dropnoti__head msg__read">
-                                    <a routerLink="/notification">Your Notification</a>
+                                    <a routerLink="/notification">Your Notifications</a>
                                     <a (click)="markAllAsRead()" class="pull-right">Mark all as read</a>
                                     <div class="dropdown__arrow"><img [src]="imageBaseUrl + 'img/arrow.png'"></div>
                                 </div>
@@ -204,7 +204,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right nav__dropdown3" id="ops_scrollbar">
                             <div class="dropdown__item dropnoti__head msg__read">
-                                <a routerLink="/notification">Your Notification</a>
+                                <a routerLink="/notification">Your Notifications</a>
                                 <a (click)="markAllAsRead()" class="pull-right">Mark all as read</a>
                                 <div class="dropdown__arrow"><img [src]="imageBaseUrl + 'img/arrow.png'"></div>
                             </div>
@@ -234,7 +234,7 @@
                                     </div>
                                 </div>
                             </ng-container>
-                            <ng-template #loadingNotifs >
+                            <ng-template #loadingNotifs>
                                 <app-placeholder-notification *ngFor="let n of [0,1]"></app-placeholder-notification>
                             </ng-template>
                             <div class="dropdown__item p-16 msg__read">
@@ -244,10 +244,46 @@
                             </div>
                         </div>
                     </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" routerLink="/user/message" routerLinkActive="active">
+
+                    <li class="dropdown" appDropdown>
+                        <a class="dropdown-toggle"  appDropdownOpen (click)="messagePopup()">
                             <img [src]="imageBaseUrl + 'img/svg/ico_message.svg'">
                         </a>
+                        <div class="dropdown-menu dropdown-menu-right nav__dropdown3" id="ops_scrollbar">
+                            <div class="dropdown__item dropnoti__head msg__read">
+                                <a routerLink="/user/message">Your Messages</a>
+                                <div class="dropdown__arrow"><img [src]="imageBaseUrl + 'img/arrow.png'"></div>
+                            </div>
+                            <ng-container *ngIf="messages?.length > 0; else loadingMsgs">
+                                <div class="o-alert_scroll" id="ops_scrollbar">
+                                    <div class="dropdown__item p-16 msg__unread cursor_pointer"  *ngFor="let message of messages| slice:0:7" (click)="openLink(message)" [ngClass]="{'msg__read': message?.isRead, 'msg__unread': !message?.isRead}">
+                                        <div class="dropnoti__avatar" [routerLink]="['', 'profile', 'u', message?.username, 'user']">
+                                            <img *ngIf="!message?.profileImage" [src]="'imageBaseUrl + /img/avatar.png'" class="img-responsive">
+                                            <img *ngIf="message?.profileImage" [src]="imageBaseUrl + message?.profileImage" class="img-responsive">
+                                        </div>
+                                        <div class="dropnoti__detail">
+                                            <span><a [routerLink]="['', 'profile', 'u', message?.username, 'user']">
+                                                <span class="dropnoti__bold"> {{ message?.name }}</span>
+                                            </a>{{ message?.latestMessage }}
+                                            </span>
+                                        </div>
+                                        <div class="dropnoti__icon">
+                                            <img *ngIf="message?.messageType == 'Status_Comments' || message?.messageType == 'Media_Comments'" [src]="imageBaseUrl + 'img/svg/ico_comment.svg'" class="noti_cont_footer_img">
+                                            <img *ngIf="message?.messageType == 'Media_Spot'" class="cursor_pointer" [routerLink]="['', { outlets: { media : ['media', message?.media?.mediaId] } } ]" [src]="imageBaseUrl + 'img/svg/spot_icon.svg'">
+                                        </div>
+                                        <p class="msg__time">{{ message?.time | utcDate | date:'d MMM hh:mm a' }}</p>
+                                    </div>
+                                </div>
+                            </ng-container>
+                            <ng-template #loadingMsgs>
+                                <app-placeholder-notification *ngFor="let n of [0,1]"></app-placeholder-notification>
+                            </ng-template>
+                            <div class="dropdown__item p-16 msg__read">
+                                <a routerLink="/user/message">
+                                    <p class="dropnoti__viewall">View All </p>
+                                </a>
+                            </div>
+                        </div>
                     </li>
 
                     <li class="dropdown" appDropdown>
