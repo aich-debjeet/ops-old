@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { SearchActions } from './../../../actions/search.action';
 import { ProfileActions } from './../../../actions/profile.action';
@@ -8,7 +8,7 @@ import { environment } from './../../../../environments/environment.prod';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 import { Store } from '@ngrx/store';
 import { ProfileModal } from '../../../models/profile.model';
@@ -18,7 +18,7 @@ import { ProfileModal } from '../../../models/profile.model';
   templateUrl: './search-channel.component.html',
   styleUrls: ['./search-channel.component.scss']
 })
-export class SearchChannelComponent implements OnInit {
+export class SearchChannelComponent implements OnInit, OnDestroy {
 
   searchState$: Observable<SearchModel>;
   searchState: any;
@@ -33,6 +33,8 @@ export class SearchChannelComponent implements OnInit {
   scrollingLoad = 500;
   /* scroll */
 
+  searchSub: ISubscription;
+
   constructor(
     private profileStore: Store<ProfileModal>,
     private store: Store<SearchModel>
@@ -46,7 +48,7 @@ export class SearchChannelComponent implements OnInit {
   ngOnInit() {
 
     // observe the store value
-    this.searchState$.subscribe((state) => {
+    this.searchSub = this.searchState$.subscribe((state) => {
       this.searchState = state;
       if (state) {
         if (typeof state['search_channel_data'] !== 'undefined' && state['search_channel_data']['spotFeedResponse']) {
@@ -95,6 +97,10 @@ export class SearchChannelComponent implements OnInit {
       state: e.state
     };
     this.profileStore.dispatch({ type: ProfileActions.CHANNEL_FOLLOW, payload: req });
+  }
+
+  ngOnDestroy() {
+    this.searchSub.unsubscribe();
   }
 
 }

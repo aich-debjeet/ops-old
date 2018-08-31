@@ -215,10 +215,9 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
 
   ngOnInit() {
     this.resetOppsTypeCount();
-    this.routeSub = this.route.queryParams
-      .subscribe(params => {
-        this.triggerSearch(params);
-      });
+    this.routeSub = this.route.queryParams.subscribe(params => {
+      this.triggerSearch(params);
+    });
   }
 
   triggerSearch(params: any) {
