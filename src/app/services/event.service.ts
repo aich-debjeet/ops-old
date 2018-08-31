@@ -22,7 +22,7 @@ export class EventService {
      * Search Banner
      */
 
-    searchBanner(){
+    searchBanner() {
       return this.api.get('/portal/event/get/eventsBanner');
     }
 
@@ -37,7 +37,7 @@ export class EventService {
      * list of attendee
      */
 
-    listOfAttendee(id: any){
+    listOfAttendee(id: any) {
       return this.api.get('/portal/eventAttendee/' + id + '/0/10');
     }
 
@@ -94,7 +94,7 @@ export class EventService {
    * @TODO: check why it is failing on for single file end point
    */
   uploadImage(value: any, handle: string = '') {
-    return this.api.postFile('/portal/cdn/media/upload/multiple?handle=' + handle, value.image);
+    return this.api.postFile('/portal/cdn/media/upload/multiple?handle=' + handle, value);
   }
 
   /**
@@ -120,13 +120,13 @@ export class EventService {
    * @param formValue
    * @param type
    */
-  fileUpload(formValue: any, type: string = 'base64') {
+  fileUpload(formValue: any) {
     let fileData;
-    if (type === 'base64') {
+    // if (type === 'base64') {
       fileData = this.buildImageForm(formValue);
-    } else {
-      fileData = formValue;
-    }
+    // } else {
+    //   fileData = formValue;
+    // }
     return this.uploadImage(fileData, formValue.handle);
   }
 
@@ -195,7 +195,7 @@ export class EventService {
       return this.api.post( '/portal/application/postApplication', value);
   }
 
-  getReports(type: string){
+  getReports(type: string) {
     return this.api.get('/portal/report/questions/getByType/' + type)
   }
 }

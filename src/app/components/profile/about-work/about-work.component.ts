@@ -51,7 +51,7 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
         if (this.stateProfile.profile_user_info.isCurrentUser === false && this.stateProfile.profile_other_loaded === true) {
           this.ownProfile = false;
           this.userProfile = this.stateProfile.profile_other;
-        }else {
+        } else {
           this.ownProfile = true;
           this.userProfile = this.stateProfile.profile_details;
         }
@@ -131,7 +131,7 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
           'access': Number(value.publicWork)
         }
         this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: body});
-        this.toastr.success('Your work has been updated successfully!');
+        this.toastr.success('Your work has been added successfully!');
         this.modalService.close('userWorkAdd');
       }
      if (this.hideTo === true) {
@@ -144,7 +144,7 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
           'access': Number(value.publicWork)
         }
         this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: body});
-        this.toastr.success('Your work has been updated successfully!');
+        this.toastr.success('Your work has been added successfully!');
         this.modalService.close('userWorkAdd');
       }
       } else {

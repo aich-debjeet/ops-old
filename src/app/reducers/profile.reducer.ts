@@ -495,6 +495,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         });
 
       case ProfileActions.LOAD_PROFILE_IMAGE_SUCCESS:
+      console.log(payload)
         return Object.assign({}, state, {
           profileImage: payload,
           image_upload_success: true,
@@ -718,7 +719,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Get current user following channel
      */
     case ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL:
-    if (payload.scrollId === '') {
+    if (payload.scrollId === null) {
       return Object.assign({}, state, {
         user_following_channels_loading: true,
         user_following_channels_loaded: false,
@@ -756,7 +757,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
           other_channels_loading: true,
           other_channels_loaded: false,
         });
-      }else {
+      } else {
         return Object.assign({}, state, {
           other_channels_loading: true,
           other_channels_loaded: false,
@@ -1171,9 +1172,16 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
        * [TEMP] Load all profiles
        */
     case ProfileActions.LOAD_ALL_PROFILES:
+      if (payload.name.scrollId === null) {
+        return Object.assign({}, state, {
+          user_profiles_all: [],
+          people_follow_scroll_id: null
+        });
+      }
       return Object.assign({}, state, {
         user_profiles_all_loaded: false
       });
+
     case ProfileActions.LOAD_ALL_PROFILES_SUCCESS:
       const resp = payload.profileResponse;
       const profile_list = state.user_profiles_all.concat(resp)

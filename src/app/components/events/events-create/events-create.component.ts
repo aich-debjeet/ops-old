@@ -4,10 +4,10 @@ import {IDatePickerConfig} from 'ng2-date-picker';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { NgxfUploaderService, UploadEvent, UploadStatus, FileError } from 'ngxf-uploader';
-import { DatePipe } from '@angular/common';
+import { DatePipe,Location } from '@angular/common';
 import { EventValidator, FormValidation } from '../../../helpers/event.validator';
 import {Moment} from 'moment';
-
+import { Modal } from '../../../shared/modal-new/Modal';
 import { QuillEditorComponent } from 'ngx-quill/src/quill-editor.component';
 import Quill from 'quill';
 
@@ -53,7 +53,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
   minDate = new Date();
   dateExpires;
   baseUrl = environment.API_IMAGE;
-  imageUpload: boolean;
+  imageUpld: boolean;
   id: any;
   private sub: any;
   eventDetail: any;
@@ -67,6 +67,12 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
     state: string;
     postalCode: string;
     city: string;
+
+    imageChangedEvent = '';
+    croppedImage = '';
+    hidePreview = false;
+    disableSave = true;
+    fileUploadingData: any;
 
   datePickerConfig: IDatePickerConfig = {
     firstDayOfWeek: 'mo',
@@ -93,7 +99,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
   process: number[] = [];
   fileData: File;
   userHandle: any;
-
+  @ViewChild('imageUpload') imageUpload: Modal;
   @ViewChild('search')
   public searchElementRef: ElementRef;
 
@@ -115,6 +121,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
     private eventValidator: EventValidator,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
+    private _location: Location,
   ) {
 
     this.tagState$ = this.store.select('eventTags');
@@ -144,30 +151,36 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
     this.buildForm();
     this.getLocationGoogle();
   }
+  // go back to the page
+  // isClosed(event: any) {
+  //   this._location.back();
+  // }
 
   /**
    * File Change Binder
    * @param  $event
    */
 
-  fileChangeListener($event) {
-    // console.log($event)
-    const data = new FormData();
+  fileChangeListener(event: any): void {
+    this.disableSave = false;
+    this.imageChangedEvent = event;
+    // const data = new FormData();
 
-    if ($event.target.files.length > 0) {
-      const randm = Math.random().toString(36).slice(2);
-      const fileName = 'prof_' + randm + '.' + 'jpg';
+    // if ($event.target.files.length > 0) {
+    //   const randm = Math.random().toString(36).slice(2);
+    //   const fileName = 'prof_' + randm + '.' + 'jpg';
 
-      let file = $event.target.files[0];
+    //   let file = $event.target.files[0];
 
-      const data = new FormData();
-      data.append('file', file, fileName );
+    //   const data = new FormData();
+    //   data.append('file', file, fileName );
 
-      // Display the key/value pairs
+    //   // Display the key/value pairs
 
-      // Upload files
-      this.uploadCoverImage(data);
-    }
+    //   // Upload files
+    //   // this.uploadCoverImage(data);
+    //   this.fileUploadingData = data;
+    // }
 
 
     // const image: any = new Image();
@@ -186,21 +199,34 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
     // myReader.readAsDataURL(file);
   }
 
+  imageCropped(image: string) {
+    this.croppedImage = image;
+    this.hidePreview = true;
+  }
+
+  openModel(){
+    if(this.eventCoverImage === ''){
+      this.croppedImage = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
+    }
+    this.imageUpload.open();
+  }
+
    /**
    * Upload Cover image
    */
-  uploadCoverImage(fileObj) {
+  uploadCoverImage() {
     const imageData = {
       handle: this.userHandle,
-      image: fileObj
+      image: this.croppedImage.split((/,(.+)/)[1])
     };
-
+    this.disableSave = true;
     this.store.dispatch({ type: EventActions.FILE_UPLOAD, payload: imageData });
 
     this.store.select('eventTags')
       .first(file => file['fileupload_success'] === true )
       .subscribe( data => {
-        this.eventCoverImage = data['fileUpload'][0].repoPath
+        this.eventCoverImage = data['fileUpload'][0].repoPath;
+        this.imageUpload.close();
       });
   }
 
@@ -261,7 +287,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
       return null;
     } else {
       if(!moment(control.value, "DD-MM-YYYY", true).isValid()){
-        console.log('invalid');
+        // console.log('invalid');
         this.invalidDate = true;
       } else {
         this.invalidDate = false;
@@ -477,17 +503,26 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
    */
   submitForm(value) {
     if (this.eventForm.valid) {
+      let event_agenda = [];
       if (this.eventCoverImage === '') {
-        this.imageUpload = true;
+        this.imageUpld = true;
         return;
       }
-      console.log(value.event_agenda)
       if(value.event_agenda.length <= 0){
-        console.log(value.event_agenda)
         this.requiredAgenda = true;
         return;
+      } else {
+        for(let i in value.event_agenda) {
+          let agenda = {
+            description: '',
+            startTime: ''
+          }
+          agenda.description = value.event_agenda[i].description;
+          agenda.startTime = this.parseDate(value.event_agenda[i].startTime);
+          event_agenda.push(agenda);
+        }
       }
-      this.imageUpload = false;
+      this.imageUpld = false;
       const data = {
           title : value.event_name,
           access :  Number(value.access),
@@ -502,7 +537,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
             latitude: this.latitude.toString(),
             longitude: this.longitude.toString(),
           },
-          event_agenda: value.event_agenda,
+          event_agenda: event_agenda,
           extras: {
             coverImage: this.eventCoverImage,
             ticket: [{
@@ -538,6 +573,16 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
    */
   reverseDate(string) {
     return string.split('-').reverse().join('-');
+  }
+  parseDate(string){
+    let parsedDate;
+    const date = string.split(' ');
+    parsedDate = date[0].split('-').reverse().join('-') + 'T' + date[1];
+    return parsedDate;
+  }
+
+  imageLoaded() {
+
   }
 
 }

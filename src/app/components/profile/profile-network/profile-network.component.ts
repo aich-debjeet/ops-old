@@ -52,7 +52,7 @@ export class ProfileNetworkComponent implements OnInit {
     });
   }
 
-  cancelRequest(handle: string){
+  cancelRequest(handle: string) {
     // console.log('receivers handle ', handle)
     const data = {
      'receiver_id': handle,
@@ -62,7 +62,7 @@ export class ProfileNetworkComponent implements OnInit {
     // this.removeElements(handle);
   }
 
-  // removeElements(handle: string){
+  // removeElements(handle: string) {
   //   this.sendRequestList =  _filter(this.sendRequestList, function(item) {
   //     return item.owner.handle !== handle;
   //   });

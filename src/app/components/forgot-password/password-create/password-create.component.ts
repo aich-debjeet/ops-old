@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Http, Headers, Response } from '@angular/http';
+import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../../../environments/environment';
 
 import { Store } from '@ngrx/store';
@@ -11,18 +10,18 @@ import { Login, initialTag } from '../../../models/auth.model';
 import { AuthActions } from '../../../actions/auth.action'
 
 // helper
-import { FormValidation } from '../../../helpers/form.validator';
+import { FormValidation, PasswordValidation } from '../../../helpers/form.validator';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-password-create',
   templateUrl: './password-create.component.html',
   styleUrls: ['./password-create.component.scss']
 })
-export class PasswordCreateComponent implements OnInit {
+export class PasswordCreateComponent implements OnInit, OnDestroy {
 
   activationCode: string;
   baseUrl: string;
@@ -30,39 +29,31 @@ export class PasswordCreateComponent implements OnInit {
   tagState$: Observable<Login>;
   forgotP = initialTag;
   passwordShow = false;
-  pwdCreateChecked = false;
+  showLogin = false;
+  fpSub: ISubscription;
 
   constructor(
     private fb: FormBuilder,
     private store: Store<Login>,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private http: Http
+    private activatedRoute: ActivatedRoute
     ) {
     this.baseUrl = environment.API_IMAGE;
 
     this.createPass = fb.group({
-      password : ['', [
+      password: ['', [
         Validators.required,
         FormValidation.passwordStrength.bind(this)
       ]],
-      confirmpassword: ['', [
+      confirmPassword: ['', [
         Validators.required,
-        this.passwordMatchCheck.bind(this)
       ]]
+    }, {
+      validator: PasswordValidation.MatchPassword
     })
 
     this.tagState$ = store.select('loginTags');
-    this.tagState$.subscribe((state) => {
+    this.fpSub = this.tagState$.subscribe((state) => {
       this.forgotP = state;
-      // console.log('this.forgotP', this.forgotP);
-
-      // check if password has been successfully updated
-      if (!this.pwdCreateChecked && this.forgotP && this.forgotP['fp_create_success'] && this.forgotP['fp_create_success'] === true) {
-        this.pwdCreateChecked = true;
-        // console.log('IF fp_create_success');
-        // form reset password feilds
-      }
     });
   }
 
@@ -82,6 +73,11 @@ export class PasswordCreateComponent implements OnInit {
         identity: this.forgotP.fp_user_input
       };
       this.store.dispatch({ type: AuthActions.FP_CREATE_PASS, payload: form });
+      this.store.select('loginTags')
+      .first(resp => resp['fp_create_success'] === true)
+      .subscribe(data => {
+        this.showLogin = true;
+      });
     }
   }
 
@@ -106,6 +102,10 @@ export class PasswordCreateComponent implements OnInit {
     } else {
       this.passwordShow = true;
     }
+  }
+
+  ngOnDestroy() {
+    this.fpSub.unsubscribe();
   }
 
 }

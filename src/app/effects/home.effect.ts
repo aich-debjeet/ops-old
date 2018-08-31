@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
@@ -8,7 +7,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 
 import { HomeService } from '../services/home.service';
-import { ProfileService } from '../services/profile.service';
 import { HomeActions } from '../actions/home.action';
 
 @Injectable()

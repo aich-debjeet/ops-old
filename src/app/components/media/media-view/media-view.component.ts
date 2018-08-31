@@ -1,6 +1,6 @@
-import { Component, OnInit, EventEmitter, Input, AfterViewInit, Output, OnChanges, ViewChild} from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, Output, ViewChild} from '@angular/core';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
-
+import { PlatformLocation } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from './../../../../environments/environment';
 import { ModalService } from '../../../shared/modal/modal.component.service';
@@ -27,7 +27,7 @@ import { UtcDatePipe } from './../../../pipes/utcdate.pipe';
   styleUrls: ['./media-view.component.scss']
 })
 
-export class MediaViewComponent {
+export class MediaViewComponent implements OnDestroy {
   imageLink: string = environment.API_IMAGE;
   chosenChannel: any = 0;
   @Input() userChannels;
@@ -35,7 +35,7 @@ export class MediaViewComponent {
   @Output() onComment: EventEmitter<any> = new EventEmitter<any>();
   @Output() onMediaNext: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('firstModal') modal: any;
-  domainLink: string = environment.API_DOMAIN;
+  domainLink: string;
   messageText: string;
   statusForm: FormGroup;
   private mediaStateSubscription: Subscription;
@@ -61,14 +61,14 @@ export class MediaViewComponent {
     private router: Router,
     private route: ActivatedRoute,
     private toastr: ToastrService,
+    platformLocation: PlatformLocation,
     private store: Store<Media>
   ) {
-    // console.log(this.router.url)
+    this.domainLink = (platformLocation as any).location.origin;
     this.spot = false;
     this.mediaState$ = store.select('mediaStore');
 
-    this.mediaState$.subscribe((state) => {
-      //  console.log('state', state)
+    this.mediaStateSubscription = this.mediaState$.subscribe((state) => {
       this.mediaStore = state;
       this.channelId = this.mediaStore.channel_detail['channelId']
       this.data = this.mediaStore.media_detail;
@@ -84,7 +84,7 @@ export class MediaViewComponent {
       if (state['media_edit_msg'] && this.editMsg) {
        this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
        this.toastr.success('Post Edited');
-       this.doClose(event);
+       this.doClose();
        this.editMsg = false;
      }
     });
@@ -94,17 +94,19 @@ export class MediaViewComponent {
       if (state['media_delete_msg'] && this.deleteMsg) {
         this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
         this.toastr.warning('Post Deleted');
-        this.doClose(event);
+        this.doClose();
         this.deleteMsg = false;
       }
     });
-
-
     this.loadMedia();
   }
 
+  ngOnDestroy() {
+    this.mediaStateSubscription.unsubscribe();
+  }
+
   closeFunction() {
-    this.doClose(event);
+    this.doClose();
   }
 
   mediaNext(value) {
@@ -153,7 +155,7 @@ export class MediaViewComponent {
     if (this.spot === true) {
       this.spotCount++;
       this.store.dispatch({ type: MediaActions.MEDIA_SPOT, payload: data });
-    }else {
+    } else {
       this.spotCount--;
       this.store.dispatch({ type: MediaActions.MEDIA_UNSPOT, payload: data });
     }
@@ -166,7 +168,7 @@ export class MediaViewComponent {
   /**
    * Close
    */
-  doClose(event) {
+  doClose() {
     // console.log('event', event)
     this.router.navigate(['.', { outlets: { media: null } }], {
       relativeTo: this.route.parent

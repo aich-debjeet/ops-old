@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { SearchActions } from './../../../actions/search.action';
 import { SearchModel } from './../../../models/search.model';
@@ -10,7 +10,7 @@ import { environment } from './../../../../environments/environment.prod';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 import { Store } from '@ngrx/store';
 
@@ -19,7 +19,7 @@ import { Store } from '@ngrx/store';
   templateUrl: './search-post.component.html',
   styleUrls: ['./search-post.component.scss']
 })
-export class SearchPostComponent implements OnInit {
+export class SearchPostComponent implements OnInit, OnDestroy {
 
   searchState$: Observable<SearchModel>;
   searchState: any;
@@ -34,6 +34,8 @@ export class SearchPostComponent implements OnInit {
   scrollingLoad = 800;
   /* scroll */
 
+  searchSub: ISubscription;
+
   constructor(
     private _store: Store<Media>,
     private store: Store<SearchModel>
@@ -47,7 +49,7 @@ export class SearchPostComponent implements OnInit {
   ngOnInit() {
 
     // observe the store value
-    this.searchState$.subscribe((state) => {
+    this.searchSub = this.searchState$.subscribe((state) => {
       this.searchState = state;
       if (state) {
         if (typeof state['search_post_data'] !== 'undefined' && state['search_post_data']['mediaResponse']) {
@@ -91,6 +93,10 @@ export class SearchPostComponent implements OnInit {
         this.canScroll = true;
       }, 1000);
     }
+  }
+
+  ngOnDestroy() {
+    this.searchSub.unsubscribe();
   }
 
 }

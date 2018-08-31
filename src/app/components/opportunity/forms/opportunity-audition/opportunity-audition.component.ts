@@ -7,6 +7,9 @@ import { Observable } from 'rxjs/Observable';
 import { ISubscription } from 'rxjs/Subscription';
 import { GeneralUtilities } from '../../../../helpers/general.utils';
 import { IDatePickerConfig } from 'ng2-date-picker';
+import { ToastrService } from 'ngx-toastr';
+import { FormValidation } from './../../../../helpers/form.validator';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-opportunity-audition',
@@ -39,6 +42,8 @@ export class OpportunityAuditionComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
+    private location: Location,
+    private toastr: ToastrService,
     private scrollHelper: ScrollHelper,
     private generalUtils: GeneralUtilities,
     private loginStore: Store<any>
@@ -76,11 +81,11 @@ export class OpportunityAuditionComponent implements OnInit, OnDestroy {
       ],
       auditionCategory: [
         this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'category']) ? data['opportunityAudition']['category'] : '',
-        []
+        [Validators.required]
       ],
       auditionDate: [
         this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'auditionDate']) ? data['opportunityAudition']['auditionDate'] : '',
-        [Validators.required]
+        [Validators.required, FormValidation.validateOldDate]
       ],
       auditionLocation: [
         this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'location', 'location']) ? data['opportunityAudition']['location']['location'] : '',
@@ -187,6 +192,7 @@ export class OpportunityAuditionComponent implements OnInit, OnDestroy {
   submitAuditionForm(formData: any) {
     // audition form validation
     if (!this.auditionFrm.valid) {
+      this.toastr.warning('Please check for errors in the form.');
       this.scrollHelper.scrollToFirst('error');
       return;
     }
@@ -219,6 +225,10 @@ export class OpportunityAuditionComponent implements OnInit, OnDestroy {
     }
     this.oppSubmitting = true;
     this.formSubmitted.emit(reqBody);
+  }
+
+  cancelUpdate() {
+    this.location.back();
   }
 
 }

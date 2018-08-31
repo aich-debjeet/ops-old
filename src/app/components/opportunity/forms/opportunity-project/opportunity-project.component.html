@@ -26,7 +26,8 @@
           </div>
           <div class="col-md-9 p-0">
               <div class="c-form__group m-t-0 c-form--sm">
-                  <textarea formControlName="projectDescription" class="c-textarea__block c-textarea--style" placeholder="Describe audition"></textarea>
+                  <!-- <textarea formControlName="projectDescription" class="c-textarea__block c-textarea--style" placeholder="Describe audition"></textarea> -->
+                  <quill-editor [style]="{height: '250px'}" class="quill-editor" [placeholder]="'Describe about opportunity'" formControlName="projectDescription"></quill-editor>
               </div>
               <p *ngIf="projectFrm.controls['projectDescription'].errors?.required && createProjFrm.submitted" class="c-form__validation error">Description is required!</p>
           </div>
@@ -98,6 +99,7 @@
               <p *ngIf="_oppDetails?.formType === 'create'" class="c-text_sm color-grey-dark m-t-24">By clicking 'Create', you are agreeing to the Terms & Conditions and the Privacy policy.</p>
               <button *ngIf="_oppDetails?.formType === 'create'" type="submit" [disabled]="oppSubmitting" class="btn btn-primary btn-md m-t-16 m-b-16">Create</button>
               <button *ngIf="_oppDetails?.formType === 'edit'" type="submit" [disabled]="oppSubmitting" class="btn btn-primary btn-md m-t-16 m-b-16">Update</button>
+              <button *ngIf="_oppDetails?.formType === 'edit'" type="button" class="btn btn-default btn-md m-l-8" (click)="cancelUpdate()">Cancel</button>
           </div>
       </div>
       <!-- btn end -->

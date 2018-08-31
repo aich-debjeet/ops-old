@@ -88,10 +88,10 @@
                                         <div class="add_workplace_time_period">
                                             <h4>Time Period</h4>
                                             <div class="form_group">
-                                                <input class="form_input" type="text" required="" formControlName="timeperiod" [textMask]="{mask: dateMask}">
+                                                <input class="form_input" type="text" required="" formControlName="timeperiod" placeholder="" [textMask]="{mask: dateMask}">
                                                 <span class="form_highlight"></span>
                                                 <span class="form_bar"></span>
-                                                <label>Date of Award</label>
+                                                <label>Date of Award (DD-MM-YYYY)</label>
                                                 <p class="error_alert" *ngIf="awardForm.controls['timeperiod'].errors?.required && myform.submitted">Date of Award is required</p>
                                                 <p class="error_alert" *ngIf="awardForm.controls['timeperiod'].errors?.invalidWorkDate">Invalid Date</p>
                                             </div>

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
 import {Observable} from 'rxjs/Rx'
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
@@ -112,7 +111,7 @@ export class EventEffect {
     fileUpload$ = this.actions$
     .ofType(EventActions.FILE_UPLOAD)
     .map(toPayload)
-    .switchMap((payload) => this.eventService.fileUpload(payload, 'file')
+    .switchMap((payload) => this.eventService.fileUpload(payload)
       .map(res => ({ type: EventActions.FILE_UPLOAD_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: EventActions.FILE_UPLOAD_FAILED, payload: res }))
     );

@@ -151,7 +151,7 @@ export class MediaService {
   /**
    * get reports
    */
-  getReports(type: string){
+  getReports(type: string) {
     return this.api.get('/portal/report/questions/getByType/' + type)
   }
 

@@ -46,6 +46,9 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
   reportType: string;
   @ViewChild('cancelApplicationModal') cancelApplicationModal: Modal;
 
+  similarOpportunities: any;
+  similarOpportunitiesLoaded = false;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -70,6 +73,19 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
         if (state.get_opportunity_data) {
           this.opportunity = state.get_opportunity_data;
           this.hasApplied = state.get_opportunity_data.isApplied;
+
+          if (!this.similarOpportunitiesLoaded) {
+            this.similarOpportunitiesLoaded = true;
+            const simOppsParams = {
+              limit: 5,
+              scrollId: '',
+              // filtersMap: this.globalFilter,
+              searchType: 'recommended'
+            }
+            // this.isSearching = true;
+            // this.showPreloader = true;
+            this.store.dispatch({ type: OpportunityActions.GET_SIMILAR_OPPORTUNITIES, payload: simOppsParams });
+          }
         }
         // check if job application successful
         if (state.apply_for_an_opportunity_data) {

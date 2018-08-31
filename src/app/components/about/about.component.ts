@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -14,7 +14,7 @@ import { Store } from '@ngrx/store';
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss']
 })
-export class AboutComponent implements OnInit {
+export class AboutComponent implements OnInit, OnDestroy {
   public contactUs: FormGroup;
   tagState$: Observable<any>;
   private subscription: ISubscription;
@@ -66,9 +66,13 @@ export class AboutComponent implements OnInit {
         this.buildForm();
         return
       });
-    }else {
+    } else {
       this.toastr.warning('Please fill all required fields');
     }
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

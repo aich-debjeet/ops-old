@@ -16,7 +16,7 @@ export class TokenService {
     if (path.segments.length > 2) {
       activeUser = path.segments[2].path;
       isCurrentUser = false;
-    }else {
+    } else {
       isCurrentUser = true;
     }
 
@@ -32,7 +32,7 @@ export class TokenService {
     const currentUserToken = localStorage.getItem('currentUserID');
     if (currentUserToken == null) {
       return '';
-    }else {
+    } else {
       return currentUserToken;
     }
   }

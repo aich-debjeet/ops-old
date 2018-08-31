@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter, Input, AfterViewInit, Output, OnChanges, ViewChild, Inject} from '@angular/core';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { Location, PlatformLocation } from '@angular/common';
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from './../../../../environments/environment';
@@ -33,7 +34,7 @@ export class MediaBlockComponent implements OnInit {
 
   public metaShow: Meta;
   imageLink: string = environment.API_IMAGE;
-  domainLink: string = environment.API_DOMAIN;
+  domainLink: string;
   chosenChannel: any = 0;
   @Input() userChannels;
   @Input() profileImage;
@@ -64,10 +65,14 @@ export class MediaBlockComponent implements OnInit {
     title: Title,
     private fb: FormBuilder,
     private router: Router,
+    location: Location,
+    platformLocation: PlatformLocation,
     private route: ActivatedRoute,
     private toastr: ToastrService,
     private store: Store<Media>
   ) {
+    this.domainLink = (platformLocation as any).location.origin;
+
     this.spot = false;
     this.mediaState$ = store.select('mediaStore');
 
@@ -169,7 +174,7 @@ export class MediaBlockComponent implements OnInit {
     if (this.spot === true) {
       this.spotCount++;
       this.store.dispatch({ type: MediaActions.MEDIA_SPOT, payload: data });
-    }else {
+    } else {
       this.spotCount--;
       this.store.dispatch({ type: MediaActions.MEDIA_UNSPOT, payload: data });
     }
@@ -195,7 +200,7 @@ export class MediaBlockComponent implements OnInit {
     if (param === 'Del') {
       this.commentCount--
       this.store.dispatch({ type: ProfileActions.COMMENT_COUNT_DECREMENT, payload: this.mediaId });
-    }else {
+    } else {
       this.commentCount++
       this.store.dispatch({ type: ProfileActions.COMMENT_COUNT_INCREMENT, payload: this.mediaId });
     }

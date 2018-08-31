@@ -113,7 +113,7 @@ export class RecentListComponent implements OnInit {
         offset: this.page_start,
         limit: this.page_end
       }
-    }else {
+    } else {
       data = {
         mediaType: this.mediaType,
         mediaCategory: 'recent',

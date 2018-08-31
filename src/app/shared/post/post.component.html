@@ -37,7 +37,7 @@
             </ul>
             <ul class="dropdown-menu dropdown-menu-right" *ngIf="!mediaData?.isOwner">
                 <li>
-                    <a (click)="reportModalOpen(mediaData.id)" data-toggle="modal" data-target="#reportmodal">Report</a>
+                    <a (click)="reportModalOpen(mediaData.id)">Report</a>
                 </li>
             </ul>
         </div>
@@ -145,16 +145,16 @@
                         </div> -->
 
                         <div class="o-share__social">
-                            <div class="o-share__social-icon p-l-0" shareButton="google" [sbUrl]="domainLink + 'media/' + mediaData?.id">
+                            <div class="o-share__social-icon p-l-0" shareButton="google" [sbUrl]="domainLink + '/media/' + mediaData?.id">
                                 <img [src]="imageLink + 'img/svg/googleplus.svg'">
                             </div>
-                            <div class="o-share__social-icon" shareButton="twitter" [sbUrl]="domainLink + 'media/' + mediaData?.id">
+                            <div class="o-share__social-icon" shareButton="twitter" [sbUrl]="domainLink + '/media/' + mediaData?.id">
                                 <img [src]="imageLink + 'img/svg/twitter.svg'">
                             </div>
-                            <div class="o-share__social-icon" [shareButton]="'facebook'" [sbUrl]="domainLink + 'media/' + mediaData?.id">
+                            <div class="o-share__social-icon" [shareButton]="'facebook'" [sbUrl]="domainLink + '/media/' + mediaData?.id">
                                 <img [src]="imageLink + 'img/svg/facebook.svg'">
                             </div>
-                            <div class="o-share__social-icon p-r-0" shareButton="email" [sbUrl]="domainLink + 'media/' + mediaData?.id">
+                            <div class="o-share__social-icon p-r-0" shareButton="email" [sbUrl]="domainLink + '/media/' + mediaData?.id">
                                 <img [src]="imageLink + 'img/svg/envelope.svg'">
                             </div>
                         </div>
@@ -163,9 +163,17 @@
             </div>
         </div>
     </div>
-    <app-comment [mediaId]="mediaId" [commentsType]="'media-list'" [comments]="comments" [mediaType]="mediaType"  [commentCount]="commentCount"></app-comment>
+    <app-comment [mediaId]="mediaId" [commentsType]="'media-list'" [userData]="userData" [comments]="comments" [mediaType]="mediaType"  [commentCount]="commentCount"></app-comment>
 </div>
 
-<app-modal [modalTitle]="''" [blocking]='false' modalId='reportPopUp'>
-    <app-report-popoup [reportQues]="questions" [reportContentId]="reportId" [reportType]="reportType" (onclose)= "closeReport()" ></app-report-popoup>
-</app-modal>
+<app-modal-new #reportModal modalClass="modal-report__popup" >
+    <modal-content>
+            <app-report-popoup  [reportContentId]="reportId" [reportType]="'post'" (onclose)= "closeReport()" ></app-report-popoup>
+    </modal-content>
+</app-modal-new>
+
+
+
+<!-- <app-modal [modalTitle]="''" [blocking]='false' modalId='reportPopUp' >
+    <app-report-popoup *ngIf="popupActive" [reportQues]="questions" [reportContentId]="reportId" [reportType]="'post'" (onclose)= "closeReport()" ></app-report-popoup>
+</app-modal> -->

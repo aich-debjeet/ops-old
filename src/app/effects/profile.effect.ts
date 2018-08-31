@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
 import { ToastrService } from 'ngx-toastr';
-import { Store } from '@ngrx/store';
-import {Observable} from 'rxjs/Rx'
+import { Observable } from 'rxjs/Rx'
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -235,9 +234,9 @@ export class ProfileEffect {
     );
 
 
-      /**
-   * Get current user following posts
-   */
+  /**
+* Get current user following posts
+*/
   @Effect()
   loadUserFollowingPost$ = this.actions$
     .ofType(ProfileActions.LOAD_USER_FOLLOWING_POSTS)
@@ -381,7 +380,7 @@ export class ProfileEffect {
   @Effect()
   userWorkUpdateSuccess$ = this.actions$
     .ofType(ProfileActions.UPDATE_USER_WORK_SUCCESS)
-    .map(res => ({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS  }))
+    .map(res => ({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS }))
 
   /**
    * Delete Current user work
@@ -437,7 +436,7 @@ export class ProfileEffect {
   @Effect()
   userEducationUpdateSuccess$ = this.actions$
     .ofType(ProfileActions.UPDATE_USER_EDUCATION_SUCCESS)
-    .map(res => ({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS  }))
+    .map(res => ({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS }))
 
   /**
    * DWC Media Update
@@ -498,7 +497,7 @@ export class ProfileEffect {
   @Effect()
   userWorkDeleteSuccess$ = this.actions$
     .ofType(ProfileActions.DELETE_USER_WORK_SUCCESS)
-    .map(res => ({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS  }))
+    .map(res => ({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS }))
 
   /**
    * User Education Delete Success
@@ -506,7 +505,7 @@ export class ProfileEffect {
   @Effect()
   userWorkEducationSuccess$ = this.actions$
     .ofType(ProfileActions.DELETE_USER_EDUCATION_SUCCESS)
-    .map(res => ({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS  }))
+    .map(res => ({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS }))
 
   /**
    * User Work Add Success
@@ -541,29 +540,29 @@ export class ProfileEffect {
    * Save Cover Image
    */
 
-   @Effect()
-    saveCoverImage$ = this.actions$
-      .ofType(ProfileActions.PROFILE_COVER_UPDATE)
-      .map(toPayload)
-      .switchMap((payload) => this.profileService.coverImageUploader(payload)
-        .map(res => ({ type: ProfileActions.PROFILE_COVER_UPDATE_SUCCESS, payload: res }))
-        .catch((res) => Observable.of({ type: ProfileActions.PROFILE_COVER_UPDATE_FAILED, payload: res }))
-      );
+  @Effect()
+  saveCoverImage$ = this.actions$
+    .ofType(ProfileActions.PROFILE_COVER_UPDATE)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.coverImageUploader(payload)
+      .map(res => ({ type: ProfileActions.PROFILE_COVER_UPDATE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.PROFILE_COVER_UPDATE_FAILED, payload: res }))
+    );
 
   /**
    *  Save image to ProfileUI
    */
-     @Effect()
-     saveCoverImageSuccess$ = this.actions$
-     .ofType(ProfileActions.PROFILE_COVER_UPDATE_SUCCESS)
-     .map(toPayload)
-     .switchMap((payload) => this.profileService.attachCoverImage(payload)
-       .map(res => ({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS }))
-       .catch((res) => Observable.of({ type: ProfileActions.PROFILE_COVER_URL_UPDATE_FAILED, payload: res }))
-      );
-/**
- *  Load image to database
- */
+  @Effect()
+  saveCoverImageSuccess$ = this.actions$
+    .ofType(ProfileActions.PROFILE_COVER_UPDATE_SUCCESS)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.attachCoverImage(payload)
+      .map(res => ({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS }))
+      .catch((res) => Observable.of({ type: ProfileActions.PROFILE_COVER_URL_UPDATE_FAILED, payload: res }))
+    );
+  /**
+   *  Load image to database
+   */
   @Effect()
   loadProfileImage$ = this.actions$
     .ofType(ProfileActions.LOAD_PROFILE_IMAGE)
@@ -577,14 +576,19 @@ export class ProfileEffect {
   /**
    *  Save image to ProfileUI
    */
-   @Effect()
-   loadProfileImageSuccess$ = this.actions$
-   .ofType(ProfileActions.LOAD_PROFILE_IMAGE_SUCCESS)
-   .map(toPayload)
-   .switchMap((payload) => this.profileService.saveProfileImage(payload)
-     .map(res => ({ type: ProfileActions.SAVE_PROFILE_IMAGE_SUCCESS, payload: res }))
-     .catch((res) => Observable.of({ type: ProfileActions.SAVE_PROFILE_IMAGE_FAILED, payload: res }))
-    );
+  @Effect()
+  updateprofileImage1$ = this.actions$
+    .ofType(ProfileActions.LOAD_PROFILE_IMAGE_SUCCESS)
+    .mergeMap(data => {
+      return Observable.of({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE })
+    });
+
+  @Effect()
+  updateprofileImage2$ = this.actions$
+    .ofType(ProfileActions.LOAD_PROFILE_IMAGE_SUCCESS)
+    .mergeMap(data => {
+      return Observable.of({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS })
+    });
 
   /**
    *  Save on profile image url
@@ -593,7 +597,7 @@ export class ProfileEffect {
   imageUrlUpdate$ = this.actions$
     .ofType(ProfileActions.SAVE_PROFILE_IMAGE_SUCCESS)
     .mergeMap(reachedThreshold => {
-       return Observable.of({  type: ProfileActions.LOAD_CURRENT_USER_PROFILE })
+      return Observable.of({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE })
     });
 
   @Effect()
@@ -701,9 +705,9 @@ export class ProfileEffect {
       .catch((res) => Observable.of({ type: ProfileActions.CHANNEL_FOLLOW_FAILED, payload: res }))
     );
 
-    /**
-   * Get user channels
-   */
+  /**
+ * Get user channels
+ */
   @Effect()
   postMediaChannel$ = this.actions$
     .ofType(ProfileActions.POST_CHANNEL_MEDIA)
@@ -755,9 +759,9 @@ export class ProfileEffect {
       .catch((res) => Observable.of({ type: ProfileActions.USER_PASSWORD_UPDATE_FAILED, payload: res }))
     );
 
-   /**
-   * Current User status load
-   */
+  /**
+  * Current User status load
+  */
   @Effect()
   userStatusLoad$ = this.actions$
     .ofType(ProfileActions.LOAD_USER_STATUS)
@@ -767,9 +771,9 @@ export class ProfileEffect {
       .catch((res) => Observable.of({ type: ProfileActions.LOAD_USER_STATUS_FAILED, payload: res }))
     );
 
-   /**
-   * Pin channel
-   */
+  /**
+  * Pin channel
+  */
   @Effect()
   pinChannel$ = this.actions$
     .ofType(ProfileActions.PIN_CHANNEL)
@@ -779,9 +783,9 @@ export class ProfileEffect {
       .catch((res) => Observable.of({ type: ProfileActions.PIN_CHANNEL_FAILED, payload: res }))
     );
 
-   /**
-   * UnPin channel
-   */
+  /**
+  * UnPin channel
+  */
   @Effect()
   unpinChannel$ = this.actions$
     .ofType(ProfileActions.UNPIN_CHANNEL)
@@ -798,7 +802,7 @@ export class ProfileEffect {
   unpinChannelSuccess$ = this.actions$
     .ofType(ProfileActions.UNPIN_CHANNEL_SUCCESS)
     .mergeMap(reachedThreshold => {
-       return Observable.of({  type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS })
+      return Observable.of({ type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS })
     });
 
   /**
@@ -808,7 +812,7 @@ export class ProfileEffect {
   pinChannelSuccess$ = this.actions$
     .ofType(ProfileActions.PIN_CHANNEL_SUCCESS)
     .mergeMap(reachedThreshold => {
-       return Observable.of({  type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS })
+      return Observable.of({ type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS })
     });
 
   /**
@@ -824,13 +828,13 @@ export class ProfileEffect {
     );
 
   @Effect()
-    loadProfilesProf$ = this.actions$
-      .ofType(ProfileActions.LOAD_ALL_PROFILES_PROF)
-      .map(toPayload)
-      .switchMap((payload) => this.profileService.getAllProfilesProf(payload)
-        .map(res => ({ type: ProfileActions.LOAD_ALL_PROFILES_PROF_SUCCESS, payload: res }))
-        .catch((res) => Observable.of({ type: ProfileActions.LOAD_ALL_PROFILES_PROF_FAILED, payload: res }))
-      );
+  loadProfilesProf$ = this.actions$
+    .ofType(ProfileActions.LOAD_ALL_PROFILES_PROF)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getAllProfilesProf(payload)
+      .map(res => ({ type: ProfileActions.LOAD_ALL_PROFILES_PROF_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.LOAD_ALL_PROFILES_PROF_FAILED, payload: res }))
+    );
 
   /**
    *  Load my Directory
@@ -854,7 +858,7 @@ export class ProfileEffect {
   loadBlockedUsers$ = this.actions$
     .ofType(ProfileActions.LOAD_BLOCK_USERS)
     .map(toPayload)
-    .switchMap((payload) => this.profileService.getBlockedUsers( payload )
+    .switchMap((payload) => this.profileService.getBlockedUsers(payload)
       .map(res => ({ type: ProfileActions.LOAD_BLOCK_USERS_SUCCESS, payload: res }))
       .catch((res) => Observable.of({
         type: ProfileActions.LOAD_BLOCK_USERS_FAILED,
@@ -867,15 +871,15 @@ export class ProfileEffect {
    */
   @Effect()
   UnBlockUsers$ = this.actions$
-  .ofType(ProfileActions.UNBLOCK_USER)
-  .map(toPayload)
-  .switchMap((payload) => this.profileService.unBlockUser( payload )
-    .map(res => ({ type: ProfileActions.UNBLOCK_USER_SUCCESS, payload: res }))
-    .catch((res) => Observable.of({
-      type: ProfileActions.UNBLOCK_USER_FAILED,
-      payload: { errorStatus: res.status }
-    }))
-  );
+    .ofType(ProfileActions.UNBLOCK_USER)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.unBlockUser(payload)
+      .map(res => ({ type: ProfileActions.UNBLOCK_USER_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.UNBLOCK_USER_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
 
   /**
    * Block users
@@ -885,8 +889,8 @@ export class ProfileEffect {
     .ofType(ProfileActions.BLOCK_USER)
     .map(toPayload)
     .switchMap((payload) => this.profileService.blockUser(payload)
-      .map(res =>({type: ProfileActions.BLOCK_USER_SUCCESS, payload:res}))
-      .catch((res) => Observable.of({type: ProfileActions.BLOCK_USER_FAILED, payload: res})
+      .map(res => ({ type: ProfileActions.BLOCK_USER_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.BLOCK_USER_FAILED, payload: res })
       )
     );
 
@@ -953,106 +957,106 @@ export class ProfileEffect {
       .catch((res) => Observable.of({ type: ProfileActions.GET_FOLLOWER_PROFILES_FAILED, payload: res }))
     );
 
-    /**
-     *get network sent receipient list
-     */
-    @Effect()
-    getNetworkList$ = this.actions$
-      .ofType(ProfileActions.SENT_REQUEST_LIST)
-      .map(toPayload)
-      .switchMap((payload) => this.profileService.getNetworkRequestList(payload)
-        .map(res => ({ type: ProfileActions.SENT_REQUEST_LIST_SUCCESS, payload: res }))
-        .catch((res) => Observable.of({ type: ProfileActions.SENT_REQUEST_LIST_FAILED, payload: res }))
-      );
+  /**
+   *get network sent receipient list
+   */
+  @Effect()
+  getNetworkList$ = this.actions$
+    .ofType(ProfileActions.SENT_REQUEST_LIST)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getNetworkRequestList(payload)
+      .map(res => ({ type: ProfileActions.SENT_REQUEST_LIST_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.SENT_REQUEST_LIST_FAILED, payload: res }))
+    );
 
-    /**
-     * SENT NETWORK REQUEST
-     */
-    @Effect()
-    setNetworkRequest$ = this.actions$
-      .ofType(ProfileActions.SENT_NETWORK_REQUEST)
-      .map(toPayload)
-      .switchMap((payload) => this.profileService.sentNetworkRequest(payload)
-        .map(res => ({ type: ProfileActions.SENT_NETWORK_REQUEST_SUCCESS, payload: res }))
-        .catch((res) => Observable.of({ type: ProfileActions.SENT_NETWORK_REQUEST_FAILED, payload: res }))
-      );
+  /**
+   * SENT NETWORK REQUEST
+   */
+  @Effect()
+  setNetworkRequest$ = this.actions$
+    .ofType(ProfileActions.SENT_NETWORK_REQUEST)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.sentNetworkRequest(payload)
+      .map(res => ({ type: ProfileActions.SENT_NETWORK_REQUEST_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.SENT_NETWORK_REQUEST_FAILED, payload: res }))
+    );
 
-    @Effect()
-    communityMediaPost$ = this.actions$
-      .ofType(ProfileActions.COMMUNITY_MEDIA_POST)
-      .map(toPayload)
-      .switchMap((payload) => this.profileService.communityMediaPost(payload)
-        .map(res => ({ type: ProfileActions.COMMUNITY_MEDIA_POST_SUCCESS, payload: res }))
-        .catch((res) => Observable.of({ type: ProfileActions.COMMUNITY_MEDIA_POST_FAILED, payload: res }))
-      );
-    /**
-     * GET PENDING REQUEST LIST
-     */
-    @Effect()
-    getPendingRequest$ = this.actions$
-      .ofType(ProfileActions.GET_PENDING_REQUEST_LIST)
-      .map(toPayload)
-      .switchMap((payload) => this.profileService.getPendingRequest(payload)
-        .map(res => ({ type: ProfileActions.GET_PENDING_REQUEST_LIST_SUCCESS, payload: res }))
-        .catch((res) => Observable.of({ type: ProfileActions.GET_PENDING_REQUEST_LIST_FAILED, payload: res }))
-      );
+  @Effect()
+  communityMediaPost$ = this.actions$
+    .ofType(ProfileActions.COMMUNITY_MEDIA_POST)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.communityMediaPost(payload)
+      .map(res => ({ type: ProfileActions.COMMUNITY_MEDIA_POST_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.COMMUNITY_MEDIA_POST_FAILED, payload: res }))
+    );
+  /**
+   * GET PENDING REQUEST LIST
+   */
+  @Effect()
+  getPendingRequest$ = this.actions$
+    .ofType(ProfileActions.GET_PENDING_REQUEST_LIST)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getPendingRequest(payload)
+      .map(res => ({ type: ProfileActions.GET_PENDING_REQUEST_LIST_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.GET_PENDING_REQUEST_LIST_FAILED, payload: res }))
+    );
 
-    /**
-     * GET ACTIVE CONNECTIONS
-     */
-    @Effect()
-    getConnectinsList$ = this.actions$
-      .ofType(ProfileActions.GET_ACTIVE_CONNECTIONS_LIST)
-      .map(toPayload)
-      .switchMap((payload) => this.profileService.getConnectionList(payload)
-        .map(res => ({ type: ProfileActions.GET_ACTIVE_CONNECTIONS_LIST_SUCCESS, payload: res }))
-        .catch((res) => Observable.of({ type: ProfileActions.GET_ACTIVE_CONNECTIONS_LIST_FAILED, payload: res }))
-      );
+  /**
+   * GET ACTIVE CONNECTIONS
+   */
+  @Effect()
+  getConnectinsList$ = this.actions$
+    .ofType(ProfileActions.GET_ACTIVE_CONNECTIONS_LIST)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getConnectionList(payload)
+      .map(res => ({ type: ProfileActions.GET_ACTIVE_CONNECTIONS_LIST_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.GET_ACTIVE_CONNECTIONS_LIST_FAILED, payload: res }))
+    );
 
-    /**
-     * Accept a network request
-     */
-    @Effect()
-    acceptRequest$ = this.actions$
-      .ofType(ProfileActions.ACCEPT_NETWORK_REQUEST)
-      .map(toPayload)
-      .switchMap((payload) => this.profileService.acceptNetworkrequest(payload)
-        .map(res => ({ type: ProfileActions.ACCEPT_NETWORK_REQUEST_SUCCESS, payload: res }))
-        .catch((res) => Observable.of({ type: ProfileActions.ACCEPT_NETWORK_REQUEST_FAILED, payload: res }))
-      );
+  /**
+   * Accept a network request
+   */
+  @Effect()
+  acceptRequest$ = this.actions$
+    .ofType(ProfileActions.ACCEPT_NETWORK_REQUEST)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.acceptNetworkrequest(payload)
+      .map(res => ({ type: ProfileActions.ACCEPT_NETWORK_REQUEST_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.ACCEPT_NETWORK_REQUEST_FAILED, payload: res }))
+    );
 
-    /**
-     * cancel a network request
-     */
-    @Effect()
-    cancelRequest$ = this.actions$
-      .ofType(ProfileActions.CANCEL_NETWORK_REQUEST)
-      .map(toPayload)
-      .switchMap((payload) => this.profileService.cancelSentrequest(payload)
-        .map(res => ({ type: ProfileActions.CANCEL_NETWORK_REQUEST_SUCCESS, payload: res }))
-        .catch((res) => Observable.of({ type: ProfileActions.CANCEL_NETWORK_REQUEST_FAILED, payload: res }))
-      );
+  /**
+   * cancel a network request
+   */
+  @Effect()
+  cancelRequest$ = this.actions$
+    .ofType(ProfileActions.CANCEL_NETWORK_REQUEST)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.cancelSentrequest(payload)
+      .map(res => ({ type: ProfileActions.CANCEL_NETWORK_REQUEST_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.CANCEL_NETWORK_REQUEST_FAILED, payload: res }))
+    );
 
-    /**
-     * cancel a network request
-     */
-    @Effect()
-    declineRequest$ = this.actions$
-      .ofType(ProfileActions.DECLINE_NETWORK_REQUEST)
-      .map(toPayload)
-      .switchMap((payload) => this.profileService.declinerequest(payload)
-        .map(res => ({ type: ProfileActions.DECLINE_NETWORK_REQUEST_SUCCESS, payload: res }))
-        .catch((res) => Observable.of({ type: ProfileActions.DECLINE_NETWORK_REQUEST_FAILED, payload: res }))
-      );
+  /**
+   * cancel a network request
+   */
+  @Effect()
+  declineRequest$ = this.actions$
+    .ofType(ProfileActions.DECLINE_NETWORK_REQUEST)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.declinerequest(payload)
+      .map(res => ({ type: ProfileActions.DECLINE_NETWORK_REQUEST_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.DECLINE_NETWORK_REQUEST_FAILED, payload: res }))
+    );
 
-      /**
-       *Get Profile Report 
-       */
-      @Effect()
-      getReport$ = this.actions$
-      .ofType(ProfileActions.PROFILE_REPORT)
-      .map(toPayload)
-      .switchMap((payload) => this.profileService.getReports(payload)
+  /**
+   *Get Profile Report 
+   */
+  @Effect()
+  getReport$ = this.actions$
+    .ofType(ProfileActions.PROFILE_REPORT)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getReports(payload)
       .map(res => ({ type: ProfileActions.PROFILE_REPORT_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: ProfileActions.PROFILE_REPORT_FAILED, payload: res }))
     );

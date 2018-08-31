@@ -739,3 +739,17 @@
     overflow-y: scroll;
     overflow-x: hidden;
 }
+
+.o-alert__empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.o-alert_scroll {
+    width: 100%;
+    float: left;
+    height: 200px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}

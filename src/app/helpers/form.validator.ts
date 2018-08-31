@@ -157,8 +157,8 @@ export class DatabaseValidator {
             const today = moment();
             const dateArr =  control.value.split('-');
 
-            const month = dateArr[0];
-            const day = dateArr[1];
+            const month = dateArr[1];
+            const day = dateArr[0];
             const year = dateArr[2];
 
             // check for valid day number
@@ -177,10 +177,10 @@ export class DatabaseValidator {
             }
 
              const toDate = new Date(year, month, day);
-             if (this.fromDate > toDate) {
+             if (toDate <= this.fromDate) {
                 resolve({ 'isvalid': true });
              }
-             if(moment(control.value).format('YYYYMMDD') > moment(today).format('YYYYMMDD')){
+             if (moment(new Date(year, month, day)).format('YYYYMMDD') > moment(today).format('YYYYMMDD')) {
                 //  console.log('here')
                 resolve({ 'invalidWorkDate': true });
              }
@@ -200,17 +200,19 @@ export class DatabaseValidator {
      * @param control: Form birth date input
      */
     validWorkFromDate(control: AbstractControl) {
+        console.log(control)
         const q = new Promise((resolve, reject) => {
             // if (control.value.indexOf('_') !== -1 || control.value === '') {
             // return resolve(null);
             // }
             const today = moment();
+            
             //  console.log(moment(today).format('YYYYMMDD'))
             const dateArr =  control.value.split('-');
             // console.log(dateArr)
 
-            const month = dateArr[0];
-            const day = dateArr[1];
+            const month = dateArr[1];
+            const day = dateArr[0];
             const year = dateArr[2];
 
             // check for valid day number
@@ -229,9 +231,11 @@ export class DatabaseValidator {
             }
 
              this.fromDate = new Date(year, month, day);
-            //  console.log(control.value)
+            //  console.log(this.fromDate)
+            //   console.log(control.value)
             //  console.log(moment(control.value).format('YYYYMMDD'))
-             if(moment(control.value).format('YYYYMMDD') > moment(today).format('YYYYMMDD')){
+            //  console.log(moment(new Date(year, month, day)).format('YYYYMMDD'))
+             if (moment(new Date(year, month, day)).format('YYYYMMDD') > moment(today).format('YYYYMMDD')) {
                 //   console.log('here')
                 resolve({ 'invalidWorkDate': true });
              }
@@ -278,7 +282,7 @@ export class ProfileUpdateValidator {
                         resolve(null);
                         });
                 }, 1000);
-            }else {
+            } else {
                 resolve(null);
             }
         });
@@ -300,7 +304,7 @@ export class ProfileUpdateValidator {
                             });
                     }, 1000);
                 }
-            }else {
+            } else {
                 resolve(null);
             }
         });
@@ -320,7 +324,7 @@ export class ProfileUpdateValidator {
                         resolve(null);
                         });
                 }, 1000);
-            }else {
+            } else {
                 resolve(null);
             }
         });
@@ -398,6 +402,17 @@ export class EmailValidator {
 // Match password
 @Injectable()
 export class FormValidation {
+
+    // old date validation
+    static validateOldDate(AC: AbstractControl) {
+        const date = AC.value;
+        const currentDate = moment().format('YYYYMMDD');
+        const chooseDate = moment(date).format('YYYYMMDD');
+        if (currentDate > chooseDate) {
+            return { oldDate: true };
+        }
+        return null;
+    }
 
     static validateAge(control: AbstractControl) {
         const dob = control.value.formatted;
@@ -591,3 +606,15 @@ export class FormValidation {
     }
 }
 
+@Injectable()
+export class PasswordValidation {
+    static MatchPassword(AC: AbstractControl) {
+       const password = AC.get('password').value; // to get value in input tag
+       const confirmPassword = AC.get('confirmPassword').value; // to get value in input tag
+        if (password !== confirmPassword) {
+            AC.get('confirmPassword').setErrors({ matchPassword: true });
+            return;
+        }
+        return null;
+    }
+}

@@ -634,11 +634,11 @@
 }
 
 .o-create-channel-container {
-    // width: 82%;
     min-height: 460px;
-    // position: absolute;
-    // top: 60px;
     background: #fff;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        min-height: auto;
+    }
 }
 
 .o-create-channel__heading {
@@ -658,12 +658,18 @@
 .o-create-channel__input {
     width: 90%;
     float: left;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 70%;
+    }
 }
 
 .o-create-channel__action {
     float: left;
     margin-left: 16px;
     margin-top: 12px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        margin-top: 25px;
+    }
 }
 
 .o-create-channel__btn {
@@ -848,6 +854,9 @@
 div#create-channel form {
     padding-left: 100px;
     padding-right: 100px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        padding: 0;
+    }
 }
 
 .c-text_lg.o-add-media-channel__link {
@@ -904,6 +913,7 @@ div#create-channel form {
     
     @include mq($from: $mobile_sm, $until: $tablet) {
         width: 100%;
+        padding: 0;
     }
     @include mq($from: $tablet, $until: $desktop_sm) {
         width: 100%;
@@ -970,5 +980,15 @@ div#create-channel form {
         display: flex;
         justify-content: center;
         flex-direction: column-reverse;
+    }
+}
+
+.desktop-css {
+    margin-top: 8px;
+    margin-left: 8px;
+    padding-top: 16px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        margin: initial;
+        padding: 20px;
     }
 }

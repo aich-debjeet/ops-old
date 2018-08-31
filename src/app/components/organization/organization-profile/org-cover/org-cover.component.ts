@@ -139,7 +139,7 @@ export class OrgCoverComponent implements OnInit {
     // loading profile image
     const ctx = document.getElementsByTagName('canvas')[0].getContext('2d');
     const img = new Image();
-    img.onload = function(){
+    img.onload = function() {
       const imgHeight = 880;
       const imgWidth = 300;
       self.drawImageProp(ctx, this, 0, 0, self.cropperSettings.canvasWidth, self.cropperSettings.canvasHeight, 0.1, 0.5);

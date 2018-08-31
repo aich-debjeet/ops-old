@@ -23,12 +23,13 @@
         "../node_modules/medium-editor/dist/css/medium-editor.min.css",
         "assets/css/choices.min.css",
         "../node_modules/ngx-toastr/toastr.css",
-        "styles.scss"
+        "styles.scss",
+        "assets/css/quill.snow.css",
+        "assets/css/quill.bubble.css"
       ],
       "scripts": [
         "assets/js/imagesloaded.pkgd.min.js",
-        "../node_modules/pusher-js/dist/web/pusher.min.js",
-        "../node_modules/ngx-mydatepicker/bundles/ngx-mydatepicker.umd.min.js"
+        "../node_modules/pusher-js/dist/web/pusher.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
@@ -57,12 +58,13 @@
         "../node_modules/medium-editor/dist/css/medium-editor.min.css",
         "assets/css/choices.min.css",
         "../node_modules/ngx-toastr/toastr.css",
-        "styles.scss"
+        "styles.scss",
+        "assets/css/quill.snow.css",
+        "assets/css/quill.bubble.css"
       ],
       "scripts": [
         "assets/js/imagesloaded.pkgd.min.js",
-        "../node_modules/pusher-js/dist/web/pusher.min.js",
-        "../node_modules/ngx-mydatepicker/bundles/ngx-mydatepicker.umd.min.js"
+        "../node_modules/pusher-js/dist/web/pusher.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

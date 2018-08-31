@@ -26,7 +26,8 @@
           </div>
           <div class="col-md-9 p-0">
               <div class="c-form__group m-t-0 c-form--sm">
-                  <textarea formControlName="auditionDescription" class="c-textarea__block c-textarea--style" placeholder="Describe about opportunity"></textarea>
+                  <!-- <textarea formControlName="auditionDescription" class="c-textarea__block c-textarea--style" placeholder="Describe about opportunity"></textarea> -->
+                  <quill-editor [style]="{height: '250px'}" class="quill-editor" [placeholder]="'Describe about opportunity'" formControlName="auditionDescription"></quill-editor>
               </div>
               <p *ngIf="auditionFrm.controls['auditionDescription'].errors?.required && createAudFrm.submitted" class="c-form__validation error">Description is required!</p>
           </div>
@@ -45,7 +46,7 @@
                       </option>
                   </select>
               </div>
-              <p *ngIf="auditionFrm.controls['auditionCategory'].errors?.required && createAudFrm.submitted" class="c-form__validation error">Please select category!</p>
+              <p *ngIf="auditionFrm.controls['auditionCategory'].errors?.required && createAudFrm.submitted" class="c-form__validation error">Category is required!</p>
           </div>
       </div>
       <!-- catagory end -->
@@ -63,6 +64,7 @@
                       <label></label>
                   </div>
               </div>
+              <p *ngIf="auditionFrm.controls['auditionDate'].errors?.oldDate && createAudFrm.submitted" class="c-form__validation error m-t--15">Please choose upcoming date.</p>
               <p *ngIf="auditionFrm.controls['auditionDate'].errors?.required && createAudFrm.submitted" class="c-form__validation error m-t--15">Audition date is required!</p>
           </div>
       </div>
@@ -223,6 +225,7 @@
               <p *ngIf="_oppDetails?.formType === 'create'" class="c-text_sm color-grey-dark m-t-24">By clicking 'Create', you are agreeing to the Terms & Conditions and the Privacy policy.</p>
               <button *ngIf="_oppDetails?.formType === 'create'" type="submit" [disabled]="oppSubmitting" class="btn btn-primary btn-md m-t-16 m-b-16">Create</button>
               <button *ngIf="_oppDetails?.formType === 'edit'" type="submit" [disabled]="oppSubmitting" class="btn btn-primary btn-md m-t-16 m-b-16">Update</button>
+              <button *ngIf="_oppDetails?.formType === 'edit'" type="button" class="btn btn-default btn-md m-l-8" (click)="cancelUpdate()">Cancel</button>
           </div>
       </div>
       <!-- btn end -->

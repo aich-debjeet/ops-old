@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { SearchModel } from '../../../models/search.model';
 import { Store } from '@ngrx/store';
 import { environment } from 'environments/environment';
 import { SearchActions } from '../../../actions/search.action';
+import { ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-search-opportunity',
   templateUrl: './search-opportunity.component.html',
   styleUrls: ['./search-opportunity.component.scss']
 })
-export class SearchOpportunityComponent implements OnInit {
+export class SearchOpportunityComponent implements OnInit, OnDestroy {
 
   searchState$: Observable<SearchModel>;
   searchState: any;
@@ -25,6 +26,8 @@ export class SearchOpportunityComponent implements OnInit {
   scrollingLoad = 500;
   /* scroll */
 
+  searchSub: ISubscription;
+
   constructor(
     private store: Store<SearchModel>
   ) {
@@ -37,7 +40,7 @@ export class SearchOpportunityComponent implements OnInit {
   ngOnInit() {
 
     // observe the store value
-    this.searchState$.subscribe((state) => {
+    this.searchSub = this.searchState$.subscribe((state) => {
       this.searchState = state;
       if (state) {
         if (typeof state['search_opportunity_data'] !== 'undefined' && state['search_opportunity_data']['opportunityResponse']) {
@@ -75,6 +78,10 @@ export class SearchOpportunityComponent implements OnInit {
         this.canScroll = true;
       }, 1000);
     }
+  }
+
+  ngOnDestroy() {
+    this.searchSub.unsubscribe();
   }
 
 }

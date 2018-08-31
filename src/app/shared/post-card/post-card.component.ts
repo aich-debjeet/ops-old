@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import {PlatformLocation } from '@angular/common';
 import { environment } from './../../../environments/environment';
 import { Router } from '@angular/router';
 import { Media } from '../../models/media.model';
@@ -35,13 +36,15 @@ export class PostCardComponent implements OnInit {
   userImage: string;
 
   imageLink: string = environment.API_IMAGE;
-  domainLink: string = environment.API_DOMAIN;
+  domainLink: string;
 
   constructor(
     private router: Router,
     private toastr: ToastrService,
+    platformLocation: PlatformLocation,
     private store: Store<Media>,
   ) {
+    this.domainLink = (platformLocation as any).location.origin;
     this.dotMenuState = false;
   }
 
@@ -109,7 +112,7 @@ export class PostCardComponent implements OnInit {
       this.following = true;
       this.followingCount++;
       this.store.dispatch({ type: MediaActions.MEDIA_SPOT, payload: data });
-    }else {
+    } else {
       this.store.dispatch({ type: MediaActions.MEDIA_UNSPOT, payload: data });
       this.following = false
       this.followingCount--;

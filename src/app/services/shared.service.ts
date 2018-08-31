@@ -19,7 +19,7 @@ export class SharedService {
     this.headers = this.api.getHeaders();
   }
 
-  getReport(data: any){
+  getReport(data: any) {
     // console.log(data)
     return this.api.post('/portal/report', data);
   }
