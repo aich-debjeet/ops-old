@@ -106,8 +106,18 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
   // Rich Text editor toolbar
   defaultModules = {
     toolbar: [
-      ['bold', 'underline'],
-      ['link']
+      ['bold', 'italic', 'underline', 'strike'],
+      ['link'],
+      [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+      [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+  
+      [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+      [{ 'font': [] }],
+      [{ 'align': [] }],
+      ['clean'],                                         // remove formatting button
     ]
   };
 
@@ -206,7 +216,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
 
   openModel(){
     if(this.eventCoverImage === ''){
-      this.croppedImage = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
+      this.croppedImage = 'https://ops-v2.netlify.com/assets/demo/photography1.jpg';
     }
     this.imageUpload.open();
   }
