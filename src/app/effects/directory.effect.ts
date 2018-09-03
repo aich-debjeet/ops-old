@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
 import { Observable } from 'rxjs/Rx';
-
 import { DirectoryActions } from '../actions/directory.action';
 import { DirectoryService } from '../services/directory.service';
 

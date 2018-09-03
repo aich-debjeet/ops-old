@@ -34,7 +34,7 @@ export class MediaBlockComponent implements OnInit {
 
   public metaShow: Meta;
   imageLink: string = environment.API_IMAGE;
-  domainLink: string;
+  domainLink: string = environment.API_DOMAIN;
   chosenChannel: any = 0;
   @Input() userChannels;
   @Input() profileImage;
@@ -71,7 +71,6 @@ export class MediaBlockComponent implements OnInit {
     private toastr: ToastrService,
     private store: Store<Media>
   ) {
-    this.domainLink = (platformLocation as any).location.origin;
 
     this.spot = false;
     this.mediaState$ = store.select('mediaStore');

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
@@ -164,14 +163,6 @@ export class MediaEffect {
       }))
     );
 
-  // @Effect()
-  // saveCommentSuccess$ = this.actions$
-  //   .ofType(MediaActions.POST_COMMENT_SUCCESS)
-  //   .withLatestFrom(this.store$.select('mediaStore'), (payload, state) => {
-  //     const comment_id = state['media_detail'].id;
-  //     return ({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: comment_id })
-  //   })
-
   /**
    * Spot a Media
    */
@@ -263,7 +254,6 @@ export class MediaEffect {
 
   constructor(
       private actions$: Actions,
-      private store$: Store<Media>,
       private mediaService: MediaService
     ) {}
 }

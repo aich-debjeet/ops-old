@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { ProfileModal, initialTag } from '../../../models/profile.model';
+import { ProfileModal } from '../../../models/profile.model';
 
 // action
 import { ProfileActions } from '../../../actions/profile.action';
@@ -55,7 +54,6 @@ export class HomeChannelComponent implements OnInit, OnDestroy {
       if (state['user_following_channels_loading'] !== null) {
          this.channel_load = state['user_following_channels_loading']
       }
-      console.log(state);
     });
 
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS })

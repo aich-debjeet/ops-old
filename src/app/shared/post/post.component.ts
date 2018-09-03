@@ -49,7 +49,7 @@ export class PostComponent implements OnInit, OnDestroy {
 
   imageLink: string = environment.API_IMAGE;
   questions: any;
-  domainLink: string;
+  domainLink: string = environment.API_IMAGE;
 
   constructor(
     private router: Router,
@@ -57,7 +57,6 @@ export class PostComponent implements OnInit, OnDestroy {
     platformLocation: PlatformLocation,
     public modalService: ModalService,
   ) {
-    this.domainLink = (platformLocation as any).location.origin;
     this.dotMenuState = false;
     this.mediaState$ = store.select('mediaStore');
   }
