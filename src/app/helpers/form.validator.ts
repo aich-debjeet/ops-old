@@ -35,7 +35,7 @@ export class DatabaseValidator {
     checkEmail(control: AbstractControl) {
         const q = new Promise((resolve, reject) => {
             setTimeout(() => {
-                this.authService.emailUser(control.value).subscribe( data => {
+                this.authService.emailUser(control.value.toLowerCase()).subscribe( data => {
                     if (data.SUCCESS.code === 1) {
                         resolve({ 'emailAccExists': true });
                     }
@@ -275,7 +275,7 @@ export class ProfileUpdateValidator {
             // check current email for user
             if (this.profileState.profile_details['email'] !== control.value) {
                 setTimeout(() => {
-                    this.authService.emailUser(control.value).subscribe( data => {
+                    this.authService.emailUser(control.value.toLowerCase).subscribe( data => {
                         if (data.SUCCESS.code === 1) {
                             resolve({ 'isEmailUnique': true });
                         }

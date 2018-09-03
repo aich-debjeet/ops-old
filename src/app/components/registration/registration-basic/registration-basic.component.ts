@@ -25,6 +25,7 @@ import { initialBasicRegTag, BasicRegTag } from '../../../models/auth.model';
 
 import { AuthActions } from '../../../actions/auth.action';
 import { AuthService } from '../../../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-registration-basic',
@@ -98,7 +99,8 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
     private asyncValidator: DatabaseValidator,
     private router: Router,
     public modalService: ModalService,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastr: ToastrService
   ) {
 
     // store select
@@ -404,7 +406,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
       username: value.username,
       profileImage: '',
       gender: value.gender,
-      email:  value.email.trim(),
+      email:  value.email.trim().toLowerCase(),
       password: value.password,
       isAgent: false,
       location: '',
@@ -429,10 +431,10 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
 
     this.store.select('loginTags')
     .first(channel => channel['completed']['SUCCESS'])
-    .subscribe( datas => {
-      this.claimValue = datas['completed']['SUCCESS'];
-      this.claimData = datas['completed'];
-      if (datas['completed'].emailMatches === true || datas['completed'].mobileMatches === true) {
+    .subscribe(resp => {
+      this.claimValue = resp['completed']['SUCCESS'];
+      this.claimData = resp['completed'];
+      if (resp['completed'].emailMatches === true || resp['completed'].mobileMatches === true) {
         this.claimPopup.open();
         this.claimActive = true;
       } else {
@@ -440,7 +442,11 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
         this.claimActive = false;
         this.otpOpenOnce = false;
       }
-      return
+      if (resp['ERROR']) {
+        this.toastr.warning(resp['ERROR']);
+        this.uploadingFormData = false;
+      }
+      return;
     });
   }
 
@@ -453,13 +459,17 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
 
     this.store.select('loginTags')
     .first(channel => channel['completed']['SUCCESS'])
-    .subscribe( datas => {
-      this.claimValue = datas['completed']['SUCCESS'];
-      this.claimData = datas['completed'];
-      if (datas['completed'].emailMatches === true || datas['completed'].mobileMatches === true) {
+    .subscribe(resp => {
+      this.claimValue = resp['completed']['SUCCESS'];
+      this.claimData = resp['completed'];
+      if (resp['completed'].emailMatches === true || resp['completed'].mobileMatches === true) {
         this.otpPopup.open();
       }
-      return
+      if (resp['ERROR']) {
+        this.toastr.warning(resp['ERROR']);
+        this.uploadingFormData = false;
+      }
+      return;
     });
   }
 
