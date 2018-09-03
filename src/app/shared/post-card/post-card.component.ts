@@ -36,7 +36,7 @@ export class PostCardComponent implements OnInit {
   userImage: string;
 
   imageLink: string = environment.API_IMAGE;
-  domainLink: string;
+  domainLink: string = environment.API_IMAGE;
 
   constructor(
     private router: Router,
@@ -44,7 +44,6 @@ export class PostCardComponent implements OnInit {
     platformLocation: PlatformLocation,
     private store: Store<Media>,
   ) {
-    this.domainLink = (platformLocation as any).location.origin;
     this.dotMenuState = false;
   }
 
