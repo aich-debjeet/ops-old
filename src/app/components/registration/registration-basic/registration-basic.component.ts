@@ -300,7 +300,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
       } else {
         phoneNumber = this.regFormBasic.value.phone;
       }
-      const otpValue = value.otpNum;
+      const otpValue = value.otpNum.toString();
       const otpData = {
         contactNumber: phoneNumber,
         countryCode: this.country.callingCodes[0],
