@@ -74,14 +74,6 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   public newNumberForm: FormGroup;
   otpOpenOnce = true;
 
-  // otp numbers
-  @ViewChild('otpNum1') otpNum1: ElementRef;
-  @ViewChild('otpNum2') otpNum2: ElementRef;
-  @ViewChild('otpNum3') otpNum3: ElementRef;
-  @ViewChild('otpNum4') otpNum4: ElementRef;
-  @ViewChild('otpNum5') otpNum5: ElementRef;
-  @ViewChild('otpNum6') otpNum6: ElementRef;
-
   @ViewChild('countrySelReg') countrySelectorReg: CountrySelectorComponent;
   @ViewChild('countrySelOtp') countrySelectorOtp: CountrySelectorComponent;
 
@@ -173,6 +165,9 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   }
 
   ngOnInit() {
+    this.otpPopup.open();
+    this.claimActive = false;
+    this.otpOpenOnce = false;
     this.store.dispatch({ type: AuthActions.STORE_COUNTRY_CODE, payload: this.country.callingCodes[0] });
   }
 
@@ -228,13 +223,8 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
 
     // OTP Form Builder
     this.otpForm = this.fb.group({
-      otpNum1: ['', [Validators.required]],
-      otpNum2: ['', [Validators.required]],
-      otpNum3: ['', [Validators.required]],
-      otpNum4: ['', [Validators.required]],
-      otpNum5: ['', [Validators.required]],
-      otpNum6: ['', [Validators.required]]
-    })
+      otpNum: ['', [Validators.required, Validators.min(99999), Validators.max(999999)]]
+    });
 
     // OTP new number
     this.newNumberForm = this.fb.group({
@@ -245,7 +235,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
         ],
         this.checkMobile.bind(this)
       ]
-    })
+    });
   }
 
   /**
@@ -312,13 +302,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
       } else {
         phoneNumber = this.regFormBasic.value.phone;
       }
-      // console.log('otp form data', value); return;
-      const otpValue = value.otpNum1.toString() +
-                       value.otpNum2.toString() +
-                       value.otpNum3.toString() +
-                       value.otpNum4.toString() +
-                       value.otpNum5.toString() +
-                       value.otpNum6.toString();
+      const otpValue = value.otpNum;
       const otpData = {
         contactNumber: phoneNumber,
         countryCode: this.country.callingCodes[0],
@@ -331,7 +315,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
           otp: otpValue
         }
         this.store.dispatch({ type: AuthActions.CLAIM_OTP_ACTIVE, payload: data });
-        return
+        return;
       }
       this.store.dispatch({ type: AuthActions.OTP_SUBMIT, payload: otpData });
     }
