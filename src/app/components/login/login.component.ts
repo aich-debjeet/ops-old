@@ -15,6 +15,7 @@ import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 import { environment } from '../../../environments/environment';
 import { ModalService } from '../../shared/modal/modal.component.service';
+import { FormValidation } from '../../helpers/form.validator';
 
 @Component({
   selector: 'app-login',
@@ -36,13 +37,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   contactNumber = '';
   countryCode = '';
 
-  // otp numbers
-  @ViewChild('otpNum1') otpNum1: ElementRef;
-  @ViewChild('otpNum2') otpNum2: ElementRef;
-  @ViewChild('otpNum3') otpNum3: ElementRef;
-  @ViewChild('otpNum4') otpNum4: ElementRef;
-  @ViewChild('otpNum5') otpNum5: ElementRef;
-  @ViewChild('otpNum6') otpNum6: ElementRef;
   public otpForm: FormGroup;
 
   constructor(
@@ -92,35 +86,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     // OTP Form Builder
     this.otpForm = fb.group({
-      otpNum1: ['', [Validators.required]],
-      otpNum2: ['', [Validators.required]],
-      otpNum3: ['', [Validators.required]],
-      otpNum4: ['', [Validators.required]],
-      otpNum5: ['', [Validators.required]],
-      otpNum6: ['', [Validators.required]]
+      otpNum: ['', [Validators.required, FormValidation.validateOtp]]
     });
-  }
-
-  // focus on next otp number
-  nextOtpNum(e: any, pos: number) {
-    if (e.keyCode === 8) {
-      if (pos > 0 && pos < 7) {
-        const prevNum = pos - 1;
-        if (prevNum > 0) {
-          const prevOtpInput = 'otpNum' + prevNum.toString();
-          setTimeout(() => { this[prevOtpInput].nativeElement.focus(); }, 10);
-        }
-        return true;
-      }
-    } else if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
-      if (pos > 0 && pos < 6) {
-        const nextNum = pos + 1;
-        const nextOtpInput = 'otpNum' + nextNum.toString();
-        setTimeout(() => { this[nextOtpInput].nativeElement.focus(); }, 10);
-      }
-      return true;
-    }
-    return false;
   }
 
   resendOtp() {
@@ -142,12 +109,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     // if (this.otpForm.valid === true && this.countryCode.length > 0 && this.contactNumber.length > 0) {
     if (this.otpForm.valid === true) {
       // console.log('otp form data', value); return;
-      const otpValue = value.otpNum1.toString() +
-                       value.otpNum2.toString() +
-                       value.otpNum3.toString() +
-                       value.otpNum4.toString() +
-                       value.otpNum5.toString() +
-                       value.otpNum6.toString();
+      const otpValue = value.otpNum.toString();
       const otpData = {
         contactNumber: this.contactNumber,
         countryCode: this.countryCode,
