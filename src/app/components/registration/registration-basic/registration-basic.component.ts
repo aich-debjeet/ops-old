@@ -258,28 +258,6 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
     return q;
   }
 
-  // focus on next otp number
-  nextOtpNum(e: any, pos: number) {
-    if (e.keyCode === 8) {
-      if (pos > 0 && pos < 7) {
-        const prevNum = pos - 1;
-        if (prevNum > 0) {
-          const prevOtpInput = 'otpNum' + prevNum.toString();
-          setTimeout(() => { this[prevOtpInput].nativeElement.focus(); }, 10);
-        }
-        return true;
-      }
-    } else if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
-      if (pos > 0 && pos < 6) {
-        const nextNum = pos + 1;
-        const nextOtpInput = 'otpNum' + nextNum.toString();
-        setTimeout(() => { this[nextOtpInput].nativeElement.focus(); }, 10);
-      }
-      return true;
-    }
-    return false;
-  }
-
   // user user exists
   userExistCheck(value) {
     if (value.length >= 4) {
