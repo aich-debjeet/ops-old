@@ -219,14 +219,14 @@
                         </p>
                         <form [formGroup]="otpForm" (ngSubmit)="otpSubmit(otpForm.value)" #myform="ngForm">
                             <div class="c-form__group c-form--lg">
-                                <input class="c-form__input" formControlName="otpNum" type="number" min="99999" max="999999" placeholder="Enter OTP">
+                                <input class="c-form__input" formControlName="otpNum" type="number" placeholder="Enter OTP">
                                 <span class="c-form__highlight"></span>
                                 <span class="c-form__bar"></span>
                                 <!-- <label>Enter OTP</label> -->
                                 <!-- <span>00:59</span> -->
                             </div> 
-                            <p class="error_alert text-center" *ngIf="myform.submitted && (regState?.user_otp_failed || otpForm.controls['otpNum'].errors?.min || otpForm.controls['otpNum'].errors?.max)">Invalid OTP</p>
-                            <p class="error_alert text-center" *ngIf="myform.submitted && (otpForm.controls['otpNum'].errors?.required)">Please enter your 6 digit OTP number</p>
+                            <p class="error_alert text-center" *ngIf="myform.submitted && (regState?.user_otp_failed)">Invalid OTP</p>
+                            <p class="error_alert text-center" *ngIf="myform.submitted && (otpForm.controls['otpNum'].errors?.required || otpForm.controls['otpNum'].errors?.invalidOtp)">Please enter your 6 digit OTP number</p>
                             <div class="text-center otp-dont-get" *ngIf="!claimActive">
                                 <a (click)="changeMobileNumber()" class="color-theme">Didn't get your OTP?</a>
                             </div>

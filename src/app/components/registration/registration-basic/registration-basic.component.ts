@@ -221,7 +221,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
 
     // OTP Form Builder
     this.otpForm = this.fb.group({
-      otpNum: ['', [Validators.required, Validators.min(99999), Validators.max(999999)]]
+      otpNum: ['', [Validators.required, FormValidation.validateOtp]]
     });
 
     // OTP new number

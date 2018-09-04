@@ -403,6 +403,15 @@ export class EmailValidator {
 @Injectable()
 export class FormValidation {
 
+    // otp length validation
+    static validateOtp(AC: AbstractControl) {
+        const otp = AC.value.toString();
+        if (otp.length !== 6) {
+            return { invalidOtp: true };
+        }
+        return null;
+    }
+
     // old date validation
     static validateOldDate(AC: AbstractControl) {
         const date = AC.value;
