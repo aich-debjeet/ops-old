@@ -54,13 +54,13 @@ export class AuthService {
      */
     getTempAuthHeaders() {
       let accessToken = '';
-      const tempAccessToken = JSON.parse(localStorage.getItem('tempAccessToken'));
-      if (tempAccessToken) {
-        accessToken = tempAccessToken;
+      const tempToken = JSON.parse(localStorage.getItem('tempAccessToken'));
+      if (tempToken && tempToken.access_token) {
+        accessToken = tempToken.access_token;
       }
       const user = JSON.parse(localStorage.getItem('currentUser'));
       if (user && user.access_token) {
-        accessToken = user.access_token;  
+        accessToken = user.access_token;
       }
       const headers = new Headers({ 'Content-Type': 'application/json'});
       headers.append('Authorization', 'Bearer ' + accessToken);
