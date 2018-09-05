@@ -219,7 +219,7 @@
                         </p>
                         <form [formGroup]="otpForm" (ngSubmit)="otpSubmit(otpForm.value)" #myform="ngForm">
                             <div class="c-form__group c-form--lg">
-                                <input class="c-form__input" formControlName="otpNum" type="text" maxlength="6" placeholder="Enter OTP">
+                                <input class="c-form__input" formControlName="otpNum" type="text" maxlength="6" placeholder="Enter OTP" (keydown)="allowNumbersOnly($event)">
                                 <span class="c-form__highlight"></span>
                                 <span class="c-form__bar"></span>
                                 <!-- <label>Enter OTP</label> -->
