@@ -35,7 +35,7 @@ export class MediaViewComponent implements OnDestroy {
   @Output() onComment: EventEmitter<any> = new EventEmitter<any>();
   @Output() onMediaNext: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('firstModal') modal: any;
-  domainLink: string;
+  domainLink: string = environment.API_DOMAIN;
   messageText: string;
   statusForm: FormGroup;
   private mediaStateSubscription: Subscription;
@@ -64,7 +64,6 @@ export class MediaViewComponent implements OnDestroy {
     platformLocation: PlatformLocation,
     private store: Store<Media>
   ) {
-    this.domainLink = (platformLocation as any).location.origin;
     this.spot = false;
     this.mediaState$ = store.select('mediaStore');
 
