@@ -35,7 +35,7 @@ export class DatabaseValidator {
     checkEmail(control: AbstractControl) {
         const q = new Promise((resolve, reject) => {
             setTimeout(() => {
-                this.authService.emailUser(control.value).subscribe( data => {
+                this.authService.emailUser(control.value.toLowerCase()).subscribe( data => {
                     if (data.SUCCESS.code === 1) {
                         resolve({ 'emailAccExists': true });
                     }
@@ -275,7 +275,7 @@ export class ProfileUpdateValidator {
             // check current email for user
             if (this.profileState.profile_details['email'] !== control.value) {
                 setTimeout(() => {
-                    this.authService.emailUser(control.value).subscribe( data => {
+                    this.authService.emailUser(control.value.toLowerCase).subscribe( data => {
                         if (data.SUCCESS.code === 1) {
                             resolve({ 'isEmailUnique': true });
                         }
@@ -402,6 +402,18 @@ export class EmailValidator {
 // Match password
 @Injectable()
 export class FormValidation {
+
+    // otp length validation
+    static validateOtp(AC: AbstractControl) {
+        const otp = AC.value.toString();
+        if (isNaN(otp)) {
+            return { invalidOtp: true };
+        }
+        if (otp.length !== 6) {
+            return { invalidOtp: true };
+        }
+        return null;
+    }
 
     // old date validation
     static validateOldDate(AC: AbstractControl) {
