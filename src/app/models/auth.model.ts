@@ -143,6 +143,7 @@ export class BasicRegTag {
   claim_user_info_loading: boolean;
   claim_user_info_loadded: boolean;
   claim_user_info: any;
+  user_otp_checking?: boolean;
 }
 
 export const initialBasicRegTag: BasicRegTag = {
