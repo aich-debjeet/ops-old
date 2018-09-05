@@ -9,7 +9,7 @@ import { Modal } from '../../../shared/modal-new/Modal';
 import { IDatePickerConfig } from 'ng2-date-picker';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/timer';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
@@ -49,6 +49,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   claimValue: any;
   claimData: any;
   claimActive = false;
+  regSub: ISubscription;
 
   myOptions: INgxMyDpOptions = {
     showTodayBtn: false,
@@ -99,7 +100,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
     // store select
     this.regState$ = store.select('loginTags');
     // observe store
-    this.regState$.subscribe((state) => {
+    this.regSub = this.regState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
         this.regState = state;
         if (state['reg_basic_uploading_form_data'] === false && state['reg_basic_uploaded_form_data'] === true) {
@@ -107,7 +108,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
         }
         if (state['user_basic_reg_success'] === true) {
           if (state['user_token']) {
-            const token = {access_token: state['user_token']};
+            const token = { access_token: state['user_token'] };
             localStorage.setItem('tempAccessToken', JSON.stringify(token));
           }
           if (this.otpOpenOnce) {
@@ -469,5 +470,12 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   /**
    * disable observales and listeners here
    */
-  ngOnDestroy() { }
+  ngOnDestroy() {
+    this.regSub.unsubscribe();
+  }
+
+  allowNumbersOnly(e: any) {
+    const k = e.keyCode;
+    return ((k >= 48 && k <= 57) || (k >= 96 && k <= 105) || k === 8);
+  }
 }
