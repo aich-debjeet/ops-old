@@ -156,4 +156,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loginSub.unsubscribe();
   }
 
+  allowNumbersOnly(e: any) {
+    const k = e.keyCode;
+    return ((k >= 48 && k <= 57) || (k >= 96 && k <= 105) || k === 8);
+  }
+
 }
