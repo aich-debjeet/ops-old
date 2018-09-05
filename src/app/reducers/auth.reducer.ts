@@ -570,7 +570,7 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
     // OTP Failed
     case AuthActions.FP_SUBMIT_OTP_FAILED:
       return Object.assign({}, state, {
-        fp_sumit_otp_failed: true,
+        fp_submit_otp_failed: true,
         fb_uploading_data: false
       });
 
