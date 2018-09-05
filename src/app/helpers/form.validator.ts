@@ -406,6 +406,9 @@ export class FormValidation {
     // otp length validation
     static validateOtp(AC: AbstractControl) {
         const otp = AC.value.toString();
+        if (isNaN(otp)) {
+            return { invalidOtp: true };
+        }
         if (otp.length !== 6) {
             return { invalidOtp: true };
         }
