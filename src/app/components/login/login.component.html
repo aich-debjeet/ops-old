@@ -70,8 +70,8 @@
                                     <!-- <label>Enter OTP</label> -->
                                     <!-- <span>00:59</span> -->
                                 </div> 
-                                <p class="error_alert text-center" *ngIf="myform.submitted && (loginState?.user_otp_failed)">Invalid OTP</p>
-                                <p class="error_alert text-center" *ngIf="myform.submitted && (otpForm.controls['otpNum'].errors?.required || otpForm.controls['otpNum'].errors?.invalidOtp)">Please enter your 6 digit OTP number</p>
+                                <p class="c-form__validation text-center" *ngIf="myform.submitted && (loginState?.user_otp_failed)">Invalid OTP</p>
+                                <p class="c-form__validation text-center" *ngIf="myform.submitted && (otpForm.controls['otpNum'].errors?.required || otpForm.controls['otpNum'].errors?.invalidOtp)">Please enter your 6 digit OTP number</p>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary btn-lg capitalize" [disabled]="loginState?.user_otp_checking">Validate</button>
                                 </div>
