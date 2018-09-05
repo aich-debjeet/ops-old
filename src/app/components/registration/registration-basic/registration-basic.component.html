@@ -62,17 +62,17 @@
                                 <span class="c-form__highlight"></span>
                                 <span class="c-form__bar"></span>
                                 <!-- <label>Name</label> -->
-                                <p class="error_alert" *ngIf="regFormBasic.controls['name'].errors?.required && regform.submitted">Name is required</p>
-                                <p class="error_alert" *ngIf="regFormBasic.controls['name'].errors?.invalidName && regform.submitted">Invalid name</p>
+                                <p class="c-form__validation" *ngIf="regFormBasic.controls['name'].errors?.required && regform.submitted">Name is required</p>
+                                <p class="c-form__validation" *ngIf="regFormBasic.controls['name'].errors?.invalidName && regform.submitted">Invalid name</p>
                             </div>
                             <div class="form_group">
                                 <input class="c-form__input" type="text" (ngModelChange)="userExistCheck($event)" tabindex="2" formControlName="username" placeholder="Username">
                                 <span class="form_highlight"></span>
                                 <!-- <label>Username</label> -->
-                                <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.whitespace || regFormBasic.controls['username'].errors?.capitalLetters || regFormBasic.controls['username'].errors?.specialChars">Capital letters, spaces and special characters are not allowed</p>
-                                <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.required && regform.submitted">Username is required</p>
-                                <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.isUsernameUnique">This username is already taken</p>
-                                <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.invalidLength">Username length limit is 3 to 15 characters</p>
+                                <p class="c-form__validation" *ngIf="regFormBasic.controls['username'].errors?.whitespace || regFormBasic.controls['username'].errors?.capitalLetters || regFormBasic.controls['username'].errors?.specialChars">Capital letters, spaces and special characters are not allowed</p>
+                                <p class="c-form__validation" *ngIf="regFormBasic.controls['username'].errors?.required && regform.submitted">Username is required</p>
+                                <p class="c-form__validation" *ngIf="regFormBasic.controls['username'].errors?.isUsernameUnique">This username is already taken</p>
+                                <p class="c-form__validation" *ngIf="regFormBasic.controls['username'].errors?.invalidLength">Username length limit is 3 to 15 characters</p>
                                 <ul class="username_error" *ngIf="regState.user_unique">
                                     <li *ngFor="let username of regState?.user_exist; let isLast=last">
                                         <span title="{{username}}" class="suggestions" (click)="useThisUsername(username)">{{username}}{{isLast ? '' : ',&nbsp;'}}</span>
@@ -100,19 +100,19 @@
                         <span class="c-form__highlight"></span>
                         <span class="c-form__bar"></span>
                         <!-- <label>Date of Birth</label> -->
-                        <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.required && regform.submitted">DOB is required</p>
-                        <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.invalidDOB">Invalid Date of Birth</p>
-                        <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.isUnderAge">You should be above 13</p>
-                        <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.isOverAge">You should be below 100</p>
+                        <p class="c-form__validation" *ngIf="regFormBasic.controls['dob'].errors?.required && regform.submitted">DOB is required</p>
+                        <p class="c-form__validation" *ngIf="regFormBasic.controls['dob'].errors?.invalidDOB">Invalid Date of Birth</p>
+                        <p class="c-form__validation" *ngIf="regFormBasic.controls['dob'].errors?.isUnderAge">You should be above 13</p>
+                        <p class="c-form__validation" *ngIf="regFormBasic.controls['dob'].errors?.isOverAge">You should be below 100</p>
                     </div>
                     <div class="c-form__group">
                         <input class="c-form__input" type="text" tabindex="4" formControlName="email" placeholder="Email">
                         <span class="c-form__highlight"></span>
                         <span class="c-form__bar"></span>
                         <!-- <label>Email</label> -->
-                        <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.emailAccExists">Mail account already exists</p>
-                        <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.email || regFormBasic.controls['email'].errors?.isInvalidEmail && regform.submitted">Email is not valid</p>
-                        <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.required && regform.submitted">Email is required</p>
+                        <p class="c-form__validation" *ngIf="regFormBasic.controls['email'].errors?.emailAccExists">Mail account already exists</p>
+                        <p class="c-form__validation" *ngIf="regFormBasic.controls['email'].errors?.email || regFormBasic.controls['email'].errors?.isInvalidEmail && regform.submitted">Email is not valid</p>
+                        <p class="c-form__validation" *ngIf="regFormBasic.controls['email'].errors?.required && regform.submitted">Email is required</p>
                     </div>
                     <div class="c-form__group">
                         <span id="phone" type="tel"></span>
@@ -121,9 +121,9 @@
                         <app-country-selector [countrySelForm]="'reg'" #countrySelReg (onCountrySelection)="saveCountry($event, 'reg')"></app-country-selector>
                         <span class="c-form__bar"></span>
                         <!-- <label class="p-l-50-px">Phone Number</label> -->
-                        <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.required && regform.submitted">Phone is required</p>
-                        <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.isMobileUnique">This phone number is already registered</p>
-                        <p class="error_alert" *ngIf="!regFormBasic.controls['phone'].errors?.required && regFormBasic.controls['phone'].errors?.isInvalidPhoneNumber && regform.submitted">Please enter valid phone number</p>
+                        <p class="c-form__validation" *ngIf="regFormBasic.controls['phone'].errors?.required && regform.submitted">Phone is required</p>
+                        <p class="c-form__validation" *ngIf="regFormBasic.controls['phone'].errors?.isMobileUnique">This phone number is already registered</p>
+                        <p class="c-form__validation" *ngIf="!regFormBasic.controls['phone'].errors?.required && regFormBasic.controls['phone'].errors?.isInvalidPhoneNumber && regform.submitted">Please enter valid phone number</p>
                     </div>
                     <div class="c-form__group pass-margin">
                         <!-- <button class="password-toggle pos-abs" type="button" (click)="passwordShowToggle()" title="{{ passwordShow ? 'Hide Password' : 'Show Password' }}">
@@ -133,16 +133,16 @@
                         <span class="c-form__highlight"></span>
                         <span class="c-form__bar"></span>
                         <!-- <label>Password</label> -->
-                        <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.required && regform.submitted">Password is required</p>
-                        <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.isWeakPassword">Password should contain atleast 5 alphanumeric characters</p>
+                        <p class="c-form__validation" *ngIf="regFormBasic.controls['password'].errors?.required && regform.submitted">Password is required</p>
+                        <p class="c-form__validation" *ngIf="regFormBasic.controls['password'].errors?.isWeakPassword">Password should contain atleast 5 alphanumeric characters</p>
                     </div>
                     <div class="c-form__group pass-margin">
                         <input class="c-form__input" type="password" tabindex="7" formControlName="confirmpassword" placeholder="Confirm Password">
                         <span class="c-form__highlight"></span>
                         <span class="c-form__bar"></span>
                         <!-- <label>Confirm Password</label> -->
-                        <p class="error_alert" *ngIf="regFormBasic.controls['confirmpassword'].errors?.required && regform.submitted">Confirm password is required</p>
-                        <p class="error_alert" *ngIf="regFormBasic.controls['confirmpassword'].errors?.passwordDoesNotMatch">Password does not match</p>
+                        <p class="c-form__validation" *ngIf="regFormBasic.controls['confirmpassword'].errors?.required && regform.submitted">Confirm password is required</p>
+                        <p class="c-form__validation" *ngIf="regFormBasic.controls['confirmpassword'].errors?.passwordDoesNotMatch">Password does not match</p>
                     </div>
                     <div *ngIf="regFormBasic.controls['email'].errors?.emailAccExists || regFormBasic.controls['phone'].errors?.isMobileUnique" class="c-form__group pass-margin">
                         <p>Already a member? <a class="text-theme" routerLink="/login">Log In</a></p>
@@ -225,8 +225,8 @@
                                 <!-- <label>Enter OTP</label> -->
                                 <!-- <span>00:59</span> -->
                             </div> 
-                            <p class="error_alert text-center" *ngIf="myform.submitted && (regState?.user_otp_failed)">Invalid OTP</p>
-                            <p class="error_alert text-center" *ngIf="myform.submitted && (otpForm.controls['otpNum'].errors?.required || otpForm.controls['otpNum'].errors?.invalidOtp)">Please enter your 6 digit OTP number</p>
+                            <p class="c-form__validation text-center" *ngIf="myform.submitted && (regState?.user_otp_failed)">Invalid OTP</p>
+                            <p class="c-form__validation text-center" *ngIf="myform.submitted && (otpForm.controls['otpNum'].errors?.required || otpForm.controls['otpNum'].errors?.invalidOtp)">Please enter your 6 digit OTP number</p>
                             <div class="text-center otp-dont-get" *ngIf="!claimActive">
                                 <a (click)="changeMobileNumber()" class="color-theme">Didn't get your OTP?</a>
                             </div>
@@ -264,9 +264,9 @@
                                 <app-country-selector [countrySelForm]="'otp'" #countrySelOtp (onCountrySelection)="saveCountry($event, 'otp')"></app-country-selector>
                                 <span class="c-form__bar"></span>
                                 <label>Enter New Phone Number</label>
-                                <p class="error_alert" *ngIf="newNumberForm.controls['newNumber'].errors?.required && newNumFrm.submitted">Phone number is required</p>
-                                <p class="error_alert" *ngIf="!newNumberForm.controls['newNumber'].errors?.required && newNumberForm.controls['newNumber'].errors?.isInvalidPhoneNumber && newNumFrm.submitted">Please enter valid phone number</p>
-                                <p class="error_alert" *ngIf="!newNumberForm.controls['newNumber'].errors?.required && newNumberForm.controls['newNumber'].errors?.isMobileUnique">This phone number is already registered</p>
+                                <p class="c-form__validation" *ngIf="newNumberForm.controls['newNumber'].errors?.required && newNumFrm.submitted">Phone number is required</p>
+                                <p class="c-form__validation" *ngIf="!newNumberForm.controls['newNumber'].errors?.required && newNumberForm.controls['newNumber'].errors?.isInvalidPhoneNumber && newNumFrm.submitted">Please enter valid phone number</p>
+                                <p class="c-form__validation" *ngIf="!newNumberForm.controls['newNumber'].errors?.required && newNumberForm.controls['newNumber'].errors?.isMobileUnique">This phone number is already registered</p>
                             </div>
                             <div class="text-center">
                                 <button type="button" class="btn btn-default btn-lg capitalize" (click)="backToOtp()">Back</button>
