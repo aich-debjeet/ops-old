@@ -177,10 +177,10 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   // build all forms
   buildForm(): void {
     this.regFormBasic = this.fb.group({
-      name: ['Abhijeet Salunkhe', [Validators.required],
+      name: ['', [Validators.required],
         this.asyncValidator.checkForValidName.bind(this)
       ],
-      username: ['abhijeet', [
+      username: ['', [
           Validators.required,
           FormValidation.noWhitespaceValidator,
           FormValidation.usernameLengthValidator,
@@ -189,12 +189,12 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
         ],
         // this.asyncValidator.userNameValidation.bind(this)
       ],
-      dob: ['8-12-1991', [
+      dob: ['', [
           Validators.required,
           FormValidation.validateAge
         ]
       ],
-      email: ['abhijeet.salunkhe@aeione.com', [
+      email: ['', [
           Validators.required,
           Validators.min(3),
           FormValidation.validEmail
@@ -202,7 +202,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
         this.asyncValidator.checkEmail.bind(this)
       ],
       gender: ['M', Validators.required],
-      phone: ['9867884320', [
+      phone: ['', [
           Validators.required,
           Validators.minLength(4),
           FormValidation.validPhone.bind(this)
@@ -210,7 +210,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
         // this.asyncValidator.checkMobile.bind(this)
         this.checkMobile.bind(this)
       ],
-      password: ['admin@123', [
+      password: ['', [
         Validators.required,
         FormValidation.passwordStrength.bind(this)
       ]],
