@@ -10,7 +10,7 @@
     <span class="c-text_lg">{{ artist?.name | truncate:[12, '...'] }}</span>
     <span class="c-text_sm color-grey-dark">@{{ artist?.extra?.username }}</span>
 </div>
-<div class="o-people-result__btn" *ngIf="!disableFollowForSelf(artist?.extra?.username)">
+<div class="o-people-result__btn" *ngIf="artist?.handle !== ownerHandle">
     <div *ngIf="artist?.extra?.isImported; else not_imported">
         <a routerLink="{{ '/profile/u/' + artist?.extra?.username }}" class="o-people-result__follow-btn">CLAIM</a>
     </div>

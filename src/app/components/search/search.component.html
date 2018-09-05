@@ -167,7 +167,7 @@
                             <ng-template #artists_found>
                                 <div class="o-people-result-block2" id="ops_scrollbar">
                                     <div *ngFor="let artist of all_artists" class="o-people-result-block">
-                                        <app-user-card-new [artist]="artist" class="width-100" ></app-user-card-new>
+                                        <app-user-card-new [artist]="artist" [ownerHandle]="ownerHandle" class="width-100"></app-user-card-new>
                                     </div>
                                 </div>
                             </ng-template>
