@@ -4,13 +4,11 @@
   <div class="explore-category">
     <ngu-carousel [inputs]="exploreSlider">
       <ngu-item NguCarouselItem class="" *ngFor="let spotfeed of spotfeeds">
-          <a (click)="selectSpotfeedFilter(spotfeed)">
-            <div class="o-explore-category-block">
-              <div class="o-explore-category__overlay" [ngStyle]="{'background-image': 'url(' + baseUrl + spotfeed?.feeds[0]?.image + ')'}" [ngClass]="{'selectedSpotfeed': spotfeed?.isSelected === true}">
-                <div class="c-text_lg color-white text-shadow">{{ spotfeed?.industry | firstCharCaps }}</div>
-              </div>
+          <div (click)="selectSpotfeedFilter(spotfeed)" class="o-explore-category-block">
+            <div class="o-explore-category__overlay" [ngStyle]="{'background-image': 'url(' + baseUrl + spotfeed?.feeds[0]?.image + ')'}" [ngClass]="{'selectedSpotfeed': spotfeed?.isSelected === true}">
+              <div class="c-text_lg color-white text-shadow">{{ spotfeed?.industry | firstCharCaps }}</div>
             </div>
-          </a>
+          </div>
       </ngu-item>
       <button NguCarouselPrev class='leftRs'>&lt;</button>
       <button NguCarouselNext class='rightRs'>&gt;</button>
