@@ -17,6 +17,7 @@ export class Login {
  login_status?: boolean;
  login_uploading_data?: boolean;
  user_otp_failed?: boolean;
+ user_otp_checking?: boolean;
  fp_user_response?: any;
  fp_checking?: boolean;
  fb_uploading_data?: boolean;
@@ -142,6 +143,7 @@ export class BasicRegTag {
   claim_user_info_loading: boolean;
   claim_user_info_loadded: boolean;
   claim_user_info: any;
+  user_otp_checking?: boolean;
 }
 
 export const initialBasicRegTag: BasicRegTag = {
