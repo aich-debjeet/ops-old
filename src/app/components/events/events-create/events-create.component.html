@@ -155,6 +155,8 @@
                                     <span class="c-form__highlight"></span>
                                     <span class="c-form__bar"></span>
                                     <label>Start date</label>
+                                    <p class="c-form__validation" *ngIf="eventForm.controls['event_startdate'].errors?.required && ecfrom.submitted">Please select the event start date</p>
+                                    <p class="c-form__validation" *ngIf="eventForm.controls['event_startdate'].errors?.oldate">Please choose a valid date.</p>
                                 </div>
                             </div>
                             <div class="col-md-1">
@@ -162,21 +164,19 @@
                             </div>
                             <div class="col-md-3 p-0">
                                 <div class="c-form__group c-form--sm c-form--noeffect">
-                                    <input class="c-form__input" required formControlName="event_enddate"  [dpDayPicker]="config" theme="dp-material">
+                                    <input class="c-form__input" required formControlName="event_enddate"  [dpDayPicker]="config"  theme="dp-material">
                                     <span class="c-form__highlight"></span>
                                     <span class="c-form__bar"></span>
                                     <label>End date</label>
+                                    <p class="c-form__validation" *ngIf="eventForm.controls['event_enddate'].errors?.required && ecfrom.submitted">Please select the event end date </p>
+                                    <p class="c-form__validation" *ngIf="eventForm.controls['event_enddate'].errors?.old_even_end_date">Please choose a valid date. </p>
                                 </div>
                             </div>
                             <div class="col-md-3 p-0">
                             </div>
                             <div class="col-md-9 offset-md-3 p-0">
-                                <p class="c-form__validation" *ngIf="eventForm.controls['event_startdate'].errors?.oldate">Please choose a valid date.</p>
-                                <p class="c-form__validation" *ngIf="eventForm.controls['event_enddate'].errors?.required && ecfrom.submitted">Please select the event end date </p>
-                                <p class="c-form__validation" *ngIf="eventForm.controls['event_enddate'].errors?.old_even_end_date">Please choose a valid date. </p>
                                 <p class="c-form__validation" *ngIf="(eventForm.controls['event_enddate'].errors?.endDateLess || eventForm.controls['event_startdate'].errors?.endDateLess) && ecfrom.submitted">Event end date should be greater than the event start date</p>
                                 <p class="c-form__validation" *ngIf="invalidDate">Invalid Date</p>
-                                <p class="c-form__validation" *ngIf="eventForm.controls['event_startdate'].errors?.required && ecfrom.submitted">Please select the event start date</p>
                             </div>
                         </div>
                         <!-- Date end -->
@@ -193,6 +193,7 @@
                                             <span class="c-form__highlight"></span>
                                             <span class="c-form__bar"></span>
                                             <label>Date</label>
+                                            <p class="c-form__validation" *ngIf="eventForm.controls['event_agenda'].controls[i].controls['startTime'].errors?.required && ecfrom.submitted">Date is required</p>
                                         </div>
                                     </div>
                                     <div class="col-md-7 p-0">
@@ -201,6 +202,7 @@
                                             <span class="c-form__highlight"></span>
                                             <span class="c-form__bar"></span>
                                             <label>Program</label>
+                                            <p class="c-form__validation" *ngIf="eventForm.controls['event_agenda'].controls[i].controls['description'].errors?.required && ecfrom.submitted">Program  is required</p>
                                         </div>
                                     </div>
                                     <div class="col-md-1 p-0">
@@ -214,8 +216,8 @@
                                     </div>
                                     <div class="col-md-9 offset-md-3 p-0">
                                         <p class="c-form__validation" *ngIf="eventForm.controls['event_agenda'].controls[i].controls['startTime'].errors?.invalidAgendDate">Agenda date should be between the event start date and end date</p>
-                                        <p class="c-form__validation" *ngIf="eventForm.controls['event_agenda'].controls[i].controls['startTime'].errors?.required && ecfrom.submitted">Date is required</p>
-                                        <p class="c-form__validation" *ngIf="eventForm.controls['event_agenda'].controls[i].controls['description'].errors?.required && ecfrom.submitted">Program  is required</p>
+                                        <!-- <p class="c-form__validation" *ngIf="eventForm.controls['event_agenda'].controls[i].controls['startTime'].errors?.required && ecfrom.submitted">Date is required</p> -->
+                                        <!-- <p class="c-form__validation" *ngIf="eventForm.controls['event_agenda'].controls[i].controls['description'].errors?.required && ecfrom.submitted">Program  is required</p> -->
                                         <!--<p class="error_alert" *ngIf="eventForm.controls['description'].errors?.required && ecfrom.submitted">Program is required</p>-->
                                     </div>
                                 </div>
@@ -336,9 +338,9 @@
                                     <span class="c-form__bar"></span>
                                     <label>End date</label>
                                 </div>
-                                <p class="c-form__validation" *ngIf="eventForm.controls['ts_endTime'].errors?.old_even_end_date">Please choose a valid date.</p>
+                                <!-- <p class="c-form__validation" *ngIf="eventForm.controls['ts_endTime'].errors?.old_even_end_date">Please choose a valid date.</p> -->
                                 <p class="c-form__validation" *ngIf="eventForm.controls['ts_endTime'].errors?.ticketsClosed">Please select a date prior to D-day</p>
-                                <p class="c-form__validation" *ngIf="eventForm.controls['ts_endTime'].errors?.ticketendDateLess">Please choose a valid date.</p>
+                                <p class="c-form__validation" *ngIf="eventForm.controls['ts_endTime'].errors?.ticketendDateLess || eventForm.controls['ts_endTime'].errors?.old_even_end_date">Ticket sales end date should be a valid date and ticket sales end date should be greater than ticket sales start date.</p>
                             </div>
                             <div class="col-md-3 p-0">
                             </div>

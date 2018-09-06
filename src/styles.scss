@@ -451,6 +451,14 @@ vg-scrub-bar {
     .dp-material .dp-current-day {
         border: 1px solid $color-theme;
     }
+    
+}
+app-events-create dp-date-picker{
+    display: block!important;
+}
+
+app-events-create quill-editor p {
+    color: #000!important;
 }
 
 .dp-material .dp-calendar-wrapper {
@@ -629,4 +637,28 @@ button.sb-wrapper.sb-facebook {
   border-radius: 0 !important;
   color: #83a591 !important;
   padding-left: 24px;
+}
+
+.o-event-content-container{
+    p{
+        color:#929292!important;
+    }
+    ul{
+        margin-left: 16px;
+        margin-bottom: 16px;
+        margin-top: 8px;
+        li{
+            width: 100%;
+            color:#929292!important;
+        }
+    }
+    ol{
+        margin-left: 16px;
+        margin-bottom: 16px;
+        margin-top: 8px;
+        li{
+            width: 100%;
+            color:#929292!important;
+        }
+    }
 }

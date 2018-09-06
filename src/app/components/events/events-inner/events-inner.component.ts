@@ -1,10 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { UtcDatePipe } from './../../../pipes/utcdate.pipe';
 import { environment } from './../../../../environments/environment';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Location } from '@angular/common';
 
 // Model
 import { EventModal, initialTagEve  } from '../../../models/event.model';
@@ -23,7 +24,8 @@ import { TruncatePipe } from 'app/pipes/truncate.pipe';
   selector: 'app-events-inner',
   templateUrl: './events-inner.component.html',
   styleUrls: ['./events-inner.component.scss'],
-  providers: [ TruncatePipe ]
+  providers: [ TruncatePipe ],
+  // encapsulation: ViewEncapsulation.None,
 })
 export class EventsInnerComponent implements OnInit, OnDestroy {
   id: any;
@@ -46,6 +48,7 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
     private toastr: ToastrService,
     private router: Router,
     public modalService: ModalService,
+    private _location: Location,
   ) {
     this.tagState$ = this.store.select('eventTags');
     this.tagState$.subscribe((state) => {
@@ -90,7 +93,9 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
     this.store.select('eventTags')
       .first(state => state['event_del_success'] === true)
       .subscribe( datas => {
-        this.router.navigateByUrl('/event');
+        // this.router.navigateByUrl('/event');
+        // this._location.back();
+        this.router.navigate(['/event'], { queryParams: { status: 'created' } });
         this.toastr.success('The Event has been deleted successfully');
       });
   }
