@@ -463,6 +463,45 @@ export class FormValidation {
         return null;
     }
 
+    static validateAgeSignup(control: AbstractControl) {
+        const dob = control.value.formatted;
+        if (dob) {
+            const dateArr =  dob.split('-');
+            const day = dateArr[0];
+            const month = dateArr[1];
+            const year = dateArr[2];
+
+            const a = moment();
+            const b = moment([year, month, day]);
+
+            const years = a.diff(b, 'year');
+            b.add(years, 'years');
+
+            const months = a.diff(b, 'months');
+            b.add(months, 'months');
+
+            const days = a.diff(b, 'days');
+            // console.log(years + ' years ' + months + ' months ' + days + ' days');
+
+            if (years < 12) {
+                // console.log('isUnderAge');
+                return { isUnderAge: true };
+            } else if (years === 12) {
+                if (months < 11) {
+                    // console.log('isUnderAge');
+                    return { isUnderAge: true };
+                } else if (months === 11) {
+                    if (days >= 0) { }
+                }
+            }
+
+            if (years >= 100) {
+                return { isOverAge: true };
+            }
+        }
+        return null;
+    }
+
     static matchPassword(AC: AbstractControl) {
         const password = AC.get('password').value; // to get value in input tag
         const confirmPassword = AC.get('confirmpassword').value; // to get value in input tag
