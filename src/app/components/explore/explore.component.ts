@@ -113,9 +113,9 @@ export class ExploreComponent implements OnInit, OnDestroy {
         scrollId = this.exploreState['exploreData']['scrollId'];
       }
       const exploreParams = {
-        limit: this.recordsPerPage,
         scrollId: scrollId,
-        entityType: this.searchType,
+        limit: this.recordsPerPage,
+        entityType: this.searchType
       }
       this.isSearching = true;
       this.showPreloader = true;
@@ -126,16 +126,16 @@ export class ExploreComponent implements OnInit, OnDestroy {
   /**
    * toggle spotfeed search selection
    */
-  toggleSpotfeedFilter(spotfeed: any) {
-    const spIndx = _findIndex(this.spotfeeds, { industry: spotfeed.industry });
-    if (spIndx) {
-      if (this.spotfeeds[spIndx].isSelected === true) {
-        this.spotfeeds[spIndx].isSelected =  false;
-      } else {
-        this.spotfeeds[spIndx].isSelected = true;
-      }
-    }
-  }
+  // toggleSpotfeedFilter(spotfeed: any) {
+  //   const spIndx = _findIndex(this.spotfeeds, { industry: spotfeed.industry });
+  //   if (spIndx) {
+  //     if (this.spotfeeds[spIndx].isSelected === true) {
+  //       this.spotfeeds[spIndx].isSelected =  false;
+  //     } else {
+  //       this.spotfeeds[spIndx].isSelected = true;
+  //     }
+  //   }
+  // }
 
   /**
    * select spotfeed for search
@@ -157,8 +157,8 @@ export class ExploreComponent implements OnInit, OnDestroy {
       scrollId: '',
       entityType: this.searchType
     }
-    if (this.spotfeedType.length > 0) {
-      exploreParams['spotfeed'] = this.spotfeedType;
+    if (this.selectedSpotfeed && this.selectedSpotfeed.industry) {
+      exploreParams['spotfeed'] = this.selectedSpotfeed.industry;
     }
     this.isSearching = true;
     this.showPreloader = true;

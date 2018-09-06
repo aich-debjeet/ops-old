@@ -1,6 +1,7 @@
 import { ActionReducer, Action } from '@ngrx/store';
 import { ExploreActions } from '../actions/explore.action';
-import * as _ from 'lodash';
+import { findIndex as _findIndex } from 'lodash';
+import { uniqBy as _uniqBy } from 'lodash';
 
 export const ExploreReducer: ActionReducer<any> = (state, {payload, type}: Action) =>  {
 
@@ -32,7 +33,7 @@ export const ExploreReducer: ActionReducer<any> = (state, {payload, type}: Actio
             }
           }
         } else {
-          const typeIndex = _.findIndex(state.explore_spotfeeds, { 'industryType': state.search_body.industryType });
+          const typeIndex = _findIndex(state.explore_spotfeeds, { 'industryType': state.search_body.industryType });
           // const newArr = state.explore_spotfeeds[typeIndex].feeds.concat(response[0].feeds);
           state.explore_spotfeeds[typeIndex].feeds = state.explore_spotfeeds[typeIndex].feeds.concat(response[0].feeds);
           return Object.assign({}, state, {
@@ -72,10 +73,13 @@ export const ExploreReducer: ActionReducer<any> = (state, {payload, type}: Actio
           }
           if (state['exploreDataParams']['entityType'] === 'profile') {
             updatedExploreData.profileResponse = [...state['exploreData']['profileResponse'], ...payload['SUCCESS']['profileResponse']];
-            // console.log('remove duplicates', updatedExploreData.profileResponse);
+            updatedExploreData.profileResponse = _uniqBy(updatedExploreData.profileResponse, 'handle');
           }
         } else {
-          updatedExploreData = payload['SUCCESS']
+          updatedExploreData = payload['SUCCESS'];
+          if (updatedExploreData.profileResponse) {
+            updatedExploreData.profileResponse = _uniqBy(updatedExploreData.profileResponse, 'handle');
+          }
         }
         return Object.assign({}, state, {
           getExploreData: false,
