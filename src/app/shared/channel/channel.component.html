@@ -102,7 +102,7 @@
                         </div>
                         <p class="c-followers__count">+82</p> -->
             </div>
-            <div *ngIf="!disableFollowForSelf(channelData?.ownerHandle)" class="c-channel__btn2">
+            <div *ngIf="channelData?.ownerHandle !== ownerHandle" class="c-channel__btn2">
                 <a (click)="toggleFollowBtn($event)" class="btn btn-primary btn-sm pull-right">{{ isfollowing ? 'Unfollow' : 'Follow' }}</a>
             </div>
         </div>
