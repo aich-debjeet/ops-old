@@ -5,7 +5,7 @@
 
 <div *ngIf="people?.length > 0" infinite-scroll (scrolled)="onScroll($event)" class="o-search-result-block m-r--8 m-l--8">
     <div *ngFor="let person of people" class="col-3 c-scard-block">
-        <app-user-card-search *ngIf="profileType === 'registered'" [artist]="person"></app-user-card-search>
+        <app-user-card-search *ngIf="profileType === 'registered'" [artist]="person" [ownerHandle]="ownerHandle" (followActions)="followActions($event)"></app-user-card-search>
         <app-wiki-profile-card *ngIf="profileType !== 'registered'" [profileDetails]="person"></app-wiki-profile-card>
     </div>
 </div>

@@ -191,7 +191,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
       ],
       dob: ['', [
           Validators.required,
-          FormValidation.validateAge
+          FormValidation.validateAgeSignup
         ]
       ],
       email: ['', [
