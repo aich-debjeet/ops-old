@@ -1,5 +1,5 @@
 <div *ngIf="profiles?.length > 0" class="o-search-result-block">
     <div *ngFor="let artist of profiles" class="col-3 c-scard-block">
-        <app-user-card-search [artist]="artist"></app-user-card-search>
+        <app-user-card-search [artist]="artist" [ownerHandle]="ownerHandle" (followActions)="followActions($event)"></app-user-card-search>
     </div>
 </div>
