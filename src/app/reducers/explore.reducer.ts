@@ -1,9 +1,5 @@
 import { ActionReducer, Action } from '@ngrx/store';
-
-import { ExploreModel } from '../models/explore.model';
 import { ExploreActions } from '../actions/explore.action';
-import { concat } from 'rxjs/observable/concat';
-
 import * as _ from 'lodash';
 
 export const ExploreReducer: ActionReducer<any> = (state, {payload, type}: Action) =>  {
@@ -76,6 +72,7 @@ export const ExploreReducer: ActionReducer<any> = (state, {payload, type}: Actio
           }
           if (state['exploreDataParams']['entityType'] === 'profile') {
             updatedExploreData.profileResponse = [...state['exploreData']['profileResponse'], ...payload['SUCCESS']['profileResponse']];
+            // console.log('remove duplicates', updatedExploreData.profileResponse);
           }
         } else {
           updatedExploreData = payload['SUCCESS']
