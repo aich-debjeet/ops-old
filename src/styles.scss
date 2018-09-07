@@ -28,6 +28,10 @@ $icon-font-path: "../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
 
 /* ------------------------- Registration css --------------------------- */
 
+body {
+    overflow-y: scroll;
+}
+
 .reg_steps {
     background: #f1f1f1;
     min-height: 100vh;

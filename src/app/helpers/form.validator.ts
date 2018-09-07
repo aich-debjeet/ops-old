@@ -35,7 +35,7 @@ export class DatabaseValidator {
     checkEmail(control: AbstractControl) {
         const q = new Promise((resolve, reject) => {
             setTimeout(() => {
-                this.authService.emailUser(control.value).subscribe( data => {
+                this.authService.emailUser(control.value.toLowerCase()).subscribe( data => {
                     if (data.SUCCESS.code === 1) {
                         resolve({ 'emailAccExists': true });
                     }
@@ -275,7 +275,7 @@ export class ProfileUpdateValidator {
             // check current email for user
             if (this.profileState.profile_details['email'] !== control.value) {
                 setTimeout(() => {
-                    this.authService.emailUser(control.value).subscribe( data => {
+                    this.authService.emailUser(control.value.toLowerCase).subscribe( data => {
                         if (data.SUCCESS.code === 1) {
                             resolve({ 'isEmailUnique': true });
                         }
@@ -403,6 +403,18 @@ export class EmailValidator {
 @Injectable()
 export class FormValidation {
 
+    // otp length validation
+    static validateOtp(AC: AbstractControl) {
+        const otp = AC.value.toString();
+        if (isNaN(otp)) {
+            return { invalidOtp: true };
+        }
+        if (otp.length !== 6) {
+            return { invalidOtp: true };
+        }
+        return null;
+    }
+
     // old date validation
     static validateOldDate(AC: AbstractControl) {
         const date = AC.value;
@@ -445,6 +457,45 @@ export class FormValidation {
             if (age <= 13) {
                 return { isUnderAge: true };
             } else if (age >= 100) {
+                return { isOverAge: true };
+            }
+        }
+        return null;
+    }
+
+    static validateAgeSignup(control: AbstractControl) {
+        const dob = control.value.formatted;
+        if (dob) {
+            const dateArr =  dob.split('-');
+            const day = dateArr[0];
+            const month = dateArr[1];
+            const year = dateArr[2];
+
+            const a = moment();
+            const b = moment([year, month, day]);
+
+            const years = a.diff(b, 'year');
+            b.add(years, 'years');
+
+            const months = a.diff(b, 'months');
+            b.add(months, 'months');
+
+            const days = a.diff(b, 'days');
+            // console.log(years + ' years ' + months + ' months ' + days + ' days');
+
+            if (years < 12) {
+                // console.log('isUnderAge');
+                return { isUnderAge: true };
+            } else if (years === 12) {
+                if (months < 11) {
+                    // console.log('isUnderAge');
+                    return { isUnderAge: true };
+                } else if (months === 11) {
+                    if (days >= 0) { }
+                }
+            }
+
+            if (years >= 100) {
                 return { isOverAge: true };
             }
         }

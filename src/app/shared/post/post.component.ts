@@ -49,7 +49,7 @@ export class PostComponent implements OnInit, OnDestroy {
 
   imageLink: string = environment.API_IMAGE;
   questions: any;
-  domainLink: string = environment.API_IMAGE;
+  domainLink: string = environment.API_DOMAIN;
 
   constructor(
     private router: Router,

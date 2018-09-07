@@ -10,13 +10,14 @@ export class Login {
  page_loading: boolean;
  error_description?: any;
  fp_create_success?: boolean;
- fp_sumit_otp_failed?: boolean;
+ fp_submit_otp_failed?: boolean;
  fp_userdata_loading_failed: boolean;
  otp_forget_user_success?: boolean;
  login_status_response?: any;
  login_status?: boolean;
  login_uploading_data?: boolean;
  user_otp_failed?: boolean;
+ user_otp_checking?: boolean;
  fp_user_response?: any;
  fp_checking?: boolean;
  fb_uploading_data?: boolean;
@@ -75,7 +76,7 @@ export const initialTag: Login = {
   user_unique: false,
   fp_user_exists: false,
   fp_userdata_resp: [],
-  fp_sumit_otp_failed: false,
+  fp_submit_otp_failed: false,
   fp_create_success: false,
   fp_userdata_loading_failed: false,
   page_loading: false
@@ -142,6 +143,7 @@ export class BasicRegTag {
   claim_user_info_loading: boolean;
   claim_user_info_loadded: boolean;
   claim_user_info: any;
+  user_otp_checking?: boolean;
 }
 
 export const initialBasicRegTag: BasicRegTag = {

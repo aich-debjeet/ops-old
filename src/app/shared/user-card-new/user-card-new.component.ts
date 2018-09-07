@@ -23,6 +23,7 @@ export class UserCardNewComponent implements OnInit {
 
   @Input() artist;
   @Input() artistIndex;
+  @Input() ownerHandle;
   @Output() onFollow: EventEmitter<any> = new EventEmitter<any>();
   isFollowing: boolean;
   userImage: string;
@@ -36,14 +37,6 @@ export class UserCardNewComponent implements OnInit {
     private store: Store<ProfileModal>
   ) {
     this.isFollowing = false;
-
-    /* ================== current user ========= */
-    this.userState$ = this.store.select('profileTags');
-    this.userState$.subscribe((state) => {
-      this.userProfile = state;
-    });
-    // this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
-    /* ================== current user ========= */
   }
 
   ngOnInit() {
@@ -86,12 +79,4 @@ export class UserCardNewComponent implements OnInit {
     this.store.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: user.handle });
     user.extra.isFollowing = false;
   }
-
-  disableFollowForSelf(username: string) {
-    if (this.userProfile && (this.userProfile['profile_navigation_details']['username']) === username) {
-      return true;
-    }
-    return false;
-  }
-
 }

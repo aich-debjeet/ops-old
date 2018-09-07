@@ -9,7 +9,7 @@ import { Modal } from '../../../shared/modal-new/Modal';
 import { IDatePickerConfig } from 'ng2-date-picker';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/timer';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
@@ -25,6 +25,7 @@ import { initialBasicRegTag, BasicRegTag } from '../../../models/auth.model';
 
 import { AuthActions } from '../../../actions/auth.action';
 import { AuthService } from '../../../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-registration-basic',
@@ -48,6 +49,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   claimValue: any;
   claimData: any;
   claimActive = false;
+  regSub: ISubscription;
 
   myOptions: INgxMyDpOptions = {
     showTodayBtn: false,
@@ -56,6 +58,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
 
   @ViewChild('claimPopup') claimPopup: Modal;
   @ViewChild('otpPopup') otpPopup: Modal;
+  @ViewChild('otpChangeNumber') otpChangeNumber: Modal;
   @ViewChild('termsPopup') termsPopup: Modal;
 
   datePickerConfig: IDatePickerConfig = {
@@ -72,14 +75,6 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   public regFormBasic: FormGroup;
   public newNumberForm: FormGroup;
   otpOpenOnce = true;
-
-  // otp numbers
-  @ViewChild('otpNum1') otpNum1: ElementRef;
-  @ViewChild('otpNum2') otpNum2: ElementRef;
-  @ViewChild('otpNum3') otpNum3: ElementRef;
-  @ViewChild('otpNum4') otpNum4: ElementRef;
-  @ViewChild('otpNum5') otpNum5: ElementRef;
-  @ViewChild('otpNum6') otpNum6: ElementRef;
 
   @ViewChild('countrySelReg') countrySelectorReg: CountrySelectorComponent;
   @ViewChild('countrySelOtp') countrySelectorOtp: CountrySelectorComponent;
@@ -98,13 +93,14 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
     private asyncValidator: DatabaseValidator,
     private router: Router,
     public modalService: ModalService,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastr: ToastrService
   ) {
 
     // store select
     this.regState$ = store.select('loginTags');
     // observe store
-    this.regState$.subscribe((state) => {
+    this.regSub = this.regState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
         this.regState = state;
         if (state['reg_basic_uploading_form_data'] === false && state['reg_basic_uploaded_form_data'] === true) {
@@ -112,7 +108,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
         }
         if (state['user_basic_reg_success'] === true) {
           if (state['user_token']) {
-            const token = {access_token: state['user_token']};
+            const token = { access_token: state['user_token'] };
             localStorage.setItem('tempAccessToken', JSON.stringify(token));
           }
           if (this.otpOpenOnce) {
@@ -195,7 +191,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
       ],
       dob: ['', [
           Validators.required,
-          FormValidation.validateAge
+          FormValidation.validateAgeSignup
         ]
       ],
       email: ['', [
@@ -226,13 +222,8 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
 
     // OTP Form Builder
     this.otpForm = this.fb.group({
-      otpNum1: ['', [Validators.required]],
-      otpNum2: ['', [Validators.required]],
-      otpNum3: ['', [Validators.required]],
-      otpNum4: ['', [Validators.required]],
-      otpNum5: ['', [Validators.required]],
-      otpNum6: ['', [Validators.required]]
-    })
+      otpNum: ['', [Validators.required, FormValidation.validateOtp]]
+    });
 
     // OTP new number
     this.newNumberForm = this.fb.group({
@@ -243,7 +234,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
         ],
         this.checkMobile.bind(this)
       ]
-    })
+    });
   }
 
   /**
@@ -268,28 +259,6 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
     return q;
   }
 
-  // focus on next otp number
-  nextOtpNum(e: any, pos: number) {
-    if (e.keyCode === 8) {
-      if (pos > 0 && pos < 7) {
-        const prevNum = pos - 1;
-        if (prevNum > 0) {
-          const prevOtpInput = 'otpNum' + prevNum.toString();
-          setTimeout(() => { this[prevOtpInput].nativeElement.focus(); }, 10);
-        }
-        return true;
-      }
-    } else if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
-      if (pos > 0 && pos < 6) {
-        const nextNum = pos + 1;
-        const nextOtpInput = 'otpNum' + nextNum.toString();
-        setTimeout(() => { this[nextOtpInput].nativeElement.focus(); }, 10);
-      }
-      return true;
-    }
-    return false;
-  }
-
   // user user exists
   userExistCheck(value) {
     if (value.length >= 4) {
@@ -310,13 +279,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
       } else {
         phoneNumber = this.regFormBasic.value.phone;
       }
-      // console.log('otp form data', value); return;
-      const otpValue = value.otpNum1.toString() +
-                       value.otpNum2.toString() +
-                       value.otpNum3.toString() +
-                       value.otpNum4.toString() +
-                       value.otpNum5.toString() +
-                       value.otpNum6.toString();
+      const otpValue = value.otpNum.toString();
       const otpData = {
         contactNumber: phoneNumber,
         countryCode: this.country.callingCodes[0],
@@ -329,7 +292,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
           otp: otpValue
         }
         this.store.dispatch({ type: AuthActions.CLAIM_OTP_ACTIVE, payload: data });
-        return
+        return;
       }
       this.store.dispatch({ type: AuthActions.OTP_SUBMIT, payload: otpData });
     }
@@ -404,7 +367,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
       username: value.username,
       profileImage: '',
       gender: value.gender,
-      email:  value.email.trim(),
+      email:  value.email.trim().toLowerCase(),
       password: value.password,
       isAgent: false,
       location: '',
@@ -429,10 +392,10 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
 
     this.store.select('loginTags')
     .first(channel => channel['completed']['SUCCESS'])
-    .subscribe( datas => {
-      this.claimValue = datas['completed']['SUCCESS'];
-      this.claimData = datas['completed'];
-      if (datas['completed'].emailMatches === true || datas['completed'].mobileMatches === true) {
+    .subscribe(resp => {
+      this.claimValue = resp['completed']['SUCCESS'];
+      this.claimData = resp['completed'];
+      if (resp['completed'].emailMatches === true || resp['completed'].mobileMatches === true) {
         this.claimPopup.open();
         this.claimActive = true;
       } else {
@@ -440,7 +403,11 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
         this.claimActive = false;
         this.otpOpenOnce = false;
       }
-      return
+      if (resp['ERROR']) {
+        this.toastr.warning(resp['ERROR']);
+        this.uploadingFormData = false;
+      }
+      return;
     });
   }
 
@@ -453,30 +420,36 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
 
     this.store.select('loginTags')
     .first(channel => channel['completed']['SUCCESS'])
-    .subscribe( datas => {
-      this.claimValue = datas['completed']['SUCCESS'];
-      this.claimData = datas['completed'];
-      if (datas['completed'].emailMatches === true || datas['completed'].mobileMatches === true) {
+    .subscribe(resp => {
+      this.claimValue = resp['completed']['SUCCESS'];
+      this.claimData = resp['completed'];
+      if (resp['completed'].emailMatches === true || resp['completed'].mobileMatches === true) {
         this.otpPopup.open();
       }
-      return
+      if (resp['ERROR']) {
+        this.toastr.warning(resp['ERROR']);
+        this.uploadingFormData = false;
+      }
+      return;
     });
   }
 
   /**
    * Switch to change number modal
    */
-  otpNotRecieved() {
+  changeMobileNumber() {
     this.otpPopup.close();
-    this.modalService.open('otpChangeNumber');
-    this.countrySelectorOtp.initCountrySelector('country-options-otp');
+    this.otpChangeNumber.open();
+    setTimeout(() => {
+      this.countrySelectorOtp.initCountrySelector('country-options-otp');
+    }, 10);
   }
 
   /**
    * Switch back to OTP modal
    */
   backToOtp() {
-    this.modalService.close('otpChangeNumber');
+    this.otpChangeNumber.close();
     this.otpPopup.open();
   }
 
@@ -497,5 +470,12 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   /**
    * disable observales and listeners here
    */
-  ngOnDestroy() { }
+  ngOnDestroy() {
+    this.regSub.unsubscribe();
+  }
+
+  allowNumbersOnly(e: any) {
+    const k = e.keyCode;
+    return ((k >= 48 && k <= 57) || (k >= 96 && k <= 105) || k === 8);
+  }
 }
