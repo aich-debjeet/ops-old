@@ -34,6 +34,7 @@ export class SearchPeopleComponent implements OnInit, OnDestroy {
 
   profSub: ISubscription;
   searchSub: ISubscription;
+  ownerHandle = '';
 
   constructor(
     private store: Store<SearchModel>,
@@ -53,6 +54,7 @@ export class SearchPeopleComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.ownerHandle = localStorage.getItem('loggedInProfileHandle');
 
     // observe the store value
     this.searchSub = this.searchState$.subscribe((state) => {
@@ -127,21 +129,15 @@ export class SearchPeopleComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Follow an artist
-   * @param user obj
+   * follow/unfollow user
+   * @param data params follow/unfollow action and user handle
    */
-  followUser(user: any) {
-    this.profileStore.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: user.handle });
-    user.extra.isFollowing = true;
-  }
-
-  /**
-   * Unfollow an artist
-   * @param user obj
-   */
-  unfollowUser(user: any) {
-    this.profileStore.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: user.handle });
-    user.extra.isFollowing = false;
+  followActions(data: any) {
+    if (data.action && data.action === 'follow') {
+      this.profileStore.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: data.userHandle });
+    } else {
+      this.profileStore.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: data.userHandle });
+    }
   }
 
   toggleProfileType() {

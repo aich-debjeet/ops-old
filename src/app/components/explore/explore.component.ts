@@ -1,6 +1,5 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NguCarousel } from '@ngu/carousel';
-import { ActivatedRoute, Router } from '@angular/router';
 import { ExploreActions } from '../../actions/explore.action';
 import { ExploreModel } from '../../models/explore.model';
 import { Store } from '@ngrx/store';
@@ -18,10 +17,9 @@ import { environment } from 'environments/environment';
 export class ExploreComponent implements OnInit, OnDestroy {
   exploreSlider: NguCarousel;
   spotfeeds: any[];
-  routeSub: ISubscription;
   expSub: ISubscription;
   searchType = 'post';
-  recordsPerPage = 10;
+  recordsPerPage = 20;
   isSearching = false;
   showPreloader = false;
 
@@ -37,8 +35,6 @@ export class ExploreComponent implements OnInit, OnDestroy {
   spotfeedType = '';
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
     private exploreStore: Store<ExploreModel>,
     private gUtils: GeneralUtilities
   ) {
@@ -81,8 +77,9 @@ export class ExploreComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.triggerSearch();
     this.exploreSlider = {
-      grid: {xs: 2, sm: 3, md: 6, lg: 6, all: 0},
+      grid: { xs: 2, sm: 3, md: 6, lg: 6, all: 0 },
       slide: 5,
       speed: 400,
       interval: 4000,
@@ -94,32 +91,6 @@ export class ExploreComponent implements OnInit, OnDestroy {
       loop: false,
       custom: 'banner'
     }
-
-    this.routeSub = this.route.queryParams
-      .subscribe(params => {
-        // check if search type is available
-        if (params.type && params.type.length > 0) {
-          this.searchType = params.type;
-        }
-        // check if spotfeed type is available
-        if (params.spotfeed && params.spotfeed.length > 0) {
-          this.spotfeedType = params.spotfeed;
-        }
-        // check if search type is available
-        if (this.searchType.length > 0) {
-          const exploreParams = {
-            limit: this.recordsPerPage,
-            scrollId: '',
-            entityType: this.searchType
-          }
-          if (this.spotfeedType.length > 0) {
-            exploreParams['spotfeed'] = this.spotfeedType;
-          }
-          this.isSearching = true;
-          this.showPreloader = true;
-          this.exploreStore.dispatch({ type: ExploreActions.GET_EXPLORE_DATA, payload: exploreParams });
-        }
-      });
   }
 
   /**
@@ -127,20 +98,11 @@ export class ExploreComponent implements OnInit, OnDestroy {
    */
   switchSearchType(sType: string) {
     this.searchType = sType;
-    this.exploreSearchGetRequest({ type: this.searchType });
-  }
-
-  // trigger explore search action
-  exploreSearchGetRequest(queryParams: any) {
-    this.router.navigate(['/explore'], {
-      queryParams: queryParams
-    });
-    return false;
+    this.triggerSearch();
   }
 
   ngOnDestroy() {
     this.expSub.unsubscribe();
-    this.routeSub.unsubscribe();
   }
 
   loadMore(e: any) {
@@ -151,9 +113,9 @@ export class ExploreComponent implements OnInit, OnDestroy {
         scrollId = this.exploreState['exploreData']['scrollId'];
       }
       const exploreParams = {
-        limit: this.recordsPerPage,
         scrollId: scrollId,
-        entityType: this.searchType,
+        limit: this.recordsPerPage,
+        entityType: this.searchType
       }
       this.isSearching = true;
       this.showPreloader = true;
@@ -164,16 +126,16 @@ export class ExploreComponent implements OnInit, OnDestroy {
   /**
    * toggle spotfeed search selection
    */
-  toggleSpotfeedFilter(spotfeed: any) {
-    const spIndx = _findIndex(this.spotfeeds, { industry: spotfeed.industry });
-    if (spIndx) {
-      if (this.spotfeeds[spIndx].isSelected === true) {
-        this.spotfeeds[spIndx].isSelected =  false;
-      } else {
-        this.spotfeeds[spIndx].isSelected = true;
-      }
-    }
-  }
+  // toggleSpotfeedFilter(spotfeed: any) {
+  //   const spIndx = _findIndex(this.spotfeeds, { industry: spotfeed.industry });
+  //   if (spIndx) {
+  //     if (this.spotfeeds[spIndx].isSelected === true) {
+  //       this.spotfeeds[spIndx].isSelected =  false;
+  //     } else {
+  //       this.spotfeeds[spIndx].isSelected = true;
+  //     }
+  //   }
+  // }
 
   /**
    * select spotfeed for search
@@ -186,7 +148,21 @@ export class ExploreComponent implements OnInit, OnDestroy {
       this.spotfeeds[spIndx].isSelected = true;
       this.selectedSpotfeed = this.spotfeeds[spIndx];
     }
-    this.exploreSearchGetRequest({ type: this.searchType, spotfeed: this.selectedSpotfeed['industry'] });
+    this.triggerSearch();
+  }
+
+  triggerSearch() {
+    const exploreParams = {
+      limit: this.recordsPerPage,
+      scrollId: '',
+      entityType: this.searchType
+    }
+    if (this.selectedSpotfeed && this.selectedSpotfeed.industry) {
+      exploreParams['spotfeed'] = this.selectedSpotfeed.industry;
+    }
+    this.isSearching = true;
+    this.showPreloader = true;
+    this.exploreStore.dispatch({ type: ExploreActions.GET_EXPLORE_DATA, payload: exploreParams });
   }
 
 }

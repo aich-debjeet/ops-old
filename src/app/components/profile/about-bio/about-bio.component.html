@@ -60,23 +60,23 @@
                         <div class="o-bio-info__edit-actions m-t-24">
                             <button type="button" class="btn btn-primary btn-sm float-right" (click)="updateAbout('skills')">Save</button>
                             <button type="button" class="btn btn-default btn-sm float-right m-l-r-8" (click)="cancelEdit()">Cancel</button>
-                            <div class="dropdown float-right m-r-8">
+                            <!-- <div class="dropdown float-right m-r-8">
                                 <span class="com-head" data-toggle="dropdown" aria-expanded="false">
-                        <div class="o-bio-edit__ico">
-                        <img [src]="imageBaseUrl + 'img/svg/ico_web.svg'">
-                        </div>
-                        <div class="o-bio-edit__ico-arrow">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
-                            <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
-                            <title>Path 2 Copy</title>
-                            <desc>Created with Sketch.</desc>
-                            <defs></defs>
-                            <g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                <polyline id="Path-2-Copy" stroke="#333" stroke-width="1" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) " points="1 1 8 8 15 1"></polyline>
-                            </g>
-                        </svg>
-                        </div>
-                    </span>
+                                    <div class="o-bio-edit__ico">
+                                    <img [src]="imageBaseUrl + 'img/svg/ico_web.svg'">
+                                    </div>
+                                    <div class="o-bio-edit__ico-arrow">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
+                                        
+                                        <title>Path 2 Copy</title>
+                                        <desc>Created with Sketch.</desc>
+                                        <defs></defs>
+                                        <g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <polyline id="Path-2-Copy" stroke="#333" stroke-width="1" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) " points="1 1 8 8 15 1"></polyline>
+                                        </g>
+                                    </svg>
+                                    </div>
+                                </span>
                                 <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
                                     <li>
                                         <a href="javascript:void(0)" class="c-opsdropdown__list">
@@ -91,7 +91,7 @@
                         </a>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> -->
                         </div>
                         <!-- action end -->
                     </div>
@@ -152,14 +152,14 @@
                         <div class="o-bio-info__edit-actions m-t-24">
                             <button type="button" class="btn btn-primary btn-sm float-right" (click)="updateAbout('dob')">Save</button>
                             <button type="button" class="btn btn-default btn-sm float-right m-l-r-8" (click)="cancelEdit()">Cancel</button>
-                            <div class="dropdown float-right m-r-8">
+                            <!-- <div class="dropdown float-right m-r-8">
                                 <span class="com-head" data-toggle="dropdown" aria-expanded="false">
                         <div class="o-bio-edit__ico">
                             <img [src]="imageBaseUrl + 'img/svg/ico_web.svg'">
                         </div>
                         <div class="o-bio-edit__ico-arrow">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
-                                <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+                                
                                 <title>Path 2 Copy</title>
                                 <desc>Created with Sketch.</desc>
                                 <defs></defs>
@@ -183,7 +183,7 @@
                             </a>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> -->
                         </div>
                         <!-- action end -->
                     </div>
@@ -192,7 +192,7 @@
 
                 <div class="o-bio-info-block m-b-8">
                     <h6 class="c-text_md">Height</h6>
-                    <div id="o-bio-info__height" class="o-bio-info__value c-text_sm color-grey-dark" *ngIf="editingField != 'height'">
+                    <div id="o-bio-info__height" class="o-bio-info__value c-text_sm color-grey-dark" *ngIf="editingField != 'height' && userProfile?.physical?.height !== 0">
                         {{ userProfile?.physical?.height.toFixed(2) }}
                     </div>
                     <ng-container *ngIf="ownProfile">
@@ -219,14 +219,14 @@
                         <div class="o-bio-info__edit-actions m-t-24">
                             <button type="button" class="btn btn-primary btn-sm float-right" (click)="updateAbout('height')">Save</button>
                             <button type="button" class="btn btn-default btn-sm float-right m-l-r-8" (click)="cancelEdit()">Cancel</button>
-                            <div class="dropdown float-right m-r-8">
+                            <!-- <div class="dropdown float-right m-r-8">
                                 <span class="com-head" data-toggle="dropdown" aria-expanded="false">
                                     <div class="o-bio-edit__ico">
                                     <img [src]="imageBaseUrl + 'img/svg/ico_web.svg'">
                                     </div>
                                     <div class="o-bio-edit__ico-arrow">
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
-                                        <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+                            
                                         <title>Path 2 Copy</title>
                                         <desc>Created with Sketch.</desc>
                                         <defs></defs>
@@ -250,7 +250,7 @@
                                         </a>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> -->
                         </div>
                         <!-- action end -->
                     </div>
@@ -259,8 +259,8 @@
 
                 <div class="o-bio-info-block m-b-8">
                     <h6 class="c-text_md">Weight</h6>
-                    <div id="o-bio-info__weight" class="o-bio-info__value c-text_sm color-grey-dark" *ngIf="editingField != 'weight'">
-                        {{ userProfile?.physical?.weight }}
+                    <div id="o-bio-info__weight" class="o-bio-info__value c-text_sm color-grey-dark" *ngIf="editingField != 'weight' && userProfile?.physical?.weight !== 0">
+                        {{ userProfile?.physical?.weight.toFixed(2) }}
                     </div>
                     <ng-container *ngIf="ownProfile">
                         <span class="o-bio-info__edit-ico" *ngIf="userProfile?.physical?.weight !== 0 || userProfile?.physical?.weight" (click)="editField('weight')">
@@ -284,14 +284,14 @@
                         <div class="o-bio-info__edit-actions m-t-24">
                             <button type="button" class="btn btn-primary btn-sm float-right" (click)="updateAbout('weight')">Save</button>
                             <button type="button" class="btn btn-default btn-sm float-right m-l-r-8" (click)="cancelEdit()">Cancel</button>
-                            <div class="dropdown float-right m-r-8">
+                            <!-- <div class="dropdown float-right m-r-8">
                                 <span class="com-head" data-toggle="dropdown" aria-expanded="false">
                         <div class="o-bio-edit__ico">
                         <img [src]="imageBaseUrl + 'img/svg/ico_web.svg'">
                         </div>
                         <div class="o-bio-edit__ico-arrow">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
-                            <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+                            
                             <title>Path 2 Copy</title>
                             <desc>Created with Sketch.</desc>
                             <defs></defs>
@@ -315,7 +315,7 @@
                         </a>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> -->
                         </div>
                         <!-- action end -->
                     </div>
@@ -346,14 +346,14 @@
                         <div class="o-bio-info__edit-actions m-t-24">
                             <button type="button" class="btn btn-primary btn-sm float-right" (click)="updateAbout('language')">Save</button>
                             <button type="button" class="btn btn-default btn-sm float-right m-l-r-8" (click)="cancelEdit()">Cancel</button>
-                            <div class="dropdown float-right m-r-8">
+                            <!-- <div class="dropdown float-right m-r-8">
                                 <span class="com-head" data-toggle="dropdown" aria-expanded="false">
                                     <div class="o-bio-edit__ico">
                                     <img [src]="imageBaseUrl + 'img/svg/ico_web.svg'">
                                     </div>
                                     <div class="o-bio-edit__ico-arrow">
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
-                                        <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+                                        
                                         <title>Path 2 Copy</title>
                                         <desc>Created with Sketch.</desc>
                                         <defs></defs>
@@ -377,7 +377,7 @@
                                         </a>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> -->
                         </div>
                         <!-- action end -->
                     </div>
@@ -430,14 +430,14 @@
                         <div class="o-bio-info__edit-actions m-t-24">
                             <button type="button" class="btn btn-primary btn-sm float-right" (click)="updateAbout('address')">Save</button>
                             <button type="button" class="btn btn-default btn-sm float-right m-l-r-8" (click)="cancelEdit()">Cancel</button>
-                            <div class="dropdown float-right m-r-8">
+                            <!-- <div class="dropdown float-right m-r-8">
                                 <span class="com-head" data-toggle="dropdown" aria-expanded="false">
                                     <div class="o-bio-edit__ico">
                                         <img [src]="imageBaseUrl + 'img/svg/ico_web.svg'">
                                     </div>
                                     <div class="o-bio-edit__ico-arrow">
                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
-                                            <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+                                            
                                             <title>Path 2 Copy</title>
                                             <desc>Created with Sketch.</desc>
                                             <defs></defs>
@@ -461,7 +461,7 @@
                                         </a>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> -->
                         </div>
                         <!-- action end -->
                     </div>
@@ -493,14 +493,14 @@
                             <button type="button" class="btn btn-primary btn-sm float-right" (click)="updateAbout('ethnicity')"> Save</button>
                             <button type="button" class="btn btn-default btn-sm float-right m-l-r-8" (click)="cancelEdit()">Cancel</button>
 
-                            <div class="dropdown float-right m-r-8">   
+                            <!-- <div class="dropdown float-right m-r-8">   
                             <span class="com-head" data-toggle="dropdown" aria-expanded="false">
                                 <div class="o-bio-edit__ico">
                                 <img [src]="imageBaseUrl + 'img/svg/ico_web.svg'">
                                 </div>
                                 <div class="o-bio-edit__ico-arrow">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
-                                    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+                                    
                                     <title>Path 2 Copy</title>
                                     <desc>Created with Sketch.</desc>
                                     <defs></defs>
@@ -524,7 +524,7 @@
                                 </a>
                                 </li>
                             </ul>
-                            </div>
+                            </div> -->
                         </div><!-- action end -->
                     </div>
                 </div>

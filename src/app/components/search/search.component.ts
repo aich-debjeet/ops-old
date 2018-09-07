@@ -40,6 +40,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   searchState: any;
   searchString = '';
   routeSub: any;
+  ownerHandle = '';
 
   searchFilters: any;
 
@@ -77,6 +78,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     private profileStore: Store<ProfileModal>,
     @Inject(DOCUMENT) private document: Document
   ) {
+    this.ownerHandle = localStorage.getItem('loggedInProfileHandle');
 
     // init global filters
     this.resetFilters();

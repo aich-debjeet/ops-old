@@ -38,6 +38,7 @@ export class ChannelComponent implements OnInit, OnDestroy {
   userProfile = initialTag;
   userHandle: any;
   image_base_url: string = environment.API_IMAGE;
+  ownerHandle = '';
 
   constructor(
     private _store: Store<ProfileModal>
@@ -50,6 +51,7 @@ export class ChannelComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.ownerHandle = localStorage.getItem('loggedInProfileHandle');
     if (this.channelData) {
       this.isfollowing = this.channelData.isFollowing || false;
       this.showEdit = false;
@@ -75,7 +77,6 @@ export class ChannelComponent implements OnInit, OnDestroy {
   toggleFollowBtn(event) {
     const followState = this.isfollowing;
     this.isfollowing = !followState;
-
     const req = { channel: this.channelData, state: !followState }
     this.onFollow.emit(req);
   }
@@ -96,36 +97,29 @@ export class ChannelComponent implements OnInit, OnDestroy {
     this.showEdit = !this.showEdit;
   }
 
-  pinChannel(spotfeedId) {
-    if (this.ispin === false) {
-      this.ispin = true;
-      const data = {
-        spotfeedId: spotfeedId,
-        profileHandle: this.userHandle
-      }
-      this._store.dispatch({ type: ProfileActions.PIN_CHANNEL, payload: data });
-    } else {
-      this.ispin = false;
-      const data = {
-        spotfeedId: spotfeedId,
-        profileHandle: this.userHandle
-      }
-      this._store.dispatch({ type: ProfileActions.UNPIN_CHANNEL, payload: data });
-    }
-  }
+  // pinChannel(spotfeedId) {
+  //   if (this.ispin === false) {
+  //     this.ispin = true;
+  //     const data = {
+  //       spotfeedId: spotfeedId,
+  //       profileHandle: this.userHandle
+  //     }
+  //     this._store.dispatch({ type: ProfileActions.PIN_CHANNEL, payload: data });
+  //   } else {
+  //     this.ispin = false;
+  //     const data = {
+  //       spotfeedId: spotfeedId,
+  //       profileHandle: this.userHandle
+  //     }
+  //     this._store.dispatch({ type: ProfileActions.UNPIN_CHANNEL, payload: data });
+  //   }
+  // }
 
   /**
    * Delete a Channel
    */
   deleteChannel(channelId: string) {
     this.onDelete.emit(channelId);
-  }
-
-  disableFollowForSelf(handle: string) {
-    if (this.userProfile && (this.userProfile['profile_navigation_details']['handle']) === handle) {
-      return true;
-    }
-    return false;
   }
 
 }
