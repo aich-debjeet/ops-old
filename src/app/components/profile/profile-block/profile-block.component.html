@@ -65,7 +65,8 @@
             </div>
           </ng-container>
           <p class="text-center p-t-b-16" *ngIf="eventList && eventList.length > 2">
-            <a routerLink="/event" class="c-text_md color-theme">See All</a>
+            <a [routerLink]="['/event']" class="c-text_md color-theme" *ngIf="!isCurrentUser">See All</a>
+            <a [routerLink]="['/event']" [queryParams]="{ status: 'created' }" class="c-text_md color-theme" *ngIf="isCurrentUser">See All</a>
           </p>
         </div>
       </div>

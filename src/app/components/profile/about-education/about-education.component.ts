@@ -130,6 +130,7 @@ export class AboutEducationComponent implements OnInit {
    */
   deleteCurrentEducation(id) {
     this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_EDUCATION, payload: id});
+    this.toastr.success('Your education has been deleted successfully!');
   }
 
   /**

@@ -110,20 +110,27 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
         // Defaults to 0 if no query param provided.
         if (params['status']) {
           this.filterStatus = params['status'];
-          this.filterEventType = '';
-          this.filterStartDate = '';
-          this.filterLocation = '';
-          this.filterEndDate = '';
-          this.dayStatus = '';
+          // this.filterEventType = '';
+          // this.filterStartDate = '';
+          // this.filterLocation = '';
+          // this.filterEndDate = '';
+          // this.dayStatus = '';
+          window.scrollTo(0,0);
+          this.scrollingLoad = 800;
         }
         if (!params['status']) {
           this.filterStatus = 'recommended';
-          this.filterEventType = '';
-          this.filterLocation = '';
-          this.filterStartDate = '';
-          this.filterEndDate = '';
-          this.dayStatus = '';
+          // this.filterEventType = '';
+          // this.filterLocation = '';
+          // this.filterStartDate = '';
+          // this.filterEndDate = '';
+          // this.dayStatus = '';
         }
+        this.filterEventType = '';
+        this.filterStartDate = '';
+        this.filterLocation = '';
+        this.filterEndDate = '';
+        this.dayStatus = '';
         this.serachApi();
       });
 
@@ -426,7 +433,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
     this.serachApi();
   }
   onScroll(e) {
-    // console.log(e)
+     console.log(e)
     this.scrolling = e.currentScrollPosition;
     // console.log(this.scrolling)
     if (this.scrollingLoad <= this.scrolling) {

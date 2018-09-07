@@ -138,6 +138,7 @@ export class AboutAwardsComponent implements OnInit, OnDestroy {
    */
   deleteCurrentAward(id) {
     this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_WORK, payload: id});
+    this.toastr.success('Your award has been deleted successfully!');
   }
 
   /**

@@ -82,8 +82,8 @@
               <p class="error_alert" *ngIf="orgReg.controls['org_industry_type'].errors?.required && orgForm.submitted">Type of industry is required</p>
             </div>
             <div class="c-form__group margin_b_32">
-              <!-- <input class="c-form__input" required="" type="text" formControlName="org_service"> -->
-              <tag-input [(ngModel)]='org_service' formControlName="org_service" [placeholder]="'Add Services'"></tag-input>
+              <input class="c-form__input" required="" type="text" formControlName="org_service" [placeholder]="'Add Services'">
+              <!-- <tag-input formControlName="org_service" [placeholder]="'Add Services'"></tag-input> -->
               <span class="c-form__highlight"></span>
               <span class="c-form__bar"></span>
               <!-- <label>Add your skills</label> -->

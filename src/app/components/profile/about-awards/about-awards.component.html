@@ -76,14 +76,14 @@
                                             <span class="form_highlight"></span>
                                             <span class="form_bar"></span>
                                             <label>Award</label>
-                                            <p class="error_alert" *ngIf="awardForm.controls['award'].errors?.required && myform.submitted">Award is required</p>
+                                            <p class="error_alert" *ngIf="awardForm.controls['award'].errors?.required && awardForm.controls['award']?.touched">Award is required</p>
                                         </div>
                                         <div class="form_group">
                                             <input class="form_input" maxlength="40" type="text" formControlName="organization" required>
                                             <span class="form_highlight"></span>
                                             <span class="form_bar"></span>
                                             <label>Organization</label>
-                                            <p class="error_alert" *ngIf="awardForm.controls['organization'].errors?.required && myform.submitted">Organization is required</p>
+                                            <p class="error_alert" *ngIf="awardForm.controls['organization'].errors?.required && awardForm.controls['organization']?.touched">Organization is required</p>
                                         </div>
                                         <div class="add_workplace_time_period">
                                             <h4>Time Period</h4>
@@ -92,7 +92,7 @@
                                                 <span class="form_highlight"></span>
                                                 <span class="form_bar"></span>
                                                 <label>Date of Award (DD-MM-YYYY)</label>
-                                                <p class="error_alert" *ngIf="awardForm.controls['timeperiod'].errors?.required && myform.submitted">Date of Award is required</p>
+                                                <p class="error_alert" *ngIf="awardForm.controls['timeperiod'].errors?.required && awardForm.controls['timeperiod']?.touched">Date of Award is required</p>
                                                 <p class="error_alert" *ngIf="awardForm.controls['timeperiod'].errors?.invalidWorkDate">Invalid Date</p>
                                             </div>
                                         </div>
