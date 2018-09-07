@@ -70,6 +70,7 @@ export const ExploreReducer: ActionReducer<any> = (state, {payload, type}: Actio
           }
           if (state['exploreDataParams']['entityType'] === 'channel') {
             updatedExploreData.channelResponse = [...state['exploreData']['channelResponse'], ...payload['SUCCESS']['channelResponse']];
+            updatedExploreData.channelResponse = _uniqBy(updatedExploreData.channelResponse, 'spotfeedId');
           }
           if (state['exploreDataParams']['entityType'] === 'profile') {
             updatedExploreData.profileResponse = [...state['exploreData']['profileResponse'], ...payload['SUCCESS']['profileResponse']];
@@ -79,6 +80,9 @@ export const ExploreReducer: ActionReducer<any> = (state, {payload, type}: Actio
           updatedExploreData = payload['SUCCESS'];
           if (updatedExploreData.profileResponse) {
             updatedExploreData.profileResponse = _uniqBy(updatedExploreData.profileResponse, 'handle');
+          }
+          if (updatedExploreData.channelResponse) {
+            updatedExploreData.channelResponse = _uniqBy(updatedExploreData.channelResponse, 'spotfeedId');
           }
         }
         return Object.assign({}, state, {
