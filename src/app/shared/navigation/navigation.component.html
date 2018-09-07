@@ -166,7 +166,7 @@
           <li routerLinkActive="active"><a routerLink="/home">Home</a></li>
           <li routerLinkActive="active"><a routerLink="/explore">Explore</a></li>
           <li routerLinkActive="active"><a [routerLink]="['/opportunity/search']" [queryParams]="{q:'', type:'recommended'}">Opportunity</a></li>
-          <li routerLinkActive="active"><a routerLink="/event">Event</a></li>
+          <li routerLinkActive="active"><a [routerLink]="['/event']" [queryParams]="{ status: 'recommended', stat: '' }">Event</a></li>
           <!-- <li routerLinkActive="active"><a routerLink="/learn">Learn</a></li>
                     <li routerLinkActive="active"><a routerLink="/resources">Resource</a></li> -->
           <li routerLinkActive="active"><a routerLink="/communities">Community</a></li>

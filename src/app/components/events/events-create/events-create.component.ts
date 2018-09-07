@@ -462,8 +462,9 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
           return;
         }
 
+        const string = place.formatted_address.split(',');
         // set latitude, longitude and zoom
-        this.address = place.name + ', '+place.formatted_address;
+        this.address = (place.name === string[0]) ? place.formatted_address : place.name + ', '+place.formatted_address;
         this.latitude = place.geometry.location.lat();
         this.longitude = place.geometry.location.lng();
         this.zoom = 12;
