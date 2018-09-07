@@ -56,7 +56,7 @@
     font-weight: 600;
     letter-spacing: 1px;
     line-height: 18px;
-    color: #808080;
+    color: #929292;
     margin: 16px 0;
     text-transform: uppercase;
     @include mq($from: $mobile_sm, $until: $tablet) {
@@ -85,7 +85,7 @@
 }
 
 .o-eventinner__date {
-    color: #808080;
+    color: #929292;
     font-size: 13px;
     line-height: 20px;
     display: inline;
@@ -251,3 +251,5 @@ a {
     padding: 0px !important;
     margin-top: 50px;
 }
+
+
