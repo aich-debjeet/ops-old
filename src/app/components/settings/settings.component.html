@@ -98,7 +98,7 @@
                                                     <p class="error_alert" *ngIf="isOverAge">You should be below 100</p>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2 p-0">
+                                            <!-- <div class="col-md-2 p-0">
                                                 <div class="dropdown margin_l_16">   
                                                     <span class="com-head" data-toggle="dropdown" aria-expanded="true">
                                                         <div class="o-action__ico">
@@ -128,7 +128,7 @@
                                                         </li>
                                                     </ul>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="col-md-6 p-0">
                                                 <div class="o-set-list-edit__actions">
                                                     <button type="button" class="btn btn-primary btn-sm" (click)="updateAbout('dob')">Save</button>
@@ -746,8 +746,8 @@
                             <div class="form_group o-otp_form">
                                 <input #otpNum6 (keydown)="nextOtpNum($event, 6)" class="form_input" type="text" maxlength="1" formControlName="otpNum6">
                             </div>
-                            <p class="error_alert text-center" *ngIf="petTag?.user_otp_failed">Invalid OTP</p>
-                            <p class="error_alert text-center" *ngIf="myform.submitted && (otpForm.controls['otpNum1'].errors?.required || otpForm.controls['otpNum2'].errors?.required || otpForm.controls['otpNum3'].errors?.required || otpForm.controls['otpNum4'].errors?.required || otpForm.controls['otpNum5'].errors?.required || otpForm.controls['otpNum6'].errors?.required)">Please enter your 6 digit OTP number</p>
+                            <p class="c-form__validation text-center" *ngIf="petTag?.user_otp_failed">Invalid OTP</p>
+                            <p class="c-form__validation text-center" *ngIf="myform.submitted && (otpForm.controls['otpNum1'].errors?.required || otpForm.controls['otpNum2'].errors?.required || otpForm.controls['otpNum3'].errors?.required || otpForm.controls['otpNum4'].errors?.required || otpForm.controls['otpNum5'].errors?.required || otpForm.controls['otpNum6'].errors?.required)">Please enter your 6 digit OTP number</p>
                             <!-- <div class="text-center otp-dont-get" *ngIf="!claimActive">
                                 <a (click)="otpNotRecieved()" class="color-theme">Didn't get your OTP?</a>
                             </div> -->

@@ -106,8 +106,18 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
   // Rich Text editor toolbar
   defaultModules = {
     toolbar: [
-      ['bold', 'underline'],
-      ['link']
+      ['bold', 'italic', 'underline'],
+      ['link'],
+      // [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      // [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+      [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+  
+      [{ 'color': [] }],          // dropdown with defaults from theme
+      // [{ 'font': [] }],
+      [{ 'align': [] }],
+      ['clean'],                                         // remove formatting button
     ]
   };
 
@@ -206,7 +216,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
 
   openModel(){
     if(this.eventCoverImage === ''){
-      this.croppedImage = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
+      this.croppedImage = 'https://ops-v2.netlify.com/assets/demo/photography1.jpg';
     }
     this.imageUpload.open();
   }
@@ -347,7 +357,8 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
     const endData = control.value.split('-').reverse().join('-');
     const startSelect = moment(startDate).format('YYYYMMDD');
     const endSelect = moment(endData).format('YYYYMMDD');
-    if (endSelect < startSelect) {
+    if (endSelect < startSelect && !isNaN(Number(startSelect))) {
+      console.log('error')
       return { ticketendDateLess: true };
     }
     return null;
@@ -451,8 +462,9 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
           return;
         }
 
+        const string = place.formatted_address.split(',');
         // set latitude, longitude and zoom
-        this.address = place.name + ', '+place.formatted_address;
+        this.address = (place.name === string[0]) ? place.formatted_address : place.name + ', '+place.formatted_address;
         this.latitude = place.geometry.location.lat();
         this.longitude = place.geometry.location.lng();
         this.zoom = 12;

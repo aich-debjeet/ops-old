@@ -33,7 +33,7 @@ export class OrganizationRegComponent implements OnInit {
   tagState$: Observable<Follow>;
   skillSelectionPage: any;
   imageBaseLink: string = environment.API_IMAGE;
-  org_service;
+  org_service: any;
 
   // Address --
   address: string;
@@ -122,7 +122,6 @@ export class OrganizationRegComponent implements OnInit {
   }
 
   submitForm(value) {
-    // console.log('form value', value);
     const industrySelected = _.find(this.industries, { code: value.org_industry_type });
     let industryObj = {};
     if (industrySelected && industrySelected.name) {
@@ -136,9 +135,8 @@ export class OrganizationRegComponent implements OnInit {
     if (!this.orgReg.valid) {
       return false;
     }
-    // const org_services = value.org_service.split(/\s*,\s*/);
-    const org_services = value.org_service.map(a => a.value);
-    // console.log('org_services', org_services)
+    const org_services = value.org_service.split(/\s*,\s*/);
+    // const org_services = value.org_service.map(a => a.value);
 
     const data = {
         industryList : [ industryObj ],
