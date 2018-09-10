@@ -283,12 +283,12 @@
 <!-- OTP change number -->
 
 <!-- Terms Modal -->
-<app-modal-new #termsPopup modalClass="reg_step1_otp modal-term-policy">
+<app-modal-new #termsPopup [closeOnEscape]="true" [closeOnOutsideClick]="true" modalClass="reg_step1_otp modal-term-policy">
     <modal-content>
-    <div class="in db" id="termsandcondition" role="dialog" (click)="termsAction('hide')">
+    <div class="in db" id="termsandcondition">
         <div class="modal-dialog modal-lg terms_and_condition">
             <!-- Modal content-->
-            <div class="modal-content modal-container p-20-px">
+            <div class="modal-content modal-container">
                 <div class="modal-header with_border_none">
                     <button type="button" class="close" data-dismiss="modal" (click)="termsAction('hide')">x</button>
                 </div>
