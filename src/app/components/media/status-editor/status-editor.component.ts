@@ -173,7 +173,9 @@ export class StatusEditorComponent implements OnInit, OnDestroy {
       this.store.select('profileTags')
       .first(media => media['community_media_success'] === true)
       .subscribe( data => {
-        this.toastr.success('Your media has been successfully posted', 'Upload');
+        this.toastr.success('Your media has been successfully posted', 'Upload', {
+          timeOut: 3000
+        });
         this.router.navigateByUrl('/communities/' + this.ct_id);
       });
       return
@@ -190,7 +192,9 @@ export class StatusEditorComponent implements OnInit, OnDestroy {
     this.store.select('mediaStore')
       .first(post => post['status_saved'] === true)
       .subscribe( data => {
-        this.toastr.success('Successfully posted your status');
+        this.toastr.success('Successfully posted your status', '', {
+          timeOut: 3000
+        });
         this.router.navigate(['/user/status/list']);
       });
   }
@@ -241,7 +245,9 @@ export class StatusEditorComponent implements OnInit, OnDestroy {
     this.profileStore.select('profileTags')
       .first(state => state['status_channel_posted'] === true)
       .subscribe( data => {
-        this.toastr.success('Your post has been successfully posted to your channel');
+        this.toastr.success('Your post has been successfully posted to your channel', '', {
+          timeOut: 3000
+        });
         this.router.navigate(['/channel/' + channelId]);
       });
   }
@@ -298,7 +304,9 @@ export class StatusEditorComponent implements OnInit, OnDestroy {
       this.saveChannel( channelObj );
 
     } else {
-      this.toastr.warning('Please fill all required fields');
+      this.toastr.warning('Please fill all required fields', '', {
+        timeOut: 3000
+      });
     }
   }
   /**
@@ -312,7 +320,9 @@ export class StatusEditorComponent implements OnInit, OnDestroy {
       .subscribe( data => {
         this.channelForm.reset();
         this.changeState(2);
-        this.toastr.success('successfully created channel', 'Success!');
+        this.toastr.success('successfully created channel', 'Success!', {
+          timeOut: 3000
+        });
         this.createChannelForm();
         setTimeout(() => {
           this.loadChannel(this.userHandle, null);

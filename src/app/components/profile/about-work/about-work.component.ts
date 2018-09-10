@@ -131,7 +131,9 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
           'access': Number(value.publicWork)
         }
         this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: body});
-        this.toastr.success('Your work has been added successfully!');
+        this.toastr.success('Your work has been added successfully!', '', {
+          timeOut: 3000
+        });
         this.modalService.close('userWorkAdd');
       }
      if (this.hideTo === true) {
@@ -144,7 +146,9 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
           'access': Number(value.publicWork)
         }
         this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: body});
-        this.toastr.success('Your work has been added successfully!');
+        this.toastr.success('Your work has been added successfully!', '', {
+          timeOut: 3000
+        });
         this.modalService.close('userWorkAdd');
       }
       } else {
@@ -160,7 +164,9 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
         }
 
         this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_WORK, payload: body});
-        this.toastr.success('Your work has been updated successfully!');
+        this.toastr.success('Your work has been updated successfully!', '', {
+          timeOut: 3000
+        });
         this.modalService.close('userWorkAdd');
       }
       this.workForm.reset();
@@ -173,7 +179,9 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
    */
   deleteCurrentWork(id) {
     this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_WORK, payload: id});
-    this.toastr.success('Your work has been deleted successfully!');
+    this.toastr.success('Your work has been deleted successfully!', '', {
+      timeOut: 3000
+    });
   }
 
   /**

@@ -188,7 +188,9 @@ export class OpportunityJobComponent implements OnInit, OnDestroy {
   submitJobForm(formData: any) {
     // job form validation
     if (!this.jobFrm.valid) {
-      this.toastr.warning('Please check for errors in the form.');
+      this.toastr.warning('Please check for errors in the form.', '', {
+        timeOut: 3000
+      });
       this.scrollHelper.scrollToFirst('error');
       return;
     }

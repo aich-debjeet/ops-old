@@ -188,7 +188,9 @@ export class OpportunityInternshipComponent implements OnInit, OnDestroy {
   submitInternshipForm(formData: any) {
     // internship form validation
     if (!this.internshipFrm.valid) {
-      this.toastr.warning('Please check for errors in the form.');
+      this.toastr.warning('Please check for errors in the form.', '', {
+        timeOut: 3000
+      });
       this.scrollHelper.scrollToFirst('error');
       return;
     }

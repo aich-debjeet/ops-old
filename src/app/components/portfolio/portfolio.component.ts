@@ -145,7 +145,9 @@ export class PortfolioComponent implements OnInit, OnDestroy {
           this.selectTab(this.portCategories[catIndx]);
           // reset add media
           this.resetAddMedia();
-          this.toastr.success('Media added to the category successfully!');
+          this.toastr.success('Media added to the category successfully!', '', {
+            timeOut: 3000
+          });
         }
       }
     });
@@ -386,7 +388,9 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     this.profileStore.dispatch({ type: ProfileActions.PORTFOLIO_PUBLISH_ACTION, payload: pubAction });
     setTimeout(() => {
       this.disablePublishButton = false;
-      this.toastr.success('Portfolio has been ' + pubAction + 'ed successfully!');
+      this.toastr.success('Portfolio has been ' + pubAction + 'ed successfully!', '', {
+        timeOut: 3000
+      });
     }, 500);
   }
 

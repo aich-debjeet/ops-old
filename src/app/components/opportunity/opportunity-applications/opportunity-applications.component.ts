@@ -76,7 +76,9 @@ export class OpportunityApplicationsComponent implements OnInit, OnDestroy {
         payload: data.applicationInfo
       });
       setTimeout(() => {
-        this.toastr.success('Appication removed successfully');
+        this.toastr.success('Appication removed successfully', '', {
+          timeOut: 3000
+        });
       }, 1000);
     } else if (data.action === 'reachout') {
       const userDetails = {

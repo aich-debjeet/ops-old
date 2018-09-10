@@ -78,7 +78,9 @@ export class OpportunityVolunteerComponent implements OnInit, OnDestroy {
   submitVolunteerForm(formData: any) {
     // volunteer form validation
     if (!this.volunteerFrm.valid) {
-      this.toastr.warning('Please check for errors in the form.');
+      this.toastr.warning('Please check for errors in the form.', '', {
+        timeOut: 3000
+      });
       this.scrollHelper.scrollToFirst('error');
       return;
     }

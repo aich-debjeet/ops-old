@@ -185,7 +185,9 @@ export class OrgCoverComponent implements OnInit {
       .first(profile => profile['current_user_profile_loading'] === true )
       .subscribe( data => {
         this._location.back();
-        this.toastr.success('Organization cover image updated');
+        this.toastr.success('Organization cover image updated', '', {
+          timeOut: 3000
+        });
       });
   }
 

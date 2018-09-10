@@ -154,7 +154,9 @@ export class ProfileChannelComponent implements OnInit, OnDestroy {
   deleteChannel(channelId: string) {
     this._store.dispatch({ type: ProfileActions.CHANNEL_DELETE, payload: channelId });
     this.removeChannel(channelId);
-    this.toastr.warning('Channel Deleted');
+    this.toastr.warning('Channel Deleted', '', {
+      timeOut: 3000
+    });
   }
 
   /**

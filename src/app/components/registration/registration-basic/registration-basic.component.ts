@@ -404,7 +404,9 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
         this.otpOpenOnce = false;
       }
       if (resp['ERROR']) {
-        this.toastr.warning(resp['ERROR']);
+        this.toastr.warning(resp['ERROR'], '', {
+          timeOut: 3000
+        });
         this.uploadingFormData = false;
       }
       return;
@@ -427,7 +429,9 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
         this.otpPopup.open();
       }
       if (resp['ERROR']) {
-        this.toastr.warning(resp['ERROR']);
+        this.toastr.warning(resp['ERROR'], '', {
+          timeOut: 3000
+        });
         this.uploadingFormData = false;
       }
       return;

@@ -192,7 +192,9 @@ export class OpportunityAuditionComponent implements OnInit, OnDestroy {
   submitAuditionForm(formData: any) {
     // audition form validation
     if (!this.auditionFrm.valid) {
-      this.toastr.warning('Please check for errors in the form.');
+      this.toastr.warning('Please check for errors in the form.', '', {
+        timeOut: 3000
+      });
       this.scrollHelper.scrollToFirst('error');
       return;
     }
