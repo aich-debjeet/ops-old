@@ -139,9 +139,12 @@
 }
 
 .modal-term-policy{
-    width: 100%;
+    width: 900px;
     margin: 30px auto;
     position: relative;
+    .modal-lg {
+        width: 100%;
+    }
 }
 
 .reg_step1_otp {
