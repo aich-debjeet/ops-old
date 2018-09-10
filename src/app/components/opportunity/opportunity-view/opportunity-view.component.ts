@@ -102,7 +102,9 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
         }
         // delete listener
         if (state['delete_opp_requested'] === false && state['delete_opp_success'] === true) {
-          this.toastr.success('Opporunity deleted successfully!');
+          this.toastr.success('Opporunity deleted successfully!', '', {
+            timeOut: 3000
+          });
           setTimeout(() => {
             this.router.navigateByUrl('/opportunity');
           }, 2000);
@@ -166,7 +168,9 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
         .first(state => state['applying_for_an_opportunity'] === false && state['apply_for_an_opportunity_success'] === true)
         .subscribe(() => {
           this.userActionLoading = false;
-          this.toastr.success('Successfully applied for the opportunity!', 'Success!');
+          this.toastr.success('Successfully applied for the opportunity!', 'Success!', {
+            timeOut: 3000
+          });
         });
     } else if (action === 'cancel') {
       this.cancelApplicationModal.open();
@@ -205,7 +209,9 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
         .subscribe(() => {
           this.hasApplied = false;
           this.userActionLoading = false;
-          this.toastr.success('Application cancelled!', 'Success!');
+          this.toastr.success('Application cancelled!', 'Success!', {
+            timeOut: 3000
+          });
         });
     }
   }

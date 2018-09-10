@@ -187,11 +187,15 @@ export class EditChannelComponent implements OnInit, OnDestroy {
         .first(channel => channel['channel_updated'] === true)
         .subscribe(data => {
           this.channelUpdateModal.close();
-          this.toastr.success('Successfully updated channel', 'Success!');
+          this.toastr.success('Successfully updated channel', 'Success!', {
+            timeOut: 3000
+          });
           return;
         });
     } else {
-      this.toastr.warning('Please fill all required fields');
+      this.toastr.warning('Please fill all required fields', '', {
+        timeOut: 3000
+      });
     }
   }
 

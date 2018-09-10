@@ -113,7 +113,9 @@ export class AboutAwardsComponent implements OnInit, OnDestroy {
           'access': 0
         }
         this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: body});
-        this.toastr.success('New award has been added successfully!');
+        this.toastr.success('New award has been added successfully!', '', {
+          timeOut: 3000
+        });
         this.modalService.close('addAwardPopup');
         this.resetForm();
       } else {
@@ -126,7 +128,9 @@ export class AboutAwardsComponent implements OnInit, OnDestroy {
           'id': value.id,
         }
         this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_WORK, payload: body});
-        this.toastr.success('Your award has been updated successfully!');
+        this.toastr.success('Your award has been updated successfully!', '', {
+          timeOut: 3000
+        });
         this.modalService.close('addAwardPopup');
         this.resetForm();
       }
@@ -138,7 +142,9 @@ export class AboutAwardsComponent implements OnInit, OnDestroy {
    */
   deleteCurrentAward(id) {
     this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_WORK, payload: id});
-    this.toastr.success('Your award has been deleted successfully!');
+    this.toastr.success('Your award has been deleted successfully!', '', {
+      timeOut: 3000
+    });
   }
 
   /**

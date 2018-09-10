@@ -82,7 +82,9 @@ export class MediaViewComponent implements OnDestroy {
 
       if (state['media_edit_msg'] && this.editMsg) {
        this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
-       this.toastr.success('Post Edited');
+       this.toastr.success('Post Edited', '', {
+        timeOut: 2000
+      });
        this.doClose();
        this.editMsg = false;
      }
@@ -92,7 +94,9 @@ export class MediaViewComponent implements OnDestroy {
       this.commentCount = this.mediaStore.media_detail.commentsCount;
       if (state['media_delete_msg'] && this.deleteMsg) {
         this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
-        this.toastr.warning('Post Deleted');
+        this.toastr.warning('Post Deleted', '', {
+          timeOut: 2000
+        });
         this.doClose();
         this.deleteMsg = false;
       }

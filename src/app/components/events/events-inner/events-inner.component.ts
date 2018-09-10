@@ -96,7 +96,9 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
         // this.router.navigateByUrl('/event');
         // this._location.back();
         this.router.navigate(['/event'], { queryParams: { status: 'created' } });
-        this.toastr.success('The Event has been deleted successfully');
+        this.toastr.success('The Event has been deleted successfully', '', {
+          timeOut: 3000
+        });
       });
   }
   loadDetail() {

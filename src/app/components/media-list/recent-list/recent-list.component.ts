@@ -50,7 +50,9 @@ export class RecentListComponent implements OnInit {
           if (!this.deleteMsg) {
             // console.log('delete masg')
             this.getMedia();
-            this.toastr.warning('Post Deleted');
+            this.toastr.warning('Post Deleted', '', {
+              timeOut: 2000
+            });
           }
           this.deleteMsg = true;
         }

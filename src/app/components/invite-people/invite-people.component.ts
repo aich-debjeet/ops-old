@@ -69,7 +69,9 @@ export class InvitePeopleComponent implements OnInit, OnDestroy {
             .first(resp => resp['send_invite_success'] === true)
             .subscribe(() => {
               this.disableSubmit = false;
-              this.toastr.success('Invitation sent successfully', 'Success!');
+              this.toastr.success('Invitation sent successfully', 'Success!', {
+                timeOut: 3000
+              });
               this.buildForm();
               return;
             });

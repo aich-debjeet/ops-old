@@ -449,7 +449,9 @@ export class MediaSelectorComponent implements OnInit {
     this.chosenChannel = 1;
 
     if (!this.desc) {
-      this.toastr.error('Please add relevant descriptions or tags', 'Missing Description');
+      this.toastr.error('Please add relevant descriptions or tags', 'Missing Description', {
+        timeOut: 3000
+      });
       isReady = false;
       this.changeState(1);
       return
@@ -492,7 +494,9 @@ export class MediaSelectorComponent implements OnInit {
         this._store.select('profileTags')
         .first(media => media['community_media_success'] === true)
         .subscribe( data => {
-          this.toastr.success('Your media has been successfully posted', 'Upload');
+          this.toastr.success('Your media has been successfully posted', 'Upload', {
+            timeOut: 3000
+          });
           this.router.navigateByUrl('/communities/' + this.ct_id);
         });
       }
@@ -515,14 +519,18 @@ export class MediaSelectorComponent implements OnInit {
 
     if (this.chosenChannel === 0 ) {
       isChannelReady = false;
-      this.toastr.error('You need to select a channel', 'Not ready yet');
+      this.toastr.error('You need to select a channel', 'Not ready yet', {
+        timeOut: 3000
+      });
     } else {
       isChannelReady = true;
     }
 
     if (chosenFile.fileName === undefined) {
       isFileReady = false;
-      // this.toastr.error('You need to select a file to post', 'Not ready yet');
+      // this.toastr.error('You need to select a file to post', 'Not ready yet', {
+      //   timeOut: 3000
+      // });
     } else {
       isFileReady = true;
     }
@@ -555,7 +563,9 @@ export class MediaSelectorComponent implements OnInit {
     this._store.select('profileTags')
       .first(media => media['media_channel_posted'] === true)
       .subscribe( data => {
-        this.toastr.success('Your media has been successfully posted to your channel', 'Upload');
+        this.toastr.success('Your media has been successfully posted to your channel', 'Upload', {
+          timeOut: 3000
+        });
         this.router.navigate(['/channel/' + channelId]);
       });
   }
@@ -580,7 +590,9 @@ export class MediaSelectorComponent implements OnInit {
       this.saveChannel( channelObj );
 
     } else {
-      this.toastr.warning('Please fill all required fields');
+      this.toastr.warning('Please fill all required fields', '', {
+        timeOut: 3000
+      });
     }
   }
 
@@ -621,7 +633,9 @@ export class MediaSelectorComponent implements OnInit {
       .subscribe( data => {
         this.channelForm.reset();
         this.changeState(2);
-        this.toastr.success('successfully created channel', 'Success!');
+        this.toastr.success('successfully created channel', 'Success!', {
+          timeOut: 3000
+        });
         this.createChannelForm();
         setTimeout(() => {
           this.loadChannel(this.handle, null);
@@ -890,7 +904,9 @@ export class MediaSelectorComponent implements OnInit {
     }
 
     if (!this.desc) {
-      this.toastr.error('Please add relevant descriptions or tags', 'Missing Description');
+      this.toastr.error('Please add relevant descriptions or tags', 'Missing Description', {
+        timeOut: 3000
+      });
     } else {
       this.changeState(2);
     }

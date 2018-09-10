@@ -113,7 +113,9 @@ export class OpportunityFreelanceComponent implements OnInit, OnDestroy {
   submitFreelanceForm(formData: any) {
     // freelance form validation
     if (!this.freelanceFrm.valid) {
-      this.toastr.warning('Please check for errors in the form.');
+      this.toastr.warning('Please check for errors in the form.', '', {
+        timeOut: 3000
+      });
       this.scrollHelper.scrollToFirst('error');
       return;
     }

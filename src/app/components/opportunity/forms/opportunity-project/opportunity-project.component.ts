@@ -76,7 +76,9 @@ export class OpportunityProjectComponent implements OnInit, OnDestroy {
   submitProjectForm(formData: any) {
     // project form validation
     if (!this.projectFrm.valid) {
-      this.toastr.warning('Please check for errors in the form.');
+      this.toastr.warning('Please check for errors in the form.', '', {
+        timeOut: 3000
+      });
       this.scrollHelper.scrollToFirst('error');
       return;
     }

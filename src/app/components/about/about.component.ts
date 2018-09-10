@@ -62,12 +62,16 @@ export class AboutComponent implements OnInit, OnDestroy {
       this.store.select('loginTags')
       .first(contact => contact['contact_send_success'] === true)
       .subscribe( datas => {
-        this.toastr.success('successfully Send', 'Success!');
+        this.toastr.success('successfully Send', 'Success!', {
+          timeOut: 3000
+        });
         this.buildForm();
         return
       });
     } else {
-      this.toastr.warning('Please fill all required fields');
+      this.toastr.warning('Please fill all required fields', '', {
+        timeOut: 3000
+      });
     }
   }
 
