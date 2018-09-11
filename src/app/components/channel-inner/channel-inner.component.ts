@@ -87,15 +87,28 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
   mediaNext($event) {
   }
 
+  /**
+   * Filter Types
+   * @param value
+   */
   type(value) {
+    if (this.filterType === value) {
+      this.filterType = '';
+      this.getChannelPost();
+      return
+    }
     this.filterType = value;
     this.getChannelPost();
-    console.log(value);
   }
 
+  /**
+   * Post Filter Types
+   * @param value
+   */
   postFilter(value) {
     this.filterPost = value;
     this.getChannelPost();
+    return
   }
 
   getChannelPost() {
