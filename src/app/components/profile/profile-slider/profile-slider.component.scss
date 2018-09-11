@@ -679,6 +679,22 @@
     }
 }
 
+.o-profile__others-follow-btn {
+    float: right;
+    width: 100%;
+    margin-left: 8px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 100%;
+        margin: 8px 0px;
+    }
+    .btn-md {
+        @include mq($from: $mobile_sm, $until: $mobile_lg) {
+            padding: 2px 3px;
+            font-size: 7px;
+        }
+    }
+}
+
 .c-profileo__userdetail {
     padding-left: 3%;
     padding-top: 4%;
