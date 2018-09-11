@@ -670,11 +670,11 @@
     flex-direction: column;
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
         height: 100%;
-        margin-top: 10px;
-        margin-left: 0px;
+        margin-top: -10px;
+        margin-left: 16px;
         padding-left: 0px;
     }
-    @include mq($from: $tablet, $until: $desktop_sm) {
+    @include mq($from: $tablet, $until: $mobile_lg) {
         margin-top: 14%;
     }
 }
@@ -707,7 +707,7 @@
     color: #fff;
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
         font-size: 15px;
-        color: #333;
+        color: #fff;
         font-weight: 600;
         text-shadow: none;
     }
@@ -719,7 +719,7 @@
     line-height: 18px;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        color: #333;
+        color: #fff;
         text-shadow: none;
     }
 }

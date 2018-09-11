@@ -147,7 +147,12 @@
     line-height: 24px;
     font-weight: 500;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    color: #fff;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        font-size: 15px;
+        color: #fff;
+        font-weight: 600;
+        text-shadow: none;
+    }
 }
 
 .c-profile__userhandle {
@@ -155,6 +160,10 @@
     font-size: 13px;
     line-height: 18px;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        color: #fff;
+        text-shadow: none;
+    }
 }
 
 .c-profile__userprofession {
