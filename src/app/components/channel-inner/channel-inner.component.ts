@@ -19,8 +19,6 @@ import { ProfileActions } from '../../actions/profile.action';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { GeneralUtilities } from './../../helpers/general.utils';
-
 @Component({
   selector: 'app-channel-inner',
   templateUrl: './channel-inner.component.html',
@@ -28,7 +26,6 @@ import { GeneralUtilities } from './../../helpers/general.utils';
   styleUrls: ['./channel-inner.component.scss']
 })
 export class ChannelInnerComponent implements OnInit, OnDestroy {
-  // @ViewChild(AngularMasonry) masonry: AngularMasonry;
   tagState$: Observable<Media>;
   userState$: Observable<Media>;
   private tagStateSubscription: Subscription;
@@ -42,15 +39,14 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   channelPost: any;
   filterType: string | '';
-  filterPost: string | '';
+  filterPost: string = 'spots';
 
   constructor(
     private _store: Store<any>,
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private modalService: ModalService,
-    private router: Router,
-    private generalHelper: GeneralUtilities
+    private router: Router
   ) {
 
       this.channelId = route.snapshot.params['id'];
