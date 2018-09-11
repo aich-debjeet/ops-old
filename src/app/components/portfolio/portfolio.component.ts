@@ -184,6 +184,12 @@ export class PortfolioComponent implements OnInit, OnDestroy {
       type: ProfileActions.PORTFOLIO_DELETE_CATEGORY,
       payload: catId
     });
+    this.profileStore.select('profileTags')
+      .first(resp => resp['portfolio_delete_category_success'] === true)
+      .subscribe(data => {
+        this.toastr.success('Category deleted', 'Success!', { timeOut: 3000 });
+        return;
+      });
   }
 
   /**

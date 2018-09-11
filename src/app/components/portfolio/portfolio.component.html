@@ -37,7 +37,7 @@
                                 </ng-container>
                                 <div *ngIf="ownProfile" class="c-port__setting">
                                     <a (click)="showCategories()" data-toggle="modal" data-target="#editCat">
-                                       <img src="https://ops-v2.netlify.com/assets/svg/ico_settings.svg">
+                                       <img src="https://ops-v2-2.netlify.com/assets/svg/ico_create-plus.svg">
                                     </a>
                                 </div>
                             </ul>
@@ -174,9 +174,11 @@
                                 <input #newCatName class="editable-cat" type="text" [disabled]="!category?.isEditable" [value]="category.categoryName" (input)="updateCatName(newCatName.value, catIndex)">
                             </div>
                             <div class="col-md-3 p-0">
-                                <a *ngIf="!category?.isEditable" (click)="deleteCategory(category.categoryId)">Delete</a>
-                                <!-- <a *ngIf="!category?.isEditable" (click)="catEditAction('enable', catIndex)">Edit</a>
-                                <a *ngIf="category?.isEditable" (click)="saveNewCatName(catIndex)">Done</a> -->
+                                <a class="o-category__delet" *ngIf="!category?.isEditable" (click)="deleteCategory(category.categoryId)">
+                                    <img src="https://ops-v2-2.netlify.com/assets/svg/trash.svg" alt="">
+                                </a>
+                                <a class="o-category__edit" *ngIf="!category?.isEditable" (click)="catEditAction('enable', catIndex)">Edit</a>
+                                <a *ngIf="category?.isEditable" (click)="saveNewCatName(catIndex)">Save</a>
                             </div> 
                         </div>
                     </div>
