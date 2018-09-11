@@ -409,9 +409,8 @@ export class FormValidation {
         if (travelInclusive && travelInclusive.toLowerCase() === 'yes' && countryName === '') {
             AC.get('travelInclusive').setErrors({ countryRequired: true });
         } else {
-            AC.get('travelInclusive').setErrors({ countryRequired: false });
+            AC.get('travelInclusive').setErrors(null);
         }
-        return null;
     }
 
     // otp length validation
