@@ -45,7 +45,7 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
   page_end = 20;
   scrolling = 0;
   scrollingLoad = 600;
-  scrollId: string = null;
+  scrollId: string;
 
   constructor(
     private _store: Store<any>,
@@ -77,7 +77,7 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
         this.scrollId = null
         this.channelId = params['id'];
         this._store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
-        this.getChannelPost();
+        this.getChannelPost(null);
         this.buildEditForm();
       }
     );
@@ -92,13 +92,10 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
   }
 
   onScroll(e) {
-    console.log(e);
     this.scrolling = e.currentScrollPosition;
     if (this.scrollingLoad <= this.scrolling) {
       this.scrollingLoad += 900
-      this.getChannelPost();
-
-      console.log('trigger');
+      this.getChannelPost(this.scrollId);
     }
   }
 
@@ -110,11 +107,11 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
     this.scrollId = null
     if (this.filterType === value) {
       this.filterType = '';
-      this.getChannelPost();
+      this.getChannelPost(null);
       return
     }
     this.filterType = value;
-    this.getChannelPost();
+    this.getChannelPost(null);
   }
 
   /**
@@ -124,18 +121,18 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
   postFilter(value) {
     this.scrollId = null
     this.filterPost = value;
-    this.getChannelPost();
+    this.getChannelPost(null);
     return
   }
 
-  getChannelPost() {
+  getChannelPost(scrollId) {
     const body = {
       channelId: this.channelId,
       limit: 10,
       mType: this.filterType,
       sort_field: this.filterPost,
       sort_order: 'desc',
-      scrollId: this.scrollId
+      scrollId: scrollId === null ? null : this.scrollId
     }
     this._store.dispatch({ type: MediaActions.GET_CURRENT_CHANNEL_POST, payload: body });
   }

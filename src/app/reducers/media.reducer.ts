@@ -81,7 +81,9 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
     case MediaActions.MEDIA_DETAILS:
       return Object.assign({}, state, {
         media_detail_loading: true,
-        media_detail: []
+        media_detail: [],
+        channelPostScrollId: [],
+        channel_post: []
       });
 
     case MediaActions.MEDIA_DETAILS_SUCCESS:
