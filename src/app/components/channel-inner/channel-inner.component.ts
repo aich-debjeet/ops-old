@@ -40,6 +40,7 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
   isfollowing: boolean;
   contributors: any[];
   subscription: Subscription;
+  channelPost: any;
 
   constructor(
     private _store: Store<any>,
@@ -57,6 +58,7 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
       this.tagStateSubscription = this.tagState$.subscribe((state) => {
         this.channel = state;
         this.pageLoading = this.channel.channel_loading;
+        this.channelPost = state['channel_post']
       });
 
   }
