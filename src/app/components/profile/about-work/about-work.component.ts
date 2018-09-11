@@ -118,8 +118,11 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
    * Add Work form submit
    */
   workFormSubmit(value) {
+    
     if ( this.workForm.valid === true ) {
+      
       if (this.editFormPopup === false) {
+        
         if (this.hideTo !== true) {
         const body = {
           'role': value.position,
@@ -148,20 +151,38 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
         this.modalService.close('userWorkAdd');
       }
       } else {
-        const body = {
-          'role': value.position,
-          'organizationName': value.company,
-          'workOrAward': 'work',
-          'from': this.reverseDate(value.from) + 'T05:00:00',
-          'to': this.reverseDate(value.to) + 'T05:00:00',
-          'currentlyWith': value.currentWork,
-          'access': Number(value.publicWork),
-          'id': value.id,
+        
+        if (this.hideTo !== true) {
+          const body = {
+            'role': value.position,
+            'organizationName': value.company,
+            'workOrAward': 'work',
+            'from': this.reverseDate(value.from) + 'T05:00:00',
+            'to': this.reverseDate(value.to) + 'T05:00:00',
+            'currentlyWith': Boolean(value.currentWork),
+            'access': Number(value.publicWork),
+            'id': value.id,
+          }
+  
+          this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_WORK, payload: body});
+          this.toastr.success('Your work has been updated successfully!');
+          this.modalService.close('userWorkAdd');
         }
-
-        this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_WORK, payload: body});
-        this.toastr.success('Your work has been updated successfully!');
-        this.modalService.close('userWorkAdd');
+        if (this.hideTo === true) {
+          const body = {
+            'role': value.position,
+            'organizationName': value.company,
+            'workOrAward': 'work',
+            'from': this.reverseDate(value.from) + 'T05:00:00',
+            'currentlyWith': Boolean(value.currentWork),
+            'access': Number(value.publicWork),
+            'id': value.id,
+          }
+  
+          this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_WORK, payload: body});
+          this.toastr.success('Your work has been updated successfully!');
+          this.modalService.close('userWorkAdd');
+        }
       }
       this.workForm.reset();
      // this.buildEditForm()

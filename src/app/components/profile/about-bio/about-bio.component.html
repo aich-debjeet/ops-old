@@ -425,7 +425,7 @@
                         </div>
                         <div class="c-form__group c-form--sm c-form--noeffect">
                             <h6 class="c-text_md m-t-16">Postal Code</h6>
-                            <textarea class="c-form__input" [(ngModel)]="pinCode" [ngModelOptions]="{standalone: true}">{{ pinCode }}</textarea>
+                            <textarea class="c-form__input"  type="number" [(ngModel)]="pinCode" [ngModelOptions]="{standalone: true}" (keydown)="allowNumbersOnly($event)">{{ pinCode }}</textarea>
                         </div>
                         <div class="o-bio-info__edit-actions m-t-24">
                             <button type="button" class="btn btn-primary btn-sm float-right" (click)="updateAbout('address')">Save</button>

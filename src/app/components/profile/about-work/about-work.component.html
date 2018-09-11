@@ -36,8 +36,8 @@
                         <p>To Present</p>
                     </div>
                     <div class="workplace_edit_remove_ico " *ngIf="ownProfile">
-                        <a (click)="editCurrentWork(work)" class="edit_remove_ico"><img [src]="imageBaseUrl + '/img/svg/ico_edit.svg'"></a>
-                        <a (click)="deleteCurrentWork(work.id)" class="edit_remove_ico"><img [src]="imageBaseUrl + '/img/svg/ico_delete.svg'"></a>
+                        <a (click)="editCurrentWork(work)" class="edit_remove_ico"><img [src]="imageBaseUrl + 'img/svg/ico_edit.svg'"></a>
+                        <a (click)="deleteCurrentWork(work.id)" class="edit_remove_ico"><img [src]="imageBaseUrl + 'img/svg/ico_delete.svg'"></a>
                     </div>
                 </div>
 
@@ -105,7 +105,7 @@
                                             <input class="form_input" type="text" formControlName="from" [textMask]="{mask: dateMask}" required>
                                             <span class="form_highlight"></span>
                                             <span class="form_bar"></span>
-                                            <label>from (DD-MM-YYYY)</label>
+                                            <label>From (DD-MM-YYYY)</label>
                                             <p class="error_alert" *ngIf="workForm.controls['from'].errors?.required && workForm.controls['from']?.touched">From Date is required</p>
                                             <p class="error_alert" *ngIf="workForm.controls['from'].errors?.invalidWorkDate">Invalid Date</p>
                                         </div>
