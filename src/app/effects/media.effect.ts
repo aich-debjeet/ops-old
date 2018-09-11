@@ -251,6 +251,21 @@ export class MediaEffect {
       }))
     );
 
+  /**
+   *  Load current channel post
+   */
+  @Effect()
+  loadCurrentChannelPost$ = this.actions$
+    .ofType(MediaActions.GET_CURRENT_CHANNEL_POST)
+    .map(toPayload)
+    .switchMap((payload) => this.mediaService.getCurrentPost(payload)
+      .map(res => ({ type: MediaActions.GET_CURRENT_CHANNEL_POST_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: MediaActions.GET_CURRENT_CHANNEL_POST_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
 
   constructor(
       private actions$: Actions,

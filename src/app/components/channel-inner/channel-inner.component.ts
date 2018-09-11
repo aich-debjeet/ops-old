@@ -66,6 +66,14 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
       (params: any) => {
         this.channelId = params['id'];
         this._store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
+        const body = {
+          channelId: this.channelId,
+          limit: 10,
+          mType: '',
+          sort_field: 'create_date',
+          sort_order: 'desc'
+        }
+        this._store.dispatch({ type: MediaActions.GET_CURRENT_CHANNEL_POST, payload: body });
         this.buildEditForm();
       }
     );

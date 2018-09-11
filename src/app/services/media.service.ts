@@ -148,6 +148,15 @@ export class MediaService {
   getMyMedia(body: any) {
     return this.api.put( '/portal/cdn/myMedia', body);
   }
+
+  /**
+   * Load get current post channel
+   * @param body
+   */
+  getCurrentPost(body: any) {
+    return this.api.post( '/portal/cdn/media/search', body);
+  }
+
   /**
    * get reports
    */
