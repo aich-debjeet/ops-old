@@ -1257,6 +1257,7 @@
     display: inline-block;
     @include mq($from: $mobile_sm, $until: $tablet) {
         width: 100%;
+        padding: 23px 0px 24px 0px;
     }
 }
 

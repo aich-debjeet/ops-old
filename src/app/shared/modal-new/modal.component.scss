@@ -123,6 +123,10 @@
     border-radius: 3px;
     position: relative;
     margin-top: 50px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 90%;
+        padding: 23px 0px 24px 0px;
+    }
 }
 
 .modal-profile-followers{
