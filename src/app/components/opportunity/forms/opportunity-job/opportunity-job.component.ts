@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { ScrollHelper } from '../../../../helpers/scroll.helper';
 import { Store } from '@ngrx/store';
@@ -12,6 +12,8 @@ import { environment } from 'environments/environment';
 import { pull as _pull } from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
+import { Modal } from '../../../../shared/modal-new/Modal';
+import { FormValidation } from '../../../../helpers/form.validator';
 
 @Component({
   selector: 'app-opportunity-job',
@@ -47,6 +49,7 @@ export class OpportunityJobComponent implements OnInit, OnDestroy {
   uploadingFile = false;
   uploadedFile = false;
   baseUrl = environment.API_IMAGE;
+  @ViewChild('termsPopup') termsPopup: Modal;
 
   constructor(
     private fb: FormBuilder,
@@ -139,13 +142,13 @@ export class OpportunityJobComponent implements OnInit, OnDestroy {
         this.generalUtils.checkNestedKey(data, ['opportunityJob', 'location', 'location']) ? data['opportunityJob']['location']['location'] : '',
         [Validators.required]
       ],
-      jobTravelInclusive: [
-        this.generalUtils.checkNestedKey(data, ['opportunityJob', 'includesTravel', 'option']) ? data['opportunityJob']['includesTravel']['option'] : '',
+      travelInclusive: [
+        this.generalUtils.checkNestedKey(data, ['opportunityJob', 'includesTravel', 'option']) ? data['opportunityJob']['includesTravel']['option'] : 'No',
         [Validators.required]
       ],
-      jobCountry: [
+      countryName: [
         this.generalUtils.checkNestedKey(data, ['opportunityJob', 'includesTravel', 'country']) ? data['opportunityJob']['includesTravel']['country'] : '',
-        [Validators.required]
+        []
       ],
       jobSkills: [
         this.generalUtils.checkNestedKey(data, ['opportunityJob', 'skills']) ? data['opportunityJob']['skills'] : '',
@@ -159,6 +162,8 @@ export class OpportunityJobComponent implements OnInit, OnDestroy {
         this.generalUtils.checkNestedKey(data, ['opportunityJob', 'organizationName']) ? data['opportunityJob']['organizationName'] : '',
         [Validators.required]
       ]
+    }, {
+      validator: FormValidation.countryRequired
     });
   }
   /**
@@ -216,8 +221,8 @@ export class OpportunityJobComponent implements OnInit, OnDestroy {
             location: formData.jobLocation
           },
           includesTravel: {
-            option: formData.jobTravelInclusive,
-            country: formData.jobCountry
+            option: formData.travelInclusive,
+            country: formData.countryName
           },
           skills: formData.jobSkills,
           qualifications: formData.jobQualifications,
@@ -257,6 +262,15 @@ export class OpportunityJobComponent implements OnInit, OnDestroy {
 
   cancelUpdate() {
     this.location.back();
+  }
+
+  // terms show/hide
+  termsAction(action: string) {
+    if (action === 'hide') {
+      this.termsPopup.close();
+    } else {
+      this.termsPopup.open();
+    }
   }
 
 }
