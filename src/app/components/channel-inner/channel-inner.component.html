@@ -4,8 +4,7 @@
     <!---  section  -->
     <div class="row">
             <div class="col-md-6">
-                <p *ngIf="!channel?.channel_detail?.accessSeetings.access" class="c-text_sm text_uppercase ltr-space color-grey-dark">Public Channel</p>
-                <p *ngIf="channel?.channel_detail?.accessSeetings.access" class="c-text_sm text_uppercase ltr-space color-grey-dark">Private Channel</p>
+                <p *ngIf="!channel?.channel_detail?.accessSeetings.access" class="c-text_sm text_uppercase ltr-space color-grey-dark">{{ channel?.channel_detail?.accessSeetings.access ? 'Private Channel' : 'Public Channel' }}</p>
                 <ul class="list-inline">
                     <li class="list-inline-item">
                         <div class="c-h3 c-h3--weight">{{channel?.channel_detail?.channelName}}</div>
