@@ -143,6 +143,9 @@
     overflow: hidden;
     padding: 8px;
     text-align: center;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 50%;
+    }
     cursor: pointer;
     label {
         pointer-events: auto;
