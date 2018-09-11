@@ -124,6 +124,9 @@
     .modal-footer {
         border: none;
     }
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 95%;
+    }
 }
 
 .o-cadminlist {
