@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { ScrollHelper } from '../../../../helpers/scroll.helper';
 import { Store } from '@ngrx/store';
@@ -10,6 +10,7 @@ import { IDatePickerConfig } from 'ng2-date-picker';
 import { ToastrService } from 'ngx-toastr';
 import { FormValidation } from './../../../../helpers/form.validator';
 import { Location } from '@angular/common';
+import { Modal } from '../../../../shared/modal-new/Modal';
 
 @Component({
   selector: 'app-opportunity-audition',
@@ -39,6 +40,7 @@ export class OpportunityAuditionComponent implements OnInit, OnDestroy {
     locale: 'en'
   };
   todaysDate: string;
+  @ViewChild('termsPopup') termsPopup: Modal;
 
   constructor(
     private fb: FormBuilder,
@@ -231,6 +233,15 @@ export class OpportunityAuditionComponent implements OnInit, OnDestroy {
 
   cancelUpdate() {
     this.location.back();
+  }
+
+  // terms show/hide
+  termsAction(action: string) {
+    if (action === 'hide') {
+      this.termsPopup.close();
+    } else {
+      this.termsPopup.open();
+    }
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ScrollHelper } from '../../../../helpers/scroll.helper';
 import { Store } from '@ngrx/store';
@@ -8,6 +8,7 @@ import { ISubscription } from 'rxjs/Subscription';
 import { GeneralUtilities } from '../../../../helpers/general.utils';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
+import { Modal } from '../../../../shared/modal-new/Modal';
 
 @Component({
   selector: 'app-opportunity-project',
@@ -30,6 +31,7 @@ export class OpportunityProjectComponent implements OnInit, OnDestroy {
       this.buildProjectForm(null);
     }
   };
+  @ViewChild('termsPopup') termsPopup: Modal;
 
   constructor(
     private fb: FormBuilder,
@@ -103,6 +105,15 @@ export class OpportunityProjectComponent implements OnInit, OnDestroy {
 
   cancelUpdate() {
     this.location.back();
+  }
+
+  // terms show/hide
+  termsAction(action: string) {
+    if (action === 'hide') {
+      this.termsPopup.close();
+    } else {
+      this.termsPopup.open();
+    }
   }
 
 }

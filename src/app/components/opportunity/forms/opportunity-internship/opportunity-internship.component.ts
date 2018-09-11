@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { ScrollHelper } from '../../../../helpers/scroll.helper';
 import { Store } from '@ngrx/store';
@@ -12,6 +12,8 @@ import { environment } from 'environments/environment';
 import { pull as _pull } from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
+import { Modal } from '../../../../shared/modal-new/Modal';
+import { FormValidation } from '../../../../helpers/form.validator';
 
 @Component({
   selector: 'app-opportunity-internship',
@@ -47,6 +49,7 @@ export class OpportunityInternshipComponent implements OnInit, OnDestroy {
   uploadingFile = false;
   uploadedFile = false;
   baseUrl = environment.API_IMAGE;
+  @ViewChild('termsPopup') termsPopup: Modal;
 
   constructor(
     private fb: FormBuilder,
@@ -139,13 +142,13 @@ export class OpportunityInternshipComponent implements OnInit, OnDestroy {
         this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'location', 'location']) ? data['opportunityInternship']['location']['location'] : '',
         [Validators.required]
       ],
-      internshipTravelInclusive: [
-        this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'includesTravel', 'option']) ? data['opportunityInternship']['includesTravel']['option'] : '',
+      travelInclusive: [
+        this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'includesTravel', 'option']) ? data['opportunityInternship']['includesTravel']['option'] : 'No',
         [Validators.required]
       ],
-      internshipCountry: [
+      countryName: [
         this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'includesTravel', 'country']) ? data['opportunityInternship']['includesTravel']['country'] : '',
-        [Validators.required]
+        []
       ],
       internshipSkills: [
         this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'skills']) ? data['opportunityInternship']['skills'] : '',
@@ -159,6 +162,8 @@ export class OpportunityInternshipComponent implements OnInit, OnDestroy {
         this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'organizationName']) ? data['opportunityInternship']['organizationName'] : '',
         [Validators.required]
       ]
+    }, {
+      validator: FormValidation.countryRequired
     });
   }
   /**
@@ -216,8 +221,8 @@ export class OpportunityInternshipComponent implements OnInit, OnDestroy {
             location: formData.internshipLocation
           },
           includesTravel: {
-            option: formData.internshipTravelInclusive,
-            country: formData.internshipCountry
+            option: formData.travelInclusive,
+            country: formData.countryName
           },
           skills: formData.internshipSkills,
           qualifications: formData.internshipQualifications,
@@ -257,6 +262,15 @@ export class OpportunityInternshipComponent implements OnInit, OnDestroy {
 
   cancelUpdate() {
     this.location.back();
+  }
+
+  // terms show/hide
+  termsAction(action: string) {
+    if (action === 'hide') {
+      this.termsPopup.close();
+    } else {
+      this.termsPopup.open();
+    }
   }
 
 }

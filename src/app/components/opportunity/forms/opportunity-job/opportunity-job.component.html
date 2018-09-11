@@ -158,22 +158,23 @@
               <div class="col-md-2 p-0">
                   <div class="c-radio__sm p-t-8 float_left width100">
                       <label class="col-md-6 p-0 p-t-8">
-                          <input formControlName="jobTravelInclusive" type="radio" value="Yes" class="c-form__bar2"><span></span>Yes
+                          <input formControlName="travelInclusive" type="radio" value="Yes" class="c-form__bar2"><span></span>Yes
                       </label>
                       <label class="col-md-6 p-0 p-t-8">
-                          <input formControlName="jobTravelInclusive" type="radio" value="No" class="c-form__bar2"><span></span>No
+                          <input formControlName="travelInclusive" type="radio" value="No" class="c-form__bar2"><span></span>No
                       </label>
                   </div>
               </div>
               <div class="col-md-9 p-r-0">
                   <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                      <input formControlName="jobCountry" class="c-form__input" type="text" placeholder="Country">
+                      <input formControlName="countryName" class="c-form__input" type="text" placeholder="Country">
                       <span class="c-form__highlight"></span>
                       <span class="c-form__bar"></span>
                       <!-- <label>Country</label> -->
                   </div>
               </div>
-              <p *ngIf="(jobFrm.controls['jobTravelInclusive'].errors?.required || jobFrm.controls['jobCountry'].errors?.required) && createJobFrm.submitted" class="c-form__validation error">This is required!</p>
+              <p *ngIf="jobFrm.controls['travelInclusive'].errors?.required && createJobFrm.submitted" class="c-form__validation error">This is required!</p>
+              <p *ngIf="jobFrm.controls['travelInclusive'].errors?.countryRequired && createJobFrm.submitted" class="c-form__validation error">Country is required!</p>
           </div>
       </div>
       <!-- Location end -->
@@ -255,7 +256,7 @@
       <div class="o-oppo-form__single">
         <div class="col-md-3 p-0"></div>
         <div class="col-md-9 p-0">
-            <p *ngIf="_oppDetails?.formType === 'create'" class="c-text_sm color-grey-dark m-t-24">By clicking 'Create', you are agreeing to the Terms & Conditions and the Privacy policy.</p>
+            <p *ngIf="_oppDetails?.formType === 'create'" class="c-text_sm color-grey-dark m-t-24">By clicking 'Create', you are agreeing to the <a (click)="termsAction('show')" class="text-theme">Terms &amp; Conditions.</a> and the <a (click)="termsAction('show')" class="text-theme">Privacy policy</a>.</p>
             <button *ngIf="_oppDetails?.formType === 'create'" type="submit" [disabled]="oppSubmitting || uploadingFile" class="btn btn-primary btn-md m-t-16 m-b-16">Create</button>
             <button *ngIf="_oppDetails?.formType === 'edit'" type="submit" [disabled]="oppSubmitting || uploadingFile" class="btn btn-primary btn-md m-t-16 m-b-16">Update</button>
             <button *ngIf="_oppDetails?.formType === 'edit'" type="button" class="btn btn-default btn-md m-l-8" (click)="cancelUpdate()">Cancel</button>
@@ -264,3 +265,21 @@
       <!-- btn end -->
   </div>
 </form>
+
+<!-- Terms Modal -->
+<app-modal-new #termsPopup [closeOnEscape]="true" [closeOnOutsideClick]="true" modalClass="reg_step1_otp modal-term-policy">
+    <modal-content>
+    <div class="in db" id="termsandcondition">
+        <div class="modal-dialog modal-lg terms_and_condition">
+            <!-- Modal content-->
+            <div class="modal-content modal-container">
+                <div class="modal-header with_border_none">
+                    <button type="button" class="close" data-dismiss="modal" (click)="termsAction('hide')">x</button>
+                </div>
+                <app-terms-and-conditions-content></app-terms-and-conditions-content>
+            </div>
+        </div>
+    </div>
+    </modal-content>
+</app-modal-new>
+<!-- Terms Modal -->
