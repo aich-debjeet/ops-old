@@ -59,15 +59,6 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
         this.pageLoading = this.channel.channel_loading;
       });
 
-    this._store.select('mediaStore')
-      .first(data => data['channel_detail'].ownerName)
-      .subscribe( data => {
-        this.isfollowing = data['channel_detail'].isFollowing;
-        if (data['channel_detail'].contributorProfile) {
-          this.contributors = this.generalHelper.getArrayWithLimitedLength(data['channel_detail'].contributorProfile, 3);
-        }
-      });
-
   }
 
   ngOnInit() {
