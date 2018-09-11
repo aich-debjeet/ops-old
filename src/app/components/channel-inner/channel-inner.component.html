@@ -69,16 +69,16 @@
                 <div class="row p-0 m-0">
                     <div class="col-md-6 col-sm-6 col-xs-6 p-0">
                         <ul class="nav nav-tabs">
-                            <li class=" active"><a href="#Popular">Popular</a></li>
-                            <li><a href="#Recent">Recent</a></li>
+                            <li class=" active"><a (click)="postFilter('spots')">Popular</a></li>
+                            <li><a (click)="postFilter('create_date')">Recent</a></li>
                         </ul>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6 p-0">
                         <div class="channel-filter">
-                            <a href="javascript:void(0)" class="channel-filter__ico active"><img class="channel-filter__svg" [src]="imageLink + 'img/svg/ico-image-black.svg'"></a>
-                            <a href="javascript:void(0)" class="channel-filter__ico"><img class="channel-filter__svg" [src]="imageLink + 'img/svg/ico-play-gray.svg'" ></a>
-                            <a href="javascript:void(0)" class="channel-filter__ico"><img class="channel-filter__svg" [src]="imageLink + 'img/svg/ico-audio-black.svg'" ></a>
-                            <a href="javascript:void(0)" class="channel-filter__ico"><img class="channel-filter__svg" [src]="imageLink + 'img/svg/ico-blog-black.svg'"></a>
+                            <a (click)="type('image')" class="channel-filter__ico active"><img class="channel-filter__svg" [src]="imageLink + 'img/svg/ico-image-black.svg'"></a>
+                            <a (click)="type('video')" class="channel-filter__ico"><img class="channel-filter__svg" [src]="imageLink + 'img/svg/ico-play-gray.svg'" ></a>
+                            <a (click)="type('audio')" class="channel-filter__ico"><img class="channel-filter__svg" [src]="imageLink + 'img/svg/ico-audio-black.svg'" ></a>
+                            <a (click)="type('status')" class="channel-filter__ico"><img class="channel-filter__svg" [src]="imageLink + 'img/svg/ico-blog-black.svg'"></a>
                         </div>
                     </div>
                 </div>

@@ -41,6 +41,8 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
   contributors: any[];
   subscription: Subscription;
   channelPost: any;
+  filterType: string | '';
+  filterPost: string | '';
 
   constructor(
     private _store: Store<any>,
@@ -71,11 +73,11 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
         const body = {
           channelId: this.channelId,
           limit: 10,
-          mType: '',
-          sort_field: 'create_date',
+          mType: this.filterType,
+          sort_field: this.filterPost,
           sort_order: 'desc'
         }
-        this._store.dispatch({ type: MediaActions.GET_CURRENT_CHANNEL_POST, payload: body });
+        this.getChannelPost();
         this.buildEditForm();
       }
     );
@@ -87,6 +89,28 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
   }
 
   mediaNext($event) {
+  }
+
+  type(value) {
+    this.filterType = value;
+    this.getChannelPost();
+    console.log(value);
+  }
+
+  postFilter(value) {
+    this.filterPost = value;
+    this.getChannelPost();
+  }
+
+  getChannelPost() {
+    const body = {
+      channelId: this.channelId,
+      limit: 10,
+      mType: this.filterType,
+      sort_field: this.filterPost,
+      sort_order: 'desc'
+    }
+    this._store.dispatch({ type: MediaActions.GET_CURRENT_CHANNEL_POST, payload: body });
   }
    /**
    * Form initial value
