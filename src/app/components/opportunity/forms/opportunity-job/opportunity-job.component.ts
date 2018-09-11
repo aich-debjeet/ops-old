@@ -13,6 +13,7 @@ import { pull as _pull } from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
 import { Modal } from '../../../../shared/modal-new/Modal';
+import { FormValidation } from '../../../../helpers/form.validator';
 
 @Component({
   selector: 'app-opportunity-job',
@@ -141,13 +142,13 @@ export class OpportunityJobComponent implements OnInit, OnDestroy {
         this.generalUtils.checkNestedKey(data, ['opportunityJob', 'location', 'location']) ? data['opportunityJob']['location']['location'] : '',
         [Validators.required]
       ],
-      jobTravelInclusive: [
-        this.generalUtils.checkNestedKey(data, ['opportunityJob', 'includesTravel', 'option']) ? data['opportunityJob']['includesTravel']['option'] : '',
+      travelInclusive: [
+        this.generalUtils.checkNestedKey(data, ['opportunityJob', 'includesTravel', 'option']) ? data['opportunityJob']['includesTravel']['option'] : 'No',
         [Validators.required]
       ],
-      jobCountry: [
+      countryName: [
         this.generalUtils.checkNestedKey(data, ['opportunityJob', 'includesTravel', 'country']) ? data['opportunityJob']['includesTravel']['country'] : '',
-        [Validators.required]
+        []
       ],
       jobSkills: [
         this.generalUtils.checkNestedKey(data, ['opportunityJob', 'skills']) ? data['opportunityJob']['skills'] : '',
@@ -161,6 +162,8 @@ export class OpportunityJobComponent implements OnInit, OnDestroy {
         this.generalUtils.checkNestedKey(data, ['opportunityJob', 'organizationName']) ? data['opportunityJob']['organizationName'] : '',
         [Validators.required]
       ]
+    }, {
+      validator: FormValidation.countryRequired
     });
   }
   /**
@@ -218,8 +221,8 @@ export class OpportunityJobComponent implements OnInit, OnDestroy {
             location: formData.jobLocation
           },
           includesTravel: {
-            option: formData.jobTravelInclusive,
-            country: formData.jobCountry
+            option: formData.travelInclusive,
+            country: formData.countryName
           },
           skills: formData.jobSkills,
           qualifications: formData.jobQualifications,

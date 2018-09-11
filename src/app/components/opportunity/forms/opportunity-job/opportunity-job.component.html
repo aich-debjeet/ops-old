@@ -158,22 +158,23 @@
               <div class="col-md-2 p-0">
                   <div class="c-radio__sm p-t-8 float_left width100">
                       <label class="col-md-6 p-0 p-t-8">
-                          <input formControlName="jobTravelInclusive" type="radio" value="Yes" class="c-form__bar2"><span></span>Yes
+                          <input formControlName="travelInclusive" type="radio" value="Yes" class="c-form__bar2"><span></span>Yes
                       </label>
                       <label class="col-md-6 p-0 p-t-8">
-                          <input formControlName="jobTravelInclusive" type="radio" value="No" class="c-form__bar2"><span></span>No
+                          <input formControlName="travelInclusive" type="radio" value="No" class="c-form__bar2"><span></span>No
                       </label>
                   </div>
               </div>
               <div class="col-md-9 p-r-0">
                   <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                      <input formControlName="jobCountry" class="c-form__input" type="text" placeholder="Country">
+                      <input formControlName="countryName" class="c-form__input" type="text" placeholder="Country">
                       <span class="c-form__highlight"></span>
                       <span class="c-form__bar"></span>
                       <!-- <label>Country</label> -->
                   </div>
               </div>
-              <p *ngIf="(jobFrm.controls['jobTravelInclusive'].errors?.required || jobFrm.controls['jobCountry'].errors?.required) && createJobFrm.submitted" class="c-form__validation error">This is required!</p>
+              <p *ngIf="jobFrm.controls['travelInclusive'].errors?.required && createJobFrm.submitted" class="c-form__validation error">This is required!</p>
+              <p *ngIf="jobFrm.controls['travelInclusive'].errors?.countryRequired && createJobFrm.submitted" class="c-form__validation error">Country is required!</p>
           </div>
       </div>
       <!-- Location end -->
