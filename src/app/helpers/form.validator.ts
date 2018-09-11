@@ -403,6 +403,17 @@ export class EmailValidator {
 @Injectable()
 export class FormValidation {
 
+    static countryRequired(AC: AbstractControl) {
+        const travelInclusive = AC.get('travelInclusive').value;
+        const countryName = AC.get('countryName').value;
+        if (travelInclusive && travelInclusive.toLowerCase() === 'yes' && countryName === '') {
+            AC.get('travelInclusive').setErrors({ countryRequired: true });
+        } else {
+            AC.get('travelInclusive').setErrors({ countryRequired: false });
+        }
+        return null;
+    }
+
     // otp length validation
     static validateOtp(AC: AbstractControl) {
         const otp = AC.value.toString();
