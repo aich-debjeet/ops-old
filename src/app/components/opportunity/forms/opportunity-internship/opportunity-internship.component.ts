@@ -13,6 +13,7 @@ import { pull as _pull } from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
 import { Modal } from '../../../../shared/modal-new/Modal';
+import { FormValidation } from '../../../../helpers/form.validator';
 
 @Component({
   selector: 'app-opportunity-internship',
@@ -141,13 +142,13 @@ export class OpportunityInternshipComponent implements OnInit, OnDestroy {
         this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'location', 'location']) ? data['opportunityInternship']['location']['location'] : '',
         [Validators.required]
       ],
-      internshipTravelInclusive: [
-        this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'includesTravel', 'option']) ? data['opportunityInternship']['includesTravel']['option'] : '',
+      travelInclusive: [
+        this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'includesTravel', 'option']) ? data['opportunityInternship']['includesTravel']['option'] : 'No',
         [Validators.required]
       ],
-      internshipCountry: [
+      countryName: [
         this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'includesTravel', 'country']) ? data['opportunityInternship']['includesTravel']['country'] : '',
-        [Validators.required]
+        []
       ],
       internshipSkills: [
         this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'skills']) ? data['opportunityInternship']['skills'] : '',
@@ -161,6 +162,8 @@ export class OpportunityInternshipComponent implements OnInit, OnDestroy {
         this.generalUtils.checkNestedKey(data, ['opportunityInternship', 'organizationName']) ? data['opportunityInternship']['organizationName'] : '',
         [Validators.required]
       ]
+    }, {
+      validator: FormValidation.countryRequired
     });
   }
   /**
@@ -218,8 +221,8 @@ export class OpportunityInternshipComponent implements OnInit, OnDestroy {
             location: formData.internshipLocation
           },
           includesTravel: {
-            option: formData.internshipTravelInclusive,
-            country: formData.internshipCountry
+            option: formData.travelInclusive,
+            country: formData.countryName
           },
           skills: formData.internshipSkills,
           qualifications: formData.internshipQualifications,
