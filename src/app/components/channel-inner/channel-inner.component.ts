@@ -40,6 +40,7 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
   channelPost: any;
   filterType: string | '';
   filterPost: string = 'spots';
+  channelPostLoading: any;
 
   constructor(
     private _store: Store<any>,
@@ -56,7 +57,8 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
       this.tagStateSubscription = this.tagState$.subscribe((state) => {
         this.channel = state;
         this.pageLoading = this.channel.channel_loading;
-        this.channelPost = state['channel_post']
+        this.channelPost = state['channel_post'];
+        this.channelPostLoading = state['channel_post_loading'];
       });
 
   }
