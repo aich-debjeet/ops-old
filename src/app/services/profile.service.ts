@@ -44,7 +44,7 @@ export class ProfileService {
    * for: portfolio
    */
   portUpdateCategoryName(reqBody) {
-    return this.api.put('/portfolio/update/categoryName', reqBody);
+    return this.api.put('/portal/portfolio/update/categoryName', reqBody);
   }
 
   /**
