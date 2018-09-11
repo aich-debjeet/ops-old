@@ -41,6 +41,11 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
   filterType: string | '';
   filterPost: string = 'spots';
   channelPostLoading: any;
+  page_start = 0;
+  page_end = 20;
+  scrolling = 0;
+  scrollingLoad = 600;
+  scrollId: string = null;
 
   constructor(
     private _store: Store<any>,
@@ -59,6 +64,9 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
         this.pageLoading = this.channel.channel_loading;
         this.channelPost = state['channel_post'];
         this.channelPostLoading = state['channel_post_loading'];
+        if (state['channelPostScrollId']) {
+          this.scrollId = state['channelPostScrollId']
+        }
       });
 
   }
@@ -66,15 +74,9 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.route.params.subscribe(
       (params: any) => {
+        this.scrollId = null
         this.channelId = params['id'];
         this._store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
-        const body = {
-          channelId: this.channelId,
-          limit: 10,
-          mType: this.filterType,
-          sort_field: this.filterPost,
-          sort_order: 'desc'
-        }
         this.getChannelPost();
         this.buildEditForm();
       }
@@ -89,11 +91,23 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
   mediaNext($event) {
   }
 
+  onScroll(e) {
+    console.log(e);
+    this.scrolling = e.currentScrollPosition;
+    if (this.scrollingLoad <= this.scrolling) {
+      this.scrollingLoad += 900
+      this.getChannelPost();
+
+      console.log('trigger');
+    }
+  }
+
   /**
    * Filter Types
    * @param value
    */
   type(value) {
+    this.scrollId = null
     if (this.filterType === value) {
       this.filterType = '';
       this.getChannelPost();
@@ -108,6 +122,7 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
    * @param value
    */
   postFilter(value) {
+    this.scrollId = null
     this.filterPost = value;
     this.getChannelPost();
     return
@@ -119,7 +134,8 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
       limit: 10,
       mType: this.filterType,
       sort_field: this.filterPost,
-      sort_order: 'desc'
+      sort_order: 'desc',
+      scrollId: this.scrollId
     }
     this._store.dispatch({ type: MediaActions.GET_CURRENT_CHANNEL_POST, payload: body });
   }
