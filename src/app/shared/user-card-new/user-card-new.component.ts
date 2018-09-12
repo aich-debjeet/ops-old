@@ -24,6 +24,7 @@ export class UserCardNewComponent implements OnInit {
   @Input() artist;
   @Input() artistIndex;
   @Input() ownerHandle;
+  @Input() hideActions: Boolean;
   @Output() onFollow: EventEmitter<any> = new EventEmitter<any>();
   isFollowing: boolean;
   userImage: string;
