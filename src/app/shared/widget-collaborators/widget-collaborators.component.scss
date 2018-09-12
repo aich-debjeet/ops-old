@@ -1,0 +1,67 @@
+.o-oppo-post-right-block {
+    width: 100%;
+    float: left;
+    padding: 16px;
+    background: #fff;
+    border-radius: 3px;
+}
+
+.text_uppercase {
+    text-transform: uppercase;
+}
+
+.c-text_sm, .c-text_sm-light, .c-text_sm-bold {
+    color: #333333;
+    font-size: 11px;
+    line-height: 15px;
+    font-weight: 500;
+}
+
+.color-grey-dark {
+    color: #929292 !important;
+}
+
+.o-oppo-collaborators-single {
+    width: 100%;
+    float: left;
+    display: flex;
+    align-items: center;
+}
+
+.m-t-16 {
+    margin-top: 16px !important;
+}
+
+.m-b-16 {
+    margin-bottom: 16px !important;
+}
+
+a {
+    color: #979797;
+    text-decoration: none !important;
+    outline: none;
+}
+
+.o-oppo-collaborators__avatar {
+    width: 48px;
+    height: 48px;
+    float: left;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.m-r-8 {
+    margin-right: 8px !important;
+}
+
+.o-oppo-collaborators__avatar img {
+    width: 48px;
+}
+
+.o-oppo-collaborators__name {
+    float: left;
+}
+
+.p-t-8 {
+    padding-top: 8px !important;
+}

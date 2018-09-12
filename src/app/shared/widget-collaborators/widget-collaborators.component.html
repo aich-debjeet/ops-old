@@ -1,0 +1,7 @@
+<div class="o-oppo-post-right-block m-b-16">
+  <h6 class="c-text_sm m-b-8 text_uppercase color-grey-dark">Collaborators</h6>
+  <app-user-card-new *ngIf="!isLoading" [hideActions]="'true'" ></app-user-card-new>
+  <div class="preloader" *ngIf="isLoading">
+      <div class="sticky"><div class="loader">Loading...</div></div>
+  </div>
+</div>
