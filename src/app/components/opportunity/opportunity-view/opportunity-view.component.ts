@@ -87,10 +87,6 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
             this.store.dispatch({ type: OpportunityActions.GET_SIMILAR_OPPORTUNITIES, payload: simOppsParams });
           }
         }
-        // check if job application successful
-        if (state.apply_for_an_opportunity_data) {
-          this.hasApplied = true;
-        }
         const userHandle = localStorage.getItem('loggedInProfileHandle');
         if (userHandle
           && this.generalUtils.checkNestedKey(this.opportunityState, ['get_opportunity_data', 'ownerHandle'])
@@ -208,7 +204,6 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
       this.store.select('opportunityTags')
         .first(state => state['cancel_application'] === false && state['cancel_application_success'] === true)
         .subscribe(() => {
-          this.hasApplied = false;
           this.userActionLoading = false;
           this.toastr.success('Application cancelled!', 'Success!', {
             timeOut: 3000

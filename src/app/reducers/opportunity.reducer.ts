@@ -205,7 +205,10 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
       });
 
     case OpportunityActions.APPLY_FOR_AN_OPPORTUNITY_SUCCESS:
+      const viewOppData = state['get_opportunity_data'];
+      viewOppData['isApplied'] = true;
       return Object.assign({}, state, {
+        get_opportunity_data: viewOppData,
         applying_for_an_opportunity: false,
         apply_for_an_opportunity_data: payload,
         apply_for_an_opportunity_success: true
