@@ -11,6 +11,29 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
 
   switch (type) {
 
+    /* get opportunity collabs */
+    case OpportunityActions.GET_OPPORTUNITY_COLLABORATORS:
+      return Object.assign({}, state, {
+        getOppCollabs: true,
+        getOppCollabsParams: payload,
+        getOppCollabsData: undefined,
+        getOppCollabsSuccess: false
+      });
+
+    case OpportunityActions.GET_OPPORTUNITY_COLLABORATORS_SUCCESS:
+      return Object.assign({}, state, {
+        getOppCollabs: false,
+        getOppCollabsData: payload['SUCCESS'],
+        getOppCollabsSuccess: true
+      });
+
+    case OpportunityActions.GET_OPPORTUNITY_COLLABORATORS_FAILED:
+      return Object.assign({}, state, {
+        getOppCollabs: false,
+        getOppCollabsSuccess: false
+      });
+    /* get opportunity collabs */
+
     /* search opportunities */
     case OpportunityActions.GET_SIMILAR_OPPORTUNITIES:
       return Object.assign({}, state, {

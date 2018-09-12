@@ -7,6 +7,14 @@ export class OpportunityService {
   constructor(private api: ApiService) { }
 
   /**
+   * Get opportunity collabs by id
+   * @param id
+   */
+  getOppCollabs(jobId: string) {
+    return this.api.get('/portal/opportunity/job/collaborators/' + jobId + '/0/20');
+  }
+
+  /**
    * cancel application
    */
   cancelApplication(params: any) {
