@@ -141,6 +141,7 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
         // search job with id
         this.jobId = params['id'];
         this.store.dispatch({ type: OpportunityActions.GET_OPPORTUNITY, payload: this.jobId });
+        this.store.dispatch({ type: OpportunityActions.GET_OPPORTUNITY_COLLABORATORS, payload: this.jobId });
       }
     });
   }

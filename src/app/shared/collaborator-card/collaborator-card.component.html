@@ -1,6 +1,11 @@
 <div class="o-oppo-collaborators-single m-t-16">
-  <a href="javascript:void(0)">
-    <span class="o-oppo-collaborators__avatar m-r-8"><img src="assets/demo/avatar2.jpg" alt=""></span>
-    <span class="o-oppo-collaborators__name c-text_lg p-t-8">Ethel Kennedy</span>
+  <a routerLink="{{ '/profile/u/' + user?.username }}">
+    <span class="o-oppo-collaborators__avatar m-r-8">
+      <img *ngIf="user?.profileImage; else default_profile_image" [src]="baseUrl + user?.profileImage">
+      <ng-template #default_profile_image>
+        <img [src]="baseUrl + 'img/avatar.png'">
+      </ng-template>
+    </span>
+    <span class="o-oppo-collaborators__name c-text_lg p-t-8">{{ user?.name }}</span>
   </a>
 </div>

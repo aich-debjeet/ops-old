@@ -8,7 +8,8 @@ import { Component, OnInit, Input } from '@angular/core';
 export class WidgetCollaboratorsComponent implements OnInit {
 
   @Input() opportunityId: string;
-  isLoading = true;
+  @Input() isLoading: boolean;
+  @Input() userData: any[];
 
   constructor() { }
 

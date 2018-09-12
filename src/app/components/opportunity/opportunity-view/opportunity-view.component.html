@@ -353,12 +353,12 @@
               {{ opportunity?.opportunityProject?.skills }}
             </div>
           </div>
-          <h6 class="c-text_lg m-t-24">Name of collaborators</h6>
+          <!-- <h6 class="c-text_lg m-t-24">Name of collaborators</h6>
           <div class="row m-t-16 m-l-0">
             <div class="col-md-12 p-0 c-text_md color-grey-dark">
               {{ opportunity?.opportunityProject?.addCollaborators[0] }}
             </div>
-          </div>
+          </div> -->
           <div class="o-oppo-post__media-action">
             <div class="o-oppo-post__action-icons float_left ">
               <button type="button" class="btn btn-primary btn-md float_left m-r-16" *ngIf="!isOwnOpportunity && !hasApplied"
@@ -763,6 +763,7 @@
           </div>
         </div>
       </div>
+      <app-widget-collaborators [opportunityId]="jobId" [isLoading]="opportunityState?.getOppCollabs" [userData]="opportunityState?.getOppCollabsData"></app-widget-collaborators>
     </div>
     <!-- right widgets -->
   </div>

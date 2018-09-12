@@ -4,6 +4,7 @@
     padding: 16px;
     background: #fff;
     border-radius: 3px;
+    max-height: 500px;
 }
 
 .text_uppercase {
@@ -21,13 +22,6 @@
     color: #929292 !important;
 }
 
-.o-oppo-collaborators-single {
-    width: 100%;
-    float: left;
-    display: flex;
-    align-items: center;
-}
-
 .m-t-16 {
     margin-top: 16px !important;
 }
@@ -42,24 +36,8 @@ a {
     outline: none;
 }
 
-.o-oppo-collaborators__avatar {
-    width: 48px;
-    height: 48px;
-    float: left;
-    border-radius: 50%;
-    overflow: hidden;
-}
-
 .m-r-8 {
     margin-right: 8px !important;
-}
-
-.o-oppo-collaborators__avatar img {
-    width: 48px;
-}
-
-.o-oppo-collaborators__name {
-    float: left;
 }
 
 .p-t-8 {
