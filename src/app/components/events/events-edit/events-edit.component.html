@@ -11,11 +11,16 @@
                 <form [formGroup]="eventForm" novalidate (ngSubmit)="submitForm(eventForm.value)" #ecfrom="ngForm">
                     <div class="col-md-4 col-sm-12 o-event-form-right">
                         <div class="o-event-form-upload-img">
-                            <input type="file" #fileupload [(ngModel)]="eventCover" [ngModelOptions]="{standalone: true}" class="o-event-upload__file" name="eventCover" (change)="fileChangeListener($event)">
+                            <!-- <input type="file" #fileupload [(ngModel)]="eventCover" [ngModelOptions]="{standalone: true}" class="o-event-upload__file" name="eventCover" (change)="fileChangeListener($event)"> -->
                             <div class="o-event-form-upload__container">
                                 <img *ngIf="eventCoverImage" class="event-image" [src]="baseUrl + eventCoverImage">
                                 <div *ngIf="!eventCoverImage" class="c-text_md f-w_600 text_uppercase color-theme ltr-space">Upload event image</div>
                                 <a href= "javascript:void(0)" class="o-event-upload__close" (click)="removePhoto()"><img [src]="baseUrl + 'v2/svg/ico_create-close.svg'"></a>
+                                <span class="c-profile__imgchange">
+                                    <a (click)="openModel()" data-toggle="modal" data-target="#coverImageUpload">
+                                        <a><img [src]="baseUrl + 'v2/svg/edit_red.svg'" class="c-profile__imgchange--icon"></a>
+                                    </a>
+                                </span>
                             </div>
                         </div>
                         <p class="c-form__validation text-center" *ngIf="imageUpload">Event Cover is required</p>
@@ -135,6 +140,8 @@
                                     <span class="c-form__highlight"></span>
                                     <span class="c-form__bar"></span>
                                     <label>Start date</label>
+                                    <p class="c-form__validation" *ngIf="eventForm.controls['event_startdate'].errors?.oldate">Please choose a valid date</p>
+                                    <p class="c-form__validation" *ngIf="eventForm.controls['event_startdate'].errors?.required && ecfrom.submitted">Please select the event start date</p>
                                 </div>
                             </div>
                             <div class="col-md-1">
@@ -146,16 +153,15 @@
                                     <span class="c-form__highlight"></span>
                                     <span class="c-form__bar"></span>
                                     <label>End date</label>
+                                    <p class="c-form__validation" *ngIf="eventForm.controls['event_enddate'].errors?.old_even_end_date">Please choose a valid date </p>
+                                    <p class="c-form__validation" *ngIf="eventForm.controls['event_enddate'].errors?.required && ecfrom.submitted">Please select the event end date </p>
                                 </div>
                             </div>
                             <div class="col-md-3 p-0">
                             </div>
                             <div class="col-md-9 offset-md-3 p-0">
-                                <p class="c-form__validation" *ngIf="eventForm.controls['event_startdate'].errors?.oldate">Please choose upcoming date</p>
-                                <p class="c-form__validation" *ngIf="eventForm.controls['event_enddate'].errors?.startdate">Please choose start date </p>
-                                <p class="c-form__validation" *ngIf="eventForm.controls['event_enddate'].errors?.old_even_end_date">Please choose upcoming date </p>
-                                <p class="c-form__validation" *ngIf="(eventForm.controls['event_enddate'].errors?.endDateLess || eventForm.controls['event_startdate'].errors?.endDateLess) && ecfrom.submitted">Event end date should be greater than the event start date</p>
-                                <p class="c-form__validation" *ngIf="eventForm.controls['event_startdate'].errors?.required && ecfrom.submitted">Start Date and End Date is required</p>
+                                <p class="c-form__validation" *ngIf="(eventForm.controls['event_enddate'].errors?.endDateLess || eventForm.controls['event_startdate'].errors?.startDateMore) && ecfrom.submitted">Event end date should be greater than the event start date</p>
+                                <p class="c-form__validation" *ngIf="invalidDate">Invalid Date</p>           
                             </div>
                         </div>
                         <!-- Date end -->
@@ -203,6 +209,7 @@
                                         <span class="o-form__add-ico"><img [src]="baseUrl + 'v2/svg/plus-red.svg'" alt=""></span>
                                         <p class="c-text_md color-theme m-l-8 o-form__add-title">Add more agenda</p>
                                     </a>
+                                    <p class="c-form__validation" *ngIf="requiredAgenda && ecfrom.submitted">Agenda is Required</p>
                                 </div>
                                 <!-- agenda add link end -->
                             </div>
@@ -339,3 +346,51 @@
         </div>
     </div>
 </section>
+<app-modal-new #coverImageUpload modalClass="tiny__profile_upload">
+    <modal-content>
+        <div id="profile-upload">
+                <div class="o-profile-upload">
+                    <div class="o-cover-upload__head">
+                    <h2 class="o-cover-head--heading">Upload Event Image
+                        <span class="pop-close">
+                        <a (click)="coverImageUpload.close()">
+                            <img [src]="baseUrl + 'img/svg/ico_close-38.svg'" alt="">
+                        </a>
+                        </span>
+                    </h2>
+                    </div>
+                    <div class="o-cover-upload__media">
+                    <!-- <img-cropper #cropper class="o-cover-media__image" [image]="data" [settings]="cropperSettings"></img-cropper> -->
+                    <image-cropper 
+                        class="o-cover-media__image"
+                        [imageChangedEvent]="imageChangedEvent"
+                        [maintainAspectRatio]="true"
+                        [aspectRatio]="2 / 1"
+                        format="png"
+                        (imageCroppedBase64)="imageCropped($event)"
+                        (imageLoaded)="imageLoaded()">
+                    </image-cropper>
+                    <img [src]="baseUrl + croppedImage" *ngIf="!hidePreview" class="preview-image" />
+                    <!-- <div *ngIf="stateProfile?.profile_img_upload_loading">
+                        <div class="sticky sticky__top">
+                        <div class="loader">Loading...</div>
+                        </div>
+                    </div> -->
+                    <div class="o-cover-media__browse">
+                        <div class="upload-btn-wrapper">
+                        <button class="btn btn-network btn-sm text_uppercase">Browse</button>
+                        <input type="file" accept=".jpg,.jpeg" name="myfile" [(ngModel)]="eventCover" [ngModelOptions]="{standalone: true}" (change)="fileChangeListener($event)" />
+                        </div>
+                    </div>
+                    </div>
+                    <div class="o-cover-upload-footer">
+                    <!--<p class="p_text">Successfully updated</p>-->
+                    <div class="o-cover-footer__btn">
+                        <button type="button" (click)="coverImageUpload.close()" class="btn btn-network btn-sm text_uppercase">Cancel</button>
+                        <button type="button" (click)="uploadCoverImage()" class="btn btn-primary btn-sm" [disabled]="disableSave"> &nbsp; Save &nbsp; </button>
+                    </div>
+                    </div>
+                </div>
+                </div>
+    </modal-content>
+</app-modal-new>

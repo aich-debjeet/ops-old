@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy,ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { ModalService } from '../../../shared/modal/modal.component.service';
@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {DatabaseValidator } from '../../../helpers/form.validator';
 import { DatePipe } from '@angular/common';
 import { environment } from '../../../../environments/environment';
+import { Modal } from '../../../shared/modal-new/Modal';
 
 // action
 import { ProfileActions } from '../../../actions/profile.action';
@@ -35,6 +36,9 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
   hideTo: boolean;
   hide = true;
   imageBaseUrl = environment.API_IMAGE;
+  jobId: any;
+
+  @ViewChild('deleteModal') deleteModal: Modal;
 
   constructor(
     public modalService: ModalService,
@@ -193,8 +197,10 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
    * Delete Current Work of user
    */
   deleteCurrentWork(id) {
-    this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_WORK, payload: id});
-    this.toastr.success('Your work has been deleted successfully!');
+    this.deleteModal.open();
+    this.jobId = id;
+    // this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_WORK, payload: id});
+    // this.toastr.success('Your work has been deleted successfully!');
   }
 
   /**
@@ -236,6 +242,17 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
       publicWork: '0',
       id: ''
     });
+  }
+  confirmation(eve){
+    this.closeCancelApplicationModal();
+    if (eve === 'yes') {
+      this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_WORK, payload: this.jobId});
+      this.toastr.success('Your work has been deleted successfully!');
+    }
+  }
+
+  closeCancelApplicationModal() {
+    this.deleteModal.close();
   }
 
 }
