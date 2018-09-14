@@ -1,6 +1,10 @@
 @import './src/assets/scss/helpers/_variables.scss';
 @import '~sass-mq/_mq.scss';
 
+.terms_txt {
+    padding: 50px;
+}
+
 .m-t-b-24 {
     margin-top: 24px; 
     margin-bottom: 24px;
