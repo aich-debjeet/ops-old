@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy,ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { ModalService } from '../../../shared/modal/modal.component.service';
@@ -11,6 +11,7 @@ import {DatabaseValidator } from '../../../helpers/form.validator';
 import { ProfileActions } from '../../../actions/profile.action';
 
 import { ToastrService } from 'ngx-toastr';
+import { Modal } from '../../../shared/modal-new/Modal';
 
 // rx
 import { Observable } from 'rxjs/Observable';
@@ -33,6 +34,8 @@ export class AboutAwardsComponent implements OnInit, OnDestroy {
   userProfile: any;
   ownProfile: boolean;
   imageBaseUrl = environment.API_IMAGE;
+  jobId: any;
+  @ViewChild('deleteModal') deleteModal: Modal;
 
   constructor(
     public modalService: ModalService,
@@ -141,10 +144,10 @@ export class AboutAwardsComponent implements OnInit, OnDestroy {
    * Delete Current Work of user
    */
   deleteCurrentAward(id) {
-    this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_WORK, payload: id});
-    this.toastr.success('Your award has been deleted successfully!', '', {
-      timeOut: 3000
-    });
+    // this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_WORK, payload: id});
+    // this.toastr.success('Your award has been deleted successfully!');
+    this.deleteModal.open();
+    this.jobId = id;
   }
 
   /**
@@ -170,6 +173,18 @@ export class AboutAwardsComponent implements OnInit, OnDestroy {
 
   resetForm() {
     this.awardForm.reset();
+  }
+
+  confirmation(eve){
+    this.closeCancelApplicationModal();
+    if (eve === 'yes') {
+      this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_WORK, payload: this.jobId});
+      this.toastr.success('Your award has been deleted successfully!');
+    }
+  }
+
+  closeCancelApplicationModal() {
+    this.deleteModal.close();
   }
 
 }

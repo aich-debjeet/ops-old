@@ -1273,7 +1273,7 @@
     position: relative;
     display: inline-block;
     @include mq($from: $mobile_sm, $until: $tablet) {
-        width: 100%;
+        width: 95%;
         padding: 23px 0px 24px 0px;
     }
     .c-radio__sm{
