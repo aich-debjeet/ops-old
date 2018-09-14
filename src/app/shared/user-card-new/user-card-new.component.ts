@@ -24,6 +24,7 @@ export class UserCardNewComponent implements OnInit {
   @Input() artist;
   @Input() artistIndex;
   @Input() ownerHandle;
+  @Input() hideActions: Boolean;
   @Output() onFollow: EventEmitter<any> = new EventEmitter<any>();
   isFollowing: boolean;
   userImage: string;
@@ -40,10 +41,10 @@ export class UserCardNewComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!this.artist.ownerImage) {
-      this.userImage = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
-    } else {
+    if (this.artist && this.artist.ownerImage) {
       this.userImage = this.baseUrl + this.artist.ownerImage;
+    } else {
+      this.userImage = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
     }
   }
 

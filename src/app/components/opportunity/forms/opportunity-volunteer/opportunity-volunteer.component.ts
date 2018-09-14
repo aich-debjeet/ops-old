@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ScrollHelper } from '../../../../helpers/scroll.helper';
 import { Store } from '@ngrx/store';
@@ -8,6 +8,7 @@ import { ISubscription } from 'rxjs/Subscription';
 import { GeneralUtilities } from '../../../../helpers/general.utils';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
+import { Modal } from '../../../../shared/modal-new/Modal';
 
 @Component({
   selector: 'app-opportunity-volunteer',
@@ -30,6 +31,7 @@ export class OpportunityVolunteerComponent implements OnInit, OnDestroy {
       this.buildVolunteerForm(null);
     }
   };
+  @ViewChild('termsPopup') termsPopup: Modal;
 
   constructor(
     private fb: FormBuilder,
@@ -78,7 +80,9 @@ export class OpportunityVolunteerComponent implements OnInit, OnDestroy {
   submitVolunteerForm(formData: any) {
     // volunteer form validation
     if (!this.volunteerFrm.valid) {
-      this.toastr.warning('Please check for errors in the form.');
+      this.toastr.warning('Please check for errors in the form.', '', {
+        timeOut: 3000
+      });
       this.scrollHelper.scrollToFirst('error');
       return;
     }
@@ -114,6 +118,15 @@ export class OpportunityVolunteerComponent implements OnInit, OnDestroy {
 
   cancelUpdate() {
     this.location.back();
+  }
+
+  // terms show/hide
+  termsAction(action: string) {
+    if (action === 'hide') {
+      this.termsPopup.close();
+    } else {
+      this.termsPopup.open();
+    }
   }
 
 }

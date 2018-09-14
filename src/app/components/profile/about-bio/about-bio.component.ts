@@ -355,7 +355,9 @@ export class AboutBioComponent implements OnInit, OnDestroy {
     }
     //  console.log(reqBody)
     this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: reqBody});
-    this.toastr.success('Your profile has been updated successfully!');
+    this.toastr.success('Your profile has been updated successfully!', '', {
+      timeOut: 3000
+    });
     this.cancelEdit();
   }
 
@@ -486,7 +488,9 @@ onSelectionChange(val) {
       reqBody.physical.gender = val;
 
       this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: reqBody});
-      this.toastr.success('Your profile has been updated successfully!');
+      this.toastr.success('Your profile has been updated successfully!', '', {
+        timeOut: 3000
+      });
       this.cancelEdit();
     }
   }
@@ -569,6 +573,11 @@ onSelectionChange(val) {
       this.txtQueryChanged.next('undefined');
     }
     this.findSkill = [];
+  }
+
+  allowNumbersOnly(e: any) {
+    const k = e.keyCode;
+    return ((k >= 48 && k <= 57) || (k >= 96 && k <= 105) || k === 8);
   }
 
   /**

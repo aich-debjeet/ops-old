@@ -83,7 +83,9 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
         if (state['create_opportunity_success'] && state['create_opportunity_success'] === true) {
           this.oppCreating = false;
           if (this.oppSaved === true) {
-            this.toastr.success('Opportunity has been created successfully!');
+            this.toastr.success('Opportunity has been created successfully!', '', {
+              timeOut: 3000
+            });
             this.oppSaved = false;
             if (this.generalUtils.checkNestedKey(state, ['create_opportunity_response', 'id'])) {
               this.router.navigateByUrl('/opportunity/view/' + state['create_opportunity_response']['id']);

@@ -43,9 +43,8 @@ export class ProfileService {
   /**
    * for: portfolio
    */
-  portUpdateCategoryName(data: string) {
-    return null;
-    // return this.api.get('/portal/portfolio/publish/' + action);
+  portUpdateCategoryName(reqBody) {
+    return this.api.put('/portal/portfolio/update/categoryName', reqBody);
   }
 
   /**

@@ -525,6 +525,7 @@
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
     border-radius: 3px;
     padding: 5px 8px;
+    z-index: 1;
     a {
         color: $color-theme;
     }
@@ -670,12 +671,28 @@
     flex-direction: column;
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
         height: 100%;
-        margin-top: 10px;
-        margin-left: 0px;
+        margin-top: -10px;
+        margin-left: 16px;
         padding-left: 0px;
     }
-    @include mq($from: $tablet, $until: $desktop_sm) {
+    @include mq($from: $tablet, $until: $mobile_lg) {
         margin-top: 14%;
+    }
+}
+
+.o-profile__others-follow-btn {
+    float: right;
+    width: 100%;
+    margin-left: 8px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 100%;
+        margin: 8px 0px;
+    }
+    .btn-md {
+        @include mq($from: $mobile_sm, $until: $mobile_lg) {
+            padding: 2px 3px;
+            font-size: 7px;
+        }
     }
 }
 
@@ -707,7 +724,7 @@
     color: #fff;
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
         font-size: 15px;
-        color: #333;
+        color: #fff;
         font-weight: 600;
         text-shadow: none;
     }
@@ -719,7 +736,7 @@
     line-height: 18px;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        color: #333;
+        color: #fff;
         text-shadow: none;
     }
 }
@@ -1256,7 +1273,12 @@
     position: relative;
     display: inline-block;
     @include mq($from: $mobile_sm, $until: $tablet) {
-        width: 100%;
+        width: 95%;
+        padding: 23px 0px 24px 0px;
+    }
+    .c-radio__sm{
+        display: block;
+        overflow: hidden;
     }
 }
 

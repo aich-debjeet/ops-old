@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ScrollHelper } from '../../../../helpers/scroll.helper';
 import { Store } from '@ngrx/store';
@@ -12,6 +12,7 @@ import { environment } from 'environments/environment';
 import { pull as _pull } from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
+import { Modal } from '../../../../shared/modal-new/Modal';
 
 @Component({
   selector: 'app-opportunity-freelance',
@@ -47,6 +48,7 @@ export class OpportunityFreelanceComponent implements OnInit, OnDestroy {
   uploadingFile = false;
   uploadedFile = false;
   baseUrl = environment.API_IMAGE;
+  @ViewChild('termsPopup') termsPopup: Modal;
 
   constructor(
     private fb: FormBuilder,
@@ -113,7 +115,9 @@ export class OpportunityFreelanceComponent implements OnInit, OnDestroy {
   submitFreelanceForm(formData: any) {
     // freelance form validation
     if (!this.freelanceFrm.valid) {
-      this.toastr.warning('Please check for errors in the form.');
+      this.toastr.warning('Please check for errors in the form.', '', {
+        timeOut: 3000
+      });
       this.scrollHelper.scrollToFirst('error');
       return;
     }
@@ -166,6 +170,15 @@ export class OpportunityFreelanceComponent implements OnInit, OnDestroy {
 
   cancelUpdate() {
     this.location.back();
+  }
+
+  // terms show/hide
+  termsAction(action: string) {
+    if (action === 'hide') {
+      this.termsPopup.close();
+    } else {
+      this.termsPopup.open();
+    }
   }
 
 }

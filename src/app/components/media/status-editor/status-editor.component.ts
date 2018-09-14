@@ -15,6 +15,7 @@ import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag, UserCard } from '../../../models/profile.model';
 import { ToastrService } from 'ngx-toastr';
 import { ProfileActions } from '../../../actions/profile.action';
+import { AuthActions } from '../../../actions/auth.action';
 
 @Component({
   selector: 'app-status-editor',
@@ -39,7 +40,6 @@ export class StatusEditorComponent implements OnInit, OnDestroy {
   ct_name: any;
 
   profileState$: Observable<ProfileModal>;
-  private tagStateSubscription: Subscription;
   profileChannel = initialTag ;
   statusSaved: boolean;
   uploadState: Number;
@@ -50,6 +50,10 @@ export class StatusEditorComponent implements OnInit, OnDestroy {
   external_post_active = false;
   ct_id: any;
   post_to: any;
+  channelForm: FormGroup;
+  industries: any[];
+  loginTagState$: Observable<any>;
+  channelPrivacy = 0;
 
   constructor(
     private fb: FormBuilder,
@@ -59,6 +63,8 @@ export class StatusEditorComponent implements OnInit, OnDestroy {
     private store: Store<Media>,
     private profileStore: Store<ProfileModal>
   ) {
+    this.createChannelForm();
+    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
     // if redriect url there
     if (this.route.snapshot.queryParams['post_to'] === 'community' || this.route.snapshot.queryParams['post_to'] === 'channel') {
       if (this.route.snapshot.queryParams['post_to'] && this.route.snapshot.queryParams['ct_id']) {
@@ -96,6 +102,13 @@ export class StatusEditorComponent implements OnInit, OnDestroy {
       this.ct_name = params['ct_name']
       if (Object.keys(params).length) {
         this.nameActive = true;
+      }
+    });
+
+    this.loginTagState$ = store.select('loginTags');
+    this.loginTagState$.subscribe((state) => {
+      if (typeof state !== 'undefined') {
+        this.industries = state.industries;
       }
     });
   }
@@ -160,7 +173,9 @@ export class StatusEditorComponent implements OnInit, OnDestroy {
       this.store.select('profileTags')
       .first(media => media['community_media_success'] === true)
       .subscribe( data => {
-        this.toastr.success('Your media has been successfully posted', 'Upload');
+        this.toastr.success('Your media has been successfully posted', 'Upload', {
+          timeOut: 3000
+        });
         this.router.navigateByUrl('/communities/' + this.ct_id);
       });
       return
@@ -177,7 +192,9 @@ export class StatusEditorComponent implements OnInit, OnDestroy {
     this.store.select('mediaStore')
       .first(post => post['status_saved'] === true)
       .subscribe( data => {
-        this.toastr.success('Successfully posted your status');
+        this.toastr.success('Successfully posted your status', '', {
+          timeOut: 3000
+        });
         this.router.navigate(['/user/status/list']);
       });
   }
@@ -228,7 +245,9 @@ export class StatusEditorComponent implements OnInit, OnDestroy {
     this.profileStore.select('profileTags')
       .first(state => state['status_channel_posted'] === true)
       .subscribe( data => {
-        this.toastr.success('Your post has been successfully posted to your channel');
+        this.toastr.success('Your post has been successfully posted to your channel', '', {
+          timeOut: 3000
+        });
         this.router.navigate(['/channel/' + channelId]);
       });
   }
@@ -253,5 +272,65 @@ export class StatusEditorComponent implements OnInit, OnDestroy {
    */
   changeState(state: number) {
     this.uploadState = state;
+  }
+  /**
+   * Status Form
+   */
+  createChannelForm() {
+    this.channelForm = this.fb.group({
+      title: ['', Validators.required ],
+      desc: ['', Validators.required ],
+      privacy: [0, Validators.required ],
+      type: [0, Validators.required ]
+    })
+  }
+  /**
+   * Form Builder
+   */
+  createChannel(value: any) {
+    const mediaTypeList = ['image', 'video', 'audio', 'text'];
+    if ( this.channelForm.valid === true ) {
+      const channelObj = {
+        name: value.title,
+        description: value.desc,
+        mediaTypes: mediaTypeList,
+        superType: 'channel',
+        access: Number(value.privacy),
+        accessSettings : { access : Number(value.privacy) },
+        owner: this.userHandle,
+        industryList: [value.type]
+      }
+
+      this.saveChannel( channelObj );
+
+    } else {
+      this.toastr.warning('Please fill all required fields', '', {
+        timeOut: 3000
+      });
+    }
+  }
+  /**
+   * Save Channel
+   */
+  saveChannel(req: any) {
+    this.store.dispatch({ type: ProfileActions.CHANNEL_SAVE, payload: req });
+
+    this.store.select('profileTags')
+      .first(profile => profile['channel_saved'] === true )
+      .subscribe( data => {
+        this.channelForm.reset();
+        this.changeState(2);
+        this.toastr.success('successfully created channel', 'Success!', {
+          timeOut: 3000
+        });
+        this.createChannelForm();
+        setTimeout(() => {
+          this.loadChannel(this.userHandle, null);
+        }, 1500);
+      });
+  }
+
+  channelPrivacyToggle(value) {
+    this.channelPrivacy = value
   }
 }

@@ -55,11 +55,35 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
         success: false
       });
 
+    // Get current channel post
+    case MediaActions.GET_CURRENT_CHANNEL_POST:
+      if (payload.scrollId === null) {
+        return Object.assign({}, state, {
+          channelPostScrollId: [],
+          channel_post_loading: true,
+          channel_post: []
+        });
+      }
+      return Object.assign({}, state, {
+        channel_post_loading: true,
+      });
+
+
+    case MediaActions.GET_CURRENT_CHANNEL_POST_SUCCESS:
+      const channel_post = state.channel_post ? state.channel_post.concat(payload['mediaResponse']) : payload['mediaResponse'];
+      return Object.assign({}, state, {
+        channel_post_loading: false,
+        channel_post: channel_post,
+        channelPostScrollId: payload['scrollId']
+      });
+
     // Get Media Details
     case MediaActions.MEDIA_DETAILS:
       return Object.assign({}, state, {
         media_detail_loading: true,
-        media_detail: []
+        media_detail: [],
+        channelPostScrollId: [],
+        channel_post: []
       });
 
     case MediaActions.MEDIA_DETAILS_SUCCESS:

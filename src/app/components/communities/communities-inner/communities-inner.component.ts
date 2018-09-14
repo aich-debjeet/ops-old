@@ -203,7 +203,9 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
       this.CommuityLeaveModal.close();
       this.CommunityLeaveConfirmModal.open();
     } else {
-      this.toastr.warning('Please select admin');
+      this.toastr.warning('Please select admin', '', {
+        timeOut: 3000
+      });
     }
   }
 
@@ -215,7 +217,9 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
     }
 
     this.store.dispatch({ type: CommunitiesActions.COMMUNITY_ADMIN_CHANGE, payload: data});
-    this.toastr.success('You have successfully left this community', 'Success!');
+    this.toastr.success('You have successfully left this community', 'Success!', {
+      timeOut: 3000
+    });
     this.CommunityLeaveConfirmModal.close();
   }
 
@@ -237,7 +241,9 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
     this.store.select('communitiesTags')
     .first(channel => channel['communnity_delete'] === true)
     .subscribe( datas => {
-        this.toastr.success('Your community has been successfully deleted', 'Success!');
+        this.toastr.success('Your community has been successfully deleted', 'Success!', {
+          timeOut: 3000
+        });
         this.router.navigateByUrl('/communities');
         return
     });
@@ -301,12 +307,16 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
       this.store.select('communitiesTags')
       .first(channel => channel['community_update_success'] === true)
       .subscribe( datas => {
-        this.toastr.success('Your community has been successfully updated', 'Update');
+        this.toastr.success('Your community has been successfully updated', 'Update', {
+          timeOut: 3000
+        });
         this.CommunityUpdate.close();
         return
       });
     } else {
-      this.toastr.warning('Please fill all required fields');
+      this.toastr.warning('Please fill all required fields', '', {
+        timeOut: 3000
+      });
     }
   }
 

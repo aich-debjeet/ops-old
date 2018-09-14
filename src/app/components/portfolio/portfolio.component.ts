@@ -145,7 +145,9 @@ export class PortfolioComponent implements OnInit, OnDestroy {
           this.selectTab(this.portCategories[catIndx]);
           // reset add media
           this.resetAddMedia();
-          this.toastr.success('Media added to the category successfully!');
+          this.toastr.success('Media added to the category successfully!', '', {
+            timeOut: 3000
+          });
         }
       }
     });
@@ -182,6 +184,12 @@ export class PortfolioComponent implements OnInit, OnDestroy {
       type: ProfileActions.PORTFOLIO_DELETE_CATEGORY,
       payload: catId
     });
+    this.profileStore.select('profileTags')
+      .first(resp => resp['portfolio_delete_category_success'] === true)
+      .subscribe(data => {
+        this.toastr.success('Category deleted', 'Success!', { timeOut: 3000 });
+        return;
+      });
   }
 
   /**
@@ -204,8 +212,21 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     // console.log('cats', this.portCategories);
   }
 
-  saveNewCatName(catIndex: number) {
-    this.profileStore.dispatch({ type: ProfileActions.PORTFOLIO_UPDATE_CATEGORY_NAME, payload: {} });
+  saveCatNewName(catIndex: number) {
+    const cat = this.portCategories[catIndex];
+    if (cat) {
+      const reqBody = {
+        categoryId: cat.categoryId,
+        categoryName: cat.categoryName,
+      };
+      this.profileStore.dispatch({ type: ProfileActions.PORTFOLIO_UPDATE_CATEGORY_NAME, payload: reqBody });
+      this.profileStore.select('profileTags')
+        .first(resp => resp['portfolio_update_category_name_success'] === true)
+        .subscribe(data => {
+          this.toastr.success('Category name updated', 'Success!', { timeOut: 3000 });
+          return;
+        });
+    }
   }
 
   /**
@@ -386,7 +407,9 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     this.profileStore.dispatch({ type: ProfileActions.PORTFOLIO_PUBLISH_ACTION, payload: pubAction });
     setTimeout(() => {
       this.disablePublishButton = false;
-      this.toastr.success('Portfolio has been ' + pubAction + 'ed successfully!');
+      this.toastr.success('Portfolio has been ' + pubAction + 'ed successfully!', '', {
+        timeOut: 3000
+      });
     }, 500);
   }
 

@@ -13,6 +13,18 @@ import { OpportunityService } from '../services/opportunity.service';
 export class OpportunityEffect {
 
   /**
+   * Get opportunity collaborators by id
+   */
+  @Effect()
+  getOppCollabs$ = this.actions$
+    .ofType(OpportunityActions.GET_OPPORTUNITY_COLLABORATORS)
+    .map(toPayload)
+    .switchMap((payload) => this.opportunityService.getOppCollabs(payload)
+      .map((res) => ({ type: OpportunityActions.GET_OPPORTUNITY_COLLABORATORS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: OpportunityActions.GET_OPPORTUNITY_COLLABORATORS_FAILED, payload: res }))
+    );
+
+  /**
    * Get similar opportunities
    */
   @Effect()

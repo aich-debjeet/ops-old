@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { ModalService } from '../../../shared/modal/modal.component.service';
@@ -14,6 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 // rx
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../../environments/environment';
+import { Modal } from '../../../shared/modal-new/Modal';
 
 @Component({
   selector: 'app-about-education',
@@ -32,6 +33,9 @@ export class AboutEducationComponent implements OnInit {
   userProfile: any;
   ownProfile: boolean;
   imageBaseUrl = environment.API_IMAGE;
+  jobId: any;
+  @ViewChild('deleteModal') deleteModal: Modal;
+
   constructor(
     public modalService: ModalService,
     private fb: FormBuilder,
@@ -107,7 +111,9 @@ export class AboutEducationComponent implements OnInit {
         }
         this.modalService.close('userEducationkAdd');
         this.profileStore.dispatch({ type: ProfileActions.ADD_USER_EDUCATION, payload: body});
-        this.toastr.success('Your education details has been updated successfully!');
+        this.toastr.success('Your education details has been updated successfully!', '', {
+          timeOut: 3000
+        });
       } else {
         const body = {
           'institute': value.institute,
@@ -118,7 +124,9 @@ export class AboutEducationComponent implements OnInit {
         }
         this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_EDUCATION, payload: body});
         this.modalService.close('userEducationkAdd');
-        this.toastr.success('Your education details has been updated successfully!');
+        this.toastr.success('Your education details has been updated successfully!', '', {
+          timeOut: 3000
+        });
       }
     }
     this.educationForm.reset();
@@ -129,8 +137,10 @@ export class AboutEducationComponent implements OnInit {
    * Delete Current Work of user
    */
   deleteCurrentEducation(id) {
-    this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_EDUCATION, payload: id});
-    this.toastr.success('Your education has been deleted successfully!');
+    // this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_EDUCATION, payload: id});
+    // this.toastr.success('Your education has been deleted successfully!');
+    this.deleteModal.open();
+    this.jobId = id;
   }
 
   /**
@@ -167,6 +177,18 @@ export class AboutEducationComponent implements OnInit {
       publicWork: '0',
       id: ''
     });
+  }
+
+  confirmation(eve){
+    this.closeCancelApplicationModal();
+    if (eve === 'yes') {
+      this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_EDUCATION, payload: this.jobId});
+      this.toastr.success('Your education has been deleted successfully!');
+    }
+  }
+
+  closeCancelApplicationModal() {
+    this.deleteModal.close();
   }
 
 }

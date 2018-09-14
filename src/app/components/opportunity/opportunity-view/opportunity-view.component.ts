@@ -87,10 +87,6 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
             this.store.dispatch({ type: OpportunityActions.GET_SIMILAR_OPPORTUNITIES, payload: simOppsParams });
           }
         }
-        // check if job application successful
-        if (state.apply_for_an_opportunity_data) {
-          this.hasApplied = true;
-        }
         const userHandle = localStorage.getItem('loggedInProfileHandle');
         if (userHandle
           && this.generalUtils.checkNestedKey(this.opportunityState, ['get_opportunity_data', 'ownerHandle'])
@@ -102,7 +98,9 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
         }
         // delete listener
         if (state['delete_opp_requested'] === false && state['delete_opp_success'] === true) {
-          this.toastr.success('Opporunity deleted successfully!');
+          this.toastr.success('Opporunity deleted successfully!', '', {
+            timeOut: 3000
+          });
           setTimeout(() => {
             this.router.navigateByUrl('/opportunity');
           }, 2000);
@@ -139,6 +137,7 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
         // search job with id
         this.jobId = params['id'];
         this.store.dispatch({ type: OpportunityActions.GET_OPPORTUNITY, payload: this.jobId });
+        this.store.dispatch({ type: OpportunityActions.GET_OPPORTUNITY_COLLABORATORS, payload: this.jobId });
       }
     });
   }
@@ -166,7 +165,9 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
         .first(state => state['applying_for_an_opportunity'] === false && state['apply_for_an_opportunity_success'] === true)
         .subscribe(() => {
           this.userActionLoading = false;
-          this.toastr.success('Successfully applied for the opportunity!', 'Success!');
+          this.toastr.success('Successfully applied for the opportunity!', 'Success!', {
+            timeOut: 3000
+          });
         });
     } else if (action === 'cancel') {
       this.cancelApplicationModal.open();
@@ -203,9 +204,10 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
       this.store.select('opportunityTags')
         .first(state => state['cancel_application'] === false && state['cancel_application_success'] === true)
         .subscribe(() => {
-          this.hasApplied = false;
           this.userActionLoading = false;
-          this.toastr.success('Application cancelled!', 'Success!');
+          this.toastr.success('Application cancelled!', 'Success!', {
+            timeOut: 3000
+          });
         });
     }
   }

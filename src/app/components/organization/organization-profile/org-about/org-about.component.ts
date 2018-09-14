@@ -187,7 +187,9 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
       }
       // check for invite status
       if (this.gUtils.checkNestedKey(this.orgProfile, ['invite_sent']) && this.orgProfile['invite_sent'] === true && this.inviteSent === true) {
-        this.toastr.success('Invite sent successfully');
+        this.toastr.success('Invite sent successfully', '', {
+          timeOut: 3000
+        });
         this.inviteSent = false;
         const invitedUserHandle = this.orgProfile['org_invite_req_data'].userHandle;
         // remove user from the list

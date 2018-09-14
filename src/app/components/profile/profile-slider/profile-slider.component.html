@@ -388,12 +388,12 @@
                                 <br>he/she accept the network request
                         </div>
                         <div class="c-radio__sm">
-                            <label class="col-md-8 col-md-offset-2 o-network_option m-t-16">
+                            <label class="col-md-8 col-xs-12 col-md-offset-2 o-network_option m-t-16">
                                 <input name="request" type="radio" class="c-form__bar2" value="network" (click)="openMsg('network')" formControlName="request">
                                 <span></span>
                                 <div class="c-radio--label">Hey {{ profileObject?.name }}, I want to connect with you.</div>
                             </label>
-                            <label class="col-md-8 col-md-offset-2 o-network_option m-t-16">
+                            <label class="col-md-8 col-xs-12 col-md-offset-2 o-network_option m-t-16">
                                 <!-- <input id="hereShow" name="request" type="radio" class="c-form__bar2" value="personalMessage" formControlName="request"> -->
                                 <input id="hereShow" name="request" (click)="openMsg('personalMessage')" type="radio" class="c-form__bar2" value="personalMessage" formControlName="request">
                                 <span></span>
@@ -459,20 +459,22 @@
                                 <p class="c-text_sm color-grey-dark">@{{ follower?.extra?.username | truncate:[10, '...'] }}</p>
                             </div>
                         </a>
-                        <!-- <button type="button" class="btn btn-primary btn-sm m-t-8">follow</button> -->
-                        <div *ngIf="follower?.extra.isImported; else not_imported">
-                            <button [routerLink]="'/profile/u/' + follower?.extra?.username" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
-                                <span class="btn-label-follow"> CLAIM </span>
-                            </button>
+                     
+                        <div class="o-profile__others-follow-btn">
+                            <div *ngIf="follower?.extra.isImported; else not_imported">
+                                <button [routerLink]="'/profile/u/' + follower?.extra?.username" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
+                                    <span class="btn-label-follow"> CLAIM </span>
+                                </button>
+                            </div>
+                            <ng-template #not_imported>
+                                <button (click)="unfollowUser(follower)" *ngIf="follower?.extra.isFollowing" type="button" class="btn btn-xs btn-default btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
+                                    <span class="btn-label-follow"> UNFOLLOW </span>
+                                </button>
+                                <button (click)="followUser(follower)" *ngIf="!follower?.extra.isFollowing" type="button" class="btn btn-xs btn-primary btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
+                                    <span class="btn-label-follow"> FOLLOW </span>
+                                </button>
+                            </ng-template>
                         </div>
-                        <ng-template #not_imported>
-                            <button (click)="unfollowUser(follower)" *ngIf="follower?.extra.isFollowing" type="button" class="btn btn-xs btn-default btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
-                                <span class="btn-label-follow"> UNFOLLOW </span>
-                            </button>
-                            <button (click)="followUser(follower)" *ngIf="!follower?.extra.isFollowing" type="button" class="btn btn-xs btn-primary btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
-                                <span class="btn-label-follow"> FOLLOW </span>
-                            </button>
-                        </ng-template>
                     </li>
                 </ul>
             </div>

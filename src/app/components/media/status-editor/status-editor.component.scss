@@ -138,3 +138,124 @@
         flex-direction: column-reverse;
     }
 }
+.o-add-media-channel-main {
+    width: 863px;
+    margin: 0px auto;
+    background: #fff;
+    padding: 10px 32px;
+    overflow: hidden;
+    
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        width: 100%;
+        padding: 0;
+    }
+    @include mq($from: $tablet, $until: $desktop_sm) {
+        width: 100%;
+    }
+}
+
+.o-add-media-channel {
+    width: 100%;
+    background: #fff;
+    padding: 24px 32px;
+    float: left;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        padding:16px 16px;
+    }
+}
+
+.o-add-media-channel__head {
+    float: left;
+    width: 100%;
+}
+
+.o-add-media-channel__link {
+    font-weight: 600;
+    &:hover {
+        color: #333;
+    }
+}
+
+.o-add-media-img-list {
+    list-style: none;
+    float: left;
+    display: flex;
+    justify-content: inherit;
+    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-height: 428px;
+    overflow: hidden;
+    overflow-y: scroll;
+    min-width: 410px;
+}
+
+.o-add-media-img-list__item {
+    list-style-type: none;
+    height: 112px;
+    width: 112px;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-right: 16px;
+    margin-top: 16px;
+}
+
+.o-add-media-item__img {
+    max-width: 100%;
+    height: auto;
+}
+
+.o-channel-input {
+    border: none!important;
+}
+
+.o-add-media__main-block{
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        display: flex;
+        justify-content: center;
+        flex-direction: column-reverse;
+    }
+}
+
+.desktop-css {
+    margin-top: 8px;
+    margin-left: 8px;
+    padding-top: 16px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        margin: initial;
+        padding: 20px;
+    }
+}
+
+.o-create-channel-container {
+    min-height: 460px;
+    background: #fff;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        min-height: auto;
+    }
+}
+
+div#create-channel form {
+    padding-left: 100px;
+    padding-right: 100px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        padding: 0;
+    }
+}
+
+.o-create-channel__input {
+    width: 90%;
+    float: left;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 70%;
+    }
+}
+
+.o-create-channel__action {
+    float: left;
+    margin-left: 16px;
+    margin-top: 12px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        margin-top: 25px;
+    }
+}

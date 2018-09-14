@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy,ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { ModalService } from '../../../shared/modal/modal.component.service';
@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {DatabaseValidator } from '../../../helpers/form.validator';
 import { DatePipe } from '@angular/common';
 import { environment } from '../../../../environments/environment';
+import { Modal } from '../../../shared/modal-new/Modal';
 
 // action
 import { ProfileActions } from '../../../actions/profile.action';
@@ -35,6 +36,9 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
   hideTo: boolean;
   hide = true;
   imageBaseUrl = environment.API_IMAGE;
+  jobId: any;
+
+  @ViewChild('deleteModal') deleteModal: Modal;
 
   constructor(
     public modalService: ModalService,
@@ -118,8 +122,11 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
    * Add Work form submit
    */
   workFormSubmit(value) {
+    
     if ( this.workForm.valid === true ) {
+      
       if (this.editFormPopup === false) {
+        
         if (this.hideTo !== true) {
         const body = {
           'role': value.position,
@@ -131,7 +138,9 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
           'access': Number(value.publicWork)
         }
         this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: body});
-        this.toastr.success('Your work has been added successfully!');
+        this.toastr.success('Your work has been added successfully!', '', {
+          timeOut: 3000
+        });
         this.modalService.close('userWorkAdd');
       }
      if (this.hideTo === true) {
@@ -144,24 +153,44 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
           'access': Number(value.publicWork)
         }
         this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: body});
-        this.toastr.success('Your work has been added successfully!');
+        this.toastr.success('Your work has been added successfully!', '', {
+          timeOut: 3000
+        });
         this.modalService.close('userWorkAdd');
       }
       } else {
-        const body = {
-          'role': value.position,
-          'organizationName': value.company,
-          'workOrAward': 'work',
-          'from': this.reverseDate(value.from) + 'T05:00:00',
-          'to': this.reverseDate(value.to) + 'T05:00:00',
-          'currentlyWith': value.currentWork,
-          'access': Number(value.publicWork),
-          'id': value.id,
+        
+        if (this.hideTo !== true) {
+          const body = {
+            'role': value.position,
+            'organizationName': value.company,
+            'workOrAward': 'work',
+            'from': this.reverseDate(value.from) + 'T05:00:00',
+            'to': this.reverseDate(value.to) + 'T05:00:00',
+            'currentlyWith': Boolean(value.currentWork),
+            'access': Number(value.publicWork),
+            'id': value.id,
+          }
+  
+          this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_WORK, payload: body});
+          this.toastr.success('Your work has been updated successfully!');
+          this.modalService.close('userWorkAdd');
         }
-
-        this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_WORK, payload: body});
-        this.toastr.success('Your work has been updated successfully!');
-        this.modalService.close('userWorkAdd');
+        if (this.hideTo === true) {
+          const body = {
+            'role': value.position,
+            'organizationName': value.company,
+            'workOrAward': 'work',
+            'from': this.reverseDate(value.from) + 'T05:00:00',
+            'currentlyWith': Boolean(value.currentWork),
+            'access': Number(value.publicWork),
+            'id': value.id,
+          }
+  
+          this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_WORK, payload: body});
+          this.toastr.success('Your work has been updated successfully!');
+          this.modalService.close('userWorkAdd');
+        }
       }
       this.workForm.reset();
      // this.buildEditForm()
@@ -172,8 +201,10 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
    * Delete Current Work of user
    */
   deleteCurrentWork(id) {
-    this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_WORK, payload: id});
-    this.toastr.success('Your work has been deleted successfully!');
+    this.deleteModal.open();
+    this.jobId = id;
+    // this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_WORK, payload: id});
+    // this.toastr.success('Your work has been deleted successfully!');
   }
 
   /**
@@ -215,6 +246,17 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
       publicWork: '0',
       id: ''
     });
+  }
+  confirmation(eve){
+    this.closeCancelApplicationModal();
+    if (eve === 'yes') {
+      this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_WORK, payload: this.jobId});
+      this.toastr.success('Your work has been deleted successfully!');
+    }
+  }
+
+  closeCancelApplicationModal() {
+    this.deleteModal.close();
   }
 
 }

@@ -194,16 +194,20 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
    * select opportunity industry
    */
   selectIndustryFilter(indValue: string) {
-    if (indValue.length > 0) {
-      const parentNode = 'INDUSTRY';
+    const parentNode = 'INDUSTRY';
+    if (indValue.length === 0) {
+      this.globalFilter = _.remove(this.globalFilter, (obj) => {
+        return obj.key !== parentNode;
+      });
+    } else if (indValue.length > 0) {
       const indIndex = _.findIndex(this.globalFilter, (o) => o.key === parentNode);
       if (indIndex > -1) {
         this.globalFilter[indIndex].value = indValue;
       } else {
         this.globalFilter.push({ key: parentNode, value: indValue });
       }
-      this.triggerSearch(null);
     }
+    this.triggerSearch(null);
   }
 
   /**

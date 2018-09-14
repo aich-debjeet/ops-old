@@ -86,7 +86,9 @@ export class MediaBlockComponent implements OnInit {
       this.comments = this.mediaStore.media_comment;
       if (state['media_edit_msg'] && this.editMsg) {
        this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
-       this.toastr.success('Post Edited');
+       this.toastr.success('Post Edited', '', {
+        timeOut: 3000
+       });
        this.doClose(event);
        this.editMsg = false;
      }
@@ -96,7 +98,9 @@ export class MediaBlockComponent implements OnInit {
       this.commentCount = this.mediaStore.media_detail.commentsCount;
       if (state['media_delete_msg'] && this.deleteMsg) {
         this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
-        this.toastr.warning('Post Deleted');
+        this.toastr.warning('Post Deleted', '', {
+          timeOut: 3000
+        });
         this.doClose(event);
         this.deleteMsg = false;
       }

@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 import {} from '@types/googlemaps';
-
+import { Modal } from '../../../shared/modal-new/Modal';
 
 
 // Model
@@ -58,6 +58,12 @@ export class EventsEditComponent implements OnInit {
   textEdit = true;
   eventTypeList: any;
   bldForm: boolean = false;
+  croppedImage = '';
+  hidePreview = false;
+  disableSave = true;
+  imageChangedEvent = '';
+  requiredAgenda: boolean = false;
+  invalidDate: boolean = false;
 
     // Address --
     address: string;
@@ -76,8 +82,18 @@ export class EventsEditComponent implements OnInit {
   // Rich Text editor toolbar
   defaultModules = {
     toolbar: [
-      ['bold', 'underline'],
-      ['link']
+      ['bold', 'italic', 'underline'],
+      ['link'],
+      // [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      // [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+      [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+  
+      [{ 'color': [] }],          // dropdown with defaults from theme
+      // [{ 'font': [] }],
+      [{ 'align': [] }],
+      ['clean'],                                         // remove formatting button
     ]
   };
 
@@ -97,7 +113,7 @@ export class EventsEditComponent implements OnInit {
   process: number[] = [];
   fileData: File;
   userHandle: any;
-
+  @ViewChild('coverImageUpload') coverImageUpload: Modal;
   @ViewChild('search')
   public searchElementRef: ElementRef;
 
@@ -118,8 +134,8 @@ export class EventsEditComponent implements OnInit {
       'event_genres': ['',[Validators.required]],
       'event_industry': ['',[Validators.required]],
       'event_venue': ['',[Validators.required]],
-      'event_startdate' : ['', [Validators.required, FormValidation.datevalidation, this.dateCompare.bind(this)]],
-      'event_enddate' : ['',[Validators.required, FormValidation.oldEndDatevalidation, this.dateComparision.bind(this)]],
+      'event_startdate' : ['', [Validators.required, FormValidation.datevalidation, this.dateCompare.bind(this), this.validDate.bind(this)]],
+      'event_enddate' : ['',[Validators.required, FormValidation.oldEndDatevalidation, this.dateComparision.bind(this), this.validDate.bind(this)]],
       'access': '0',
       'event_type': 'Free',
       'event_agenda' : this.fb.array([this.agendaItem()]),
@@ -152,20 +168,6 @@ export class EventsEditComponent implements OnInit {
       // console.log(this.eventDetail)
       // this.buildForm();
     });
-    // this.store.select('eventTags')
-    // .first(state => state['event_detail'] !== 'undefined' )
-    // .subscribe( data => {
-    //   this.eventDetail = data['event_detail']
-    //   //  console.log(this.eventDetail)
-    //   if(!this.bldForm){
-    //     this.buildForm(data);
-    //     this.getLocationGoogle();
-    //     this.bldForm = true;
-    //   }
-
-    // });
-    // this.store.dispatch({ type: EventActions.GET_EVENT_TYPE });
-    // this.store.dispatch({ type: EventActions.GET_ALL_INDUSTRY });
    }
 
   ngOnInit() {
@@ -183,37 +185,33 @@ export class EventsEditComponent implements OnInit {
         this.loadDetail();
       }
     });
-    // this.sub = this.route.params.subscribe(params => {
-    //   this.id = params['id'];
-    //   this.loadDetail();
-    // });
-
   }
 
   loadDetail() {
-    console.log('loadDetail', this.id);
     this.store.dispatch({ type: EventActions.EVENT_DETAILS_LOAD, payload: this.id });
     this.store.dispatch({ type: EventActions.GET_EVENT_TYPE });
     this.store.dispatch({ type: EventActions.GET_ALL_INDUSTRY });
   }
 
-  fileChangeListener($event) {
-    const data = new FormData();
+  fileChangeListener(event) {
+    this.disableSave = false;
+    this.imageChangedEvent = event;
+  //   const data = new FormData();
 
-    if ($event.target.files.length > 0) {
-      const randm = Math.random().toString(36).slice(2);
-      const fileName = 'prof_' + randm + '.' + 'jpg';
+  //   if ($event.target.files.length > 0) {
+  //     const randm = Math.random().toString(36).slice(2);
+  //     const fileName = 'prof_' + randm + '.' + 'jpg';
 
-      let file = $event.target.files[0];
+  //     let file = $event.target.files[0];
 
-      const data = new FormData();
-      data.append('file', file, fileName );
+  //     const data = new FormData();
+  //     data.append('file', file, fileName );
 
-      // Display the key/value pairs
+  //     // Display the key/value pairs
 
-      // Upload files
-      this.uploadCoverImage(data);
-    }
+  //     // Upload files
+  //     this.uploadCoverImage(data);
+  //   }
 
 
     // const image: any = new Image();
@@ -235,19 +233,35 @@ export class EventsEditComponent implements OnInit {
    /**
    * Upload Cover image
    */
-  uploadCoverImage(fileObj) {
+  uploadCoverImage() {
     const imageData = {
       handle: this.userHandle,
-      image: fileObj
+      image: this.croppedImage.split((/,(.+)/)[1])
     };
 
+    this.disableSave = true;
     this.store.dispatch({ type: EventActions.FILE_UPLOAD, payload: imageData });
 
     this.store.select('eventTags')
       .first(file => file['fileupload_success'] === true )
       .subscribe( data => {
         this.eventCoverImage = data['fileUpload'][0].repoPath
+        this.coverImageUpload.close();
       });
+  }
+  
+  validDate(control: AbstractControl){
+    if (control.value === '') {
+      this.invalidDate = false;
+      return null;
+    } else {
+      if(!moment(control.value, "DD-MM-YYYY", true).isValid()){
+        // console.log('invalid');
+        this.invalidDate = true;
+      } else {
+        this.invalidDate = false;
+      }
+    }    
   }
 
 
@@ -259,21 +273,18 @@ export class EventsEditComponent implements OnInit {
    * Init Form Action
    */
   buildForm(data: any) {
-    console.log('in buildForm', data)
+    // console.log('in buildForm', data)
     // this.eventAgenda(data['event_detail']);
     this.eventForm = this.fb.group({
       'event_name' :[data['event_detail']['title'],[Validators.required]],
       'event_genres': [data['event_detail']['Type']['eventType'],[Validators.required]],
       'event_industry': [data['event_detail']['industry'][0],[Validators.required]],
       'event_venue': [data['event_detail']['venue']['location'],[Validators.required]],
-      'event_startdate' : [this.removeTime(data['event_detail']['eventTiming']['startDate']), [Validators.required, FormValidation.datevalidation, this.dateCompare.bind(this)]],
-      'event_enddate' : [this.removeTime(data['event_detail']['eventTiming']['endDate']),[Validators.required, FormValidation.oldEndDatevalidation, this.dateComparision.bind(this)]],
+      'event_startdate' : [this.removeTime(data['event_detail']['eventTiming']['startDate']), [Validators.required, FormValidation.datevalidation, this.dateCompare.bind(this) ,this.validDate.bind(this)]],
+      'event_enddate' : [this.removeTime(data['event_detail']['eventTiming']['endDate']),[Validators.required, FormValidation.oldEndDatevalidation, this.dateComparision.bind(this), this.validDate.bind(this)]],
       'access': '0',
       'event_type': 'Free',
       'event_agenda' : this.fb.array(this.eventAgenda(data['event_detail'])),
-      // 'event_ts_type' : this.fb.array(
-      //   [this.ticketItem('')]
-      // ),
       'event_brief' :[data['event_detail']['brief'], [Validators.required]],
       'ts_startTime': [this.removeTime(data['event_detail']['extras']['ticket'][0]['startDate']),[Validators.required, FormValidation.datevalidation]],
       'ts_endTime': [this.removeTime(data['event_detail']['extras']['ticket'][0]['endDate']),[Validators.required, FormValidation.oldEndDatevalidation]],
@@ -281,22 +292,28 @@ export class EventsEditComponent implements OnInit {
     }, {
       // validators: [FormValidation.endateValidation]
     })
-    this.eventCoverImage = this.eventDetail.extras.coverImage
+    // this.eventCoverImage = this.eventDetail.extras.coverImage
+    this.loadImage();
 
   }
-  // eventAgenda(data){
-  //   let newFormGroup = [];
-  //   for (let i = 0; i < data['event_agenda'].length; i++){
-  //     let fg = this.fb.group({
-  //       startTime: [data['event_agenda'][i].startTime],
-  //       description: [data['event_agenda'][i].description]
-  //     });
-  //     newFormGroup.push(fg);
-  //     if (i >= (data['event_agenda'].length - 1)) {
-  //       return newFormGroup;
-  //     }
-  //   }
-  // }
+  loadImage() {
+    let coverImageURL;
+    if (typeof this.eventDetail.extras.coverImage !== 'undefined') {
+      coverImageURL = this.eventDetail.extras.coverImage;
+    } else {
+      coverImageURL = 'https://ops-v2.netlify.com/assets/demo/photography1.jpg';
+    }
+    this.croppedImage = coverImageURL;
+    this.eventCoverImage = coverImageURL;
+  }
+
+  imageCropped(image: string) {
+    this.croppedImage = image;
+    this.hidePreview = true;
+  }
+  openModel(){
+    this.coverImageUpload.open();
+  }
 
   eventAgenda(data){
     if(data['event_agenda'] !== undefined){
@@ -304,7 +321,7 @@ export class EventsEditComponent implements OnInit {
       let newFormGroup = [];
       for (let i = 0; i < data['event_agenda'].length; i++){
         let fg = this.fb.group({
-          startTime: [data['event_agenda'][i].startTime,[Validators.required, this.agendaDateComp.bind(this)]],
+          startTime: [this.agendaTimeFormat(data['event_agenda'][i].startTime),[Validators.required, this.agendaDateComp.bind(this)]],
           description: [data['event_agenda'][i].description, [Validators.required]]
         });
         newFormGroup.push(fg);
@@ -357,12 +374,9 @@ export class EventsEditComponent implements OnInit {
       const startSelect = moment(startDate).format('YYYYMMDD');
       const endSelect = moment(endData).format('YYYYMMDD');
       if (endSelect < startSelect && !isNaN(Number(startSelect))) {
-        // console.log('validating')
         // console.log('validating',startSelect)
         return { endDateLess: true };
-      } else {
-        return null;
-      }
+      } return null;
     }
 
   }
@@ -377,12 +391,10 @@ export class EventsEditComponent implements OnInit {
       const startSelect = moment(startDate).format('YYYYMMDD');
       const endSelect = moment(endData).format('YYYYMMDD');
       if (startSelect > endSelect && !isNaN(Number(startSelect))) {
-        // console.log('validating')
         // console.log('validating',startSelect)
-        return { endDateLess: true };
-      } else {
-        return null;
-      }
+        return { startDateMore: true };
+      } 
+      return null;
     }
 
   }
@@ -551,13 +563,26 @@ export class EventsEditComponent implements OnInit {
    * @param value value of form
    */
   submitForm(value) {
-    // console.log(this.eventForm.valid)
-    // console.log(this.eventCoverImage)
     if (this.eventForm.valid) {
+      let event_agenda = [];
       if (this.eventCoverImage === '') {
         this.imageUpload = true;
         // console.log(this.imageUpload)
         return
+      }
+      if(value.event_agenda.length <= 0){
+        this.requiredAgenda = true;
+        return;
+      } else {
+        for(let i in value.event_agenda) {
+          let agenda = {
+            description: '',
+            startTime: ''
+          }
+          agenda.description = value.event_agenda[i].description;
+          agenda.startTime = this.parseDate(value.event_agenda[i].startTime);
+          event_agenda.push(agenda);
+        }
       }
       this.imageUpload = false;
       const data = {
@@ -577,7 +602,7 @@ export class EventsEditComponent implements OnInit {
             latitude: this.latitude.toString(),
             longitude: this.longitude.toString(),
           },
-          event_agenda: value.event_agenda,
+          event_agenda: event_agenda,
           extras: {
             coverImage: this.eventCoverImage,
             ticket: [{
@@ -612,10 +637,22 @@ export class EventsEditComponent implements OnInit {
         .first(regevent => regevent['event_updated'] === true )
         .subscribe( reg => {
           // const id = reg['event_id'];
-          this.toastr.success('Event Successfully Updated');
+          this.toastr.success('Event Successfully Updated', '', {
+            timeOut: 3000
+          });
           this.router.navigate(['/event/inner/' +  this.eventDetail.id]);
         });
-    }
+    } 
+    // else {
+    //   const invalid = [];
+    //   const controls = this.eventForm.controls;
+    //   for (const name in controls) {
+    //       if (controls[name].invalid) {
+    //           invalid.push(name);
+    //       }
+    //   }
+    //   console.log(invalid);
+    // }
   }
 
   /**
@@ -624,20 +661,33 @@ export class EventsEditComponent implements OnInit {
   reverseDate(string) {
     return string.split('-').reverse().join('-');
   }
-  removePhoto(){
-    // console.log('comming')
-    
-      this.eventCoverImage = '';
-    
+  removePhoto(){    
+      this.eventCoverImage = ''; 
   }
   enableEdit(){
     this.router.navigateByUrl('/event/inner/' + this.eventDetail.id);
   }
-  removeTime(s:string){
-    let x = s.split('T')
+  removeTime(dateTime:string){
+    let dateAndTime = dateTime.split('T')
     // console.log(s.split('T'))
-    let d = x[0];
+    let date = dateAndTime[0];
     // console.log(d);
-    return d.split('-').reverse().join('-');
+    return date.split('-').reverse().join('-');
+  }
+  agendaTimeFormat(dateTime: string){
+    let dateAndTime = dateTime.replace('T', ' ').split(' ');
+    let date = dateAndTime[0].split('-').reverse().join('-');
+    dateAndTime[0] = date;
+    return dateAndTime[0].concat(' ').concat(dateAndTime[1]);
+  }
+  parseDate(string){
+    let parsedDate;
+    const date = string.split(' ');
+    parsedDate = date[0].split('-').reverse().join('-') + 'T' + date[1];
+    return parsedDate;
+  }
+
+  imageLoaded() {
+
   }
 }

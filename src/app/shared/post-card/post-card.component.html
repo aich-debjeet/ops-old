@@ -3,7 +3,7 @@
         <!-- card media (img, video & audio) -->
         <div class="c-card__media">
             <a [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
-                <img [src]="imageLink + mediaData?.thumbNails?.mediumLarge" class="img-responsive c-card__image">
+                <img [src]="imageLink + mediaData?.thumbNails?.mediumLarge" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="img-responsive c-card__image">
             </a>
             <span *ngIf="checkFileType(mediaData?.repopath, 'Audio')">
                 <img [src]="imageLink + 'img/svg/ico_audio.svg'" class="c-card__icon">
