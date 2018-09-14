@@ -34,7 +34,7 @@
                 <!-- card media (img, video & audio) -->
                 <div class="c-card__media">
                   <a [routerLink]="['', { outlets: { media : ['media', trending?.id]}}]">
-                    <img [src]="imageLink + trending?.thumbNails?.mediumLarge" class="c-card__image">
+                    <img [src]="imageLink + trending?.thumbNails?.mediumLarge" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="c-card__image">
                   </a>
                   <!--  <span>
                     <img src="assets/svg/ico_image.svg" alt="" class="c-card__icon">
@@ -99,7 +99,7 @@
                 <!-- card media (img, video & audio) -->
                 <div class="c-card__media">
                   <a [routerLink]="['', { outlets: { media : ['media', trending?.id]}}]">
-                    <img [src]="imageLink + trending?.thumbNails?.mediumLarge" class="c-card__image">
+                    <img [src]="imageLink + trending?.thumbNails?.mediumLarge" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="c-card__image">
                   </a>
                   <span>
                     <img [src]="imageLink + 'img/svg/ico_video.svg'" class="c-card__icon">

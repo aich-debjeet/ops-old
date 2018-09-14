@@ -637,7 +637,9 @@ export class EventsEditComponent implements OnInit {
         .first(regevent => regevent['event_updated'] === true )
         .subscribe( reg => {
           // const id = reg['event_id'];
-          this.toastr.success('Event Successfully Updated');
+          this.toastr.success('Event Successfully Updated', '', {
+            timeOut: 3000
+          });
           this.router.navigate(['/event/inner/' +  this.eventDetail.id]);
         });
     } 

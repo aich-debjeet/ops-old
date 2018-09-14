@@ -215,7 +215,9 @@ export class OrgImageComponent implements OnInit {
       .first(profile => profile['current_user_profile_loading'] === true )
       .subscribe( data => {
         this._location.back();
-        this.toastr.success('Organization profile image updated');
+        this.toastr.success('Organization profile image updated', '', {
+          timeOut: 3000
+        });
       });
   }
 

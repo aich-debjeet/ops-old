@@ -19,8 +19,6 @@ import { ProfileActions } from '../../actions/profile.action';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { GeneralUtilities } from './../../helpers/general.utils';
-
 @Component({
   selector: 'app-channel-inner',
   templateUrl: './channel-inner.component.html',
@@ -28,7 +26,6 @@ import { GeneralUtilities } from './../../helpers/general.utils';
   styleUrls: ['./channel-inner.component.scss']
 })
 export class ChannelInnerComponent implements OnInit, OnDestroy {
-  // @ViewChild(AngularMasonry) masonry: AngularMasonry;
   tagState$: Observable<Media>;
   userState$: Observable<Media>;
   private tagStateSubscription: Subscription;
@@ -40,14 +37,22 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
   isfollowing: boolean;
   contributors: any[];
   subscription: Subscription;
+  channelPost: any;
+  filterType: string | '';
+  filterPost: string = 'spots';
+  channelPostLoading: any;
+  page_start = 0;
+  page_end = 20;
+  scrolling = 0;
+  scrollingLoad = 600;
+  scrollId: string;
 
   constructor(
     private _store: Store<any>,
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private modalService: ModalService,
-    private router: Router,
-    private generalHelper: GeneralUtilities
+    private router: Router
   ) {
 
       this.channelId = route.snapshot.params['id'];
@@ -57,14 +62,10 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
       this.tagStateSubscription = this.tagState$.subscribe((state) => {
         this.channel = state;
         this.pageLoading = this.channel.channel_loading;
-      });
-
-    this._store.select('mediaStore')
-      .first(data => data['channel_detail'].ownerName)
-      .subscribe( data => {
-        this.isfollowing = data['channel_detail'].isFollowing;
-        if (data['channel_detail'].contributorProfile) {
-          this.contributors = this.generalHelper.getArrayWithLimitedLength(data['channel_detail'].contributorProfile, 3);
+        this.channelPost = state['channel_post'];
+        this.channelPostLoading = state['channel_post_loading'];
+        if (state['channelPostScrollId']) {
+          this.scrollId = state['channelPostScrollId']
         }
       });
 
@@ -73,8 +74,10 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.route.params.subscribe(
       (params: any) => {
+        this.scrollId = null
         this.channelId = params['id'];
         this._store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
+        this.getChannelPost(null);
         this.buildEditForm();
       }
     );
@@ -86,6 +89,52 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
   }
 
   mediaNext($event) {
+  }
+
+  onScroll(e) {
+    this.scrolling = e.currentScrollPosition;
+    if (this.scrollingLoad <= this.scrolling) {
+      this.scrollingLoad += 900
+      this.getChannelPost(this.scrollId);
+    }
+  }
+
+  /**
+   * Filter Types
+   * @param value
+   */
+  type(value) {
+    this.scrollId = null
+    if (this.filterType === value) {
+      this.filterType = '';
+      this.getChannelPost(null);
+      return
+    }
+    this.filterType = value;
+    this.getChannelPost(null);
+  }
+
+  /**
+   * Post Filter Types
+   * @param value
+   */
+  postFilter(value) {
+    this.scrollId = null
+    this.filterPost = value;
+    this.getChannelPost(null);
+    return
+  }
+
+  getChannelPost(scrollId) {
+    const body = {
+      channelId: this.channelId,
+      limit: 10,
+      mType: this.filterType,
+      sort_field: this.filterPost,
+      sort_order: 'desc',
+      scrollId: scrollId === null ? null : this.scrollId
+    }
+    this._store.dispatch({ type: MediaActions.GET_CURRENT_CHANNEL_POST, payload: body });
   }
    /**
    * Form initial value

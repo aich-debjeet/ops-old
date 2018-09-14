@@ -111,7 +111,9 @@ export class AboutEducationComponent implements OnInit {
         }
         this.modalService.close('userEducationkAdd');
         this.profileStore.dispatch({ type: ProfileActions.ADD_USER_EDUCATION, payload: body});
-        this.toastr.success('Your education details has been added successfully!');
+        this.toastr.success('Your education details has been updated successfully!', '', {
+          timeOut: 3000
+        });
       } else {
         const body = {
           'institute': value.institute,
@@ -122,7 +124,9 @@ export class AboutEducationComponent implements OnInit {
         }
         this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_EDUCATION, payload: body});
         this.modalService.close('userEducationkAdd');
-        this.toastr.success('Your education details has been updated successfully!');
+        this.toastr.success('Your education details has been updated successfully!', '', {
+          timeOut: 3000
+        });
       }
     }
     this.educationForm.reset();

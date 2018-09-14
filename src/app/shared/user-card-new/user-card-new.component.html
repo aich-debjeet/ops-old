@@ -10,12 +10,14 @@
     <span class="c-text_lg">{{ artist?.name | truncate:[12, '...'] }}</span>
     <span class="c-text_sm color-grey-dark">@{{ artist?.extra?.username }}</span>
 </div>
-<div class="o-people-result__btn" *ngIf="artist?.handle !== ownerHandle">
-    <div *ngIf="artist?.extra?.isImported; else not_imported">
-        <a routerLink="{{ '/profile/u/' + artist?.extra?.username }}" class="o-people-result__follow-btn">CLAIM</a>
+<ng-container *ngIf="!hideActions">
+    <div class="o-people-result__btn" *ngIf="artist?.handle !== ownerHandle">
+        <div *ngIf="artist?.extra?.isImported; else not_imported">
+            <a routerLink="{{ '/profile/u/' + artist?.extra?.username }}" class="o-people-result__follow-btn">CLAIM</a>
+        </div>
+        <ng-template #not_imported>
+            <a (click)="unfollowUser(artist)" *ngIf="artist?.extra?.isFollowing" class="o-people-result__follow-btn">UNFOLLOW</a>
+            <a (click)="followUser(artist)" *ngIf="!artist?.extra?.isFollowing" class="o-people-result__follow-btn">FOLLOW</a>
+        </ng-template>
     </div>
-    <ng-template #not_imported>
-        <a (click)="unfollowUser(artist)" *ngIf="artist?.extra?.isFollowing" class="o-people-result__follow-btn">UNFOLLOW</a>
-        <a (click)="followUser(artist)" *ngIf="!artist?.extra?.isFollowing" class="o-people-result__follow-btn">FOLLOW</a>
-    </ng-template>
-</div>
+</ng-container>

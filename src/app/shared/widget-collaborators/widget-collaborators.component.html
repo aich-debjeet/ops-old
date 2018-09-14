@@ -1,0 +1,9 @@
+<div class="o-oppo-post-right-block m-b-16 m-t-16">
+  <h6 class="c-text_sm m-b-8 text_uppercase color-grey-dark">Collaborators</h6>
+  <ng-container *ngIf="!isLoading">
+    <app-collaborator-card *ngFor="let collaborator of userData" [user]="collaborator"></app-collaborator-card>
+  </ng-container>
+  <div class="preloader" *ngIf="isLoading">
+      <div class="sticky"><div class="loader">Loading...</div></div>
+  </div>
+</div>

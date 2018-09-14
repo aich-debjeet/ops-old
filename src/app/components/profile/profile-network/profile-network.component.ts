@@ -47,7 +47,9 @@ export class ProfileNetworkComponent implements OnInit {
     .subscribe( data => {
       if (data['cancel_network_request'] === true) {
         // console.log('cancel rfequest')
-        this.toastr.success('You have successfully cancelled the sent request');
+        this.toastr.success('You have successfully cancelled the sent request', '', {
+          timeOut: 3000
+        });
       }
     });
   }

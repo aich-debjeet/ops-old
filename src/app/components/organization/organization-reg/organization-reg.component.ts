@@ -183,7 +183,9 @@ export class OrganizationRegComponent implements OnInit {
       .subscribe( datas => {
         this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
         this.uploadingData = false;
-        this.toastr.success('Successfully registered organization');
+        this.toastr.success('Successfully registered organization', '', {
+          timeOut: 3000
+        });
       });
 
     // Org Registration Failed
@@ -191,7 +193,9 @@ export class OrganizationRegComponent implements OnInit {
       .first(profile => profile && profile['org_registration_failed'] === true)
       .subscribe( datas => {
         this.uploadingData = false;
-        this.toastr.success('Organization registration failed');
+        this.toastr.success('Organization registration failed', '', {
+          timeOut: 3000
+        });
       });
 
   }

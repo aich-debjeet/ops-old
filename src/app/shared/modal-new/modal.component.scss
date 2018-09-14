@@ -40,6 +40,9 @@
     margin: 50px auto;
     display: table;
     margin-top: 0px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg){
+        width: 100%;
+    }
 }
 
 // create channel form
@@ -101,6 +104,7 @@
 .modal-cus-body{
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
         margin: 10px;
+        width: 100%;
     }
 }
 
@@ -123,6 +127,10 @@
     border-radius: 3px;
     position: relative;
     margin-top: 50px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 90%;
+        padding: 23px 0px 24px 0px;
+    }
 }
 
 .modal-profile-followers{
@@ -139,9 +147,12 @@
 }
 
 .modal-term-policy{
-    width: 100%;
+    width: 900px;
     margin: 30px auto;
     position: relative;
+    .modal-lg {
+        width: 100%;
+    }
 }
 
 .reg_step1_otp {

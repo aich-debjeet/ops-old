@@ -357,7 +357,9 @@ export class ProfileSliderComponent implements OnInit {
       }
 
       this.profileStore.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
-      this.toastr.success('Your profile has been updated successfully!');
+      this.toastr.success('Your profile has been updated successfully!', '', {
+        timeOut: 3000
+      });
       this.modalService.close('profileEditWindow');
     }
 
@@ -658,11 +660,15 @@ export class ProfileSliderComponent implements OnInit {
     .first(network => network['network_request_success'] !== null)
     .subscribe( data => {
       if (data['network_request_success'] === true) {
-        this.toastr.success('You have successfully sent a request!');
+        this.toastr.success('You have successfully sent a request!', '', {
+          timeOut: 3000
+        });
         this.NetworktypeModal.close();
       }
       if (data['network_request_success'] === false) {
-        this.toastr.error('You have already sent a request')
+        this.toastr.error('You have already sent a request', '', {
+          timeOut: 3000
+        })
       }
     });
  }

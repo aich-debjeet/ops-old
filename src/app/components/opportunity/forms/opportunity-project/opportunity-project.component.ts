@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ScrollHelper } from '../../../../helpers/scroll.helper';
 import { Store } from '@ngrx/store';
@@ -8,6 +8,9 @@ import { ISubscription } from 'rxjs/Subscription';
 import { GeneralUtilities } from '../../../../helpers/general.utils';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
+import { Modal } from '../../../../shared/modal-new/Modal';
+import { ApiService } from '../../../../helpers/api.service';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-opportunity-project',
@@ -30,8 +33,11 @@ export class OpportunityProjectComponent implements OnInit, OnDestroy {
       this.buildProjectForm(null);
     }
   };
+  @ViewChild('termsPopup') termsPopup: Modal;
+  imageLink: string = environment.API_IMAGE;
 
   constructor(
+    private api: ApiService,
     private fb: FormBuilder,
     private location: Location,
     private toastr: ToastrService,
@@ -65,7 +71,7 @@ export class OpportunityProjectComponent implements OnInit, OnDestroy {
       projectIndustry: [this.generalUtils.checkNestedKey(data, ['opportunityProject', 'category']) ? data['opportunityProject']['category'] : '', [Validators.required]],
       projectLocation: [this.generalUtils.checkNestedKey(data, ['opportunityProject', 'location', 'location']) ? data['opportunityProject']['location']['location'] : '', [Validators.required]],
       projectSkills: [this.generalUtils.checkNestedKey(data, ['opportunityProject', 'skills']) ? data['opportunityProject']['skills'] : '', [Validators.required]],
-      projectCollaborators: [this.generalUtils.checkNestedKey(data, ['opportunityProject', 'addCollaborators']) ? data['opportunityProject']['addCollaborators'][0] : '', []],
+      projectCollaborators: [this.generalUtils.checkNestedKey(data, ['opportunityProject', 'addCollaborators']) ? data['opportunityProject']['addCollaborators'] : [], []],
     });
   }
 
@@ -74,9 +80,12 @@ export class OpportunityProjectComponent implements OnInit, OnDestroy {
    * @param: form data
    */
   submitProjectForm(formData: any) {
+    const projectCollaborators = formData.projectCollaborators.map(item => item['handle']);
     // project form validation
     if (!this.projectFrm.valid) {
-      this.toastr.warning('Please check for errors in the form.');
+      this.toastr.warning('Please check for errors in the form.', '', {
+        timeOut: 3000
+      });
       this.scrollHelper.scrollToFirst('error');
       return;
     }
@@ -89,7 +98,7 @@ export class OpportunityProjectComponent implements OnInit, OnDestroy {
         description: formData.projectDescription,
         category: formData.projectIndustry,
         skills: formData.projectSkills,
-        addCollaborators: [formData.projectCollaborators],
+        addCollaborators: projectCollaborators,
         location: {
           location: formData.projectLocation
         }
@@ -102,5 +111,23 @@ export class OpportunityProjectComponent implements OnInit, OnDestroy {
   cancelUpdate() {
     this.location.back();
   }
+
+  // terms show/hide
+  termsAction(action: string) {
+    if (action === 'hide') {
+      this.termsPopup.close();
+    } else {
+      this.termsPopup.open();
+    }
+  }
+
+  /**
+   * Get people search
+   */
+  public requestAutocompleteItems = (text: string): Observable<Response> => {
+    if (text === '') { text = 'a'; }
+    const apiLink = '/portal/searchprofiles/1/' + text + '/0/10';
+    return this.api.get(apiLink);
+  };
 
 }

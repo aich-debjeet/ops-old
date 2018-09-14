@@ -89,11 +89,15 @@ export class OrgSettingsComponent implements OnInit {
       }
       // if (state.org_deletion_success) {
       //   console.log('success')
-      //   this.toastr.success('Organization deletion Success');
+      //   this.toastr.success('Organization deletion Success', '', {
+      //   timeOut: 3000
+      // });
       // }
       // if (state.org_deletion_failed) {
       //   console.log('failed')
-      //   this.toastr.success('Organization deletion failed');
+      //   this.toastr.success('Organization deletion failed', '', {
+      //   timeOut: 3000
+      // });
       // }
     });
   }
@@ -189,7 +193,9 @@ export class OrgSettingsComponent implements OnInit {
       this.http.delete(this.apiLink + '/portal/organization/' + this.organizationHandle, { headers: headers })
       .map((data: Response) => data.json())
       .subscribe(response => {
-        this.toastr.success('Organization deletion Success');
+        this.toastr.success('Organization deletion Success', '', {
+          timeOut: 3000
+        });
         this.router.navigate(['profile']);
       });
       // this.store.dispatch({ type: OrganizationActions.ORGANIZATION_DELETE, payload: this.organizationHandle });
@@ -211,7 +217,9 @@ removeMember(handle: any) {
    return this.http.put(this.apiLink + '/portal/organization/remove/member/deleteResponse', form , { headers: headers })
   .map((data: Response) => data.json())
   .subscribe(response => {
-    this.toastr.success('This member has been successfully been removed');
+    this.toastr.success('This member has been successfully been removed', '', {
+      timeOut: 3000
+    });
   });
 }
   updateCheckedOptions(option, event) {

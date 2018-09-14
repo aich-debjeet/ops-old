@@ -142,13 +142,17 @@ export class CommunitiesComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe( datas => {
           if (datas['completed']) {
             const id = datas['completed']['SUCCESS'].id;
-            this.toastr.success('successfully created', 'Success!');
+            this.toastr.success('successfully created', 'Success!', {
+              timeOut: 3000
+            });
             this.router.navigateByUrl('/communities/' + id);
             return
           }
       });
     } else {
-      this.toastr.warning('Please fill all required fields');
+      this.toastr.warning('Please fill all required fields', '', {
+        timeOut: 3000
+      });
     }
   }
 

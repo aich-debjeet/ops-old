@@ -29,6 +29,7 @@ import { OpportunityVolunteerComponent } from './forms/opportunity-volunteer/opp
 import { OpportunityApplicationsComponent } from './opportunity-applications/opportunity-applications.component';
 import { QuillModule } from 'ngx-quill';
 import { OpportunitySimilarCardComponent } from './opportunity-similar-card/opportunity-similar-card.component';
+import { TagInputModule } from 'ngx-chips';
 
 // opportunity module routes
 const opportunityRoutes: Routes = [
@@ -67,7 +68,8 @@ const opportunityRoutes: Routes = [
     ReactiveFormsModule,
     InfiniteScrollModule,
     RouterModule.forChild(opportunityRoutes),
-    QuillModule
+    QuillModule,
+    TagInputModule
   ],
   declarations: [
     OpportunityComponent,

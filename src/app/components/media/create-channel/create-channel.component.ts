@@ -132,12 +132,16 @@ export class CreateChannelComponent implements OnInit, OnDestroy {
       this.store.select('profileTags')
         .first(channel => channel['channel_create_success'] === true)
         .subscribe(datas => {
-          this.toastr.success('successfully created channel', 'Success!');
+          this.toastr.success('successfully created channel', 'Success!', {
+            timeOut: 3000
+          });
           this.router.navigateByUrl('/channel/' + datas['channel_created_details'].id);
           return
         });
     } else {
-      this.toastr.warning('Please fill all required fields');
+      this.toastr.warning('Please fill all required fields', '', {
+        timeOut: 3000
+      });
     }
   }
 
