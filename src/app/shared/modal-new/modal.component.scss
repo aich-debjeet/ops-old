@@ -56,6 +56,11 @@
         margin: 30px auto;
         border-radius: 6px;
     }
+    .modal-cus-body{
+        @include mq($from: $mobile_sm, $until: $mobile_lg) {
+            margin: 0px;
+        }
+    }
 }
 
 // create channel form
