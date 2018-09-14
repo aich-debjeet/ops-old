@@ -116,7 +116,7 @@
         width: 95%;
     }
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        width: 90%;
+        width: 100%;
     }
 }
 
