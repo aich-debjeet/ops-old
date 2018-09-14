@@ -1,0 +1,11 @@
+<div class="o-oppo-collaborators-single m-t-16">
+  <a routerLink="{{ '/profile/u/' + user?.username }}">
+    <span class="o-oppo-collaborators__avatar m-r-8">
+      <img *ngIf="user?.profileImage; else default_profile_image" [src]="baseUrl + user?.profileImage">
+      <ng-template #default_profile_image>
+        <img [src]="baseUrl + 'img/avatar.png'">
+      </ng-template>
+    </span>
+    <span class="o-oppo-collaborators__name c-text_lg p-t-8">{{ user?.name }}</span>
+  </a>
+</div>

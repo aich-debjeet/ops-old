@@ -68,6 +68,8 @@ import { UserCardSearchComponent } from './user-card-search/user-card-search.com
 import { ConfirmBoxComponent } from './confirm-box/confirm-box.component';
 import { WikiProfileCardComponent } from './wiki-profile-card/wiki-profile-card.component';
 import { TermsAndConditionsContentComponent } from './terms-and-conditions-content/terms-and-conditions-content.component';
+import { WidgetCollaboratorsComponent } from './widget-collaborators/widget-collaborators.component';
+import { CollaboratorCardComponent } from './collaborator-card/collaborator-card.component';
 
 @NgModule({
   imports: [
@@ -133,7 +135,9 @@ import { TermsAndConditionsContentComponent } from './terms-and-conditions-conte
     UserCardSearchComponent,
     ConfirmBoxComponent,
     WikiProfileCardComponent,
-    TermsAndConditionsContentComponent
+    TermsAndConditionsContentComponent,
+    WidgetCollaboratorsComponent,
+    CollaboratorCardComponent
   ],
   exports: [
     OpportunityCardComponent,
@@ -177,7 +181,9 @@ import { TermsAndConditionsContentComponent } from './terms-and-conditions-conte
     UserCardSearchComponent,
     ConfirmBoxComponent,
     WikiProfileCardComponent,
-    TermsAndConditionsContentComponent
+    TermsAndConditionsContentComponent,
+    WidgetCollaboratorsComponent,
+    CollaboratorCardComponent
   ]
 })
 export class SharedModule { }

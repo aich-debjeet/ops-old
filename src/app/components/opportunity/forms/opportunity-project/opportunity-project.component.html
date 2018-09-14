@@ -84,7 +84,33 @@
           </div>
           <div class="col-md-9 p-0">
               <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-              <input formControlName="projectCollaborators" class="c-form__input" type="text" placeholder="Name of collaborators">
+              <!-- <input formControlName="projectCollaborators" class="c-form__input" type="text" placeholder="Name of collaborators"> -->
+              <tag-input
+                formControlName="projectCollaborators"
+                [placeholder]="'Name of collaborators'"
+                [secondaryPlaceholder]="'Name of collaborators'"
+                [validators]=""
+                [errorMessages]=""
+                [theme]="'ops-theme'"
+                [onTextChangeDebounce]="500"
+                [onlyFromAutocomplete]="true">
+                    <tag-input-dropdown
+                        [displayBy]="'name'"
+                        [identifyBy]="'handle'"
+                        [autocompleteObservable]='requestAutocompleteItems'>
+                        <ng-template let-item="item" let-index="index" class="userList">
+                            <div class="tinyImgHolder">
+                                <img class="tinyImg" width="24" src="{{ imageLink + item.profileImage }}" onError="this.src='https://cdn.onepagespotlight.com/img/avatar.png';"/>
+                            </div>
+                            <span class="tinyName">
+                                {{ item.name }}
+                                <span class="tinyUsername">
+                                ({{ item.extra.username }})
+                                </span>
+                            </span>
+                        </ng-template>
+                    </tag-input-dropdown>
+              </tag-input>
               <span class="c-form__highlight"></span>
               <span class="c-form__bar"></span>
               <!-- <label>Name of collaborators</label> -->
