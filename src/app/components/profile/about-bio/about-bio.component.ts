@@ -575,6 +575,11 @@ onSelectionChange(val) {
     this.findSkill = [];
   }
 
+  allowNumbersOnly(e: any) {
+    const k = e.keyCode;
+    return ((k >= 48 && k <= 57) || (k >= 96 && k <= 105) || k === 8);
+  }
+
   /**
    * Exsist update skill push selected skill array
    */

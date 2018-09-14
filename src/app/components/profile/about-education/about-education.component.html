@@ -94,7 +94,7 @@
                                             <input class="form_input" type="text" formControlName="from" [textMask]="{mask: dateMask}" required>
                                             <span class="form_highlight"></span>
                                             <span class="form_bar"></span>
-                                            <label>from (DD-MM-YYYY)</label>
+                                            <label>From (DD-MM-YYYY)</label>
                                             <p class="error_alert" *ngIf="educationForm.controls['from'].errors?.required && educationForm.controls['from']?.touched">From Date is required</p>
                                             <p class="error_alert" *ngIf="educationForm.controls['from'].errors?.invalidWorkDate">Invalid Date</p>
                                         </div>
@@ -131,3 +131,10 @@
         </div>
     </form>
 </app-modal>
+
+<app-modal-new #deleteModal modalClass="o-comodal_main in">
+    <modal-content>
+      <app-confirm-box [message]="'Are you sure you want to permanently Delete?'" (confirmAction)="confirmation($event)"
+        (closeModal)="closeCancelApplicationModal()"></app-confirm-box>
+    </modal-content>
+</app-modal-new>
