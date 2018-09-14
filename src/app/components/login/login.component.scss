@@ -1,11 +1,10 @@
 @import './src/assets/scss/helpers/_variables.scss';
 @import '~sass-mq/_mq.scss';
 .ops_signin {
-    // min-height: 100vh;
+    min-height: 105vh;
     display: flex;
     justify-content: center;
     flex-direction: column;
-    // padding-top: 164px;
     @include mq($from: $mobile_sm, $until: $desktop_sm) {
         padding-top: 0;
         margin-top: 0;
@@ -161,4 +160,8 @@ input[type=number]::-webkit-outer-spin-button {
     -moz-appearance: none;
     appearance: none;
     margin: 0; 
+}
+
+.ops_signup .ops_signup_left {
+    padding: 0 48px;
 }
