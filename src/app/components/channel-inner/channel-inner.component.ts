@@ -173,7 +173,7 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
    * Delete Post
    */
   deletePost(media) {
-    const posts = this.channel.channel_detail['media'];
+    const posts = this.channelPost;
     const index: number = posts.indexOf(media);
     if (index !== -1) {
       posts.splice(index, 1);
