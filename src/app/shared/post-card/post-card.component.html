@@ -3,7 +3,13 @@
         <!-- card media (img, video & audio) -->
         <div class="c-card__media">
             <a [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
-                <img [src]="imageLink + mediaData?.thumbNails?.mediumLarge" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="img-responsive c-card__image">
+                <img [src]="imageLink + mediaData?.thumbNails?.mediumLarge" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="img-responsive c-card__image" [class.c-feed__adult-blur]="mediaData?.isNsfw && mediaData?.isOwner === false">
+                <div class="c-feed__adult" id="c-feed__adult-hide">
+                        <div class="c-feed__adult-text c-feed__adult-text--feed">
+                            <div>This post may contain sensitive information that could be disturbing to some individuals. Viewer's discretion is strongly advised.</div>
+                            <a href="javascript:void(0)" class="c-feed__adult-a" id="feedRemove">see the video</a>
+                        </div>
+                    </div>
             </a>
             <span *ngIf="checkFileType(mediaData?.repopath, 'Audio')">
                 <img [src]="imageLink + 'img/svg/ico_audio.svg'" class="c-card__icon">
