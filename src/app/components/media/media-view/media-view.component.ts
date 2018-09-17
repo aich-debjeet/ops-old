@@ -39,7 +39,9 @@ export class MediaViewComponent implements OnDestroy {
   messageText: string;
   statusForm: FormGroup;
   private mediaStateSubscription: Subscription;
+  private userStateSubscription: Subscription;
   mediaState$: Observable<Media>;
+  userState$: Observable<any>;
   mediaStore = initialMedia;
   mediaId: string;
   mediaType: string;
@@ -55,6 +57,7 @@ export class MediaViewComponent implements OnDestroy {
   isEdit: boolean;
   editMsg: boolean;
   mediaCarousal: any = {prev: '', next: ''};
+  userData: any;
 
   constructor(
     private fb: FormBuilder,
@@ -90,6 +93,11 @@ export class MediaViewComponent implements OnDestroy {
      }
     });
 
+    this.userState$ = this.store.select('profileTags');
+    this.userStateSubscription = this.userState$.subscribe((state) => {
+      this.userData = state['profile_navigation_details']
+    });
+
     store.select('mediaStore').take(6).subscribe((state) => {
       this.commentCount = this.mediaStore.media_detail.commentsCount;
       if (state['media_delete_msg'] && this.deleteMsg) {
@@ -106,6 +114,7 @@ export class MediaViewComponent implements OnDestroy {
 
   ngOnDestroy() {
     this.mediaStateSubscription.unsubscribe();
+    this.userStateSubscription.unsubscribe();
   }
 
   closeFunction() {
