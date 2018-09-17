@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { NgxfUploaderService, UploadEvent, FileError } from 'ngxf-uploader';
 import { TokenService } from '../../../helpers/token.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -44,6 +44,15 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   private routerSubscription: ISubscription;
   private profileSubscription: ISubscription;
   private industrySubscription: ISubscription;
+
+  searchField: FormControl;
+  memberSearch: FormControl;
+
+
+  page_start = 0;
+  page_end = 20;
+  scrolling = 0;
+  scrollingLoad = 100;
 
   details: any;
   list: any;
@@ -137,6 +146,22 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
     this.buildForm();
     this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
 
+    // Search leave popup
+    this.searchField = new FormControl();
+    this.searchField.valueChanges
+      .debounceTime(400)
+      .subscribe(name => {
+        this.comunityMemberFetch(name);
+      });
+
+    // Member search invite people
+      this.memberSearch = new FormControl();
+      this.memberSearch.valueChanges
+        .debounceTime(400)
+        .subscribe(term => {
+          console.log(term);
+        });
+
     // this.searchInput.valueChanges
     // .debounceTime(500)
     // .subscribe(() => {
@@ -186,13 +211,31 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   }
 
   communityLeave() {
-    const data = {
-      id: this.id,
-      text: ''
-    }
-    this.store.dispatch({ type: CommunitiesActions.COMMUNITY_MEMBER_LIST, payload: data });
+    this.searchField.setValue('');
     this.communityAdminFormInit();
     this.CommuityLeaveModal.open();
+  }
+
+  comunityMemberFetch(text = '', page = 0, page_limit = 20) {
+    const data = {
+      id: this.id,
+      text: text,
+      page: page,
+      page_limit: page_limit
+    }
+    this.store.dispatch({ type: CommunitiesActions.COMMUNITY_MEMBER_LIST, payload: data });
+  }
+
+  onScroll(e) {
+    console.log(e);
+    console.log(this.searchField.value);
+    this.scrolling = e.currentScrollPosition;
+    if (this.scrollingLoad <= this.scrolling) {
+      this.scrollingLoad += 100
+      this.page_start = this.page_start + 20;
+      this.comunityMemberFetch(this.searchField.value, this.page_start)
+
+    }
   }
 
   /**

@@ -80,7 +80,7 @@ export class CommunitiesService {
   }
 
   memberListCommunity(para: any) {
-    return this.api.get(`/portal/community/members/${para.id}/0/10`, '');
+    return this.api.get(`/portal/community/members/${para.id}/${para.page}/${para.page_limit}?searchText=${para.text}`, '');
   }
 
   changeAdminRole(data: any) {

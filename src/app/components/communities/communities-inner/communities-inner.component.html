@@ -79,8 +79,7 @@
                     <div class="c-invite--search">
                         <form class="fill-grey-light">
                             <div class="c-form__group c-form--noeffect c-form--sm">
-                                <input class="c-form__input fpadding_l32" required="" type="text">
-                                <label class="fpadding_l32">Search</label>
+                                <input class="c-form__input fpadding_l32" [formControl]="memberSearch" placeholder="Seach" type="text">
                                 <span>
                                     <img [src]="basePath + 'img/svg/ico_search.svg'" class="c-form__input--lefticon">
                                 </span>
@@ -171,14 +170,19 @@
                             <div class="c-text_md text-center color-grey-dark m-t-8">Select the user you want to give the admin privilage.</div>
                         </div>
                         <div class="modal-body">
-                            <!-- <div class="c-form__group c-form--md c-form--noeffect c-form__faded--md">
-                                <input class="c-form__input p-l-24" #searchInput="ngModel" [(ngModel)]="searchString" required="" type="text">
-                                <label class="p-l-16">Input with icon</label>
+                            <div class="c-form__group c-form--md c-form--noeffect c-form__faded--md">
+                                <input class="c-form__input p-l-24" [formControl]="searchField" type="text" placeholder="Search member">
                                 <span>
                                     <img [src]="basePath + 'img/svg/ico_search.svg'" class="c-form__input--lefticon">
                                 </span>
-                            </div> -->
-                            <div class="o-cadminlist" id="ops_scrollbar">
+                            </div>
+                            <div class="o-cadminlist" id="ops_scrollbar"
+                            infiniteScroll
+                            [infiniteScrollDistance]="1"
+                            [infiniteScrollThrottle]="100"
+                            [scrollWindow]="false"
+                            (scrolled)="onScroll($event)"
+                            >
                             <form [formGroup]="communityAdminForm" novalidate (ngSubmit)="submitMemberAdmin(communityAdminForm.value)" #cmafrom="ngForm">
                                 <div class="o-cadmin_block" *ngFor="let member of memeberList">
                                     <label>
@@ -192,6 +196,7 @@
                                     </div>
                                     </label>
                                 </div>
+                                <!-- <p *ngIf="memeberList?.length === 0">Not Found</p> -->
                             </form>
             
                             </div>
