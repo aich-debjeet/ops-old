@@ -158,8 +158,8 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
       this.memberSearch = new FormControl();
       this.memberSearch.valueChanges
         .debounceTime(400)
-        .subscribe(term => {
-          console.log(term);
+        .subscribe(name => {
+          this.comunityInvitePeopleFetch(name);
         });
 
     // this.searchInput.valueChanges
@@ -227,8 +227,6 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   }
 
   onScroll(e) {
-    console.log(e);
-    console.log(this.searchField.value);
     this.scrolling = e.currentScrollPosition;
     if (this.scrollingLoad <= this.scrolling) {
       this.scrollingLoad += 100
@@ -271,9 +269,22 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
    */
   communityDetails() {
     this.store.dispatch({ type: CommunitiesActions.COMMUNITY_DETAILS, payload: this.id });
-    this.store.dispatch({ type: CommunitiesActions.COMMUNITY_INVITE_PEOPLE_LIST, payload: this.id });
+    this.comunityInvitePeopleFetch();
     this.store.dispatch({ type: CommunitiesActions.COMMUNITY_RELATED, payload: this.id });
     this.store.dispatch({ type: CommunitiesActions.COMMUNITY_POST_GET, payload: this.id });
+  }
+
+  /**
+   * Get Inivite people
+   */
+  comunityInvitePeopleFetch(text = '', page = 0, page_limit = 20) {
+    const data = {
+      id: this.id,
+      text: text,
+      page: page,
+      page_limit: page_limit
+    }
+    this.store.dispatch({ type: CommunitiesActions.COMMUNITY_INVITE_PEOPLE_LIST, payload: data });
   }
 
   /**
