@@ -193,6 +193,9 @@ vg-scrub-bar {
     height: 3px !important;
     bottom: 0 !important;
 }
+app-audioplayer vg-scrub-bar{
+    margin: 23px 10px!important;
+}
 
 .otp__modal {
     .ng-modal.small {
