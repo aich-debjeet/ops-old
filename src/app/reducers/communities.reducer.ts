@@ -167,13 +167,16 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
       });
 
     case CommunitiesActions.COMMUNITY_MEMBER_LIST:
-      return Object.assign({}, state, {
-        community_member_list: []
-      });
+      if (payload.page === 0) {
+        return Object.assign({}, state, {
+          community_member_list: []
+        });
+      }
+      return state;
 
     case CommunitiesActions.COMMUNITY_MEMBER_LIST_SUCCESS:
       return Object.assign({}, state, {
-        community_member_list: payload
+        community_member_list: state.community_member_list.concat(payload)
       });
 
     case CommunitiesActions.COMMUNITY_ADMIN_CHANGE_SUCCESS:

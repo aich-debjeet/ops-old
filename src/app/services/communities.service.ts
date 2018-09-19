@@ -51,8 +51,8 @@ export class CommunitiesService {
     return this.api.get('/portal/community/' + id , '');
   }
 
-  invitePeopleCommunity(id: any) {
-    return this.api.get('/portal/community/peopleToInvite/0/10/' + id, '');
+  invitePeopleCommunity(data: any) {
+    return this.api.get(`/portal/community/peopleToInvite/${data.page}/${data.page_limit}/${data.id}?text=${data.text}`, '');
   }
 
   relatedCommunity(id: any) {
@@ -80,7 +80,7 @@ export class CommunitiesService {
   }
 
   memberListCommunity(para: any) {
-    return this.api.get(`/portal/community/members/${para.id}/0/10`, '');
+    return this.api.get(`/portal/community/members/${para.id}/${para.page}/${para.page_limit}?searchText=${para.text}`, '');
   }
 
   changeAdminRole(data: any) {
