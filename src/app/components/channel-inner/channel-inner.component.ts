@@ -249,6 +249,7 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
     if (eve === 'yes') {
       this._store.dispatch({ type: ProfileActions.CHANNEL_DELETE, payload: this.channelId });
       this.toastr.success('Your channel has been deleted successfully!');
+      this.router.navigateByUrl('/profile/user');
     }
   }
 
