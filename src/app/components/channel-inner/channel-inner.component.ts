@@ -1,9 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Media, initialMedia  } from '../../models/media.model';
 
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Modal } from '../../shared/modal-new/Modal';
 
 import { ModalService } from '../../shared/modal/modal.component.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -46,13 +48,15 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
   scrolling = 0;
   scrollingLoad = 600;
   scrollId: string;
+  @ViewChild('deleteModal') deleteModal: Modal;
 
   constructor(
     private _store: Store<any>,
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private modalService: ModalService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {
 
       this.channelId = route.snapshot.params['id'];
@@ -238,6 +242,18 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
 
   addPostBtnClick() {
     this.router.navigateByUrl('/post/media');
+  }
+
+  confirmation(eve) {
+    this.closeCancelApplicationModal();
+    if (eve === 'yes') {
+      // this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_EDUCATION, payload: this.jobId});
+      this.toastr.success('Your education has been deleted successfully!');
+    }
+  }
+
+  closeCancelApplicationModal() {
+    this.deleteModal.close();
   }
 
 }
