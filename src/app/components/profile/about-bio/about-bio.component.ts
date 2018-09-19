@@ -10,6 +10,7 @@ import { environment } from '../../../../environments/environment';
 import { Subject } from 'rxjs/Subject';
 import { AuthActions } from '../../../actions/auth.action';
 
+import { GeneralUtilities } from '../../../helpers/general.utils';
 // action
 import { ProfileActions } from '../../../actions/profile.action';
 
@@ -74,7 +75,8 @@ export class AboutBioComponent implements OnInit, OnDestroy {
     private profileUpdateValidator: ProfileUpdateValidator,
     private _store: Store<ProfileModal>,
     public datepipe: DatePipe,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private generalUtils: GeneralUtilities
   ) {
     this.tagState$ = this._store.select('profileTags');
     this.skillState$ = this._store.select('loginTags');
@@ -82,6 +84,7 @@ export class AboutBioComponent implements OnInit, OnDestroy {
     this.subscription = this.tagState$.subscribe((state) => {
       // this.stateProfile = state;
     if (state) {
+      // console.log(state)
       this.stateProfile = state;
       if (state.profile_user_info) {
         if (this.stateProfile.profile_user_info.isCurrentUser === false && this.stateProfile.profile_other_loaded === true) {
@@ -92,64 +95,116 @@ export class AboutBioComponent implements OnInit, OnDestroy {
           }
         } else {
           this.ownProfile = true;
-          this.userProfile = this.stateProfile.profile_details;
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['aboutMe']) {
-            this.aboutMe = this.stateProfile['profile_details']['aboutMe']
-          }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['profileType']) {
-            this.loadSkill();
-            // this.skillsArray = this.stateProfile['profile_details']['profileType']
-          }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['physical']['gender']) {
-            this.gender = this.stateProfile['profile_details']['physical']['gender']
-          }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['extra']['address']['line1']) {
-            this.addressOne = this.stateProfile['profile_details']['extra']['address']['line1']
-          }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['extra']['address']['line2']) {
-            this.addressTwo = this.stateProfile['profile_details']['extra']['address']['line2']
-          }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['extra']['address']['city']) {
-            this.city = this.stateProfile['profile_details']['extra']['address']['city']
-          }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['extra']['address']['country']) {
-            this.country = this.stateProfile['profile_details']['extra']['address']['country']
-          }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['extra']['address']['postalCode']) {
-            this.pinCode = this.stateProfile['profile_details']['extra']['address']['postalCode']
-          }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['physical']['height']) {
-            this.height = this.stateProfile['profile_details']['physical']['height'].toFixed(2)
-          }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['physical']['weight']) {
-            this.weight = this.stateProfile['profile_details']['physical']['weight'].toFixed(2)
-          }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['languages']) {
-            this.lang = this.stateProfile['profile_details'].languages.toString()
-          }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['physical']['ethnicity']) {
-            this.ethnicity = this.stateProfile['profile_details']['physical']['ethnicity']
-          }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['physical']['complexion']) {
-            this.complexion = this.stateProfile['profile_details']['physical']['complexion']
-          }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['email']) {
-            this.email = this.stateProfile['profile_details']['email']
-          }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['contact']['mobile']['mobile']) {
-            this.number = this.stateProfile['profile_details']['contact']['mobile']['mobile']
-          }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['contact']['website']['website']) {
-            this.website = this.stateProfile['profile_details']['contact']['website']['website']
-          }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['contact']['website']['access']) {
-            this.websitePrivacy = this.stateProfile['profile_details']['contact']['website']['access']
-          }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['contact']['mobile']['access']) {
-            this.mobilePrivacy = this.stateProfile['profile_details']['contact']['mobile']['access']
-          }
-          if (this.stateProfile.profile_details && this.stateProfile['profile_details']['physical']['dateOfBirth']) {
-            this.dob = this.datepipe.transform(this.stateProfile['profile_details']['physical']['dateOfBirth'], 'dd-MM-yyyy');
+          // this.userProfile = this.stateProfile.profile_details;
+          if (this.generalUtils.checkNestedKey(state, ['profile_details'])) {
+            this.userProfile = state['profile_details'];
+            // console.log(this.userProfile);
+            if (this.generalUtils.checkNestedKey(this.userProfile, ['aboutMe'])) {
+              this.aboutMe = this.userProfile['aboutMe'];
+            }
+            if (this.generalUtils.checkNestedKey(this.userProfile, ['profileType'])) {
+              this.loadSkill();
+            }
+            if (this.generalUtils.checkNestedKey(this.userProfile, ['physical'])){
+              if (this.generalUtils.checkNestedKey(this.userProfile['physical'], ['gender'])){
+                this.gender = this.userProfile['physical']['gender'];
+              }
+            }
+            if (this.generalUtils.checkNestedKey(this.userProfile, ['extra'])) {
+              if (this.generalUtils.checkNestedKey(this.userProfile['extra'], ['address'])) {
+                if (this.generalUtils.checkNestedKey(this.userProfile['extra']['address'], ['line1'])) {
+                  this.addressOne = this.userProfile['extra']['address']['line1'];
+                }
+              }
+            }
+            if (this.generalUtils.checkNestedKey(this.userProfile, ['extra'])) {
+              if (this.generalUtils.checkNestedKey(this.userProfile['extra'], ['address'])) {
+                if (this.generalUtils.checkNestedKey(this.userProfile['extra']['address'], ['line2'])) {
+                  this.addressTwo = this.userProfile['extra']['address']['line2'];
+                }
+              }
+            }
+
+            if (this.generalUtils.checkNestedKey(this.userProfile, ['extra'])) {
+              if (this.generalUtils.checkNestedKey(this.userProfile['extra'],['address'])) {
+                if (this.generalUtils.checkNestedKey(this.userProfile['extra']['address'], ['city'])) {
+                  this.city = this.userProfile['extra']['address']['city'];
+                }
+              }
+            }
+            if (this.generalUtils.checkNestedKey(this.userProfile, ['extra'])) {
+              if (this.generalUtils.checkNestedKey(this.userProfile['extra'], ['address'])) {
+                if (this.generalUtils.checkNestedKey(this.userProfile['extra']['address'], ['country'])) {
+                  this.country = this.userProfile['extra']['address']['country'];
+                }
+              }
+            }
+            if (this.generalUtils.checkNestedKey(this.userProfile, ['extra'])) {
+              if (this.generalUtils.checkNestedKey(this.userProfile['extra'], ['address'])) {
+                if (this.generalUtils.checkNestedKey(this.userProfile['extra']['address'], ['postalCode'])) {
+                  this.pinCode = this.userProfile['extra']['address']['postalCode'];
+                }
+              }
+            }
+            if (this.generalUtils.checkNestedKey(this.userProfile, ['physical'])) {
+              if (this.generalUtils.checkNestedKey(this.userProfile['physical'], ['height'])) {
+                this.height = this.userProfile['physical']['height'].toFixed(2);
+              }
+            }
+            if (this.generalUtils.checkNestedKey(this.userProfile, ['physical'])) {
+              if (this.generalUtils.checkNestedKey(this.userProfile['physical'], ['weight'])) {
+                this.weight = this.userProfile['physical']['weight'].toFixed(2);
+              }
+            }
+            if (this.generalUtils.checkNestedKey(this.userProfile, ['languages'])) {
+              this.lang = this.userProfile.languages.toString();
+            }
+            if (this.generalUtils.checkNestedKey(this.userProfile, ['physical'])) {
+              if (this.generalUtils.checkNestedKey(this.userProfile['physical'], ['ethnicity'])) {
+                this.ethnicity = this.userProfile['physical']['ethnicity'];
+              }
+            }
+            if (this.generalUtils.checkNestedKey(this.userProfile, ['physical'])) {
+              if (this.generalUtils.checkNestedKey(this.userProfile['physical'], ['complexion'])) {
+                this.complexion = this.userProfile['physical']['complexion'];
+              }
+            }
+            if (this.generalUtils.checkNestedKey(this.userProfile, ['physical'])) {
+              if (this.generalUtils.checkNestedKey(this.userProfile['physical'], ['dateOfBirth'])) {
+                this.dob = this.datepipe.transform(this.userProfile['physical']['dateOfBirth'], 'dd-MM-yyyy');
+              }
+            }
+            if (this.generalUtils.checkNestedKey(this.userProfile, ['email'])) {
+              this.email = this.userProfile['email'];
+            }
+            if (this.generalUtils.checkNestedKey(this.userProfile, ['contact'])) {
+              if (this.generalUtils.checkNestedKey(this.userProfile['contact'], ['mobile'])) {
+                if (this.generalUtils.checkNestedKey(this.userProfile['contact']['mobile'], ['mobile'])) {
+                  this.number = this.userProfile['contact']['mobile']['mobile'];
+                } 
+              }
+            }
+            if (this.generalUtils.checkNestedKey(this.userProfile, ['contact'])) {
+              if (this.generalUtils.checkNestedKey(this.userProfile['contact'], ['website'])) {
+                if (this.generalUtils.checkNestedKey(this.userProfile['contact']['website'], ['website'])) {
+                  this.website = this.userProfile['contact']['website']['website'];
+                } 
+              }
+            }
+            if (this.generalUtils.checkNestedKey(this.userProfile, ['contact'])) {
+              if (this.generalUtils.checkNestedKey(this.userProfile['contact'], ['website'])) {
+                if (this.generalUtils.checkNestedKey(this.userProfile['contact']['website'], ['access'])) {
+                  this.websitePrivacy = this.userProfile['contact']['website']['access'];
+                } 
+              }
+            }
+            if (this.generalUtils.checkNestedKey(this.userProfile, ['contact'])) {
+              if (this.generalUtils.checkNestedKey(this.userProfile['contact'], ['mobile'])) {
+                if (this.generalUtils.checkNestedKey(this.userProfile['contact']['mobile'], ['access'])) {
+                  this.mobilePrivacy = this.userProfile['contact']['mobile']['access'];
+                } 
+              }
+            }
           }
         }
       }
@@ -585,7 +640,7 @@ onSelectionChange(val) {
    */
   loadSkill() {
     this.skillsArray = [];
-    const skill = this.stateProfile['profile_details']['profileType']
+    const skill = this.userProfile['profileType']
     if (skill.length > 0) {
       for (let i = 0; i < skill.length; i++) {
         this.skillsArray.push({
