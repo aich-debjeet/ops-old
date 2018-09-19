@@ -72,7 +72,6 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
           this.scrollId = state['channelPostScrollId']
         }
       });
-
   }
 
   ngOnInit() {
