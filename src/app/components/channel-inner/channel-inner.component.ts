@@ -247,8 +247,8 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
   confirmation(eve) {
     this.closeCancelApplicationModal();
     if (eve === 'yes') {
-      // this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_EDUCATION, payload: this.jobId});
-      this.toastr.success('Your education has been deleted successfully!');
+      this._store.dispatch({ type: ProfileActions.CHANNEL_DELETE, payload: this.channelId });
+      this.toastr.success('Your channel has been deleted successfully!');
     }
   }
 
