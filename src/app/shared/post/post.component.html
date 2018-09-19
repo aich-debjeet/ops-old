@@ -50,8 +50,11 @@
     <div *ngIf="checkFileType(mediaData?.repopath, 'Video') || checkFileType(mediaData?.repopath, 'Audio') || checkFileType(mediaData?.repopath, 'Image')">
         <div class="c-feed__img-status" *ngIf="!isEdit">
             {{ mediaData?.description | truncate:[200, '...']}}
+            
         </div>
-        <div contenteditable="true" *ngIf="isEdit" [textContent]="desText" [(ngModel)]="desText" name="desText" class="c-feed__img-status" ngDefaultControl (keyup.enter)="onContentSaved()" (input)="desText=$event.target.textContent"></div>
+        <div class="c-feed__img-status" *ngIf="isEdit">
+            <div class="content_editable" contentEditable="true" (keyup.enter)="onContentSaved()" [textContent]="desText" name="desText" (input)="desText=$event.target.textContent"></div>
+        </div>
     </div>
     <div class="c-feed__img2" *ngIf="checkFileType(mediaData?.repopath, 'Video') || checkFileType(mediaData?.repopath, 'Audio') || checkFileType(mediaData?.repopath, 'Image')">
         <!-- <img [src]="imageLink + mediaData?.thumbNails?.large" class="img-responsive"> -->
