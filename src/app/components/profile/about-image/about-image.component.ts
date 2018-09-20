@@ -53,8 +53,8 @@ export class AboutImageComponent implements OnInit {
 
   loadImage() {
     let profileImageURL;
-    if (typeof this.stateProfile.profile_navigation_details.profileImage !== 'undefined') {
-      profileImageURL = this.baseUrl + this.stateProfile.profile_navigation_details.profileImage;
+    if (typeof this.stateProfile.profile_details.profileImage !== 'undefined') {
+      profileImageURL = this.baseUrl + this.stateProfile.profile_details.profileImage;
     } else {
       profileImageURL = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
     }
