@@ -25,6 +25,7 @@ export class PostComponent implements OnInit, OnDestroy {
   @Input() mediaData;
   @Input() userData;
   @Input() className: string;
+  @Input() postType: string;
   @Input() type: string;
   @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
   @Output() postDelete = new EventEmitter();
@@ -50,6 +51,7 @@ export class PostComponent implements OnInit, OnDestroy {
   imageLink: string = environment.API_IMAGE;
   questions: any;
   domainLink: string = environment.API_DOMAIN;
+  messageEdit: string;
 
   constructor(
     private router: Router,
@@ -75,7 +77,6 @@ export class PostComponent implements OnInit, OnDestroy {
     this.commentCount = this.mediaData.commentsCount;
     this.comments = this.mediaData.commentsList;
     this.desText = this.mediaData.description;
-    // console.log(this.mediaId)
   }
 
   onContentEdit() {
@@ -158,6 +159,11 @@ export class PostComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     // this.subscription.unsubscribe();
+  }
+
+  onContentSaved() {
+    this.isEdit = false;
+    // console.log(this.desText);
   }
 
 }

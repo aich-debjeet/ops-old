@@ -787,6 +787,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      */
     case ProfileActions.LOAD_PROFILE_UPDATE:
       return Object.assign({}, state, {
+        isUpdating: true,
         success: true,
         profileUpdateSuccess: false
       });
@@ -794,12 +795,14 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_PROFILE_UPDATE_SUCCESS:
     // console.log(payload)
       return Object.assign({}, state, {
+        isUpdating: false,
         profileUpdate: payload,
         profileUpdateSuccess: true
       });
 
     case ProfileActions.LOAD_PROFILE_UPDATE_FAILED:
       return Object.assign({}, state, {
+        isUpdating: false,
         profileUpdateSuccess: false
       });
 
@@ -1846,6 +1849,10 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     const profile_index = state.user_posts.indexOf(profile_post);
     const profile_count = profile_post ? profile_post.commentsCount + 1 : 0;
 
+    // const spotfeed_post = state.channel_post.find(t => t.id === payload);
+    // const spotfeed_index = state.channel_post.indexOf(spotfeed_post);
+    // const spotfeed_count = spotfeed_post ? spotfeed_post.commentsCount + 1 : 0;
+
       return Object.assign({}, state, {
         user_following_posts: [
           ...state.user_following_posts.slice(0, home_index),
@@ -1857,6 +1864,11 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
           Object.assign({}, profile_post, {commentsCount: profile_count }),
           ...state.user_posts.slice(profile_index + 1)
         ],
+        // channel_post: [
+        //   ...state.channel_post.slice(0, spotfeed_index),
+        //   Object.assign({}, spotfeed_post, {commentsCount: spotfeed_count }),
+        //   ...state.user_posts.slice(spotfeed_index + 1)
+        // ]
 
       })
 

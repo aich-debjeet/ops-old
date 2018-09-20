@@ -16,6 +16,7 @@ export class Media {
   media_edit_msg?: String;
   comment_post_loading?: boolean;
   reports: any[];
+  channel_post?: any[];
 }
 
 export const initialMedia: Media = {
@@ -30,7 +31,8 @@ export const initialMedia: Media = {
   media_detail: [],
   channel_loading: false,
   comment_post_loading: false,
-  reports: []
+  reports: [],
+  channel_post: []
 };
 
 // export class MediaFile {

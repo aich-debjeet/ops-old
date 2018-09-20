@@ -67,6 +67,7 @@ export class AboutBioComponent implements OnInit, OnDestroy {
   txtQueryChanged: Subject<string> = new Subject<string>();
   validWeight = false;
   validHeight = false;
+  isUpdating: boolean;
 
   constructor(
     private _modalService: ModalService,
@@ -205,6 +206,18 @@ export class AboutBioComponent implements OnInit, OnDestroy {
                 } 
               }
             }
+          }
+          if(state && state.isUpdating === true){
+            console.log('updating');
+            this.isUpdating = true;
+          }
+          if(state && state.isUpdating === false){
+            console.log('updating done');
+            this.isUpdating = false;
+            this.cancelEdit();
+            this.toastr.success('Your profile has been updated successfully!', '', {
+              timeOut: 3000
+            });
           }
         }
       }
@@ -410,10 +423,6 @@ export class AboutBioComponent implements OnInit, OnDestroy {
     }
     //  console.log(reqBody)
     this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: reqBody});
-    this.toastr.success('Your profile has been updated successfully!', '', {
-      timeOut: 3000
-    });
-    this.cancelEdit();
   }
 
   calculateAge(birthday) {
@@ -543,10 +552,6 @@ onSelectionChange(val) {
       reqBody.physical.gender = val;
 
       this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: reqBody});
-      this.toastr.success('Your profile has been updated successfully!', '', {
-        timeOut: 3000
-      });
-      this.cancelEdit();
     }
   }
    /**
