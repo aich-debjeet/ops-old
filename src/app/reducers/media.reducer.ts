@@ -120,10 +120,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
       });
 
     case MediaActions.DELETE_COMMENT_SUCCESS:
-    console.log(payload.id);
-    console.log(state.channel_post);
       const spotfeed_del_post = state.channel_post.find(t => t.id === payload['id']);
-      console.log(spotfeed_del_post);
       const spotfeed_del_index = state.channel_post.indexOf(spotfeed_del_post);
       const spotfeed_del_count = spotfeed_del_post ? spotfeed_del_post.commentsCount - 1 : 0;
       return Object.assign({}, state, {
@@ -147,7 +144,6 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
       });
 
     case MediaActions.POST_COMMENT_SUCCESS:
-      console.log('comment', payload['comment'].postId);
       const spotfeed_post = state.channel_post.find(t => t.id === payload['comment'].postId);
       const spotfeed_index = state.channel_post.indexOf(spotfeed_post);
       const spotfeed_count = spotfeed_post ? spotfeed_post.commentsCount + 1 : 0;
