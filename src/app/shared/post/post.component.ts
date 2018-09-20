@@ -77,9 +77,6 @@ export class PostComponent implements OnInit, OnDestroy {
     this.commentCount = this.mediaData.commentsCount;
     this.comments = this.mediaData.commentsList;
     this.desText = this.mediaData.description;
-    console.log(this.mediaData.description);
-    
-    // console.log(this.mediaId)
   }
 
   onContentEdit() {
