@@ -25,6 +25,7 @@ export class PostComponent implements OnInit, OnDestroy {
   @Input() mediaData;
   @Input() userData;
   @Input() className: string;
+  @Input() postType: string;
   @Input() type: string;
   @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
   @Output() postDelete = new EventEmitter();

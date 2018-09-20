@@ -68,7 +68,7 @@
                 <app-post-card [loader]=true *ngFor="let number of [0,1]" ></app-post-card>
             </div>
             <div *ngFor="let media of communityPost;">
-                <app-post  (postDelete)="deletePost(media)" (onClick)="mediaOpenPopup(media.id)"  [mediaData]="media" [userData]="userData"></app-post>
+                <app-post  (postDelete)="deletePost(media)" (onClick)="mediaOpenPopup(media.id)"  [mediaData]="media" [userData]="userData" [postType]="'community'"></app-post>
             </div>
         </div>
         <!-- center-block end -->

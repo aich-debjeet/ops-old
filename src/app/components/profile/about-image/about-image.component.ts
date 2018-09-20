@@ -78,6 +78,8 @@ export class AboutImageComponent implements OnInit {
         .first(state => state['image_upload_success'] === true)
         .subscribe(() => {
           this.isClosed(null);
+          this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+          this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS});
         });
     }
   }
