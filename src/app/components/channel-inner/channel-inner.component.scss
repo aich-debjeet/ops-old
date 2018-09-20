@@ -328,6 +328,11 @@
 .active .channel-filter__svg {
     opacity: 1;
 }
+.overlap_thumb{
+    img{
+        cursor: pointer;
+    }
+}
 
 .brick { 
       width: 200px;

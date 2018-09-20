@@ -7,6 +7,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class ConfirmBoxComponent implements OnInit {
   @Input() message: string;
+  @Input() heading: string;
   @Output() confirmAction: EventEmitter<any> = new EventEmitter<any>();
   @Output() closeModal: EventEmitter<any> = new EventEmitter<any>();
 
