@@ -65,7 +65,6 @@ export class CommunitiesComponent implements OnInit, AfterViewInit, OnDestroy {
         if (state['communityList']) {
           this.list = state['communityList'];
         }
-
         this.communityTag = state['communityTags'];
         this.community_scroll_id = state['community_scrollId'];
 
