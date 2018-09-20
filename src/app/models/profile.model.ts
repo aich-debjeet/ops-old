@@ -11,6 +11,7 @@ export class ProfileModal {
   profile_details?: any;
   user_details: any;
   profileUpdateSuccess: boolean;
+  isUpdating?:boolean;
   userUpdateSuccess: boolean;
   editWorksuccess?: boolean;
   channelEntity?: any;

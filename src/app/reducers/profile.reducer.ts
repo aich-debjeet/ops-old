@@ -787,6 +787,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      */
     case ProfileActions.LOAD_PROFILE_UPDATE:
       return Object.assign({}, state, {
+        isUpdating: true,
         success: true,
         profileUpdateSuccess: false
       });
@@ -794,12 +795,14 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_PROFILE_UPDATE_SUCCESS:
     // console.log(payload)
       return Object.assign({}, state, {
+        isUpdating: false,
         profileUpdate: payload,
         profileUpdateSuccess: true
       });
 
     case ProfileActions.LOAD_PROFILE_UPDATE_FAILED:
       return Object.assign({}, state, {
+        isUpdating: false,
         profileUpdateSuccess: false
       });
 
