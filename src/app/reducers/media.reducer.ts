@@ -120,9 +120,24 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
       });
 
     case MediaActions.DELETE_COMMENT_SUCCESS:
+    console.log(payload.id);
+    console.log(state.channel_post);
+      const spotfeed_del_post = state.channel_post.find(t => t.id === payload['id']);
+      console.log(spotfeed_del_post);
+      const spotfeed_del_index = state.channel_post.indexOf(spotfeed_del_post);
+      const spotfeed_del_count = spotfeed_del_post ? spotfeed_del_post.commentsCount - 1 : 0;
       return Object.assign({}, state, {
-        media_comment: state.media_comment ? state.media_comment.filter(comment => comment.commentsId !== payload.id) : []
+        media_comment: state.media_comment ? state.media_comment.filter(comment => comment.commentsId !== payload.id) : [],
+        channel_post: [
+          ...state.channel_post.slice(0, spotfeed_del_index),
+          Object.assign({}, spotfeed_del_post, {commentsCount: spotfeed_del_count }),
+          ...state.channel_post.slice(spotfeed_del_index + 1)
+        ]
       });
+
+    
+
+
 
     // Media comment success
     case MediaActions.POST_COMMENT:
@@ -148,6 +163,21 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
           ...state.channel_post.slice(spotfeed_index + 1)
         ]
       });
+
+    // API NOT READY FOR THIS
+    // case MediaActions.MEDIA_SPOT_SUCCESS:
+    //   console.log('comment', payload['comment'].postId);
+    //   const spotfeed_spot_post = state.channel_post.find(t => t.id === payload['comment'].postId);
+    //   const spotfeed_spot_index = state.channel_post.indexOf(spotfeed_spot_post);
+    //   const spotfeed_spot_count = spotfeed_spot_post ? spotfeed_spot_post.spotsCount + 1 : 0;
+
+    //   return Object.assign({}, state, {
+    //     channel_post: [
+    //       ...state.channel_post.slice(0, spotfeed_spot_index),
+    //       Object.assign({}, spotfeed_post, {commentsCount: spotfeed_spot_count }),
+    //       ...state.channel_post.slice(spotfeed_spot_index + 1)
+    //     ]
+    //   });
 
     case MediaActions.POST_COMMENT_FAILED:
       return Object.assign({}, state, {
