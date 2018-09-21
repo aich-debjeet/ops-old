@@ -153,12 +153,16 @@
         <!-- event tab end -->
 
         <div class="o-event-sort-link hidden-xs">
-            <!-- <div *ngFor="let type of eventTypeList?.filters"> -->
-                <ng-container *ngIf="eventTypeList?.length > 0"> 
+                <!-- <ng-container *ngIf="eventTypeList?.length > 0"> 
                     <a routerLinkActive="active" class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a" *ngFor="let type of eventTypeList[0]?.filters" (click)="filter(type)">{{ type.name }}</a> 
-                </ng-container>
-            <!-- </div> -->
-            
+                </ng-container> -->
+            <ngu-carousel [inputs]="eventTypeSlider" *ngIf="eventTypeList?.length > 0">
+                <ngu-item NguCarouselItem class="" *ngFor="let type of eventTypeList[0]?.filters">
+                    <a routerLinkActive="active" class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a" (click)="filter(type)">{{ type.name }}</a> 
+                </ngu-item>
+                <button NguCarouselPrev class='leftRs'>&lt;</button>
+                <button NguCarouselNext class='rightRs'>&gt;</button>
+            </ngu-carousel>         
         </div>
         <!-- <form [formGroup]="locForm" #ecfrom="ngForm"> -->
             <div class="o-select-loc float_right">
