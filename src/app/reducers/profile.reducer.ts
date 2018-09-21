@@ -1310,7 +1310,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         default_notification: payload.settings.notificationSettings,
         adult_Content: payload.settings.allowARC,
         privateAccount: payload.settings.privateAccount,
-        preferences: payload.settings.homePagePreferences.preferences
+        // preferences: payload.settings.homePagePreferences.preferences
       });
 
     case ProfileActions.DEFAULT_NOTIFICATION_SETTINGS_FAILED:

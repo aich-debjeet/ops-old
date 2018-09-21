@@ -328,23 +328,23 @@
                         <div class="tab-pane active" id="Security_Privacy" *ngIf="this.selectedView === 'Security'">
                             <h6 class="c-text_lg m-b-24 p-l-8">Security & Privacy</h6>
                             <div class="o-set-change-pass o-set-list_items">
-                                <div class="col-md-3 p-0">
+                                <div class="col-md-3 col-xs-12 p-0">
                                     <span class="o-set-item__title c-text_md">
                                         Change password
                                     </span>
                                 </div>
-                                <div class="col-md-9 p-0">
+                                <div class="col-md-9 col-xs-12 p-0">
                                     <form [formGroup]="pwdForm" novalidate (ngSubmit)="submitForm(pwdForm.value)" #passform="ngForm">
-                                        <div id="pass-change" class="o-set-list__data" *ngIf="!passwordActive">
+                                        <div id="pass-change" class="o-set-list__data" *ngIf="editingField != 'passChange'">
                                             <span class="c-h3 line-height15 color-grey-dark">………………</span>
                                             <span class="o-set-list__edit-btn">
-                                                <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="passwordToggle()" >
+                                                <a class="o-set-list-edit__link c-text_md" (click)="editField('passChange')">
                                                     <span class="o-set-list-edit__icon"><img [src]="imageBaseLink + 'img/svg/editpencil.svg'" alt=""></span> Change
                                             </a>
                                             </span>
                                         </div>
                                         <!-- data end -->
-                                        <div id="pass-change__edit" class="o-set-list__edit" *ngIf="passwordActive">
+                                        <div id="pass-change__edit" class="o-set-list__edit" *ngIf="editingField == 'passChange'">
                                             <div class="col-md-6 p-0">
                                                 <div class="c-form__group c-form--sm c-form--noeffect m-0">
                                                     <input class="c-form__input" required="" type="password" formControlName="currentpassword">
@@ -373,7 +373,7 @@
                                             <div class="col-md-6 p-0">
                                                 <div class="o-set-list-edit__actions">
                                                     <button type="button" class="btn btn-primary btn-sm" [type]="'submit'">Save</button>
-                                                    <button type="button" class="btn btn-default btn-sm" (click)="passwordToggle()">Cancel</button>
+                                                    <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()">Cancel</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -430,7 +430,7 @@
                             <!-- <div class="o-set-single-block  m-b-24">
                                 <a href="#" class="c-text_sm color-theme">See More</a>
                             </div> -->
-                            <div class="col-md-12 p-0 m-b-24">
+                            <div class="col-md-12 col-xs-12 p-0 m-b-24">
                                 <div class="switch_btn">
                                     <label class="switch">
                                         <input type="checkbox" name="private" value="{{privateAccount.value}}" checked [(ngModel)]="privateAccount.checked" (change)="updateCheckedOptions(privateAccount, $event)">
@@ -456,7 +456,7 @@
                                 </div>
                                 <div class="col-md-3 p-0">
                                     <span class="c-text_md">
-                                      <a href="javascript:void(0)" class="c-text_md color-theme" (click)="unBlock(users.handle)">Unblock</a>
+                                      <a class="c-text_md color-theme" (click)="unBlock(users.handle)">Unblock</a>
                                     </span>
                                 </div>
                             </div>

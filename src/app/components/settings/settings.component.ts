@@ -680,15 +680,16 @@ export class SettingsComponent implements OnInit {
 
   /**
    * password toggle field
-   */
-  passwordToggle() {
-    if (this.passwordActive === true) {
-      this.passwordActive = false;
-      this.rebuild();
-    } else {
-      this.passwordActive = true;
-    }
-  }
+  //  */
+  // passwordToggle() {
+  //   console.log('being called');
+  //   if (this.passwordActive === true) {
+  //     this.passwordActive = false;
+  //     this.rebuild();
+  //   } else {
+  //     this.passwordActive = true;
+  //   }
+  // }
 
   removeUtc(string) {
     const s1 = string.slice(0, 10);
