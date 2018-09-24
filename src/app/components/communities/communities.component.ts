@@ -65,7 +65,6 @@ export class CommunitiesComponent implements OnInit, AfterViewInit, OnDestroy {
         if (state['communityList']) {
           this.list = state['communityList'];
         }
-
         this.communityTag = state['communityTags'];
         this.community_scroll_id = state['community_scrollId'];
 
@@ -117,8 +116,8 @@ export class CommunitiesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   buildForm() {
     this.communityForm = this.fb.group({
-      'community_name' : ['', [Validators.required]],
-      'brief': ['', [Validators.required]],
+      'community_name' : ['', [Validators.required, Validators.maxLength(50)]],
+      'brief': ['', [Validators.required, Validators.maxLength(150)]],
       'access': [0, [Validators.required]],
       'industry': ['', [Validators.required]]
     })

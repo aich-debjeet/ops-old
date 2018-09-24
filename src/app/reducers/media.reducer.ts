@@ -81,9 +81,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
     case MediaActions.MEDIA_DETAILS:
       return Object.assign({}, state, {
         media_detail_loading: true,
-        media_detail: [],
-        channelPostScrollId: [],
-        channel_post: []
+        media_detail: []
       });
 
     case MediaActions.MEDIA_DETAILS_SUCCESS:
@@ -122,9 +120,21 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
       });
 
     case MediaActions.DELETE_COMMENT_SUCCESS:
+      const spotfeed_del_post = state.channel_post.find(t => t.id === payload['id']);
+      const spotfeed_del_index = state.channel_post.indexOf(spotfeed_del_post);
+      const spotfeed_del_count = spotfeed_del_post ? spotfeed_del_post.commentsCount - 1 : 0;
       return Object.assign({}, state, {
-        media_comment: state.media_comment ? state.media_comment.filter(comment => comment.commentsId !== payload.id) : []
+        media_comment: state.media_comment ? state.media_comment.filter(comment => comment.commentsId !== payload.id) : [],
+        channel_post: [
+          ...state.channel_post.slice(0, spotfeed_del_index),
+          Object.assign({}, spotfeed_del_post, {commentsCount: spotfeed_del_count }),
+          ...state.channel_post.slice(spotfeed_del_index + 1)
+        ]
       });
+
+    
+
+
 
     // Media comment success
     case MediaActions.POST_COMMENT:
@@ -134,12 +144,36 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
       });
 
     case MediaActions.POST_COMMENT_SUCCESS:
+      const spotfeed_post = state.channel_post.find(t => t.id === payload['comment'].postId);
+      const spotfeed_index = state.channel_post.indexOf(spotfeed_post);
+      const spotfeed_count = spotfeed_post ? spotfeed_post.commentsCount + 1 : 0;
+
       return Object.assign({}, state, {
         media_post_success: true,
         comment_post_loading: false,
         current_comment: payload['comment'],
-        media_comment: state.media_comment ? state.media_comment.concat(payload['comment']) : []
+        media_comment: state.media_comment ? state.media_comment.concat(payload['comment']) : [],
+        channel_post: [
+          ...state.channel_post.slice(0, spotfeed_index),
+          Object.assign({}, spotfeed_post, {commentsCount: spotfeed_count }),
+          ...state.channel_post.slice(spotfeed_index + 1)
+        ]
       });
+
+    // API NOT READY FOR THIS
+    // case MediaActions.MEDIA_SPOT_SUCCESS:
+    //   console.log('comment', payload['comment'].postId);
+    //   const spotfeed_spot_post = state.channel_post.find(t => t.id === payload['comment'].postId);
+    //   const spotfeed_spot_index = state.channel_post.indexOf(spotfeed_spot_post);
+    //   const spotfeed_spot_count = spotfeed_spot_post ? spotfeed_spot_post.spotsCount + 1 : 0;
+
+    //   return Object.assign({}, state, {
+    //     channel_post: [
+    //       ...state.channel_post.slice(0, spotfeed_spot_index),
+    //       Object.assign({}, spotfeed_post, {commentsCount: spotfeed_spot_count }),
+    //       ...state.channel_post.slice(spotfeed_spot_index + 1)
+    //     ]
+    //   });
 
     case MediaActions.POST_COMMENT_FAILED:
       return Object.assign({}, state, {

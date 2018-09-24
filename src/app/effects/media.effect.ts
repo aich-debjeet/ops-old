@@ -179,7 +179,7 @@ export class MediaEffect {
       );
 
       /**
-       *Get Media Report 
+       *Get Media Report
        */
       @Effect()
       getReport$ = this.actions$

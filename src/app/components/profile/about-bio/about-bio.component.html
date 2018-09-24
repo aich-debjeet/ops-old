@@ -11,7 +11,7 @@
                 </div>
                 <ng-container *ngIf="ownProfile">
                     <span class="o-bio-info__edit-ico" *ngIf="userProfile?.aboutMe"  (click)="editField('aboutMe')">
-                        <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
+                        <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'"  alt="">
                     </span>
                         
                     <div id="o-bio-info__about" class="o-bio-info__value c-text_sm color-theme" *ngIf="!userProfile?.aboutMe && editingField != 'aboutMe'" (click)="editField('aboutMe')">
@@ -21,6 +21,7 @@
                   <div id="o-bio-info__about-edit" class="o-bio-info__edit" *ngIf="editingField == 'aboutMe'">
                       <div class="c-form__group c-form--sm c-form--noeffect">
                           <textarea class="c-form__input" [(ngModel)]="aboutMe" [ngModelOptions]="{standalone: true}">{{ aboutMe }}</textarea>
+                          <img *ngIf="isUpdating" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '15px','right': '0'}" [src]="imageBaseUrl + 'img/search-preloader.gif'">
                       </div>
                       <div class="o-bio-info__edit-actions m-t-24">
                           <button type="button" class="btn btn-primary btn-sm float-right" (click)="updateAbout('aboutMe')">Save</button>
@@ -47,6 +48,7 @@
                     <div id="o-bio-info__skills-edit" class="o-bio-info__edit" *ngIf="editingField == 'skills'">
                         <div class="c-form__group c-form--sm c-form--noeffect">
                             <input class="c-form__input" required="" type="text" [ngModel]="skill"  (ngModelChange)="onSearchChange($event)" placeholder="Search skill">
+                            <img *ngIf="isUpdating" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '15px','right': '0'}" [src]="imageBaseUrl + 'img/search-preloader.gif'">
                         </div>
                         <div class="row">
                             <div class="col-md-12 with_border_bottom">
@@ -128,6 +130,7 @@
                                 <span></span>
                                 <div class="c-radio--label">Others</div>
                             </label>
+                            <img *ngIf="isUpdating" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '30px','right': '0'}" [src]="imageBaseUrl + 'img/search-preloader.gif'">
                         </div>
                     </div>
                 </div>
@@ -143,6 +146,7 @@
                     <div id="o-bio-info__birth-edit" class="o-bio-info__edit" *ngIf="editingField == 'dob'">
                         <div class="c-form__group">
                             <input type="text" [(ngModel)]="dob" [textMask]="{mask: dateMask}" class="c-form__input" placeholder="">
+                            <img *ngIf="isUpdating" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '6px','right': '0'}" [src]="imageBaseUrl + 'img/search-preloader.gif'">
                             <!-- <p class="error_alert" *ngIf="profileForm.controls['dob'].errors?.required && myform.submitted">Date of Brith is required</p> -->
                             <p class="error_alert" *ngIf="invalidDOB">Invalid Date of Birth</p>
                             <p class="error_alert" *ngIf="isUnderAge">You should be above 13</p>
@@ -209,6 +213,7 @@
                             <div class="c-form__group c-form--sm c-form--noeffect">
                                 <!-- <input class="c-form__input" required="" type="text" value="162"> -->
                                 <textarea class="c-form__input" [(ngModel)]="height" [ngModelOptions]="{standalone: true}">{{ height }}</textarea>
+                                <img *ngIf="isUpdating" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '15px','right': '0'}" [src]="imageBaseUrl + 'img/search-preloader.gif'">
                                 <p class="error_alert" *ngIf="validHeight">characters Not Accepted</p>
                             </div>
                         </div>
@@ -274,6 +279,7 @@
                         <div class="col-md-3 p-0">
                             <div class="c-form__group c-form--sm c-form--noeffect">
                                 <textarea class="c-form__input" [(ngModel)]="weight" [ngModelOptions]="{standalone: true}" >{{ weight }}</textarea>
+                                <img *ngIf="isUpdating" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '15px','right': '0'}" [src]="imageBaseUrl + 'img/search-preloader.gif'">
                                 <p class="error_alert" *ngIf="validWeight">characters Not Accepted</p>
                             </div>
                         </div>
@@ -341,6 +347,7 @@
                     <div id="o-bio-info__language-edit" class="o-bio-info__edit" *ngIf="editingField == 'language'">
                         <div class="c-form__group c-form--sm c-form--noeffect">
                             <textarea class="c-form__input" [(ngModel)]="lang" [ngModelOptions]="{standalone: true}">{{ lang }}</textarea>
+                            <img *ngIf="isUpdating" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '15px','right': '0'}" [src]="imageBaseUrl + 'img/search-preloader.gif'">
                         </div>
                         <!-- action start -->
                         <div class="o-bio-info__edit-actions m-t-24">
@@ -414,18 +421,22 @@
                         <div class="c-form__group c-form--sm c-form--noeffect">
                             <h6 class="c-text_md">Address Line</h6>
                             <textarea class="c-form__input" [(ngModel)]="addressOne" [ngModelOptions]="{standalone: true}">{{ addressOne }}</textarea>
+                            <img *ngIf="isUpdating" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '15px','right': '0'}" [src]="imageBaseUrl + 'img/search-preloader.gif'">
                         </div>
                         <div class="c-form__group c-form--sm c-form--noeffect">
                             <h6 class="c-text_md m-t-16">City</h6>
                             <textarea class="c-form__input" [(ngModel)]="city" [ngModelOptions]="{standalone: true}">{{ city }}</textarea>
+                            <img *ngIf="isUpdating" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '15px','right': '0'}" [src]="imageBaseUrl + 'img/search-preloader.gif'">
                         </div>
                         <div class="c-form__group c-form--sm c-form--noeffect">
                             <h6 class="c-text_md m-t-16">Country</h6>
                             <textarea class="c-form__input" [(ngModel)]="country" [ngModelOptions]="{standalone: true}">{{ country }}</textarea>
+                            <img *ngIf="isUpdating" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '15px','right': '0'}" [src]="imageBaseUrl + 'img/search-preloader.gif'">
                         </div>
                         <div class="c-form__group c-form--sm c-form--noeffect">
                             <h6 class="c-text_md m-t-16">Postal Code</h6>
                             <textarea class="c-form__input"  type="number" [(ngModel)]="pinCode" [ngModelOptions]="{standalone: true}" (keydown)="allowNumbersOnly($event)">{{ pinCode }}</textarea>
+                            <img *ngIf="isUpdating" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '15px','right': '0'}" [src]="imageBaseUrl + 'img/search-preloader.gif'">
                         </div>
                         <div class="o-bio-info__edit-actions m-t-24">
                             <button type="button" class="btn btn-primary btn-sm float-right" (click)="updateAbout('address')">Save</button>
@@ -487,6 +498,7 @@
                     <div id="o-bio-info__ethinicity-edit" class="o-bio-info__edit" *ngIf="editingField == 'ethnicity'">                        
                         <div class="c-form__group c-form--sm c-form--noeffect">
                             <textarea class="c-form__input" [(ngModel)]="ethnicity" [ngModelOptions]="{standalone: true}">{{ ethnicity }}</textarea>
+                            <img *ngIf="isUpdating" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '15px','right': '0'}" [src]="imageBaseUrl + 'img/search-preloader.gif'">
                         </div>
                         <!-- action start -->
                         <div class="o-bio-info__edit-actions m-t-24">

@@ -28,6 +28,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   tomorrow: any;
   weekend: any;
   carouselOne: NguCarousel;
+  eventTypeSlider: NguCarousel;
   tagState$: Observable<EventModal>;
   eventList: any;
   eventType: any;
@@ -192,6 +193,19 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
       load: 2,
       loop: false,
       touch: true
+    }
+    this.eventTypeSlider = {
+      grid: { xs: 2, sm: 3, md: 7, lg: 7, all: 0 },
+      slide: 2,
+      speed: 400,
+      interval: 4000,
+      point: {
+        visible: false
+      },
+      load: 1,
+      touch: true,
+      loop: false,
+      custom: 'banner'
     }
     this.buildForm();
     this.getLocationGoogle();

@@ -18,6 +18,7 @@
           [imageChangedEvent]="imageChangedEvent"
           [maintainAspectRatio]="true"
           [aspectRatio]="4 / 4"
+          [imageQuality] = "100"
           format="png"
           (imageCroppedBase64)="imageCropped($event)"
           (imageLoaded)="imageLoaded()">

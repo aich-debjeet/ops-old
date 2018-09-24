@@ -27,7 +27,7 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
     case CommunitiesActions.COMMUNITY_LIST_SUCCESS:
       return Object.assign({}, state, {
         communityList: state.communityList.concat(payload['SUCCESS'].communityResponse),
-        communityTags: payload['SUCCESS'].filterList[0],
+        communityTags: payload['SUCCESS'].filterList[0] ? state.communityTags.concat(payload['SUCCESS'].filterList[0].filters) : state.communityTags,
         community_scrollId: payload['SUCCESS'].scrollId,
         community_loading: false
       });
@@ -36,6 +36,7 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
       if (payload.scrollId === null) {
         return Object.assign({}, state, {
           communityList: [],
+          communityTags: [],
           community_loading: true
         });
       }
@@ -167,13 +168,16 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
       });
 
     case CommunitiesActions.COMMUNITY_MEMBER_LIST:
-      return Object.assign({}, state, {
-        community_member_list: []
-      });
+      if (payload.page === 0) {
+        return Object.assign({}, state, {
+          community_member_list: []
+        });
+      }
+      return state;
 
     case CommunitiesActions.COMMUNITY_MEMBER_LIST_SUCCESS:
       return Object.assign({}, state, {
-        community_member_list: payload
+        community_member_list: state.community_member_list.concat(payload)
       });
 
     case CommunitiesActions.COMMUNITY_ADMIN_CHANGE_SUCCESS:

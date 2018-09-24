@@ -45,7 +45,7 @@
             <div class="empty_message" *ngIf="eventList?.length === 0">
               <p>There is no event</p>
             </div>
-            <div class="p-16" *ngFor="let event of eventList.slice(0,2)">
+            <div class="p-16 event__block" *ngFor="let event of eventList.slice(0,2)">
               <!-- card media (img, video & audio) -->
               <div class="c-card__event2 float_left">
                 <a [routerLink]="'/event/inner/' + event?.id">
