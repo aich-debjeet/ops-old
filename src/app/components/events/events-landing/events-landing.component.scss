@@ -162,11 +162,46 @@
         width: 60%;
         margin-top: 20px;
     }
+    .previous,
+    .next {
+        z-index: 1;
+        width: 23px;
+        height: 24px;
+        background: lightgrey;
+    }
+    .next{
+      display: block;
+      position: absolute;
+      right: 0;
+      top: 22px;
+      background: url(https://cdn.onepagespotlight.com/img/svg/arrow2.svg) no-repeat; 
+      background-color: #f1f1f1; 
+      border-radius: 50%;
+        border: none;
+        &:focus{
+            outline: none;
+        }
+    }
+    .previous{
+        display: block;
+        position: absolute;
+        left: -1px!important;
+        top: 22px;
+        margin: 0px;  
+        background: url(https://cdn.onepagespotlight.com/img/svg/arrow1.svg) no-repeat; 
+        background-color: #f1f1f1; 
+        border-radius: 50%;
+        border: none;
+        &:focus{
+            outline: none;
+        }
+    }
 }
 
 .o-event-sort__a {
     padding: 24px 12px;
     letter-spacing: 1px;
+    float: left;
     &:hover {
         color: #333!important;
     }
@@ -276,6 +311,7 @@
 
 .o-calendar__icon {
     width: 30px;
+    float: left;
     img {
         width: 100%;
     }
