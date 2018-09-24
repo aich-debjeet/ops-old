@@ -195,8 +195,8 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
       touch: true
     }
     this.eventTypeSlider = {
-      grid: { xs: 2, sm: 3, md: 8, lg: 8, all: 0 },
-      slide: 1,
+      grid: { xs: 2, sm: 3, md: 7, lg: 7, all: 0 },
+      slide: 2,
       speed: 400,
       interval: 4000,
       point: {

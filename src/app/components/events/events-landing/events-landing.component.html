@@ -118,7 +118,7 @@
 
                     <li class="o-calendar__list--icon ">
                         <div class=" c-dropdown">
-                            <a (click)="calendarPop()" class="o-calendar__icon o-event-sort__a dropdown-toggle p-l-0" data-toggle="dropdown" aria-expanded="true">
+                            <a (click)="calendarPop()" class="o-calendar__icon dropdown-toggle p-l-0" data-toggle="dropdown" aria-expanded="true">
                                 <img [src]="baseUrl + 'img/svg/calendar_gray.svg'" alt="">
                             </a>
                         </div>
@@ -160,8 +160,8 @@
                 <ngu-item NguCarouselItem class="" *ngFor="let type of eventTypeList[0]?.filters">
                     <a routerLinkActive="active" class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a" (click)="filter(type)">{{ type.name }}</a> 
                 </ngu-item>
-                <button NguCarouselPrev class='leftRs'>&lt;</button>
-                <button NguCarouselNext class='rightRs'>&gt;</button>
+                <button NguCarouselPrev class='previous'></button>
+                <button NguCarouselNext class='next'></button>
             </ngu-carousel>         
         </div>
         <!-- <form [formGroup]="locForm" #ecfrom="ngForm"> -->
