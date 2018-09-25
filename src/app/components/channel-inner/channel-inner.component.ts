@@ -84,6 +84,10 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
         this.buildEditForm();
       }
     );
+
+    this.toastr.success('Your media has been successfully posted', 'Success!', {
+      timeOut: 300000000000000000
+    });
   }
 
   ngOnDestroy() {
