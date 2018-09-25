@@ -293,11 +293,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     // set scroll to top
-    this.router.events.subscribe((event: NavigationEnd) => {
-      if (event instanceof NavigationEnd) {
-        window.scrollTo(0, 0);
-      }
-    })
+    window.scrollTo(0, 0);
 
     this.routeSub = this.route.queryParams
       .subscribe(params => {
