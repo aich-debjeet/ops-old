@@ -36,9 +36,11 @@
                   <a [routerLink]="['', { outlets: { media : ['media', trending?.id]}}]">
                     <img [src]="imageLink + trending?.thumbNails?.mediumLarge" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="c-card__image">
                   </a>
-                  <!--  <span>
-                    <img src="assets/svg/ico_image.svg" alt="" class="c-card__icon">
-                  </span> -->
+                   <span>
+                      <img [src]="imageLink + 'img/svg/ico_video.svg'" *ngIf="trending?.mtype === 'video'" class="c-card__icon">
+                      <img [src]="imageLink + 'img/svg/ico_image.svg'" *ngIf="trending?.mtype === 'image'" class="c-card__icon">
+                      <img [src]="imageLink + 'img/svg/ico_volume3.svg'" *ngIf="trending?.mtype === 'audio'" class="c-card__icon">
+                  </span>
                   <div class="c-media--hover">
                     <div class="c-user">
                       <a href="javascript:void(0);" class="c-user__avatar c-avatar--feed2">
@@ -102,7 +104,9 @@
                     <img [src]="imageLink + trending?.thumbNails?.mediumLarge" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="c-card__image">
                   </a>
                   <span>
-                    <img [src]="imageLink + 'img/svg/ico_video.svg'" class="c-card__icon">
+                    <img [src]="imageLink + 'img/svg/ico_video.svg'" *ngIf="trending?.mtype === 'video'" class="c-card__icon">
+                    <img [src]="imageLink + 'img/svg/ico_image.svg'" *ngIf="trending?.mtype === 'image'" class="c-card__icon">
+                    <img [src]="imageLink + 'img/svg/ico_volume3.svg'" *ngIf="trending?.mtype === 'audio'" class="c-card__icon">
                   </span>
                   <div class="c-media--hover">
                     <div class="">

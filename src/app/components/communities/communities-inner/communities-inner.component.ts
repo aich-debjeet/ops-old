@@ -331,8 +331,8 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
 
   buildForm() {
     this.communityForm = this.fb.group({
-      'community_name' : [ this.details.title, [Validators.required]],
-      'brief': ['', [Validators.required]],
+      'community_name' : [ this.details.title, [Validators.required, Validators.maxLength(50)]],
+      'brief': ['', [Validators.required, Validators.maxLength(150)]],
       'access': [0, [Validators.required]],
       'industry': ['', [Validators.required]]
     })

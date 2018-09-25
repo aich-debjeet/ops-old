@@ -128,12 +128,14 @@
                     <span class="c-form__bar"></span>
                     <label>Community Name</label>
                 </div>
+                <p class="c-form__validation" *ngIf="communityForm.controls['community_name'].errors?.maxlength">Maximum characters limit 50</p>
                 <div class="c-form__group m-t-24">
                     <input class="c-form__input" required="" formControlName="brief" type="text">
                     <span class="c-form__highlight"></span>
                     <span class="c-form__bar"></span>
                     <label>About Community</label>
                 </div>
+                <p class="c-form__validation" *ngIf="communityForm.controls['brief'].errors?.maxlength">Maximum characters limit 150</p>
                 <div class="c-form__group m-t-24">
                     <select class="c-form-control" formControlName="access">
                         <option value="0">Public</option>

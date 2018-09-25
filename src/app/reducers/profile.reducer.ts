@@ -553,7 +553,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Get User Media Post
      */
     case ProfileActions.LOAD_USER_MEDIA:
-      if (payload.scrollID === '') {
+      if (payload.scrollId === '') {
         return Object.assign({}, state, {
           user_posts_loading: true,
           user_posts_loaded: false,
