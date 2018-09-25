@@ -2,10 +2,33 @@ import { ActionReducer, Action } from '@ngrx/store';
 import { ExploreActions } from '../actions/explore.action';
 import { findIndex as _findIndex } from 'lodash';
 import { uniqBy as _uniqBy } from 'lodash';
+import { remove as _remove } from 'lodash';
 
 export const ExploreReducer: ActionReducer<any> = (state, {payload, type}: Action) =>  {
 
     switch (type) {
+
+      case ExploreActions.EXPLORE_MEDIA_POST_DELETE:
+        return Object.assign({}, state, {
+          exploreDeletingMediaPost: true,
+          exploreDeletedMediaPost: false,
+          exploreDeletingMediaId: payload
+        });
+
+      case ExploreActions.EXPLORE_MEDIA_POST_DELETE_SUCCESS:
+        const updatedExploreDataDel = state['exploreData'];
+        updatedExploreDataDel['mediaResponse'] = _remove(state['exploreData']['mediaResponse'], (obj) => obj.id !== state['exploreDeletingMediaId']);
+        return Object.assign({}, state, {
+          exploreData: updatedExploreDataDel,
+          exploreDeletedMediaPost: true,
+          exploreDeletingMediaPost: false
+        });
+
+      case ExploreActions.EXPLORE_MEDIA_POST_DELETE_FAILED:
+        return Object.assign({}, state, {
+          exploreDeletedMediaPost: false,
+          exploreDeletingMediaPost: false
+        });
 
       case ExploreActions.LOAD_SPOTFEEDS:
         return Object.assign({}, state, {

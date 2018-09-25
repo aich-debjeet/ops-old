@@ -14,6 +14,21 @@ import { ExploreActions } from '../actions/explore.action';
 export class ExploreEffect {
 
   /**
+   * explore media post delete
+   */
+  @Effect()
+  exploreMediaPostDelete$ = this.actions$
+    .ofType(ExploreActions.EXPLORE_MEDIA_POST_DELETE)
+    .map(toPayload)
+    .switchMap((payload) => this.exploreService.exploreMediaPostDelete(payload)
+      .map(res => ({ type: ExploreActions.EXPLORE_MEDIA_POST_DELETE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ExploreActions.EXPLORE_MEDIA_POST_DELETE_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
+  /**
    * Get spotfeeds
    */
   @Effect()

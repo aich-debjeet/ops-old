@@ -26,6 +26,13 @@ export class ExploreService {
     }
 
     /**
+     * explore media post delete
+     */
+    exploreMediaPostDelete(id: string) {
+      return this.api.del( `/portal/cdn/media/delete/${id}`);
+    }
+
+    /**
      * Get spotfeeds
      */
     getSpotfeeds(params: any) {
