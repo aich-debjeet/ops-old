@@ -1880,6 +1880,11 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       const profile_post_de = state.user_posts.find(t => t.id === payload);
       const profile_index_de = state.user_posts.indexOf(profile_post_de);
       const profile_count_de = profile_post_de ? profile_post_de.commentsCount - 1 : 0;
+
+      const tranding_post_comment_dec = state.trending_post.find(t => t.id === payload);
+      const tranding_post_comment_dec_index = state.trending_post.indexOf(tranding_post_comment_dec);
+      const tranding_post_comment_dec_count = tranding_post_comment_dec ? tranding_post_comment_dec.commentsCount - 1 : 0;
+
         return Object.assign({}, state, {
             user_following_posts: [
                 ...state.user_following_posts.slice(0, home_index_de),
@@ -1891,6 +1896,11 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
               Object.assign({}, profile_post_de, {commentsCount: profile_count_de }),
               ...state.user_posts.slice(profile_index_de + 1)
             ],
+            trending_post: [
+              ...state.trending_post.slice(0, tranding_post_comment_dec_index),
+              Object.assign({}, tranding_post_comment_dec, {commentsCount: tranding_post_comment_dec_count }),
+              ...state.trending_post.slice(tranding_post_comment_dec_index + 1)
+            ]
 
         })
 
