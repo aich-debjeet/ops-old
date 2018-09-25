@@ -699,6 +699,21 @@
     }
 }
 
+.o-following-pop, .o-follow-people{
+    .o-follow-people__list {
+        list-style-type: none;
+        float: left;
+        width: 110px;
+        margin-right: 14px;
+        margin-top: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 150px;
+    }
+}
+
 .c-profileo__userdetail {
     padding-left: 3%;
     padding-top: 4%;
