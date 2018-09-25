@@ -394,6 +394,9 @@
     height: 468px;
     background: #fff;
     margin: 40px auto;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 100%;
+    }
 }
 
 .o-cover-upload__head {
