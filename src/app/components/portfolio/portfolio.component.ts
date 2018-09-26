@@ -176,6 +176,10 @@ export class PortfolioComponent implements OnInit, OnDestroy {
       this.catNameIsRequired = true;
       return;
     } else {
+      if (this.portCategories && this.portCategories.length >= 5) {
+        this.toastr.warning('Maximum 5 categories are allowed!', '', { timeOut: 3000 });
+        return;
+      }
       this.catNameIsRequired = false;
       if (this.portAddCategoryForm.valid === true) {
         this.profileStore.dispatch({
