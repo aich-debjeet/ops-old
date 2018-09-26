@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [unreleased]
+
+### Added
+- Profile page: By default "Bio" tab should highlight when user navigate to the about section
 
 ## [0.9.9] - 2018-09-24
 
