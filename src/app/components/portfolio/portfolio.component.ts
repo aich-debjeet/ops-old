@@ -378,7 +378,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
 
   resetAddMedia() {
     this.selectedCategoryId = '';
-    this.displayMedia = [];
+    // this.displayMedia = [];
     this.selectedMedia = [];
     this.selectedChannels = [];
   }
