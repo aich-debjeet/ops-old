@@ -196,6 +196,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
       .first(resp => resp['portfolio_delete_category_success'] === true)
       .subscribe(data => {
         this.toastr.success('Category deleted', 'Success!', { timeOut: 3000 });
+        this.selectTab({ categoryName: 'all', categoryId: 'all' });
         return;
       });
   }
