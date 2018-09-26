@@ -284,6 +284,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
 
     // get channels
     this.profileStore.dispatch({ type: ProfileActions.GET_USERS_CHANNELS, payload: '' });
+    this.resetAddMedia();
     this.portMediaModal.open();
   }
 
@@ -453,7 +454,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
    */
   closePortAddMediaModal() {
     this.portMediaModal.close();
-    this.resetAddMedia();
+    // this.resetAddMedia();
   }
 
   portMediaModalScroll(e) {
