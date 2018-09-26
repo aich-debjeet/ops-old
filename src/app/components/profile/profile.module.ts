@@ -58,7 +58,7 @@ const childRoutes = [
     path: 'about',
     component: ProfileAboutComponent,
     children: [
-      { path: '', component: AboutBioComponent },
+      { path: '', redirectTo: 'bio' },
       { path: 'image', component: AboutImageComponent },
       { path: 'cover_image', component: AboutCoverComponent },
       { path: 'bio', component: AboutBioComponent },
