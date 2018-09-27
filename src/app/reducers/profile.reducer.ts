@@ -342,6 +342,14 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
     /* loading followings/followers */
     case ProfileActions.GET_FOLLOWING_PROFILES:
+      if (payload['offset'] === 0) {
+        return Object.assign({}, state, {
+          searching_following_profiles: true,
+          searching_following_profiles_success: false,
+          searching_following_params: payload,
+          following_profiles: []
+        });
+      }
       return Object.assign({}, state, {
         searching_following_profiles: true,
         searching_following_profiles_success: false,
@@ -368,6 +376,14 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.GET_FOLLOWER_PROFILES:
+      if (payload['offset'] === 0) {
+        return Object.assign({}, state, {
+          searching_follower_profiles: true,
+          searching_follower_profiles_success: false,
+          searching_follower_params: payload,
+          follower_profiles: []
+        });
+      }
       return Object.assign({}, state, {
         searching_follower_profiles: true,
         searching_follower_profiles_success: false,
