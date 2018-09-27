@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, Inject, HostListener, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Inject, HostListener, AfterViewInit, ElementRef } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 
 import { SearchActions } from './../../actions/search.action';
@@ -33,6 +33,7 @@ import { GeneralUtilities } from '../../helpers/general.utils';
 export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('searchInput') searchInput;
+  @ViewChild('searchInput2') searchInput2: ElementRef;
 
   baseUrl: string;
   isSearching = false;
@@ -293,11 +294,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     // set scroll to top
-    this.router.events.subscribe((event: NavigationEnd) => {
-      if (event instanceof NavigationEnd) {
-        window.scrollTo(0, 0);
-      }
-    })
+    window.scrollTo(0, 0);
 
     this.routeSub = this.route.queryParams
       .subscribe(params => {
@@ -389,6 +386,8 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    // set focus to input
+    this.searchInput2.nativeElement.focus();
 
     /**
      * Observing the search input change
