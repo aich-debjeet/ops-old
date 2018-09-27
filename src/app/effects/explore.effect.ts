@@ -9,9 +9,25 @@ import 'rxjs/add/operator/filter';
 
 import { ExploreService } from '../services/explore.service';
 import { ExploreActions } from '../actions/explore.action';
+import { MediaService } from '../services/media.service';
 
 @Injectable()
 export class ExploreEffect {
+
+  /**
+   * explore media post delete
+   */
+  @Effect()
+  exploreMediaPostDelete$ = this.actions$
+    .ofType(ExploreActions.EXPLORE_MEDIA_POST_DELETE)
+    .map(toPayload)
+    .switchMap((payload) => this.mediaService.mediaPostDelete(payload)
+      .map(res => ({ type: ExploreActions.EXPLORE_MEDIA_POST_DELETE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ExploreActions.EXPLORE_MEDIA_POST_DELETE_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
 
   /**
    * Get spotfeeds
@@ -45,7 +61,8 @@ export class ExploreEffect {
 
     constructor(
         private actions$: Actions,
-        private exploreService: ExploreService
+        private exploreService: ExploreService,
+        private mediaService: MediaService
     ) { }
 
 }

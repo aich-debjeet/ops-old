@@ -3,7 +3,7 @@
     <div class="container">
       <div class="o-search m-t-32">
         <form action="">
-          <input placeholder="What are you looking for?" #searchQueryElement #searchInput="ngModel" class="o-search__input" type="text" [ngModel]="searchString" [ngModelOptions]="{standalone: true}" >
+          <input #searchInput2 placeholder="What are you looking for?" #searchQueryElement #searchInput="ngModel" class="o-search__input" type="text" [ngModel]="searchString" [ngModelOptions]="{standalone: true}" >
           <div class="o-search__icon">
             <img *ngIf="!isSearching" [src]="baseUrl  + 'img/svg/ico_search.svg'">
             <img *ngIf="isSearching" [src]="baseUrl + 'img/search-preloader.gif'">
