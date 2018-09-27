@@ -18,7 +18,7 @@
             <!-- -->
             <div class="col-md-8 col-sm-12 p-0">
                 <div class="c-profile__userblock">
-                    <img *ngIf="profileObject?.image?.profile" [src]="baseUrl + profileObject?.image?.profile" class="img-responsive img-circle c-profile__userimg">
+                    <img *ngIf="profileObject?.image?.profile" [src]="profileObject?.extra?.isExternallySourced ? profileObject?.image?.profile : baseUrl + profileObject?.image?.profile" class="img-responsive img-circle c-profile__userimg">
                     <img *ngIf="!profileObject?.image?.profile" [src]="defaultImage" class="img-responsive img-circle c-profile__userimg">
                     <span *ngIf="this.isOwner" class="c-profile__imgchange">
                         <a  data-toggle="modal" data-target="#profile-upload">

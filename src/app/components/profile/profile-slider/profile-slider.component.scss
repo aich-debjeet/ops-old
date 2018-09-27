@@ -394,6 +394,9 @@
     height: 468px;
     background: #fff;
     margin: 40px auto;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 100%;
+    }
 }
 
 .o-cover-upload__head {
@@ -693,6 +696,21 @@
             padding: 2px 3px;
             font-size: 7px;
         }
+    }
+}
+
+.o-following-pop, .o-follow-people{
+    .o-follow-people__list {
+        list-style-type: none;
+        float: left;
+        width: 110px;
+        margin-right: 14px;
+        margin-top: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 150px;
     }
 }
 
@@ -1202,7 +1220,7 @@
 
 // following and followers
 .o-follow-and-following {
-    width: 72px;
+    // width: 72px;
     height: 72px;
     display: inline-block;
     padding: 0px 8px;
