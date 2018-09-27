@@ -580,17 +580,17 @@ export class ProfileSliderComponent implements OnInit {
   }
 
   onFollowerScroll(event: any) {
-    // if (event.srcElement.scrollTop >= event.srcElement.scrollHeight - event.srcElement.offsetHeight) {
-    //   console.log('load more');
-    //   this.profileStore.dispatch({
-    //     type: ProfileActions.GET_FOLLOWER_PROFILES,
-    //     payload: {
-    //       limit: this.recordsPerPage,
-    //       handle: this.activeProfileHandle,
-    //       offset: this.userProfile.searching_follower_params['offset'] + this.recordsPerPage
-    //     }
-    //   });
-    // }
+    if (event.srcElement.scrollTop >= event.srcElement.scrollHeight - event.srcElement.offsetHeight) {
+      this.showPreloader = true;
+      this.profileStore.dispatch({
+        type: ProfileActions.GET_FOLLOWER_PROFILES,
+        payload: {
+          limit: this.recordsPerPage,
+          handle: this.activeProfileHandle,
+          offset: this.userProfile.searching_follower_params['offset'] + this.recordsPerPage
+        }
+      });
+    }
   }
 
   onFollowingScroll(event: any) {

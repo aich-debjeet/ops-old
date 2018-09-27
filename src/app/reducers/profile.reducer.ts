@@ -371,15 +371,20 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       return Object.assign({}, state, {
         searching_follower_profiles: true,
         searching_follower_profiles_success: false,
-        searching_follower_params: payload,
-        follower_profiles: []
+        searching_follower_params: payload
       });
 
     case ProfileActions.GET_FOLLOWER_PROFILES_SUCCESS:
+      let followerProfiles;
+      if (state['searching_follower_params'] && state['searching_follower_params']['offset'] === 0) {
+        followerProfiles = payload;
+      } else {
+        followerProfiles = [...state['follower_profiles'], ...payload]
+      }
       return Object.assign({}, state, {
         searching_follower_profiles: false,
         searching_follower_profiles_success: true,
-        follower_profiles: payload
+        follower_profiles: followerProfiles
       });
 
     case ProfileActions.GET_FOLLOWER_PROFILES_FAILED:
