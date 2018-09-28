@@ -9,6 +9,7 @@ import { ProfileActions } from '../../../actions/profile.action';
 import { environment } from '../../../../environments/environment.prod';
 
 import { Observable } from 'rxjs/Observable';
+import { GeneralUtilities } from '../../../helpers/general.utils';
 
 @Component({
   selector: 'app-about-cover',
@@ -31,7 +32,8 @@ export class AboutCoverComponent implements OnInit {
   constructor(
     public tokenService: TokenService,
     private _location: Location,
-    private _store: Store<ProfileModal>
+    private _store: Store<ProfileModal>,
+    private gUtils: GeneralUtilities
   ) {
     this.baseUrl = environment.API_IMAGE;
 
@@ -43,7 +45,7 @@ export class AboutCoverComponent implements OnInit {
 
   ngOnInit() {
     this.tagState$
-    .first(profile => this.stateProfile.profile_details.coverImage)
+    .first(profile => this.stateProfile.profile_details.profileImage)
     .subscribe( data => {
       this.loadCoverImage();
     });
@@ -72,10 +74,10 @@ export class AboutCoverComponent implements OnInit {
 
   loadCoverImage() {
     let profileImageURL;
-    if (typeof this.stateProfile.profile_navigation_details.coverImage !== 'undefined') {
+    if (this.gUtils.checkNestedKey(this.stateProfile, ['profile_navigation_details', 'coverImage']) && this.stateProfile.profile_navigation_details.coverImage !== '') {
       profileImageURL = this.baseUrl + this.stateProfile.profile_navigation_details.coverImage;
     } else {
-      profileImageURL = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
+      profileImageURL = 'https://cdn.onepagespotlight.com/img/profile-cover.png';
     }
     this.croppedImage = profileImageURL;
   }
