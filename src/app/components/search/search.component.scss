@@ -43,6 +43,7 @@
   }
   @include mq($from: $mobile_sm, $until: $mobile_lg) {
     width: 90%;
+    padding: 0;
   }
 }
 .o-search__input::placeholder {
