@@ -81,7 +81,7 @@ export class AboutImageComponent implements OnInit {
         .subscribe(() => {
           this.isClosed(null);
           this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
-          this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS});
+          this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
         });
     }
   }

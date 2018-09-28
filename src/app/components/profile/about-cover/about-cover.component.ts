@@ -68,18 +68,20 @@ export class AboutCoverComponent implements OnInit {
         .first(state => state['cover_img_upload_success'] === true)
         .subscribe(() => {
           this.isClosed(null);
+          this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+          this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
         });
     }
   }
 
   loadCoverImage() {
-    let profileImageURL;
+    let coverImageURL;
     if (this.gUtils.checkNestedKey(this.stateProfile, ['profile_navigation_details', 'coverImage']) && this.stateProfile.profile_navigation_details.coverImage !== '') {
-      profileImageURL = this.baseUrl + this.stateProfile.profile_navigation_details.coverImage;
+      coverImageURL = this.baseUrl + this.stateProfile.profile_navigation_details.coverImage;
     } else {
-      profileImageURL = 'https://cdn.onepagespotlight.com/img/profile-cover.png';
+      coverImageURL = 'https://cdn.onepagespotlight.com/img/profile-cover.png';
     }
-    this.croppedImage = profileImageURL;
+    this.croppedImage = coverImageURL;
   }
 
   // go back to the page
