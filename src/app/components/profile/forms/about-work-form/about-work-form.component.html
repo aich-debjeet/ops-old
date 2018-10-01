@@ -1,104 +1,104 @@
-<app-modal [modalTitle]="''" [blocking]='false' modalId='userWorkAdd' *ngIf="ownProfile" size="tiny__form">
+<form [formGroup]="workForm" novalidate #myform="ngForm" (submit)="workFormSubmit(workForm.value)">
+    <div id="o-bio-det__add-work" class="o-bio-det__add-work">
+        <!-- <div class="o-bio-det-display__media fill-white">
+            <input type="file" class="o-bio-add-media">
+            <label for="" class="c-text_sm color-theme text-center m-t--8">Add Photo</label>
+        </div> -->
+        <div class="o-bio-det-edit__form">
+            <div class="c-form__group c-form--sm c-form--noeffect">
+                <input class="c-form__input" required="" type="text" formControlName="position" maxlength="40">
+                <span class="c-form__highlight"></span>
+                <span class="c-form__bar"></span>
+                <label>Role</label>
+                <p class="error_alert" *ngIf="workForm.controls['position'].errors?.required && workForm.controls['position']?.touched">Role is required</p>
+            </div>
+            <div class="c-form__group c-form--sm c-form--noeffect">
+                <input class="c-form__input" required="" type="text" formControlName="company" maxlength="40">
+                <span class="c-form__highlight"></span>
+                <span class="c-form__bar"></span>
+                <label>Company</label>
+                <p class="error_alert" *ngIf="workForm.controls['company'].errors?.required && workForm.controls['position']?.touched">Company is required</p>
+            </div>
+            <div class="col-md-12 p-0">
+                <p class="c-text_md">From</p>
+                <div class="col-md-2 p-0">
+                    <div class="c-form__group">
+                        <select class="c-form-control p-l-0" required>
+                            <option value="" disabled selected hidden>Month</option>
+                            <option *ngFor="let p of months">{{p.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2 p-r-0">
+                    <div class="c-form__group">
+                        <select class="c-form-control p-l-0" required>
+                            <option value="" disabled selected hidden>Year</option>
+                            <option *ngFor="let y of years">{{y}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="o-about-form-check width100 float_left m-r-16">
+                <label for="work"> Currently im working here
+                <input id="work" type="checkbox" formControlName="currentWork" class="c-form__bar2">
+                </label>
+            </div>
+            <div class="col-md-12 p-0">
+                <p class="c-text_md m-t-8">To</p>
+                <div class="col-md-2 p-0">
+                    <div class="c-form__group">
+                        <select class="c-form-control p-l-0" required>
+                            <option value="" disabled selected hidden>Month</option>
+                            <option *ngFor="let p of months" [selected]="mm === p.val">{{p.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2 p-r-0">
+                    <div class="c-form__group">
+                        <select class="c-form-control p-l-0">
+                            <option value="" disabled selected hidden>Year</option>
+                            <option *ngFor="let y of years"  [selected]="yy === y">{{y}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="o-bio-info__edit-actions width100 m-t-24">
+                <button type="button" class="btn btn-primary btn-sm m-l-8" [type]="'submit'">Save</button>
+                <button type="button" class="btn btn-default btn-sm m-l-r-8" (click)="closeForm(this._workDetails)">Cancel</button>
 
-  <form [formGroup]="workForm" novalidate #myform="ngForm" (submit)="workFormSubmit(workForm.value)">
-      <div class="edit-profile_main">
-          <div class="edit-profile_head">
-              <div class="col-md-6 padding_none">
-                  <h2>Work</h2>
-              </div>
-              <div class="col-md-6 padding_none text-right">
-                  <app-button [className]="'btn btn-default btn-sm'" [type]="'button'" (click)="workFormClose()">Cancel</app-button>
-                  <app-button *ngIf="!editFormPopup" [className]="'btn btn-primary btn-sm'" [type]="'submit'">Add</app-button>
-                  <app-button *ngIf="editFormPopup" [className]="'btn btn-primary btn-sm'" [type]="'submit'">Update</app-button>
-              </div>
-          </div>
-          <!-- edit profile head end -->
-
-
-          <!-- contact info end -->
-
-          <div class="edit-profile_sec_block">
-              <!-- edit profile sec head -->
-              <div id="work" class="edit-profile_content_block show" style="display: none;">
-                  <div class="edit-profile_add_sec">
-                      <div id="add_workplace" class="profile_add_det">
-
-                          <div class="editarea">
-                              <div class="editarea_leftbar">
-                                  <div class="add_workplace_logo">
-                                      <input type="file" name="photo" id="upload-photo">
-                                      <div class="add_media_plus_ico">
-                                          <img [src]="imageBaseUrl + 'img/svg/ico_add-grey.svg'" alt="">
-                                      </div>
-                                  </div>
-                                  <span class="add_logo_txt">Add Photo</span>
-                              </div>
-                              <!-- left bar end -->
-                              <div class="editarea_rightbar">
-                                  <div class="form_group">
-                                      <input class="form_input" type="hidden" formControlName="id">
-                                      <input class="form_input" type="text" formControlName="company" required maxlength="40">
-                                      <span class="form_highlight"></span>
-                                      <span class="form_bar"></span>
-                                      <label>Company</label>
-                                      <p class="error_alert" *ngIf="workForm.controls['company'].errors?.required && workForm.controls['position']?.touched">Company is required</p>
-                                  </div>
-                                  <div class="form_group">
-                                      <input class="form_input" type="text" formControlName="position" required maxlength="40" required>
-                                      <span class="form_highlight"></span>
-                                      <span class="form_bar"></span>
-                                      <label>Position</label>
-                                      <p class="error_alert" *ngIf="workForm.controls['position'].errors?.required && workForm.controls['position']?.touched">Position is required</p>
-                                  </div>
-                                  <div class="add_workplace_time_period">
-                                      <h4>Time Period</h4>
-                                      <div class="form_group">
-                                          <input class="form_input" type="text" formControlName="from" [textMask]="{mask: dateMask}" required>
-                                          <span class="form_highlight"></span>
-                                          <span class="form_bar"></span>
-                                          <label>From (DD-MM-YYYY)</label>
-                                          <p class="error_alert" *ngIf="workForm.controls['from'].errors?.required && workForm.controls['from']?.touched">From Date is required</p>
-                                          <p class="error_alert" *ngIf="workForm.controls['from'].errors?.invalidWorkDate">Invalid Date</p>
-                                      </div>
-                                      <div class="form_group" *ngIf = "hide === true">
-                                          <input class="form_input" type="text" formControlName="to" [textMask]="{mask: dateMask}" required>
-                                          <span class="form_highlight"></span>
-                                          <span class="form_bar"></span>
-                                          <label>To (DD-MM-YYYY)</label>
-                                          <p class="error_alert" *ngIf="workForm.controls['to'].errors?.required && workForm.controls['to']?.touched">To Date is required</p>
-                                          <p class="error_alert" *ngIf="workForm.controls['to'].errors?.invalidWorkDate">Invalid Date</p>
-                                          <p class="error_alert" *ngIf="workForm.controls['to'].errors?.isvalid">From Date can not be greater or equal To Date</p>
-                                      </div>
-                                  </div>
-                                  <div class="ops_radio_sm">
-                                      <div class="form_group ops_radio_sm">
-                                          <label>
-                                                  <label class="gender_single">
-                                                      <input type="checkbox" formControlName="currentWork" name="demo"><span></span>Currently working here
-                                                  </label>
-                                          </label>
-                                      </div>
-                                  </div>
-                              </div>
-                              <!-- right bar end -->
-                              <div class="bottom_actions">
-                                  <div class="form_group">
-                                      <select class="form-control" id="sel1" formControlName="publicWork">
-                                              <option value="0">Public</option>
-                                              <option value="1">Private</option>
-                                          </select>
-                                  </div>
-                                  <!--<div class="action_btn">
-                                          <button type="button" class="btn btn-primary btn-sm">Save</button>
-                                          <button type="button" class="btn btn-default btn-sm">Cancel</button>
-                                      </div>-->
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <!-- edit profile content block end -->
-          </div>
-      </div>
-  </form>
-</app-modal>
+                <div class="dropdown float_left m-r-8">   
+                    <span class="com-head" data-toggle="dropdown" aria-expanded="false">
+                        <div class="o-bio-edit__ico">
+                        <img [src]="imageBaseUrl + 'img/svg/ico_web.svg'">
+                        </div>
+                        <div class="o-bio-edit__ico-arrow">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
+                            <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch  -->
+                            <title>Path 2 Copy</title>
+                            <desc>Created with Sketch.</desc>
+                            <defs></defs>
+                            <g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <polyline id="Path-2-Copy" stroke="#333" stroke-width="1" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) " points="1 1 8 8 15 1"></polyline>
+                            </g>
+                        </svg>
+                        </div>
+                    </span>
+                    <!-- <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space" formControlName="publicWork">
+                        <li>
+                        <a href="javascript:void(0)" class="c-opsdropdown__list">
+                            <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
+                            <span class="c-opsdropdown--text">Public</span>
+                        </a>
+                        </li>
+                        <li>
+                        <a href="javascript:void(0)" class="c-opsdropdown__list">
+                            <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
+                            <span class="c-opsdropdown--text">Private</span>
+                        </a>
+                        </li>
+                    </ul> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

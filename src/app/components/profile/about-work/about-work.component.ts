@@ -37,6 +37,15 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
   hide = true;
   imageBaseUrl = environment.API_IMAGE;
   jobId: any;
+  activateCreateForm: boolean = false;
+  activateEditForm: boolean = false;
+  formData: any = {
+    formType: '',
+    data: {}
+  };
+  hideme = {};
+  currentId: string;
+  formType: string;
 
   @ViewChild('deleteModal') deleteModal: Modal;
 
@@ -48,6 +57,7 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
     private databaseValidator: DatabaseValidator,
     private toastr: ToastrService
   ) {
+    this.hideme = {};
     this.tagState$ = this.profileStore.select('profileTags');
     this.subscription = this.tagState$.subscribe((state) => {
       this.stateProfile = state;
@@ -63,24 +73,24 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
     });
 
     // this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
-    this.buildEditForm();
+    // this.buildEditForm();
 
   }
 
   ngOnInit() {
-    this.workForm.get('currentWork').valueChanges.subscribe(
-            (currentWork) => {
-                if (currentWork === true) {
-                    this.workForm.get('to').setValidators([]);
-                    this.hideTo = true;
-                    this.hide = false;
-                } else {
-                    this.workForm.get('to').setValidators(Validators.required);
-                    this.hideTo = false;
-                    this.hide = true;
-                }
-                this.workForm.get('to').updateValueAndValidity();
-            });
+    // this.workForm.get('currentWork').valueChanges.subscribe(
+    //         (currentWork) => {
+    //             if (currentWork === true) {
+    //                 this.workForm.get('to').setValidators([]);
+    //                 this.hideTo = true;
+    //                 this.hide = false;
+    //             } else {
+    //                 this.workForm.get('to').setValidators(Validators.required);
+    //                 this.hideTo = false;
+    //                 this.hide = true;
+    //             }
+    //             this.workForm.get('to').updateValueAndValidity();
+    //         });
   }
 
   ngOnDestroy() {
@@ -91,8 +101,14 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
    * Add Work User
    */
   addWorkUser() {
-    this.editFormPopup = false;
-    this.modalService.open('userWorkAdd');
+    this.activateCreateForm =true;
+    this.formType = 'create';
+    // this.editFormPopup = false;
+    // this.modalService.open('userWorkAdd');
+    this.formData = {
+      formType: 'create',
+      data: {}
+    }
   }
 
   /**
@@ -211,17 +227,28 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
    * Edit Work Popup
    */
   editCurrentWork(data) {
-    this.editFormPopup = true;
-    this.workForm.patchValue({
-      company: data.organizationName,
-      position: data.role,
-      from: this.datepipe.transform(data.from, 'dd-MM-yyyy'),
-      to: this.datepipe.transform(data.to, 'dd-MM-yyyy'),
-      currentWork: data.currentlyWith,
-      publicWork: data.access,
-      id: data.id
-    });
-    this.modalService.open('userWorkAdd');
+    // Object.keys(this.hideme).forEach(h => {
+    //   this.hideme[h] = false;
+    // });
+    // this.hideme[data.id] = true;
+    this.currentId = data.id;
+    this.formData = {
+      formType: 'edit',
+      data: data
+    }
+    this.activateEditForm =true;
+    this.formType = 'edit';
+    // this.editFormPopup = true;
+    // this.workForm.patchValue({
+    //   company: data.organizationName,
+    //   position: data.role,
+    //   from: this.datepipe.transform(data.from, 'dd-MM-yyyy'),
+    //   to: this.datepipe.transform(data.to, 'dd-MM-yyyy'),
+    //   currentWork: data.currentlyWith,
+    //   publicWork: data.access,
+    //   id: data.id
+    // });
+    // this.modalService.open('userWorkAdd');
   }
 
   /**
@@ -259,4 +286,14 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
     this.deleteModal.close();
   }
 
+  formsClose(eve){
+    console.log(eve);
+    console.log('closure under process');
+    if(eve.formType === 'create'){
+      this.activateCreateForm = false;
+    }
+    if(eve.formType === 'edit') {
+      this.activateEditForm = false;
+    }
+  }
 }
