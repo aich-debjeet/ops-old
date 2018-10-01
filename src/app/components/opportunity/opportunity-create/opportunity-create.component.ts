@@ -52,6 +52,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
   datePicketConfig: IDatePickerConfig = {
     showMultipleYearsNavigation: true,
     disableKeypress: true,
+    closeOnSelect: true,
     format: 'DD-MMMM-YYYY',
     locale: 'en'
   };
