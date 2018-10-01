@@ -67,7 +67,7 @@ export class ProfileSliderComponent implements OnInit {
   followersProfiles = [];
   followingProfiles = [];
   showPreloader: boolean;
-  recordsPerPage = 50;
+  recordsPerPage = 20;
   // profileObject: ProfileCard;
   activeProfileHandle = '';
   mymodel: string; // bind this to input with ngModel
@@ -580,31 +580,31 @@ export class ProfileSliderComponent implements OnInit {
   }
 
   onFollowerScroll(event: any) {
-    // if (event.srcElement.scrollTop >= event.srcElement.scrollHeight - event.srcElement.offsetHeight) {
-    //   console.log('load more');
-    //   this.profileStore.dispatch({
-    //     type: ProfileActions.GET_FOLLOWER_PROFILES,
-    //     payload: {
-    //       limit: this.recordsPerPage,
-    //       handle: this.activeProfileHandle,
-    //       offset: this.userProfile.searching_follower_params['offset'] + this.recordsPerPage
-    //     }
-    //   });
-    // }
+    if (event.srcElement.scrollTop >= event.srcElement.scrollHeight - event.srcElement.offsetHeight) {
+      this.showPreloader = true;
+      this.profileStore.dispatch({
+        type: ProfileActions.GET_FOLLOWER_PROFILES,
+        payload: {
+          limit: this.recordsPerPage,
+          handle: this.activeProfileHandle,
+          offset: this.userProfile.searching_follower_params['offset'] + this.recordsPerPage
+        }
+      });
+    }
   }
 
   onFollowingScroll(event: any) {
-    // if (event.srcElement.scrollTop >= event.srcElement.scrollHeight - event.srcElement.offsetHeight) {
-    //   console.log('load more');
-    //   this.profileStore.dispatch({
-    //     type: ProfileActions.GET_FOLLOWING_PROFILES,
-    //     payload: {
-    //       limit: this.recordsPerPage,
-    //       handle: this.activeProfileHandle,
-    //       offset: this.userProfile.searching_following_params['offset'] + this.recordsPerPage
-    //     }
-    //   });
-    // }
+    if (event.srcElement.scrollTop >= event.srcElement.scrollHeight - event.srcElement.offsetHeight) {
+      this.showPreloader = true;
+      this.profileStore.dispatch({
+        type: ProfileActions.GET_FOLLOWING_PROFILES,
+        payload: {
+          limit: this.recordsPerPage,
+          handle: this.activeProfileHandle,
+          offset: this.userProfile.searching_following_params['offset'] + this.recordsPerPage
+        }
+      });
+    }
   }
 
   buildNetworkForm() {

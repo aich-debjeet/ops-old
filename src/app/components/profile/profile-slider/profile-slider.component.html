@@ -442,12 +442,7 @@
                     </span>
                 </div>
             </div> -->
-            <div *ngIf="showPreloader === true">
-                <div class="sticky">
-                    <div class="loader">Loading...</div>
-                </div>
-            </div>
-            <div (scroll)="onFollowerScroll($event)" *ngIf="showPreloader === false && followersProfiles.length > 0" id="ops_scrollbar" class="o-following__container">
+            <div (scroll)="onFollowerScroll($event)" *ngIf="followersProfiles.length > 0" id="ops_scrollbar" class="o-following__container">
                 <ul class="o-follow-people">
                     <li *ngFor="let follower of followersProfiles" class="o-follow-people__list">
                         <a routerLink="{{ '/profile/u/' + follower?.extra?.username }}">
@@ -478,6 +473,11 @@
                     </li>
                 </ul>
             </div>
+            <div class="clb" *ngIf="showPreloader === true">
+                <div class="sticky">
+                    <div class="loader">Loading...</div>
+                </div>
+            </div>
         </div>
     </modal-content>
 </app-modal-new>
@@ -499,12 +499,7 @@
                     </span>
                 </div>
             </div> -->
-            <div *ngIf="showPreloader === true">
-                <div class="sticky">
-                    <div class="loader">Loading...</div>
-                </div>
-            </div>
-            <div (scroll)="onFollowingScroll($event)" *ngIf="showPreloader === false && followingProfiles.length > 0" id="ops_scrollbar" class="o-following__container">
+            <div (scroll)="onFollowingScroll($event)" *ngIf="followingProfiles.length > 0" id="ops_scrollbar" class="o-following__container">
                 <ul class="o-follow-people">
                     <li *ngFor="let follower of followingProfiles" class="o-follow-people__list">
                         <a [routerLink]="'/profile/u/' + follower?.extra?.username">
@@ -532,6 +527,11 @@
                         </ng-template>
                     </li>
                 </ul>
+            </div>
+            <div class="clb" *ngIf="showPreloader === true">
+                <div class="sticky">
+                    <div class="loader">Loading...</div>
+                </div>
             </div>
         </div>
     </modal-content>
