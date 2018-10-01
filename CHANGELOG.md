@@ -7,15 +7,27 @@ All notable changes to this project will be documented in this file.
 - Profile page: By default "Bio" tab should highlight when user navigate to the about section
 - Mobile view auto zoom disable
 - User mouse hover channel name it should be displayed hand mark on media popup
+- Preloader for following modal
+- Search: Set cursor to the search input field
+- Search page start on top
+- Explore page media delete 1
 
 ### Fixed
 - User Comment edited date update
 - Slider next button is not functioning under video popup modal
-- Email share redriect to twitter issue fixed
+- Email share link redriect to twitter issue
 - User profile image upload not properly in mobile
 - Search input box alignment broken on mobile
 - Border outline is not visible in mobile
 - Opportunity form Gender radio buttons are not aligned
+- Edit cover image: User unable to see the edit cover image on the "edit cover image modal"
+- Pagination added to followers/followings modal
+- Search: Showing "No filter available" even if filter exists
+- Limiting portfolio categories to 5 max
+- Entire page becomes empty when user clicks exit icon in Portfolio
+- Portfolio: User able to see that error message, which was appeared in last time
+- Profile image: Profile image pop up is displaying unwanted scroll bar
+- Search page: User unable to delete the media content under search page
 
 ## [0.9.9] - 2018-09-24
 
