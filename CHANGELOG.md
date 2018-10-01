@@ -10,7 +10,7 @@ All notable changes to this project will be documented in this file.
 - Preloader for following modal
 - Search: Set cursor to the search input field
 - Search page start on top
-- Explore page media delete 1
+- Explore page media delete
 
 ### Fixed
 - User Comment edited date update
