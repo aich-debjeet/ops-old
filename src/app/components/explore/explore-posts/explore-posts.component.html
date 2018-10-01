@@ -2,7 +2,7 @@
     <!-- single entity -->
     <ngx-masonry *ngIf="posts?.length > 0" [useImagesLoaded]="true">
         <ngx-masonry-item *ngFor="let post of posts" class="col-md-3 col-sm-4 col-xs-12 p-8">
-                <app-post-card [mediaData]="post"></app-post-card>
+            <app-post-card (postDelete)="deletePost($event)" [mediaData]="post"></app-post-card>
         </ngx-masonry-item>
     </ngx-masonry>
     <!-- single entity -->

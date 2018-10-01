@@ -3,7 +3,7 @@
     <div class="container">
       <div class="o-search m-t-32">
         <form action="">
-          <input placeholder="What are you looking for?" #searchQueryElement #searchInput="ngModel" class="o-search__input" type="text" [ngModel]="searchString" [ngModelOptions]="{standalone: true}" >
+          <input #searchInput2 placeholder="What are you looking for?" #searchQueryElement #searchInput="ngModel" class="o-search__input" type="text" [ngModel]="searchString" [ngModelOptions]="{standalone: true}" >
           <div class="o-search__icon">
             <img *ngIf="!isSearching" [src]="baseUrl  + 'img/svg/ico_search.svg'">
             <img *ngIf="isSearching" [src]="baseUrl + 'img/search-preloader.gif'">
@@ -44,7 +44,7 @@
             <div *ngIf="searchType === 'all'" class="col-md-3 col-sm-4 col-xs-12 p-l-0 m-t--32">
                 <div class="o-search-left-block p-24 hidden-xs">
 
-                    <div *ngIf="(searchFilters | json) != '{}'">
+                    <div *ngIf="(searchFilters | json) == '{}'">
                         <p class="result-not-found">No filter available!</p>
                     </div>
                     <p *ngIf="searchState?.searching_all && searchState?.searching_all === false && searchState?.searching_all_data && searchState?.searching_all_data?.channels && searchState?.searching_all_data?.channels.legth === 0 && searchState?.searching_all_data?.posts && searchState?.searching_all_data?.posts.legth === 0" >No filter applicable!</p>

@@ -342,18 +342,31 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
     /* loading followings/followers */
     case ProfileActions.GET_FOLLOWING_PROFILES:
+      if (payload['offset'] === 0) {
+        return Object.assign({}, state, {
+          searching_following_profiles: true,
+          searching_following_profiles_success: false,
+          searching_following_params: payload,
+          following_profiles: []
+        });
+      }
       return Object.assign({}, state, {
         searching_following_profiles: true,
         searching_following_profiles_success: false,
-        searching_following_params: payload,
-        following_profiles: []
+        searching_following_params: payload
       });
 
     case ProfileActions.GET_FOLLOWING_PROFILES_SUCCESS:
+      let followingProfiles;
+      if (state['searching_following_params'] && state['searching_following_params']['offset'] === 0) {
+        followingProfiles = payload;
+      } else {
+        followingProfiles = [...state['following_profiles'], ...payload]
+      }
       return Object.assign({}, state, {
         searching_following_profiles: false,
         searching_following_profiles_success: true,
-        following_profiles: payload
+        following_profiles: followingProfiles
       });
 
     case ProfileActions.GET_FOLLOWING_PROFILES_FAILED:
@@ -363,18 +376,31 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.GET_FOLLOWER_PROFILES:
+      if (payload['offset'] === 0) {
+        return Object.assign({}, state, {
+          searching_follower_profiles: true,
+          searching_follower_profiles_success: false,
+          searching_follower_params: payload,
+          follower_profiles: []
+        });
+      }
       return Object.assign({}, state, {
         searching_follower_profiles: true,
         searching_follower_profiles_success: false,
-        searching_follower_params: payload,
-        follower_profiles: []
+        searching_follower_params: payload
       });
 
     case ProfileActions.GET_FOLLOWER_PROFILES_SUCCESS:
+      let followerProfiles;
+      if (state['searching_follower_params'] && state['searching_follower_params']['offset'] === 0) {
+        followerProfiles = payload;
+      } else {
+        followerProfiles = [...state['follower_profiles'], ...payload]
+      }
       return Object.assign({}, state, {
         searching_follower_profiles: false,
         searching_follower_profiles_success: true,
-        follower_profiles: payload
+        follower_profiles: followerProfiles
       });
 
     case ProfileActions.GET_FOLLOWER_PROFILES_FAILED:
@@ -1849,9 +1875,9 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     const profile_index = state.user_posts.indexOf(profile_post);
     const profile_count = profile_post ? profile_post.commentsCount + 1 : 0;
 
-    // const spotfeed_post = state.channel_post.find(t => t.id === payload);
-    // const spotfeed_index = state.channel_post.indexOf(spotfeed_post);
-    // const spotfeed_count = spotfeed_post ? spotfeed_post.commentsCount + 1 : 0;
+    const tranding_post_comment = state.trending_post.find(t => t.id === payload);
+    const tranding_post_comment_index = state.trending_post.indexOf(tranding_post_comment);
+    const tranding_post_comment_count = tranding_post_comment ? tranding_post_comment.commentsCount + 1 : 0;
 
       return Object.assign({}, state, {
         user_following_posts: [
@@ -1864,11 +1890,11 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
           Object.assign({}, profile_post, {commentsCount: profile_count }),
           ...state.user_posts.slice(profile_index + 1)
         ],
-        // channel_post: [
-        //   ...state.channel_post.slice(0, spotfeed_index),
-        //   Object.assign({}, spotfeed_post, {commentsCount: spotfeed_count }),
-        //   ...state.user_posts.slice(spotfeed_index + 1)
-        // ]
+        trending_post: [
+          ...state.trending_post.slice(0, tranding_post_comment_index),
+          Object.assign({}, tranding_post_comment, {commentsCount: tranding_post_comment_count }),
+          ...state.trending_post.slice(tranding_post_comment_index + 1)
+        ]
 
       })
 
@@ -1880,6 +1906,11 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       const profile_post_de = state.user_posts.find(t => t.id === payload);
       const profile_index_de = state.user_posts.indexOf(profile_post_de);
       const profile_count_de = profile_post_de ? profile_post_de.commentsCount - 1 : 0;
+
+      const tranding_post_comment_dec = state.trending_post.find(t => t.id === payload);
+      const tranding_post_comment_dec_index = state.trending_post.indexOf(tranding_post_comment_dec);
+      const tranding_post_comment_dec_count = tranding_post_comment_dec ? tranding_post_comment_dec.commentsCount - 1 : 0;
+
         return Object.assign({}, state, {
             user_following_posts: [
                 ...state.user_following_posts.slice(0, home_index_de),
@@ -1891,6 +1922,11 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
               Object.assign({}, profile_post_de, {commentsCount: profile_count_de }),
               ...state.user_posts.slice(profile_index_de + 1)
             ],
+            trending_post: [
+              ...state.trending_post.slice(0, tranding_post_comment_dec_index),
+              Object.assign({}, tranding_post_comment_dec, {commentsCount: tranding_post_comment_dec_count }),
+              ...state.trending_post.slice(tranding_post_comment_dec_index + 1)
+            ]
 
         })
 

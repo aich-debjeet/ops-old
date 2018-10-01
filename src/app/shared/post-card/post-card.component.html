@@ -40,7 +40,7 @@
                                 <img [src]="imageLink + 'img/svg/ico_option_white.svg'" class="c-status__options pull-right m-t-8">
                             </a>
                             <ul class="dropdown-menu pull-right">
-                                <li><a href="javascript:void(0);" (click)="onContentDelete($event)">Delete</a></li>
+                                <li><a href="javascript:void(0);" (click)="onContentDelete(mediaData)">Delete</a></li>
                             </ul>
                         </div>
                     </div>
@@ -107,7 +107,7 @@
                             <div class="o-share__social-icon" [shareButton]="'facebook'" [sbUrl]="domainLink + 'media/' + mediaData?.id">
                                 <img [src]="imageLink + 'v2/svg/facebook.svg'">
                             </div>
-                            <div class="o-share__social-icon p-r-0" shareButton="twitter" [sbUrl]="domainLink + 'media/' + mediaData?.id">
+                            <div class="o-share__social-icon p-r-0" shareButton="email" [sbUrl]="domainLink + 'media/' + mediaData?.id">
                                 <img [src]="imageLink + 'v2/svg/envelope.svg'">
                             </div>
                         </div>
