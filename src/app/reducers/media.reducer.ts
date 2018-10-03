@@ -191,7 +191,12 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
           ...state.channel_post.slice(0, channel_media_unspot_index),
           Object.assign({}, channel_media_unspot, {spotsCount: channel_media_unspot_count, isSpotted: false }),
           ...state.channel_post.slice(channel_media_unspot_index + 1)
-        ]
+        ],
+        media_detail: {
+          ...state.media_detail,
+          spotsCount: state.media_detail ? state.media_detail.spotsCount - 1 : 0,
+          isSpotted:  state.media_detail ? false : false
+        }
       });
 
     case MediaActions.POST_COMMENT_FAILED:
