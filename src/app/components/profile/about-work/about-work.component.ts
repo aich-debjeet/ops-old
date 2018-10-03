@@ -254,11 +254,11 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
   /**
    * Close work add form
    */
-  workFormClose() {
-    this.modalService.close('userWorkAdd');
-    this.workForm.reset();
-   // this.buildEditForm()
-  }
+  // workFormClose() {
+  //   this.modalService.close('userWorkAdd');
+  //   this.workForm.reset();
+  //  // this.buildEditForm()
+  // }
 
   /**
    * Reset Form

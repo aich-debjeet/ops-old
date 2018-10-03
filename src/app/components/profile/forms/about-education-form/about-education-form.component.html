@@ -1,3 +1,104 @@
-<p>
-  about-education-form works!
-</p>
+<form [formGroup]="educationForm" novalidate #myform="ngForm" (submit)="educationFormSubmit(workForm.value)">
+    <div id="o-bio-det__add-work" class="o-bio-det__add-work">
+        <!-- <div class="o-bio-det-display__media fill-white">
+            <input type="file" class="o-bio-add-media">
+            <label for="" class="c-text_sm color-theme text-center m-t--8">Add Photo</label>
+        </div> -->
+        <div class="o-bio-det-edit__form">
+            <div class="c-form__group c-form--sm c-form--noeffect">
+                <input class="c-form__input" required="" type="text" formControlName="institute" maxlength="40">
+                <span class="c-form__highlight"></span>
+                <span class="c-form__bar"></span>
+                <label>Name of Institute</label>
+                <p class="error_alert" *ngIf="educationForm.controls['institute'].errors?.required && educationForm.controls['institute']?.touched">Name of Institute is required</p>
+            </div>
+            <div class="c-form__group c-form--sm c-form--noeffect">
+                <input class="c-form__input" required="" type="text" formControlName="description" maxlength="40">
+                <span class="c-form__highlight"></span>
+                <span class="c-form__bar"></span>
+                <label>Description</label>
+                <p class="error_alert" *ngIf="educationForm.controls['description'].errors?.required && educationForm.controls['description']?.touched">Description is required</p>
+            </div>
+            <div class="col-md-12 p-0">
+                <p class="c-text_md">From</p>
+                <div class="col-md-2 p-0">
+                    <div class="c-form__group">
+                        <select class="c-form-control p-l-0" formControlName="from_month" required>
+                            <option value="" disabled selected hidden>Month</option>
+                            <option *ngFor="let p of months">{{p.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2 p-r-0">
+                    <div class="c-form__group">
+                        <select class="c-form-control p-l-0" formControlName="from_year" required>
+                            <option value="" disabled selected hidden>Year</option>
+                            <option *ngFor="let y of years">{{y}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="o-about-form-check width100 float_left m-r-16">
+                <label for="work"> Currently im working here
+                <input id="work" type="checkbox" formControlName="currentWork" [ngModel]='checkbox' (ngModelChange)='onCheckboxChange($event)' class="c-form__bar2">
+                </label>
+            </div>
+            <div class="col-md-12 p-0" *ngIf="!hide || !educationForm.controls['currentWork']">
+                <p class="c-text_md m-t-8">To</p>
+                <div class="col-md-2 p-0">
+                    <div class="c-form__group">
+                        <select class="c-form-control p-l-0" formControlName="to_month" required>
+                            <option value="" disabled selected hidden>Month</option>
+                            <option *ngFor="let p of months">{{p.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2 p-r-0">
+                    <div class="c-form__group">
+                        <select class="c-form-control p-l-0" formControlName="to_year">
+                            <option value="" disabled selected hidden>Year</option>
+                            <option *ngFor="let y of years" >{{y}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="o-bio-info__edit-actions width100 m-t-24">
+                <button type="button" class="btn btn-primary btn-sm m-l-8" [type]="'submit'">Save</button>
+                <button type="button" class="btn btn-default btn-sm m-l-r-8" (click)="closeForm(this._educationDetails)">Cancel</button>
+
+                <div class="dropdown float_left m-r-8">   
+                    <span class="com-head" data-toggle="dropdown" aria-expanded="false">
+                        <div class="o-bio-edit__ico">
+                        <img [src]="imageBaseUrl + 'img/svg/ico_web.svg'">
+                        </div>
+                        <div class="o-bio-edit__ico-arrow">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
+                            <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch  -->
+                            <title>Path 2 Copy</title>
+                            <desc>Created with Sketch.</desc>
+                            <defs></defs>
+                            <g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <polyline id="Path-2-Copy" stroke="#333" stroke-width="1" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) " points="1 1 8 8 15 1"></polyline>
+                            </g>
+                        </svg>
+                        </div>
+                    </span>
+                    <!-- <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space" formControlName="publicWork">
+                        <li>
+                        <a href="javascript:void(0)" class="c-opsdropdown__list">
+                            <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
+                            <span class="c-opsdropdown--text">Public</span>
+                        </a>
+                        </li>
+                        <li>
+                        <a href="javascript:void(0)" class="c-opsdropdown__list">
+                            <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
+                            <span class="c-opsdropdown--text">Private</span>
+                        </a>
+                        </li>
+                    </ul> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

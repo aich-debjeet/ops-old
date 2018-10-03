@@ -34,6 +34,14 @@ export class AboutEducationComponent implements OnInit {
   ownProfile: boolean;
   imageBaseUrl = environment.API_IMAGE;
   jobId: any;
+  activateCreateForm: boolean = false;
+  activateEditForm: boolean = false;
+  formData: any = {
+    formType: '',
+    data: {}
+  };
+  currentId: string;
+  formType: string;
   @ViewChild('deleteModal') deleteModal: Modal;
 
   constructor(
@@ -61,7 +69,7 @@ export class AboutEducationComponent implements OnInit {
     // this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
 
     // Init Form
-    this.buildEditForm();
+    // this.buildEditForm();
   }
 
   ngOnInit() {
@@ -71,8 +79,16 @@ export class AboutEducationComponent implements OnInit {
    * Add Work User
    */
   addEducationUser() {
-    this.editFormPopup = false;
-    this.modalService.open('userEducationkAdd');
+    // this.editFormPopup = false;
+    // this.modalService.open('userEducationkAdd');
+    this.activateCreateForm =true;
+    this.formType = 'create';
+    // this.editFormPopup = false;
+    // this.modalService.open('userWorkAdd');
+    this.formData = {
+      formType: 'create',
+      data: {}
+    }
   }
 
   /**
@@ -86,21 +102,21 @@ export class AboutEducationComponent implements OnInit {
   /**
    * Form initial value
    */
-  buildEditForm(): void {
-    this.educationForm = this.fb.group({
-      'institute' : ['' , [Validators.required]],
-      'course' : ['' , [Validators.required]],
-      'from' : ['' , [Validators.required], this.databaseValidator.validWorkFromDate.bind(this.databaseValidator)],
-      'to' : ['' , [Validators.required], this.databaseValidator.validWorkToDate.bind(this.databaseValidator)],
-      'publicWork': '0',
-      'id': ''
-    })
-  }
+  // buildEditForm(): void {
+  //   this.educationForm = this.fb.group({
+  //     'institute' : ['' , [Validators.required]],
+  //     'course' : ['' , [Validators.required]],
+  //     'from' : ['' , [Validators.required], this.databaseValidator.validWorkFromDate.bind(this.databaseValidator)],
+  //     'to' : ['' , [Validators.required], this.databaseValidator.validWorkToDate.bind(this.databaseValidator)],
+  //     'publicWork': '0',
+  //     'id': ''
+  //   })
+  // }
 
   /**
    * Add Work form submit
    */
-  educationSubmit(value) {
+  educationFormSubmit(value) {
     if ( this.educationForm.valid === true ) {
       if (this.editFormPopup === false) {
         const body = {
@@ -147,24 +163,31 @@ export class AboutEducationComponent implements OnInit {
    * Edit Current Work of user
    */
   editCurrentEducation(data) {
-    this.editFormPopup = true;
-    this.educationForm.patchValue({
-      institute: data.institute,
-      course: data.name,
-      from: this.datepipe.transform(data.from, 'dd-MM-yyyy'),
-      to: this.datepipe.transform(data.to, 'dd-MM-yyyy'),
-      id: data.id
-    });
-    this.modalService.open('userEducationkAdd');
+    // this.editFormPopup = true;
+    // this.educationForm.patchValue({
+    //   institute: data.institute,
+    //   course: data.name,
+    //   from: this.datepipe.transform(data.from, 'dd-MM-yyyy'),
+    //   to: this.datepipe.transform(data.to, 'dd-MM-yyyy'),
+    //   id: data.id
+    // });
+    // this.modalService.open('userEducationkAdd');
+    this.currentId = data.id;
+    this.formData = {
+      formType: 'edit',
+      data: data
+    }
+    this.activateEditForm =true;
+    this.formType = 'edit';
   }
 
   /**
    * Close work add form
    */
-  educationFormClose() {
-    this.modalService.close('userEducationkAdd');
-    this.educationForm.reset();
-  }
+  // educationFormClose() {
+  //   this.modalService.close('userEducationkAdd');
+  //   this.educationForm.reset();
+  // }
   /**
    * Reset Form
    */
@@ -191,4 +214,14 @@ export class AboutEducationComponent implements OnInit {
     this.deleteModal.close();
   }
 
+  formsClose(eve){
+    console.log(eve);
+    console.log('closure under process');
+    if(eve.formType === 'create'){
+      this.activateCreateForm = false;
+    }
+    if(eve.formType === 'edit') {
+      this.activateEditForm = false;
+    }
+  }
 }

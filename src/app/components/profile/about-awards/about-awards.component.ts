@@ -188,9 +188,9 @@ export class AboutAwardsComponent implements OnInit, OnDestroy {
   /**
    * Close work add form
    */
-  awardFormClose() {
-    this.modalService.close('addAwardPopup');
-  }
+  // awardFormClose() {
+  //   this.modalService.close('addAwardPopup');
+  // }
 
   resetForm() {
     this.awardForm.reset();
