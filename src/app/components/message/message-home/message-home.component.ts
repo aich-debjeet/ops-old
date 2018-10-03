@@ -127,49 +127,53 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
         payload: this.convUserHandle
       });
     }
-    // pusher message listener
-    this.pusherService.messagesChannel.bind('New-Message', (data) => {
-      const message = JSON.parse(data);
-      // check if it's a network request
-      if (message && message['isNetworkRequest'] && message['isNetworkRequest'] === true) {
-        // console.log('Network Request');
-        // append the new object to the user listing
-        const newListObj = {
-          handle: message.by,
-          isBlocked: false,
-          isRead: message.isRead,
-          latestMessage: message.content,
-          messageType: 'received',
-          name: message.name,
-          profileImage: message.profileImage,
-          time: message.time,
-          username: message.username
-        };
-        this.messageStore.dispatch({
-          type: MessageActions.PREPEND_ELEMENT_TO_USER_LIST,
-          payload: newListObj
-        });
-      } else {
-        this.messageStore.dispatch({
-          type: MessageActions.ADD_PUSHER_MESSAGE,
-          payload: message
-        });
-      }
-      setTimeout(() => {
-        this.scrollToBottom();
-      }, 20);
-    });
-
-    // pusher notifications listener
-    this.pusherService.notificationsChannel.bind('Message-Typing', (userDetails) => {
-      userDetails = JSON.parse(userDetails);
-      if (!this.isTyping && userDetails.handle === this.selectedUser.handle) {
-        this.isTyping = true;
+    if (this.pusherService.messagesChannel) {
+      // pusher message listener
+      this.pusherService.messagesChannel.bind('New-Message', (data) => {
+        const message = JSON.parse(data);
+        // check if it's a network request
+        if (message && message['isNetworkRequest'] && message['isNetworkRequest'] === true) {
+          // console.log('Network Request');
+          // append the new object to the user listing
+          const newListObj = {
+            handle: message.by,
+            isBlocked: false,
+            isRead: message.isRead,
+            latestMessage: message.content,
+            messageType: 'received',
+            name: message.name,
+            profileImage: message.profileImage,
+            time: message.time,
+            username: message.username
+          };
+          this.messageStore.dispatch({
+            type: MessageActions.PREPEND_ELEMENT_TO_USER_LIST,
+            payload: newListObj
+          });
+        } else {
+          this.messageStore.dispatch({
+            type: MessageActions.ADD_PUSHER_MESSAGE,
+            payload: message
+          });
+        }
         setTimeout(() => {
-          this.isTyping = false;
-        }, 900);
-      }
-    });
+          this.scrollToBottom();
+        }, 20);
+      });
+    }
+
+    if (this.pusherService.notificationsChannel) {
+      // pusher notifications listener
+      this.pusherService.notificationsChannel.bind('Message-Typing', (userDetails) => {
+        userDetails = JSON.parse(userDetails);
+        if (!this.isTyping && userDetails.handle === this.selectedUser.handle) {
+          this.isTyping = true;
+          setTimeout(() => {
+            this.isTyping = false;
+          }, 900);
+        }
+      });
+    }
 
     // search user input listener
     this.msgUserSearch.valueChanges

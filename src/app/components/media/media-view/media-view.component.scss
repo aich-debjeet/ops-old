@@ -161,7 +161,9 @@
     z-index: 10000;
     transition: .25s;
     vertical-align: middle!important;
-    height: 600px;
+    // height: 600px;
+    height: auto;
+    top: 283px;
     img {
         filter: drop-shadow(0 0 3px #222);
     }
