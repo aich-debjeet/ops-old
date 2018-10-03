@@ -10,6 +10,7 @@ import { Modal } from '../../shared/modal-new/Modal';
 import { ModalService } from '../../shared/modal/modal.component.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { NgxMasonryOptions } from 'ngx-masonry';
 
 import { environment } from '../../../environments/environment';
 
@@ -49,6 +50,10 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
   scrollingLoad = 600;
   scrollId: string;
   @ViewChild('deleteModal') deleteModal: Modal;
+
+  myOptions: NgxMasonryOptions = {
+    transitionDuration: '0s',
+  };
 
   constructor(
     private _store: Store<any>,

@@ -4,6 +4,7 @@ import { environment } from './../../../environments/environment';
 import { Router } from '@angular/router';
 import { Media } from '../../models/media.model';
 import { MediaActions } from '../../actions/media.action';
+import { ProfileActions } from '../../actions/profile.action';
 
 import { TruncatePipe } from '../../pipes/truncate.pipe';
 
@@ -111,9 +112,11 @@ export class PostCardComponent implements OnInit {
       this.following = true;
       this.followingCount++;
       this.store.dispatch({ type: MediaActions.MEDIA_SPOT, payload: data });
+      this.store.dispatch({ type: ProfileActions.PROFILE_MEDIA_SPOT, payload: data });
     } else {
       this.store.dispatch({ type: MediaActions.MEDIA_UNSPOT, payload: data });
-      this.following = false
+      this.store.dispatch({ type: ProfileActions.PROFILE_MEDIA_SPOT, payload: data });
+      this.following = false;
       this.followingCount--;
     }
   }

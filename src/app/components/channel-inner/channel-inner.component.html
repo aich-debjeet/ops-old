@@ -89,6 +89,7 @@
           </div>-->
           <ngx-masonry [useImagesLoaded]="true" 
           infiniteScroll
+          [options]="myOptions"
           [infiniteScrollDistance]="2"
           [infiniteScrollThrottle]="10"
           (scrolled)="onScroll($event)">
