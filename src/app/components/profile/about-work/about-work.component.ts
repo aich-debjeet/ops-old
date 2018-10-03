@@ -122,17 +122,17 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
   /**
    * Form initial value
    */
-  buildEditForm(): void {
-    this.workForm = this.fb.group({
-      'company' : ['' , [Validators.required]],
-      'position' : ['' , [Validators.required]],
-      'from' : ['' , [Validators.required], this.databaseValidator.validWorkFromDate.bind(this.databaseValidator)],
-      'to' : ['' , [Validators.required], this.databaseValidator.validWorkToDate.bind(this.databaseValidator)],
-      'currentWork' : '',
-      'id' : '',
-      'publicWork': '0'
-    })
-  }
+  // buildEditForm(): void {
+  //   this.workForm = this.fb.group({
+  //     'company' : ['' , [Validators.required]],
+  //     'position' : ['' , [Validators.required]],
+  //     'from' : ['' , [Validators.required], this.databaseValidator.validWorkFromDate.bind(this.databaseValidator)],
+  //     'to' : ['' , [Validators.required], this.databaseValidator.validWorkToDate.bind(this.databaseValidator)],
+  //     'currentWork' : '',
+  //     'id' : '',
+  //     'publicWork': '0'
+  //   })
+  // }
 
   /**
    * Add Work form submit

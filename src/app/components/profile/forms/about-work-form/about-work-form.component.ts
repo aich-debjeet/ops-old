@@ -19,6 +19,8 @@ export class AboutWorkFormComponent implements OnInit {
   _workDetails: any;
   private mm : string ;
   private monthNumber: number;
+  checkbox: boolean;
+  hide: boolean =false;
   months = [
     { val: '01',  name: 'Jan' },
     { val: '02',  name: 'Feb' },
@@ -79,8 +81,10 @@ private yy : number;
     this.workForm = this.fb.group({
       company : [this.generalUtils.checkNestedKey(data, ['organizationName']) ? data['organizationName'] : '', [Validators.required]],
       position : [this.generalUtils.checkNestedKey(data, ['role']) ? data['role'] : '', [Validators.required]],
-      from : [this.generalUtils.checkNestedKey(data, ['from']) ? data['from'] : '', [Validators.required], this.databaseValidator.validWorkFromDate.bind(this.databaseValidator)],
-      to : [this.generalUtils.checkNestedKey(data, ['to']) ? data['to'] : '' , [Validators.required], this.databaseValidator.validWorkToDate.bind(this.databaseValidator)],
+      from_month : [this.generalUtils.checkNestedKey(data, ['from']) ? data['from'] : '', [Validators.required], this.databaseValidator.validWorkFromDate.bind(this.databaseValidator)],
+      from_year:'',
+      to_month:'',
+      to_year : [this.generalUtils.checkNestedKey(data, ['to']) ? data['to'] : '' , [Validators.required], this.databaseValidator.validWorkToDate.bind(this.databaseValidator)],
       currentWork : this.generalUtils.checkNestedKey(data, ['currentlyWith']) ? data['currentlyWith'] : '',
       id : this.generalUtils.checkNestedKey(data, ['id']) ? data['id'] : '',
       publicWork: this.generalUtils.checkNestedKey(data, ['access']) ? data['access'] : '0',
@@ -96,5 +100,21 @@ private yy : number;
     console.log(data);
     console.log('closing');
     this.closeForms.emit(data);    
+  }
+  onCheckboxChange(val) {
+      if(val == true){
+        this.hide = true;
+        this.workForm.patchValue({
+          to_month:'',
+          to_year:''
+        })
+      }
+      if(val == false){
+        this.hide = false;
+        this.workForm.patchValue({
+          to_month:'JANUA',
+          to_year:'1231'
+        })
+      }
   }
 }

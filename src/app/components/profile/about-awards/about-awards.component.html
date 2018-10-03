@@ -1,112 +1,42 @@
 <div id="about_awards">
-  <div class="row">
-      <div class="col-md-6 col-sm-6 overview_section">
-          <div class="row sm_panel_body" *ngIf="ownProfile">
-              <div class="col-md-2 sm_panel_left">
-                  <a (click)="openPopupAwardForm()">
-                      <div class="add_plus">+</div>
-                  </a>
-              </div>
-              <div class="col-md-8 sm_panel_right">
-                  <h3 class="padd_t12">Add Awards Details</h3>
-              </div>
-          </div>
-
-          <div class="row sm_panel_body" *ngFor="let award of userProfile?.extra?.awards">
-                <div class="col-md-2 sm_panel_left">
-                    <figure class="avatar_overview">
-                        <img [src]="imageBaseUrl + 'img/event.jpg'" class="img-responsive">
-                    </figure>
-                </div>
-                <div class="col-md-8 sm_panel_right">
-                    <div class="work-group">
-                        <h3>{{ award.role }}<span> at </span> {{ award.organizationName }}</h3>
-                        <p>{{ award.from | date:'MMMM, y'}}</p>
-                    </div>
-                    <div class="workplace_edit_remove_ico " *ngIf="ownProfile">
-                        <a (click) = "editCurrentAward(award)" class="edit_remove_ico"><img [src]="imageBaseUrl + 'img/svg/ico_edit.svg'"></a>
-                        <a (click) = "deleteCurrentAward(award.id)" class="edit_remove_ico"><img [src]="imageBaseUrl + 'img/svg/ico_delete.svg'"></a>
-                    </div>
+  <div class="row m-0">
+      <div class="col-md-6 col-sm-6">
+          <div class="o-bio-add-sec m-t-b-16" *ngIf="ownProfile">
+                <a (click)="addAwardUser()">
+                    <span class="o-bio-add__icon"><img [src]="imageBaseUrl + 'img/svg/plus-red.svg'" alt=""></span>
+                    <span class="o-bio-add__txt c-text_md ltr_space color-theme f-w_600">Add Awards</span>
+                </a>
+                <div *ngIf="activateCreateForm && formType === 'create'" id="award-form">
+                    <app-about-awards-form (formSubmitted)="awardFormSubmit($event)" (closeForms)="formsClose($event)" [awardDetails]="formData"></app-about-awards-form>
                 </div>
           </div>
-      </div>
-      <!-- //awards -->
 
-  </div>
-</div>
-
-<app-modal [modalTitle]="''" [blocking]='false' modalId='addAwardPopup' *ngIf="ownProfile">
-    
-        <form [formGroup]="awardForm" novalidate #myform="ngForm" (submit)= "awardFormSubmit(awardForm.value)">
-            <div class="edit-profile_main">
-                <div class="edit-profile_head">
-                    <div class="col-md-6 padding_none">
-                        <h2>Award</h2>
-                    </div>
-                    <div class="col-md-6 padding_none text-right">
-                    <app-button [className]="'btn btn-default btn-sm'" [type]="'button'" (click) = "awardFormClose()">Cancel</app-button>
-                    <app-button *ngIf="!editFormPopup" [className]="'btn btn-primary btn-sm'" [type]="'submit'">Add</app-button>
-                    <app-button *ngIf="editFormPopup" [className]="'btn btn-primary btn-sm'" [type]="'submit'">Update</app-button>
-                    </div>
+          <div class="o-bio-det-block o-bio-det-block--active" *ngFor="let award of userProfile?.extra?.awards; let i = index">
+                <div class="o-bio-det-edit-icon-block" *ngIf="ownProfile">
+                    <span class="o-bio-det__edit-ico m-r-8" (click)="deleteCurrentAward(award.id)">
+                        <img [src]="imageBaseUrl + 'img/svg/ico_delete.svg'">
+                    </span>
+                    <span class="o-bio-det__edit-ico" (click)="editCurrentAward(award)">
+                        <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
+                    </span>
                 </div>
-                <!-- edit profile head end -->
-                <!-- contact info end -->
-
-                <div class="edit-profile_sec_block">
-                    <!-- edit profile sec head -->
-                    <div id="work" class="edit-profile_content_block show" style="display: none;">
-                        <div class="edit-profile_add_sec">
-                            <div id="add_workplace" class="profile_add_det" >
-                            
-                                <div class="editarea">
-                                    <div class="editarea_leftbar">
-                                        <div class="add_workplace_logo">
-                                            <input type="file" name="photo" id="upload-photo">
-                                            <div class="add_media_plus_ico">
-                                                <img [src]="imageBaseUrl + 'img/svg/ico_add-grey.svg'" alt="">
-                                            </div>
-                                        </div>
-                                        <span class="add_logo_txt">Add Photo</span>
-                                    </div>
-                                    <!-- left bar end -->
-                                    <div class="editarea_rightbar">
-                                        <div class="form_group">
-                                            <input class="form_input"  type="hidden" formControlName="id">
-                                            <input class="form_input"  maxlength="40" type="text" formControlName="award" required>
-                                            <span class="form_highlight"></span>
-                                            <span class="form_bar"></span>
-                                            <label>Award</label>
-                                            <p class="error_alert" *ngIf="awardForm.controls['award'].errors?.required && awardForm.controls['award']?.touched">Award is required</p>
-                                        </div>
-                                        <div class="form_group">
-                                            <input class="form_input" maxlength="40" type="text" formControlName="organization" required>
-                                            <span class="form_highlight"></span>
-                                            <span class="form_bar"></span>
-                                            <label>Organization</label>
-                                            <p class="error_alert" *ngIf="awardForm.controls['organization'].errors?.required && awardForm.controls['organization']?.touched">Organization is required</p>
-                                        </div>
-                                        <div class="add_workplace_time_period">
-                                            <h4>Time Period</h4>
-                                            <div class="form_group">
-                                                <input class="form_input" type="text" required="" formControlName="timeperiod" placeholder="" [textMask]="{mask: dateMask}">
-                                                <span class="form_highlight"></span>
-                                                <span class="form_bar"></span>
-                                                <label>Date of Award (DD-MM-YYYY)</label>
-                                                <p class="error_alert" *ngIf="awardForm.controls['timeperiod'].errors?.required && awardForm.controls['timeperiod']?.touched">Date of Award is required</p>
-                                                <p class="error_alert" *ngIf="awardForm.controls['timeperiod'].errors?.invalidWorkDate">Invalid Date</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- right bar end -->
-                                </div>
-                            </div>
-                        </div>
+                <div *ngIf="activateEditForm && award.id === currentId && formType === 'edit'" id="award-form">
+                    <app-about-awards-form (formSubmitted)="awardFormSubmit($event)" (closeForms)="formsClose($event)" [awardDetails]="formData"></app-about-awards-form>
+                </div>
+                <div id="o-bio-det__work" class="o-bio-det__display" [hidden]="award.id === currentId && activateEditForm && formType === 'edit'">
+                    <!-- <div class="o-bio-det-display__media">
+                        <img [src]="imageBaseUrl + 'img/about/work.png'" alt="">
+                    </div> -->
+                    <div class="o-bio-det-display__info">
+                        <span class="c-text_md">{{ award.role }}</span>
+                        <span class="c-text_sm color-grey-dark">From {{ award.from | date:'MMMM, y'}}</span>
                     </div>
-                    <!-- edit profile content block end -->
                 </div>
             </div>
-        </form>
-</app-modal>
+      </div>
+      <!-- //awards -->
+  </div>
+</div>
 
 <app-modal-new #deleteModal modalClass="o-comodal_main in">
     <modal-content>

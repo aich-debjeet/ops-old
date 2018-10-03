@@ -1,3 +1,80 @@
-<p>
-  about-awards-form works!
-</p>
+<form [formGroup]="awardForm" novalidate #myform="ngForm" (submit)="awardFormSubmit(awardForm.value)">
+  <div id="o-bio-det__add-work" class="o-bio-det__add-work">
+      <!-- <div class="o-bio-det-display__media fill-white">
+          <input type="file" class="o-bio-add-media">
+          <label for="" class="c-text_sm color-theme text-center m-t--8">Add Photo</label>
+      </div> -->
+      <div class="o-bio-det-edit__form">
+          <div class="c-form__group c-form--sm c-form--noeffect">
+              <input class="c-form__input" required="" type="text" formControlName="title" maxlength="40">
+              <span class="c-form__highlight"></span>
+              <span class="c-form__bar"></span>
+              <label>Title</label>
+              <p class="error_alert" *ngIf="awardForm.controls['title'].errors?.required && awardForm.controls['position']?.touched">Role is required</p>
+          </div>
+          <div class="c-form__group c-form--sm c-form--noeffect">
+              <input class="c-form__input" required="" type="text" formControlName="presenter" maxlength="40">
+              <span class="c-form__highlight"></span>
+              <span class="c-form__bar"></span>
+              <label>Given By</label>
+              <p class="error_alert" *ngIf="awardForm.controls['presenter'].errors?.required && awardForm.controls['position']?.touched">Company is required</p>
+          </div>
+          <div class="col-md-12 p-0">
+              <p class="c-text_md">Date</p>
+              <div class="col-md-2 p-0">
+                  <div class="c-form__group">
+                      <select class="c-form-control p-l-0" formControlName="from_month" required>
+                          <option value="" disabled selected hidden>Month</option>
+                          <option *ngFor="let p of months">{{p.name}}</option>
+                      </select>
+                  </div>
+              </div>
+              <div class="col-md-2 p-r-0">
+                  <div class="c-form__group">
+                      <select class="c-form-control p-l-0" formControlName="from_year" required>
+                          <option value="" disabled selected hidden>Year</option>
+                          <option *ngFor="let y of years">{{y}}</option>
+                      </select>
+                  </div>
+              </div>
+          </div>
+          <div class="o-bio-info__edit-actions width100 m-t-24">
+              <button type="button" class="btn btn-primary btn-sm m-l-8" [type]="'submit'">Save</button>
+              <button type="button" class="btn btn-default btn-sm m-l-r-8" (click)="closeForm(_awardDetails)">Cancel</button>
+
+              <div class="dropdown float_left m-r-8">   
+                  <span class="com-head" data-toggle="dropdown" aria-expanded="false">
+                      <div class="o-bio-edit__ico">
+                      <img [src]="imageBaseUrl + 'img/svg/ico_web.svg'">
+                      </div>
+                      <div class="o-bio-edit__ico-arrow">
+                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
+                          <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch  -->
+                          <title>Path 2 Copy</title>
+                          <desc>Created with Sketch.</desc>
+                          <defs></defs>
+                          <g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                              <polyline id="Path-2-Copy" stroke="#333" stroke-width="1" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) " points="1 1 8 8 15 1"></polyline>
+                          </g>
+                      </svg>
+                      </div>
+                  </span>
+                  <!-- <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space" formControlName="publicWork">
+                      <li>
+                      <a href="javascript:void(0)" class="c-opsdropdown__list">
+                          <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
+                          <span class="c-opsdropdown--text">Public</span>
+                      </a>
+                      </li>
+                      <li>
+                      <a href="javascript:void(0)" class="c-opsdropdown__list">
+                          <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
+                          <span class="c-opsdropdown--text">Private</span>
+                      </a>
+                      </li>
+                  </ul> -->
+              </div>
+          </div>
+      </div>
+  </div>
+</form>
