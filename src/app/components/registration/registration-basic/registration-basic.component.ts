@@ -403,6 +403,12 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
         this.claimActive = false;
         this.otpOpenOnce = false;
       }
+      return;
+    });
+
+    this.store.select('loginTags')
+    .first(data => data['ERROR'])
+    .subscribe(resp => {
       if (resp['ERROR']) {
         this.toastr.warning(resp['ERROR'], '', {
           timeOut: 3000
@@ -428,6 +434,12 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
       if (resp['completed'].emailMatches === true || resp['completed'].mobileMatches === true) {
         this.otpPopup.open();
       }
+      return;
+    });
+
+    this.store.select('loginTags')
+    .first(data2 => data2['ERROR'])
+    .subscribe(resp => {
       if (resp['ERROR']) {
         this.toastr.warning(resp['ERROR'], '', {
           timeOut: 3000
