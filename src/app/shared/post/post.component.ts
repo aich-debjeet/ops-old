@@ -120,6 +120,7 @@ export class PostComponent implements OnInit, OnDestroy {
     }
     if (this.following === false) {
       if (this.postType === 'community') {
+        this.store.dispatch({ type: MediaActions.MEDIA_SPOT, payload: data });
         this.store.dispatch({ type: CommunitiesActions.MEDIA_SPOT, payload: data });
         return
       }
@@ -130,6 +131,7 @@ export class PostComponent implements OnInit, OnDestroy {
     } else {
       if (this.postType === 'community') {
         this.store.dispatch({ type: MediaActions.MEDIA_UNSPOT, payload: data });
+        this.store.dispatch({ type: CommunitiesActions.MEDIA_UNSPOT, payload: data });
         return
       }
       this.store.dispatch({ type: MediaActions.MEDIA_UNSPOT, payload: data });
