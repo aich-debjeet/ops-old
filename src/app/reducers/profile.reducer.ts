@@ -1248,8 +1248,13 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
     case ProfileActions.PROFILE_MEDIA_SPOT:
       const home_post_spot = state.user_following_posts.find(t => t.id === payload.id);
+      console.log('Home page spot', home_post_spot);
       const home_post_spot_index = state.user_following_posts.indexOf(home_post_spot);
       const home_post_spot_count = home_post_spot ? home_post_spot.spotsCount + 1 : 0;
+
+      const post_spot = state.user_posts.find(t => t.id === payload.id);
+      const post_spot_index = state.user_posts.indexOf(post_spot);
+      const post_spot_count = post_spot ? post_spot.spotsCount + 1 : 0;
 
       const trend_spot_inc = state.trending_post.find(t => t.id === payload.id);
       const trend_spot_inc_index = state.trending_post.indexOf(trend_spot_inc);
@@ -1265,6 +1270,11 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
           ...state.trending_post.slice(0, trend_spot_inc_index),
           Object.assign({}, trend_spot_inc , {spotsCount: trend_spot_inc_count, isSpotted: true }),
           ...state.trending_post.slice(trend_spot_inc_index + 1)
+        ],
+        user_posts: [
+          ...state.user_posts.slice(0, post_spot_index),
+          Object.assign({}, post_spot , {spotsCount: post_spot_count, isSpotted: true }),
+          ...state.user_posts.slice(post_spot_index + 1)
         ]
       });
 
@@ -1272,6 +1282,10 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       const home_post_unspot = state.user_following_posts.find(t => t.id === payload.id);
       const home_post_unspot_index = state.user_following_posts.indexOf(home_post_unspot);
       const home_post_unspot_count = home_post_unspot ? home_post_unspot.spotsCount - 1 : 0;
+
+      const post_unspot = state.user_posts.find(t => t.id === payload.id);
+      const post_unspot_index = state.user_posts.indexOf(post_unspot);
+      const post_unspot_count = post_unspot ? post_unspot.spotsCount - 1 : 0;
 
       const trend_spot_dec = state.trending_post.find(t => t.id === payload.id);
       const trend_spot_dec_index = state.trending_post.indexOf(trend_spot_dec);
@@ -1288,6 +1302,11 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
           Object.assign({}, trend_spot_dec , { spotsCount: trend_spot_dec_count, isSpotted: false}),
           ...state.trending_post.slice(trend_spot_dec_index + 1)
         ],
+        user_posts: [
+          ...state.user_posts.slice(0, post_unspot_index),
+          Object.assign({}, post_unspot , {spotsCount: post_unspot_count, isSpotted: false }),
+          ...state.user_posts.slice(post_unspot_index + 1)
+        ]
       });
 
 
