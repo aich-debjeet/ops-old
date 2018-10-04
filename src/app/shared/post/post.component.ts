@@ -8,6 +8,7 @@ import { Modal } from '../../shared/modal-new/Modal';
 import FilesHelper from '../../helpers/fileUtils';
 import { initialMedia, Media } from '../../models/media.model';
 import { MediaActions } from '../../actions/media.action';
+import { ProfileActions } from '../../actions/profile.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
@@ -116,13 +117,15 @@ export class PostComponent implements OnInit, OnDestroy {
       'id': this.mediaId
     }
     if (this.following === false) {
-      this.following = true;
-      this.followingCount++;
+      // this.following = true;
+      // this.followingCount++;
       this.store.dispatch({ type: MediaActions.MEDIA_SPOT, payload: data });
+      this.store.dispatch({ type: ProfileActions.PROFILE_MEDIA_SPOT, payload: data });
     } else {
       this.store.dispatch({ type: MediaActions.MEDIA_UNSPOT, payload: data });
-      this.following = false
-      this.followingCount--;
+      this.store.dispatch({ type: ProfileActions.PROFILE_MEDIA_UNSPOT, payload: data });
+      // this.following = false
+      // this.followingCount--;
     }
   }
 

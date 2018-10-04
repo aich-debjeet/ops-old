@@ -1246,6 +1246,31 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         user_profiles_all_loaded_prof: false
       });
 
+    case ProfileActions.PROFILE_MEDIA_SPOT:
+      const home_post_spot = state.user_following_posts.find(t => t.id === payload.id);
+      const home_post_spot_index = state.user_following_posts.indexOf(home_post_spot);
+      const home_post_spot_count = home_post_spot ? home_post_spot.spotsCount + 1 : 0;
+      return Object.assign({}, state, {
+        user_following_posts: [
+          ...state.user_following_posts.slice(0, home_post_spot_index),
+          Object.assign({}, home_post_spot, {spotsCount: home_post_spot_count, isSpotted: true }),
+          ...state.user_following_posts.slice(home_post_spot_index + 1)
+        ],
+      });
+
+    case ProfileActions.PROFILE_MEDIA_UNSPOT:
+      const home_post_unspot = state.user_following_posts.find(t => t.id === payload.id);
+      const home_post_unspot_index = state.user_following_posts.indexOf(home_post_unspot);
+      const home_post_unspot_count = home_post_unspot ? home_post_unspot.spotsCount - 1 : 0;
+      return Object.assign({}, state, {
+        user_following_posts: [
+          ...state.user_following_posts.slice(0, home_post_unspot_index),
+          Object.assign({}, home_post_unspot, {spotsCount: home_post_unspot_count, isSpotted: false }),
+          ...state.user_following_posts.slice(home_post_unspot_index + 1)
+        ],
+      });
+
+
     /**
      * [TEMP] Load All directory
      */

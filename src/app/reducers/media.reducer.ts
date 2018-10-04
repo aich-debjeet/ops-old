@@ -275,7 +275,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
  */
     case MediaActions.MEDIA_POST_REPORT:
         return Object.assign({}, state, {
-          reports:[]
+          reports: []
         });
     case MediaActions.MEDIA_POST_REPORT_SUCCESS:
         // console.log(payload)
