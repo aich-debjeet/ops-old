@@ -93,7 +93,7 @@
           [infiniteScrollDistance]="2"
           [infiniteScrollThrottle]="10"
           (scrolled)="onScroll($event)">
-            <ngx-masonry-item class="col-md-3 col-sm-4 col-xs-12 p-8" *ngFor="let media of channelPost; let i = index">
+            <ngx-masonry-item class="col-md-3 col-sm-4 col-xs-12 p-8" *ngFor="let media of (tagState$ | async)?.channel_post; let i = index">
                 <app-post-card  (postDelete)="deletePost(media)" (onClick)="mediaOpenPopup(media.id)" [mediaData]="media"></app-post-card>
             </ngx-masonry-item>
           </ngx-masonry>
