@@ -105,7 +105,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
       // this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
       // this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
-      this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS });
       this.profileStore.dispatch({ type: ProfileActions.CURRENT_PROFILE_USER, payload: userdata });
     }
   }
