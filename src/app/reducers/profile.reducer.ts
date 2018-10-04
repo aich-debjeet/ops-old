@@ -1250,23 +1250,43 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       const home_post_spot = state.user_following_posts.find(t => t.id === payload.id);
       const home_post_spot_index = state.user_following_posts.indexOf(home_post_spot);
       const home_post_spot_count = home_post_spot ? home_post_spot.spotsCount + 1 : 0;
+
+      const trend_spot_inc = state.trending_post.find(t => t.id === payload.id);
+      const trend_spot_inc_index = state.trending_post.indexOf(trend_spot_inc);
+      const trend_spot_inc_count = trend_spot_inc ? trend_spot_inc.spotsCount + 1 : 0;
+
       return Object.assign({}, state, {
         user_following_posts: [
           ...state.user_following_posts.slice(0, home_post_spot_index),
           Object.assign({}, home_post_spot, {spotsCount: home_post_spot_count, isSpotted: true }),
           ...state.user_following_posts.slice(home_post_spot_index + 1)
         ],
+        trending_post: [
+          ...state.trending_post.slice(0, trend_spot_inc_index),
+          Object.assign({}, trend_spot_inc , {spotsCount: trend_spot_inc_count, isSpotted: true }),
+          ...state.trending_post.slice(trend_spot_inc_index + 1)
+        ]
       });
 
     case ProfileActions.PROFILE_MEDIA_UNSPOT:
       const home_post_unspot = state.user_following_posts.find(t => t.id === payload.id);
       const home_post_unspot_index = state.user_following_posts.indexOf(home_post_unspot);
       const home_post_unspot_count = home_post_unspot ? home_post_unspot.spotsCount - 1 : 0;
+
+      const trend_spot_dec = state.trending_post.find(t => t.id === payload.id);
+      const trend_spot_dec_index = state.trending_post.indexOf(trend_spot_dec);
+      const trend_spot_dec_count = trend_spot_dec ? trend_spot_dec.spotsCount - 1 : 0;
+
       return Object.assign({}, state, {
         user_following_posts: [
           ...state.user_following_posts.slice(0, home_post_unspot_index),
           Object.assign({}, home_post_unspot, {spotsCount: home_post_unspot_count, isSpotted: false }),
           ...state.user_following_posts.slice(home_post_unspot_index + 1)
+        ],
+        trending_post: [
+          ...state.trending_post.slice(0, trend_spot_dec_index),
+          Object.assign({}, trend_spot_dec , { spotsCount: trend_spot_dec_count, isSpotted: false}),
+          ...state.trending_post.slice(trend_spot_dec_index + 1)
         ],
       });
 
@@ -1972,42 +1992,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     return Object.assign({}, state, {
       trending_post: payload['mediaResponse']
     });
-
-  case ProfileActions.POST_SPOT:
-    const trend_spot_inc = state.trending_post.find(t => t.id === payload);
-    const trend_spot_inc_index = state.trending_post.indexOf(trend_spot_inc);
-    const trend_spot_inc_count = trend_spot_inc ? trend_spot_inc.spotsCount + 1 : 0;
-    if (trend_spot_inc) {
-      return Object.assign({}, state, {
-        trending_post: [
-          ...state.trending_post.slice(0, trend_spot_inc_index),
-          Object.assign({}, trend_spot_inc , {
-            spotsCount: trend_spot_inc_count,
-            isSpotted: true
-          }),
-          ...state.trending_post.slice(trend_spot_inc_index + 1)
-        ],
-      });
-    }
-    return state;
-
-  case ProfileActions.POST_UNSPOT:
-    const trend_spot_dec = state.trending_post.find(t => t.id === payload);
-    const trend_spot_dec_index = state.trending_post.indexOf(trend_spot_dec);
-    const trend_spot_dec_count = trend_spot_dec ? trend_spot_dec.spotsCount - 1 : 0;
-    if (trend_spot_dec) {
-      return Object.assign({}, state, {
-        trending_post: [
-          ...state.trending_post.slice(0, trend_spot_dec_index),
-          Object.assign({}, trend_spot_dec , {
-            spotsCount: trend_spot_dec_count,
-            isSpotted: false
-          }),
-          ...state.trending_post.slice(trend_spot_dec_index + 1)
-        ],
-      });
-    }
-    return state;
 
     default:
       return state;
