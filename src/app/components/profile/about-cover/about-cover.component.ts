@@ -9,6 +9,7 @@ import { ProfileActions } from '../../../actions/profile.action';
 import { environment } from '../../../../environments/environment.prod';
 
 import { Observable } from 'rxjs/Observable';
+import { GeneralUtilities } from '../../../helpers/general.utils';
 
 @Component({
   selector: 'app-about-cover',
@@ -31,7 +32,8 @@ export class AboutCoverComponent implements OnInit {
   constructor(
     public tokenService: TokenService,
     private _location: Location,
-    private _store: Store<ProfileModal>
+    private _store: Store<ProfileModal>,
+    private gUtils: GeneralUtilities
   ) {
     this.baseUrl = environment.API_IMAGE;
 
@@ -43,7 +45,7 @@ export class AboutCoverComponent implements OnInit {
 
   ngOnInit() {
     this.tagState$
-    .first(profile => this.stateProfile.profile_details.coverImage)
+    .first(profile => this.stateProfile.profile_details.profileImage)
     .subscribe( data => {
       this.loadCoverImage();
     });
@@ -66,18 +68,20 @@ export class AboutCoverComponent implements OnInit {
         .first(state => state['cover_img_upload_success'] === true)
         .subscribe(() => {
           this.isClosed(null);
+          this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+          this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
         });
     }
   }
 
   loadCoverImage() {
-    let profileImageURL;
-    if (typeof this.stateProfile.profile_navigation_details.coverImage !== 'undefined') {
-      profileImageURL = this.baseUrl + this.stateProfile.profile_navigation_details.coverImage;
+    let coverImageURL;
+    if (this.gUtils.checkNestedKey(this.stateProfile, ['profile_navigation_details', 'coverImage']) && this.stateProfile.profile_navigation_details.coverImage !== '') {
+      coverImageURL = this.baseUrl + this.stateProfile.profile_navigation_details.coverImage;
     } else {
-      profileImageURL = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
+      coverImageURL = 'https://cdn.onepagespotlight.com/img/profile-cover.png';
     }
-    this.croppedImage = profileImageURL;
+    this.croppedImage = coverImageURL;
   }
 
   // go back to the page

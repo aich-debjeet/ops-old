@@ -83,8 +83,8 @@ export class StatusEditorComponent implements OnInit, OnDestroy {
     // Profile
     this.mediaStateSubscription = this.profileState$.subscribe((state) => {
       this.profileState = state;
-      const activeUser = this.profileState.profile_cards.active;
-      this.activeUser = activeUser;
+      this.activeUser = this.profileState.profile_cards.active;
+
       if (state.user_channels_loaded) {
         this.channelList = state.user_channel;
       }
@@ -124,7 +124,6 @@ export class StatusEditorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log(this.post_to);
   }
 
   ngOnDestroy() {
@@ -160,7 +159,7 @@ export class StatusEditorComponent implements OnInit, OnDestroy {
         id: this.ct_id,
         data: {
           feedList: [{
-            owner: 'N_79749C80_8FD1_4048_942A_75B6BDF7090F',
+            owner: this.activeUser.handle,
             feed_type: 'status',
             title: '',
             description: this.statusMessage,

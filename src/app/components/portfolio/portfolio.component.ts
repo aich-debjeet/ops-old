@@ -64,6 +64,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   tabMediaScrolling = 0;
   tabMediaScrollingLoad = 251;
   tabMediaPage = 0;
+  catNameIsRequired = false;
 
   constructor(
     private fb: FormBuilder,
@@ -163,7 +164,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     });
 
     this.portAddCategoryForm = this.fb.group({
-      categoryName: ['', Validators.required]
+      categoryName: ['']
     });
   }
 
@@ -171,11 +172,22 @@ export class PortfolioComponent implements OnInit, OnDestroy {
    * add category
    */
   portAddCategory(formData: any) {
-    if (this.portAddCategoryForm.valid === true) {
-      this.profileStore.dispatch({
-        type: ProfileActions.ADD_PORTFOLIO_CATEGORY,
-        payload: { name: formData.categoryName }
-      });
+    if (this.portAddCategoryForm.controls.categoryName.value === '') {
+      this.catNameIsRequired = true;
+      return;
+    } else {
+      if (this.portCategories && this.portCategories.length >= 5) {
+        this.toastr.warning('Maximum 5 categories are allowed!', '', { timeOut: 3000 });
+        return;
+      }
+      this.catNameIsRequired = false;
+      if (this.portAddCategoryForm.valid === true) {
+        this.profileStore.dispatch({
+          type: ProfileActions.ADD_PORTFOLIO_CATEGORY,
+          payload: { name: formData.categoryName }
+        });
+        this.portAddCategoryForm.controls.categoryName.setValue('');
+      }
     }
   }
 
@@ -188,6 +200,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
       .first(resp => resp['portfolio_delete_category_success'] === true)
       .subscribe(data => {
         this.toastr.success('Category deleted', 'Success!', { timeOut: 3000 });
+        this.selectTab({ categoryName: 'all', categoryId: 'all' });
         return;
       });
   }
@@ -276,6 +289,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
 
     // get channels
     this.profileStore.dispatch({ type: ProfileActions.GET_USERS_CHANNELS, payload: '' });
+    this.resetAddMedia();
     this.portMediaModal.open();
   }
 
@@ -332,6 +346,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   }
 
   showCategories() {
+    this.catNameIsRequired = false;
     this.editCategoriesModal.open();
   }
 
@@ -369,7 +384,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
 
   resetAddMedia() {
     this.selectedCategoryId = '';
-    this.displayMedia = [];
+    // this.displayMedia = [];
     this.selectedMedia = [];
     this.selectedChannels = [];
   }
@@ -444,7 +459,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
    */
   closePortAddMediaModal() {
     this.portMediaModal.close();
-    this.resetAddMedia();
+    // this.resetAddMedia();
   }
 
   portMediaModalScroll(e) {

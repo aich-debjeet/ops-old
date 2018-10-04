@@ -1,4 +1,6 @@
 @import './src/assets/scss/helpers/_variables.scss';
+@import '~sass-mq/_mq.scss';
+
 .o-cover-upload{
     width: 887px;
     height: 480px;
@@ -21,17 +23,25 @@
     position: relative;
 }
 .o-cover-media__image{
-    width: 482px;
+    width: 480px;
     height: 482px;
     float: left;
     background: #F3F5F7;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 100%;
+    }
 }
 .preview-image {
-    width: 482px;
+    width: 480px;
     height: 482px;
     position: absolute;
     top: 0;
     left: 0;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 100%;
+        height: auto;
+        margin-bottom: 15%;
+    }
 }
 .o-cover-media__browse{
     width: 100%;
@@ -77,6 +87,9 @@
     background: #fff;
     margin: 1.2em auto;
     border-radius: 3px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 97%;
+    }
 }
 
 

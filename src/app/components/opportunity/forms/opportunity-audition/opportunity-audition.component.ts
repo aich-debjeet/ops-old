@@ -36,6 +36,7 @@ export class OpportunityAuditionComponent implements OnInit, OnDestroy {
   datePicketConfig: IDatePickerConfig = {
     showMultipleYearsNavigation: true,
     disableKeypress: true,
+    closeOnSelect: true,
     format: 'DD-MMMM-YYYY h:m A',
     locale: 'en'
   };

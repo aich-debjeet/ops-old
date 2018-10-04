@@ -1,3 +1,4 @@
+@import '~sass-mq/_mq.scss';
 // New form style ----------------------------------------------------
 .c-form__group {
     position: relative;
@@ -16,6 +17,9 @@
     background: none;
     line-height: 20px;
     box-shadow: none;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        border-radius: 0 
+    }
 }
 
 .c-form__input--alert {
