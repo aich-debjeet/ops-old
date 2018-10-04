@@ -1,7 +1,7 @@
 
 export class ProfileModal {
   isBlocked: boolean;
-  isUnBlocked: boolean;  
+  isUnBlocked: boolean;
   completed: string[];
   loading: false;
   success: true;

@@ -111,10 +111,12 @@ export class PostComponent implements OnInit, OnDestroy {
    * Spot a Media
    * @param mediaId
    */
-  spotMedia(mediaId: string) {
+  spotMedia(media: any) {
+    console.log(media);
     const data = {
-      'mediaType': this.mediaType,
-      'id': this.mediaId
+      'mediaType': media['mtype'],
+      'id': media['id'],
+      'isOwner': media['isOwner']
     }
     if (this.following === false) {
       // this.following = true;

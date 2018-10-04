@@ -103,10 +103,10 @@ export class PostCardComponent implements OnInit {
    * Spot a Media
    * @param mediaId
    */
-  spotMedia(mediaId: string) {
+  spotMedia(media: any) {
     const data = {
-      'mediaType': this.mediaType,
-      'id': mediaId
+      'mediaType': media['mtype'],
+      'id': media['id']
     }
     if (this.following === false) {
       this.following = true;

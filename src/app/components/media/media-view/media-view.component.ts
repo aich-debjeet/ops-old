@@ -158,10 +158,11 @@ export class MediaViewComponent implements OnDestroy {
    * Spot a Media
    * @param mediaId
    */
-  spotMedia(mediaId: string) {
+  spotMedia(value: string) {
+    console.log(value);
     const data = {
-      'mediaType': this.mediaType,
-      'id': this.mediaId
+      'mediaType': value['mtype'],
+      'id': value['id']
     }
     this.spot = !this.spot;
     if (this.spot === true) {

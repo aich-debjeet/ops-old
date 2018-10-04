@@ -1247,8 +1247,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.PROFILE_MEDIA_SPOT:
+    console.log(payload);
       const home_post_spot = state.user_following_posts.find(t => t.id === payload.id);
-      console.log('Home page spot', home_post_spot);
       const home_post_spot_index = state.user_following_posts.indexOf(home_post_spot);
       const home_post_spot_count = home_post_spot ? home_post_spot.spotsCount + 1 : 0;
 
