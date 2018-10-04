@@ -992,3 +992,10 @@ div#create-channel form {
         padding: 20px;
     }
 }
+
+.o-addpost__commtxt{
+    white-space: nowrap;
+    width: 225px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
