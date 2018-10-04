@@ -19,7 +19,6 @@ export class AboutWorkFormComponent implements OnInit {
   _workDetails: any;
   private mm : string ;
   private monthNumber: number;
-  checkbox: boolean;
   hide: boolean =false;
   months = [
     { val: '01',  name: 'Jan' },
@@ -85,7 +84,7 @@ private yy : number;
       from_year:'',
       to_month:'',
       to_year : [this.generalUtils.checkNestedKey(data, ['to']) ? data['to'] : '' , [Validators.required], this.databaseValidator.validWorkToDate.bind(this.databaseValidator)],
-      currentWork : this.generalUtils.checkNestedKey(data, ['currentlyWith']) ? data['currentlyWith'] : '',
+      currentWork : this.generalUtils.checkNestedKey(data, ['currentlyWith']) ? data['currentlyWith'] : false,
       id : this.generalUtils.checkNestedKey(data, ['id']) ? data['id'] : '',
       publicWork: this.generalUtils.checkNestedKey(data, ['access']) ? data['access'] : '0',
     })
@@ -93,7 +92,7 @@ private yy : number;
 
   workFormSubmit(value){
     console.log(value)
-    this.formSubmitted.emit(value);
+    // this.formSubmitted.emit(value);
   }
 
   closeForm(data: any){

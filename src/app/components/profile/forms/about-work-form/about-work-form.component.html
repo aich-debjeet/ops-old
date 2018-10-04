@@ -1,4 +1,4 @@
-<form [formGroup]="workForm" novalidate #myform="ngForm" (submit)="workFormSubmit(workForm.value)">
+<form [formGroup]="workForm" novalidate #myform="ngForm" (ngSubmit)="workFormSubmit(workForm.value)">
     <div id="o-bio-det__add-work" class="o-bio-det__add-work">
         <!-- <div class="o-bio-det-display__media fill-white">
             <input type="file" class="o-bio-add-media">
@@ -40,7 +40,7 @@
             </div>
             <div class="o-about-form-check width100 float_left m-r-16">
                 <label for="work"> Currently im working here
-                <input id="work" type="checkbox" formControlName="currentWork" [ngModel]='checkbox' (ngModelChange)='onCheckboxChange($event)' class="c-form__bar2">
+                <input id="work" type="checkbox" formControlName="currentWork" (ngModelChange)='onCheckboxChange($event)' class="c-form__bar2">
                 </label>
             </div>
             <div class="col-md-12 p-0" *ngIf="!hide || !workForm.controls['currentWork']">
