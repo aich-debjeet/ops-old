@@ -80,7 +80,6 @@ export class OpportunityProjectComponent implements OnInit, OnDestroy {
    * @param: form data
    */
   submitProjectForm(formData: any) {
-    const projectCollaborators = formData.projectCollaborators.map(item => item['handle']);
     // project form validation
     if (!this.projectFrm.valid) {
       this.toastr.warning('Please check for errors in the form.', '', {
@@ -88,6 +87,17 @@ export class OpportunityProjectComponent implements OnInit, OnDestroy {
       });
       this.scrollHelper.scrollToFirst('error');
       return;
+    }
+    // const projectCollaborators = formData.projectCollaborators.map(item => item['handle']);
+    const projectCollaborators = [];
+    for (let i = 0; i < formData.projectCollaborators.length; i++) {
+      const person = {
+        name: formData.projectCollaborators[i]['name'],
+        // username: formData.projectCollaborators[i]['extra']['username'],
+        handle: formData.projectCollaborators[i]['handle'],
+        profileImage: formData.projectCollaborators[i]['profileImage'],
+      }
+      projectCollaborators.push(person);
     }
 
     // preparing request body to submit to the api
