@@ -1757,6 +1757,11 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     return Object.assign({}, state, {
       pass_success : payload,
     });
+    case ProfileActions.USER_PASSWORD_UPDATE_FAILED:
+    const data = JSON.parse(payload._body);
+    return Object.assign({}, state, {
+      pass_fail : data.ERROR,
+    });
 
   case ProfileActions.COMMENT_MORE_SUCCESS:
     const home_post_comment = state.user_following_posts.find(t => t.id === payload[0].postId);

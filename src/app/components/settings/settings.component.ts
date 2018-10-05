@@ -10,6 +10,7 @@ import { DatePipe } from '@angular/common';
 import { Http, Headers, Response } from '@angular/http';
 import { TokenService } from './../../helpers/token.service';
 import { environment } from '../../../environments/environment';
+import { ToastrService } from 'ngx-toastr';
 
 import { CountrySelectorComponent } from '../../shared/country-selector/country-selector.component';
 
@@ -67,13 +68,6 @@ export class SettingsComponent implements OnInit {
   notificationOption = []
   editingField: string;
   private dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
-  // commentsOption: any; // = {name: 'Comments', value: 'Comments', checked: true};
-  // spotsOption: any; // = {name: 'Spots', value: 'Spots', checked: true};
-  // mentionOption: any; // = {name: 'Mention', value: 'Mention', checked: true};
-  // followersOption: any; // = {name: 'Followers', value: 'Followers', checked: true};
-  // channelsOption: any; // = {name: 'Channels', value: 'Channels', checked: true};
-  // donateOption: any; // = {name: 'Donate', value: 'Donate', checked: true};
-  // networkOption: any; // = {name: 'Network', value: 'Network', checked: true};
   adult: any;
   privateAccount: any;
  //ngModel binding options
@@ -98,14 +92,6 @@ export class SettingsComponent implements OnInit {
   isMobileUnique: boolean = false;
   validSuccess: boolean = true;
 
-    // otp numbers
-    @ViewChild('otpNum1') otpNum1: ElementRef;
-    @ViewChild('otpNum2') otpNum2: ElementRef;
-    @ViewChild('otpNum3') otpNum3: ElementRef;
-    @ViewChild('otpNum4') otpNum4: ElementRef;
-    @ViewChild('otpNum5') otpNum5: ElementRef;
-    @ViewChild('otpNum6') otpNum6: ElementRef;
-
   @ViewChild('countrySelSet') countrySelectorSet: CountrySelectorComponent;
   @ViewChild('otpPopup') otpPopup: Modal;
 
@@ -117,7 +103,8 @@ export class SettingsComponent implements OnInit {
     private tokenService: TokenService,
     private _store: Store<ProfileModal>,
     private store: Store<BasicRegTag>,
-    private databaseValidator: DatabaseValidator
+    private databaseValidator: DatabaseValidator,
+    private toastr: ToastrService
   ) {
     // this.dragula.drop.subscribe((value) => {
     //   this.onDrop(value.slice(1));
@@ -169,11 +156,14 @@ export class SettingsComponent implements OnInit {
         if (state.preferences !== 'undefined') {
           this.preferences = state.preferences;
         }
-        // if (state && state['pass_success']) {
-        //   console.log('here')
-        //   // this.pwdForm.reset();
-        // }
-        
+        if (state && state['pass_fail']) {
+          this.rebuild();
+          this.toastr.warning('Incorrect Password');
+        }
+        if (state && state['pass_success']) {
+          this.cancelEdit();;
+          this.toastr.success('Password updated sucessfully');
+        }
       }
       if (state.user_details) {
         if (state.details_loaded === true) {
@@ -210,21 +200,15 @@ export class SettingsComponent implements OnInit {
     });
 
     this.otpForm = this._fb.group({
-      otpNum1: ['', [Validators.required]],
-      otpNum2: ['', [Validators.required]],
-      otpNum3: ['', [Validators.required]],
-      otpNum4: ['', [Validators.required]],
-      otpNum5: ['', [Validators.required]],
-      otpNum6: ['', [Validators.required]]
+      otpNum: ['', [Validators.required, FormValidation.validateOtp]]
     })
-    this.passwordformInit();
+    // this.passwordformInit();
    }
 
   ngOnInit() {
     this.displayView('General')
     this._store.dispatch({ type: ProfileActions.LOAD_USER_DATA_DETAILS });
     this.store.dispatch({ type: AuthActions.STORE_COUNTRY_CODE, payload: this.country.callingCodes[0] });
-    // this._store.dispatch({ type: ProfileActions.DEFAULT_NOTIFICATION_SETTINGS });
   }
 
     /**
@@ -234,12 +218,6 @@ export class SettingsComponent implements OnInit {
     // console.log(country,frmType )
     this.country = country;
     this.store.dispatch({ type: AuthActions.STORE_COUNTRY_CODE, payload: this.country.callingCodes[0] });
-    // trigger phone number check
-    // if (frmType === 'reg') {
-    //   this.regFormBasic.controls['phone'].updateValueAndValidity();
-    // } else if (frmType === 'otp') {
-    //   this.newNumberForm.controls['newNumber'].updateValueAndValidity();
-    // }
   }
   /**
    * drag and drop method
@@ -258,43 +236,6 @@ export class SettingsComponent implements OnInit {
   //   .subscribe(response => {
   //   });
 
-  // /**
-  //  * email form update
-  //  */
-  // emailFormUpdate(value) {
-  //   if ( this.emailForm.valid === true ) {
-  //     const form =  {
-  //       'email': value.email
-  //     }
-  //     this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
-  //     this.emailActive = false;
-  //   }
-  // }
-  /**
-   * phone form update
-   */
-//   phoneFormUpdate() {
-//     if ( this.number !== 'undefined' ) {
-//       const form =   {
-//         'extras': {
-//             'contact': {
-//               'mobile':
-//               {
-//                 'mobile': this.number
-//               }
-//             }
-//       }
-//     }
-//       this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
-//      // this._modalService.close('otpSuccess')
-//       this.phoneActive = false;
-//     //   this._store.select('profileTags').subscribe((state) => {
-//     //     if (state['profileUpdateSuccess'] === true) {
-//     //     }
-//     // })
-//   }
-// }
-
   // // OTP Validation
   // otpSubmit(value) {
   //   if (this.otpForm.valid === true) {
@@ -311,6 +252,10 @@ export class SettingsComponent implements OnInit {
   //     this.store.dispatch({ type: AuthActions.OTP_SUBMIT, payload: send });
   //   }
   // }
+  allowNumbersOnly(e: any) {
+    const k = e.keyCode;
+    return ((k >= 48 && k <= 57) || (k >= 96 && k <= 105) || k === 8);
+  }
 
   updateContactNumber() {
     if (this.phone.length < 4) {
@@ -357,13 +302,7 @@ export class SettingsComponent implements OnInit {
         // if (this.phone !== undefined && this.phone.value.length > 5) {
         //   phoneNumber = this.phone;
         // }
-        // console.log('otp form data', value); return;
-        const otpValue = value.otpNum1.toString() +
-                         value.otpNum2.toString() +
-                         value.otpNum3.toString() +
-                         value.otpNum4.toString() +
-                         value.otpNum5.toString() +
-                         value.otpNum6.toString();
+        const otpValue = value.otpNum.toString();
         const otpData = {
           contactNumber: phoneNumber,
           countryCode: this.country.callingCodes[0],
@@ -372,32 +311,7 @@ export class SettingsComponent implements OnInit {
         this.store.dispatch({ type: AuthActions.OTP_SUBMIT, payload: otpData });
       }
     }
-
-      // focus on next otp number
-  nextOtpNum(e: any, pos: number) {
-    // console.log(e,pos)
-    if (e.keyCode === 8) {
-      if (pos > 0 && pos < 7) {
-        const prevNum = pos - 1;
-        if (prevNum > 0) {
-          const prevOtpInput = 'otpNum' + prevNum.toString();
-          setTimeout(() => { this[prevOtpInput].nativeElement.focus(); }, 10);
-        }
-        return true;
-      }
-    } else if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
-      if (pos > 0 && pos < 6) {
-        const nextNum = pos + 1;
-        const nextOtpInput = 'otpNum' + nextNum.toString();
-        setTimeout(() => { this[nextOtpInput].nativeElement.focus(); }, 10);
-      }
-      return true;
-    }
-    return false;
-  }
-
-
-    /**
+  /**
    * Resend OTP on existing number
    */
   resendOtp() {
@@ -428,14 +342,14 @@ export class SettingsComponent implements OnInit {
   /**
    * profile type form update
    */
-  profileTypeFormUpdate(value) {
-    if ( this.emailForm.valid === true ) {
-      const form =  {
-        'email': value.email
-      }
-      this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
-    }
-  }
+  // profileTypeFormUpdate(value) {
+  //   if ( this.emailForm.valid === true ) {
+  //     const form =  {
+  //       'email': value.email
+  //     }
+  //     this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
+  //   }
+  // }
   /**
    * Password form submit
    */
@@ -447,8 +361,10 @@ export class SettingsComponent implements OnInit {
       }
       this._store.dispatch({ type: ProfileActions.USER_PASSWORD_UPDATE, payload: body });
       this.passwordActive = false;
+      // this.cancelEdit();
     }
-     this.rebuild();
+    //  this.rebuild();
+    //  this.cancelEdit();
   }
 
   rebuild() {
@@ -483,6 +399,9 @@ export class SettingsComponent implements OnInit {
       setTimeout(() => {
         this.countrySelectorSet.initCountrySelector('country-options-set');
       }, 50);
+    }
+    if(fieldName === 'passChange'){
+      this.passwordformInit();
     }
     this.editingField = fieldName;
   }
@@ -611,9 +530,9 @@ export class SettingsComponent implements OnInit {
 
     // user user exists
     userExistCheck(value) {
-      console.log('username validation',value.length, value)
+      // console.log('username validation',value.length, value)
       if (value.length <= 0) {
-        console.log('username validation',value.length)
+        // console.log('username validation',value.length)
         this.isRequired = true;
         this.validSuccess = false;
       } else {this.isRequired = false;
@@ -664,7 +583,9 @@ export class SettingsComponent implements OnInit {
 
   calculateAge(birthday) {
     const ageDifMs = Date.now() - birthday.getTime();
+    console.log(ageDifMs);
     const ageDate = new Date(ageDifMs); // miliseconds from epoch
+    console.log(ageDate);
     return Math.abs(ageDate.getUTCFullYear() - 1970);
   }
   /**
@@ -678,18 +599,7 @@ export class SettingsComponent implements OnInit {
     }
   }
 
-  /**
-   * password toggle field
-  //  */
-  // passwordToggle() {
-  //   console.log('being called');
-  //   if (this.passwordActive === true) {
-  //     this.passwordActive = false;
-  //     this.rebuild();
-  //   } else {
-  //     this.passwordActive = true;
-  //   }
-  // }
+
 
   removeUtc(string) {
     const s1 = string.slice(0, 10);
@@ -714,7 +624,6 @@ export class SettingsComponent implements OnInit {
   }
 
   displayView(tab: string) {
-    // console.log('tab', tab)
    this.selectedView = tab;
    if (tab === 'Security') {
     this._store.dispatch({type: ProfileActions.LOAD_BLOCK_USERS, payload: this.userHandle});
@@ -844,4 +753,27 @@ export class SettingsComponent implements OnInit {
     // this._store.dispatch({type: ProfileActions.UNBLOCK_USER, payload: form});
     // this._store.dispatch({type: ProfileActions.LOAD_BLOCK_USERS, payload: this.userHandle});
   }
+
+  // // focus on next otp number
+  // nextOtpNum(e: any, pos: number) {
+  //   // console.log(e,pos)
+  //   if (e.keyCode === 8) {
+  //     if (pos > 0 && pos < 7) {
+  //       const prevNum = pos - 1;
+  //       if (prevNum > 0) {
+  //         const prevOtpInput = 'otpNum' + prevNum.toString();
+  //         setTimeout(() => { this[prevOtpInput].nativeElement.focus(); }, 10);
+  //       }
+  //       return true;
+  //     }
+  //   } else if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
+  //     if (pos > 0 && pos < 6) {
+  //       const nextNum = pos + 1;
+  //       const nextOtpInput = 'otpNum' + nextNum.toString();
+  //       setTimeout(() => { this[nextOtpInput].nativeElement.focus(); }, 10);
+  //     }
+  //     return true;
+  //   }
+  //   return false;
+  // }
 }
