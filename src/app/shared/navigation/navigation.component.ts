@@ -46,18 +46,16 @@ export class NavigationComponent implements OnInit, OnDestroy {
   // userCard: UserCard;
   userCards: ProfileCards;
 
-  /* ========================== notification ========================== */
   notificationsState$: Observable<Notification>;
   notifState: any;
   notificationIds: any[];
   notifications: any[];
-  /* ========================== notification ========================== */
 
-  /* ========================== notification ========================== */
   messagesState$: Observable<MessageModal>;
   msgState: any;
   messages: any[];
-  /* ========================== notification ========================== */
+
+  loadedNotifsInitialSet = false;
 
   constructor(
     private store: Store<ProfileModal>,
@@ -120,7 +118,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
         if (typeof state['recieved_notifications'] !== 'undefined') {
           const noti = state['recieved_notifications'];
           this.notifications = _uniqBy(noti, noti.notificationId);
-          console.log('this.notifications', this.notifications);
           this.processNotifications();
         }
         if (typeof state['marking_as_read_response'] !== 'undefined') {
@@ -149,11 +146,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   notificationPopup() {
-    if (!this.notifications) {
-      this.loadNotifications();
-    }
-    if (this.notify) {
-      this.notify = false;
+    if (!this.loadedNotifsInitialSet) {
+      this.loadedNotifsInitialSet = true;
+      this.loadNotifsInitialSet();
     }
   }
   /**
@@ -293,7 +288,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
     return;
   }
 
-  loadNotifications() {
+  loadNotifsInitialSet() {
+    console.log('loadNotifsInitialSet');
     const data = {
       limit: 10,
       page: 0
@@ -399,7 +395,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.store.select('notificationTags')
       .first(notification => notification['mark_as_all_read_success'] === true)
       .subscribe(data => {
-        this.loadNotifications();
+        this.loadNotifsInitialSet();
       });
   }
 
