@@ -2,3 +2,33 @@
     max-width: 100% !important;
     max-height: 600px !important;
 }
+vg-controls{
+    background-color: #333;
+    height: 43px;
+}
+vg-play-pause{
+    height: 43px;
+    line-height: 43px;
+}
+vg-time-display{
+    height: 43px;
+    line-height: 43px;
+    color: #a5a5a5;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 100;
+}
+
+vg-mute{
+    height: 43px;
+    line-height: 43px;
+}
+vg-fullscreen{
+    height: 43px;
+    line-height: 43px;
+}
+vg-scrub-bar{
+    height: 43px;
+}
+vg-scrub-bar-current-time{
+    background-color: #000;
+}
