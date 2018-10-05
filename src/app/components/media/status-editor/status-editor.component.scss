@@ -259,3 +259,10 @@ div#create-channel form {
         margin-top: 25px;
     }
 }
+
+.o-addpost__commtxt{
+    white-space: nowrap;
+    width: 225px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

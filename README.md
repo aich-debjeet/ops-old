@@ -28,5 +28,5 @@ Before running the tests make sure you are serving the app via `ng serve`.
 
 * [*Muneef*](https://github.com/muneef)  
 * [*Salsabeel*](https://github.com/salsabeeljamal) 
-* [*Abhijeet Salunkhe*](https://bitbucket.org/abhijeet_salunkhe) 
-* [*Debjeet Aich*](https://bitbucket.org/debjeet_aich)
+* [*Abhijeet Salunkhe*](https://bitbucket.org/abhijeet-aeione/) 
+* [*Debjeet Aich*](https://bitbucket.org/debjeet-aeione/

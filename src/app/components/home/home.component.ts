@@ -56,8 +56,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.quickList = state.userQuickAccess;
     });
 
-    this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS });
-
   }
 
   ngOnInit() {
