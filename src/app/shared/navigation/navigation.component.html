@@ -258,38 +258,36 @@
                 <a routerLink="/user/message">Your Messages</a>
                 <div class="dropdown__arrow"><img [src]="imageBaseUrl + 'img/arrow.png'"></div>
               </div>
-              <ng-container *ngIf="messages?.length > 0;">
-                <div class="o-alert_scroll" id="ops_scrollbar">
-                  <div class="dropdown__item p-16 msg__unread cursor_pointer" *ngFor="let message of messages| slice:0:7"
-                    (click)="openLink(message)" [ngClass]="{'msg__read': message?.isRead, 'msg__unread': !message?.isRead}">
-                    <div class="dropnoti__avatar" [routerLink]="['', 'profile', 'u', message?.username, 'user']">
-                      <img *ngIf="!message?.profileImage" [src]="'imageBaseUrl + /img/avatar.png'" class="img-responsive">
-                      <img *ngIf="message?.profileImage" [src]="imageBaseUrl + message?.profileImage" class="img-responsive">
-                    </div>
-                    <div class="dropnoti__detail">
-                      <span>
-                        <a [routerLink]="['', 'profile', 'u', message?.username, 'user']">
-                          <span class="dropnoti__bold"> {{ message?.name }}</span>
-                        </a>
-                        <p>{{ message?.latestMessage }}</p>
-                      </span>
-                    </div>
-                    <div class="dropnoti__icon">
-                      <img *ngIf="message?.messageType == 'Status_Comments' || message?.messageType == 'Media_Comments'"
-                        [src]="imageBaseUrl + 'img/svg/ico_comment.svg'" class="noti_cont_footer_img">
-                      <img *ngIf="message?.messageType == 'Media_Spot'" class="cursor_pointer" [routerLink]="['', { outlets: { media : ['media', message?.media?.mediaId] } } ]"
-                        [src]="imageBaseUrl + 'img/svg/spot_icon.svg'">
-                    </div>
-                    <p class="msg__time">{{ message?.time | utcDate | date:'d MMM hh:mm a' }}</p>
+              <div class="o-alert_scroll" id="ops_scrollbar">
+                <div class="dropdown__item p-16 msg__unread cursor_pointer" *ngFor="let message of messages"
+                  (click)="openLink(message)" [ngClass]="{'msg__read': message?.isRead, 'msg__unread': !message?.isRead}">
+                  <div class="dropnoti__avatar" [routerLink]="['', 'profile', 'u', message?.username, 'user']">
+                    <img *ngIf="!message?.profileImage" [src]="'imageBaseUrl + /img/avatar.png'" class="img-responsive">
+                    <img *ngIf="message?.profileImage" [src]="imageBaseUrl + message?.profileImage" class="img-responsive">
                   </div>
+                  <div class="dropnoti__detail">
+                    <span>
+                      <a [routerLink]="['', 'profile', 'u', message?.username, 'user']">
+                        <span class="dropnoti__bold"> {{ message?.name }}</span>
+                      </a>
+                      <p>{{ message?.latestMessage }}</p>
+                    </span>
+                  </div>
+                  <div class="dropnoti__icon">
+                    <img *ngIf="message?.messageType == 'Status_Comments' || message?.messageType == 'Media_Comments'"
+                      [src]="imageBaseUrl + 'img/svg/ico_comment.svg'" class="noti_cont_footer_img">
+                    <img *ngIf="message?.messageType == 'Media_Spot'" class="cursor_pointer" [routerLink]="['', { outlets: { media : ['media', message?.media?.mediaId] } } ]"
+                      [src]="imageBaseUrl + 'img/svg/spot_icon.svg'">
+                  </div>
+                  <p class="msg__time">{{ message?.time | utcDate | date:'d MMM hh:mm a' }}</p>
                 </div>
-              </ng-container>
+                <ng-container *ngIf="msgState?.getting_messanger_list === true">
+                  <app-placeholder-notification *ngFor="let n of [0,1,2]"></app-placeholder-notification>
+                </ng-container>
+              </div>
               <div *ngIf="messages?.length === 0" class="o-alert_scroll o-alert__empty" id="ops_scrollbar">
                 <div class="c-text_lg color-grey-dark">You have no messages</div>
               </div>
-              <ng-container *ngIf="msgState?.getting_messanger_list === true">
-                <app-placeholder-notification *ngFor="let n of [0,1]"></app-placeholder-notification>
-              </ng-container>
               <div *ngIf="messages?.length > 0;" class="dropdown__item p-16 msg__read">
                 <a routerLink="/user/message">
                   <p class="dropnoti__viewall">View All</p>
