@@ -290,62 +290,6 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
         load_conversation_data: []
       });
 
-    case MessageActions.LOAD_USER_PROFILE_DATA:
-    return (<any>Object).assign({}, state, {
-      success: true,
-    });
-
-    case MessageActions.LOAD_USER_PROFILE_DATA_SUCCESS:
-    return (<any>Object).assign({}, state, {
-      userProfileDetails: payload,
-      success: true,
-    });
-
-    case MessageActions.LOAD_USER_PROFILE_DATA_FAILED:
-    return (<any>Object).assign({}, state, {
-      success: false,
-    });
-
-    case MessageActions.UNLOAD_USER_PROFILE_DATA:
-    return (<any>Object).assign({}, state, {
-      success: true,
-    });
-
-    case MessageActions.UNLOAD_USER_PROFILE_DATA_SUCCESS:
-    return
-
-    case MessageActions.LOAD_NON_USER_PROFILE_DATA:
-    return (<any>Object).assign({}, state, {
-      success: true
-    });
-
-    case MessageActions.LOAD_NON_USER_PROFILE_DATA_SUCCESS:
-    return (<any>Object).assign({}, state, {
-      nonUserProfileDetails: payload,
-      success: true
-    });
-
-    case MessageActions.LOAD_NON_USER_PROFILE_DATA_FAILED:
-    return (<any>Object).assign({}, state, {
-      success: false
-    });
-
-    case MessageActions.LOAD_NON_USER_PROFILE2_DATA:
-    return (<any>Object).assign({}, state, {
-      success: true
-    });
-
-    case MessageActions.LOAD_NON_USER_PROFILE2_DATA_SUCCESS:
-    return (<any>Object).assign({}, state, {
-      nonUserProfile2Details: payload,
-      success: true
-    });
-
-    case MessageActions.LOAD_NON_USER_PROFILE2_DATA_FAILED:
-    return (<any>Object).assign({}, state, {
-      success: false
-    });
-
     case MessageActions.GET_RECEIPIENT:
       return Object.assign({}, state, {
       receipients: [],

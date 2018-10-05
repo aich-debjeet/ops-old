@@ -12,6 +12,7 @@ import { PusherService } from './../../../services/pusher.service';
 
 import * as _ from 'lodash';
 import { ActivatedRoute } from '@angular/router';
+import { GeneralUtilities } from '../../../helpers/general.utils';
 
 @Component({
   selector: 'app-message-home',
@@ -48,7 +49,8 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
     private messageStore: Store<MessageModal>,
     private profileStore: Store<ProfileModal>,
     private pusherService: PusherService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private gUtils: GeneralUtilities
   ) {
     this.selectedUser = {};
     this.pagination = {
@@ -122,10 +124,6 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
     this.convUserHandle = this.activatedRoute.snapshot.queryParams['handle'];
     if (this.convUserHandle && this.convUserHandle.length > 0) {
       // console.log('load user details for: ', this.convUserHandle);
-      this.messageStore.dispatch({
-        type: MessageActions.LOAD_USER_PROFILE_DATA,
-        payload: this.convUserHandle
-      });
     }
     if (this.pusherService.messagesChannel) {
       // pusher message listener
@@ -267,20 +265,11 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
    */
   sendMessage() {
     let loggedUsersImage = 'avatars/user-avatar-male.png';
-    if (this.profileState
-      && this.profileState['profile_cards']
-      && this.profileState['profile_cards']['active']
-      && this.profileState['profile_cards']['active']['image']
-    ) {
+    if (this.gUtils.checkNestedKey(this.profileState, ['profile_cards', 'active', 'image'])) {
       loggedUsersImage = this.profileState['profile_cards']['active']['image']
     }
-
     let loggedUsersHandle = '';
-    if (this.profileState
-      && this.profileState['profile_cards']
-      && this.profileState['profile_cards']['active']
-      && this.profileState['profile_cards']['active']['handle']
-    ) {
+    if (this.gUtils.checkNestedKey(this.profileState, ['profile_cards', 'active', 'handle'])) {
       loggedUsersHandle = this.profileState['profile_cards']['active']['handle']
     }
 
