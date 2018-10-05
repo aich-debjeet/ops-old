@@ -359,3 +359,10 @@
     border-bottom: 1px solid #c1c1c1;
     color:#000000;
 }
+
+.c-post__commenter{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+}
