@@ -64,7 +64,7 @@
                 </div>
                 <div class="c-card__links c-block__inline c-float--none p-t-0">
                     <div class="c-links">
-                        <div class="c-links__spots" (click)="spotMedia(data?.id)">
+                        <div class="c-links__spots" (click)="spotMedia(data)">
                             <img *ngIf="spot===false" [src]="imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
                             <img *ngIf="spot===true" [src]="imageLink + 'img/svg/spot_icon.svg'" class="c-links__image">
                             <span class="c-links__count">{{ spotCount }}</span>
