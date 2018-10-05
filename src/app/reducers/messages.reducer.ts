@@ -102,7 +102,7 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
     case MessageActions.GET_MESSANGER_LIST_SUCCESS:
       let messanger_list_data_if_reached_out;
       if (state && state['messanger_list_data'] !== undefined) {
-        messanger_list_data_if_reached_out = [...payload, ...state['load_conversation_data']];
+        messanger_list_data_if_reached_out = [...payload, ...state['messanger_list_data']];
       } else {
         messanger_list_data_if_reached_out = payload;
       }
