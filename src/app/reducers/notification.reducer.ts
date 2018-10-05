@@ -64,7 +64,7 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
         mark_as_all_read_success: true
       });
 
-    case NotificationActions.ADD_PUSHER_NOTIFICATIONS:
+    case NotificationActions.ADD_PUSHER_NOTIFICATION:
       let updated_push_notifications;
       if (state && state['recieved_notifications'].length > 0) {
         const arr = [payload];

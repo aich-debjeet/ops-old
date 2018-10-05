@@ -174,7 +174,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
         // console.log(message)
         this.notify = true;
         this.notificationStore.dispatch({
-          type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+          type: NotificationActions.ADD_PUSHER_NOTIFICATION,
           payload: JSON.parse(message)
         });
       });
@@ -182,7 +182,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
         // console.log(message)
         this.notify = true;
         this.notificationStore.dispatch({
-          type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+          type: NotificationActions.ADD_PUSHER_NOTIFICATION,
           payload: JSON.parse(message)
         });
       });
@@ -190,7 +190,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
         // console.log(message)
         this.notify = true;
         this.notificationStore.dispatch({
-          type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+          type: NotificationActions.ADD_PUSHER_NOTIFICATION,
           payload: JSON.parse(message)
         });
       });
@@ -198,7 +198,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
         // console.log(message)
         this.notify = true;
         this.notificationStore.dispatch({
-          type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+          type: NotificationActions.ADD_PUSHER_NOTIFICATION,
           payload: JSON.parse(message)
         });
       });
@@ -206,7 +206,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
         // console.log(message)
         this.notify = true;
         this.notificationStore.dispatch({
-          type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+          type: NotificationActions.ADD_PUSHER_NOTIFICATION,
           payload: JSON.parse(message)
         });
       });
@@ -214,7 +214,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
         // console.log(message)
         this.notify = true;
         this.notificationStore.dispatch({
-          type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+          type: NotificationActions.ADD_PUSHER_NOTIFICATION,
           payload: JSON.parse(message)
         });
       });
@@ -222,7 +222,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
         // console.log(message)
         this.notify = true;
         this.notificationStore.dispatch({
-          type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+          type: NotificationActions.ADD_PUSHER_NOTIFICATION,
           payload: JSON.parse(message)
         });
       });
@@ -230,7 +230,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
         // console.log(message)
         this.notify = true;
         this.notificationStore.dispatch({
-          type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+          type: NotificationActions.ADD_PUSHER_NOTIFICATION,
           payload: JSON.parse(message)
         });
       });
@@ -238,7 +238,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
         //  console.log(message)
         this.notify = true;
         this.notificationStore.dispatch({
-          type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+          type: NotificationActions.ADD_PUSHER_NOTIFICATION,
           payload: JSON.parse(message)
         });
       });
