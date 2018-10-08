@@ -242,7 +242,7 @@
     font-size: 11px;
     line-height: 18px;
     position: absolute;
-    bottom: 6px;
+    bottom: 1px;
     right: 12px
 }
 
@@ -732,13 +732,6 @@
     width: 100%;
     float: left;
 }
-.o-alert_scroll {
-    width: 100%;
-    float: left;
-    height: 380px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
 
 .o-alert__empty {
     display: flex;
@@ -749,7 +742,7 @@
 .o-alert_scroll {
     width: 100%;
     float: left;
-    height: 200px;
+    height: 218px;
     overflow-y: scroll;
     overflow-x: hidden;
 }
