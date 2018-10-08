@@ -165,7 +165,8 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
         reg_basic_form_data: payload,
         success: true,
         user_basic_reg_success: false,
-        completed: []
+        completed: [],
+        reg_basic_failed_resp: null
       });
 
     case AuthActions.USER_REGISTRATION_BASIC_SUCCESS:
@@ -184,7 +185,8 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
         reg_basic_uploaded_form_data: false,
         user_basic_reg_success: false,
         success: false,
-        completed: payload
+        completed: payload,
+        reg_basic_failed_resp: JSON.parse(payload._body)
       });
 
     /**

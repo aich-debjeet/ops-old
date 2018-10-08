@@ -407,10 +407,10 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
     });
 
     this.store.select('loginTags')
-    .first(data => data['ERROR'])
+    .first(data => data['reg_basic_failed_resp'])
     .subscribe(resp => {
-      if (resp['ERROR']) {
-        this.toastr.warning(resp['ERROR'], '', {
+      if (resp['reg_basic_failed_resp'] && resp['reg_basic_failed_resp']['ERROR']) {
+        this.toastr.warning(resp['reg_basic_failed_resp']['ERROR'], '', {
           timeOut: 3000
         });
         this.uploadingFormData = false;
@@ -438,10 +438,10 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
     });
 
     this.store.select('loginTags')
-    .first(data2 => data2['ERROR'])
+    .first(data2 => data2['reg_basic_failed_resp'])
     .subscribe(resp => {
-      if (resp['ERROR']) {
-        this.toastr.warning(resp['ERROR'], '', {
+      if (resp['reg_basic_failed_resp'] && resp['reg_basic_failed_resp']['ERROR']) {
+        this.toastr.warning(resp['reg_basic_failed_resp']['ERROR'], '', {
           timeOut: 3000
         });
         this.uploadingFormData = false;
