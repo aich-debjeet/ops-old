@@ -2,12 +2,14 @@
     <vg-overlay-play *ngIf="play"></vg-overlay-play>
     <vg-buffering *ngIf="play"></vg-buffering>
 
-    <vg-scrub-bar *ngIf="play">
-        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-        <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
-    </vg-scrub-bar>
-
-    <vg-controls>
+    <vg-controls *ngIf="play">
+        <vg-play-pause></vg-play-pause>
+        <vg-scrub-bar>
+            <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+            <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+        </vg-scrub-bar>
+        <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>    
+        <vg-mute></vg-mute>
         <vg-fullscreen></vg-fullscreen>
     </vg-controls>
 
