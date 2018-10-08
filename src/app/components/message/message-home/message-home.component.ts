@@ -12,6 +12,7 @@ import { PusherService } from './../../../services/pusher.service';
 
 import * as _ from 'lodash';
 import { ActivatedRoute } from '@angular/router';
+import { GeneralUtilities } from '../../../helpers/general.utils';
 
 @Component({
   selector: 'app-message-home',
@@ -48,7 +49,8 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
     private messageStore: Store<MessageModal>,
     private profileStore: Store<ProfileModal>,
     private pusherService: PusherService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private gUtils: GeneralUtilities
   ) {
     this.selectedUser = {};
     this.pagination = {
@@ -122,54 +124,54 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
     this.convUserHandle = this.activatedRoute.snapshot.queryParams['handle'];
     if (this.convUserHandle && this.convUserHandle.length > 0) {
       // console.log('load user details for: ', this.convUserHandle);
-      this.messageStore.dispatch({
-        type: MessageActions.LOAD_USER_PROFILE_DATA,
-        payload: this.convUserHandle
+    }
+    if (this.pusherService.messagesChannel) {
+      // pusher message listener
+      this.pusherService.messagesChannel.bind('New-Message', (data) => {
+        const message = JSON.parse(data);
+        // check if it's a network request
+        if (message && message['isNetworkRequest'] && message['isNetworkRequest'] === true) {
+          // console.log('Network Request');
+          // append the new object to the user listing
+          const newListObj = {
+            handle: message.by,
+            isBlocked: false,
+            isRead: message.isRead,
+            latestMessage: message.content,
+            messageType: 'received',
+            name: message.name,
+            profileImage: message.profileImage,
+            time: message.time,
+            username: message.username
+          };
+          this.messageStore.dispatch({
+            type: MessageActions.PREPEND_ELEMENT_TO_USER_LIST,
+            payload: newListObj
+          });
+        } else {
+          this.messageStore.dispatch({
+            type: MessageActions.ADD_PUSHER_MESSAGE,
+            payload: message
+          });
+        }
+        setTimeout(() => {
+          this.scrollToBottom();
+        }, 20);
       });
     }
-    // pusher message listener
-    this.pusherService.messagesChannel.bind('New-Message', (data) => {
-      const message = JSON.parse(data);
-      // check if it's a network request
-      if (message && message['isNetworkRequest'] && message['isNetworkRequest'] === true) {
-        // console.log('Network Request');
-        // append the new object to the user listing
-        const newListObj = {
-          handle: message.by,
-          isBlocked: false,
-          isRead: message.isRead,
-          latestMessage: message.content,
-          messageType: 'received',
-          name: message.name,
-          profileImage: message.profileImage,
-          time: message.time,
-          username: message.username
-        };
-        this.messageStore.dispatch({
-          type: MessageActions.PREPEND_ELEMENT_TO_USER_LIST,
-          payload: newListObj
-        });
-      } else {
-        this.messageStore.dispatch({
-          type: MessageActions.ADD_PUSHER_MESSAGE,
-          payload: message
-        });
-      }
-      setTimeout(() => {
-        this.scrollToBottom();
-      }, 20);
-    });
 
-    // pusher notifications listener
-    this.pusherService.notificationsChannel.bind('Message-Typing', (userDetails) => {
-      userDetails = JSON.parse(userDetails);
-      if (!this.isTyping && userDetails.handle === this.selectedUser.handle) {
-        this.isTyping = true;
-        setTimeout(() => {
-          this.isTyping = false;
-        }, 900);
-      }
-    });
+    if (this.pusherService.notificationsChannel) {
+      // pusher notifications listener
+      this.pusherService.notificationsChannel.bind('Message-Typing', (userDetails) => {
+        userDetails = JSON.parse(userDetails);
+        if (!this.isTyping && userDetails.handle === this.selectedUser.handle) {
+          this.isTyping = true;
+          setTimeout(() => {
+            this.isTyping = false;
+          }, 900);
+        }
+      });
+    }
 
     // search user input listener
     this.msgUserSearch.valueChanges
@@ -263,20 +265,11 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
    */
   sendMessage() {
     let loggedUsersImage = 'avatars/user-avatar-male.png';
-    if (this.profileState
-      && this.profileState['profile_cards']
-      && this.profileState['profile_cards']['active']
-      && this.profileState['profile_cards']['active']['image']
-    ) {
+    if (this.gUtils.checkNestedKey(this.profileState, ['profile_cards', 'active', 'image'])) {
       loggedUsersImage = this.profileState['profile_cards']['active']['image']
     }
-
     let loggedUsersHandle = '';
-    if (this.profileState
-      && this.profileState['profile_cards']
-      && this.profileState['profile_cards']['active']
-      && this.profileState['profile_cards']['active']['handle']
-    ) {
+    if (this.gUtils.checkNestedKey(this.profileState, ['profile_cards', 'active', 'handle'])) {
       loggedUsersHandle = this.profileState['profile_cards']['active']['handle']
     }
 
