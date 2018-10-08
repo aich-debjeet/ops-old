@@ -1400,7 +1400,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         default_notification: payload.settings.notificationSettings,
         adult_Content: payload.settings.allowARC,
         privateAccount: payload.settings.privateAccount,
-        preferences: payload.settings.homePagePreferences.preferences
+        // preferences: payload.settings.homePagePreferences.preferences
       });
 
     case ProfileActions.DEFAULT_NOTIFICATION_SETTINGS_FAILED:
@@ -1820,6 +1820,11 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
   case ProfileActions.USER_PASSWORD_UPDATE_SUCCESS:
     return Object.assign({}, state, {
       pass_success : payload,
+    });
+    case ProfileActions.USER_PASSWORD_UPDATE_FAILED:
+    const data = JSON.parse(payload._body);
+    return Object.assign({}, state, {
+      pass_fail : data.ERROR,
     });
 
   case ProfileActions.COMMENT_MORE_SUCCESS:

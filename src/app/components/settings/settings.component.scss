@@ -125,6 +125,7 @@
     padding: 24px 32px;
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
         padding: 15px;
+        border-top: 1px #f3f5f7 solid;
     }
 }
 
