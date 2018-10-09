@@ -215,6 +215,14 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
         ]
       });
 
+    case CommunitiesActions.COMMUNTIY_DELETE_COUNT:
+      return Object.assign({}, state, {
+        communityDetails: {
+          ...state.communityDetails,
+          postsCount: state.communityDetails ? state.communityDetails.postsCount - 1 : null
+        }
+      });
+
 
 
     default:

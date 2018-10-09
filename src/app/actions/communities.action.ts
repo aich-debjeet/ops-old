@@ -55,4 +55,6 @@ export class CommunitiesActions {
 
     static MEDIA_SPOT = 'COMMUNITY/MEDIA_SPOT';
     static MEDIA_UNSPOT = 'COMMUNITY/MEDIA_UNSPOT';
+
+    static COMMUNTIY_DELETE_COUNT = 'COMMUNTIY_DELETE_COUNT';
 }
