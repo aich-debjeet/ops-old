@@ -58,7 +58,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
 
   @ViewChild('claimPopup') claimPopup: Modal;
   @ViewChild('otpPopup') otpPopup: Modal;
-  @ViewChild('otpChangeNumber') otpChangeNumber: Modal;
+  // @ViewChild('otpChangeNumber') otpChangeNumber: Modal;
   @ViewChild('termsPopup') termsPopup: Modal;
 
   datePickerConfig: IDatePickerConfig = {
@@ -167,6 +167,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   }
 
   ngOnInit() {
+    this.otpPopup.open();
     this.store.dispatch({ type: AuthActions.STORE_COUNTRY_CODE, payload: this.country.callingCodes[0] });
   }
 
@@ -454,18 +455,23 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
    * Switch to change number modal
    */
   changeMobileNumber() {
+    const existingClasses = document.body.className;
+    document.body.className += existingClasses + ' modal-open ';
     this.otpPopup.close();
-    this.otpChangeNumber.open();
-    setTimeout(() => {
-      this.countrySelectorOtp.initCountrySelector('country-options-otp');
-    }, 10);
+    this.modalService.open('otpChangeNumber');
+    this.countrySelectorOtp.initCountrySelector('country-options-otp');
+    // this.otpPopup.close();
+    // this.otpChangeNumber.open();
+    // setTimeout(() => {
+    //   this.countrySelectorOtp.initCountrySelector('country-options-otp');
+    // }, 10);
   }
 
   /**
    * Switch back to OTP modal
    */
   backToOtp() {
-    this.otpChangeNumber.close();
+    this.modalService.close('otpChangeNumber');
     this.otpPopup.open();
   }
 
