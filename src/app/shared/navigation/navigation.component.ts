@@ -61,11 +61,11 @@ export class NavigationComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<ProfileModal>,
     private notificationStore: Store<Notification>,
-    private msgStore: Store<MessageModal>,
+    private messageStore: Store<MessageModal>,
     public modalService: ModalService,
     public generalHelper: GeneralUtilities,
     private router: Router,
-    private pusherService: PusherService
+    private pusherService: PusherService,
   ) {
 
     this.topNav = {
@@ -128,7 +128,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.messagesState$ = this.msgStore.select('messageTags');
+    this.messagesState$ = this.messageStore.select('messageTags');
     this.msgSub = this.messagesState$.subscribe((state) => {
       this.msgState = state;
       if (typeof state !== 'undefined') {
@@ -216,11 +216,40 @@ export class NavigationComponent implements OnInit, OnDestroy {
       // check if message channels exist
       if (this.pusherService.messagesChannel) {
         // pusher message listener
-        // this.pusherService.messagesChannel.bind('New-Message', (data) => {
-        //   // show blue tick as a notification for new message
-        //   this.notifyMsg = true;
-        //   console.log('New-Message', data);
-        // });
+        this.pusherService.messagesChannel.bind('New-Message', (data) => {
+          // show blue tick as a notification for new message
+          this.notifyMsg = true;
+          console.log('New-Message', data);
+          const message = JSON.parse(data);
+          // check if it's a network request
+          if (message && message['isNetworkRequest'] && message['isNetworkRequest'] === true) {
+            // console.log('Network Request');
+            // append the new object to the user listing
+            const newListObj = {
+              handle: message.by,
+              isBlocked: false,
+              isRead: message.isRead,
+              latestMessage: message.content,
+              messageType: 'received',
+              name: message.name,
+              profileImage: message.profileImage,
+              time: message.time,
+              username: message.username
+            };
+            this.messageStore.dispatch({
+              type: MessageActions.PREPEND_ELEMENT_TO_USER_LIST,
+              payload: newListObj
+            });
+          } else {
+            this.messageStore.dispatch({
+              type: MessageActions.ADD_PUSHER_MESSAGE,
+              payload: message
+            });
+          }
+          // setTimeout(() => {
+          //   this.scrollToBottom();
+          // }, 20);
+        });
       }
 
     }
@@ -398,7 +427,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   loadMessages() {
-    this.msgStore.dispatch({ type: MessageActions.GET_MESSANGER_LIST, payload: null });
+    this.messageStore.dispatch({ type: MessageActions.GET_MESSANGER_LIST, payload: null });
   }
 
 }
