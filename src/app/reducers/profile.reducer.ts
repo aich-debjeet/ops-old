@@ -1904,36 +1904,29 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     const profile_post_List = state.user_posts.find(t => t.id === payload.postId);
     const profile_list_index = state.user_posts.indexOf(profile_post_List);
 
-    if (home_post_List) {
-      return Object.assign({}, state, {
-        user_following_posts: [
-          ...state.user_following_posts.slice(0, home_list_index),
-          Object.assign({}, home_post_List, {
-            commentsList: [
-            payload,
-            ...home_post_List.commentsList
-            ],
-          }),
-          ...state.user_following_posts.slice(home_list_index + 1)
-        ]
-      });
-    }
-    if (profile_post_List) {
-      return Object.assign({}, state, {
-        user_posts: [
-          ...state.user_posts.slice(0, profile_list_index),
-          Object.assign({}, profile_post_List, {
-            commentsList: [
-            payload,
-            ...profile_post_List.commentsList
-            ],
-          }),
-          ...state.user_posts.slice(profile_list_index + 1)
-        ]
+    return Object.assign({}, state, {
+      user_following_posts:  home_post_List === undefined ? [...state.user_following_posts] : [
+        ...state.user_following_posts.slice(0, home_list_index),
+        Object.assign({}, home_post_List, {
+          commentsList: [
+          payload,
+          ...home_post_List.commentsList
+          ],
+        }),
+        ...state.user_following_posts.slice(home_list_index + 1)
+      ],
+      user_posts: profile_post_List === undefined ? [...state.user_posts] : [
+        ...state.user_posts.slice(0, profile_list_index),
+        Object.assign({}, profile_post_List, {
+          commentsList: [
+          payload,
+          ...profile_post_List.commentsList
+          ],
+        }),
+        ...state.user_posts.slice(profile_list_index + 1)
+      ]
+    });
 
-      });
-    }
-    return state;
 
   case ProfileActions.COMMENT_COUNT_INCREMENT:
     const home_post = state.user_following_posts.find(t => t.id === payload);

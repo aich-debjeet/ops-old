@@ -144,7 +144,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
 
     case MediaActions.POST_COMMENT_SUCCESS:
       const spotfeed_post = state.channel_post.find(t => t.id === payload['comment'].postId);
-      const spotfeed_index = state.channel_post.indexOf(spotfeed_post);
+      const spotfeed_index = spotfeed_post ? state.channel_post.indexOf(spotfeed_post) : null;
       const spotfeed_count = spotfeed_post ? spotfeed_post.commentsCount + 1 : 0;
 
       return Object.assign({}, state, {
@@ -152,7 +152,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
         comment_post_loading: false,
         current_comment: payload['comment'],
         media_comment: state.media_comment ? state.media_comment.concat(payload['comment']) : [],
-        channel_post: [
+        channel_post: spotfeed_post === undefined ? [...state.channel_post] : [
           ...state.channel_post.slice(0, spotfeed_index),
           Object.assign({}, spotfeed_post, {commentsCount: spotfeed_count }),
           ...state.channel_post.slice(spotfeed_index + 1)
