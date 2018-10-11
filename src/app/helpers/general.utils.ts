@@ -6,6 +6,18 @@ export class GeneralUtilities {
     constructor() { }
 
     /**
+     * check if given string is a json or not
+     * @param string
+     */
+    isJson(str) {
+        try {
+            return JSON.parse(str);
+        } catch (e) {
+            return false;
+        }
+    }
+
+    /**
      * Date put to reverse formate
      */
     reverseDate(string) {
