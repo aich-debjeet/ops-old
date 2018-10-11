@@ -1203,6 +1203,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_ALL_PROFILES:
       if (payload.name.scrollId === null) {
         return Object.assign({}, state, {
+          user_profiles_all_loading: true,
+          user_profiles_all_loaded: false,
           user_profiles_all: [],
           people_follow_scroll_id: null
         });
@@ -1215,6 +1217,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       const resp = payload.profileResponse;
       const profile_list = state.user_profiles_all.concat(resp)
       return Object.assign({}, state, {
+        user_profiles_all_loading: false,
         user_profiles_all_loaded: true,
         user_profiles_all: profile_list,
         people_follow_scroll_id: payload.scrollId
@@ -1222,7 +1225,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
     case ProfileActions.LOAD_ALL_PROFILES_FAILED:
       return Object.assign({}, state, {
-        user_profiles_all_loaded: false
+        user_profiles_all_loading: false,
+        user_profiles_all_loaded: false,
       });
 
       /**
