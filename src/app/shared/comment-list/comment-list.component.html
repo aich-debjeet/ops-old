@@ -14,7 +14,7 @@
         </div>
       <!--<input type="text" class="c-post__comment_text c-contenteditable" *ngIf="isEdit" [(ngModel)]="messageText" (keyup.enter)="onContentSaved()" value="{{ commentData?.comment }}">-->
     </div>
-    <div class="c-post__comment--time">{{ (commentData?.updatedDate ? commentData?.updatedDate : commentData?.createdDate) | utcDate | date: 'hh:mm:ss aa ' }}</div>
+    <div class="c-post__comment--time">{{ (commentData?.updatedDate ? commentData?.updatedDate : commentData?.createdDate) | utcDate | date: 'hh:mm:ss a' }}</div>
   </div>
   <div class="dropdown c-dropdown c-dropdown__options m-r-16" appDropdown *ngIf="commentData?.isOwner">
       <span class="dropdown-toggle" appDropdownOpen>
