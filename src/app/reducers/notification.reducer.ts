@@ -1,11 +1,7 @@
 import { ActionReducer, Action } from '@ngrx/store';
-
 import { Notification } from '../models/notification.model';
 import { NotificationActions } from '../actions/notification.action';
-import {Observable} from 'rxjs/Observable';
-import * as _ from 'lodash';
-
-
+import { uniqBy as _uniqBy } from 'lodash';
 
 export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: Action) =>  {
 
@@ -22,6 +18,7 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
       let updated_notifications;
       if (state['recieved_notifications'] && state['recieved_notifications'].length > 0) {
         updated_notifications = [...state.recieved_notifications, ...payload];
+        updated_notifications = _uniqBy(updated_notifications, 'notificationId');
       } else {
         updated_notifications = payload;
       }
