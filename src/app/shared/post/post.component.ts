@@ -106,6 +106,9 @@ export class PostComponent implements OnInit, OnDestroy {
 
   onContentDelete(content) {
     this.postDelete.next(content);
+    if (this.postType === 'community') {
+      this.store.dispatch({ type: CommunitiesActions.COMMUNTIY_DELETE_COUNT });
+    }
   }
 
   /**
