@@ -16,6 +16,7 @@ import { Subscription, ISubscription } from 'rxjs/Subscription';
 import { environment } from '../../../environments/environment';
 import { ModalService } from '../../shared/modal/modal.component.service';
 import { FormValidation } from '../../helpers/form.validator';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -44,7 +45,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private store: Store<Login>,
     private router: Router,
     public route: ActivatedRoute,
-    public modalService: ModalService
+    public modalService: ModalService,
+    private toastr: ToastrService
   ) {
     this.loginForm = fb.group({
       email: ['', Validators.required],
@@ -76,6 +78,11 @@ export class LoginComponent implements OnInit, OnDestroy {
             && state['error_description']['error_desc'] === 'OTP_NOT_VALIDATED'
           ) {
             this.otpWindow.open();
+          }
+          if (typeof state['error_description'] === 'string') {
+            this.toastr.warning(state['error_description'], '', {
+              timeOut: 3000
+            });
           }
         }
         if (typeof state['user_otp_success'] !== 'undefined' && state['user_otp_success'] === true) {
