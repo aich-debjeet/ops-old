@@ -87,7 +87,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   ) {
     this.tagState$ = this.store.select('eventTags');
     this.subscription = this.tagState$.subscribe((state) => {
-      if (state['event_list'] && state.event_Loaded === true) {
+      if (state['event_list'] && state.event_loaded === true) {
         this.eventList = state['event_list'];
         this.scrollId = state['event_scroll_id']
         this.eventTypeList = state['event_filter']

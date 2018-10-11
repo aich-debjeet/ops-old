@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -17,7 +17,7 @@ import { GeneralUtilities } from '../../../helpers/general.utils';
   styleUrls: ['./registration-add-skill.component.scss']
 })
 
-export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
+export class RegistrationAddSkillComponent implements OnInit, OnDestroy, AfterViewInit {
   image_base_url = environment.API_IMAGE;
   skillSelectionState$: Observable<Login>;
   searchSkillForm: FormGroup;
@@ -25,14 +25,12 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
   selectedSkills = [];
   skills = [];
   searchQuery: String;
-  isSearching = false;
-  showPreloader = true;
   skillsSelected = false;
   uploadingSkills = false;
   search;
-  // newSkillAdded = false;
   skillSearchScrollId = '';
   searchType = 'industry';
+  @ViewChild('searchInput') searchInput: ElementRef;
 
   constructor(
     fb: FormBuilder,
@@ -46,20 +44,6 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
       if (state) {
         if (state['industries']) {
           this.skills = state['industries'];
-        }
-        if (typeof state['skills_loading'] !== 'undefined'
-          && state['skills_loading'] === false
-          && state['skills_loaded'] === true
-        ) {
-          this.isSearching = false;
-          this.showPreloader = false;
-        }
-        if (typeof state['signup_search_skill'] !== 'undefined'
-          && state['signup_search_skill'] === false
-          && state['signup_search_skill_success'] === true
-        ) {
-          this.isSearching = false;
-          this.showPreloader = false;
         }
         if (typeof state['uploadingUserSkills'] !== 'undefined'
           && state['uploadingUserSkills'] === false
@@ -84,6 +68,11 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // load initial industries
     this.industriesList();
+  }
+
+  ngAfterViewInit() {
+    // set focus to input
+    this.searchInput.nativeElement.focus();
   }
 
   ngOnDestroy() {}
@@ -115,8 +104,6 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
     if (this.searchType === 'industry') {
       return false;
     }
-    this.isSearching = true;
-    this.showPreloader = true;
     let scrollId;
     if (loadMore === true) {
       scrollId = this.skillSearchScrollId;
@@ -135,7 +122,6 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
    * load list of skills (High Level)
    */
   industriesList() {
-    this.isSearching = true;
     this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
   }
 
