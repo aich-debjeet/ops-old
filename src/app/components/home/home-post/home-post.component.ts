@@ -98,27 +98,19 @@ export class HomePostComponent implements OnInit, OnDestroy {
 
   // is spoted ture or false
   isSpoted(value) {
+    console.log(value);
     const data = {
       'mediaType': value.mtype,
       'id': value.id
     }
 
     if (value.isSpotted === false) {
-      this.store.dispatch({ type: MediaActions.MEDIA_SPOT, payload: data });
-      this.store.dispatch({ type: ProfileActions.POST_SPOT, payload: data });
+      this.store.dispatch({ type: ProfileActions.PROFILE_MEDIA_SPOT, payload: data });
     } else {
-      this.store.dispatch({ type: MediaActions.MEDIA_UNSPOT, payload: data });
-      this.store.dispatch({ type: ProfileActions.POST_UNSPOT, payload: data });
+      this.store.dispatch({ type: ProfileActions.PROFILE_MEDIA_UNSPOT, payload: data });
     }
   }
 
-  /**
-   * Check if object is empty
-   * @param obj
-   */
-    checkEmpty(obj: Object) {
-      return Object.keys(obj).length === 0 && obj.constructor === Object;
-    }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
