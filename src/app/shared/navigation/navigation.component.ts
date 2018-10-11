@@ -219,11 +219,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
         this.pusherService.messagesChannel.bind('New-Message', (data) => {
           // show blue tick as a notification for new message
           this.notifyMsg = true;
-          console.log('New-Message', data);
           const message = JSON.parse(data);
           // check if it's a network request
           if (message && message['isNetworkRequest'] && message['isNetworkRequest'] === true) {
-            // console.log('Network Request');
             // append the new object to the user listing
             const newListObj = {
               handle: message.by,
@@ -246,9 +244,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
               payload: message
             });
           }
-          // setTimeout(() => {
-          //   this.scrollToBottom();
-          // }, 20);
+          setTimeout(() => {
+            this.generalHelper.filter({
+              component: 'MessageHomeComponent',
+              action: 'scrollToBottom'
+            });
+          }, 20);
         });
       }
 

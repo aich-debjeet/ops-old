@@ -52,6 +52,11 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
     private activatedRoute: ActivatedRoute,
     private gUtils: GeneralUtilities
   ) {
+    this.gUtils.listen().subscribe((e: any) => {
+      if (e.component && e.component === 'MessageHomeComponent' && e.action === 'scrollToBottom') {
+        this.scrollToBottom();
+      }
+    })
     this.selectedUser = {};
     this.pagination = {
       pageNumber: 0,
