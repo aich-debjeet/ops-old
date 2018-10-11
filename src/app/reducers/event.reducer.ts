@@ -124,17 +124,16 @@ export const EventReducer: ActionReducer<any> = (state = initialTagEve, {payload
       });
 
     case EventActions.EVENT_SEARCH:
-    // console.log(payload)
     if (payload.scrollId === '') {
       return Object.assign({}, state, {
         event_list: [],
-        // event_filter: [],
+        event_loading: true,
+        event_loaded: false,
       });
     } else {
       return Object.assign({}, state, {
-        // event_list: [],
         event_loading: true,
-        event_Loaded : false,
+        event_loaded: false,
       });
     }
 
@@ -152,7 +151,7 @@ export const EventReducer: ActionReducer<any> = (state = initialTagEve, {payload
         event_filter: filterList,
         event_list: elastic_list,
         event_loading: false,
-        event_Loaded : true,
+        event_loaded: true,
         event_scroll_id: payload.scrollId
       });
 

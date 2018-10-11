@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
@@ -29,11 +29,11 @@ import { every as _every } from 'lodash';
   styleUrls: ['./profile-block.component.scss']
 })
 
-export class ProfileBlockComponent implements OnInit, OnDestroy {
+export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
   opportunityState$: Observable<OpportunityModel>;
   tagState$: Observable<ProfileModal>;
-  tgStat$: Observable<EventModal>;
-  private subscription: ISubscription;
+  eventStore$: Observable<EventModal>;
+  private profSub: ISubscription;
   private oppSub: ISubscription;
   private eveSub: ISubscription;
   userQuickAccess = initialTag;
@@ -55,6 +55,8 @@ export class ProfileBlockComponent implements OnInit, OnDestroy {
   opportunities: any[];
   eventList: any;
   recordsPerPage = 2;
+  eventState: any;
+  eventsLoading = true;
 
   constructor(
     private _router: Router,
@@ -70,9 +72,9 @@ export class ProfileBlockComponent implements OnInit, OnDestroy {
 
     // Own Profile
     this.tagState$ = this.profileStore.select('profileTags');
-    this.tgStat$ = this._store.select('eventTags');
+    this.eventStore$ = this._store.select('eventTags');
 
-    this.subscription = this.tagState$.subscribe((state) => {
+    this.profSub = this.tagState$.subscribe((state) => {
       this.userQuickAccess = state;
       if (state && state['other_channel']) {
         this.pinListEmpty = _every(state['other_channel'], ['isPinned', true]);
@@ -117,9 +119,11 @@ export class ProfileBlockComponent implements OnInit, OnDestroy {
         this.opportunities = state['search_opportunities_result']['opportunityResponse'];
       }
     });
-    this.eveSub = this.tgStat$.subscribe((state) =>{
-      if (state['event_list'] && state.event_Loaded === true) {
+    this.eveSub = this.eventStore$.subscribe((state) => {
+      this.eventState = state;
+      if (state['event_list'] && state.event_loaded === true) {
         this.eventList = state['event_list'];
+        this.eventsLoading = false;
       }
     });
   }
@@ -186,13 +190,16 @@ export class ProfileBlockComponent implements OnInit, OnDestroy {
       touch: true
     }
   }
+
   ngAfterViewInit() {
     // this.loadProfiles();
-    this.loadRecomOpps();
+    // this.loadRecomOpps();
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.profSub.unsubscribe();
+    this.oppSub.unsubscribe();
+    this.eveSub.unsubscribe();
   }
 
   checkEmpty(obj: Object) {
