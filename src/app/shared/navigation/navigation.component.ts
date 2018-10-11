@@ -14,7 +14,6 @@ import { GeneralUtilities } from '../../helpers/general.utils';
 import { PusherService } from '../../services/pusher.service';
 import { MessageActions } from '../../actions/message.action';
 import { MessageModal } from '../../models/message.model';
-import { MessageHomeComponent } from 'app/components/message/message-home/message-home.component';
 
 @Component({
   selector: 'app-navigation',
@@ -66,8 +65,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
     public modalService: ModalService,
     public generalHelper: GeneralUtilities,
     private router: Router,
-    private pusherService: PusherService,
-    private msgHome: MessageHomeComponent,
+    private pusherService: PusherService
   ) {
 
     this.topNav = {
@@ -248,9 +246,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
               payload: message
             });
           }
-          setTimeout(() => {
-            this.msgHome.scrollToBottom();
-          }, 20);
+          // setTimeout(() => {
+          //   this.scrollToBottom();
+          // }, 20);
         });
       }
 
