@@ -182,41 +182,48 @@ export class NavigationComponent implements OnInit, OnDestroy {
    * On init
    */
   ngOnInit() {
-    if (this.pusherService && this.pusherService.notificationsChannel) {
-      this.pusherService.notificationsChannel.bind('Following', (data) => {
-        this.addNewNotif(data);
-      });
-      this.pusherService.notificationsChannel.bind('Media_Spot', (data) => {
-        this.addNewNotif(data);
-      });
-      this.pusherService.notificationsChannel.bind('Blog_Spot', (data) => {
-        this.addNewNotif(data);
-      });
-      this.pusherService.notificationsChannel.bind('Status_Spot', (data) => {
-        this.addNewNotif(data);
-      });
-      this.pusherService.notificationsChannel.bind('Blog_Comments', (data) => {
-        this.addNewNotif(data);
-      });
-      this.pusherService.notificationsChannel.bind('Status_Comments', (data) => {
-        this.addNewNotif(data);
-      });
-      this.pusherService.notificationsChannel.bind('Network_Sent', (data) => {
-        this.addNewNotif(data);
-      });
-      this.pusherService.notificationsChannel.bind('Network_Accepted', (data) => {
-        this.addNewNotif(data);
-      });
-    }
+    // check if this.pusherService available
+    if (this.pusherService) {
 
-    // if (this.pusherService && this.pusherService.messagesChannel) {
-    //   // pusher message listener
-    //   this.pusherService.messagesChannel.bind('New-Message', (data) => {
-    //     // show blue tick as a notification for new message
-    //     this.notifyMsg = true;
-    //     console.log('New-Message', data);
-    //   });
-    // }
+      // check if notif channel exist
+      if (this.pusherService.notificationsChannel) {
+        this.pusherService.notificationsChannel.bind('Following', (data) => {
+          this.addNewNotif(data);
+        });
+        this.pusherService.notificationsChannel.bind('Media_Spot', (data) => {
+          this.addNewNotif(data);
+        });
+        this.pusherService.notificationsChannel.bind('Blog_Spot', (data) => {
+          this.addNewNotif(data);
+        });
+        this.pusherService.notificationsChannel.bind('Status_Spot', (data) => {
+          this.addNewNotif(data);
+        });
+        this.pusherService.notificationsChannel.bind('Blog_Comments', (data) => {
+          this.addNewNotif(data);
+        });
+        this.pusherService.notificationsChannel.bind('Status_Comments', (data) => {
+          this.addNewNotif(data);
+        });
+        this.pusherService.notificationsChannel.bind('Network_Sent', (data) => {
+          this.addNewNotif(data);
+        });
+        this.pusherService.notificationsChannel.bind('Network_Accepted', (data) => {
+          this.addNewNotif(data);
+        });
+      }
+
+      // check if message channels exist
+      if (this.pusherService.messagesChannel) {
+        // pusher message listener
+        // this.pusherService.messagesChannel.bind('New-Message', (data) => {
+        //   // show blue tick as a notification for new message
+        //   this.notifyMsg = true;
+        //   console.log('New-Message', data);
+        // });
+      }
+
+    }
 
     document.body.scrollTop = 0;
     const profileType = localStorage.getItem('profileType') || 'profile';
