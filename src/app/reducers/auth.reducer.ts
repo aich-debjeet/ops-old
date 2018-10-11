@@ -3,6 +3,9 @@ import { Login, initialTag } from '../models/auth.model';
 
 import { AuthActions } from '../actions/auth.action';
 
+import { GeneralUtilities } from '../helpers/general.utils';
+
+const gUtils = new GeneralUtilities;
 
 export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, type}: Action) =>  {
   switch (type) {
@@ -150,9 +153,16 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
 
     case AuthActions.USER_LOGIN_FAILED:
       const data = JSON.parse(payload._body);
+      const jsonData = gUtils.isJson(data.error_description);
+      let errDesc;
+      if (jsonData) {
+        errDesc = jsonData;
+      } else {
+        errDesc = data.error_description;
+      }
       return Object.assign({}, state, {
         login_success: false,
-        error_description: JSON.parse(data.error_description),
+        error_description: errDesc,
         login_uploading_data: false,
         login_response: data
       });
@@ -176,7 +186,8 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
         completed: payload,
         user_basic_reg_success: true,
         success: true,
-        user_token: payload.access_Token
+        user_token: payload.access_Token,
+        reg_basic_failed_resp: null
       });
 
     case AuthActions.USER_REGISTRATION_BASIC_FAILED:

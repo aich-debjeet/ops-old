@@ -167,7 +167,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   }
 
   ngOnInit() {
-    this.otpPopup.open();
+    // this.otpPopup.open();
     this.store.dispatch({ type: AuthActions.STORE_COUNTRY_CODE, payload: this.country.callingCodes[0] });
   }
 
@@ -438,17 +438,17 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
       return;
     });
 
-    this.store.select('loginTags')
-    .first(data2 => data2['reg_basic_failed_resp'])
-    .subscribe(resp => {
-      if (resp['reg_basic_failed_resp'] && resp['reg_basic_failed_resp']['ERROR']) {
-        this.toastr.warning(resp['reg_basic_failed_resp']['ERROR'], '', {
-          timeOut: 3000
-        });
-        this.uploadingFormData = false;
-      }
-      return;
-    });
+    // this.store.select('loginTags')
+    // .first(data2 => data2['reg_basic_failed_resp'])
+    // .subscribe(resp => {
+    //   if (resp['reg_basic_failed_resp'] && resp['reg_basic_failed_resp']['ERROR']) {
+    //     this.toastr.warning(resp['reg_basic_failed_resp']['ERROR'], '', {
+    //       timeOut: 3000
+    //     });
+    //     this.uploadingFormData = false;
+    //   }
+    //   return;
+    // });
   }
 
   /**
