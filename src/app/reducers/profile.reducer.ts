@@ -1283,11 +1283,11 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       const home_post_unspot_count = home_post_unspot ? home_post_unspot.spotsCount - 1 : 0;
 
       const post_unspot = state.user_posts.find(t => t.id === payload.id);
-      const post_unspot_index = state.user_posts.indexOf(post_unspot);
+      const post_unspot_index = post_unspot ? state.user_posts.indexOf(post_unspot) : null;
       const post_unspot_count = post_unspot ? post_unspot.spotsCount - 1 : 0;
 
       const trend_spot_dec = state.trending_post.find(t => t.id === payload.id);
-      const trend_spot_dec_index = state.trending_post.indexOf(trend_spot_dec);
+      const trend_spot_dec_index = trend_spot_dec ? state.trending_post.indexOf(trend_spot_dec) : null;
       const trend_spot_dec_count = trend_spot_dec ? trend_spot_dec.spotsCount - 1 : 0;
 
       return Object.assign({}, state, {
