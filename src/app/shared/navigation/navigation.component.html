@@ -252,6 +252,7 @@
           <li class="dropdown" appDropdown>
             <a class="dropdown-toggle" appDropdownOpen (click)="messagePopup()">
               <img [src]="imageBaseUrl + 'img/svg/ico_message.svg'">
+              <div class="o-not__alert" *ngIf="notifyMsg"></div>
             </a>
             <div class="dropdown-menu dropdown-menu-right nav__dropdown3" id="ops_scrollbar">
               <div class="dropdown__item dropnoti__head msg__read">

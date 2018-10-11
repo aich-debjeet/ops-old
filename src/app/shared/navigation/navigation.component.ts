@@ -36,6 +36,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   showCreateOrg = false;
   redirectedToCreatedOrg = false;
   notifyNotif = false;
+  notifyMsg = false;
   scrolling = 0;
   scrollingLoad = 100;
   page_start = 1;
@@ -167,83 +168,55 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * add new notification to the state
+   */
+  addNewNotif(data) {
+    this.notifyNotif = true;
+    this.notificationStore.dispatch({
+      type: NotificationActions.ADD_PUSHER_NOTIFICATION,
+      payload: JSON.parse(data)
+    });
+  }
+
+  /**
    * On init
    */
   ngOnInit() {
     if (this.pusherService && this.pusherService.notificationsChannel) {
-      this.pusherService.notificationsChannel.bind('Following', (message) => {
-        // console.log(message)
-        this.notifyNotif = true;
-        this.notificationStore.dispatch({
-          type: NotificationActions.ADD_PUSHER_NOTIFICATION,
-          payload: JSON.parse(message)
-        });
+      this.pusherService.notificationsChannel.bind('Following', (data) => {
+        this.addNewNotif(data);
       });
-      this.pusherService.notificationsChannel.bind('Media_Spot', (message) => {
-        // console.log(message)
-        this.notifyNotif = true;
-        this.notificationStore.dispatch({
-          type: NotificationActions.ADD_PUSHER_NOTIFICATION,
-          payload: JSON.parse(message)
-        });
+      this.pusherService.notificationsChannel.bind('Media_Spot', (data) => {
+        this.addNewNotif(data);
       });
-      this.pusherService.notificationsChannel.bind('Blog_Spot', (message) => {
-        // console.log(message)
-        this.notifyNotif = true;
-        this.notificationStore.dispatch({
-          type: NotificationActions.ADD_PUSHER_NOTIFICATION,
-          payload: JSON.parse(message)
-        });
+      this.pusherService.notificationsChannel.bind('Blog_Spot', (data) => {
+        this.addNewNotif(data);
       });
-      this.pusherService.notificationsChannel.bind('Status_Spot', (message) => {
-        // console.log(message)
-        this.notifyNotif = true;
-        this.notificationStore.dispatch({
-          type: NotificationActions.ADD_PUSHER_NOTIFICATION,
-          payload: JSON.parse(message)
-        });
+      this.pusherService.notificationsChannel.bind('Status_Spot', (data) => {
+        this.addNewNotif(data);
       });
-      this.pusherService.notificationsChannel.bind('Media_Comments', (message) => {
-        // console.log(message)
-        this.notifyNotif = true;
-        this.notificationStore.dispatch({
-          type: NotificationActions.ADD_PUSHER_NOTIFICATION,
-          payload: JSON.parse(message)
-        });
+      this.pusherService.notificationsChannel.bind('Blog_Comments', (data) => {
+        this.addNewNotif(data);
       });
-      this.pusherService.notificationsChannel.bind('Blog_Comments', (message) => {
-        // console.log(message)
-        this.notifyNotif = true;
-        this.notificationStore.dispatch({
-          type: NotificationActions.ADD_PUSHER_NOTIFICATION,
-          payload: JSON.parse(message)
-        });
+      this.pusherService.notificationsChannel.bind('Status_Comments', (data) => {
+        this.addNewNotif(data);
       });
-      this.pusherService.notificationsChannel.bind('Status_Comments', (message) => {
-        // console.log(message)
-        this.notifyNotif = true;
-        this.notificationStore.dispatch({
-          type: NotificationActions.ADD_PUSHER_NOTIFICATION,
-          payload: JSON.parse(message)
-        });
+      this.pusherService.notificationsChannel.bind('Network_Sent', (data) => {
+        this.addNewNotif(data);
       });
-      this.pusherService.notificationsChannel.bind('Network_Sent', (message) => {
-        // console.log(message)
-        this.notifyNotif = true;
-        this.notificationStore.dispatch({
-          type: NotificationActions.ADD_PUSHER_NOTIFICATION,
-          payload: JSON.parse(message)
-        });
-      });
-      this.pusherService.notificationsChannel.bind('Network_Accepted', (message) => {
-        //  console.log(message)
-        this.notifyNotif = true;
-        this.notificationStore.dispatch({
-          type: NotificationActions.ADD_PUSHER_NOTIFICATION,
-          payload: JSON.parse(message)
-        });
+      this.pusherService.notificationsChannel.bind('Network_Accepted', (data) => {
+        this.addNewNotif(data);
       });
     }
+
+    // if (this.pusherService && this.pusherService.messagesChannel) {
+    //   // pusher message listener
+    //   this.pusherService.messagesChannel.bind('New-Message', (data) => {
+    //     // show blue tick as a notification for new message
+    //     this.notifyMsg = true;
+    //     console.log('New-Message', data);
+    //   });
+    // }
 
     document.body.scrollTop = 0;
     const profileType = localStorage.getItem('profileType') || 'profile';
@@ -411,6 +384,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   messagePopup() {
+    this.notifyMsg = false;
     if (!this.messages) {
       this.loadMessages();
     }
