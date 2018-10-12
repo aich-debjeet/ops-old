@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Store, Action } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
@@ -22,7 +22,7 @@ import { Subject } from 'rxjs/Subject';
   providers: [ModalService, DatePipe],
   styleUrls: ['./profile-post.component.scss']
 })
-export class ProfilePostComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ProfilePostComponent implements OnInit, OnDestroy {
   componentDestroyed$: Subject<boolean> = new Subject();
   baseUrl = environment.API_IMAGE;
   tagState$: Observable<ProfileModal>;
@@ -67,11 +67,11 @@ export class ProfilePostComponent implements OnInit, OnDestroy, AfterViewInit {
       this.userMedia = state;
        this.posts = this.userMedia.user_posts;
        this.post_scroll_id = this.userMedia.user_post_scrollId
-        if (state['user_profiles_all_prof'] !== 'undefined') {
-          this.profiles = state.user_profiles_all_prof;
+        if (state['user_profiles_all'] !== 'undefined') {
+          this.profiles = state.user_profiles_all;
         }
-        if (state.user_profiles_all_loaded_prof) {
-          this.people_follow_id = state.people_follow_scroll_id_prof
+        if (state.people_follow_scroll_id) {
+          this.people_follow_id = state.people_follow_scroll_id
         }
     });
   }
@@ -80,10 +80,8 @@ export class ProfilePostComponent implements OnInit, OnDestroy, AfterViewInit {
     this.page_start = 0;
     this.post_scroll_id = '';
     this.userType();
-
-  }
-  ngAfterViewInit() {
     this.loadProfiles();
+
   }
 
   ngOnDestroy() {
@@ -201,11 +199,11 @@ export class ProfilePostComponent implements OnInit, OnDestroy, AfterViewInit {
     this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL, payload: body });
   }
 
-  loadProfiles() {
-    this._store.dispatch({ type: ProfileActions.LOAD_ALL_PROFILES_PROF, payload: {
+  loadProfiles(value = null) {
+    this._store.dispatch({ type: ProfileActions.LOAD_ALL_PROFILES, payload: {
       'isHuman' : '1' ,
       'name': {
-        'scrollId': this.people_follow_id
+        'scrollId': value === null ? null : value
        }
       }});
   }
@@ -213,7 +211,7 @@ export class ProfilePostComponent implements OnInit, OnDestroy, AfterViewInit {
     this.scrolling = e.currentScrollPosition;
     if (this.scrollingPeople <= this.scrolling) {
       this.scrollingPeople += 100;
-      this.loadProfiles();
+      this.loadProfiles(this.people_follow_id);
     }
   }
 }
