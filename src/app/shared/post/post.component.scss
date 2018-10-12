@@ -4,10 +4,6 @@
 @import './src/assets/scss/components/_cards.scss';
 @import './src/assets/scss/components/_common-style.scss';
 
-.audio-image {
-    height: 200px;
-}
-
 .o-share__social {
     border-top: 1px solid #F3F5F7;
     padding-top: 16px;
@@ -394,4 +390,8 @@ label {
 }
 .c-feed__img-status .content_editable{
     display: inline-block;
+}
+
+.audio-image {
+    height: 200px;
 }
