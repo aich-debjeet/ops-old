@@ -261,7 +261,7 @@
               </div>
               <div class="o-alert_scroll" id="ops_scrollbar">
                 <div class="dropdown__item p-16 msg__unread cursor_pointer" *ngFor="let message of messages"
-                  (click)="openLink(message)" [ngClass]="{'msg__read': message?.isRead, 'msg__unread': !message?.isRead}">
+                  (click)="openConversation(message)" [ngClass]="{'msg__read': message?.isRead, 'msg__unread': !message?.isRead}">
                   <div class="dropnoti__avatar" [routerLink]="['', 'profile', 'u', message?.username, 'user']">
                     <img *ngIf="!message?.profileImage" [src]="'imageBaseUrl + /img/avatar.png'" class="img-responsive">
                     <img *ngIf="message?.profileImage" [src]="imageBaseUrl + message?.profileImage" class="img-responsive">
