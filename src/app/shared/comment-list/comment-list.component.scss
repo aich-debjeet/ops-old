@@ -323,7 +323,7 @@
     font-size: 11px;
     line-height: 18px;
     margin-left: 0;
-    display: block;
+    display: flow-root;
 }
 
 .c-post__input {
@@ -366,4 +366,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 220px;
+}
+
+#contentEdit{
+  border-bottom: 1px solid;
+  display: inline;
 }

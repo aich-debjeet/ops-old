@@ -34,8 +34,9 @@ export class CommentListComponent implements OnInit {
   }
 
   onContentSaved(content) {
+    console.log(content);
     this.isEdit = false;
-    this.commentEdited.next(this.messageText);
+    this.commentEdited.next(content);
   }
 
   onContentDelete(content) {
