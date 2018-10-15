@@ -97,7 +97,7 @@ export class OpportunityApplicationsComponent implements OnInit, OnDestroy {
         type: MessageActions.ADD_TO_MESSANGER_LIST,
         payload: userDetails
       });
-      this.router.navigate(['/user/message']);
+      this.router.navigate(['/user/message'], { queryParams: { handle: data['applicationInfo']['userHandle'] }});
     }
   }
 

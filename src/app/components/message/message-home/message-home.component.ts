@@ -10,7 +10,7 @@ import { ProfileModal } from './../../../models/profile.model';
 import { MessageActions } from './../../../actions/message.action';
 import { PusherService } from './../../../services/pusher.service';
 
-import * as _ from 'lodash';
+import { findIndex as _findIndex } from 'lodash';
 import { ActivatedRoute } from '@angular/router';
 import { GeneralUtilities } from '../../../helpers/general.utils';
 
@@ -44,6 +44,7 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
   isTyping = false;
   chatScrollBottom = true;
   convUserHandle: any;
+  conversationLoaded = false;
 
   constructor(
     private messageStore: Store<MessageModal>,
@@ -74,7 +75,27 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
       if (this.messageState && this.messageState['messanger_list_data']) {
         this.messangerList = this.messageState['messanger_list_data'];
         // console.log('this.messangerList', this.messangerList);
-        this.selectLatestConversation();
+        if (!this.conversationLoaded) {
+          // console.log('load conversation now');
+          if (this.convUserHandle && this.convUserHandle.length > 0) {
+            // console.log('load conversation for: ', this.convUserHandle);
+            const userIndex = _findIndex(this.messangerList, ['handle', this.convUserHandle]);
+            // find the handle into the messanger list to load the conversation
+            if (userIndex) {
+              // console.log('user found');
+              this.selectUser(this.messangerList[userIndex]);
+            } else {
+              // console.log('user NOT found, loading latest conversation');
+              this.selectLatestConversation();
+            }
+          } else {
+            // console.log('load latest conversation');
+            this.selectLatestConversation();
+          }
+          this.conversationLoaded = true;
+        } else {
+          // console.log('conversation already loaded');
+        }
       }
 
       if (this.messageState && this.messageState['load_conversation_data']) {
@@ -127,10 +148,6 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
    */
   ngOnInit() {
     this.convUserHandle = this.activatedRoute.snapshot.queryParams['handle'];
-    if (this.convUserHandle && this.convUserHandle.length > 0) {
-      // console.log('load user details for: ', this.convUserHandle);
-    }
-
     if (this.pusherService.notificationsChannel) {
       // pusher notifications listener
       this.pusherService.notificationsChannel.bind('Message-Typing', (userDetails) => {
@@ -390,7 +407,7 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
       payload: reqParams
     });
     // find the index for changin the newtwork flag
-    const index = _.findIndex(this.conversation, ['by', data.by]);
+    const index = _findIndex(this.conversation, ['by', data.by]);
     this.conversation[index].isNetworkRequest = false;
 
     if (action === 'accept') {
