@@ -56,13 +56,12 @@
             <div class="content_editable" contentEditable="true" (keyup.enter)="onContentSaved()" [textContent]="desText" name="desText" (input)="desText=$event.target.textContent"></div>
         </div>
     </div>
-    <div class="c-feed__img2" *ngIf="checkFileType(mediaData?.repopath, 'Video') || checkFileType(mediaData?.repopath, 'Audio') || checkFileType(mediaData?.repopath, 'Image')">
-        <!-- <img [src]="imageLink + mediaData?.thumbNails?.large" class="img-responsive"> -->
-        <!-- <app-audioplayer class="audio" *ngIf="checkFileType(mediaData?.repopath, 'Audio')" src="{{ imageLink + mediaData?.repopath }}"></app-audioplayer>
-        <img *ngIf="checkFileType(mediaData?.repopath, 'Image')" src="{{ imageLink + mediaData?.repopath }}" class="img-responsive">
-        <app-videplayer [play]="'true'" *ngIf="checkFileType(mediaData?.repopath, 'Video')" class="{{ imageLink + mediaData?.repopath }}" src="{{ imageLink +  mediaData?.repopath }}"></app-videplayer> -->
-        <a [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
-            <img [src]="imageLink + mediaData?.thumbNails?.large" [ngClass]="{'audio-image': checkFileType(mediaData?.repopath, 'Audio')}" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="img-responsive" [class.c-feed__adult-blur]="mediaData?.isNsfw && mediaData?.isOwner === false">
+    <div class="c-feed__img2" appAppear (appear)="onAppearInViewport(mediaData?.id)" *ngIf="mediaData?.mtype === 'video' || mediaData?.mtype === 'audio' || mediaData?.mtype === 'image'">
+        <!-- <app-audioplayer class="audio" *ngIf="mediaData?.mtype === 'audio'" src="{{ imageLink + mediaData?.repopath }}"></app-audioplayer> -->
+        <img *ngIf="mediaData?.mtype === 'video' && mediaData?.inViewport === false" [src]="imageLink + mediaData?.thumbNails?.large" [ngClass]="{'audio-image': mediaData?.mtype === 'audio'}" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="img-responsive" [class.c-feed__adult-blur]="mediaData?.isNsfw && mediaData?.isOwner === false">
+        <app-videplayer *ngIf="mediaData?.mtype === 'video' && mediaData?.inViewport === true" class="{{ imageLink + mediaData?.repopath }}" src="{{ imageLink +  mediaData?.repopath }}"></app-videplayer>
+        <a *ngIf="mediaData?.mtype !== 'video'" [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
+            <img [src]="imageLink + mediaData?.thumbNails?.large" [ngClass]="{'audio-image': mediaData?.mtype === 'audio'}" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="img-responsive" [class.c-feed__adult-blur]="mediaData?.isNsfw && mediaData?.isOwner === false">
             <div class="c-feed__adult" id="c-feed__adult-hide" *ngIf="mediaData?.isNsfw && mediaData?.isOwner === false">
                 <div class="c-feed__adult-text">
                     <div>

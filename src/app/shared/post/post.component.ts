@@ -31,6 +31,7 @@ export class PostComponent implements OnInit, OnDestroy {
   @Input() type: string;
   @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
   @Output() postDelete = new EventEmitter();
+  @Output() videoInViewport = new EventEmitter();
   @ViewChild('reportModal') reportModal: Modal;
   dotMenuState: boolean;
   private subscription: ISubscription;
@@ -182,6 +183,10 @@ export class PostComponent implements OnInit, OnDestroy {
   onContentSaved() {
     this.isEdit = false;
     // console.log(this.desText);
+  }
+
+  onAppearInViewport(mediaId: any) {
+    this.videoInViewport.emit(mediaId);
   }
 
 }

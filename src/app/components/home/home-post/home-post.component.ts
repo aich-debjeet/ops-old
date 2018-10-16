@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 
 import { ProfileActions } from '../../../actions/profile.action';
 import { MediaActions } from '../../../actions/media.action';
+import { findIndex as _findIndex } from 'lodash';
 
 @Component({
   selector: 'app-home-post',
@@ -47,7 +48,8 @@ export class HomePostComponent implements OnInit, OnDestroy {
       // User folling posts
       if (state.user_following_posts_loaded) {
         this.posts = this.userProfile.user_following_posts;
-        this.post_scroll_id = state.user_following_post_scroll_id
+        this.post_scroll_id = state.user_following_post_scroll_id;
+        this.setMediaViewportKey();
       }
 
       // Trending post state
@@ -64,6 +66,15 @@ export class HomePostComponent implements OnInit, OnDestroy {
         }
       }
     });
+  }
+
+  setMediaViewportKey() {
+    for (let i = 0; i < this.posts.length; i++) {
+      if (this.posts[i] && typeof this.posts[i].inViewport) {
+        this.posts[i]['inViewport'] = false;
+      }
+    }
+    console.log('this.posts', this.posts);
   }
 
   ngOnInit() {
@@ -108,6 +119,16 @@ export class HomePostComponent implements OnInit, OnDestroy {
       this.store.dispatch({ type: ProfileActions.PROFILE_MEDIA_SPOT, payload: data });
     } else {
       this.store.dispatch({ type: ProfileActions.PROFILE_MEDIA_UNSPOT, payload: data });
+    }
+  }
+
+  videoInViewportEvent(mediaId: string) {
+    // console.log('media id', mediaId);
+    const medIndx = _findIndex(this.posts, { id: mediaId });
+    if (medIndx) {
+      this.setMediaViewportKey();
+      this.posts[medIndx].inViewport = true;
+      console.log('media in viewport', this.posts[medIndx]);
     }
   }
 
