@@ -4,7 +4,6 @@ import { environment } from './../../../environments/environment';
 import { FormControl } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
 import { MessageModal } from './../../models/message.model';
 import { ProfileModal } from './../../models/profile.model';
 import { MessageActions } from './../../actions/message.action';
