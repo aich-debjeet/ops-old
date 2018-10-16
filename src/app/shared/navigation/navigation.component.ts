@@ -300,7 +300,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
    * @param message
    */
   openConversation(msg: any) {
-    this.router.navigate(['/user/message'], { queryParams: { handle: msg.handle }});
+    this.router.navigate(['/message'], { queryParams: { handle: msg.handle }});
   }
 
   toggleNav(name: string) {

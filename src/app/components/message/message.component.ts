@@ -1,25 +1,25 @@
 import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, ElementRef, AfterViewChecked } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { environment } from './../../../../environments/environment';
+import { environment } from './../../../environments/environment';
 import { FormControl } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { MessageModal } from './../../../models/message.model';
-import { ProfileModal } from './../../../models/profile.model';
-import { MessageActions } from './../../../actions/message.action';
-import { PusherService } from './../../../services/pusher.service';
+import { MessageModal } from './../../models/message.model';
+import { ProfileModal } from './../../models/profile.model';
+import { MessageActions } from './../../actions/message.action';
+import { PusherService } from './../../services/pusher.service';
 
 import { findIndex as _findIndex } from 'lodash';
 import { ActivatedRoute } from '@angular/router';
-import { GeneralUtilities } from '../../../helpers/general.utils';
+import { GeneralUtilities } from '../../helpers/general.utils';
 
 @Component({
-  selector: 'app-message-home',
-  templateUrl: './message-home.component.html',
-  styleUrls: ['./message-home.component.scss']
+  selector: 'app-message',
+  templateUrl: './message.component.html',
+  styleUrls: ['./message.component.scss']
 })
-export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked {
+export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   // @ViewChild('inputMessageText') inputMessageText;
   @ViewChild('chatWindow') private chatWindowContainer: ElementRef;
