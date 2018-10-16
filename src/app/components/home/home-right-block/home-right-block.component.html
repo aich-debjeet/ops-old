@@ -28,7 +28,7 @@
         </div>
         <ng-template #opportunities_found>
             <a routerLink="/opportunity/view/{{ opportunityDetails?.opportunityId }}" *ngFor="let opportunityDetails of opportunities">
-                <div class="with_border_bottom m-b-16">
+                <div class="with_border_bottom m-b-16 wb-all">
                     <div class="c-card__project p-l-r-16">
                         <img [src]="imageBaseUrl + 'img/svg/audition.svg'" class="c-card__project--icon"> 
                         <span class="m-l-8">{{ opportunityDetails?.opportunityType | uppercase }}</span>

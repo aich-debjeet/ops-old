@@ -1,4 +1,6 @@
 @import './src/assets/scss/helpers/_variables.scss';
+@import './src/assets/scss/components/_cards.scss';
+@import '~sass-mq/_mq.scss';
 .c-card{
   margin-bottom: 1.5rem;
 }
@@ -97,3 +99,10 @@
 //       height: 100%;
 //       // overflow: scroll;
 //     }
+
+.desktop-p-r-0 {
+  padding-right: 0;
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    padding-right: 15px;
+  }
+}

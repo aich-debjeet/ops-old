@@ -44,7 +44,7 @@ export const routes: Routes = [
  { path: 'spotfeed/:id', component: SpotfeedComponent, canActivate: [AuthGuard] },
  { path: 'spotfeed-premium', component: SpotfeedPremiumComponent, canActivate: [AuthGuard] },
  { path: 'notification', component: NotificationComponent, canActivate: [AuthGuard] },
- { path: 'user/message', loadChildren: './components/message/message.module#MessageModule', canActivate: [AuthGuard] },
+ { path: 'message', loadChildren: './components/message/message.module#MessageModule', canActivate: [AuthGuard] },
  { path: 'portfolio', loadChildren: './components/portfolio/portfolio.module#PortfolioModule' },
  { path: 'planner', component: PlannerComponent, canActivate: [AuthGuard] },
  { path: 'project', component: ProjectComponent, canActivate: [AuthGuard] },

@@ -295,6 +295,14 @@ export class NavigationComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * redirect to message to load the conversation
+   * @param message
+   */
+  openConversation(msg: any) {
+    this.router.navigate(['/message'], { queryParams: { handle: msg.handle }});
+  }
+
   toggleNav(name: string) {
     return;
   }
