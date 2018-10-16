@@ -218,8 +218,8 @@
                 <div class="dropdown__item p-16 msg__unread cursor_pointer" *ngFor="let notification of notifications"
                   (click)="openLink(notification)" [ngClass]="{'msg__read': notification?.isRead, 'msg__unread': !notification?.isRead}">
                   <div class="dropnoti__avatar" [routerLink]="['', 'profile', 'u', notification.username, 'user']">
-                    <img *ngIf="!notification.profileImage" [src]="'imageBaseUrl + /img/avatar.png'" class="img-responsive">
-                    <img *ngIf="notification.profileImage" [src]="imageBaseUrl + notification.profileImage" class="img-responsive">
+                    <img *ngIf="!notification.profileImage" [src]="'imageBaseUrl + /img/avatar.png'" class="navdrop__img">
+                    <img *ngIf="notification.profileImage" [src]="imageBaseUrl + notification.profileImage" class="navdrop__img">
                   </div>
                   <div class="dropnoti__detail">
                     <span><a [routerLink]="['', 'profile', 'u', notification.username, 'user']">
@@ -263,8 +263,8 @@
                 <div class="dropdown__item p-16 msg__unread cursor_pointer" *ngFor="let message of messages"
                   (click)="openConversation(message)" [ngClass]="{'msg__read': message?.isRead, 'msg__unread': !message?.isRead}">
                   <div class="dropnoti__avatar" [routerLink]="['', 'profile', 'u', message?.username, 'user']">
-                    <img *ngIf="!message?.profileImage" [src]="'imageBaseUrl + /img/avatar.png'" class="img-responsive">
-                    <img *ngIf="message?.profileImage" [src]="imageBaseUrl + message?.profileImage" class="img-responsive">
+                    <img *ngIf="!message?.profileImage" [src]="'imageBaseUrl + /img/avatar.png'" class="navdrop__img">
+                    <img *ngIf="message?.profileImage" [src]="imageBaseUrl + message?.profileImage" class="navdrop__img">
                   </div>
                   <div class="dropnoti__detail">
                     <span>
