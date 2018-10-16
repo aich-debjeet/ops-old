@@ -53,7 +53,7 @@
                         <img *ngIf="data?.ownerImage" class="c-user__image" [src]="imageLink + data?.ownerImage">
                     </a>
                     <a [routerLink]="['/', {outlets: { primary: ['profile', 'u', data?.ownerUsername], media: null }}]" class="c-user__name">{{ data?.ownerName | truncate:[40, '...'] }}</a>
-                    <div class="c-mediamodal__subhead" [routerLink]="['/', {outlets: { primary: ['channel', data?.channelId], media: null }}]">{{ data?.channelName }}
+                    <div class="c-mediamodal__subhead" [routerLink]="['/', {outlets: { primary: ['channel', data?.channelId], media: null }}]"><span class="cursor_pointer">{{ data?.channelName }}</span>
                         <span class="c-mediamodal__time">{{ data?.createdDate | utcDate | date: 'hh:mm a dd MMM, yy'}}</span>
                     </div>
                 </div>
