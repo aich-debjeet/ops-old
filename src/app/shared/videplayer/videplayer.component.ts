@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, AfterViewInit, Renderer } from '@angular/core';
 
 @Component({
-  selector: 'app-videplayer',
+  selector: 'app-videoplayer',
   templateUrl: './videplayer.component.html',
   styleUrls: ['./videplayer.component.scss']
 })
