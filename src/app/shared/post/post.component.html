@@ -56,10 +56,23 @@
             <div class="content_editable" contentEditable="true" (keyup.enter)="onContentSaved()" [textContent]="desText" name="desText" (input)="desText=$event.target.textContent"></div>
         </div>
     </div>
-    <div class="c-feed__img2" appAppear (appear)="onAppearInViewport(mediaData?.id)" *ngIf="mediaData?.mtype === 'video' || mediaData?.mtype === 'audio' || mediaData?.mtype === 'image'">
-        <!-- <app-audioplayer class="audio" *ngIf="mediaData?.mtype === 'audio'" src="{{ imageLink + mediaData?.repopath }}"></app-audioplayer> -->
-        <img *ngIf="mediaData?.mtype === 'video' && mediaData?.inViewport === false" [src]="imageLink + mediaData?.thumbNails?.large" [ngClass]="{'audio-image': mediaData?.mtype === 'audio'}" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="img-responsive" [class.c-feed__adult-blur]="mediaData?.isNsfw && mediaData?.isOwner === false">
-        <app-videplayer *ngIf="mediaData?.mtype === 'video' && mediaData?.inViewport === true" class="{{ imageLink + mediaData?.repopath }}" src="{{ imageLink +  mediaData?.repopath }}"></app-videplayer>
+    <div class="c-feed__img2" *ngIf="mediaData?.mtype === 'audio' || mediaData?.mtype === 'image'">
+        <a [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
+            <img [src]="imageLink + mediaData?.thumbNails?.large" [ngClass]="{'audio-image': mediaData?.mtype === 'audio'}" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="img-responsive" [class.c-feed__adult-blur]="mediaData?.isNsfw && mediaData?.isOwner === false">
+            <div class="c-feed__adult" id="c-feed__adult-hide" *ngIf="mediaData?.isNsfw && mediaData?.isOwner === false">
+                <div class="c-feed__adult-text">
+                    <div>
+                        This post may contain sensitive information that could be disturbing to some individuals.
+                        Viewer's discretion is strongly advised.
+                    </div>
+                    <a href="javascript:void(0)" class="c-feed__adult-a" id="feedRemove">see this post</a>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="c-feed__img2" appAppear (appear)="onAppearInViewport(mediaData?.id)" *ngIf="mediaData?.mtype === 'video'">
+        <img *ngIf="mediaData?.inViewport === false" [src]="imageLink + mediaData?.thumbNails?.large" [ngClass]="{'audio-image': mediaData?.mtype === 'audio'}" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="img-responsive" [class.c-feed__adult-blur]="mediaData?.isNsfw && mediaData?.isOwner === false">
+        <app-videplayer *ngIf="mediaData?.inViewport === true" class="{{ imageLink + mediaData?.repopath }}" src="{{ imageLink +  mediaData?.repopath }}"></app-videplayer>
         <a *ngIf="mediaData?.mtype !== 'video'" [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
             <img [src]="imageLink + mediaData?.thumbNails?.large" [ngClass]="{'audio-image': mediaData?.mtype === 'audio'}" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="img-responsive" [class.c-feed__adult-blur]="mediaData?.isNsfw && mediaData?.isOwner === false">
             <div class="c-feed__adult" id="c-feed__adult-hide" *ngIf="mediaData?.isNsfw && mediaData?.isOwner === false">
@@ -72,15 +85,6 @@
                 </div>
             </div>
         </a>
-        <span *ngIf="mediaData?.mtype === 'audio'">
-            <img [src]="imageLink + 'img/svg/ico_volume3.svg'" class="c-card__icon">
-        </span>
-        <span *ngIf="mediaData?.mtype === 'video'">
-         <img [src]="imageLink + 'img/svg/ico_video.svg'" class="c-card__icon">
-        </span>
-        <span *ngIf="mediaData?.mtype === 'image'">
-            <img [src]="imageLink + 'img/svg/ico_image.svg'" class="c-card__icon">
-        </span>
     </div>
     <div class="c-status--block">
         <div class="c-links">
