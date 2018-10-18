@@ -24,29 +24,29 @@ export class CommentComponent implements OnInit, OnDestroy {
   @Input() commentCount: any;
   @Input() commentsType = 'media-list'; // media-list or media-popup
   userState$: Observable<Media>;
-  mediaState$: Observable<Media>;
-  mediaStore = initialMedia;
+  // mediaState$: Observable<Media>;
+  // mediaStore = initialMedia;
   messageText: string = '';
   @Output() submitComment: EventEmitter<any> = new EventEmitter<any>();
   @Output() deleteComment: EventEmitter<any> = new EventEmitter<any>();
   @Output() updateComment: EventEmitter<any> = new EventEmitter<any>();
   imageLink: string = environment.API_IMAGE;
-  comment_post_loading: boolean = false;
+  // comment_post_loading: boolean = false;
 
   constructor(
     private store: Store<Media>
   ) {
-    this.mediaState$ = store.select('mediaStore');
-    this.subscription = this.mediaState$.subscribe((state) => {
-      this.comment_post_loading = state.comment_post_loading;
-    });
+    // this.mediaState$ = store.select('mediaStore');
+    // this.subscription = this.mediaState$.subscribe((state) => {
+    //   this.comment_post_loading = state.comment_post_loading;
+    // });
   }
 
   ngOnInit() {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
   }
 
   /**
