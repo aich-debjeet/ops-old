@@ -117,6 +117,7 @@ import { TermsComponent } from './components/terms/terms.component';
 import { AboutComponent } from './components/about/about.component';
 import { DirectoryEffect } from './effects/directory.effect';
 import { DirectoryService } from './services/directory.service';
+import { NgProgressModule } from 'ngx-progressbar';
 
 @NgModule({
   declarations: [
@@ -165,7 +166,6 @@ import { DirectoryService } from './services/directory.service';
       timeOut: 1000,
       preventDuplicates: true,
     }),
-
     ShareButtonsModule.forRoot(),
     // StoreRouterConnectingModule,
     EffectsModule.run(AuthEffect),
@@ -196,7 +196,8 @@ import { DirectoryService } from './services/directory.service';
     }),
     NguCarouselModule,
     LazyLoadImageModule,
-    QuillModule
+    QuillModule,
+    NgProgressModule,
   ],
   providers: [
     AuthService,
