@@ -60,6 +60,7 @@
     "ngx-infinite-scroll": "^0.5.2",
     "ngx-masonry": "https://github.com/abhijeet-aeione/ngx-masonry-hotfix.git",
     "ngx-mydatepicker": "^2.4.8",
+    "ngx-progressbar": "^2.1.1",
     "ngx-quill": "1.6.0",
     "ngx-sharebuttons": "4.0.4",
     "ngx-toastr": "^6.3.0",

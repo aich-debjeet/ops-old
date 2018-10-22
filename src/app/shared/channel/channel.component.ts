@@ -1,15 +1,15 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { environment } from './../../../environments/environment';
-import { Store } from '@ngrx/store';
-import { ProfileModal, initialTag } from '../../models/profile.model';
-import FilesHelper from '../../helpers/fileUtils';
+// import { Store } from '@ngrx/store';
+// import { ProfileModal, initialTag } from '../../models/profile.model';
+// import FilesHelper from '../../helpers/fileUtils';
 
 // action
-import { ProfileActions } from '../../actions/profile.action';
+// import { ProfileActions } from '../../actions/profile.action';
 
 // rx
-import { Observable } from 'rxjs/Observable';
-import { ISubscription } from 'rxjs/Subscription';
+// import { Observable } from 'rxjs/Observable';
+// import { ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-channel',
@@ -27,27 +27,27 @@ export class ChannelComponent implements OnInit, OnDestroy {
   @Output() onDelete: EventEmitter<any> = new EventEmitter<any>();
   @Output() onEdit: EventEmitter<any> = new EventEmitter<any>();
   imageBaseLink: string = environment.API_IMAGE;
-  private subscriptionOne: ISubscription;
+  // private subscriptionOne: ISubscription;
   // Its for admin spefic edit option
   @Input() type: boolean;
   userImage: string;
   isfollowing = false;
   ispin: boolean;
   showEdit: boolean;
-  storeState$: Observable<ProfileModal>;
-  userProfile = initialTag;
+  // storeState$: Observable<ProfileModal>;
+  // userProfile = initialTag;
   userHandle: any;
   image_base_url: string = environment.API_IMAGE;
   ownerHandle = '';
 
   constructor(
-    private _store: Store<ProfileModal>
+    // private _store: Store<ProfileModal>
   ) {
-    this.storeState$ = this._store.select('profileTags');
-    this.subscriptionOne = this.storeState$.subscribe((state) => {
-       this.userHandle = state['profile_details'].handle;
-       this.userProfile = state;
-    });
+    // this.storeState$ = this._store.select('profileTags');
+    // this.subscriptionOne = this.storeState$.subscribe((state) => {
+    //    this.userHandle = state['profile_details'].handle;
+    //    this.userProfile = state;
+    // });
   }
 
   ngOnInit() {
@@ -66,7 +66,7 @@ export class ChannelComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscriptionOne.unsubscribe();
+    // this.subscriptionOne.unsubscribe();
   }
 
   /**
@@ -86,9 +86,9 @@ export class ChannelComponent implements OnInit, OnDestroy {
    * @param fileName
    * @param fileType
    */
-  checkFileType(fileName: string, fileType: string) {
-    return FilesHelper.fileType(fileName, fileType);
-  }
+  // checkFileType(fileName: string, fileType: string) {
+  //   return FilesHelper.fileType(fileName, fileType);
+  // }
 
   /**
    * Toggle Options

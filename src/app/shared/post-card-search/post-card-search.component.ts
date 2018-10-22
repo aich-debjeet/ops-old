@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { environment } from './../../../environments/environment';
 import { ActivatedRoute } from '@angular/router';
 
-import { TruncatePipe } from '../../pipes/truncate.pipe';
+// import { TruncatePipe } from '../../pipes/truncate.pipe';
 @Component({
   selector: 'app-post-card-search',
   templateUrl: './post-card-search.component.html',
@@ -21,7 +21,7 @@ export class PostCardSearchComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.query = params;
-  })
+    });
   }
 
 }
