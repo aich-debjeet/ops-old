@@ -6,8 +6,8 @@ import { Observable } from 'rxjs/Observable';
   selector: '[appAppear]'
 })
 export class AppearDirective implements AfterViewInit, OnDestroy {
-  @Output()
-  appear: EventEmitter<void>;
+  @Output() reached: EventEmitter<void>;
+  @Output() departed: EventEmitter<void>;
 
   elementPos: number;
   elementHeight: number;
@@ -19,7 +19,8 @@ export class AppearDirective implements AfterViewInit, OnDestroy {
   subscriptionResize: Subscription;
 
   constructor(private element: ElementRef) {
-    this.appear = new EventEmitter<void>();
+    this.reached = new EventEmitter<void>();
+    this.departed = new EventEmitter<void>();
   }
 
   saveDimensions() {
@@ -41,27 +42,41 @@ export class AppearDirective implements AfterViewInit, OnDestroy {
   }
 
   checkVisibility() {
-    if (this.isVisible()) {
+    if (this.hasReached()) {
       // double check dimensions (due to async loaded contents, e.g. images)
       this.saveDimensions();
-      if (this.isVisible()) {
+      if (this.hasReached()) {
+        this.reached.emit();
+        // console.log('reached');
+      }
+      if (this.hasDeparted()) {
+        this.departed.emit();
         this.unsubscribe();
-        this.appear.emit();
+        // console.log('departed');
       }
     }
   }
 
-  isVisible() {
-    return this.scrollPos >= this.elementPos || (this.scrollPos + this.windowHeight) >= (this.elementPos + this.elementHeight);
+  hasReached() {
+    // const reached = this.scrollPos >= this.elementPos || (this.scrollPos + this.windowHeight) >= (this.elementPos + this.elementHeight);
+    const reached = (this.scrollPos + this.windowHeight) >= (this.elementPos + this.elementHeight);
+    return reached;
+  }
+
+  hasDeparted() {
+    const departed = this.scrollPos >= (this.elementPos + this.elementHeight);
+    return departed;
   }
 
   subscribe() {
     this.subscriptionScroll = Observable.fromEvent(window, 'scroll').startWith(null)
+      .debounceTime(10)
       .subscribe(() => {
         this.saveScrollPos();
         this.checkVisibility();
       });
     this.subscriptionResize = Observable.fromEvent(window, 'resize').startWith(null)
+      .debounceTime(10)
       .subscribe(() => {
         this.saveDimensions();
         this.checkVisibility();
