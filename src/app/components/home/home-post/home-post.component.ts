@@ -122,18 +122,23 @@ export class HomePostComponent implements OnInit, OnDestroy {
     }
   }
 
-  videoInViewportEvent(mediaId: string) {
-    // console.log('media id', mediaId);
-    const medIndx = _findIndex(this.posts, { id: mediaId });
-    if (medIndx) {
-      this.setMediaViewportKey();
-      this.posts[medIndx].inViewport = true;
-      console.log('media in viewport', this.posts[medIndx]);
+  elemInViewportStatus(data: any) {
+    if (data && data.status && data.mediaId) {
+      // console.log('media id', mediaId);
+      const medIndx = _findIndex(this.posts, { id: data.mediaId });
+      if (medIndx) {
+        if (data.status === 'reached') {
+          this.setMediaViewportKey();
+          this.posts[medIndx].inViewport = true;
+        } else if (data.status === 'departed') {
+          this.posts[medIndx].inViewport = false;
+        }
+      }
     }
   }
-
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
+
 }
