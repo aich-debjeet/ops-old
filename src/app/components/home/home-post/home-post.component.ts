@@ -74,7 +74,7 @@ export class HomePostComponent implements OnInit, OnDestroy {
         this.posts[i]['inViewport'] = false;
       }
     }
-    console.log('this.posts', this.posts);
+    // console.log('this.posts', this.posts);
   }
 
   ngOnInit() {
