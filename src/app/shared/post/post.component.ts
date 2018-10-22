@@ -31,7 +31,7 @@ export class PostComponent implements OnInit, OnDestroy {
   @Input() type: string;
   @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
   @Output() postDelete = new EventEmitter();
-  @Output() videoInViewport = new EventEmitter();
+  @Output() elemViewportStatus = new EventEmitter();
   @ViewChild('reportModal') reportModal: Modal;
   dotMenuState: boolean;
   // private subscription: ISubscription;
@@ -185,8 +185,18 @@ export class PostComponent implements OnInit, OnDestroy {
     // console.log(this.desText);
   }
 
-  onAppearInViewport(mediaId: any) {
-    this.videoInViewport.emit(mediaId);
+  onReachingInViewport(mediaId: any) {
+    this.elemViewportStatus.emit({
+      mediaId: mediaId,
+      status: 'reached'
+    });
+  }
+
+  onDepartedFromViewport(mediaId: any) {
+    this.elemViewportStatus.emit({
+      mediaId: mediaId,
+      status: 'departed'
+    });
   }
 
 }
