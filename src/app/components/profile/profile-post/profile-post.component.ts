@@ -15,6 +15,7 @@ import { MediaActions } from '../../../actions/media.action';
 import { Observable } from 'rxjs/Observable';
 import { ISubscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
+import { findIndex as _findIndex } from 'lodash';
 
 @Component({
   selector: 'app-profile-post',
@@ -50,6 +51,7 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
   profiles = [];
   people_follow_id: any = '';
   scrollingPeople = 100;
+  playingVideoId = '';
 
   constructor(
     private _router: Router,
@@ -66,6 +68,7 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
       this.userData = state['profile_navigation_details']
       this.userMedia = state;
        this.posts = this.userMedia.user_posts;
+       this.setMediaViewportKey();
        this.post_scroll_id = this.userMedia.user_post_scrollId
         if (state['user_profiles_all'] !== 'undefined') {
           this.profiles = state.user_profiles_all;
@@ -214,4 +217,31 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
       this.loadProfiles(this.people_follow_id);
     }
   }
+
+  setMediaViewportKey() {
+    for (let i = 0; i < this.posts.length; i++) {
+      if (this.posts[i] && typeof this.posts[i].inViewport) {
+        this.posts[i]['inViewport'] = false;
+      }
+    }
+    // console.log('this.posts', this.posts);
+  }
+
+  elemInViewportStatus(data: any) {
+    if (data && data.status && data.mediaId) {
+      const medIndx = _findIndex(this.posts, { id: data.mediaId });
+      if (medIndx) {
+        if (data.status === 'reached') {
+          if (this.posts[medIndx].inViewport !== true && this.posts[medIndx].id !== this.playingVideoId) {
+            this.setMediaViewportKey();
+            this.posts[medIndx].inViewport = true;
+            this.playingVideoId = this.posts[medIndx].id;
+          }
+        } else if (data.status === 'departed') {
+          this.posts[medIndx].inViewport = false;
+        }
+      }
+    }
+  }
+
 }

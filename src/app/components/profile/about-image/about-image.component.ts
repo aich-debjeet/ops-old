@@ -77,7 +77,7 @@ export class AboutImageComponent implements OnInit {
       this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_IMAGE, payload: imageData });
       this.changingImage = false;
       this._store.select('profileTags')
-        .first(state => state['image_upload_success'] === true)
+        .first(state => state['profile_img_upload_loaded'] === true)
         .subscribe(() => {
           this.isClosed(null);
           this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });

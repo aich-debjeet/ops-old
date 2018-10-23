@@ -517,20 +517,24 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       case ProfileActions.LOAD_PROFILE_IMAGE:
         return Object.assign({}, state, {
           profile_img_upload_loading: true,
+          profile_img_upload_loaded: false,
           success: true
         });
 
       case ProfileActions.LOAD_PROFILE_IMAGE_SUCCESS:
       console.log(payload)
         return Object.assign({}, state, {
+          profile_img_upload_loading: false,
+          profile_img_upload_loaded: true,
           profileImage: payload,
           image_upload_success: true,
-          profile_img_upload_loading: false,
           success: true
         });
 
       case ProfileActions.LOAD_PROFILE_IMAGE_FAILED:
         return Object.assign({}, state, {
+          profile_img_upload_loading: false,
+          profile_img_upload_loaded: false,
           success: false
         });
 

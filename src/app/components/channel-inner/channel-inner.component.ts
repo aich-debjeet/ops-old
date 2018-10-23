@@ -21,6 +21,7 @@ import { ProfileActions } from '../../actions/profile.action';
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { GeneralUtilities } from 'app/helpers/general.utils';
 
 @Component({
   selector: 'app-channel-inner',
@@ -30,19 +31,18 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class ChannelInnerComponent implements OnInit, OnDestroy {
   tagState$: Observable<Media>;
-  userState$: Observable<Media>;
-  private tagStateSubscription: Subscription;
+  private tagStateSub: Subscription;
   public editForm: FormGroup;
   channel = initialMedia ;
   channelId: string;
   imageLink: string = environment.API_IMAGE;
   pageLoading: boolean;
-  isfollowing: boolean;
+  isFollowing: boolean;
   contributors: any[];
-  subscription: Subscription;
+  routerSub: Subscription;
   channelPost: any;
   filterType: string | '';
-  filterPost: string = 'spots';
+  filterPost = 'spots';
   channelPostLoading: any;
   page_start = 0;
   page_end = 20;
@@ -61,26 +61,30 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private modalService: ModalService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    public gUtils: GeneralUtilities
   ) {
-
-      this.channelId = route.snapshot.params['id'];
-      this.pageLoading = false;
-      this.tagState$ = this._store.select('mediaStore');
-      this.userState$ = this._store.select('profileTags');
-      this.tagStateSubscription = this.tagState$.subscribe((state) => {
-        this.channel = state;
-        this.pageLoading = this.channel.channel_loading;
-        this.channelPost = state['channel_post'];
-        this.channelPostLoading = state['channel_post_loading'];
+    this.channelId = route.snapshot.params['id'];
+    this.pageLoading = false;
+    this.tagState$ = this._store.select('mediaStore');
+    this.tagStateSub = this.tagState$.subscribe((state) => {
+      this.channel = state;
+      this.pageLoading = this.channel.channel_loading;
+      this.channelPost = state['channel_post'];
+      this.channelPostLoading = state['channel_post_loading'];
+      if (state) {
         if (state['channelPostScrollId']) {
           this.scrollId = state['channelPostScrollId']
         }
-      });
+        if (this.gUtils.checkNestedKey(state, ['channel_detail', 'isFollowing'])) {
+          this.isFollowing = state.channel_detail.isFollowing;
+        }
+      }
+    });
   }
 
   ngOnInit() {
-    this.subscription = this.route.params.subscribe(
+    this.routerSub = this.route.params.subscribe(
       (params: any) => {
         this.scrollId = null
         this.channelId = params['id'];
@@ -92,8 +96,8 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
-    this.tagStateSubscription.unsubscribe();
+    this.routerSub.unsubscribe();
+    this.tagStateSub.unsubscribe();
   }
 
   mediaNext($event) {
@@ -194,13 +198,13 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
    * Follow this channel
    */
   followChannel(type, channelId) {
-    if (this.isfollowing === true) {
+    if (this.isFollowing === true) {
       this.following (type = false, channelId)
-      this.isfollowing = false;
+      this.isFollowing = false;
       return
     } else {
       this.following (type = true, channelId);
-      this.isfollowing = true;
+      this.isFollowing = true;
       return
     }
   }
