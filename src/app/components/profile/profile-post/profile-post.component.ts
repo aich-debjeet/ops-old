@@ -51,6 +51,7 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
   profiles = [];
   people_follow_id: any = '';
   scrollingPeople = 100;
+  playingVideoId = '';
 
   constructor(
     private _router: Router,
@@ -228,16 +229,19 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
 
   elemInViewportStatus(data: any) {
     if (data && data.status && data.mediaId) {
-      // console.log('media id', mediaId);
       const medIndx = _findIndex(this.posts, { id: data.mediaId });
       if (medIndx) {
         if (data.status === 'reached') {
-          this.setMediaViewportKey();
-          this.posts[medIndx].inViewport = true;
+          if (this.posts[medIndx].inViewport !== true && this.posts[medIndx].id !== this.playingVideoId) {
+            this.setMediaViewportKey();
+            this.posts[medIndx].inViewport = true;
+            this.playingVideoId = this.posts[medIndx].id;
+          }
         } else if (data.status === 'departed') {
           this.posts[medIndx].inViewport = false;
         }
       }
     }
   }
+
 }
