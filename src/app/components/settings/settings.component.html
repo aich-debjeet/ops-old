@@ -716,7 +716,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <h5 class="text-center">Enter the 6 digit OTP that you have received <br> by email or phone </h5>
+                        <h5 class="text-center">Please enter the 6-digit OTP sent to your email <br> and phone number</h5>
                         <p class="text-center m-t-16">
                             <a *ngIf="!resendingOtp" (click)="resendOtp()" class="color-theme">Resend OTP</a>
                             <a *ngIf="resendingOtp">Sending OTP, please wait...</a>
@@ -754,7 +754,7 @@
                                 <input #otpNum6 (keydown)="nextOtpNum($event, 6)" class="form_input" type="text" maxlength="1" formControlName="otpNum6">
                             </div> -->
                             <p class="c-form__validation text-center" *ngIf="petTag?.user_otp_failed">Invalid OTP</p>
-                            <p class="c-form__validation text-center" *ngIf="myform.submitted && (otpForm.controls['otpNum'].errors?.required || otpForm.controls['otpNum'].errors?.invalidOtp)">Please enter your 6 digit OTP number</p>
+                            <p class="c-form__validation text-center" *ngIf="myform.submitted && (otpForm.controls['otpNum'].errors?.required || otpForm.controls['otpNum'].errors?.invalidOtp)">Please enter the 6-digit OTP</p>
                             <!-- <div class="text-center otp-dont-get" *ngIf="!claimActive">
                                 <a (click)="otpNotRecieved()" class="color-theme">Didn't get your OTP?</a>
                             </div> -->

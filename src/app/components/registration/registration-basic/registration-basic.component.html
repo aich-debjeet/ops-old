@@ -176,7 +176,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <h5 class="text-center">Enter the 6 digit OTP that you have received <br> by email or phone </h5>
+                        <h5 class="text-center">Please enter the 6-digit OTP sent to your email <br> and phone number</h5>
                         <p class="text-center m-t-16">
                             <a *ngIf="!resendingOtp" (click)="resendOtp()" class="color-theme">Resend OTP</a>
                             <a *ngIf="resendingOtp">Sending OTP, please wait...</a>
@@ -190,7 +190,7 @@
                                 <!-- <span>00:59</span> -->
                             </div> 
                             <p class="c-form__validation text-center" *ngIf="myform.submitted && (regState?.user_otp_failed)">Invalid OTP</p>
-                            <p class="c-form__validation text-center" *ngIf="myform.submitted && (otpForm.controls['otpNum'].errors?.required || otpForm.controls['otpNum'].errors?.invalidOtp)">Please enter your 6 digit OTP number</p>
+                            <p class="c-form__validation text-center" *ngIf="myform.submitted && (otpForm.controls['otpNum'].errors?.required || otpForm.controls['otpNum'].errors?.invalidOtp)">Please enter the 6-digit OTP</p>
                             <div class="text-center otp-dont-get" *ngIf="!claimActive">
                                 <a (click)="changeMobileNumber()" class="color-theme">Didn't get your OTP?</a>
                             </div>
