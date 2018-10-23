@@ -108,7 +108,6 @@ import { SpotfeedPremiumComponent } from './components/spotfeed-premium/spotfeed
 import { NotificationComponent } from './components/notification/notification.component';
 // import { SearchComponent } from './components/search/search.component';
 import { SettingsComponent } from './components/settings/settings.component';
-import { ChannelListComponent } from './components/channel-list/channel-list.component';
 import { LogoutHomeComponent } from './components/logout-home/logout-home.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { MediaComponent } from './components/media/media.component';
@@ -128,7 +127,6 @@ import { NgProgressModule } from 'ngx-progressbar';
     SpotfeedPremiumComponent,
     NotificationComponent,
     SettingsComponent,
-    ChannelListComponent,
     LogoutHomeComponent,
     LogoutComponent,
     ChannelInnerComponent,
