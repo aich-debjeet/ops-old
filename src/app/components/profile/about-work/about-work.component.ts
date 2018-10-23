@@ -28,7 +28,7 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
   tagState$: Observable<ProfileModal>;
   private subscription: ISubscription;
   public workForm: FormGroup;
-  private dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+  // private dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   private editFormPopup: boolean;
   stateProfile = initialTag;
   userProfile: any;
@@ -115,9 +115,9 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
    * Reserve date
    * @param string
    */
-  reverseDate(string) {
-    return string.split('-').reverse().join('-');
-  }
+  // reverseDate(string) {
+  //   return string.split('-').reverse().join('-');
+  // }
 
   /**
    * Form initial value
@@ -138,79 +138,93 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
    * Add Work form submit
    */
   workFormSubmit(value) {
-    
-    if ( this.workForm.valid === true ) {
-      
-      if (this.editFormPopup === false) {
-        
-        if (this.hideTo !== true) {
-        const body = {
-          'role': value.position,
-          'organizationName': value.company,
-          'workOrAward': 'work',
-          'from': this.reverseDate(value.from) + 'T05:00:00',
-          'to': this.reverseDate(value.to) + 'T05:00:00',
-          'currentlyWith': Boolean(value.currentWork),
-          'access': Number(value.publicWork)
-        }
-        this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: body});
+    console.log(value);
+    console.log(this.formData.formType);
+    if(this.formData.formType === 'create'){
+      this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: value});
+      this.activateCreateForm = false;
         this.toastr.success('Your work has been added successfully!', '', {
           timeOut: 3000
         });
-        this.modalService.close('userWorkAdd');
-      }
-     if (this.hideTo === true) {
-        const body = {
-          'role': value.position,
-          'organizationName': value.company,
-          'workOrAward': 'work',
-          'from': this.reverseDate(value.from) + 'T05:00:00',
-          'currentlyWith': Boolean(value.currentWork),
-          'access': Number(value.publicWork)
-        }
-        this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: body});
-        this.toastr.success('Your work has been added successfully!', '', {
-          timeOut: 3000
-        });
-        this.modalService.close('userWorkAdd');
-      }
-      } else {
-        
-        if (this.hideTo !== true) {
-          const body = {
-            'role': value.position,
-            'organizationName': value.company,
-            'workOrAward': 'work',
-            'from': this.reverseDate(value.from) + 'T05:00:00',
-            'to': this.reverseDate(value.to) + 'T05:00:00',
-            'currentlyWith': Boolean(value.currentWork),
-            'access': Number(value.publicWork),
-            'id': value.id,
-          }
-  
-          this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_WORK, payload: body});
-          this.toastr.success('Your work has been updated successfully!');
-          this.modalService.close('userWorkAdd');
-        }
-        if (this.hideTo === true) {
-          const body = {
-            'role': value.position,
-            'organizationName': value.company,
-            'workOrAward': 'work',
-            'from': this.reverseDate(value.from) + 'T05:00:00',
-            'currentlyWith': Boolean(value.currentWork),
-            'access': Number(value.publicWork),
-            'id': value.id,
-          }
-  
-          this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_WORK, payload: body});
-          this.toastr.success('Your work has been updated successfully!');
-          this.modalService.close('userWorkAdd');
-        }
-      }
-      this.workForm.reset();
-     // this.buildEditForm()
     }
+    if(this.formData.formType === 'edit'){
+      this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_WORK, payload: value});
+      this.activateEditForm = false;
+      this.toastr.success('Your work has been updated successfully!');
+    }
+    
+    // if ( this.workForm.valid === true ) {
+      
+    //   if (this.editFormPopup === false) {
+        
+    //     if (this.hideTo !== true) {
+    //     const body = {
+    //       'role': value.position,
+    //       'organizationName': value.company,
+    //       'workOrAward': 'work',
+    //       'from': this.reverseDate(value.from) + 'T05:00:00',
+    //       'to': this.reverseDate(value.to) + 'T05:00:00',
+    //       'currentlyWith': Boolean(value.currentWork),
+    //       'access': Number(value.publicWork)
+    //     }
+    //     this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: body});
+    //     this.toastr.success('Your work has been added successfully!', '', {
+    //       timeOut: 3000
+    //     });
+    //     this.modalService.close('userWorkAdd');
+    //   }
+    //  if (this.hideTo === true) {
+    //     const body = {
+    //       'role': value.position,
+    //       'organizationName': value.company,
+    //       'workOrAward': 'work',
+    //       'from': this.reverseDate(value.from) + 'T05:00:00',
+    //       'currentlyWith': Boolean(value.currentWork),
+    //       'access': Number(value.publicWork)
+    //     }
+    //     this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: body});
+    //     this.toastr.success('Your work has been added successfully!', '', {
+    //       timeOut: 3000
+    //     });
+    //     this.modalService.close('userWorkAdd');
+    //   }
+    //   } else {
+        
+    //     if (this.hideTo !== true) {
+    //       const body = {
+    //         'role': value.position,
+    //         'organizationName': value.company,
+    //         'workOrAward': 'work',
+    //         'from': this.reverseDate(value.from) + 'T05:00:00',
+    //         'to': this.reverseDate(value.to) + 'T05:00:00',
+    //         'currentlyWith': Boolean(value.currentWork),
+    //         'access': Number(value.publicWork),
+    //         'id': value.id,
+    //       }
+  
+    //       this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_WORK, payload: body});
+    //       this.toastr.success('Your work has been updated successfully!');
+    //       this.modalService.close('userWorkAdd');
+    //     }
+    //     if (this.hideTo === true) {
+    //       const body = {
+    //         'role': value.position,
+    //         'organizationName': value.company,
+    //         'workOrAward': 'work',
+    //         'from': this.reverseDate(value.from) + 'T05:00:00',
+    //         'currentlyWith': Boolean(value.currentWork),
+    //         'access': Number(value.publicWork),
+    //         'id': value.id,
+    //       }
+  
+    //       this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_WORK, payload: body});
+    //       this.toastr.success('Your work has been updated successfully!');
+    //       this.modalService.close('userWorkAdd');
+    //     }
+    //   }
+    //   this.workForm.reset();
+    //  // this.buildEditForm()
+    // }
   }
 
   /**
@@ -263,17 +277,17 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
   /**
    * Reset Form
    */
-  reset() {
-    this.workForm.patchValue({
-      company: '',
-      position: '',
-      from: '',
-      to: '',
-      currentWork: false,
-      publicWork: '0',
-      id: ''
-    });
-  }
+  // reset() {
+  //   this.workForm.patchValue({
+  //     company: '',
+  //     position: '',
+  //     from: '',
+  //     to: '',
+  //     currentWork: false,
+  //     publicWork: '0',
+  //     id: ''
+  //   });
+  // }
   confirmation(eve){
     this.closeCancelApplicationModal();
     if (eve === 'yes') {

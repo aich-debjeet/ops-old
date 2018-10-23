@@ -1,9 +1,10 @@
 import { Component, OnInit, Input ,Output, EventEmitter} from '@angular/core';
 import { environment } from '../../../../../environments/environment';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, NgControl } from '@angular/forms';
 import {DatabaseValidator } from '../../../../helpers/form.validator';
 import { GeneralUtilities } from '../../../../helpers/general.utils';
 import {Moment} from 'moment';
+import { FormValidation } from '../../../../helpers/form.validator';
 
 // import {Month} from '../../../../models/profile.model'
 import * as moment from 'moment';
@@ -20,6 +21,7 @@ export class AboutWorkFormComponent implements OnInit {
   private mm : string ;
   private monthNumber: number;
   hide: boolean =false;
+  private dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   months = [
     { val: '01',  name: 'Jan' },
     { val: '02',  name: 'Feb' },
@@ -39,12 +41,16 @@ private yy : number;
 
   @Output() formSubmitted: EventEmitter<any> = new EventEmitter<any>();
   @Output() closeForms: EventEmitter<any> = new EventEmitter<any>();
+  // @Input() set disableControl( hide : boolean ) {
+  //   const action = hide ? 'disable' : 'enable';
+  //   this.ngControl.control[action]();
+  // }
   @Input('workDetails') set setWorkFormData(value) {
     this._workDetails = value;
-    console.log(value);
+    // console.log(value);
     if (this._workDetails.formType === 'edit') {
       this.buildWorkForm(this._workDetails.data);
-      console.log('edit');
+      // console.log('edit');
     } else {
       this.buildWorkForm(null);
     }
@@ -52,67 +58,150 @@ private yy : number;
   constructor(
     private fb: FormBuilder,
     private databaseValidator: DatabaseValidator,
-    private generalUtils: GeneralUtilities
+    private generalUtils: GeneralUtilities,
+    // private ngControl : NgControl
   ) { }
 
   ngOnInit() {
-    this.getMonth();
-    this.getYear();
+    // this.getMonth();
+    // this.getYear();
   }
-  getMonth(){
-    const today = moment().month();
-    // console.log(today.getMonth());
-    this.monthNumber = today +1;     
-    if(this.monthNumber<10) {
-    this.mm = '0' + this.monthNumber;        
-    }
-   }
+  // getMonth(){
+  //   const today = moment().month();
+  //   // console.log(today.getMonth());
+  //   this.monthNumber = today +1;     
+  //   if(this.monthNumber<10) {
+  //   this.mm = '0' + this.monthNumber;        
+  //   }
+  //  }
 
-  getYear(){
-    this.yy = moment().year();      
-    for(let i = (this.yy-100); i <= this.yy; i++){
-      this.years.push(i);
-    }
-  }
+  // getYear(){
+  //   this.yy = moment().year();      
+  //   for(let i = (this.yy-100); i <= this.yy; i++){
+  //     this.years.push(i);
+  //   }
+  // }
 
   buildWorkForm(data:any){
-    console.log(data)
+    // console.log(data)
     this.workForm = this.fb.group({
       company : [this.generalUtils.checkNestedKey(data, ['organizationName']) ? data['organizationName'] : '', [Validators.required]],
       position : [this.generalUtils.checkNestedKey(data, ['role']) ? data['role'] : '', [Validators.required]],
-      from_month : [this.generalUtils.checkNestedKey(data, ['from']) ? data['from'] : '', [Validators.required], this.databaseValidator.validWorkFromDate.bind(this.databaseValidator)],
-      from_year:'',
-      to_month:'',
-      to_year : [this.generalUtils.checkNestedKey(data, ['to']) ? data['to'] : '' , [Validators.required], this.databaseValidator.validWorkToDate.bind(this.databaseValidator)],
+      from : [this.generalUtils.checkNestedKey(data, ['from']) ? this.removeTime(data['from']) : '', [Validators.required, FormValidation.validWorkFromDate]],
+      // from_year:'',
+      // to_month:'',
+      to : [this.generalUtils.checkNestedKey(data, ['to']) ? this.removeTime(data['to']) : '', [FormValidation.validWorkToDate]],
       currentWork : this.generalUtils.checkNestedKey(data, ['currentlyWith']) ? data['currentlyWith'] : false,
       id : this.generalUtils.checkNestedKey(data, ['id']) ? data['id'] : '',
       publicWork: this.generalUtils.checkNestedKey(data, ['access']) ? data['access'] : '0',
+    },
+    {
+      validator: FormValidation.toFieldEmpty
     })
   }
 
   workFormSubmit(value){
-    console.log(value)
-    // this.formSubmitted.emit(value);
+    // console.log(value)
+    if ( this.workForm.valid === true ) {
+      let body;      
+      if (this._workDetails.formType === 'create') {
+        if (!this.hide ||! this.workForm.controls['currentWork']) {
+          body = {
+            'role': value.position,
+            'organizationName': value.company,
+            'workOrAward': 'work',
+            'from': this.reverseDate(value.from) + 'T05:00:00',
+            'to': this.reverseDate(value.to) + 'T05:00:00',
+            'currentlyWith': Boolean(value.currentWork),
+            'access': Number(value.publicWork)
+          }
+          // console.log(body)
+        } else {
+           body = {
+            'role': value.position,
+            'organizationName': value.company,
+            'workOrAward': 'work',
+            'from': this.reverseDate(value.from) + 'T05:00:00',
+            'currentlyWith': Boolean(value.currentWork),
+            'access': Number(value.publicWork)
+          }
+          // console.log(body)
+        }
+      } 
+      if (this._workDetails.formType === 'edit') {
+        
+        if (!this.hide || !this.workForm.controls['currentWork']) {
+           body = {
+            'role': value.position,
+            'organizationName': value.company,
+            'workOrAward': 'work',
+            'from': this.reverseDate(value.from) + 'T05:00:00',
+            'to': this.reverseDate(value.to) + 'T05:00:00',
+            'currentlyWith': Boolean(value.currentWork),
+            'access': Number(value.publicWork),
+            'id': value.id,
+          }
+          // console.log(body)
+        } else {
+           body = {
+            'role': value.position,
+            'organizationName': value.company,
+            'workOrAward': 'work',
+            'from': this.reverseDate(value.from) + 'T05:00:00',
+            'currentlyWith': Boolean(value.currentWork),
+            'access': Number(value.publicWork),
+            'id': value.id,
+          }
+          // console.log(body)
+        }
+      }
+      // console.log(body);
+      this.formSubmitted.emit(body);
+    }
+    // else {
+    //     const invalid = [];
+    //     const controls = this.workForm.controls;
+    //     for (const name in controls) {
+    //         if (controls[name].invalid) {
+    //             invalid.push(name);
+    //         }
+    //     }
+    //     console.log(invalid);
+    // }
+  }
+
+  reverseDate(string) {
+    return string.split('-').reverse().join('-');
+  }
+
+  removeTime(dateTime:string){
+    let dateAndTime = dateTime.split('T')
+    // console.log(s.split('T'))
+    let date = dateAndTime[0];
+    // console.log(d);
+    return date.split('-').reverse().join('-');
   }
 
   closeForm(data: any){
-    console.log(data);
-    console.log('closing');
+    // console.log(data);
+    // console.log('closing');
     this.closeForms.emit(data);    
   }
   onCheckboxChange(val) {
       if(val == true){
         this.hide = true;
         this.workForm.patchValue({
-          to_month:'',
-          to_year:''
+          // to_month:'',
+          // to_year:''
+          to: '',
         })
       }
       if(val == false){
         this.hide = false;
         this.workForm.patchValue({
-          to_month:'JANUA',
-          to_year:'1231'
+          // to_month:'JANUA',
+          // to_year:'1231'
+          to: this._workDetails.data['to'] ? this.removeTime(this._workDetails.data['to']) : '' ,
         })
       }
   }
