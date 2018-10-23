@@ -15,7 +15,7 @@
                         </button>
                     </li>
                     <li class="list-inline-item" *ngIf="!channel?.channel_detail?.isOwner">
-                        <button type="button" (click)="followChannel(isfollowing, channel?.channel_detail?.channelId )" class="btn btn-primary btn-sm">{{ isfollowing ? 'Unfollow' : 'Follow' }}</button>
+                        <button type="button" (click)="followChannel(isFollowing, channel?.channel_detail?.channelId )" class="btn btn-primary btn-sm">{{ isFollowing ? 'Unfollow' : 'Follow' }}</button>
                     </li>
                     
                     <li class="list-inline-item" *ngIf="channel?.channel_detail?.isOwner">
