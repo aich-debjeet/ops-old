@@ -212,12 +212,14 @@ export class AboutBioComponent implements OnInit, OnDestroy {
             this.isUpdating = true;
           }
           if(state && state.isUpdating === false){
-            console.log('updating done');
-            this.isUpdating = false;
-            this.cancelEdit();
-            this.toastr.success('Your profile has been updated successfully!', '', {
-              timeOut: 3000
-            });
+            if(this.isUpdating){
+              console.log('updating done');
+              this.cancelEdit();
+              this.toastr.success('Your profile has been updated successfully!', '', {
+                timeOut: 3000
+              });
+              this.isUpdating = false;
+            }
           }
         }
       }
