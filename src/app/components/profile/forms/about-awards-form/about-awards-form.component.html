@@ -10,18 +10,27 @@
               <span class="c-form__highlight"></span>
               <span class="c-form__bar"></span>
               <label>Title</label>
-              <p class="error_alert" *ngIf="awardForm.controls['title'].errors?.required && awardForm.controls['position']?.touched">Role is required</p>
+              <p class="error_alert" *ngIf="awardForm.controls['title'].errors?.required && myform.submitted">Role is required</p>
           </div>
           <div class="c-form__group c-form--sm c-form--noeffect">
               <input class="c-form__input" required="" type="text" formControlName="presenter" maxlength="40">
               <span class="c-form__highlight"></span>
               <span class="c-form__bar"></span>
               <label>Given By</label>
-              <p class="error_alert" *ngIf="awardForm.controls['presenter'].errors?.required && awardForm.controls['position']?.touched">Company is required</p>
+              <p class="error_alert" *ngIf="awardForm.controls['presenter'].errors?.required && myform.submitted">Company is required</p>
           </div>
           <div class="col-md-12 p-0">
-              <p class="c-text_md">Date</p>
-              <div class="col-md-2 p-0">
+              <p class="c-text_md">Date(DD-MM-YYYY)</p>
+              <div class="col-md-6 p-0">
+                <div class="c-form__group c-form--sm c-form--noeffect">
+                    <input class="c-form__input" type="text" formControlName="date" [textMask]="{mask: dateMask}">
+                    <span class="c-form__highlight"></span>
+                    <span class="c-form__bar"></span>
+                    <p class="error_alert" *ngIf="awardForm.controls['date'].errors?.required && myform.submitted">From Date is required</p>
+                    <p class="error_alert" *ngIf="awardForm.controls['date'].errors?.invalidWorkDate">Invalid Date</p>
+                  </div>
+              </div>
+              <!-- <div class="col-md-2 p-0">
                   <div class="c-form__group">
                       <select class="c-form-control p-l-0" formControlName="from_month" required>
                           <option value="" disabled selected hidden>Month</option>
@@ -36,7 +45,7 @@
                           <option *ngFor="let y of years">{{y}}</option>
                       </select>
                   </div>
-              </div>
+              </div> -->
           </div>
           <div class="o-bio-info__edit-actions width100 m-t-24">
               <button type="button" class="btn btn-primary btn-sm m-l-8" [type]="'submit'">Save</button>

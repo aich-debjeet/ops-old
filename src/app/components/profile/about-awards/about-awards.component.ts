@@ -100,9 +100,9 @@ export class AboutAwardsComponent implements OnInit, OnDestroy {
    * Reserve date
    * @param string
    */
-  reverseDate(string) {
-    return string.split('-').reverse().join('-');
-  }
+  // reverseDate(string) {
+  //   return string.split('-').reverse().join('-');
+  // }
 
   /**
    * Form initial value
@@ -120,38 +120,52 @@ export class AboutAwardsComponent implements OnInit, OnDestroy {
    * Add Work form submit
    */
   awardFormSubmit(value) {
-    if ( this.awardForm.valid === true ) {
-      if (this.editFormPopup === false) {
-        const body = {
-          'role': value.award,
-          'organizationName': value.organization,
-          'workOrAward': 'awards',
-          'from': this.reverseDate(value.timeperiod) + 'T05:00:00',
-          'access': 0
-        }
-        this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: body});
-        this.toastr.success('New award has been added successfully!', '', {
+    console.log(value);
+    console.log(this.formData.formType);
+    if(this.formData.formType === 'create'){
+      this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: value});
+      this.activateCreateForm = false;
+        this.toastr.success('Your award has been added successfully!', '', {
           timeOut: 3000
         });
-        this.modalService.close('addAwardPopup');
-        this.resetForm();
-      } else {
-        const body = {
-          'role': value.award,
-          'organizationName': value.organization,
-          'workOrAward': 'awards',
-          'from': this.reverseDate(value.timeperiod) + 'T05:00:00',
-          'access': 0,
-          'id': value.id,
-        }
-        this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_WORK, payload: body});
-        this.toastr.success('Your award has been updated successfully!', '', {
-          timeOut: 3000
-        });
-        this.modalService.close('addAwardPopup');
-        this.resetForm();
-      }
     }
+    if(this.formData.formType === 'edit'){
+      this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_WORK, payload: value});
+      this.activateEditForm = false;
+      this.toastr.success('Your award has been updated successfully!');
+    }
+    // if ( this.awardForm.valid === true ) {
+    //   if (this.editFormPopup === false) {
+    //     const body = {
+    //       'role': value.award,
+    //       'organizationName': value.organization,
+    //       'workOrAward': 'awards',
+    //       'from': this.reverseDate(value.timeperiod) + 'T05:00:00',
+    //       'access': 0
+    //     }
+    //     this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: body});
+    //     this.toastr.success('New award has been added successfully!', '', {
+    //       timeOut: 3000
+    //     });
+    //     this.modalService.close('addAwardPopup');
+    //     this.resetForm();
+    //   } else {
+    //     const body = {
+    //       'role': value.award,
+    //       'organizationName': value.organization,
+    //       'workOrAward': 'awards',
+    //       'from': this.reverseDate(value.timeperiod) + 'T05:00:00',
+    //       'access': 0,
+    //       'id': value.id,
+    //     }
+    //     this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_WORK, payload: body});
+    //     this.toastr.success('Your award has been updated successfully!', '', {
+    //       timeOut: 3000
+    //     });
+    //     this.modalService.close('addAwardPopup');
+    //     this.resetForm();
+    //   }
+    // }
   }
 
   /**
@@ -192,9 +206,9 @@ export class AboutAwardsComponent implements OnInit, OnDestroy {
   //   this.modalService.close('addAwardPopup');
   // }
 
-  resetForm() {
-    this.awardForm.reset();
-  }
+  // resetForm() {
+  //   this.awardForm.reset();
+  // }
 
   confirmation(eve){
     this.closeCancelApplicationModal();

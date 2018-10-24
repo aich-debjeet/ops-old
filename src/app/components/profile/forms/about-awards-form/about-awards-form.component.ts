@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import {DatabaseValidator } from '../../../../helpers/form.validator';
 import { GeneralUtilities } from '../../../../helpers/general.utils';
 import {Moment} from 'moment';
+import { FormValidation } from '../../../../helpers/form.validator';
 
 // import {Month} from '../../../../models/profile.model'
 import * as moment from 'moment';
@@ -22,6 +23,7 @@ export class AboutAwardsFormComponent implements OnInit {
   private monthNumber: number;
   checkbox: boolean;
   hide: boolean =false;
+  private dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   months = [
     { val: '01',  name: 'Jan' },
     { val: '02',  name: 'Feb' },
@@ -82,8 +84,9 @@ export class AboutAwardsFormComponent implements OnInit {
     this.awardForm = this.fb.group({
       presenter : [this.generalUtils.checkNestedKey(data, ['organizationName']) ? data['organizationName'] : '', [Validators.required]],
       title : [this.generalUtils.checkNestedKey(data, ['role']) ? data['role'] : '', [Validators.required]],
-      from_month : [this.generalUtils.checkNestedKey(data, ['from']) ? data['from'] : '', [Validators.required], this.databaseValidator.validWorkFromDate.bind(this.databaseValidator)],
-      from_year:'',
+      date : [this.generalUtils.checkNestedKey(data, ['from']) ? this.removeTime(data['from']) : '', [Validators.required, FormValidation.validWorkFromDate]],
+      // from_month : [this.generalUtils.checkNestedKey(data, ['from']) ? data['from'] : '', [Validators.required], this.databaseValidator.validWorkFromDate.bind(this.databaseValidator)],
+      // from_year:'',
       id : this.generalUtils.checkNestedKey(data, ['id']) ? data['id'] : '',
       publicWork: this.generalUtils.checkNestedKey(data, ['access']) ? data['access'] : '0',
     })
@@ -91,12 +94,47 @@ export class AboutAwardsFormComponent implements OnInit {
 
   awardFormSubmit(value){
     console.log(value)
-    this.formSubmitted.emit(value);
+    if ( this.awardForm.valid === true ) {
+      let body;      
+      if (this._awardDetails.formType === 'create') {
+          body = {
+            'role': value.title,
+            'organizationName': value.presenter,
+            'workOrAward': 'awards',
+            'from': this.reverseDate(value.date) + 'T05:00:00',
+            'access': Number(value.publicWork)
+          }
+          console.log(body)
+      } 
+      if (this._awardDetails.formType === 'edit') {
+           body = {
+            'role': value.title,
+            'organizationName': value.presenter,
+            'workOrAward': 'awards',
+            'from': this.reverseDate(value.date) + 'T05:00:00',
+            'access': Number(value.publicWork),
+            'id': value.id,
+          }
+          console.log(body)
+      }
+      console.log(body);
+      this.formSubmitted.emit(body);
+    }
+  }
+  reverseDate(string) {
+    return string.split('-').reverse().join('-');
   }
 
   closeForm(data: any){
     console.log(data);
     console.log('closing');
     this.closeForms.emit(data);    
+  }
+  removeTime(dateTime:string){
+    let dateAndTime = dateTime.split('T')
+    // console.log(s.split('T'))
+    let date = dateAndTime[0];
+    // console.log(d);
+    return date.split('-').reverse().join('-');
   }
 }
