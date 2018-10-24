@@ -1,6 +1,6 @@
-<div class="col-md-8 col-sm-8">
+<div class="col-md-8 col-sm-8 desktop-p-r-0">
     <div class="search-results" infinite-scroll (scrolled)="onScroll($event)">
-        <app-post *ngFor="let userMedia of posts; let i = index" [className]="'col-md-8'" (postDelete)="postDelete(userMedia)" [mediaData]="userMedia" [userData]="userData"></app-post>
+        <app-post (elemViewportStatus)="elemInViewportStatus($event)" *ngFor="let userMedia of posts; let i = index" [className]="'col-md-8'" (postDelete)="postDelete(userMedia)" [mediaData]="userMedia" [userData]="userData"></app-post>
     </div>
 
     <div *ngIf="userMedia.user_posts_loading">

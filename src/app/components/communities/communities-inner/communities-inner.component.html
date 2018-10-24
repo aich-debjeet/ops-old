@@ -79,7 +79,7 @@
                     <div class="c-invite--search">
                         <form class="fill-grey-light">
                             <div class="c-form__group c-form--noeffect c-form--sm">
-                                <input class="c-form__input fpadding_l32" [formControl]="memberSearch" placeholder="Seach" type="text">
+                                <input class="c-form__input fpadding_l32" [formControl]="memberSearch" placeholder="Search" type="text">
                                 <span>
                                     <img [src]="basePath + 'img/svg/ico_search.svg'" class="c-form__input--lefticon">
                                 </span>
@@ -191,7 +191,7 @@
                                     <input type="radio" name="handle" [value]="member?.handle" formControlName="handle">
                                     <div class="o-cadmin_checkbox">
                                         <div class="o-cadmin_imgblock m-t-b-8">
-                                            <img [src]="basePath + member?.profileImage" class="o-cadmin_img">
+                                            <img [src]="basePath + member?.profileImages?.profileImage_large" class="o-cadmin_img">
                                         </div>
                                         <p class="o-cadmin_name">{{ member?.name }}</p>
                                         <p class="o-cadmin_prof">Profile</p>

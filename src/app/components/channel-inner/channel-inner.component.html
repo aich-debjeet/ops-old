@@ -15,7 +15,7 @@
                         </button>
                     </li>
                     <li class="list-inline-item" *ngIf="!channel?.channel_detail?.isOwner">
-                        <button type="button" (click)="followChannel(isfollowing, channel?.channel_detail?.channelId )" class="btn btn-primary btn-sm">{{ isfollowing ? 'Unfollow' : 'Follow' }}</button>
+                        <button type="button" (click)="followChannel(isFollowing, channel?.channel_detail?.channelId )" class="btn btn-primary btn-sm">{{ isFollowing ? 'Unfollow' : 'Follow' }}</button>
                     </li>
                     
                     <li class="list-inline-item" *ngIf="channel?.channel_detail?.isOwner">
@@ -45,7 +45,7 @@
             </div>
             <div class="col-md-6">
                 
-                <div class="col-sm-12 spot_in_icons m-b-24">
+                <div class="col-sm-12 spot_in_icons">
                     <div class="overlap_thumb">
                         <span class="over1_thumb" *ngFor="let contributor of channel?.channel_detail?.contributorProfile | slice:0:3">
                             <img *ngIf="contributor.profileImage" [src]="imageLink + contributor.profileImage" [routerLink]="'/profile/u/' + contributor.userName">

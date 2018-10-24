@@ -56,8 +56,9 @@
                   <span class="o-channel-content__name">
                     <p class="c-text_lg o-channel__font--color">{{ channel?.spotfeedName}}</p>
                   </span>
-                  <span class="o-channel__private float_right">
-                    <img [src]="baseUrl + 'img/svg/ico_tick_white.svg'" class="o-channel-private__img-tic">
+                  <span *ngIf="channel?.access === 1" class="o-channel__private float_right">
+                    <img src="https://ops-v2-2.netlify.com/assets/svg/lock.svg" alt="" class="o-channel-private__img">
+                    <!-- <img [src]="baseUrl + 'img/svg/ico_tick_white.svg'" class="o-channel-private__img-tic"> -->
                   </span>
                 </span>
               </label>

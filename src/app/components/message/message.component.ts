@@ -1,25 +1,24 @@
 import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, ElementRef, AfterViewChecked } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { environment } from './../../../../environments/environment';
+import { environment } from './../../../environments/environment';
 import { FormControl } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-import { MessageModal } from './../../../models/message.model';
-import { ProfileModal } from './../../../models/profile.model';
-import { MessageActions } from './../../../actions/message.action';
-import { PusherService } from './../../../services/pusher.service';
+import { MessageModal } from './../../models/message.model';
+import { ProfileModal } from './../../models/profile.model';
+import { MessageActions } from './../../actions/message.action';
+import { PusherService } from './../../services/pusher.service';
 
-import * as _ from 'lodash';
+import { findIndex as _findIndex } from 'lodash';
 import { ActivatedRoute } from '@angular/router';
-import { GeneralUtilities } from '../../../helpers/general.utils';
+import { GeneralUtilities } from '../../helpers/general.utils';
 
 @Component({
-  selector: 'app-message-home',
-  templateUrl: './message-home.component.html',
-  styleUrls: ['./message-home.component.scss']
+  selector: 'app-message',
+  templateUrl: './message.component.html',
+  styleUrls: ['./message.component.scss']
 })
-export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked {
+export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   // @ViewChild('inputMessageText') inputMessageText;
   @ViewChild('chatWindow') private chatWindowContainer: ElementRef;
@@ -44,6 +43,7 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
   isTyping = false;
   chatScrollBottom = true;
   convUserHandle: any;
+  conversationLoaded = false;
 
   constructor(
     private messageStore: Store<MessageModal>,
@@ -52,6 +52,11 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
     private activatedRoute: ActivatedRoute,
     private gUtils: GeneralUtilities
   ) {
+    this.gUtils.listen().subscribe((e: any) => {
+      if (e.component && e.component === 'MessageHomeComponent' && e.action === 'scrollToBottom') {
+        this.scrollToBottom();
+      }
+    })
     this.selectedUser = {};
     this.pagination = {
       pageNumber: 0,
@@ -69,7 +74,27 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
       if (this.messageState && this.messageState['messanger_list_data']) {
         this.messangerList = this.messageState['messanger_list_data'];
         // console.log('this.messangerList', this.messangerList);
-        this.selectLatestConversation();
+        if (!this.conversationLoaded) {
+          // console.log('load conversation now');
+          if (this.convUserHandle && this.convUserHandle.length > 0) {
+            // console.log('load conversation for: ', this.convUserHandle);
+            const userIndex = _findIndex(this.messangerList, ['handle', this.convUserHandle]);
+            // find the handle into the messanger list to load the conversation
+            if (userIndex) {
+              // console.log('user found');
+              this.selectUser(this.messangerList[userIndex]);
+            } else {
+              // console.log('user NOT found, loading latest conversation');
+              this.selectLatestConversation();
+            }
+          } else {
+            // console.log('load latest conversation');
+            this.selectLatestConversation();
+          }
+          this.conversationLoaded = true;
+        } else {
+          // console.log('conversation already loaded');
+        }
       }
 
       if (this.messageState && this.messageState['load_conversation_data']) {
@@ -122,44 +147,6 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
    */
   ngOnInit() {
     this.convUserHandle = this.activatedRoute.snapshot.queryParams['handle'];
-    if (this.convUserHandle && this.convUserHandle.length > 0) {
-      // console.log('load user details for: ', this.convUserHandle);
-    }
-    if (this.pusherService.messagesChannel) {
-      // pusher message listener
-      this.pusherService.messagesChannel.bind('New-Message', (data) => {
-        const message = JSON.parse(data);
-        // check if it's a network request
-        if (message && message['isNetworkRequest'] && message['isNetworkRequest'] === true) {
-          // console.log('Network Request');
-          // append the new object to the user listing
-          const newListObj = {
-            handle: message.by,
-            isBlocked: false,
-            isRead: message.isRead,
-            latestMessage: message.content,
-            messageType: 'received',
-            name: message.name,
-            profileImage: message.profileImage,
-            time: message.time,
-            username: message.username
-          };
-          this.messageStore.dispatch({
-            type: MessageActions.PREPEND_ELEMENT_TO_USER_LIST,
-            payload: newListObj
-          });
-        } else {
-          this.messageStore.dispatch({
-            type: MessageActions.ADD_PUSHER_MESSAGE,
-            payload: message
-          });
-        }
-        setTimeout(() => {
-          this.scrollToBottom();
-        }, 20);
-      });
-    }
-
     if (this.pusherService.notificationsChannel) {
       // pusher notifications listener
       this.pusherService.notificationsChannel.bind('Message-Typing', (userDetails) => {
@@ -419,7 +406,7 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
       payload: reqParams
     });
     // find the index for changin the newtwork flag
-    const index = _.findIndex(this.conversation, ['by', data.by]);
+    const index = _findIndex(this.conversation, ['by', data.by]);
     this.conversation[index].isNetworkRequest = false;
 
     if (action === 'accept') {

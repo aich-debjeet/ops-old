@@ -191,11 +191,11 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
 
     case CommunitiesActions.MEDIA_SPOT:
       const community_media_spot = state.community_post.find(t => t.id === payload.id);
-      const community_media_spot_index = state.community_post.indexOf(community_media_spot);
+      const community_media_spot_index = community_media_spot ? state.community_post.indexOf(community_media_spot) : null;
       const community_media_spot_count = community_media_spot ? community_media_spot.spotsCount + 1 : 0;
 
       return Object.assign({}, state, {
-        community_post: [
+        community_post: community_media_spot === undefined ? [...state.community_post] : [
           ...state.community_post.slice(0, community_media_spot_index),
           Object.assign({}, community_media_spot, {spotsCount: community_media_spot_count, isSpotted: true }),
           ...state.community_post.slice(community_media_spot_index + 1)
@@ -204,15 +204,23 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
 
     case CommunitiesActions.MEDIA_UNSPOT:
       const community_media_unspot = state.community_post.find(t => t.id === payload.id);
-      const community_media_unspot_index = state.community_post.indexOf(community_media_unspot);
+      const community_media_unspot_index = community_media_unspot ? state.community_post.indexOf(community_media_unspot) : null;
       const community_media_unspot_count = community_media_unspot ? community_media_unspot.spotsCount - 1 : 0;
 
       return Object.assign({}, state, {
-        community_post: [
+        community_post: community_media_unspot === undefined ? [...state.community_post] : [
           ...state.community_post.slice(0, community_media_unspot_index),
           Object.assign({}, community_media_unspot, {spotsCount: community_media_unspot_count, isSpotted: false }),
           ...state.community_post.slice(community_media_unspot_index + 1)
         ]
+      });
+
+    case CommunitiesActions.COMMUNTIY_DELETE_COUNT:
+      return Object.assign({}, state, {
+        communityDetails: {
+          ...state.communityDetails,
+          postsCount: state.communityDetails ? state.communityDetails.postsCount - 1 : null
+        }
       });
 
 

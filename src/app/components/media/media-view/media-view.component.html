@@ -6,7 +6,7 @@
         <div class="c-mediamodal__left">
             <div class="c-mediamodal__left__block">
                 <figure class="c-mediamodal--img">
-                    <app-videplayer [play]="'true'" *ngIf="checkFileType(data?.repopath, 'Video')" [src]="imageLink + data?.repopath"></app-videplayer>
+                    <app-videoplayer [play]="'true'" *ngIf="checkFileType(data?.repopath, 'Video')" [src]="imageLink + data?.repopath"></app-videoplayer>
                     <img *ngIf="checkFileType(data?.repopath, 'Image')" [src]="imageLink + data?.repopath" class="img-responsive">
                     <app-audioplayer *ngIf="checkFileType(data?.repopath, 'Audio')" [src]="imageLink + data?.repopath"></app-audioplayer>
                 </figure>
@@ -38,9 +38,7 @@
                         <span class="c-mediamodal__time">{{ data?.createdDate | utcDate | date: 'hh:mm a dd MMM, yy'}}</span>
                     </div>
                     <div class="c-mediamodal__opt dropdown c-dropdown" appDropdown>
-                        <!-- <a href="">
-                            <img src="/assets/img/svg/ico_private.svg">
-                        </a> -->
+                        <img *ngIf="data.access === 1" [src]="imageLink + 'img/svg/ico_private.svg'">
                         <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
                                 <img [src]="imageLink + 'img/svg/ico_options.svg'" class="c-options--img">
                         </span>
@@ -55,7 +53,7 @@
                         <img *ngIf="data?.ownerImage" class="c-user__image" [src]="imageLink + data?.ownerImage">
                     </a>
                     <a [routerLink]="['/', {outlets: { primary: ['profile', 'u', data?.ownerUsername], media: null }}]" class="c-user__name">{{ data?.ownerName | truncate:[40, '...'] }}</a>
-                    <div class="c-mediamodal__subhead" [routerLink]="['/', {outlets: { primary: ['channel', data?.channelId], media: null }}]">{{ data?.channelName }}
+                    <div class="c-mediamodal__subhead" [routerLink]="['/', {outlets: { primary: ['channel', data?.channelId], media: null }}]"><span class="cursor_pointer">{{ data?.channelName }}</span>
                         <span class="c-mediamodal__time">{{ data?.createdDate | utcDate | date: 'hh:mm a dd MMM, yy'}}</span>
                     </div>
                 </div>

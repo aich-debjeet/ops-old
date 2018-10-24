@@ -108,7 +108,6 @@ import { SpotfeedPremiumComponent } from './components/spotfeed-premium/spotfeed
 import { NotificationComponent } from './components/notification/notification.component';
 // import { SearchComponent } from './components/search/search.component';
 import { SettingsComponent } from './components/settings/settings.component';
-import { ChannelListComponent } from './components/channel-list/channel-list.component';
 import { LogoutHomeComponent } from './components/logout-home/logout-home.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { MediaComponent } from './components/media/media.component';
@@ -117,6 +116,7 @@ import { TermsComponent } from './components/terms/terms.component';
 import { AboutComponent } from './components/about/about.component';
 import { DirectoryEffect } from './effects/directory.effect';
 import { DirectoryService } from './services/directory.service';
+import { NgProgressModule } from 'ngx-progressbar';
 
 @NgModule({
   declarations: [
@@ -127,7 +127,6 @@ import { DirectoryService } from './services/directory.service';
     SpotfeedPremiumComponent,
     NotificationComponent,
     SettingsComponent,
-    ChannelListComponent,
     LogoutHomeComponent,
     LogoutComponent,
     ChannelInnerComponent,
@@ -165,7 +164,6 @@ import { DirectoryService } from './services/directory.service';
       timeOut: 1000,
       preventDuplicates: true,
     }),
-
     ShareButtonsModule.forRoot(),
     // StoreRouterConnectingModule,
     EffectsModule.run(AuthEffect),
@@ -196,7 +194,8 @@ import { DirectoryService } from './services/directory.service';
     }),
     NguCarouselModule,
     LazyLoadImageModule,
-    QuillModule
+    QuillModule,
+    NgProgressModule,
   ],
   providers: [
     AuthService,

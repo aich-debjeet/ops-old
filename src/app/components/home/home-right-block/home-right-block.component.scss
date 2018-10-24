@@ -168,6 +168,7 @@
     width: 100%;
     float: left;
     padding: 16px;
+    overflow: hidden;
 }
 
 .p-t-b-8 {
@@ -195,4 +196,8 @@
 .opp_center{
     text-align: center;
     padding: 10px;
+}
+
+.wb-all {
+    word-break: break-all;
 }

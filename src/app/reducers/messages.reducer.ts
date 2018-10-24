@@ -267,6 +267,12 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       } else {
         updated_load_conversation_data = state.load_conversation_data;
       }
+      // cache existing listing
+      let updated_messanger_list_data = [];
+      if (state && state['messanger_list_data']) {
+        updated_messanger_list_data = state['messanger_list_data'];
+      }
+      // console.log('BEFORE', updated_messanger_list_data);
       // update the user in listing with new message
       const listingIndex = _findIndex(state.messanger_list_data, (obj) => obj.handle === payload.by);
       if (listingIndex > -1) {
@@ -276,11 +282,19 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
           msgObj.time = payload.time;
           msgObj.latestMessage = payload.content;
           msgObj.messageType = payload.messageType;
-          msgObj.isRead = true;
+          msgObj.isRead = false;
+          state.messanger_list_data.splice(listingIndex, 1);
+          const new_list_data = [msgObj];
+          updated_messanger_list_data = new_list_data.concat(state.messanger_list_data);
         }
+      } else {
+        const new_list_data = [payload];
+        updated_messanger_list_data = new_list_data.concat(state.messanger_list_data);
       }
+      // console.log('AFTER', updated_messanger_list_data);
       return Object.assign({}, state, {
-        load_conversation_data: updated_load_conversation_data
+        load_conversation_data: updated_load_conversation_data,
+        messanger_list_data: updated_messanger_list_data
       });
     /* update pusher message */
 
