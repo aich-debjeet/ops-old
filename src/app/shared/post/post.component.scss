@@ -393,9 +393,16 @@ label {
 }
 
 .audio-image {
-    height: 200px;
+    height: 320px;
 }
 
 .c-feed__img-status{
     overflow: hidden;
+}
+
+.audio-placeholder {
+    background: #000;
+    width: 100%;
+    height: 50px;
+    display: block;
 }
