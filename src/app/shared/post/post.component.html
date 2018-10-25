@@ -56,9 +56,11 @@
             <div class="content_editable" contentEditable="true" (keyup.enter)="onContentSaved()" [textContent]="desText" name="desText" (input)="desText=$event.target.textContent"></div>
         </div>
     </div>
-    <div class="c-feed__img2" *ngIf="mediaData?.mtype === 'audio' || mediaData?.mtype === 'image'">
+
+    <!-- image -->
+    <div class="c-feed__img2" *ngIf="mediaData?.mtype === 'image'">
         <a [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
-            <img [src]="imageLink + mediaData?.thumbNails?.large" [ngClass]="{'audio-image': mediaData?.mtype === 'audio'}" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="img-responsive" [class.c-feed__adult-blur]="mediaData?.isNsfw && mediaData?.isOwner === false">
+            <img [src]="imageLink + mediaData?.thumbNails?.large" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="img-responsive" [class.c-feed__adult-blur]="mediaData?.isNsfw && mediaData?.isOwner === false">
             <div class="c-feed__adult" id="c-feed__adult-hide" *ngIf="mediaData?.isNsfw && mediaData?.isOwner === false">
                 <div class="c-feed__adult-text">
                     <div>
@@ -70,8 +72,19 @@
             </div>
         </a>
     </div>
+    <!-- image -->
+
+    <!-- audio -->
+    <div class="c-feed__img2" appAppear (reached)="onReachingInViewport(mediaData?.id)" (departed)="onDepartedFromViewport(mediaData?.id)" *ngIf="mediaData?.mtype === 'audio'">
+        <img [src]="imageLink + mediaData?.thumbNails?.large" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="img-responsive audio-image" [class.c-feed__adult-blur]="mediaData?.isNsfw && mediaData?.isOwner === false">
+        <app-audioplayer *ngIf="mediaData?.inViewport" [size]="'small'" [src]="imageLink + mediaData?.repopath"></app-audioplayer>
+        <div *ngIf="!mediaData?.inViewport" class="audio-placeholder"></div>
+    </div>
+    <!-- image -->
+
+    <!-- video -->
     <div class="c-feed__img2" appAppear (reached)="onReachingInViewport(mediaData?.id)" (departed)="onDepartedFromViewport(mediaData?.id)" *ngIf="mediaData?.mtype === 'video'">
-        <app-videoplayer [play]="'true'" *ngIf="mediaData?.inViewport === true" class="{{ imageLink + mediaData?.repopath }}" src="{{ imageLink +  mediaData?.repopath }}"></app-videoplayer>
+        <app-videoplayer [showControls]="'true'" *ngIf="mediaData?.inViewport === true" class="{{ imageLink + mediaData?.repopath }}" src="{{ imageLink +  mediaData?.repopath }}"></app-videoplayer>
         <a *ngIf="mediaData?.inViewport === false" [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
             <img [src]="imageLink + mediaData?.thumbNails?.large" [ngClass]="{'audio-image': mediaData?.mtype === 'audio'}" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="img-responsive" [class.c-feed__adult-blur]="mediaData?.isNsfw && mediaData?.isOwner === false">
             <div class="c-feed__adult" id="c-feed__adult-hide" *ngIf="mediaData?.isNsfw && mediaData?.isOwner === false">
@@ -85,6 +98,8 @@
             </div>
         </a>
     </div>
+    <!-- video -->
+    
     <div class="c-status--block">
         <div class="c-links">
             <div class="c-links__spots" (click)="spotMedia(mediaData)">
