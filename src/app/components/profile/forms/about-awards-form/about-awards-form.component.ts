@@ -23,6 +23,7 @@ export class AboutAwardsFormComponent implements OnInit {
   private monthNumber: number;
   checkbox: boolean;
   hide: boolean =false;
+  privacy: number;
   private dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   months = [
     { val: '01',  name: 'Jan' },
@@ -47,9 +48,11 @@ export class AboutAwardsFormComponent implements OnInit {
     this._awardDetails = value;
     console.log(value);
     if (this._awardDetails.formType === 'edit') {
+      this.privacy = this._awardDetails.data.access
       this.buildAwardForm(this._awardDetails.data);
       console.log('edit');
     } else {
+      this.privacy = 0;
       this.buildAwardForm(null);
     }
   };
@@ -102,7 +105,7 @@ export class AboutAwardsFormComponent implements OnInit {
             'organizationName': value.presenter,
             'workOrAward': 'awards',
             'from': this.reverseDate(value.date) + 'T05:00:00',
-            'access': Number(value.publicWork)
+            'access': Number(this.privacy)
           }
           console.log(body)
       } 
@@ -112,7 +115,7 @@ export class AboutAwardsFormComponent implements OnInit {
             'organizationName': value.presenter,
             'workOrAward': 'awards',
             'from': this.reverseDate(value.date) + 'T05:00:00',
-            'access': Number(value.publicWork),
+            'access': Number(this.privacy),
             'id': value.id,
           }
           console.log(body)
@@ -136,5 +139,8 @@ export class AboutAwardsFormComponent implements OnInit {
     let date = dateAndTime[0];
     // console.log(d);
     return date.split('-').reverse().join('-');
+  }
+  choosePrivacy(val: number){
+    this.privacy = val;
   }
 }

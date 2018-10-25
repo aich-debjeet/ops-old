@@ -21,6 +21,7 @@ export class AboutWorkFormComponent implements OnInit {
   private mm : string ;
   private monthNumber: number;
   hide: boolean =false;
+  privacy: number;
   private dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   months = [
     { val: '01',  name: 'Jan' },
@@ -47,11 +48,13 @@ private yy : number;
   // }
   @Input('workDetails') set setWorkFormData(value) {
     this._workDetails = value;
-    // console.log(value);
+    console.log(value);
     if (this._workDetails.formType === 'edit') {
+      this.privacy = this._workDetails.data.access
       this.buildWorkForm(this._workDetails.data);
       // console.log('edit');
     } else {
+      this.privacy = 0;
       this.buildWorkForm(null);
     }
   };
@@ -93,7 +96,7 @@ private yy : number;
       to : [this.generalUtils.checkNestedKey(data, ['to']) ? this.removeTime(data['to']) : '', [FormValidation.validWorkToDate]],
       currentWork : this.generalUtils.checkNestedKey(data, ['currentlyWith']) ? data['currentlyWith'] : false,
       id : this.generalUtils.checkNestedKey(data, ['id']) ? data['id'] : '',
-      publicWork: this.generalUtils.checkNestedKey(data, ['access']) ? data['access'] : '0',
+      // publicWork: this.generalUtils.checkNestedKey(data, ['access']) ? data['access'] : '0',
     },
     {
       validator: FormValidation.toFieldEmpty
@@ -101,7 +104,7 @@ private yy : number;
   }
 
   workFormSubmit(value){
-    // console.log(value)
+    console.log(value)
     if ( this.workForm.valid === true ) {
       let body;      
       if (this._workDetails.formType === 'create') {
@@ -113,9 +116,9 @@ private yy : number;
             'from': this.reverseDate(value.from) + 'T05:00:00',
             'to': this.reverseDate(value.to) + 'T05:00:00',
             'currentlyWith': Boolean(value.currentWork),
-            'access': Number(value.publicWork)
+            'access': Number(this.privacy)
           }
-          // console.log(body)
+          console.log(body)
         } else {
            body = {
             'role': value.position,
@@ -123,9 +126,9 @@ private yy : number;
             'workOrAward': 'work',
             'from': this.reverseDate(value.from) + 'T05:00:00',
             'currentlyWith': Boolean(value.currentWork),
-            'access': Number(value.publicWork)
+            'access': Number(this.privacy)
           }
-          // console.log(body)
+          console.log(body)
         }
       } 
       if (this._workDetails.formType === 'edit') {
@@ -138,10 +141,10 @@ private yy : number;
             'from': this.reverseDate(value.from) + 'T05:00:00',
             'to': this.reverseDate(value.to) + 'T05:00:00',
             'currentlyWith': Boolean(value.currentWork),
-            'access': Number(value.publicWork),
+            'access': Number(this.privacy),
             'id': value.id,
           }
-          // console.log(body)
+          console.log(body)
         } else {
            body = {
             'role': value.position,
@@ -149,25 +152,25 @@ private yy : number;
             'workOrAward': 'work',
             'from': this.reverseDate(value.from) + 'T05:00:00',
             'currentlyWith': Boolean(value.currentWork),
-            'access': Number(value.publicWork),
+            'access': Number(this.privacy),
             'id': value.id,
           }
-          // console.log(body)
+          console.log(body)
         }
       }
       // console.log(body);
       this.formSubmitted.emit(body);
     }
-    // else {
-    //     const invalid = [];
-    //     const controls = this.workForm.controls;
-    //     for (const name in controls) {
-    //         if (controls[name].invalid) {
-    //             invalid.push(name);
-    //         }
-    //     }
-    //     console.log(invalid);
-    // }
+    else {
+        const invalid = [];
+        const controls = this.workForm.controls;
+        for (const name in controls) {
+            if (controls[name].invalid) {
+                invalid.push(name);
+            }
+        }
+        console.log(invalid);
+    }
   }
 
   reverseDate(string) {
@@ -193,7 +196,7 @@ private yy : number;
         this.workForm.patchValue({
           // to_month:'',
           // to_year:''
-          to: '',
+          to: null,
         })
       }
       if(val == false){
@@ -204,5 +207,8 @@ private yy : number;
           to: this._workDetails.data['to'] ? this.removeTime(this._workDetails.data['to']) : '' ,
         })
       }
+  }
+  choosePrivacy(val: number){
+    this.privacy = val;
   }
 }

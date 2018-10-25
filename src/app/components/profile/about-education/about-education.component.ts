@@ -62,6 +62,7 @@ export class AboutEducationComponent implements OnInit {
         } else {
           this.ownProfile = true;
           this.userProfile = this.stateProfile.profile_details;
+          console.log(this.userProfile)
         }
       }
     });
@@ -117,35 +118,49 @@ export class AboutEducationComponent implements OnInit {
    * Add Work form submit
    */
   educationFormSubmit(value) {
-    if ( this.educationForm.valid === true ) {
-      if (this.editFormPopup === false) {
-        const body = {
-          'institute': value.institute,
-          'name': value.course,
-          'from': this.reverseDate(value.from) + 'T05:00:00',
-          'to': this.reverseDate(value.to) + 'T05:00:00',
-        }
-        this.modalService.close('userEducationkAdd');
-        this.profileStore.dispatch({ type: ProfileActions.ADD_USER_EDUCATION, payload: body});
-        this.toastr.success('Your education details has been updated successfully!', '', {
+    console.log(value);
+    console.log(this.formData.formType);
+    if(this.formData.formType === 'create'){
+      this.profileStore.dispatch({ type: ProfileActions.ADD_USER_EDUCATION, payload: value});
+      this.activateCreateForm = false;
+        this.toastr.success('Your education has been added successfully!', '', {
           timeOut: 3000
         });
-      } else {
-        const body = {
-          'institute': value.institute,
-          'name': value.course,
-          'from': this.reverseDate(value.from) + 'T05:00:00',
-          'to': this.reverseDate(value.to) + 'T05:00:00',
-          'id': value.id
-        }
-        this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_EDUCATION, payload: body});
-        this.modalService.close('userEducationkAdd');
-        this.toastr.success('Your education details has been updated successfully!', '', {
-          timeOut: 3000
-        });
-      }
     }
-    this.educationForm.reset();
+    if(this.formData.formType === 'edit'){
+      this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_EDUCATION, payload: value});
+      this.activateEditForm = false;
+      this.toastr.success('Your education has been updated successfully!');
+    }
+    // if ( this.educationForm.valid === true ) {
+    //   if (this.editFormPopup === false) {
+    //     const body = {
+    //       'institute': value.institute,
+    //       'name': value.course,
+    //       'from': this.reverseDate(value.from) + 'T05:00:00',
+    //       'to': this.reverseDate(value.to) + 'T05:00:00',
+    //     }
+    //     this.modalService.close('userEducationkAdd');
+    //     this.profileStore.dispatch({ type: ProfileActions.ADD_USER_EDUCATION, payload: body});
+    //     this.toastr.success('Your education details has been updated successfully!', '', {
+    //       timeOut: 3000
+    //     });
+    //   } else {
+    //     const body = {
+    //       'institute': value.institute,
+    //       'name': value.course,
+    //       'from': this.reverseDate(value.from) + 'T05:00:00',
+    //       'to': this.reverseDate(value.to) + 'T05:00:00',
+    //       'id': value.id
+    //     }
+    //     this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_EDUCATION, payload: body});
+    //     this.modalService.close('userEducationkAdd');
+    //     this.toastr.success('Your education details has been updated successfully!', '', {
+    //       timeOut: 3000
+    //     });
+    //   }
+    // }
+    // this.educationForm.reset();
 
   }
 
@@ -191,16 +206,16 @@ export class AboutEducationComponent implements OnInit {
   /**
    * Reset Form
    */
-  reset() {
-    this.educationForm.patchValue({
-      institute : '' ,
-      course : '',
-      from : '',
-      to : '',
-      publicWork: '0',
-      id: ''
-    });
-  }
+  // reset() {
+  //   this.educationForm.patchValue({
+  //     institute : '' ,
+  //     course : '',
+  //     from : '',
+  //     to : '',
+  //     publicWork: '0',
+  //     id: ''
+  //   });
+  // }
 
   confirmation(eve){
     this.closeCancelApplicationModal();

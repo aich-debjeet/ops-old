@@ -1,4 +1,4 @@
-<form [formGroup]="educationForm" novalidate #myform="ngForm" (submit)="educationFormSubmit(workForm.value)">
+<form [formGroup]="educationForm" novalidate #myform="ngForm" (submit)="educationFormSubmit(educationForm.value)">
     <div id="o-bio-det__add-work" class="o-bio-det__add-work">
         <!-- <div class="o-bio-det-display__media fill-white">
             <input type="file" class="o-bio-add-media">
@@ -10,18 +10,28 @@
                 <span class="c-form__highlight"></span>
                 <span class="c-form__bar"></span>
                 <label>Name of Institute</label>
-                <p class="error_alert" *ngIf="educationForm.controls['institute'].errors?.required && educationForm.controls['institute']?.touched">Name of Institute is required</p>
+                <p class="error_alert" *ngIf="educationForm.controls['institute'].errors?.required && myform.submitted">Name of Institute is required</p>
             </div>
             <div class="c-form__group c-form--sm c-form--noeffect">
                 <input class="c-form__input" required="" type="text" formControlName="description" maxlength="40">
                 <span class="c-form__highlight"></span>
                 <span class="c-form__bar"></span>
                 <label>Description</label>
-                <p class="error_alert" *ngIf="educationForm.controls['description'].errors?.required && educationForm.controls['description']?.touched">Description is required</p>
+                <p class="error_alert" *ngIf="educationForm.controls['description'].errors?.required && myform.submitted">Description is required</p>
             </div>
             <div class="col-md-12 p-0">
-                <p class="c-text_md">From</p>
-                <div class="col-md-2 p-0">
+                <p class="c-text_md">From (DD-MM-YYYY)</p>
+                <div class="col-md-6 p-0">
+                    <div class="c-form__group c-form--sm c-form--noeffect">
+                        <input class="c-form__input" type="text" formControlName="from" [textMask]="{mask: dateMask}">
+                        <span class="c-form__highlight"></span>
+                        <span class="c-form__bar"></span>
+                        <label>From (DD-MM-YYYY)</label>
+                        <p class="error_alert" *ngIf="educationForm.controls['from'].errors?.required && myform.submitted">From Date is required</p>
+                        <p class="error_alert" *ngIf="educationForm.controls['from'].errors?.invalidWorkDate">Invalid Date</p>
+                    </div>
+                </div>
+                <!-- <div class="col-md-2 p-0">
                     <div class="c-form__group">
                         <select class="c-form-control p-l-0" formControlName="from_month" required>
                             <option value="" disabled selected hidden>Month</option>
@@ -36,7 +46,7 @@
                             <option *ngFor="let y of years">{{y}}</option>
                         </select>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="o-about-form-check width100 float_left m-r-16">
                 <label for="work"> Currently im working here
@@ -44,8 +54,18 @@
                 </label>
             </div>
             <div class="col-md-12 p-0" *ngIf="!hide || !educationForm.controls['currentWork']">
-                <p class="c-text_md m-t-8">To</p>
-                <div class="col-md-2 p-0">
+                <p class="c-text_md m-t-8">To (DD-MM-YYYY)</p>
+                <div class="col-md-6 p-0">
+                        <div class="c-form__group c-form--sm c-form--noeffect">
+                            <input class="c-form__input" type="text" formControlName="to" [textMask]="{mask: dateMask}">
+                            <span class="c-form__highlight"></span>
+                            <span class="c-form__bar"></span>
+                            <p class="error_alert" *ngIf="myform.submitted && educationForm.controls['to'].errors?.isRequired">To Date is required</p>
+                            <p class="error_alert" *ngIf="educationForm.controls['to'].errors?.invalidWorkDate">Invalid Date</p>
+                            <p class="error_alert" *ngIf="educationForm.controls['to'].errors?.isvalid">From Date field can not be greater than or equal to To Date field</p>
+                        </div>
+                    </div>
+                <!-- <div class="col-md-2 p-0">
                     <div class="c-form__group">
                         <select class="c-form-control p-l-0" formControlName="to_month" required>
                             <option value="" disabled selected hidden>Month</option>
@@ -60,16 +80,17 @@
                             <option *ngFor="let y of years" >{{y}}</option>
                         </select>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="o-bio-info__edit-actions width100 m-t-24">
                 <button type="button" class="btn btn-primary btn-sm m-l-8" [type]="'submit'">Save</button>
                 <button type="button" class="btn btn-default btn-sm m-l-r-8" (click)="closeForm(this._educationDetails)">Cancel</button>
 
-                <div class="dropdown float_left m-r-8">   
-                    <span class="com-head" data-toggle="dropdown" aria-expanded="false">
+                <div class="dropdown float_left m-r-8" appDropdown>   
+                    <span class="com-head" data-toggle="dropdown" aria-expanded="false" appDropdownOpen>
                         <div class="o-bio-edit__ico">
-                        <img [src]="imageBaseUrl + 'img/svg/ico_web.svg'">
+                                <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" *ngIf="_educationDetails?.data?.access === 0 || _educationDetails?.formType === 'create'">
+                                <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" *ngIf="_educationDetails?.data?.access === 1">
                         </div>
                         <div class="o-bio-edit__ico-arrow">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
@@ -83,20 +104,20 @@
                         </svg>
                         </div>
                     </span>
-                    <!-- <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space" formControlName="publicWork">
+                    <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
                         <li>
-                        <a href="javascript:void(0)" class="c-opsdropdown__list">
+                        <a (click)="choosePrivacy(0)" class="c-opsdropdown__list">
                             <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
                             <span class="c-opsdropdown--text">Public</span>
                         </a>
                         </li>
                         <li>
-                        <a href="javascript:void(0)" class="c-opsdropdown__list">
+                        <a (click)="choosePrivacy(1)" class="c-opsdropdown__list">
                             <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
                             <span class="c-opsdropdown--text">Private</span>
                         </a>
                         </li>
-                    </ul> -->
+                    </ul>
                 </div>
             </div>
         </div>

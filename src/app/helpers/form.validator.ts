@@ -394,7 +394,7 @@ export class FormValidation {
     static toFieldEmpty(AC: AbstractControl){
         const bool = AC.get('currentWork').value;
         const toField = AC.get('to').value;
-        // console.log(bool);
+        console.log(bool);
         if (!bool && toField === '') {
             console.log('validating for empty field')
             AC.get('to').setErrors({isRequired: true});
@@ -404,7 +404,7 @@ export class FormValidation {
     }
     static validWorkToDate(control: AbstractControl) {
         // console.log(control);
-        if(control.value.length > 0){
+        if(control.value !== null && control.value.length > 0){
             const today = moment();
             const dateArr =  control.value.split('-');
 

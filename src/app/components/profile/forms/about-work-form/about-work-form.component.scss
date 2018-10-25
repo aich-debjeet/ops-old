@@ -1,6 +1,6 @@
 @import './src/assets/scss/helpers/_variables.scss';
 @import '~sass-mq/_mq.scss';
-
+@import './src/assets/scss/components/_dropdowns.scss';
 .o-bio-info-block {
     width: 100%;
     float: left;
@@ -237,4 +237,10 @@
 .o-bio-det-display__media {
     position: relative;
     overflow: hidden;
+}
+.o-action-list--space {
+    margin-top: 24px;
+}
+.c-opsdropdown--size1 {
+    width: 109px;
 }

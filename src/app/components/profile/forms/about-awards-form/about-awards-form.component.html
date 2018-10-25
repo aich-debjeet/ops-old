@@ -51,10 +51,11 @@
               <button type="button" class="btn btn-primary btn-sm m-l-8" [type]="'submit'">Save</button>
               <button type="button" class="btn btn-default btn-sm m-l-r-8" (click)="closeForm(_awardDetails)">Cancel</button>
 
-              <div class="dropdown float_left m-r-8">   
-                  <span class="com-head" data-toggle="dropdown" aria-expanded="false">
+              <div class="dropdown float_left m-r-8" appDropdown>   
+                  <span class="com-head" data-toggle="dropdown" aria-expanded="false" appDropdownOpen>
                       <div class="o-bio-edit__ico">
-                      <img [src]="imageBaseUrl + 'img/svg/ico_web.svg'">
+                            <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" *ngIf="_awardDetails?.data?.access === 0 || _awardDetails?.formType === 'create'">
+                            <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" *ngIf="_awardDetails?.data?.access === 1">
                       </div>
                       <div class="o-bio-edit__ico-arrow">
                       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
@@ -68,20 +69,20 @@
                       </svg>
                       </div>
                   </span>
-                  <!-- <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space" formControlName="publicWork">
-                      <li>
-                      <a href="javascript:void(0)" class="c-opsdropdown__list">
-                          <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
-                          <span class="c-opsdropdown--text">Public</span>
-                      </a>
-                      </li>
-                      <li>
-                      <a href="javascript:void(0)" class="c-opsdropdown__list">
-                          <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
-                          <span class="c-opsdropdown--text">Private</span>
-                      </a>
-                      </li>
-                  </ul> -->
+                  <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
+                    <li>
+                    <a (click)="choosePrivacy(0)" class="c-opsdropdown__list">
+                        <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
+                        <span class="c-opsdropdown--text">Public</span>
+                    </a>
+                    </li>
+                    <li>
+                    <a (click)="choosePrivacy(1)" class="c-opsdropdown__list">
+                        <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
+                        <span class="c-opsdropdown--text">Private</span>
+                    </a>
+                    </li>
+                </ul>
               </div>
           </div>
       </div>

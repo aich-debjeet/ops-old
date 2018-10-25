@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import {DatabaseValidator } from '../../../../helpers/form.validator';
 import { GeneralUtilities } from '../../../../helpers/general.utils';
 import {Moment} from 'moment';
+import { FormValidation } from '../../../../helpers/form.validator';
 
 // import {Month} from '../../../../models/profile.model'
 import * as moment from 'moment';
@@ -21,6 +22,8 @@ export class AboutEducationFormComponent implements OnInit {
   private monthNumber: number;
   checkbox: boolean;
   hide: boolean =false;
+  privacy: number;
+  private dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   months = [
     { val: '01',  name: 'Jan' },
     { val: '02',  name: 'Feb' },
@@ -44,9 +47,11 @@ private yy : number;
     this._educationDetails = value;
     console.log(value);
     if (this._educationDetails.formType === 'edit') {
+      this.privacy = this._educationDetails.data.access
       this.buildEducationForm(this._educationDetails.data);
       console.log('edit');
     } else {
+      this.privacy = 0;
       this.buildEducationForm(null);
     }
   };
@@ -57,43 +62,102 @@ private yy : number;
   ) { }
 
   ngOnInit() {
-    this.getMonth();
-    this.getYear();
+    // this.getMonth();
+    // this.getYear();
   }
-  getMonth(){
-    const today = moment().month();
-    // console.log(today.getMonth());
-    this.monthNumber = today +1;     
-    if(this.monthNumber<10) {
-    this.mm = '0' + this.monthNumber;        
-    }
-   }
+  // getMonth(){
+  //   const today = moment().month();
+  //   // console.log(today.getMonth());
+  //   this.monthNumber = today +1;     
+  //   if(this.monthNumber<10) {
+  //   this.mm = '0' + this.monthNumber;        
+  //   }
+  //  }
 
-  getYear(){
-    this.yy = moment().year();      
-    for(let i = (this.yy-100); i <= this.yy; i++){
-      this.years.push(i);
-    }
-  }
+  // getYear(){
+  //   this.yy = moment().year();      
+  //   for(let i = (this.yy-100); i <= this.yy; i++){
+  //     this.years.push(i);
+  //   }
+  // }
 
   buildEducationForm(data:any){
     console.log(data)
     this.educationForm = this.fb.group({
       institute : [this.generalUtils.checkNestedKey(data, ['institute']) ? data['institute'] : '', [Validators.required]],
       description : [this.generalUtils.checkNestedKey(data, ['name']) ? data['name'] : '', [Validators.required]],
-      from_month : [this.generalUtils.checkNestedKey(data, ['from']) ? data['from'] : '', [Validators.required], this.databaseValidator.validWorkFromDate.bind(this.databaseValidator)],
-      from_year:'',
-      to_month:'',
-      to_year : [this.generalUtils.checkNestedKey(data, ['to']) ? data['to'] : '' , [Validators.required], this.databaseValidator.validWorkToDate.bind(this.databaseValidator)],
+      from : [this.generalUtils.checkNestedKey(data, ['from']) ? this.removeTime(data['from']) : '', [Validators.required, FormValidation.validWorkFromDate]],
+      to : [this.generalUtils.checkNestedKey(data, ['to']) ? this.removeTime(data['to']) : '', [FormValidation.validWorkToDate]],
+      // from_month : [this.generalUtils.checkNestedKey(data, ['from']) ? data['from'] : '', [Validators.required], this.databaseValidator.validWorkFromDate.bind(this.databaseValidator)],
+      // from_year:'',
+      // to_month:'',
+      // to_year : [this.generalUtils.checkNestedKey(data, ['to']) ? data['to'] : '' , [Validators.required], this.databaseValidator.validWorkToDate.bind(this.databaseValidator)],
       currentWork : this.generalUtils.checkNestedKey(data, ['currentlyWith']) ? data['currentlyWith'] : '',
       id : this.generalUtils.checkNestedKey(data, ['id']) ? data['id'] : '',
-      publicWork: this.generalUtils.checkNestedKey(data, ['access']) ? data['access'] : '0',
+      // publicWork: this.generalUtils.checkNestedKey(data, ['access']) ? data['access'] : '0',
+    },
+    {
+      validator: FormValidation.toFieldEmpty
     })
   }
 
   educationFormSubmit(value){
     console.log(value)
-    this.formSubmitted.emit(value);
+    if ( this.educationForm.valid === true ) {
+      let body;      
+      if (this._educationDetails.formType === 'create') {
+        if (!this.hide ||! this.educationForm.controls['currentWork']) {
+          body = {
+            'institute': value.institute,
+            'name': value.description,
+            'from': this.reverseDate(value.from) + 'T05:00:00',
+            'to': this.reverseDate(value.to) + 'T05:00:00',
+            'currentlyWith': Boolean(value.currentWork),
+            'access': Number(this.privacy)
+          }
+          console.log(body)
+        } else {
+            body = {
+            'institute': value.institute,
+            'name': value.description,
+            'from': this.reverseDate(value.from) + 'T05:00:00',
+            'currentlyWith': Boolean(value.currentWork),
+            'access': Number(this.privacy)
+          }
+          console.log(body)
+        }
+      } 
+      if (this._educationDetails.formType === 'edit') {
+        
+        if (!this.hide || !this.educationForm.controls['currentWork']) {
+            body = {
+            'institute': value.institute,
+            'name': value.description,
+            'from': this.reverseDate(value.from) + 'T05:00:00',
+            'to': this.reverseDate(value.to) + 'T05:00:00',
+            'currentlyWith': Boolean(value.currentWork),
+            'access': Number(this.privacy),
+            'id': value.id,
+          }
+          console.log(body)
+        } else {
+            body = {
+            'institute': value.institute,
+            'name': value.description,
+            'from': this.reverseDate(value.from) + 'T05:00:00',
+            'currentlyWith': Boolean(value.currentWork),
+            'access': Number(this.privacy),
+            'id': value.id,
+          }
+          console.log(body)
+        }
+      }
+      console.log(body);
+      this.formSubmitted.emit(body);
+    }
+  }
+  reverseDate(string) {
+    return string.split('-').reverse().join('-');
   }
 
   closeForm(data: any){
@@ -105,17 +169,25 @@ private yy : number;
     if(val == true){
       this.hide = true;
       this.educationForm.patchValue({
-        to_month:'',
-        to_year:''
+        to: '',
       })
     }
     if(val == false){
       this.hide = false;
       this.educationForm.patchValue({
-        to_month:'JANUA',
-        to_year:'1231'
+        to: this._educationDetails.data['to'] ? this.removeTime(this._educationDetails.data['to']) : '' ,
       })
     }
   }
+  removeTime(dateTime:string){
+    let dateAndTime = dateTime.split('T')
+    // console.log(s.split('T'))
+    let date = dateAndTime[0];
+    // console.log(d);
+    return date.split('-').reverse().join('-');
+  }
 
+  choosePrivacy(val: number){
+    this.privacy = val;
+  }
 }
