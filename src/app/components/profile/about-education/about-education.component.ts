@@ -66,11 +66,6 @@ export class AboutEducationComponent implements OnInit {
         }
       }
     });
-
-    // this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
-
-    // Init Form
-    // this.buildEditForm();
   }
 
   ngOnInit() {
@@ -80,12 +75,8 @@ export class AboutEducationComponent implements OnInit {
    * Add Work User
    */
   addEducationUser() {
-    // this.editFormPopup = false;
-    // this.modalService.open('userEducationkAdd');
     this.activateCreateForm =true;
     this.formType = 'create';
-    // this.editFormPopup = false;
-    // this.modalService.open('userWorkAdd');
     this.formData = {
       formType: 'create',
       data: {}
@@ -99,20 +90,6 @@ export class AboutEducationComponent implements OnInit {
   reverseDate(string) {
     return string.split('-').reverse().join('-');
   }
-
-  /**
-   * Form initial value
-   */
-  // buildEditForm(): void {
-  //   this.educationForm = this.fb.group({
-  //     'institute' : ['' , [Validators.required]],
-  //     'course' : ['' , [Validators.required]],
-  //     'from' : ['' , [Validators.required], this.databaseValidator.validWorkFromDate.bind(this.databaseValidator)],
-  //     'to' : ['' , [Validators.required], this.databaseValidator.validWorkToDate.bind(this.databaseValidator)],
-  //     'publicWork': '0',
-  //     'id': ''
-  //   })
-  // }
 
   /**
    * Add Work form submit
@@ -132,44 +109,12 @@ export class AboutEducationComponent implements OnInit {
       this.activateEditForm = false;
       this.toastr.success('Your education has been updated successfully!');
     }
-    // if ( this.educationForm.valid === true ) {
-    //   if (this.editFormPopup === false) {
-    //     const body = {
-    //       'institute': value.institute,
-    //       'name': value.course,
-    //       'from': this.reverseDate(value.from) + 'T05:00:00',
-    //       'to': this.reverseDate(value.to) + 'T05:00:00',
-    //     }
-    //     this.modalService.close('userEducationkAdd');
-    //     this.profileStore.dispatch({ type: ProfileActions.ADD_USER_EDUCATION, payload: body});
-    //     this.toastr.success('Your education details has been updated successfully!', '', {
-    //       timeOut: 3000
-    //     });
-    //   } else {
-    //     const body = {
-    //       'institute': value.institute,
-    //       'name': value.course,
-    //       'from': this.reverseDate(value.from) + 'T05:00:00',
-    //       'to': this.reverseDate(value.to) + 'T05:00:00',
-    //       'id': value.id
-    //     }
-    //     this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_EDUCATION, payload: body});
-    //     this.modalService.close('userEducationkAdd');
-    //     this.toastr.success('Your education details has been updated successfully!', '', {
-    //       timeOut: 3000
-    //     });
-    //   }
-    // }
-    // this.educationForm.reset();
-
   }
 
   /**
    * Delete Current Work of user
    */
   deleteCurrentEducation(id) {
-    // this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_EDUCATION, payload: id});
-    // this.toastr.success('Your education has been deleted successfully!');
     this.deleteModal.open();
     this.jobId = id;
   }
@@ -178,15 +123,6 @@ export class AboutEducationComponent implements OnInit {
    * Edit Current Work of user
    */
   editCurrentEducation(data) {
-    // this.editFormPopup = true;
-    // this.educationForm.patchValue({
-    //   institute: data.institute,
-    //   course: data.name,
-    //   from: this.datepipe.transform(data.from, 'dd-MM-yyyy'),
-    //   to: this.datepipe.transform(data.to, 'dd-MM-yyyy'),
-    //   id: data.id
-    // });
-    // this.modalService.open('userEducationkAdd');
     this.currentId = data.id;
     this.formData = {
       formType: 'edit',
@@ -195,27 +131,6 @@ export class AboutEducationComponent implements OnInit {
     this.activateEditForm =true;
     this.formType = 'edit';
   }
-
-  /**
-   * Close work add form
-   */
-  // educationFormClose() {
-  //   this.modalService.close('userEducationkAdd');
-  //   this.educationForm.reset();
-  // }
-  /**
-   * Reset Form
-   */
-  // reset() {
-  //   this.educationForm.patchValue({
-  //     institute : '' ,
-  //     course : '',
-  //     from : '',
-  //     to : '',
-  //     publicWork: '0',
-  //     id: ''
-  //   });
-  // }
 
   confirmation(eve){
     this.closeCancelApplicationModal();

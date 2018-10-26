@@ -71,26 +71,9 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
         }
       }
     });
-
-    // this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
-    // this.buildEditForm();
-
   }
 
   ngOnInit() {
-    // this.workForm.get('currentWork').valueChanges.subscribe(
-    //         (currentWork) => {
-    //             if (currentWork === true) {
-    //                 this.workForm.get('to').setValidators([]);
-    //                 this.hideTo = true;
-    //                 this.hide = false;
-    //             } else {
-    //                 this.workForm.get('to').setValidators(Validators.required);
-    //                 this.hideTo = false;
-    //                 this.hide = true;
-    //             }
-    //             this.workForm.get('to').updateValueAndValidity();
-    //         });
   }
 
   ngOnDestroy() {
@@ -103,8 +86,6 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
   addWorkUser() {
     this.activateCreateForm =true;
     this.formType = 'create';
-    // this.editFormPopup = false;
-    // this.modalService.open('userWorkAdd');
     this.formData = {
       formType: 'create',
       data: {}
@@ -117,21 +98,6 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
    */
   // reverseDate(string) {
   //   return string.split('-').reverse().join('-');
-  // }
-
-  /**
-   * Form initial value
-   */
-  // buildEditForm(): void {
-  //   this.workForm = this.fb.group({
-  //     'company' : ['' , [Validators.required]],
-  //     'position' : ['' , [Validators.required]],
-  //     'from' : ['' , [Validators.required], this.databaseValidator.validWorkFromDate.bind(this.databaseValidator)],
-  //     'to' : ['' , [Validators.required], this.databaseValidator.validWorkToDate.bind(this.databaseValidator)],
-  //     'currentWork' : '',
-  //     'id' : '',
-  //     'publicWork': '0'
-  //   })
   // }
 
   /**
@@ -152,79 +118,6 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
       this.activateEditForm = false;
       this.toastr.success('Your work has been updated successfully!');
     }
-    
-    // if ( this.workForm.valid === true ) {
-      
-    //   if (this.editFormPopup === false) {
-        
-    //     if (this.hideTo !== true) {
-    //     const body = {
-    //       'role': value.position,
-    //       'organizationName': value.company,
-    //       'workOrAward': 'work',
-    //       'from': this.reverseDate(value.from) + 'T05:00:00',
-    //       'to': this.reverseDate(value.to) + 'T05:00:00',
-    //       'currentlyWith': Boolean(value.currentWork),
-    //       'access': Number(value.publicWork)
-    //     }
-    //     this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: body});
-    //     this.toastr.success('Your work has been added successfully!', '', {
-    //       timeOut: 3000
-    //     });
-    //     this.modalService.close('userWorkAdd');
-    //   }
-    //  if (this.hideTo === true) {
-    //     const body = {
-    //       'role': value.position,
-    //       'organizationName': value.company,
-    //       'workOrAward': 'work',
-    //       'from': this.reverseDate(value.from) + 'T05:00:00',
-    //       'currentlyWith': Boolean(value.currentWork),
-    //       'access': Number(value.publicWork)
-    //     }
-    //     this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: body});
-    //     this.toastr.success('Your work has been added successfully!', '', {
-    //       timeOut: 3000
-    //     });
-    //     this.modalService.close('userWorkAdd');
-    //   }
-    //   } else {
-        
-    //     if (this.hideTo !== true) {
-    //       const body = {
-    //         'role': value.position,
-    //         'organizationName': value.company,
-    //         'workOrAward': 'work',
-    //         'from': this.reverseDate(value.from) + 'T05:00:00',
-    //         'to': this.reverseDate(value.to) + 'T05:00:00',
-    //         'currentlyWith': Boolean(value.currentWork),
-    //         'access': Number(value.publicWork),
-    //         'id': value.id,
-    //       }
-  
-    //       this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_WORK, payload: body});
-    //       this.toastr.success('Your work has been updated successfully!');
-    //       this.modalService.close('userWorkAdd');
-    //     }
-    //     if (this.hideTo === true) {
-    //       const body = {
-    //         'role': value.position,
-    //         'organizationName': value.company,
-    //         'workOrAward': 'work',
-    //         'from': this.reverseDate(value.from) + 'T05:00:00',
-    //         'currentlyWith': Boolean(value.currentWork),
-    //         'access': Number(value.publicWork),
-    //         'id': value.id,
-    //       }
-  
-    //       this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_WORK, payload: body});
-    //       this.toastr.success('Your work has been updated successfully!');
-    //       this.modalService.close('userWorkAdd');
-    //     }
-    //   }
-    //   this.workForm.reset();
-    //  // this.buildEditForm()
-    // }
   }
 
   /**
@@ -233,8 +126,6 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
   deleteCurrentWork(id) {
     this.deleteModal.open();
     this.jobId = id;
-    // this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_WORK, payload: id});
-    // this.toastr.success('Your work has been deleted successfully!');
   }
 
   /**
@@ -252,42 +143,7 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
     }
     this.activateEditForm =true;
     this.formType = 'edit';
-    // this.editFormPopup = true;
-    // this.workForm.patchValue({
-    //   company: data.organizationName,
-    //   position: data.role,
-    //   from: this.datepipe.transform(data.from, 'dd-MM-yyyy'),
-    //   to: this.datepipe.transform(data.to, 'dd-MM-yyyy'),
-    //   currentWork: data.currentlyWith,
-    //   publicWork: data.access,
-    //   id: data.id
-    // });
-    // this.modalService.open('userWorkAdd');
   }
-
-  /**
-   * Close work add form
-   */
-  // workFormClose() {
-  //   this.modalService.close('userWorkAdd');
-  //   this.workForm.reset();
-  //  // this.buildEditForm()
-  // }
-
-  /**
-   * Reset Form
-   */
-  // reset() {
-  //   this.workForm.patchValue({
-  //     company: '',
-  //     position: '',
-  //     from: '',
-  //     to: '',
-  //     currentWork: false,
-  //     publicWork: '0',
-  //     id: ''
-  //   });
-  // }
   confirmation(eve){
     this.closeCancelApplicationModal();
     if (eve === 'yes') {

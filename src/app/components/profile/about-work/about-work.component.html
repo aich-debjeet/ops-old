@@ -79,7 +79,7 @@
 
 <app-modal-new #deleteModal modalClass="o-comodal_main in">
     <modal-content>
-      <app-confirm-box [message]="'Are you sure you want to permanently Delete?'" (confirmAction)="confirmation($event)"
+      <app-confirm-box [message]="'Are you sure you want to permanently Delete?'" [heading]="'Delete'" (confirmAction)="confirmation($event)"
         (closeModal)="closeCancelApplicationModal()"></app-confirm-box>
     </modal-content>
   </app-modal-new>
