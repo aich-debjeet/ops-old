@@ -112,7 +112,7 @@ private yy : number;
             'name': value.description,
             'from': this.reverseDate(value.from) + 'T05:00:00',
             'to': this.reverseDate(value.to) + 'T05:00:00',
-            'currentlyWith': Boolean(value.currentWork),
+            'currently': Boolean(value.currentWork),
             'access': Number(this.privacy)
           }
           console.log(body)
@@ -121,7 +121,7 @@ private yy : number;
             'institute': value.institute,
             'name': value.description,
             'from': this.reverseDate(value.from) + 'T05:00:00',
-            'currentlyWith': Boolean(value.currentWork),
+            'currently': Boolean(value.currentWork),
             'access': Number(this.privacy)
           }
           console.log(body)
@@ -135,7 +135,7 @@ private yy : number;
             'name': value.description,
             'from': this.reverseDate(value.from) + 'T05:00:00',
             'to': this.reverseDate(value.to) + 'T05:00:00',
-            'currentlyWith': Boolean(value.currentWork),
+            'currently': Boolean(value.currentWork),
             'access': Number(this.privacy),
             'id': value.id,
           }
@@ -145,7 +145,7 @@ private yy : number;
             'institute': value.institute,
             'name': value.description,
             'from': this.reverseDate(value.from) + 'T05:00:00',
-            'currentlyWith': Boolean(value.currentWork),
+            'currently': Boolean(value.currentWork),
             'access': Number(this.privacy),
             'id': value.id,
           }
@@ -169,7 +169,7 @@ private yy : number;
     if(val == true){
       this.hide = true;
       this.educationForm.patchValue({
-        to: '',
+        to: null,
       })
     }
     if(val == false){

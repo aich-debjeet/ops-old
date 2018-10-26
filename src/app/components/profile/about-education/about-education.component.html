@@ -27,14 +27,14 @@
                     <!-- <div class="o-bio-det-display__media">
                         <img [src]="imageBaseUrl + 'img/about/work.png'" alt="">
                     </div> -->
-                    <div class="o-bio-det-display__info">
+                    <div class="o-bio-det-display__info" *ngIf="!education.currently">
                         <span class="c-text_md">Studied {{ education.name }} at {{ education.institute }}</span>
                         <span class="c-text_sm color-grey-dark">From {{ education.from | date:'MMMM, y'}} To {{ education.to | date:'MMMM, y'}}</span>
                     </div>
-                    <!-- <div class="o-bio-det-display__info" *ngIf="education.currentlyWith === true">
+                    <div class="o-bio-det-display__info" *ngIf="education.currently">
                         <span class="c-text_md">Studying {{ education.name }} at {{ education.institute }}</span>
                         <span class="c-text_sm color-grey-dark">From {{ education.from | date:'MMMM, y'}} To Present</span>
-                    </div> -->
+                    </div>
                 </div>
             </div>
             <!-- <div class="row sm_panel_body" *ngIf="ownProfile">
