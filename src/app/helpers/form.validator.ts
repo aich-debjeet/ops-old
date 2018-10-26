@@ -394,9 +394,7 @@ export class FormValidation {
     static toFieldEmpty(AC: AbstractControl){
         const bool = AC.get('currentWork').value;
         const toField = AC.get('to').value;
-        console.log(bool);
         if (!bool && toField === '') {
-            console.log('validating for empty field')
             AC.get('to').setErrors({isRequired: true});
             return;
         }
