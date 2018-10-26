@@ -48,11 +48,9 @@ private yy : number;
   // }
   @Input('workDetails') set setWorkFormData(value) {
     this._workDetails = value;
-    console.log(value);
     if (this._workDetails.formType === 'edit') {
       this.privacy = this._workDetails.data.access
       this.buildWorkForm(this._workDetails.data);
-      // console.log('edit');
     } else {
       this.privacy = 0;
       this.buildWorkForm(null);
@@ -86,7 +84,6 @@ private yy : number;
   // }
 
   buildWorkForm(data:any){
-    // console.log(data)
     this.workForm = this.fb.group({
       company : [this.generalUtils.checkNestedKey(data, ['organizationName']) ? data['organizationName'] : '', [Validators.required]],
       position : [this.generalUtils.checkNestedKey(data, ['role']) ? data['role'] : '', [Validators.required]],
@@ -104,7 +101,6 @@ private yy : number;
   }
 
   workFormSubmit(value){
-    console.log(value)
     if ( this.workForm.valid === true ) {
       let body;      
       if (this._workDetails.formType === 'create') {
@@ -118,7 +114,6 @@ private yy : number;
             'currentlyWith': Boolean(value.currentWork),
             'access': Number(this.privacy)
           }
-          console.log(body)
         } else {
            body = {
             'role': value.position,
@@ -128,7 +123,6 @@ private yy : number;
             'currentlyWith': Boolean(value.currentWork),
             'access': Number(this.privacy)
           }
-          console.log(body)
         }
       } 
       if (this._workDetails.formType === 'edit') {
@@ -144,7 +138,6 @@ private yy : number;
             'access': Number(this.privacy),
             'id': value.id,
           }
-          console.log(body)
         } else {
            body = {
             'role': value.position,
@@ -155,22 +148,20 @@ private yy : number;
             'access': Number(this.privacy),
             'id': value.id,
           }
-          console.log(body)
         }
       }
-      // console.log(body);
       this.formSubmitted.emit(body);
     }
-    else {
-        const invalid = [];
-        const controls = this.workForm.controls;
-        for (const name in controls) {
-            if (controls[name].invalid) {
-                invalid.push(name);
-            }
-        }
-        console.log(invalid);
-    }
+    // else {
+    //     const invalid = [];
+    //     const controls = this.workForm.controls;
+    //     for (const name in controls) {
+    //         if (controls[name].invalid) {
+    //             invalid.push(name);
+    //         }
+    //     }
+    //     console.log(invalid);
+    // }
   }
 
   reverseDate(string) {
@@ -186,8 +177,6 @@ private yy : number;
   }
 
   closeForm(data: any){
-    // console.log(data);
-    // console.log('closing');
     this.closeForms.emit(data);    
   }
   onCheckboxChange(val) {

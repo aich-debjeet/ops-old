@@ -45,11 +45,9 @@ private yy : number;
   @Output() closeForms: EventEmitter<any> = new EventEmitter<any>();
   @Input('educationDetails') set setEducationFormData(value) {
     this._educationDetails = value;
-    console.log(value);
     if (this._educationDetails.formType === 'edit') {
       this.privacy = this._educationDetails.data.access
       this.buildEducationForm(this._educationDetails.data);
-      console.log('edit');
     } else {
       this.privacy = 0;
       this.buildEducationForm(null);
@@ -82,7 +80,6 @@ private yy : number;
   // }
 
   buildEducationForm(data:any){
-    console.log(data)
     this.educationForm = this.fb.group({
       institute : [this.generalUtils.checkNestedKey(data, ['institute']) ? data['institute'] : '', [Validators.required]],
       description : [this.generalUtils.checkNestedKey(data, ['name']) ? data['name'] : '', [Validators.required]],
@@ -102,7 +99,6 @@ private yy : number;
   }
 
   educationFormSubmit(value){
-    console.log(value)
     if ( this.educationForm.valid === true ) {
       let body;      
       if (this._educationDetails.formType === 'create') {
@@ -115,7 +111,6 @@ private yy : number;
             'currently': Boolean(value.currentWork),
             'access': Number(this.privacy)
           }
-          console.log(body)
         } else {
             body = {
             'institute': value.institute,
@@ -124,7 +119,6 @@ private yy : number;
             'currently': Boolean(value.currentWork),
             'access': Number(this.privacy)
           }
-          console.log(body)
         }
       } 
       if (this._educationDetails.formType === 'edit') {
@@ -139,7 +133,6 @@ private yy : number;
             'access': Number(this.privacy),
             'id': value.id,
           }
-          console.log(body)
         } else {
             body = {
             'institute': value.institute,
@@ -149,10 +142,8 @@ private yy : number;
             'access': Number(this.privacy),
             'id': value.id,
           }
-          console.log(body)
         }
       }
-      console.log(body);
       this.formSubmitted.emit(body);
     }
   }
@@ -161,8 +152,6 @@ private yy : number;
   }
 
   closeForm(data: any){
-    console.log(data);
-    console.log('closing');
     this.closeForms.emit(data);    
   }
   onCheckboxChange(val) {

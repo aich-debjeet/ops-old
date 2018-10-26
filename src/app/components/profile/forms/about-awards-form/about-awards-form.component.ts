@@ -46,11 +46,9 @@ export class AboutAwardsFormComponent implements OnInit {
   @Output() closeForms: EventEmitter<any> = new EventEmitter<any>();
   @Input('awardDetails') set setAwardFormData(value) {
     this._awardDetails = value;
-    console.log(value);
     if (this._awardDetails.formType === 'edit') {
       this.privacy = this._awardDetails.data.access
       this.buildAwardForm(this._awardDetails.data);
-      console.log('edit');
     } else {
       this.privacy = 0;
       this.buildAwardForm(null);
@@ -83,7 +81,6 @@ export class AboutAwardsFormComponent implements OnInit {
   }
 
   buildAwardForm(data:any){
-    console.log(data)
     this.awardForm = this.fb.group({
       presenter : [this.generalUtils.checkNestedKey(data, ['organizationName']) ? data['organizationName'] : '', [Validators.required]],
       title : [this.generalUtils.checkNestedKey(data, ['role']) ? data['role'] : '', [Validators.required]],
@@ -96,31 +93,28 @@ export class AboutAwardsFormComponent implements OnInit {
   }
 
   awardFormSubmit(value){
-    console.log(value)
+    
     if ( this.awardForm.valid === true ) {
       let body;      
       if (this._awardDetails.formType === 'create') {
-          body = {
-            'role': value.title,
-            'organizationName': value.presenter,
-            'workOrAward': 'awards',
-            'from': this.reverseDate(value.date) + 'T05:00:00',
-            'access': Number(this.privacy)
-          }
-          console.log(body)
+        body = {
+          'role': value.title,
+          'organizationName': value.presenter,
+          'workOrAward': 'awards',
+          'from': this.reverseDate(value.date) + 'T05:00:00',
+          'access': Number(this.privacy)
+        }
       } 
       if (this._awardDetails.formType === 'edit') {
-           body = {
-            'role': value.title,
-            'organizationName': value.presenter,
-            'workOrAward': 'awards',
-            'from': this.reverseDate(value.date) + 'T05:00:00',
-            'access': Number(this.privacy),
-            'id': value.id,
-          }
-          console.log(body)
+          body = {
+          'role': value.title,
+          'organizationName': value.presenter,
+          'workOrAward': 'awards',
+          'from': this.reverseDate(value.date) + 'T05:00:00',
+          'access': Number(this.privacy),
+          'id': value.id,
+        }
       }
-      console.log(body);
       this.formSubmitted.emit(body);
     }
   }
@@ -129,8 +123,6 @@ export class AboutAwardsFormComponent implements OnInit {
   }
 
   closeForm(data: any){
-    console.log(data);
-    console.log('closing');
     this.closeForms.emit(data);    
   }
   removeTime(dateTime:string){
