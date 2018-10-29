@@ -91,6 +91,7 @@ export class SettingsComponent implements OnInit {
   phMinLent: boolean = false;
   isMobileUnique: boolean = false;
   validSuccess: boolean = true;
+  privacy: number;
 
   @ViewChild('countrySelSet') countrySelectorSet: CountrySelectorComponent;
   @ViewChild('otpPopup') otpPopup: Modal;
@@ -175,8 +176,9 @@ export class SettingsComponent implements OnInit {
             this.gender = state['user_details']['gender'];
             // console.log(this.gender)
           }
-          if (state['user_details']['other']['dateOfBirth'].length > 0) {
-            this.birth = state['user_details']['other']['dateOfBirth'];
+          if (state['user_details']['other']['dob']['date_of_birth'].length > 0) {
+            this.birth = state['user_details']['other']['dob']['date_of_birth'];
+            this.privacy = state['user_details']['other']['dob']['access'];
             // console.log(this.birth)
           }
           if (state['user_details']['email'].length > 0) {
@@ -465,7 +467,10 @@ export class SettingsComponent implements OnInit {
     if (fieldName === 'dob' && this.dob.length > 0) {
       reqBody = {
         other: {
-          'dateOfBirth': ''
+          dob:{
+            access: 0,
+            date_of_birth:''
+          }
         }
       };
       const dateArr =  this.dob.split('-');
@@ -501,7 +506,8 @@ export class SettingsComponent implements OnInit {
       this.isOverAge = true;
       return
     }
-      reqBody.other.dateOfBirth = this.reverseDate(this.dob) + 'T05:00:00';
+      reqBody.other.dob.date_of_birth = this.reverseDate(this.dob) + 'T05:00:00';
+      reqBody.other.dob.access = Number(this.privacy);
       this.invalidDOB = false;
       this.isUnderAge = false;
       this.isOverAge = false;
@@ -522,7 +528,7 @@ export class SettingsComponent implements OnInit {
     //   };
     //   reqBody.email = this.email.trim();
     // }
-    console.log(reqBody)
+    // console.log(reqBody)
     this._store.dispatch({ type: ProfileActions.LOAD_USER_UPDATE, payload: reqBody});
     this._store.select('profileTags').
     first(data => data['userUpdateSuccess']).
@@ -589,9 +595,9 @@ export class SettingsComponent implements OnInit {
 
   calculateAge(birthday) {
     const ageDifMs = Date.now() - birthday.getTime();
-    console.log(ageDifMs);
+    // console.log(ageDifMs);
     const ageDate = new Date(ageDifMs); // miliseconds from epoch
-    console.log(ageDate);
+    // console.log(ageDate);
     return Math.abs(ageDate.getUTCFullYear() - 1970);
   }
   /**
@@ -758,6 +764,10 @@ export class SettingsComponent implements OnInit {
    });
     // this._store.dispatch({type: ProfileActions.UNBLOCK_USER, payload: form});
     // this._store.dispatch({type: ProfileActions.LOAD_BLOCK_USERS, payload: this.userHandle});
+  }
+
+  choosePrivacy(val: number){
+    this.privacy = val;
   }
 
   // // focus on next otp number
