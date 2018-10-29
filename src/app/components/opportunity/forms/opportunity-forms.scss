@@ -242,3 +242,19 @@ input[type=number]::-webkit-outer-spin-button {
 .col-md-1 {
   width: auto;
 }
+
+.tinyImg, .tinyName {
+  float: left;
+}
+
+.tinyImg {
+  border-radius: 50%;
+}
+
+.tinyName {
+  margin-left: 10px;
+  width: 175px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
