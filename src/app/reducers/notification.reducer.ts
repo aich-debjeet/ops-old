@@ -1,11 +1,7 @@
 import { ActionReducer, Action } from '@ngrx/store';
-
 import { Notification } from '../models/notification.model';
 import { NotificationActions } from '../actions/notification.action';
-import {Observable} from 'rxjs/Observable';
-import * as _ from 'lodash';
-
-
+import { uniqBy as _uniqBy } from 'lodash';
 
 export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: Action) =>  {
 
@@ -20,8 +16,9 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
 
     case NotificationActions.GET_NOTIFICATIONS_SUCCESS:
       let updated_notifications;
-      if (state.notifications_pagination.page > 0 && state['recieved_notifications'].length > 0) {
+      if (state['recieved_notifications'] && state['recieved_notifications'].length > 0) {
         updated_notifications = [...state.recieved_notifications, ...payload];
+        updated_notifications = _uniqBy(updated_notifications, 'notificationId');
       } else {
         updated_notifications = payload;
       }
@@ -64,15 +61,13 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
         mark_as_all_read_success: true
       });
 
-    case NotificationActions.ADD_PUSHER_NOTIFICATIONS:
-    console.log(payload)
+    case NotificationActions.ADD_PUSHER_NOTIFICATION:
       let updated_push_notifications;
       if (state && state['recieved_notifications'].length > 0) {
         const arr = [payload];
         updated_push_notifications = arr.concat(state.recieved_notifications)
-        // updated_push_notifications = [...state.recieved_notifications, ...payload];
       } else {
-        updated_push_notifications = payload;
+        updated_push_notifications = [payload];
       }
       return Object.assign({}, state, {
         recieved_notifications: updated_push_notifications,

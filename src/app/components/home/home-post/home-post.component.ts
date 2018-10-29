@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 
 import { ProfileActions } from '../../../actions/profile.action';
 import { MediaActions } from '../../../actions/media.action';
+import { findIndex as _findIndex } from 'lodash';
 
 @Component({
   selector: 'app-home-post',
@@ -33,6 +34,7 @@ export class HomePostComponent implements OnInit, OnDestroy {
   post_scroll_id: any = '';
   imageLink: string = environment.API_IMAGE;
   userData: any;
+  playingVideoId = '';
 
   constructor(
     public route: ActivatedRoute,
@@ -47,7 +49,8 @@ export class HomePostComponent implements OnInit, OnDestroy {
       // User folling posts
       if (state.user_following_posts_loaded) {
         this.posts = this.userProfile.user_following_posts;
-        this.post_scroll_id = state.user_following_post_scroll_id
+        this.post_scroll_id = state.user_following_post_scroll_id;
+        this.setMediaViewportKey();
       }
 
       // Trending post state
@@ -64,6 +67,15 @@ export class HomePostComponent implements OnInit, OnDestroy {
         }
       }
     });
+  }
+
+  setMediaViewportKey() {
+    for (let i = 0; i < this.posts.length; i++) {
+      if (this.posts[i] && typeof this.posts[i].inViewport) {
+        this.posts[i]['inViewport'] = false;
+      }
+    }
+    // console.log('this.posts', this.posts);
   }
 
   ngOnInit() {
@@ -98,29 +110,38 @@ export class HomePostComponent implements OnInit, OnDestroy {
 
   // is spoted ture or false
   isSpoted(value) {
+    console.log(value);
     const data = {
       'mediaType': value.mtype,
       'id': value.id
     }
 
     if (value.isSpotted === false) {
-      this.store.dispatch({ type: MediaActions.MEDIA_SPOT, payload: data });
-      this.store.dispatch({ type: ProfileActions.POST_SPOT, payload: value.id });
+      this.store.dispatch({ type: ProfileActions.PROFILE_MEDIA_SPOT, payload: data });
     } else {
-      this.store.dispatch({ type: MediaActions.MEDIA_UNSPOT, payload: data });
-      this.store.dispatch({ type: ProfileActions.POST_UNSPOT, payload: value.id });
+      this.store.dispatch({ type: ProfileActions.PROFILE_MEDIA_UNSPOT, payload: data });
     }
   }
 
-  /**
-   * Check if object is empty
-   * @param obj
-   */
-    checkEmpty(obj: Object) {
-      return Object.keys(obj).length === 0 && obj.constructor === Object;
+  elemInViewportStatus(data: any) {
+    if (data && data.status && data.mediaId) {
+      const medIndx = _findIndex(this.posts, { id: data.mediaId });
+      if (medIndx) {
+        if (data.status === 'reached') {
+          if (this.posts[medIndx].inViewport !== true && this.posts[medIndx].id !== this.playingVideoId) {
+            this.setMediaViewportKey();
+            this.posts[medIndx].inViewport = true;
+            this.playingVideoId = this.posts[medIndx].id;
+          }
+        } else if (data.status === 'departed') {
+          this.posts[medIndx].inViewport = false;
+        }
+      }
     }
+  }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
+
 }

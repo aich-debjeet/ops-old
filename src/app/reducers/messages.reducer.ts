@@ -1,9 +1,9 @@
 import { ActionReducer, Action } from '@ngrx/store';
-import { MessageModal, initialMessage } from '../models/message.model';
-import { unionBy as _unionBy } from 'lodash';
 import { MessageActions } from '../actions/message.action';
 
-import * as _ from 'lodash';
+import { findIndex as _findIndex } from 'lodash';
+import { remove as _remove } from 'lodash';
+import { uniqBy as _uniqBy } from 'lodash';
 
 export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Action) =>  {
 
@@ -41,7 +41,7 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
     case MessageActions.DELETE_MESSAGE:
       let messanger_list_data_updated_on_del = state['messanger_list_data'];
       const msngr_list = state['messanger_list_data'];
-      const msngrMsgIndexDel = _.findIndex(msngr_list, (obj) => obj.handle === payload.messageDetails.to);
+      const msngrMsgIndexDel = _findIndex(msngr_list, (obj) => obj.handle === payload.messageDetails.to);
       if (msngrMsgIndexDel > -1) {
         if (msngr_list[msngrMsgIndexDel] && msngr_list[msngrMsgIndexDel] !== undefined && msngr_list[msngrMsgIndexDel].latestMessage === payload.messageDetails.content) {
           // update details
@@ -52,7 +52,7 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       }
       let load_conversation_data_updated = state['load_conversation_data'];
       const conv_list = state['load_conversation_data'];
-      const convMsgIndexDel = _.findIndex(conv_list, (obj) => obj.id === payload.messageId);
+      const convMsgIndexDel = _findIndex(conv_list, (obj) => obj.id === payload.messageId);
       if (convMsgIndexDel > -1) {
         // get the message object
         if (conv_list[convMsgIndexDel] && conv_list[convMsgIndexDel] !== undefined) {
@@ -86,7 +86,7 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
     /* message delete */
 
     case MessageActions.NETWORK_REQUEST_DECLINE:
-      const messanger_list_data_updated = _.remove(state['messanger_list_data'], (obj) => obj.handle !== payload.by);
+      const messanger_list_data_updated = _remove(state['messanger_list_data'], (obj) => obj.handle !== payload.by);
       return Object.assign({}, state, {
         messanger_list_data: messanger_list_data_updated
       });
@@ -102,7 +102,8 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
     case MessageActions.GET_MESSANGER_LIST_SUCCESS:
       let messanger_list_data_if_reached_out;
       if (state && state['messanger_list_data'] !== undefined) {
-        messanger_list_data_if_reached_out = [...payload, ...state['load_conversation_data']];
+        messanger_list_data_if_reached_out = [...payload, ...state['messanger_list_data']];
+        messanger_list_data_if_reached_out = _uniqBy(messanger_list_data_if_reached_out, 'handle');
       } else {
         messanger_list_data_if_reached_out = payload;
       }
@@ -185,7 +186,7 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       const messanger_list = state['messanger_list_data'];
       if (state && messanger_list !== undefined) {
         // remove the user with the same handle
-        const msgIndexSend = _.findIndex(messanger_list, (obj) => obj.handle === payload.to);
+        const msgIndexSend = _findIndex(messanger_list, (obj) => obj.handle === payload.to);
         if (msgIndexSend > -1) {
           // get the user object
           const msgObj = messanger_list[msgIndexSend];
@@ -216,7 +217,7 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       // mark message delivered
       if (payload && payload.SUCCESS) {
         // find the message
-        const sentMsgIndex = _.findIndex(state.load_conversation_data, (obj) => obj.content === payload.SUCCESS.content);
+        const sentMsgIndex = _findIndex(state.load_conversation_data, (obj) => obj.content === payload.SUCCESS.content);
         if (sentMsgIndex > -1) {
           if (state.load_conversation_data[sentMsgIndex] && state.load_conversation_data[sentMsgIndex] !== undefined) {
             // delete object
@@ -266,8 +267,14 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       } else {
         updated_load_conversation_data = state.load_conversation_data;
       }
+      // cache existing listing
+      let updated_messanger_list_data = [];
+      if (state && state['messanger_list_data']) {
+        updated_messanger_list_data = state['messanger_list_data'];
+      }
+      // console.log('BEFORE', updated_messanger_list_data);
       // update the user in listing with new message
-      const listingIndex = _.findIndex(state.messanger_list_data, (obj) => obj.handle === payload.by);
+      const listingIndex = _findIndex(state.messanger_list_data, (obj) => obj.handle === payload.by);
       if (listingIndex > -1) {
         // get the user object
         const msgObj = state.messanger_list_data[listingIndex];
@@ -275,11 +282,19 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
           msgObj.time = payload.time;
           msgObj.latestMessage = payload.content;
           msgObj.messageType = payload.messageType;
-          msgObj.isRead = true;
+          msgObj.isRead = false;
+          state.messanger_list_data.splice(listingIndex, 1);
+          const new_list_data = [msgObj];
+          updated_messanger_list_data = new_list_data.concat(state.messanger_list_data);
         }
+      } else {
+        const new_list_data = [payload];
+        updated_messanger_list_data = new_list_data.concat(state.messanger_list_data);
       }
+      // console.log('AFTER', updated_messanger_list_data);
       return Object.assign({}, state, {
-        load_conversation_data: updated_load_conversation_data
+        load_conversation_data: updated_load_conversation_data,
+        messanger_list_data: updated_messanger_list_data
       });
     /* update pusher message */
 
@@ -288,62 +303,6 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       return Object.assign({}, state, {
         load_conversation_data: []
       });
-
-    case MessageActions.LOAD_USER_PROFILE_DATA:
-    return (<any>Object).assign({}, state, {
-      success: true,
-    });
-
-    case MessageActions.LOAD_USER_PROFILE_DATA_SUCCESS:
-    return (<any>Object).assign({}, state, {
-      userProfileDetails: payload,
-      success: true,
-    });
-
-    case MessageActions.LOAD_USER_PROFILE_DATA_FAILED:
-    return (<any>Object).assign({}, state, {
-      success: false,
-    });
-
-    case MessageActions.UNLOAD_USER_PROFILE_DATA:
-    return (<any>Object).assign({}, state, {
-      success: true,
-    });
-
-    case MessageActions.UNLOAD_USER_PROFILE_DATA_SUCCESS:
-    return
-
-    case MessageActions.LOAD_NON_USER_PROFILE_DATA:
-    return (<any>Object).assign({}, state, {
-      success: true
-    });
-
-    case MessageActions.LOAD_NON_USER_PROFILE_DATA_SUCCESS:
-    return (<any>Object).assign({}, state, {
-      nonUserProfileDetails: payload,
-      success: true
-    });
-
-    case MessageActions.LOAD_NON_USER_PROFILE_DATA_FAILED:
-    return (<any>Object).assign({}, state, {
-      success: false
-    });
-
-    case MessageActions.LOAD_NON_USER_PROFILE2_DATA:
-    return (<any>Object).assign({}, state, {
-      success: true
-    });
-
-    case MessageActions.LOAD_NON_USER_PROFILE2_DATA_SUCCESS:
-    return (<any>Object).assign({}, state, {
-      nonUserProfile2Details: payload,
-      success: true
-    });
-
-    case MessageActions.LOAD_NON_USER_PROFILE2_DATA_FAILED:
-    return (<any>Object).assign({}, state, {
-      success: false
-    });
 
     case MessageActions.GET_RECEIPIENT:
       return Object.assign({}, state, {

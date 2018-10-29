@@ -1,7 +1,7 @@
 
 export class ProfileModal {
   isBlocked: boolean;
-  isUnBlocked: boolean;  
+  isUnBlocked: boolean;
   completed: string[];
   loading: false;
   success: true;
@@ -42,7 +42,8 @@ export class ProfileModal {
   user_posts: any;
   user_posts_loading: boolean;
   user_posts_loaded: boolean;
-  user_following_posts: any;
+  trending_post?: any;
+  user_following_posts?: any;
   user_following_posts_loading: boolean;
   user_following_posts_loaded: boolean;
   media_channel_posting: boolean;
@@ -185,7 +186,8 @@ export const initialTag: ProfileModal = {
   cancel_sent_request_data: [],
   list_loaded: false,
   connection_loaded: false,
-  reports: []
+  reports: [],
+  trending_post: []
 };
 
 export class ProfileCard {

@@ -115,6 +115,7 @@ export class MediaSelectorComponent implements OnInit {
   user_channel_scroll_id: any;
   nameActive: boolean;
   ct_name: any;
+  postSubmiting: boolean = false;
 
   constructor(
     private Upload: NgxfUploaderService,
@@ -230,6 +231,8 @@ export class MediaSelectorComponent implements OnInit {
       // Post states
       this.postSuccess = this.profileChannel.media_channel_posted;
       this.postSuccessActive = this.profileChannel.media_channel_posting;
+      this.postSubmiting = this.profileChannel.media_channel_posting;
+
 
       if (state['profile_cards'].active && (this.activeUser.handle !== state['profile_cards'].active.handle)) {
         // nothing

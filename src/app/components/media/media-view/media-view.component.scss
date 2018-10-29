@@ -158,10 +158,12 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    z-index: 1;
+    z-index: 10000;
     transition: .25s;
     vertical-align: middle!important;
-    height: 600px;
+    // height: 600px;
+    height: auto;
+    top: 283px;
     img {
         filter: drop-shadow(0 0 3px #222);
     }
@@ -171,7 +173,7 @@
     @extend .c-mediamodal__l-arrow;
     right: 8px;
     left: auto;
-    z-index: 1;
+    z-index: 1000;
     img {
         filter: drop-shadow(0 0 3px #222);
     }
@@ -338,4 +340,7 @@ button.close {
     margin-top: -30px;
     position: absolute;
     right: 20px;
+}
+.cursor_pointer{
+    cursor: pointer;
 }

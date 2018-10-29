@@ -5,16 +5,12 @@
     </a>
   </div>
   <div class="c-post__comment--right p-l-8">
-    <a class="c-post__commenter c-post__commenter-mpop" (click)="navigate()">{{ commentData?.ownerName }}</a>
     <div class="c-post__comment_text-mpop">
+        <a class="c-post__commenter">{{ commentData?.ownerName }}</a>
+        <div id="contentEdit" contentEditable="true" *ngIf="isEdit" (keyup.enter)="onContentSaved($event.target.textContent)">{{ messageText }}</div>
         <read-more class="c-post__comment_text-inline" [text]="messageText" [maxLength]=150 *ngIf="!isEdit"> </read-more>
-        <!-- <div class="c-post__comment_text-inline" *ngIf="!isEdit"> {{ messageText }} </div> -->
-        <div contenteditable="true" *ngIf="isEdit" [textContent]="messageText" [(ngModel)]="messageText" name="messageText" class="c-post__comment_text c-contenteditable" ngDefaultControl (keyup.enter)="onContentSaved()" (input)="messageText=$event.target.textContent">
-
-        </div>
-      <!--<input type="text" class="c-post__comment_text c-contenteditable" *ngIf="isEdit" [(ngModel)]="messageText" (keyup.enter)="onContentSaved()" value="{{ commentData?.comment }}">-->
     </div>
-    <div class="c-post__comment--time">{{ commentData?.createdDate | utcDate | date: 'hh:mm a ' }}</div>
+    <div class="c-post__comment--time">{{ (commentData?.updatedDate ? commentData?.updatedDate : commentData?.createdDate) | utcDate | date: 'hh:mm:ss a' }}</div>
   </div>
   <div class="dropdown c-dropdown c-dropdown__options m-r-16" appDropdown *ngIf="commentData?.isOwner">
       <span class="dropdown-toggle" appDropdownOpen>
@@ -39,12 +35,13 @@
         </a>
     </div>
     <div class="c-post__comment--right p-l-0">
-        <a class="c-post__commenter">{{ commentData?.ownerName }}</a>
         <div class="c-post__comment_text">
-            <read-more class="c-post__comment_text-inline" [text]="messageText" [maxLength]=150 *ngIf="!isEdit"> </read-more>
-            <div contenteditable="true" *ngIf="isEdit" [textContent]="messageText" [(ngModel)]="messageText" name="messageText" class="c-post__comment_text c-contenteditable" ngDefaultControl (keyup.enter)="onContentSaved()" (input)="messageText=$event.target.textContent"></div>
+            <a class="c-post__commenter">{{ commentData?.ownerName }}</a>
+            <div id="contentEdit" contentEditable="true" *ngIf="isEdit" (keyup.enter)="onContentSaved($event.target.textContent)">{{ messageText }}</div>
+            <read-more class="c-post__comment_text-inline" [text]="messageText" [maxLength]=150 *ngIf="!isEdit" > </read-more>
+            <!-- <div contenteditable="true" *ngIf="isEdit" [textContent]="messageText" [(ngModel)]="messageText" name="messageText" class="c-post__comment_text c-contenteditable" ngDefaultControl (keyup.enter)="onContentSaved()" (input)="messageText=$event.target.textContent"></div> -->
         </div>
-        <div class="c-post__comment--time">{{ commentData?.createdDate | utcDate | date:'d MMM h:m a' }}</div>
+        <div class="c-post__comment--time">{{ (commentData?.updatedDate ? commentData?.updatedDate : commentData?.createdDate)  | utcDate | date:'d MMM h:m a' }}</div>
     </div>
     <div class="dropdown c-dropdown c-dropdown__options m-r-24" appDropdown *ngIf="commentData?.isOwner">
         <span class="dropdown-toggle" appDropdownOpen >

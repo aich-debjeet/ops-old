@@ -47,7 +47,7 @@
             {{ mediaData?.description }}
         </div>
     </div>
-    <div *ngIf="checkFileType(mediaData?.repopath, 'Video') || checkFileType(mediaData?.repopath, 'Audio') || checkFileType(mediaData?.repopath, 'Image')">
+    <div *ngIf="mediaData?.mtype === 'video' || mediaData?.mtype === 'audio' || mediaData?.mtype === 'image'">
         <div class="c-feed__img-status" *ngIf="!isEdit">
             {{ mediaData?.description | truncate:[200, '...']}}
             
@@ -56,11 +56,9 @@
             <div class="content_editable" contentEditable="true" (keyup.enter)="onContentSaved()" [textContent]="desText" name="desText" (input)="desText=$event.target.textContent"></div>
         </div>
     </div>
-    <div class="c-feed__img2" *ngIf="checkFileType(mediaData?.repopath, 'Video') || checkFileType(mediaData?.repopath, 'Audio') || checkFileType(mediaData?.repopath, 'Image')">
-        <!-- <img [src]="imageLink + mediaData?.thumbNails?.large" class="img-responsive"> -->
-        <!-- <app-audioplayer class="audio" *ngIf="checkFileType(mediaData?.repopath, 'Audio')" src="{{ imageLink + mediaData?.repopath }}"></app-audioplayer>
-        <img *ngIf="checkFileType(mediaData?.repopath, 'Image')" src="{{ imageLink + mediaData?.repopath }}" class="img-responsive">
-        <app-videplayer [play]="'true'" *ngIf="checkFileType(mediaData?.repopath, 'Video')" class="{{ imageLink + mediaData?.repopath }}" src="{{ imageLink +  mediaData?.repopath }}"></app-videplayer> -->
+
+    <!-- image -->
+    <div class="c-feed__img2" *ngIf="mediaData?.mtype === 'image'">
         <a [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
             <img [src]="imageLink + mediaData?.thumbNails?.large" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="img-responsive" [class.c-feed__adult-blur]="mediaData?.isNsfw && mediaData?.isOwner === false">
             <div class="c-feed__adult" id="c-feed__adult-hide" *ngIf="mediaData?.isNsfw && mediaData?.isOwner === false">
@@ -73,19 +71,38 @@
                 </div>
             </div>
         </a>
-        <span *ngIf="checkFileType(mediaData?.repopath, 'Audio')">
-            <img [src]="imageLink + 'img/svg/ico_volume3.svg'" class="c-card__icon">
-        </span>
-        <span *ngIf="checkFileType(mediaData?.repopath, 'Video')">
-         <img [src]="imageLink + 'img/svg/ico_video.svg'" class="c-card__icon">
-        </span>
-        <span *ngIf="checkFileType(mediaData?.repopath, 'Image')">
-            <img [src]="imageLink + 'img/svg/ico_image.svg'" class="c-card__icon">
-        </span>
     </div>
+    <!-- image -->
+
+    <!-- audio -->
+    <div class="c-feed__img2" appAppear (reached)="onReachingInViewport(mediaData?.id)" (departed)="onDepartedFromViewport(mediaData?.id)" *ngIf="mediaData?.mtype === 'audio'">
+        <img [src]="imageLink + mediaData?.thumbNails?.large" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="img-responsive audio-image" [class.c-feed__adult-blur]="mediaData?.isNsfw && mediaData?.isOwner === false">
+        <app-audioplayer *ngIf="mediaData?.inViewport" [size]="'small'" [src]="imageLink + mediaData?.repopath"></app-audioplayer>
+        <div *ngIf="!mediaData?.inViewport" class="audio-placeholder"></div>
+    </div>
+    <!-- image -->
+
+    <!-- video -->
+    <div class="c-feed__img2" appAppear (reached)="onReachingInViewport(mediaData?.id)" (departed)="onDepartedFromViewport(mediaData?.id)" *ngIf="mediaData?.mtype === 'video'">
+        <app-videoplayer [showControls]="'true'" *ngIf="mediaData?.inViewport === true" class="{{ imageLink + mediaData?.repopath }}" src="{{ imageLink +  mediaData?.repopath }}"></app-videoplayer>
+        <a *ngIf="mediaData?.inViewport === false" [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
+            <img [src]="imageLink + mediaData?.thumbNails?.large" [ngClass]="{'audio-image': mediaData?.mtype === 'audio'}" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="img-responsive" [class.c-feed__adult-blur]="mediaData?.isNsfw && mediaData?.isOwner === false">
+            <div class="c-feed__adult" id="c-feed__adult-hide" *ngIf="mediaData?.isNsfw && mediaData?.isOwner === false">
+                <div class="c-feed__adult-text">
+                    <div>
+                        This post may contain sensitive information that could be disturbing to some individuals.
+                        Viewer's discretion is strongly advised.
+                    </div>
+                    <a href="javascript:void(0)" class="c-feed__adult-a" id="feedRemove">see this post</a>
+                </div>
+            </div>
+        </a>
+    </div>
+    <!-- video -->
+    
     <div class="c-status--block">
         <div class="c-links">
-            <div class="c-links__spots" (click)="spotMedia(mediaData?.id)">
+            <div class="c-links__spots" (click)="spotMedia(mediaData)">
                 <img *ngIf="following" [src]="imageLink + 'img/svg/spot_icon.svg'" class="c-links__image">
                 <img *ngIf="!following" [src]="imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
                 <span class="c-links__count">{{ followingCount }} Spots</span>
@@ -94,7 +111,7 @@
                 <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
                 <span class="c-links__count">{{ commentCount }} Comments</span>
             </div>
-            <div  *ngIf="checkFileType(mediaData?.repopath, 'Video') || checkFileType(mediaData?.repopath, 'Audio') || checkFileType(mediaData?.repopath, 'Image')" class="c-links__comments" [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
+            <div  *ngIf="mediaData?.mtype === 'video' || mediaData?.mtype === 'audio' || mediaData?.mtype === 'image'" class="c-links__comments" [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
                 <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
                 <span class="c-links__count">{{ commentCount }}  Comments</span>
             </div>
@@ -148,16 +165,16 @@
                         </div> -->
 
                         <div class="o-share__social">
-                            <div class="o-share__social-icon p-l-0" shareButton="google" [sbUrl]="domainLink + '/media/' + mediaData?.id">
+                            <div class="o-share__social-icon p-l-0" shareButton="google" [sbUrl]="domainLink + 'media/' + mediaData?.id">
                                 <img [src]="imageLink + 'img/svg/googleplus.svg'">
                             </div>
-                            <div class="o-share__social-icon" shareButton="twitter" [sbUrl]="domainLink + '/media/' + mediaData?.id">
+                            <div class="o-share__social-icon" shareButton="twitter" [sbUrl]="domainLink + 'media/' + mediaData?.id">
                                 <img [src]="imageLink + 'img/svg/twitter.svg'">
                             </div>
-                            <div class="o-share__social-icon" [shareButton]="'facebook'" [sbUrl]="domainLink + '/media/' + mediaData?.id">
+                            <div class="o-share__social-icon" [shareButton]="'facebook'" [sbUrl]="domainLink + 'media/' + mediaData?.id">
                                 <img [src]="imageLink + 'img/svg/facebook.svg'">
                             </div>
-                            <div class="o-share__social-icon p-r-0" shareButton="email" [sbUrl]="domainLink + '/media/' + mediaData?.id">
+                            <div class="o-share__social-icon p-r-0" shareButton="email" [sbUrl]="domainLink + 'media/' + mediaData?.id">
                                 <img [src]="imageLink + 'img/svg/envelope.svg'">
                             </div>
                         </div>

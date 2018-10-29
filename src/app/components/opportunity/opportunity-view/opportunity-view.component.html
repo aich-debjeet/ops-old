@@ -775,7 +775,7 @@
           </div>
         </div>
       </div>
-      <app-widget-collaborators [opportunityId]="jobId" [isLoading]="opportunityState?.getOppCollabs" [userData]="opportunityState?.getOppCollabsData"></app-widget-collaborators>
+      <app-widget-collaborators *ngIf="opportunity?.opportunityType === 'project'" [opportunityId]="jobId" [isLoading]="opportunityState?.getOppCollabs" [userData]="opportunityState?.getOppCollabsData"></app-widget-collaborators>
     </div>
     <!-- right widgets -->
   </div>

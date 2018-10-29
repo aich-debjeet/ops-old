@@ -29,7 +29,6 @@ const reducers = {
   // userMediaTags: ProfileReducer,
   userSearchTags: UserSearchReducer,
   opportunityTags: OpportunityReducer,
-  receivedMessagesTags: MessageReducer,
   claimProfileTags: ClaimProfileReducer,
   notificationTags: NotificationReducer,
   exploreTags: ExploreReducer,

@@ -35,7 +35,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
   profile_details: any;
   showCreateOrg = false;
   redirectedToCreatedOrg = false;
-  notify = false;
+  notifyNotif = false;
+  notifyMsg = false;
   scrolling = 0;
   scrollingLoad = 100;
   page_start = 1;
@@ -46,23 +47,21 @@ export class NavigationComponent implements OnInit, OnDestroy {
   // userCard: UserCard;
   userCards: ProfileCards;
 
-  /* ========================== notification ========================== */
   notificationsState$: Observable<Notification>;
   notifState: any;
   notificationIds: any[];
   notifications: any[];
-  /* ========================== notification ========================== */
 
-  /* ========================== notification ========================== */
   messagesState$: Observable<MessageModal>;
   msgState: any;
   messages: any[];
-  /* ========================== notification ========================== */
+
+  loadedNotifsInitialSet = false;
 
   constructor(
     private store: Store<ProfileModal>,
     private notificationStore: Store<Notification>,
-    private msgStore: Store<MessageModal>,
+    private messageStore: Store<MessageModal>,
     public modalService: ModalService,
     public generalHelper: GeneralUtilities,
     private router: Router,
@@ -120,7 +119,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
         if (typeof state['recieved_notifications'] !== 'undefined') {
           const noti = state['recieved_notifications'];
           this.notifications = _uniqBy(noti, noti.notificationId);
-          console.log('this.notifications', this.notifications);
           this.processNotifications();
         }
         if (typeof state['marking_as_read_response'] !== 'undefined') {
@@ -130,7 +128,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.messagesState$ = this.msgStore.select('messageTags');
+    this.messagesState$ = this.messageStore.select('messageTags');
     this.msgSub = this.messagesState$.subscribe((state) => {
       this.msgState = state;
       if (typeof state !== 'undefined') {
@@ -149,11 +147,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   notificationPopup() {
-    if (!this.notifications) {
-      this.loadNotifications();
-    }
-    if (this.notify) {
-      this.notify = false;
+    this.notifyNotif = false;
+    if (!this.loadedNotifsInitialSet) {
+      this.loadedNotifsInitialSet = true;
+      this.loadNotifsInitialSet();
     }
   }
   /**
@@ -171,82 +168,91 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * add new notification to the state
+   */
+  addNewNotif(data) {
+    this.notifyNotif = true;
+    this.notificationStore.dispatch({
+      type: NotificationActions.ADD_PUSHER_NOTIFICATION,
+      payload: JSON.parse(data)
+    });
+  }
+
+  /**
    * On init
    */
   ngOnInit() {
-    if (this.pusherService && this.pusherService.notificationsChannel) {
-      this.pusherService.notificationsChannel.bind('Following', (message) => {
-        // console.log(message)
-        this.notify = true;
-        this.notificationStore.dispatch({
-          type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
-          payload: JSON.parse(message)
+    // check if this.pusherService available
+    if (this.pusherService) {
+
+      // check if notif channel exist
+      if (this.pusherService.notificationsChannel) {
+        this.pusherService.notificationsChannel.bind('Following', (data) => {
+          this.addNewNotif(data);
         });
-      });
-      this.pusherService.notificationsChannel.bind('Media_Spot', (message) => {
-        // console.log(message)
-        this.notify = true;
-        this.notificationStore.dispatch({
-          type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
-          payload: JSON.parse(message)
+        this.pusherService.notificationsChannel.bind('Media_Spot', (data) => {
+          this.addNewNotif(data);
         });
-      });
-      this.pusherService.notificationsChannel.bind('Blog_Spot', (message) => {
-        // console.log(message)
-        this.notify = true;
-        this.notificationStore.dispatch({
-          type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
-          payload: JSON.parse(message)
+        this.pusherService.notificationsChannel.bind('Blog_Spot', (data) => {
+          this.addNewNotif(data);
         });
-      });
-      this.pusherService.notificationsChannel.bind('Status_Spot', (message) => {
-        // console.log(message)
-        this.notify = true;
-        this.notificationStore.dispatch({
-          type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
-          payload: JSON.parse(message)
+        this.pusherService.notificationsChannel.bind('Status_Spot', (data) => {
+          this.addNewNotif(data);
         });
-      });
-      this.pusherService.notificationsChannel.bind('Media_Comments', (message) => {
-        // console.log(message)
-        this.notify = true;
-        this.notificationStore.dispatch({
-          type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
-          payload: JSON.parse(message)
+        this.pusherService.notificationsChannel.bind('Blog_Comments', (data) => {
+          this.addNewNotif(data);
         });
-      });
-      this.pusherService.notificationsChannel.bind('Blog_Comments', (message) => {
-        // console.log(message)
-        this.notify = true;
-        this.notificationStore.dispatch({
-          type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
-          payload: JSON.parse(message)
+        this.pusherService.notificationsChannel.bind('Status_Comments', (data) => {
+          this.addNewNotif(data);
         });
-      });
-      this.pusherService.notificationsChannel.bind('Status_Comments', (message) => {
-        // console.log(message)
-        this.notify = true;
-        this.notificationStore.dispatch({
-          type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
-          payload: JSON.parse(message)
+        this.pusherService.notificationsChannel.bind('Network_Sent', (data) => {
+          this.addNewNotif(data);
         });
-      });
-      this.pusherService.notificationsChannel.bind('Network_Sent', (message) => {
-        // console.log(message)
-        this.notify = true;
-        this.notificationStore.dispatch({
-          type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
-          payload: JSON.parse(message)
+        this.pusherService.notificationsChannel.bind('Network_Accepted', (data) => {
+          this.addNewNotif(data);
         });
-      });
-      this.pusherService.notificationsChannel.bind('Network_Accepted', (message) => {
-        //  console.log(message)
-        this.notify = true;
-        this.notificationStore.dispatch({
-          type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
-          payload: JSON.parse(message)
+      }
+
+      // check if message channels exist
+      if (this.pusherService.messagesChannel) {
+        // pusher message listener
+        this.pusherService.messagesChannel.bind('New-Message', (data) => {
+          // show blue tick as a notification for new message
+          this.notifyMsg = true;
+          const message = JSON.parse(data);
+          // check if it's a network request
+          if (message && message['isNetworkRequest'] && message['isNetworkRequest'] === true) {
+            // append the new object to the user listing
+            const newListObj = {
+              handle: message.by,
+              isBlocked: false,
+              isRead: message.isRead,
+              latestMessage: message.content,
+              messageType: 'received',
+              name: message.name,
+              profileImage: message.profileImage,
+              time: message.time,
+              username: message.username
+            };
+            this.messageStore.dispatch({
+              type: MessageActions.PREPEND_ELEMENT_TO_USER_LIST,
+              payload: newListObj
+            });
+          } else {
+            this.messageStore.dispatch({
+              type: MessageActions.ADD_PUSHER_MESSAGE,
+              payload: message
+            });
+          }
+          setTimeout(() => {
+            this.generalHelper.filter({
+              component: 'MessageHomeComponent',
+              action: 'scrollToBottom'
+            });
+          }, 20);
         });
-      });
+      }
+
     }
 
     document.body.scrollTop = 0;
@@ -289,11 +295,20 @@ export class NavigationComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * redirect to message to load the conversation
+   * @param message
+   */
+  openConversation(msg: any) {
+    this.router.navigate(['/message'], { queryParams: { handle: msg.handle }});
+  }
+
   toggleNav(name: string) {
     return;
   }
 
-  loadNotifications() {
+  loadNotifsInitialSet() {
+    console.log('loadNotifsInitialSet');
     const data = {
       limit: 10,
       page: 0
@@ -399,7 +414,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.store.select('notificationTags')
       .first(notification => notification['mark_as_all_read_success'] === true)
       .subscribe(data => {
-        this.loadNotifications();
+        this.loadNotifsInitialSet();
       });
   }
 
@@ -414,13 +429,14 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   messagePopup() {
+    this.notifyMsg = false;
     if (!this.messages) {
       this.loadMessages();
     }
   }
 
   loadMessages() {
-    this.msgStore.dispatch({ type: MessageActions.GET_MESSANGER_LIST, payload: null });
+    this.messageStore.dispatch({ type: MessageActions.GET_MESSANGER_LIST, payload: null });
   }
 
 }

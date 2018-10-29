@@ -189,10 +189,10 @@ app-country-selector {
     top: 8px;
 }
 
-vg-scrub-bar {
-    height: 3px !important;
-    bottom: 0 !important;
-}
+// vg-scrub-bar {
+//     height: 3px !important;
+//     bottom: 0 !important;
+// }
 app-audioplayer vg-scrub-bar{
     margin: 23px 10px!important;
 }
@@ -645,6 +645,13 @@ button.sb-wrapper.sb-facebook {
   color: #83a591 !important;
   padding-left: 24px;
 }
+.toast-message{
+    word-break: break-word;
+}
+
+// #toast-container .toast {
+//     padding: 15px 15px 15px 25px;
+// }
 
 .o-event-content-container{
     p{

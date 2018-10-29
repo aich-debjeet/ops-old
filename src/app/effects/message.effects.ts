@@ -8,41 +8,10 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/filter';
 
 import { MessageService } from '../services/message.service';
-import { GeneralService } from '../services/api.service';
 import { MessageActions } from '../actions/message.action';
 
 @Injectable()
 export class MessageEffect {
-
-  @Effect()
-    userProfile$ = this.actions$
-    .ofType(MessageActions.LOAD_USER_PROFILE_DATA)
-    .map(toPayload)
-    // .switchMap((payload) => Observable
-    //   .timer(0 , 5000)
-      .switchMap((payload) => this.messageService.getUserProfileDetails(payload)
-        .map(res => ({ type: MessageActions.LOAD_USER_PROFILE_DATA_SUCCESS, payload: res }))
-        .catch((res) => Observable.of({ type: MessageActions.LOAD_USER_PROFILE_DATA_FAILED, payload: res }))
-      );
-    // );
-
-  @Effect()
-    nonUserProfile$ = this.actions$
-    .ofType(MessageActions.LOAD_NON_USER_PROFILE_DATA)
-    .map(toPayload)
-    .switchMap((payload) => this.messageService.getNonUserProfileDetails(payload)
-      .map(res => ({ type: MessageActions.LOAD_NON_USER_PROFILE_DATA_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: MessageActions.LOAD_NON_USER_PROFILE_DATA_FAILED, payload: res }))
-    );
-
-    @Effect()
-    nonUserProfile2$ = this.actions$
-    .ofType(MessageActions.LOAD_NON_USER_PROFILE2_DATA)
-    .map(toPayload)
-    .switchMap((payload) => this.messageService.getNonUserProfileDetails(payload)
-      .map(res => ({ type: MessageActions.LOAD_NON_USER_PROFILE2_DATA_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: MessageActions.LOAD_NON_USER_PROFILE2_DATA_FAILED, payload: res }))
-    );
 
   @Effect()
     getReceipient$ = this.actions$
@@ -118,7 +87,6 @@ export class MessageEffect {
 
   constructor(
   private actions$: Actions,
-  private apiService: GeneralService,
   private messageService: MessageService
   ) {}
 }

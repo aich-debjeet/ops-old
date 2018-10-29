@@ -13,6 +13,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 import { Store } from '@ngrx/store';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-search-post',
@@ -37,12 +38,13 @@ export class SearchPostComponent implements OnInit, OnDestroy {
   searchSub: ISubscription;
 
   constructor(
-    private _store: Store<Media>,
-    private store: Store<SearchModel>
+    private mediaStore: Store<Media>,
+    private toastr: ToastrService,
+    private searchStore: Store<SearchModel>
   ) {
 
     this.baseUrl = environment.API_IMAGE;
-    this.searchState$ = this.store.select('searchTags');
+    this.searchState$ = this.searchStore.select('searchTags');
 
   }
 
@@ -69,8 +71,8 @@ export class SearchPostComponent implements OnInit, OnDestroy {
 
   // Media Popup
   mediaOpenPopup(id) {
-    this._store.dispatch({ type: MediaActions.MEDIA_DETAILS, payload: id});
-    this._store.dispatch({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: id});
+    this.mediaStore.dispatch({ type: MediaActions.MEDIA_DETAILS, payload: id});
+    this.mediaStore.dispatch({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: id});
   }
 
   /**
@@ -84,7 +86,7 @@ export class SearchPostComponent implements OnInit, OnDestroy {
       this.scrollingLoad += 500;
       // check if it's first request
       if (this.searchState && this.searchState['search_post_data'] && this.searchState['search_post_data']['scrollId']) {
-        this.store.dispatch({
+        this.searchStore.dispatch({
           type: SearchActions.SEARCH_POST,
           payload: { scrollId: this.searchState['search_post_data']['scrollId'] }
         });
@@ -97,6 +99,18 @@ export class SearchPostComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.searchSub.unsubscribe();
+  }
+
+  deletePost(media) {
+    const id = media['id'];
+    this.searchStore.dispatch({ type: SearchActions.SEARCH_MEDIA_POST_DELETE, payload: id });
+    this.searchStore.select('searchTags')
+      .first(state => state['searchDeletedMediaPost'] === true)
+      .subscribe(data => {
+        this.toastr.success('Media deleted successfully', 'Success!', {
+          timeOut: 3000
+        });
+      });
   }
 
 }

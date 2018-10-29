@@ -1,6 +1,6 @@
 <div class="c-scard">
   <div class="c-scard__img">
-      <img *ngIf="artist?.profileImage" [src]="baseUrl + artist?.profileImage" class="c-scard__img2">
+      <img *ngIf="artist?.profileImage" onError="this.src='https://cdn.onepagespotlight.com/img/avatar.png';" [src]="artist?.extra?.isExternallySourced ? artist?.physical?.profileImages?.profileImage_medium :baseUrl + artist?.physical?.profileImages?.profileImage_medium" class="c-scard__img2">
       <span class="c-scard__active">
           <img *ngIf="artist?.extra?.isImported === true" src="https://ops-v2.netlify.com/assets/directory/inactive.svg">
           <img *ngIf="artist?.extra?.isImported === false" src="https://ops-v2.netlify.com/assets/directory/active.svg">

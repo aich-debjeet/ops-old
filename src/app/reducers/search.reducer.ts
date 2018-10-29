@@ -3,9 +3,33 @@ import { ActionReducer, Action } from '@ngrx/store';
 import { SearchModel } from '../models/search.model';
 import { SearchActions } from '../actions/search.action';
 
+import { remove as _remove } from 'lodash';
+
 export const SearchReducer: ActionReducer<any> = (state, {payload, type}: Action) =>  {
 
   switch (type) {
+
+    case SearchActions.SEARCH_MEDIA_POST_DELETE:
+      return Object.assign({}, state, {
+        searchDeletingMediaPost: true,
+        searchDeletedMediaPost: false,
+        searchDeletingMediaId: payload
+      });
+
+    case SearchActions.SEARCH_MEDIA_POST_DELETE_SUCCESS:
+      const updatedSearchDataDel = state['search_post_data'];
+      updatedSearchDataDel['mediaResponse'] = _remove(state['search_post_data']['mediaResponse'], (obj) => obj.id !== state['searchDeletingMediaId']);
+      return Object.assign({}, state, {
+        search_post_data: updatedSearchDataDel,
+        searchDeletedMediaPost: true,
+        searchDeletingMediaPost: false
+      });
+
+    case SearchActions.SEARCH_MEDIA_POST_DELETE_FAILED:
+      return Object.assign({}, state, {
+        searchDeletedMediaPost: false,
+        searchDeletingMediaPost: false
+      });
 
     /* search wiki profiles reducers */
     case SearchActions.SEARCH_WIKI_PROFILES:

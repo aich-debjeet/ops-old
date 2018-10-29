@@ -1,8 +1,5 @@
-.fullFit {
+.large {
   width: 100%;
-  // height: 100%;
-  // z-index: 11111111;
-  // position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
@@ -13,4 +10,16 @@
 vg-scrub-bar{
   height: 5px !important;
   background-color: #222;
+}
+
+vg-controls{
+  z-index: 11000;
+}
+
+vg-scrub-bar{
+  z-index: 11000;
+}
+
+.small {
+  height: 50px;
 }

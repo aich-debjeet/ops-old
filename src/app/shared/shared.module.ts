@@ -70,6 +70,7 @@ import { WikiProfileCardComponent } from './wiki-profile-card/wiki-profile-card.
 import { TermsAndConditionsContentComponent } from './terms-and-conditions-content/terms-and-conditions-content.component';
 import { WidgetCollaboratorsComponent } from './widget-collaborators/widget-collaborators.component';
 import { CollaboratorCardComponent } from './collaborator-card/collaborator-card.component';
+import { AppearDirective } from './appear/appear.directive';
 
 @NgModule({
   imports: [
@@ -137,7 +138,8 @@ import { CollaboratorCardComponent } from './collaborator-card/collaborator-card
     WikiProfileCardComponent,
     TermsAndConditionsContentComponent,
     WidgetCollaboratorsComponent,
-    CollaboratorCardComponent
+    CollaboratorCardComponent,
+    AppearDirective
   ],
   exports: [
     OpportunityCardComponent,
@@ -183,7 +185,8 @@ import { CollaboratorCardComponent } from './collaborator-card/collaborator-card
     WikiProfileCardComponent,
     TermsAndConditionsContentComponent,
     WidgetCollaboratorsComponent,
-    CollaboratorCardComponent
+    CollaboratorCardComponent,
+    AppearDirective
   ]
 })
 export class SharedModule { }

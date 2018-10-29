@@ -328,23 +328,23 @@
                         <div class="tab-pane active" id="Security_Privacy" *ngIf="this.selectedView === 'Security'">
                             <h6 class="c-text_lg m-b-24 p-l-8">Security & Privacy</h6>
                             <div class="o-set-change-pass o-set-list_items">
-                                <div class="col-md-3 p-0">
+                                <div class="col-md-3 col-xs-12 p-0">
                                     <span class="o-set-item__title c-text_md">
                                         Change password
                                     </span>
                                 </div>
-                                <div class="col-md-9 p-0">
-                                    <form [formGroup]="pwdForm" novalidate (ngSubmit)="submitForm(pwdForm.value)" #passform="ngForm">
-                                        <div id="pass-change" class="o-set-list__data" *ngIf="!passwordActive">
-                                            <span class="c-h3 line-height15 color-grey-dark">………………</span>
-                                            <span class="o-set-list__edit-btn">
-                                                <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="passwordToggle()" >
-                                                    <span class="o-set-list-edit__icon"><img [src]="imageBaseLink + 'img/svg/editpencil.svg'" alt=""></span> Change
-                                            </a>
-                                            </span>
-                                        </div>
-                                        <!-- data end -->
-                                        <div id="pass-change__edit" class="o-set-list__edit" *ngIf="passwordActive">
+                                <div class="col-md-9 col-xs-12 p-0">
+                                    <div id="pass-change" class="o-set-list__data" *ngIf="editingField != 'passChange'">
+                                        <span class="c-h3 line-height15 color-grey-dark">………………</span>
+                                        <span class="o-set-list__edit-btn">
+                                            <a class="o-set-list-edit__link c-text_md" (click)="editField('passChange')">
+                                                <span class="o-set-list-edit__icon"><img [src]="imageBaseLink + 'img/svg/editpencil.svg'" alt=""></span> Change
+                                        </a>
+                                        </span>
+                                    </div>
+                                    <!-- data end -->
+                                    <div id="pass-change__edit" class="o-set-list__edit" *ngIf="editingField == 'passChange'">
+                                        <form [formGroup]="pwdForm" novalidate (ngSubmit)="submitForm(pwdForm.value)" #passform="ngForm">
                                             <div class="col-md-6 p-0">
                                                 <div class="c-form__group c-form--sm c-form--noeffect m-0">
                                                     <input class="c-form__input" required="" type="password" formControlName="currentpassword">
@@ -359,7 +359,7 @@
                                                     <span class="c-form__bar"></span>
                                                     <label>New Password</label>
                                                     <p class="error_alert" *ngIf="pwdForm.controls['newpassword'].errors?.required && passform.submitted">New Password is required</p>
-                                                    <p class="error_alert" *ngIf="pwdForm.controls['newpassword'].errors?.isWeakPassword">Weak password! Please use special char, numbers and capital letters</p>
+                                                    <p class="error_alert" *ngIf="pwdForm.controls['newpassword'].errors?.isWeakPassword">Password should contain atleast 5 alphanumeric characters</p>
                                                 </div>
                                                 <div class="c-form__group c-form--sm c-form--noeffect m-0">
                                                     <input class="c-form__input" required="" type="password" formControlName="confirmpassword">
@@ -373,12 +373,12 @@
                                             <div class="col-md-6 p-0">
                                                 <div class="o-set-list-edit__actions">
                                                     <button type="button" class="btn btn-primary btn-sm" [type]="'submit'">Save</button>
-                                                    <button type="button" class="btn btn-default btn-sm" (click)="passwordToggle()">Cancel</button>
+                                                    <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()">Cancel</button>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </form>
+                                    </div>
                                         <!-- edit data end -->
-                                    </form>
                                 </div>
                             </div>
                             <!-- change pass end -->
@@ -430,7 +430,7 @@
                             <!-- <div class="o-set-single-block  m-b-24">
                                 <a href="#" class="c-text_sm color-theme">See More</a>
                             </div> -->
-                            <div class="col-md-12 p-0 m-b-24">
+                            <div class="col-md-12 col-xs-12 p-0 m-b-24">
                                 <div class="switch_btn">
                                     <label class="switch">
                                         <input type="checkbox" name="private" value="{{privateAccount.value}}" checked [(ngModel)]="privateAccount.checked" (change)="updateCheckedOptions(privateAccount, $event)">
@@ -456,7 +456,7 @@
                                 </div>
                                 <div class="col-md-3 p-0">
                                     <span class="c-text_md">
-                                      <a href="javascript:void(0)" class="c-text_md color-theme" (click)="unBlock(users.handle)">Unblock</a>
+                                      <a class="c-text_md color-theme" (click)="unBlock(users.handle)">Unblock</a>
                                     </span>
                                 </div>
                             </div>
@@ -716,19 +716,26 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <h5 class="text-center">Enter the 6 digit OTP that you have received <br> by email or phone </h5>
+                        <h5 class="text-center">Please enter the 6-digit OTP sent to your email <br> and phone number</h5>
                         <p class="text-center m-t-16">
                             <a *ngIf="!resendingOtp" (click)="resendOtp()" class="color-theme">Resend OTP</a>
                             <a *ngIf="resendingOtp">Sending OTP, please wait...</a>
                         </p>
                         <form [formGroup]="otpForm" (ngSubmit)="otpSubmit(otpForm.value)" #myform="ngForm" [ngStyle]="{'width': '400px', 'margin': '0 auto','padding-bottom': '10%'}">
-                            <div class="row">
+                            <div class="c-form__group c-form--lg">
+                                <input class="c-form__input" formControlName="otpNum" type="text" maxlength="6" placeholder="Enter OTP" (keydown)="allowNumbersOnly($event)">
+                                <span class="c-form__highlight"></span>
+                                <span class="c-form__bar"></span>
+                                <!-- <label>Enter OTP</label> -->
+                                <!-- <span>00:59</span> -->
+                            </div>                            
+                            <!-- <div class="row">
                                 <div class="col-sm-6 c-text_md m-8 m-l-24">Enter OTP</div>
                                 <div class="col-sm-5">
-                                    <!-- <div class="c-text_md pull-right color-theme m-8 m-r-16 m-r-0">00:50</div> -->
+                                    <div class="c-text_md pull-right color-theme m-8 m-r-16 m-r-0">00:50</div>
                                 </div>
-                            </div>
-                            <div class="form_group o-otp_form">
+                            </div> -->
+                            <!-- <div class="form_group o-otp_form">
                                 <input #otpNum1 (keydown)="nextOtpNum($event, 1)" class="form_input" type="text" maxlength="1" formControlName="otpNum1">
                             </div>
                             <div class="form_group o-otp_form">
@@ -745,9 +752,9 @@
                             </div>
                             <div class="form_group o-otp_form">
                                 <input #otpNum6 (keydown)="nextOtpNum($event, 6)" class="form_input" type="text" maxlength="1" formControlName="otpNum6">
-                            </div>
+                            </div> -->
                             <p class="c-form__validation text-center" *ngIf="petTag?.user_otp_failed">Invalid OTP</p>
-                            <p class="c-form__validation text-center" *ngIf="myform.submitted && (otpForm.controls['otpNum1'].errors?.required || otpForm.controls['otpNum2'].errors?.required || otpForm.controls['otpNum3'].errors?.required || otpForm.controls['otpNum4'].errors?.required || otpForm.controls['otpNum5'].errors?.required || otpForm.controls['otpNum6'].errors?.required)">Please enter your 6 digit OTP number</p>
+                            <p class="c-form__validation text-center" *ngIf="myform.submitted && (otpForm.controls['otpNum'].errors?.required || otpForm.controls['otpNum'].errors?.invalidOtp)">Please enter the 6-digit OTP</p>
                             <!-- <div class="text-center otp-dont-get" *ngIf="!claimActive">
                                 <a (click)="otpNotRecieved()" class="color-theme">Didn't get your OTP?</a>
                             </div> -->

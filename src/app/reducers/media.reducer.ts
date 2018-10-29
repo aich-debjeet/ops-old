@@ -132,7 +132,6 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
         ]
       });
 
-    
 
 
 
@@ -145,7 +144,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
 
     case MediaActions.POST_COMMENT_SUCCESS:
       const spotfeed_post = state.channel_post.find(t => t.id === payload['comment'].postId);
-      const spotfeed_index = state.channel_post.indexOf(spotfeed_post);
+      const spotfeed_index = spotfeed_post ? state.channel_post.indexOf(spotfeed_post) : null;
       const spotfeed_count = spotfeed_post ? spotfeed_post.commentsCount + 1 : 0;
 
       return Object.assign({}, state, {
@@ -153,27 +152,51 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
         comment_post_loading: false,
         current_comment: payload['comment'],
         media_comment: state.media_comment ? state.media_comment.concat(payload['comment']) : [],
-        channel_post: [
+        channel_post: spotfeed_post === undefined ? [...state.channel_post] : [
           ...state.channel_post.slice(0, spotfeed_index),
           Object.assign({}, spotfeed_post, {commentsCount: spotfeed_count }),
           ...state.channel_post.slice(spotfeed_index + 1)
         ]
       });
 
-    // API NOT READY FOR THIS
-    // case MediaActions.MEDIA_SPOT_SUCCESS:
-    //   console.log('comment', payload['comment'].postId);
-    //   const spotfeed_spot_post = state.channel_post.find(t => t.id === payload['comment'].postId);
-    //   const spotfeed_spot_index = state.channel_post.indexOf(spotfeed_spot_post);
-    //   const spotfeed_spot_count = spotfeed_spot_post ? spotfeed_spot_post.spotsCount + 1 : 0;
 
-    //   return Object.assign({}, state, {
-    //     channel_post: [
-    //       ...state.channel_post.slice(0, spotfeed_spot_index),
-    //       Object.assign({}, spotfeed_post, {commentsCount: spotfeed_spot_count }),
-    //       ...state.channel_post.slice(spotfeed_spot_index + 1)
-    //     ]
-    //   });
+    // API NOT READY FOR THIS
+    case MediaActions.MEDIA_SPOT:
+      const channel_media_spot = state.channel_post.find(t => t.id === payload.id);
+      const channel_media_spot_index = channel_media_spot ? state.channel_post.indexOf(channel_media_spot) : null;
+      const channel_media_spot_count = channel_media_spot ? channel_media_spot.spotsCount + 1 : 0;
+
+      return Object.assign({}, state, {
+        channel_post: channel_media_spot === undefined ? [...state.channel_post] : [
+          ...state.channel_post.slice(0, channel_media_spot_index),
+          Object.assign({}, channel_media_spot, {spotsCount: channel_media_spot_count, isSpotted: true }),
+          ...state.channel_post.slice(channel_media_spot_index + 1)
+        ],
+        media_detail: {
+          ...state.media_detail,
+          spotsCount: state.media_detail ? state.media_detail.spotsCount + 1 : 0,
+          isSpotted:  state.media_detail ? true : false
+        }
+      });
+
+
+    case MediaActions.MEDIA_UNSPOT:
+      const channel_media_unspot = state.channel_post.find(t => t.id === payload.id);
+      const channel_media_unspot_index = channel_media_unspot ? state.channel_post.indexOf(channel_media_unspot) : null;
+      const channel_media_unspot_count = channel_media_unspot ? channel_media_unspot.spotsCount - 1 : 0;
+
+      return Object.assign({}, state, {
+        channel_post: channel_media_unspot === undefined ? [...state.channel_post] : [
+          ...state.channel_post.slice(0, channel_media_unspot_index),
+          Object.assign({}, channel_media_unspot, {spotsCount: channel_media_unspot_count, isSpotted: false }),
+          ...state.channel_post.slice(channel_media_unspot_index + 1)
+        ],
+        media_detail: {
+          ...state.media_detail,
+          spotsCount: state.media_detail ? state.media_detail.spotsCount - 1 : 0,
+          isSpotted:  state.media_detail ? false : false
+        }
+      });
 
     case MediaActions.POST_COMMENT_FAILED:
       return Object.assign({}, state, {
@@ -251,7 +274,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
  */
     case MediaActions.MEDIA_POST_REPORT:
         return Object.assign({}, state, {
-          reports:[]
+          reports: []
         });
     case MediaActions.MEDIA_POST_REPORT_SUCCESS:
         // console.log(payload)

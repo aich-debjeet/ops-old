@@ -394,6 +394,9 @@
     height: 468px;
     background: #fff;
     margin: 40px auto;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 100%;
+    }
 }
 
 .o-cover-upload__head {
@@ -696,6 +699,21 @@
     }
 }
 
+.o-following-pop, .o-follow-people{
+    .o-follow-people__list {
+        list-style-type: none;
+        float: left;
+        width: 110px;
+        margin-right: 14px;
+        margin-top: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 150px;
+    }
+}
+
 .c-profileo__userdetail {
     padding-left: 3%;
     padding-top: 4%;
@@ -728,6 +746,10 @@
         font-weight: 600;
         text-shadow: none;
     }
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px;
 }
 
 .c-profile__userhandle {
@@ -1202,7 +1224,7 @@
 
 // following and followers
 .o-follow-and-following {
-    width: 72px;
+    // width: 72px;
     height: 72px;
     display: inline-block;
     padding: 0px 8px;
@@ -1457,4 +1479,13 @@
 }
 .dropdown-menu{
     min-width: 0px;
+}
+
+.clb {
+    width: 100%;
+    clear: both;
+}
+
+.loader {
+    margin: 20px auto;
 }

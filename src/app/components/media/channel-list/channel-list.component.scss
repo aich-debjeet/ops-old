@@ -197,6 +197,10 @@ input[type="radio"]+label {
   display: none;
 }
 
+.o-channel-private__img {
+  opacity: 0.5;
+}
+
 .o-channel-items:hover {
   label {
     background-color: $color-theme;

@@ -2,12 +2,14 @@ import { Component, EventEmitter, Input, Output, OnInit, Inject, OnDestroy, View
 import { environment } from './../../../environments/environment';
 import { Router } from '@angular/router';
 import { DatePipe, PlatformLocation } from '@angular/common';
-import { ISubscription } from 'rxjs/Subscription';
+// import { ISubscription } from 'rxjs/Subscription';
 import { Modal } from '../../shared/modal-new/Modal';
 
-import FilesHelper from '../../helpers/fileUtils';
+// import FilesHelper from '../../helpers/fileUtils';
 import { initialMedia, Media } from '../../models/media.model';
 import { MediaActions } from '../../actions/media.action';
+import { ProfileActions } from '../../actions/profile.action';
+import { CommunitiesActions } from '../../actions/communities.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
@@ -29,9 +31,10 @@ export class PostComponent implements OnInit, OnDestroy {
   @Input() type: string;
   @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
   @Output() postDelete = new EventEmitter();
+  @Output() elemViewportStatus = new EventEmitter();
   @ViewChild('reportModal') reportModal: Modal;
   dotMenuState: boolean;
-  private subscription: ISubscription;
+  // private subscription: ISubscription;
   comments: any;
   following: boolean;
   followingCount: any;
@@ -39,14 +42,14 @@ export class PostComponent implements OnInit, OnDestroy {
   mediaId: any;
   mediaType: any;
   mediaStore = initialMedia;
-  mediaState$: Observable<Media>;
+  // mediaState$: Observable<Media>;
   reportId: string;
-  userState$: Observable<any>;
+  // userState$: Observable<any>;
   messageText: string;
   desText: string;
   isEdit: boolean;
   userImage: string;
-  popupActive: boolean = false;
+  popupActive = false;
 
   imageLink: string = environment.API_IMAGE;
   questions: any;
@@ -56,11 +59,11 @@ export class PostComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private store: Store<Media>,
-    platformLocation: PlatformLocation,
+    // platformLocation: PlatformLocation,
     public modalService: ModalService,
   ) {
     this.dotMenuState = false;
-    this.mediaState$ = store.select('mediaStore');
+    // this.mediaState$ = store.select('mediaStore');
   }
 
   ngOnInit() {
@@ -94,9 +97,9 @@ export class PostComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('/media/' + id);
   }
 
-  checkFileType(fileName: string, fileType: string) {
-    return FilesHelper.fileType(fileName, fileType);
-  }
+  // checkFileType(fileName: string, fileType: string) {
+  //   return FilesHelper.fileType(fileName, fileType);
+  // }
 
   dotMenuOpen() {
     this.dotMenuState = !this.dotMenuState;
@@ -104,25 +107,41 @@ export class PostComponent implements OnInit, OnDestroy {
 
   onContentDelete(content) {
     this.postDelete.next(content);
+    if (this.postType === 'community') {
+      this.store.dispatch({ type: CommunitiesActions.COMMUNTIY_DELETE_COUNT });
+    }
   }
 
   /**
    * Spot a Media
    * @param mediaId
    */
-  spotMedia(mediaId: string) {
+  spotMedia(media: any) {
     const data = {
-      'mediaType': this.mediaType,
-      'id': this.mediaId
+      'mediaType': media['mtype'],
+      'id': media['id'],
+      'isOwner': media['isOwner']
     }
     if (this.following === false) {
-      this.following = true;
-      this.followingCount++;
+      if (this.postType === 'community') {
+        this.store.dispatch({ type: MediaActions.MEDIA_SPOT, payload: data });
+        this.store.dispatch({ type: CommunitiesActions.MEDIA_SPOT, payload: data });
+        return
+      }
+      // this.following = true;
+      // this.followingCount++;
       this.store.dispatch({ type: MediaActions.MEDIA_SPOT, payload: data });
+      this.store.dispatch({ type: ProfileActions.PROFILE_MEDIA_SPOT, payload: data });
     } else {
+      if (this.postType === 'community') {
+        this.store.dispatch({ type: MediaActions.MEDIA_UNSPOT, payload: data });
+        this.store.dispatch({ type: CommunitiesActions.MEDIA_UNSPOT, payload: data });
+        return
+      }
       this.store.dispatch({ type: MediaActions.MEDIA_UNSPOT, payload: data });
-      this.following = false
-      this.followingCount--;
+      this.store.dispatch({ type: ProfileActions.PROFILE_MEDIA_UNSPOT, payload: data });
+      // this.following = false
+      // this.followingCount--;
     }
   }
 
@@ -164,6 +183,20 @@ export class PostComponent implements OnInit, OnDestroy {
   onContentSaved() {
     this.isEdit = false;
     // console.log(this.desText);
+  }
+
+  onReachingInViewport(mediaId: any) {
+    this.elemViewportStatus.emit({
+      mediaId: mediaId,
+      status: 'reached'
+    });
+  }
+
+  onDepartedFromViewport(mediaId: any) {
+    this.elemViewportStatus.emit({
+      mediaId: mediaId,
+      status: 'departed'
+    });
   }
 
 }

@@ -8,6 +8,7 @@ import { TokenService } from '../../../helpers/token.service';
 import { ProfileActions } from '../../../actions/profile.action';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs/Rx';
+import { GeneralUtilities } from '../../../helpers/general.utils';
 
 @Component({
   selector: 'app-about-image',
@@ -31,7 +32,8 @@ export class AboutImageComponent implements OnInit {
   constructor(
     public tokenService: TokenService,
     private _location: Location,
-    private _store: Store<ProfileModal>
+    private _store: Store<ProfileModal>,
+    private gUtils: GeneralUtilities
   ) {
 
     this.tagState$ = this._store.select('profileTags');
@@ -53,7 +55,7 @@ export class AboutImageComponent implements OnInit {
 
   loadImage() {
     let profileImageURL;
-    if (typeof this.stateProfile.profile_details.profileImage !== 'undefined') {
+    if (this.gUtils.checkNestedKey(this.stateProfile, ['profile_navigation_details', 'profileImage']) && this.stateProfile.profile_navigation_details.profileImage !== '') {
       profileImageURL = this.baseUrl + this.stateProfile.profile_details.profileImage;
     } else {
       profileImageURL = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
@@ -75,11 +77,11 @@ export class AboutImageComponent implements OnInit {
       this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_IMAGE, payload: imageData });
       this.changingImage = false;
       this._store.select('profileTags')
-        .first(state => state['image_upload_success'] === true)
+        .first(state => state['profile_img_upload_loaded'] === true)
         .subscribe(() => {
           this.isClosed(null);
           this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
-          this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS});
+          this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
         });
     }
   }
