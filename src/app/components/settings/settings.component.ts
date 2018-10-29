@@ -400,6 +400,11 @@ export class SettingsComponent implements OnInit {
         this.countrySelectorSet.initCountrySelector('country-options-set');
       }, 50);
     }
+    if(fieldName === 'username'){
+      if(this.specialChars || this.isRequired || this.capitalLetters || this.whitespace || this.invalidLength){
+        this.specialChars = this.isRequired = this.capitalLetters = this.whitespace = this.invalidLength = false;
+      }
+    }
     if(fieldName === 'passChange'){
       this.passwordformInit();
     }
@@ -408,6 +413,7 @@ export class SettingsComponent implements OnInit {
 
   cancelEdit() {
     this.editingField = '';
+    this.userName = this.userProfile['username'];
   }
 
   onSelectionChange(val) {

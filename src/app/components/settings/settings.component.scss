@@ -4,6 +4,7 @@
 @import './src/assets/scss/components/_app.scss';
 @import './src/assets/scss/base/_typography.scss';
 @import '~sass-mq/_mq.scss';
+@import './src/assets/scss/components/_form.scss';
 .o-set-single-block {
     width: 100%;
     float: left;
@@ -70,6 +71,7 @@
 }
 
 .o-settings-tabs {
+    list-style:none;
     .active {
         // background-color: #F3F5F7;
         border-radius: 3px;

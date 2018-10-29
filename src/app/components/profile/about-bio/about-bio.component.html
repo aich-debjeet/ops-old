@@ -197,7 +197,7 @@
                 <div class="o-bio-info-block m-b-8">
                     <h6 class="c-text_md">Height</h6>
                     <div id="o-bio-info__height" class="o-bio-info__value c-text_sm color-grey-dark" *ngIf="editingField != 'height' && userProfile?.physical?.height !== 0">
-                        {{ userProfile?.physical?.height.toFixed(2) }}
+                        {{ userProfile?.physical?.height?.toFixed(2) }}
                     </div>
                     <ng-container *ngIf="ownProfile">
                         <span class="o-bio-info__edit-ico" *ngIf="userProfile?.physical?.height !== 0 || userProfile?.physical?.height" (click)="editField('height')">
@@ -265,7 +265,7 @@
                 <div class="o-bio-info-block m-b-8">
                     <h6 class="c-text_md">Weight</h6>
                     <div id="o-bio-info__weight" class="o-bio-info__value c-text_sm color-grey-dark" *ngIf="editingField != 'weight' && userProfile?.physical?.weight !== 0">
-                        {{ userProfile?.physical?.weight.toFixed(2) }}
+                        {{ userProfile?.physical?.weight?.toFixed(2) }}
                     </div>
                     <ng-container *ngIf="ownProfile">
                         <span class="o-bio-info__edit-ico" *ngIf="userProfile?.physical?.weight !== 0 || userProfile?.physical?.weight" (click)="editField('weight')">
