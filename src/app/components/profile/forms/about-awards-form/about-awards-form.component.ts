@@ -24,7 +24,7 @@ export class AboutAwardsFormComponent implements OnInit {
   checkbox: boolean;
   hide: boolean =false;
   privacy: number;
-  private dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+  public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   months = [
     { val: '01',  name: 'Jan' },
     { val: '02',  name: 'Feb' },

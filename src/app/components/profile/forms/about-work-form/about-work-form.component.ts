@@ -22,7 +22,7 @@ export class AboutWorkFormComponent implements OnInit {
   private monthNumber: number;
   hide: boolean =false;
   privacy: number;
-  private dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+  public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   months = [
     { val: '01',  name: 'Jan' },
     { val: '02',  name: 'Feb' },
