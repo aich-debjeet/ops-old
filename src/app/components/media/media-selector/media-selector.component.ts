@@ -1,31 +1,16 @@
 import { Component, OnInit, Input } from '@angular/core';
-import MediaPlayer from 'app/models/mediaplayer.model';
 import { environment } from '../../../../environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
-
-import { NgModel } from '@angular/forms';
 import { NgxfUploaderService, UploadEvent, UploadStatus, FileError } from 'ngxf-uploader';
 import { Store } from '@ngrx/store';
-
-import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
-
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProfileModal, initialTag, UserCard } from '../../../models/profile.model';
-import { initialMedia, Media } from '../../../models/media.model';
-
 import { ProfileActions } from '../../../actions/profile.action';
-import { SharedActions } from '../../../actions/shared.action';
 import { AuthActions } from '../../../actions/auth.action';
 import FilesHelper from '../../.../../../helpers/fileUtils';
-
 import { TokenService } from '../../../helpers/token.service';
 import { ToastrService } from 'ngx-toastr';
-
-import * as fromRoot from '../../../../app/app.reducer';
-import { SafeUrl } from '@angular/platform-browser';
-
 import { remove as _remove, merge as _merge, uniqBy as _uniqBy, flatten, findIndex as _findIndex } from 'lodash';
-
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/from';
@@ -104,18 +89,18 @@ export class MediaSelectorComponent implements OnInit {
   license: string;
   isNSFW: boolean;
   channelName: String;
-  channelCreatebtn: boolean = false;
+  channelCreatebtn = false;
   channelDesc: string;
   channelSaved: boolean;
   eventName: string;
   previewUrl: any[];
-  external_post_active: boolean = false;
+  external_post_active = false;
   ct_id: any;
   post_to: any;
   user_channel_scroll_id: any;
   nameActive: boolean;
   ct_name: any;
-  postSubmiting: boolean = false;
+  postSubmiting = false;
 
   constructor(
     private Upload: NgxfUploaderService,
@@ -124,8 +109,7 @@ export class MediaSelectorComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private route: ActivatedRoute,
-    private _store: Store<any>,
-    private http: Http) {
+    private _store: Store<any>) {
       this.cards = [];
 
       this.hasFiles = false;
