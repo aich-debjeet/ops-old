@@ -1,9 +1,32 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class GeneralUtilities {
 
+    // remote action event listner service
+    private _listners = new Subject<any>();
+    listen(): Observable<any> {
+        return this._listners.asObservable();
+    }
+    filter(filterBy: any) {
+        this._listners.next(filterBy);
+    }
+
     constructor() { }
+
+    /**
+     * check if given string is a json or not
+     * @param string
+     */
+    isJson(str) {
+        try {
+            return JSON.parse(str);
+        } catch (e) {
+            return false;
+        }
+    }
 
     /**
      * Date put to reverse formate

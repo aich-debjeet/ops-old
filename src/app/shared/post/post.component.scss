@@ -391,3 +391,18 @@ label {
 .c-feed__img-status .content_editable{
     display: inline-block;
 }
+
+.audio-image {
+    height: 320px;
+}
+
+.c-feed__img-status{
+    overflow: hidden;
+}
+
+.audio-placeholder {
+    background: #000;
+    width: 100%;
+    height: 50px;
+    display: block;
+}

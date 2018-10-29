@@ -5,7 +5,7 @@
   <div class="view-port-modal-content">
       <div class="modal-body p-0">
           <div class="col-md-7 c-portmodal__imgblock">
-            <app-videplayer [play]="'true'" *ngIf="checkFileType(viewMediaDetails?.mediaRepoPath, 'Video')" [src]="baseImageUrl + viewMediaDetails?.mediaRepoPath" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';"></app-videplayer>
+            <app-videoplayer [showControls]="'true'" *ngIf="checkFileType(viewMediaDetails?.mediaRepoPath, 'Video')" [src]="baseImageUrl + viewMediaDetails?.mediaRepoPath" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';"></app-videoplayer>
             <img *ngIf="checkFileType(viewMediaDetails?.mediaRepoPath, 'Image')" [src]="baseImageUrl + viewMediaDetails?.mediaRepoPath" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="c-portmodal__img">
             <app-audioplayer *ngIf="checkFileType(viewMediaDetails?.mediaRepoPath, 'Audio')" [src]="baseImageUrl + viewMediaDetails?.mediaRepoPath" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';"></app-audioplayer>
           </div>

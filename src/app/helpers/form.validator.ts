@@ -149,6 +149,7 @@ export class DatabaseValidator {
      * @param control: Form birth date input
      */
     validWorkToDate(control: AbstractControl) {
+        // console.log(control);
         const q = new Promise((resolve, reject) => {
             // if (control.value.indexOf('_') !== -1 || control.value === '') {
             // return resolve(null);
@@ -161,36 +162,35 @@ export class DatabaseValidator {
             const day = dateArr[0];
             const year = dateArr[2];
 
-            // check for valid day number
-            if (parseInt(day, 10) > 31) {
-                resolve({ 'invalidWorkDate': true });
+            if(control.value.length > 0){
+                // check for valid day number
+                if (parseInt(day, 10) > 31) {
+                    // console.log('invalid day');
+                    resolve({ 'invalidWorkDate': true });
+                }
+
+                // check for valid month number
+                if (parseInt(month, 10) > 12) {
+                    // console.log('invalid month');
+                    resolve({ 'invalidWorkDate': true });
+                }
+
+                // check if year is not greater that current
+                if (new Date().getUTCFullYear() < year) {
+                    // console.log('invalid year');
+                    resolve({ 'invalidWorkDate': true });
+                }
+
+                const toDate = new Date(year, month, day);
+                if (toDate <= this.fromDate) {
+                    // console.log('pata nahi')
+                    resolve({ 'isvalid': true });
+                }
+                if (moment(control.value,'DD-MM-YYYY').format('YYYYMMDD')> moment(today).format('YYYYMMDD')) {
+                    // console.log('here')
+                    resolve({ 'invalidWorkDate': true });
+                }
             }
-
-            // check for valid month number
-            if (parseInt(month, 10) > 12) {
-                resolve({ 'invalidWorkDate': true });
-            }
-
-            // check if year is not greater that current
-            if (new Date().getUTCFullYear() < year) {
-                resolve({ 'invalidWorkDate': true });
-            }
-
-             const toDate = new Date(year, month, day);
-             if (toDate <= this.fromDate) {
-                resolve({ 'isvalid': true });
-             }
-             if (moment(control.value,'DD-MM-YYYY').format('YYYYMMDD')> moment(today).format('YYYYMMDD')) {
-                //  console.log('here')
-                resolve({ 'invalidWorkDate': true });
-             }
-            // const age = this.calculateAge(birthDate);
-
-            // if (age <= 13) {
-            //     resolve({ 'isUnderAge': true });
-            // } else if (age >= 100) {
-            //     resolve({ 'isOverAge': true });
-            // }
             resolve(null);
         });
         return q;
@@ -230,16 +230,9 @@ export class DatabaseValidator {
              this.fromDate = new Date(year, month, day);
              
              if (moment(control.value,'DD-MM-YYYY').format('YYYYMMDD') > moment(today).format('YYYYMMDD')) {
-                  console.log('here')
+                //   console.log('here')
                 resolve({ 'invalidWorkDate': true });
              }
-            // const age = this.calculateAge(birthDate);
-
-            // if (age <= 13) {
-            //     resolve({ 'isUnderAge': true });
-            // } else if (age >= 100) {
-            //     resolve({ 'isOverAge': true });
-            // }
             resolve(null);
         });
         return q;
@@ -396,6 +389,83 @@ export class EmailValidator {
 // Match password
 @Injectable()
 export class FormValidation {
+    static fromDate: any;
+
+    static toFieldEmpty(AC: AbstractControl){
+        const bool = AC.get('currentWork').value;
+        const toField = AC.get('to').value;
+        if (!bool && toField === '') {
+            AC.get('to').setErrors({isRequired: true});
+            return;
+        }
+        return null;
+    }
+    static validWorkToDate(control: AbstractControl) {
+        // console.log(control);
+        if(control.value !== null && control.value.length > 0){
+            const today = moment();
+            const dateArr =  control.value.split('-');
+
+            const month = dateArr[1];
+            const day = dateArr[0];
+            const year = dateArr[2];
+            // check for valid day number
+            if (parseInt(day, 10) > 31) {
+                return{ 'invalidWorkDate': true };
+            }
+
+            // check for valid month number
+            if (parseInt(month, 10) > 12) {
+                return{ 'invalidWorkDate': true };
+            }
+
+            // check if year is not greater that current
+            if (new Date().getUTCFullYear() < year) {
+                return{ 'invalidWorkDate': true };
+            }
+
+            const toDate = new Date(year, month, day);
+            if (toDate <= FormValidation.fromDate) {
+                return{ 'isvalid': true };
+            }
+            if (moment(control.value,'DD-MM-YYYY').format('YYYYMMDD')> moment(today).format('YYYYMMDD')) {
+                return{ 'invalidWorkDate': true };
+            }
+        }
+        return(null);
+    }
+    static validWorkFromDate(control: AbstractControl) {
+
+        if(control.value.length > 0){
+            const today = moment();
+            const dateArr =  control.value.split('-');
+            const month = dateArr[1];
+            const day = dateArr[0];
+            const year = dateArr[2];
+            // check for valid day number
+            if (parseInt(day, 10) > 31) {
+                return{ 'invalidWorkDate': true };
+            }
+
+            // check for valid month number
+            if (parseInt(month, 10) > 12) {
+                return{ 'invalidWorkDate': true };
+            }
+
+            // check if year is not greater that current
+            if (new Date().getUTCFullYear() < year) {
+                return{ 'invalidWorkDate': true };
+            }
+
+            FormValidation.fromDate = new Date(year, month, day);
+            
+            if (moment(control.value,'DD-MM-YYYY').format('YYYYMMDD') > moment(today).format('YYYYMMDD')) {
+                // console.log('here')
+                return{ 'invalidWorkDate': true };
+            }
+        }
+        return(null);
+    }
 
     static countryRequired(AC: AbstractControl) {
         const travelInclusive = AC.get('travelInclusive').value;

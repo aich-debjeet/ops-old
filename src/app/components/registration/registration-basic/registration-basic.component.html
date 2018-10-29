@@ -176,7 +176,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <h5 class="text-center">Enter the 6 digit OTP that you have received <br> by email or phone </h5>
+                        <h5 class="text-center">Please enter the 6-digit OTP sent to your email <br> and phone number</h5>
                         <p class="text-center m-t-16">
                             <a *ngIf="!resendingOtp" (click)="resendOtp()" class="color-theme">Resend OTP</a>
                             <a *ngIf="resendingOtp">Sending OTP, please wait...</a>
@@ -190,7 +190,7 @@
                                 <!-- <span>00:59</span> -->
                             </div> 
                             <p class="c-form__validation text-center" *ngIf="myform.submitted && (regState?.user_otp_failed)">Invalid OTP</p>
-                            <p class="c-form__validation text-center" *ngIf="myform.submitted && (otpForm.controls['otpNum'].errors?.required || otpForm.controls['otpNum'].errors?.invalidOtp)">Please enter your 6 digit OTP number</p>
+                            <p class="c-form__validation text-center" *ngIf="myform.submitted && (otpForm.controls['otpNum'].errors?.required || otpForm.controls['otpNum'].errors?.invalidOtp)">Please enter the 6-digit OTP</p>
                             <div class="text-center otp-dont-get" *ngIf="!claimActive">
                                 <a (click)="changeMobileNumber()" class="color-theme">Didn't get your OTP?</a>
                             </div>
@@ -210,40 +210,38 @@
 <!-- OTP Modal -->
 
 <!-- OTP change number -->
-<app-modal-new  #otpChangeNumber [closeOnEscape]="false" [closeOnOutsideClick]="false" modalClass="otp__modal">
-    <modal-content>
-        <!-- phone number update -->
-        <div class="modal-dialog change_number_modal">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header" style="border: none;">
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <h5 class="text-center">Update your phone number</h5>
-                        <form [formGroup]="newNumberForm" #newNumFrm="ngForm" (ngSubmit)="updateContactNumber()">
-                            <div class="c-form__group c-form--lg">
-                                <input class="c-form__input p-l-50-px" type="text" formControlName="newNumber">
-                                <span class="c-form__highlight"></span>
-                                <app-country-selector [countrySelForm]="'otp'" #countrySelOtp (onCountrySelection)="saveCountry($event, 'otp')"></app-country-selector>
-                                <span class="c-form__bar"></span>
-                                <label>Enter New Phone Number</label>
-                                <p class="c-form__validation" *ngIf="newNumberForm.controls['newNumber'].errors?.required && newNumFrm.submitted">Phone number is required</p>
-                                <p class="c-form__validation" *ngIf="!newNumberForm.controls['newNumber'].errors?.required && newNumberForm.controls['newNumber'].errors?.isInvalidPhoneNumber && newNumFrm.submitted">Please enter valid phone number</p>
-                                <p class="c-form__validation" *ngIf="!newNumberForm.controls['newNumber'].errors?.required && newNumberForm.controls['newNumber'].errors?.isMobileUnique">This phone number is already registered</p>
-                            </div>
-                            <div class="text-center">
-                                <button type="button" class="btn btn-default btn-lg capitalize" (click)="backToOtp()">Back</button>
-                                <button type="submit" class="btn btn-primary btn-lg capitalize" [disabled]="updatingNewNumber">Validate</button>
-                            </div>
-                        </form>
-                    </div>
+<app-modal [modalTitle]="'OTP change number'" [blocking]='false' modalId='otpChangeNumber' class="otp__modal" size="small">
+    <!-- phone number update -->
+    <div class="modal-dialog" id="modal-test-3">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="border: none;">
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <h5 class="text-center">Update your phone number</h5>
+                    <form [formGroup]="newNumberForm" #newNumFrm="ngForm" (ngSubmit)="updateContactNumber()">
+                        <div class="c-form__group c-form--lg">
+                            <input class="c-form__input p-l-50-px" type="text" formControlName="newNumber">
+                            <span class="c-form__highlight"></span>
+                            <app-country-selector [countrySelForm]="'otp'" #countrySelOtp (onCountrySelection)="saveCountry($event, 'otp')"></app-country-selector>
+                            <span class="c-form__bar"></span>
+                            <label>Enter New Phone Number</label>
+                            <p class="c-form__validation" *ngIf="newNumberForm.controls['newNumber'].errors?.required && newNumFrm.submitted">Phone number is required</p>
+                            <p class="c-form__validation" *ngIf="!newNumberForm.controls['newNumber'].errors?.required && newNumberForm.controls['newNumber'].errors?.isInvalidPhoneNumber && newNumFrm.submitted">Please enter valid phone number</p>
+                            <p class="c-form__validation" *ngIf="!newNumberForm.controls['newNumber'].errors?.required && newNumberForm.controls['newNumber'].errors?.isMobileUnique">This phone number is already registered</p>
+                        </div>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-default btn-lg capitalize" (click)="backToOtp()">Back</button>
+                            <button type="submit" class="btn btn-primary btn-lg capitalize" [disabled]="updatingNewNumber">Validate</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-        <!-- //phone number update -->
-    </modal-content>
-</app-modal-new>
+    </div>
+    <!-- //phone number update -->
+</app-modal>
 <!-- OTP change number -->
 
 <!-- Terms Modal -->

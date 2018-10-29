@@ -40,7 +40,7 @@
                     </div> -->
                 </div>
                 <div *ngIf="messangerList && messangerList?.length > 0" class="mess_list row" id="ops_scrollbar">
-                    <div *ngFor="let user of messangerList" class="row with_border_bottom with_border_top xs-m-l-r-0" [ngClass]="{'msg__unread': !user.isRead }">
+                    <div *ngFor="let user of messangerList" class="row with_border_bottom with_border_top xs-m-l-r-0" [ngClass]="{'msg__unread': !user?.isRead }">
                         <div class="c-checkbox__md2 col-md-2">
                             <label class="checkbox-inline pull-right m-t-24">
                                 <input type="checkbox" value="1">
@@ -122,12 +122,12 @@
                                             </p>
                                             <div *ngIf="message?.isDeleted === false" class="msg_sent_time2">{{ message?.time | utcDate | date:'d MMM hh:mm a' }}</div>
                                             <div *ngIf="message?.isDeleted === true" class="msg_sent_time2">&nbsp;</div>
-                                            <ng-template #notSending>
-                                                <!-- <span title="Delete" class="del-msg" *ngIf="!message?.isNetworkRequest && !message?.isDeleted" (click)="deleteMessage(message)">x</span> -->
-                                            </ng-template>
-                                            <span class="sending-msg" *ngIf="message?.isSending === true; else notSending">
+                                            <!-- <ng-template #notSending>
+                                                <span title="Delete" class="del-msg" *ngIf="!message?.isNetworkRequest && !message?.isDeleted" (click)="deleteMessage(message)">x</span>
+                                            </ng-template> -->
+                                            <!-- <span class="sending-msg" *ngIf="message?.isSending === true; else notSending">
                                                 <img [src]="imageBaseUrl + 'img/search-preloader.gif'" class="c-form__input--lefticon">
-                                            </span>
+                                            </span> -->
                                         </li>
                                     </ul>
                                 </div>

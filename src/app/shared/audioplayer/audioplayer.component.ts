@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-audioplayer',
@@ -6,13 +6,11 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./audioplayer.component.scss']
 })
 
-export class AudioPlayerComponent implements OnInit {
+export class AudioPlayerComponent {
   @Input() src: string;
   @Input() type: string;
-  constructor() {
-  }
+  @Input() size: string;
 
-  ngOnInit() {
-  }
+  constructor() {}
 
 }

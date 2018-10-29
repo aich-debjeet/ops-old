@@ -1,7 +1,7 @@
 @import './src/assets/scss/helpers/_variables.scss';
 @import '~sass-mq/_mq.scss';
+
 .ops_signin {
-    min-height: 105vh;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -26,11 +26,10 @@
 .ops_signup {
     background-color: #ffffff;
     // padding-top: 64px;
-    height: 85vh;
+    height: calc(100vh - 125px);
     display: flex;
     justify-content: center;
     flex-direction: column;
-    padding-top: 50px;
     @include mq($from: $mobile_sm, $until: $desktop_sm) {
         background: #fff;
         height: 100%;
