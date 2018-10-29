@@ -36,6 +36,19 @@ export class OpportunityProjectComponent implements OnInit, OnDestroy {
   @ViewChild('termsPopup') termsPopup: Modal;
   imageLink: string = environment.API_IMAGE;
 
+  quillModules = {
+    toolbar: [
+      ['bold', 'italic', 'underline'],
+      ['link'],
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+      [{ 'color': [] }],          // dropdown with defaults from theme
+      [{ 'align': [] }],
+      ['clean'],                                         // remove formatting button
+    ]
+  };
+
   constructor(
     private api: ApiService,
     private fb: FormBuilder,
