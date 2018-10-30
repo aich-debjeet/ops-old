@@ -16,7 +16,7 @@
       <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-7 col-sm-7 col-xs-12 p-0" *ngIf="uploadState === 1">
-          <div class="o-add-media__block" [ngClass]="(uploadedFiles.length === 0)? 'o-block__fade' : ''">
+          <div class="o-add-media__block">
             <div class="">
               <div class="c-user">
                 <a class="c-user__avatar c-avatar--feed">
@@ -28,8 +28,7 @@
               </div>
             </div>
             <div class="o-add-status__txt">
-              <textarea class="o-add-post--textarea c-text_lg-light with_border_bottom" rows="1" data-min-rows="0"
-                [(ngModel)]="desc" [disabled]="uploadedFiles.length === 0" rows='3' data-min-rows='0' placeholder="Tell us about this media. Don't forget to add tags"></textarea>
+              <textarea [(ngModel)]="desc" class="o-add-post--textarea c-text_lg-light with_border_bottom" rows="1" data-min-rows="0" rows='3' data-min-rows='0' placeholder="Tell us about this media. Don't forget to add tags"></textarea>
             </div>
           </div>
         </div>
@@ -59,9 +58,9 @@
                       <span class="help_ico">?</span></a>
                   </li>
                   <li class="o-action-list float-right">
-                    <button type="button" *ngIf="!external_post_active" [disabled]="uploadedFiles?.length === 0 || uploadedFiles?.length !== cards?.length"
+                    <button type="button" *ngIf="!external_post_active" [disabled]="uploadedFiles?.length !== cards?.length"
                       class="btn btn-primary btn-md btn-inverse" (click)="formNext()">Next</button>
-                    <button type="button" *ngIf="external_post_active" [disabled]="uploadedFiles?.length === 0 || uploadedFiles?.length !== cards?.length || postSubmiting === true"
+                    <button type="button" *ngIf="external_post_active" [disabled]="uploadedFiles?.length !== cards?.length || postSubmiting === true"
                       class="btn btn-primary btn-md btn-inverse" (click)="publishPost()">Publish</button>
                   </li>
                 </ul>

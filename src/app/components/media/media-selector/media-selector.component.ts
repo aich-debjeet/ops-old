@@ -21,8 +21,8 @@ export class UploadItem {
   repoPath: string;
   type?: string;
 }
-const api_path = environment.API_ENDPOINT;
-const base = api_path + '/portal/cdn/media/upload/multiple';
+
+const mediaUploadApiEndpoint = environment.API_ENDPOINT + '/portal/cdn/media/upload/multiple';
 
 @Component({
   selector: 'app-media-selector',
@@ -37,9 +37,8 @@ export class MediaSelectorComponent implements OnInit {
   uploaded: any[];
   uploadedFiles: UploadItem[];
   editingFile: UploadItem;
-  apiLink = api_path + ' /api/1.0';
   channels: any[];
-  chosenChannel: any = 0;
+  selectedChannel: any = 0;
   channelForm: FormGroup;
   mediaForm: FormGroup;
   addChannel: boolean;
@@ -64,7 +63,6 @@ export class MediaSelectorComponent implements OnInit {
   formMessages: string[];
 
   profileState$: Observable<ProfileModal>;
-  private profileStateSubscription: Subscription;
   profileChannel = initialTag;
   channeList: any;
 
@@ -138,7 +136,7 @@ export class MediaSelectorComponent implements OnInit {
       }
     });
 
-    this.chosenChannel = 0;
+    this.selectedChannel = 0;
     this.uploadState = 1;
     this.chooseChannelToggleState = false;
     this.explandshowChannelsList = false;
@@ -294,7 +292,7 @@ export class MediaSelectorComponent implements OnInit {
    */
   uploadFile(files: any, token: string, userHandle: string) {
     this.Upload.upload({
-      url: base,
+      url: mediaUploadApiEndpoint,
       headers: { Authorization: 'Bearer ' + this.token },
       params: { handle: userHandle },
       files: files,
@@ -391,7 +389,7 @@ export class MediaSelectorComponent implements OnInit {
     let isReady = false;
     let userHandle = '';
 
-    if (this.chosenChannel !== 0) {
+    if (this.selectedChannel !== 0) {
       isReady = true;
     } else {
       this.formMessages.push('Please select a Channel');
@@ -407,7 +405,7 @@ export class MediaSelectorComponent implements OnInit {
     const formData = {
       desc: this.desc,
     }
-    const chosenChannel = this.chosenChannel;
+    const selectedChannel = this.selectedChannel;
     // const chosenFile = this.editingFile;
 
     for (const nowFile of this.uploadedFiles) {
@@ -419,24 +417,24 @@ export class MediaSelectorComponent implements OnInit {
 
       if (nowFile) {
         // Build Media Object
-        const mediaItem = this.formatMedia(nowFile, formData, chosenChannel, userHandle, value.privacy);
+        const mediaItem = this.formatMedia(nowFile, formData, selectedChannel, userHandle, value.privacy);
         const media = [mediaItem];
         multipleMedias.push(mediaItem);
       }
     }
 
     if (isReady && userHandle !== '') {
-      this.postMediaToChannel(chosenChannel.spotfeedId, multipleMedias);
+      this.postMediaToChannel(selectedChannel.spotfeedId, multipleMedias);
     }
   }
 
   publishPost() {
     let isReady = false;
     let userHandle = '';
-    this.chosenChannel = 1;
+    this.selectedChannel = 1;
 
     if (!this.desc) {
-      this.toastr.error('Please add relevant descriptions or tags', 'Missing Description', {
+      this.toastr.warning('Please add relevant descriptions or tags', 'Missing Description', {
         timeOut: 3000
       });
       isReady = false;
@@ -500,13 +498,13 @@ export class MediaSelectorComponent implements OnInit {
     this.formMessages = [];
 
     const chosenFile = this.editingFile;
-    const chosenChannel = this.chosenChannel;
+    const selectedChannel = this.selectedChannel;
 
     let isChannelReady, isFileReady;
 
-    if (this.chosenChannel === 0) {
+    if (this.selectedChannel === 0) {
       isChannelReady = false;
-      this.toastr.error('You need to select a channel', 'Not ready yet', {
+      this.toastr.warning('You need to select a channel', 'Not ready yet', {
         timeOut: 3000
       });
     } else {
@@ -515,7 +513,7 @@ export class MediaSelectorComponent implements OnInit {
 
     if (chosenFile.fileName === undefined) {
       isFileReady = false;
-      // this.toastr.error('You need to select a file to post', 'Not ready yet', {
+      // this.toastr.warning('You need to select a file to post', 'Not ready yet', {
       //   timeOut: 3000
       // });
     } else {
@@ -655,7 +653,7 @@ export class MediaSelectorComponent implements OnInit {
    */
 
   chooseChannel(channel: any) {
-    this.chosenChannel = channel;
+    this.selectedChannel = channel;
   }
 
 
@@ -687,7 +685,7 @@ export class MediaSelectorComponent implements OnInit {
    * on Channel Selection
    */
   onChannelSelection(channel: any) {
-    this.chosenChannel = channel;
+    this.selectedChannel = channel;
     // do the post as well
   }
 
@@ -890,8 +888,10 @@ export class MediaSelectorComponent implements OnInit {
       license: this.license,
     }
 
+    console.log('this.desc', this.desc);
+
     if (!this.desc) {
-      this.toastr.error('Please add relevant descriptions or tags', 'Missing Description', {
+      this.toastr.warning('Please add relevant descriptions or tags', 'Missing Description', {
         timeOut: 3000
       });
     } else {
