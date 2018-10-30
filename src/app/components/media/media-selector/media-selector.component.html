@@ -1,9 +1,4 @@
 <div class="Overlay">
-  <!-- <div class="Overlay__status" *ngIf="eventName === 'dwc'">
-      <div class="container">
-        <a [routerLink]="['/dwc/details']">Back to Dance World Cup</a>
-      </div>
-  </div> -->
   <div class="Overlay__error" *ngIf="formMessages.length > 0">
     <span class="Overlay__status" *ngFor="let msg of formMessages">
       {{ msg }}
@@ -135,7 +130,10 @@
 <section class="Select__channel" *ngIf="uploadState === 2">
   <div class="container">
     <div class="o-add-media">
-      <app-channel-list [userChannels]="channeList" [settingDisable]="uploadedFiles.length === 0" (onPostMedia)="postAllMedia($event)"
+      <app-channel-list
+        [userChannels]="channeList"
+        [settingDisable]="uploadedFiles.length === 0"
+        (onPostMedia)="postAllMedia($event)"
         (onSearch)="searchChannel($event)" (onScrolled)="scrolled($event)" (onSelection)="onChannelSelection($event)"
         (onChangeContext)="changeState($event)"></app-channel-list>
     </div>
@@ -241,6 +239,3 @@
     </div>
   </div>
 </section>
-
-
-<!-- (onChannelCreate)="onChannelCreation($event)" -->

@@ -12,9 +12,9 @@ import { TokenService } from '../../../helpers/token.service';
 import { ToastrService } from 'ngx-toastr';
 import { remove as _remove, merge as _merge, uniqBy as _uniqBy, flatten, findIndex as _findIndex } from 'lodash';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/filter';
+import { GeneralUtilities } from 'app/helpers/general.utils';
 
 export class UploadItem {
   fileName: string;
@@ -107,6 +107,7 @@ export class MediaSelectorComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private route: ActivatedRoute,
+    private gUtils: GeneralUtilities,
     private _store: Store<any>) {
     this.cards = [];
 
@@ -494,45 +495,36 @@ export class MediaSelectorComponent implements OnInit {
   /**
    * Validte Upload
    */
-  uploadMeta() {
-    this.formMessages = [];
+  // uploadMeta() {
+  //   this.formMessages = [];
 
-    const chosenFile = this.editingFile;
-    const selectedChannel = this.selectedChannel;
+  //   const chosenFile = this.editingFile;
+  //   const selectedChannel = this.selectedChannel;
 
-    let isChannelReady, isFileReady;
+  //   let isChannelReady, isFileReady;
 
-    if (this.selectedChannel === 0) {
-      isChannelReady = false;
-      this.toastr.warning('You need to select a channel', 'Not ready yet', {
-        timeOut: 3000
-      });
-    } else {
-      isChannelReady = true;
-    }
+  //   if (this.selectedChannel === 0) {
+  //     isChannelReady = false;
+  //     this.toastr.warning('You need to select a channel', 'Not ready yet', {
+  //       timeOut: 3000
+  //     });
+  //   } else {
+  //     isChannelReady = true;
+  //   }
 
-    if (chosenFile.fileName === undefined) {
-      isFileReady = false;
-      // this.toastr.warning('You need to select a file to post', 'Not ready yet', {
-      //   timeOut: 3000
-      // });
-    } else {
-      isFileReady = true;
-    }
+  //   if (chosenFile.fileName === undefined) {
+  //     isFileReady = false;
+  //     // this.toastr.warning('You need to select a file to post', 'Not ready yet', {
+  //     //   timeOut: 3000
+  //     // });
+  //   } else {
+  //     isFileReady = true;
+  //   }
 
-    if (isChannelReady === true && isFileReady === true) {
-      return true;
-    }
-  }
-
-
-  /**
-   * currentTime
-   */
-  currentTime() {
-    const postDate = new Date(Date.now()).toISOString();
-    return postDate;
-  }
+  //   if (isChannelReady === true && isFileReady === true) {
+  //     return true;
+  //   }
+  // }
 
   /**
    * Post Uploaded Medias to Channel
@@ -714,41 +706,22 @@ export class MediaSelectorComponent implements OnInit {
 
 
   /**
-   * Extract Tag from Body
+   * Extract Tag from string
    */
-
-  extractTags() {
-    let isDwcThing = 0;
-    const tag = [];
-    // return null if no desc
-    if (!this.desc) {
-      return tag;
+  extractTags(content: string) {
+    const tags = [];
+    if (!content) {
+      return tags;
     }
-
-    /**
-     * If its it has an event param
-     * push that param as an hashtag
-     */
-    const eventName = this.eventName;
-    if (eventName) {
-      tag.push(eventName);
-      isDwcThing = 2;
-    }
-
     const REGEX_HASHTAG = /\B(#[Ã¡-ÃºÃ-ÃÃ¤-Ã¼Ã-Ãa-zA-Z0-9_]+)/g;
-    const string = this.desc
-    const results = string.match(REGEX_HASHTAG);
-
-
-    // const tag = [];
+    const results = content.match(REGEX_HASHTAG);
     if (results) {
       results.forEach(function (element) {
         const newVal = element.replace('#', '');
-        tag.push(newVal);
+        tags.push(newVal);
       });
     }
-
-    return tag
+    return tags;
   }
 
   /**
@@ -756,10 +729,12 @@ export class MediaSelectorComponent implements OnInit {
    */
   formatMedia(file: any, formValue: any, channel: any, handle: string, privacy: string) {
     const mediaType = this.getFileType(file.fileName);
-    const postTime = this.currentTime();
-    const isUploadReady = this.uploadMeta();
+    const postTime = this.gUtils.getCurrentTime();
+    // const isUploadReady = this.uploadMeta();
 
-    const tags = this.extractTags();
+    const tags = this.extractTags(this.desc);
+    // console.log('tags', tags);
+    // return;
 
     const files = {
       fileName: file.fileName,
