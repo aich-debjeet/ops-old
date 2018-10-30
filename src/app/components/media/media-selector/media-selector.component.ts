@@ -35,7 +35,7 @@ export class MediaSelectorComponent implements OnInit {
   process: number[] = [];
   fileData: File;
   uploaded: any[];
-  uploadedFiles: UploadItem[];
+  uploadedFiles: UploadItem[] = [];
   editingFile: UploadItem;
   channels: any[];
   selectedChannel: any = 0;
@@ -430,7 +430,6 @@ export class MediaSelectorComponent implements OnInit {
   }
 
   publishPost() {
-    let isReady = false;
     let userHandle = '';
     this.selectedChannel = 1;
 
@@ -438,9 +437,15 @@ export class MediaSelectorComponent implements OnInit {
       this.toastr.warning('Please add relevant descriptions or tags', 'Missing Description', {
         timeOut: 3000
       });
-      isReady = false;
       this.changeState(1);
-      return
+      return;
+    }
+    if (this.uploadedFiles.length === 0) {
+      this.toastr.warning('Please select media to upload', 'Missing Media', {
+        timeOut: 3000
+      });
+      this.changeState(1);
+      return;
     }
 
     if (this.profileChannel.profile_loaded === true) {
@@ -846,31 +851,34 @@ export class MediaSelectorComponent implements OnInit {
    * Toggle Privacy Value
    */
   mediaPrivacyToggle(value) {
-    this.mediaPrivacy = value
+    this.mediaPrivacy = value;
   }
 
   channelPrivacyToggle(value) {
-    this.channelPrivacy = value
+    this.channelPrivacy = value;
   }
 
   /**
    * Channel Selection Page Navigation
    */
   formNext() {
-    const formValues = {
-      privacy: this.mediaPrivacy,
-      isNSFW: this.mediaPrivacy,
-      license: this.license,
-    }
-
-    console.log('this.desc', this.desc);
-
+    // const formValues = {
+    //   privacy: this.mediaPrivacy,
+    //   isNSFW: this.mediaPrivacy,
+    //   license: this.license,
+    // }
     if (!this.desc) {
       this.toastr.warning('Please add relevant descriptions or tags', 'Missing Description', {
         timeOut: 3000
       });
     } else {
-      this.changeState(2);
+      if (this.uploadedFiles.length === 0) {
+        this.toastr.warning('Please select media to upload', 'Missing Media', {
+          timeOut: 3000
+        });
+      } else {
+        this.changeState(2);
+      }
     }
   }
 
