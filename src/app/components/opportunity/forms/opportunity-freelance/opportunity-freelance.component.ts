@@ -88,9 +88,10 @@ export class OpportunityFreelanceComponent implements OnInit, OnDestroy {
           this.uploadedFile = true;
           for (let i = 0; i < state['fileupload_response'].length; i++) {
             const attUrl = state['fileupload_response'][i].repoPath;
-            if (this.freelanceAttachments.indexOf(attUrl) === -1) {
-              this.freelanceAttachments.push(attUrl);
-            }
+            // if (this.freelanceAttachments.indexOf(attUrl) === -1) {
+            //   this.freelanceAttachments.push(attUrl);
+            // }
+            this.freelanceAttachments = [attUrl];
           }
         } else {
           this.uploadingFile = false;
@@ -178,7 +179,9 @@ export class OpportunityFreelanceComponent implements OnInit, OnDestroy {
    * Remove media from the attachments
    */
   removeAttachedMedia(fileName: string) {
-    _pull(this.freelanceAttachments, fileName);
+    // _pull(this.freelanceAttachments, fileName);
+    this.freelanceAttachments = [];
+    this.oppStore.dispatch({ type: OpportunityActions.OPPORTUNITY_FORM_REMOVE_ATTACHMENTS });
   }
 
   cancelUpdate() {
