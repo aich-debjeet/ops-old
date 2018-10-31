@@ -279,7 +279,7 @@
                                         <div id="acc-info-phone__edit" class="o-set-list__edit" *ngIf="editingField == 'phone'">
                                             <div class="col-md-4 p-0">
                                                 <div class="c-form__group c-form--sm c-form--noeffect m-0">
-                                                    <input class="c-form__input p-l" type="text" [(ngModel)]="phone">
+                                                    <input class="c-form__input p-l" type="number" [(ngModel)]="phone">
                                                     <p class="error_alert" *ngIf="phNumbrReq">Phone Number is required</p>
                                                     <p class="error_alert" *ngIf="phMinLent">Phone number must have a minimum length of 4</p>
                                                     <p class="error_alert" *ngIf="isMobileUnique">This phone number is already registered</p>
