@@ -17,6 +17,18 @@ import { Media, initialMedia  } from '../models/media.model';
 export class MediaEffect {
 
   /**
+   * Update media view count
+   */
+  @Effect()
+  updateMediaCount$ = this.actions$
+    .ofType(MediaActions.MEDIA_ADD_VIEW_COUNT)
+    .map(toPayload)
+    .switchMap((payload) => this.mediaService.mediaAddViewCount(payload)
+      .map(res => ({ type: MediaActions.MEDIA_ADD_VIEW_COUNT_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: MediaActions.MEDIA_ADD_VIEW_COUNT_FAILED, payload: res }))
+    );
+
+  /**
    * Get current user media profile
    */
   @Effect()

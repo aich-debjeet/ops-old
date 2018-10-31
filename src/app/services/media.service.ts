@@ -23,6 +23,10 @@ export class MediaService {
       this.handle = this.api.getHandle();
     }
 
+  mediaAddViewCount(data: any) {
+    return this.api.post('/viewcount', data);
+  }
+
   /**
    * Post multiple media
    * @param req

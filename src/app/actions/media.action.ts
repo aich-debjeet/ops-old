@@ -2,6 +2,11 @@ import { Action } from '@ngrx/store';
 
 export class MediaActions {
 
+  // for updating view count of a media
+  static MEDIA_ADD_VIEW_COUNT = 'MEDIA_ADD_VIEW_COUNT';
+  static MEDIA_ADD_VIEW_COUNT_SUCCESS = 'MEDIA_ADD_VIEW_COUNT_SUCCESS';
+  static MEDIA_ADD_VIEW_COUNT_FAILED = 'MEDIA_ADD_VIEW_COUNT_FAILED';
+
   static MEDIA_POST_REPORT = 'MEDIA_POST_REPORT';
   static MEDIA_POST_REPORT_SUCCESS = 'MEDIA_POST_REPORT_SUCCESS';
   static MEDIA_POST_REPORT_FAILED = 'MEDIA_POST_REPORT_FAILED';
