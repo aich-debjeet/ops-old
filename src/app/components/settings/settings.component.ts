@@ -11,6 +11,8 @@ import { Http, Headers, Response } from '@angular/http';
 import { TokenService } from './../../helpers/token.service';
 import { environment } from '../../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
+import * as moment from 'moment';
+import { GeneralUtilities } from '../../helpers/general.utils';
 
 import { CountrySelectorComponent } from '../../shared/country-selector/country-selector.component';
 
@@ -80,6 +82,7 @@ export class SettingsComponent implements OnInit {
   invalidDOB: boolean = false;
   isUnderAge: boolean = false;
   isOverAge: boolean = false;
+  error: boolean = false;
   isRequired: boolean= false;
   whitespace: boolean = false;
   capitalLetters : boolean =false;
@@ -92,6 +95,7 @@ export class SettingsComponent implements OnInit {
   isMobileUnique: boolean = false;
   validSuccess: boolean = true;
   privacy: number;
+  msgDisplay: string;
 
   @ViewChild('countrySelSet') countrySelectorSet: CountrySelectorComponent;
   @ViewChild('otpPopup') otpPopup: Modal;
@@ -105,7 +109,8 @@ export class SettingsComponent implements OnInit {
     private _store: Store<ProfileModal>,
     private store: Store<BasicRegTag>,
     private databaseValidator: DatabaseValidator,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private generalUtils: GeneralUtilities,
   ) {
     // this.dragula.drop.subscribe((value) => {
     //   this.onDrop(value.slice(1));
@@ -465,6 +470,7 @@ export class SettingsComponent implements OnInit {
       return;
     }
     if (fieldName === 'dob' && this.dob.length > 0) {
+      let data = this.generalUtils.isValidDob(this.dob);
       reqBody = {
         other: {
           dob:{
@@ -473,44 +479,16 @@ export class SettingsComponent implements OnInit {
           }
         }
       };
-      const dateArr =  this.dob.split('-');
-      const day = dateArr[0];
-      const month = dateArr[1];
-      const year = dateArr[2];
-
-      // check for valid day number
-      if (parseInt(day, 10) > 31) {
-        this.invalidDOB = true;
-         return
+      if(data !== undefined){
+        if(data.invalid){
+          this.error =true;
+          this.msgDisplay = data.msg;
+          return
+        }
       }
-
-    // check for valid month number
-    if (parseInt(month, 10) > 12) {
-      this.invalidDOB = true;
-      return
-    }
-
-    // check if year is not greater that current
-    if (new Date().getUTCFullYear() < year) {
-      this.invalidDOB = true;
-      return
-    }
-
-    const birthDate = new Date(year, month, day);
-    const age = this.calculateAge(birthDate);
-
-    if (age <= 13) {
-      this.isUnderAge = true;
-      return
-    } else if (age >= 100) {
-      this.isOverAge = true;
-      return
-    }
       reqBody.other.dob.date_of_birth = this.reverseDate(this.dob) + 'T05:00:00';
       reqBody.other.dob.access = Number(this.privacy);
-      this.invalidDOB = false;
-      this.isUnderAge = false;
-      this.isOverAge = false;
+      this.error = false;
     }
     if (fieldName === 'username') {
       if (this.specialChars || this.isRequired || this.capitalLetters || this.whitespace || this.invalidLength) {

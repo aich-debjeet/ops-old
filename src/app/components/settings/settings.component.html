@@ -81,7 +81,7 @@
                                     </div>
                                     <div class="col-md-9 col-xs-12 p-0">
                                         <div id="acc_info-dob" class="o-set-list__data" *ngIf="editingField != 'dob'">
-                                            <span class="c-text_md color-grey-dark">{{ userProfile?.other?.dateOfBirth | date:'longDate'}}</span>
+                                            <span class="c-text_md color-grey-dark">{{ userProfile?.other?.dob?.date_of_birth | date:'longDate'}}</span>
                                             <span class="o-set-list__edit-btn">
                                             <a class="o-set-list-edit__link c-text_md" (click)="editField('dob')">
                                                 <span class="o-set-list-edit__icon"><img [src]="imageBaseLink + 'img/svg/editpencil.svg'" alt=""></span>
@@ -93,9 +93,10 @@
                                             <div class="col-md-4 p-0">
                                                 <div class="c-form__group c-form--sm c-form--noeffect m-0">
                                                     <input class="c-form__input p-0" [(ngModel)]="dob" [textMask]="{mask: dateMask}" type="text" value="DD-MM-YYYY">
-                                                    <p class="error_alert" *ngIf="invalidDOB">Invalid Date of Birth</p>
+                                                    <!-- <p class="error_alert" *ngIf="invalidDOB">Invalid Date of Birth</p>
                                                     <p class="error_alert" *ngIf="isUnderAge">You should be above 13</p>
-                                                    <p class="error_alert" *ngIf="isOverAge">You should be below 100</p>
+                                                    <p class="error_alert" *ngIf="isOverAge">You should be below 100</p> -->
+                                                    <p class="error_alert" *ngIf="error">{{msgDisplay}}</p>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 p-0">
