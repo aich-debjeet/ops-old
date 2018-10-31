@@ -74,6 +74,9 @@
                         <div class="c-links__actions">
                             <span class="c-links__add">
                                 <div class="c-links__actions">
+                                    <span *ngIf="data?.viewcount" class="c-links__view-count">
+                                        <span class="color-grey-darker">{{ data?.viewcount }}</span> Views
+                                    </span>
                                     <span class="c-links__add">
                                         <a href="javascript:void(0)">
                                             <img [src]="imageLink + 'img/svg/ico_addtochannel.svg'" class="c-action__image">

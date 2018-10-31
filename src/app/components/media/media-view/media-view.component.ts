@@ -38,8 +38,8 @@ export class MediaViewComponent implements OnDestroy {
   domainLink: string = environment.API_DOMAIN;
   messageText: string;
   statusForm: FormGroup;
-  private mediaStateSubscription: Subscription;
-  private userStateSubscription: Subscription;
+  private mediaSub: Subscription;
+  private profSub: Subscription;
   mediaState$: Observable<Media>;
   userState$: Observable<any>;
   mediaStore = initialMedia;
@@ -70,7 +70,7 @@ export class MediaViewComponent implements OnDestroy {
     this.spot = false;
     this.mediaState$ = store.select('mediaStore');
 
-    this.mediaStateSubscription = this.mediaState$.subscribe((state) => {
+    this.mediaSub = this.mediaState$.subscribe((state) => {
       this.mediaStore = state;
       this.channelId = this.mediaStore.channel_detail['channelId']
       this.data = this.mediaStore.media_detail;
@@ -94,7 +94,7 @@ export class MediaViewComponent implements OnDestroy {
     });
 
     this.userState$ = this.store.select('profileTags');
-    this.userStateSubscription = this.userState$.subscribe((state) => {
+    this.profSub = this.userState$.subscribe((state) => {
       this.userData = state['profile_navigation_details']
     });
 
@@ -113,8 +113,8 @@ export class MediaViewComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.mediaStateSubscription.unsubscribe();
-    this.userStateSubscription.unsubscribe();
+    this.mediaSub.unsubscribe();
+    this.profSub.unsubscribe();
   }
 
   closeFunction() {
