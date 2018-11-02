@@ -450,11 +450,12 @@
                                 <img [src]="baseUrl + follower?.profileImage" alt="">
                             </div>
                             <div class="o-follow-people__info">
-                                <h6 class="c-text_md">{{ follower?.name | truncate:[10, '...'] }}</h6>
-                                <p class="c-text_sm color-grey-dark">@{{ follower?.extra?.username | truncate:[10, '...'] }}</p>
+                                <h6 *ngIf="follower?.name" class="c-text_md">{{ follower?.name | truncate:[10, '...'] }}</h6>
+                                <h6 *ngIf="!follower?.name" class="c-text_md">&nbsp;</h6>
+                                <p *ngIf="follower?.extra?.username" class="c-text_sm color-grey-dark">@{{ follower?.extra?.username | truncate:[10, '...'] }}</p>
+                                <p *ngIf="!follower?.extra?.username" class="c-text_sm color-grey-dark">&nbsp;</p>
                             </div>
                         </a>
-                     
                         <div class="o-profile__others-follow-btn">
                             <div *ngIf="follower?.extra.isImported; else not_imported">
                                 <button [routerLink]="'/profile/u/' + follower?.extra?.username" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
@@ -507,11 +508,12 @@
                                 <img [src]="baseUrl + follower?.profileImage" alt="">
                             </div>
                             <div class="o-follow-people__info">
-                                <h6 class="c-text_md">{{ follower?.name | truncate:[10, '...'] }}</h6>
-                                <p class="c-text_sm color-grey-dark">@{{ follower?.extra?.username | truncate:[10, '...'] }}</p>
+                                <h6 *ngIf="follower?.name" class="c-text_md">{{ follower?.name | truncate:[10, '...'] }}</h6>
+                                <h6 *ngIf="!follower?.name" class="c-text_md">&nbsp;</h6>
+                                <p *ngIf="follower?.extra?.username" class="c-text_sm color-grey-dark">@{{ follower?.extra?.username | truncate:[10, '...'] }}</p>
+                                <p *ngIf="!follower?.extra?.username" class="c-text_sm color-grey-dark">&nbsp;</p>
                             </div>
                         </a>
-                        <!-- <button type="button" class="btn btn-primary btn-sm m-t-8">follow</button> -->
                         <div *ngIf="follower?.extra.isImported; else not_imported">
                             <button [routerLink]="'/profile/u/' + follower?.extra?.username" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
                                 <span class="btn-label-follow"> CLAIM </span>

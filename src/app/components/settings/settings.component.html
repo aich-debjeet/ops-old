@@ -81,7 +81,7 @@
                                     </div>
                                     <div class="col-md-9 col-xs-12 p-0">
                                         <div id="acc_info-dob" class="o-set-list__data" *ngIf="editingField != 'dob'">
-                                            <span class="c-text_md color-grey-dark">{{ userProfile?.other?.dateOfBirth | date:'longDate'}}</span>
+                                            <span class="c-text_md color-grey-dark">{{ userProfile?.other?.dob?.date_of_birth | date:'longDate'}}</span>
                                             <span class="o-set-list__edit-btn">
                                             <a class="o-set-list-edit__link c-text_md" (click)="editField('dob')">
                                                 <span class="o-set-list-edit__icon"><img [src]="imageBaseLink + 'img/svg/editpencil.svg'" alt=""></span>
@@ -93,16 +93,18 @@
                                             <div class="col-md-4 p-0">
                                                 <div class="c-form__group c-form--sm c-form--noeffect m-0">
                                                     <input class="c-form__input p-0" [(ngModel)]="dob" [textMask]="{mask: dateMask}" type="text" value="DD-MM-YYYY">
-                                                    <p class="error_alert" *ngIf="invalidDOB">Invalid Date of Birth</p>
+                                                    <!-- <p class="error_alert" *ngIf="invalidDOB">Invalid Date of Birth</p>
                                                     <p class="error_alert" *ngIf="isUnderAge">You should be above 13</p>
-                                                    <p class="error_alert" *ngIf="isOverAge">You should be below 100</p>
+                                                    <p class="error_alert" *ngIf="isOverAge">You should be below 100</p> -->
+                                                    <p class="error_alert" *ngIf="error">{{msgDisplay}}</p>
                                                 </div>
                                             </div>
-                                            <!-- <div class="col-md-2 p-0">
-                                                <div class="dropdown margin_l_16">   
-                                                    <span class="com-head" data-toggle="dropdown" aria-expanded="true">
+                                            <div class="col-md-2 p-0">
+                                                <div class="dropdown margin_l_16" appDropdown>   
+                                                    <span class="com-head" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
                                                         <div class="o-action__ico">
-                                                            <img [src]="imageBaseLink + 'img/svg/ico-public.svg'" alt="">
+                                                            <img [src]="imageBaseLink + 'img/svg/ico-public.svg'" alt="" *ngIf="userProfile?.other?.dob?.access === 0">
+                                                            <img [src]="imageBaseLink + 'img/svg/Ico-private.svg'" alt="" *ngIf="userProfile?.other?.dob?.access === 1">
                                                         </div>
                                                         <div class="o-action__ico-arrow">
                                                             <svg xmlns="http://www.w3.set/2000/svg" xmlns:xlink="http://www.w3.set/1999/xlink" width="10px" height="6px" viewBox="0 0 16 10" version="1.1">
@@ -115,20 +117,20 @@
                                                     </span>
                                                     <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
                                                         <li>
-                                                            <a href="javascript:void(0)" class="c-opsdropdown__list">
+                                                            <a (click)="choosePrivacy(0)" class="c-opsdropdown__list">
                                                                 <img [src]="imageBaseLink + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
                                                                 <span class="c-opsdropdown--text">Public</span>
                                                             </a>
                                                         </li>
                                                         <li>
-                                                            <a href="javascript:void(0)" class="c-opsdropdown__list">
+                                                            <a (click)="choosePrivacy(1)" class="c-opsdropdown__list">
                                                                 <img [src]="imageBaseLink + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
                                                                 <span class="c-opsdropdown--text">Private</span>
                                                             </a>
                                                         </li>
                                                     </ul>
                                                 </div>
-                                            </div> -->
+                                            </div>
                                             <div class="col-md-6 p-0">
                                                 <div class="o-set-list-edit__actions">
                                                     <button type="button" class="btn btn-primary btn-sm" (click)="updateAbout('dob')">Save</button>
@@ -277,7 +279,7 @@
                                         <div id="acc-info-phone__edit" class="o-set-list__edit" *ngIf="editingField == 'phone'">
                                             <div class="col-md-4 p-0">
                                                 <div class="c-form__group c-form--sm c-form--noeffect m-0">
-                                                    <input class="c-form__input p-l" type="text" [(ngModel)]="phone">
+                                                    <input class="c-form__input p-l" type="number" [(ngModel)]="phone">
                                                     <p class="error_alert" *ngIf="phNumbrReq">Phone Number is required</p>
                                                     <p class="error_alert" *ngIf="phMinLent">Phone number must have a minimum length of 4</p>
                                                     <p class="error_alert" *ngIf="isMobileUnique">This phone number is already registered</p>
