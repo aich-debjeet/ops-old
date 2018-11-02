@@ -38,17 +38,8 @@ export class SettingsComponent implements OnInit {
   storeState$: Observable<ProfileModal>;
   userProfile = initialTag;
   tagState$: Observable<BasicRegTag>;
-  // private tagStateSubscription: Subscription;
   petTag = initialBasicRegTag;
   pwdForm: FormGroup;
-  usernameForm: FormGroup;
-  nameForm: FormGroup;
-  dateForm: FormGroup;
-  genderForm: FormGroup;
-  emailForm: FormGroup;
-  phoneForm: FormGroup;
-  profileForm: FormGroup;
-  // otpForm: FormGroup;
   emailActive: boolean;
   phoneActive: boolean;
   userActive: boolean;
@@ -69,7 +60,7 @@ export class SettingsComponent implements OnInit {
   birth: any;
   notificationOption = []
   editingField: string;
-  private dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+  public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   adult: any;
   privateAccount: any;
  //ngModel binding options
@@ -79,9 +70,6 @@ export class SettingsComponent implements OnInit {
   email: any;
   phone: any;
   gender: any;
-  invalidDOB: boolean = false;
-  isUnderAge: boolean = false;
-  isOverAge: boolean = false;
   error: boolean = false;
   isRequired: boolean= false;
   whitespace: boolean = false;
@@ -276,11 +264,11 @@ export class SettingsComponent implements OnInit {
       return
     } else {
       const contactDetails = {
-          contactNumber: '',
-          countryCode: ''
+          contactNumber: this.phone.trim(),
+          countryCode: this.country.callingCodes[0]
       };
-      contactDetails.contactNumber = this.phone.trim();
-      contactDetails.countryCode = this.country.callingCodes[0];
+      // contactDetails.contactNumber = this.phone;
+      // contactDetails.countryCode = this.country.callingCodes[0];
         // console.log(contactDetails)
         this.authService.mobileNumberCheck(contactDetails).subscribe( data => {
           if (data.SUCCESS.code === 1) {
