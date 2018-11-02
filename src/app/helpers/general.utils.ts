@@ -18,6 +18,13 @@ export class GeneralUtilities {
     constructor() { }
 
     /**
+     * get current time
+     */
+    getCurrentTime() {
+        return new Date(Date.now()).toISOString();
+    }
+
+    /**
      * check if given string is a json or not
      * @param string
      */

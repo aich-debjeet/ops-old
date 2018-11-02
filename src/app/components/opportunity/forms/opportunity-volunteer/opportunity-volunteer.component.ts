@@ -33,6 +33,19 @@ export class OpportunityVolunteerComponent implements OnInit, OnDestroy {
   };
   @ViewChild('termsPopup') termsPopup: Modal;
 
+  quillModules = {
+    toolbar: [
+      ['bold', 'italic', 'underline'],
+      ['link'],
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+      [{ 'color': [] }],          // dropdown with defaults from theme
+      [{ 'align': [] }],
+      ['clean'],                                         // remove formatting button
+    ]
+  };
+
   constructor(
     private fb: FormBuilder,
     private location: Location,
