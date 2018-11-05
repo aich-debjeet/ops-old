@@ -4,7 +4,7 @@ export class Media {
   status_success = false;
   status_uploading = false;
   channel_detail?: any;
-  media_post_success? = false;
+  media_post_success?= false;
   user_posts: any;
   user_posts_loaded: boolean;
   user_posts_loading: boolean;
@@ -21,7 +21,7 @@ export class Media {
 
 export const initialMedia: Media = {
   status_saved: false,
-  status_uploaded:  false,
+  status_uploaded: false,
   status_success: false,
   channel_detail: [],
   status_uploading: false,
@@ -33,24 +33,8 @@ export const initialMedia: Media = {
   comment_post_loading: false,
   reports: [],
   channel_post: []
-};
+}
 
-// export class MediaFile {
-//   fileName: string;
-//   repoPath: string;
-//   mtype: string;
-//   contentType: string;
-//   title: string;
-//   description: string;
-//   active: boolean;
-//   createdBy: string;
-//   createdDate: string;
-//   lastUpdatedDate: string;
-//   count : {
-//      likes: [], shares: [], spots: [],
-//     channel: chosenChannel.spotfeedId
-//   }
-// }]
 export class ChannelDetails {
   channelName: string
 }

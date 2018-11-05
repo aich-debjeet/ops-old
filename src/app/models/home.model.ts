@@ -1,5 +1,5 @@
 export class Channel {
- completed: string[];
- loading = false;
- success = true;
+    completed: string[];
+    loading = false;
+    success = true;
 }

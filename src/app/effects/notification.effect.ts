@@ -31,16 +31,16 @@ export class NotificationEffect {
     );
 
   @Effect()
-    notificationAllRead$ = this.actions$
-      .ofType(NotificationActions.MARK_AS_ALL_READ)
-      .map(toPayload)
-      .switchMap((payload) => this.apiService.notificationAllMarkAsRead(payload)
-        .map(res => ({ type: NotificationActions.MARK_AS_ALL_READ_SUCCESS, payload: res }))
-        .catch((res) => Observable.of({ type: NotificationActions.MARK_AS_ALL_READ_FAILED, payload: res }))
-      );
+  notificationAllRead$ = this.actions$
+    .ofType(NotificationActions.MARK_AS_ALL_READ)
+    .map(toPayload)
+    .switchMap((payload) => this.apiService.notificationAllMarkAsRead(payload)
+      .map(res => ({ type: NotificationActions.MARK_AS_ALL_READ_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: NotificationActions.MARK_AS_ALL_READ_FAILED, payload: res }))
+    );
 
   constructor(
-      private actions$: Actions,
-      private apiService: NotificationService
-  ) {}
+    private actions$: Actions,
+    private apiService: NotificationService
+  ) { }
 }

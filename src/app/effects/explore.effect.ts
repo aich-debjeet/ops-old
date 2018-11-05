@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
-import {Observable} from 'rxjs/Rx'
+import { Observable } from 'rxjs/Rx'
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -59,10 +59,10 @@ export class ExploreEffect {
       }))
     );
 
-    constructor(
-        private actions$: Actions,
-        private exploreService: ExploreService,
-        private mediaService: MediaService
-    ) { }
+  constructor(
+    private actions$: Actions,
+    private exploreService: ExploreService,
+    private mediaService: MediaService
+  ) { }
 
 }

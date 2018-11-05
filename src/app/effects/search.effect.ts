@@ -95,10 +95,10 @@ export class SearchEffect {
     );
 
   constructor(
-      private actions$: Actions,
-      private mediaService: MediaService,
-      private searchService: SearchService,
-      private eventService: EventService,
-      private opportunityService: OpportunityService
-  ) {}
+    private actions$: Actions,
+    private mediaService: MediaService,
+    private searchService: SearchService,
+    private eventService: EventService,
+    private opportunityService: OpportunityService
+  ) { }
 }
