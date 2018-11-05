@@ -1,3 +1,3 @@
 export class UserMedia {
- name: string;
+    name: string;
 }
