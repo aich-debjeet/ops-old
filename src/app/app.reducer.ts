@@ -5,7 +5,6 @@ import { ProfileReducer, State as ProfileState } from './reducers/profile.reduce
 import { MessageReducer } from './reducers/messages.reducer';
 import { NotificationReducer } from './reducers/notification.reducer';
 import { SearchReducer } from './reducers/search.reducer';
-import { UserSearchReducer } from './reducers/user-search.reducer';
 import { MediaReducer } from './reducers/media.reducer';
 import { OpportunityReducer } from './reducers/opportunity.reducer';
 import { ExploreReducer } from './reducers/explore.reducer';
@@ -13,12 +12,9 @@ import { EventReducer } from './reducers/event.reducer';
 import { CommunitiesReducer } from './reducers/communities.reducer';
 import { ClaimProfileReducer } from './reducers/claim-profile.reducer';
 
-import { combineReducers, ActionReducer } from '@ngrx/store';
-import { storeFreeze } from 'ngrx-store-freeze';
-import { compose } from '@ngrx/core/compose';
+import { combineReducers } from '@ngrx/store';
 import { environment } from '../environments/environment';
 import { DirectoryReducer } from './reducers/directory.reducer';
-// import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
 const reducers = {
   loginTags: AuthReducer,
@@ -26,8 +22,6 @@ const reducers = {
   searchTags: SearchReducer,
   messageTags: MessageReducer,
   profileTags: ProfileReducer,
-  // userMediaTags: ProfileReducer,
-  userSearchTags: UserSearchReducer,
   opportunityTags: OpportunityReducer,
   claimProfileTags: ClaimProfileReducer,
   notificationTags: NotificationReducer,
@@ -47,8 +41,6 @@ export interface State {
 
 const productionReducer = combineReducers(reducers);
 const developmentReducer = combineReducers(reducers);
-// const developmentReducer: ActionReducer<State> = compose(storeFreeze, combineReducers)(reducers);
-// const productionReducer: ActionReducer<State> = combineReducers(reducers);
 
 export function reducer(state: any, action: any) {
   if (environment.production) {
