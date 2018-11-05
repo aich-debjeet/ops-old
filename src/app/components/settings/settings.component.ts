@@ -11,6 +11,8 @@ import { Http, Headers, Response } from '@angular/http';
 import { TokenService } from './../../helpers/token.service';
 import { environment } from '../../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
+import * as moment from 'moment';
+import { GeneralUtilities } from '../../helpers/general.utils';
 
 import { CountrySelectorComponent } from '../../shared/country-selector/country-selector.component';
 
@@ -36,17 +38,8 @@ export class SettingsComponent implements OnInit {
   storeState$: Observable<ProfileModal>;
   userProfile = initialTag;
   tagState$: Observable<BasicRegTag>;
-  // private tagStateSubscription: Subscription;
   petTag = initialBasicRegTag;
   pwdForm: FormGroup;
-  usernameForm: FormGroup;
-  nameForm: FormGroup;
-  dateForm: FormGroup;
-  genderForm: FormGroup;
-  emailForm: FormGroup;
-  phoneForm: FormGroup;
-  profileForm: FormGroup;
-  // otpForm: FormGroup;
   emailActive: boolean;
   phoneActive: boolean;
   userActive: boolean;
@@ -67,7 +60,7 @@ export class SettingsComponent implements OnInit {
   birth: any;
   notificationOption = []
   editingField: string;
-  private dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+  public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   adult: any;
   privateAccount: any;
  //ngModel binding options
@@ -77,9 +70,7 @@ export class SettingsComponent implements OnInit {
   email: any;
   phone: any;
   gender: any;
-  invalidDOB: boolean = false;
-  isUnderAge: boolean = false;
-  isOverAge: boolean = false;
+  error: boolean = false;
   isRequired: boolean= false;
   whitespace: boolean = false;
   capitalLetters : boolean =false;
@@ -91,6 +82,8 @@ export class SettingsComponent implements OnInit {
   phMinLent: boolean = false;
   isMobileUnique: boolean = false;
   validSuccess: boolean = true;
+  privacy: number;
+  msgDisplay: string;
 
   @ViewChild('countrySelSet') countrySelectorSet: CountrySelectorComponent;
   @ViewChild('otpPopup') otpPopup: Modal;
@@ -104,7 +97,8 @@ export class SettingsComponent implements OnInit {
     private _store: Store<ProfileModal>,
     private store: Store<BasicRegTag>,
     private databaseValidator: DatabaseValidator,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private generalUtils: GeneralUtilities,
   ) {
     // this.dragula.drop.subscribe((value) => {
     //   this.onDrop(value.slice(1));
@@ -175,8 +169,9 @@ export class SettingsComponent implements OnInit {
             this.gender = state['user_details']['gender'];
             // console.log(this.gender)
           }
-          if (state['user_details']['other']['dateOfBirth'].length > 0) {
-            this.birth = state['user_details']['other']['dateOfBirth'];
+          if (state['user_details']['other']['dob']['date_of_birth'].length > 0) {
+            this.birth = state['user_details']['other']['dob']['date_of_birth'];
+            this.privacy = state['user_details']['other']['dob']['access'];
             // console.log(this.birth)
           }
           if (state['user_details']['email'].length > 0) {
@@ -269,11 +264,11 @@ export class SettingsComponent implements OnInit {
       return
     } else {
       const contactDetails = {
-          contactNumber: '',
-          countryCode: ''
+          contactNumber: this.phone.trim(),
+          countryCode: this.country.callingCodes[0]
       };
-      contactDetails.contactNumber = this.phone.trim();
-      contactDetails.countryCode = this.country.callingCodes[0];
+      // contactDetails.contactNumber = this.phone;
+      // contactDetails.countryCode = this.country.callingCodes[0];
         // console.log(contactDetails)
         this.authService.mobileNumberCheck(contactDetails).subscribe( data => {
           if (data.SUCCESS.code === 1) {
@@ -463,48 +458,25 @@ export class SettingsComponent implements OnInit {
       return;
     }
     if (fieldName === 'dob' && this.dob.length > 0) {
+      let data = this.generalUtils.isValidDob(this.dob);
       reqBody = {
         other: {
-          'dateOfBirth': ''
+          dob:{
+            access: 0,
+            date_of_birth:''
+          }
         }
       };
-      const dateArr =  this.dob.split('-');
-      const day = dateArr[0];
-      const month = dateArr[1];
-      const year = dateArr[2];
-
-      // check for valid day number
-      if (parseInt(day, 10) > 31) {
-        this.invalidDOB = true;
-         return
+      if(data !== undefined){
+        if(data.invalid){
+          this.error =true;
+          this.msgDisplay = data.msg;
+          return
+        }
       }
-
-    // check for valid month number
-    if (parseInt(month, 10) > 12) {
-      this.invalidDOB = true;
-      return
-    }
-
-    // check if year is not greater that current
-    if (new Date().getUTCFullYear() < year) {
-      this.invalidDOB = true;
-      return
-    }
-
-    const birthDate = new Date(year, month, day);
-    const age = this.calculateAge(birthDate);
-
-    if (age <= 13) {
-      this.isUnderAge = true;
-      return
-    } else if (age >= 100) {
-      this.isOverAge = true;
-      return
-    }
-      reqBody.other.dateOfBirth = this.reverseDate(this.dob) + 'T05:00:00';
-      this.invalidDOB = false;
-      this.isUnderAge = false;
-      this.isOverAge = false;
+      reqBody.other.dob.date_of_birth = this.reverseDate(this.dob) + 'T05:00:00';
+      reqBody.other.dob.access = Number(this.privacy);
+      this.error = false;
     }
     if (fieldName === 'username') {
       if (this.specialChars || this.isRequired || this.capitalLetters || this.whitespace || this.invalidLength) {
@@ -522,7 +494,7 @@ export class SettingsComponent implements OnInit {
     //   };
     //   reqBody.email = this.email.trim();
     // }
-    console.log(reqBody)
+    // console.log(reqBody)
     this._store.dispatch({ type: ProfileActions.LOAD_USER_UPDATE, payload: reqBody});
     this._store.select('profileTags').
     first(data => data['userUpdateSuccess']).
@@ -589,9 +561,9 @@ export class SettingsComponent implements OnInit {
 
   calculateAge(birthday) {
     const ageDifMs = Date.now() - birthday.getTime();
-    console.log(ageDifMs);
+    // console.log(ageDifMs);
     const ageDate = new Date(ageDifMs); // miliseconds from epoch
-    console.log(ageDate);
+    // console.log(ageDate);
     return Math.abs(ageDate.getUTCFullYear() - 1970);
   }
   /**
@@ -758,6 +730,10 @@ export class SettingsComponent implements OnInit {
    });
     // this._store.dispatch({type: ProfileActions.UNBLOCK_USER, payload: form});
     // this._store.dispatch({type: ProfileActions.LOAD_BLOCK_USERS, payload: this.userHandle});
+  }
+
+  choosePrivacy(val: number){
+    this.privacy = val;
   }
 
   // // focus on next otp number

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
+import * as moment from 'moment';
 
 @Injectable()
 export class GeneralUtilities {
@@ -154,6 +155,61 @@ export class GeneralUtilities {
         } else {
             return true;
         }
+    }
+
+    /**
+     * 
+     * @param dob Date validation
+     */
+    isValidDob(dob:any){
+        // console.log(dob);
+        const dateArr =  dob.split('-');
+        const day = dateArr[0];
+        const month = dateArr[1];
+        const year = dateArr[2];
+        const date =moment().year();
+        const minLimit = date -100;
+        // console.log(minLimit)
+        // console.log(date);
+      // check for valid day number
+      if (parseInt(day, 10) > 31 || parseInt(day,10) < 1) {
+         return {
+            invalid : true,
+            msg: 'Invalid Date of Birth'
+        }
+      }
+
+        // check for valid month number
+        if (parseInt(month, 10) > 12 || parseInt(month, 10) < 1) {
+        return {
+            invalid : true,
+            msg: 'Invalid Date of Birth'
+            }
+        }
+
+        // check if year is not greater that current
+        if (new Date().getUTCFullYear() < year || year < minLimit) {
+        return {
+            invalid : true,
+            msg: 'Invalid Date of Birth'
+            }
+        }
+
+        const birtDay = moment(dob,"DD-MM-YYYY");
+        let age=moment().diff(birtDay, 'years');        
+        if (age <= 13) {
+        return {  
+            invalid : true,
+                msg: 'You should be above 13'
+            }
+        }
+        if (age >= 100) {
+            return {
+                invalid : true,
+                msg: 'You should be below 100'
+            }
+        }
+        return ;
     }
 
 }
