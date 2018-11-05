@@ -4,10 +4,3 @@ export class UserChannel {
     success: true;
     userChannels: any[];
 }
-
-// export const initialTag: UserChannel = {
-//     completed: [],
-//     loading:  false,
-//     success: true,
-//     userChannels: [],
-// };

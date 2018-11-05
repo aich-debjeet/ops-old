@@ -42,9 +42,9 @@ export class SharedEffect {
       .catch((res) => Observable.of({ type: SharedActions.UNPIN_CHANNEL_FAILED, payload: res }))
     );
 
-    constructor(
+  constructor(
     private actions$: Actions,
     private apiService: GeneralService,
-    private sharedService:SharedService
-  ) {}
+    private sharedService: SharedService
+  ) { }
 }

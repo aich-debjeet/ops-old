@@ -21,9 +21,8 @@ export class HomeEffect {
       .catch((res) => Observable.of({ type: HomeActions.LOAD_CHANNELS_FAILED, payload: res }))
     );
 
-    constructor(
+  constructor(
     private actions$: Actions,
-    private homeService: HomeService,
-    private profileService: HomeService
-  ) {}
+    private homeService: HomeService
+  ) { }
 }

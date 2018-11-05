@@ -49,7 +49,6 @@ import { SharedEffect } from './effects/shared.effect';
 import { ProfileEffect } from './effects/profile.effect';
 import { MessageEffect } from './effects/message.effects';
 import { NotificationEffect } from './effects/notification.effect';
-import { UserSearchEffect } from './effects/user-search.effect';
 import { SearchEffect } from './effects/search.effect';
 import { OrganizationEffect } from './effects/organization.effect';
 import { EventEffect } from './effects/event.effect';
@@ -172,7 +171,6 @@ import { NgProgressModule } from 'ngx-progressbar';
     EffectsModule.run(ProfileEffect),
     EffectsModule.run(MessageEffect),
     EffectsModule.run(NotificationEffect),
-    EffectsModule.run(UserSearchEffect),
     EffectsModule.run(MediaEffect),
     EffectsModule.run(SearchEffect),
     EffectsModule.run(OrganizationEffect),

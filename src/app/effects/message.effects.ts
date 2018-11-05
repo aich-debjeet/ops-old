@@ -14,22 +14,22 @@ import { MessageActions } from '../actions/message.action';
 export class MessageEffect {
 
   @Effect()
-    getReceipient$ = this.actions$
-      .ofType(MessageActions.GET_RECEIPIENT)
-      .map(toPayload)
-      .switchMap((payload) => this.messageService.getReceipientDetails( payload )
-        .map(res => ({ type: MessageActions.GET_RECEIPIENT_SUCCESS, payload: res }))
-        .catch((res) => Observable.of({ type: MessageActions.GET_RECEIPIENT_FAILED, payload: res }))
-      );
+  getReceipient$ = this.actions$
+    .ofType(MessageActions.GET_RECEIPIENT)
+    .map(toPayload)
+    .switchMap((payload) => this.messageService.getReceipientDetails(payload)
+      .map(res => ({ type: MessageActions.GET_RECEIPIENT_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: MessageActions.GET_RECEIPIENT_FAILED, payload: res }))
+    );
 
   @Effect()
-    getMessangerList$ = this.actions$
-      .ofType(MessageActions.GET_MESSANGER_LIST)
-      .map(toPayload)
-      .switchMap((payload) => this.messageService.getMessangerList(payload)
-        .map(res => ({ type: MessageActions.GET_MESSANGER_LIST_SUCCESS, payload: res }))
-        .catch((res) => Observable.of({ type: MessageActions.GET_MESSANGER_LIST_FAILED, payload: res }))
-      );
+  getMessangerList$ = this.actions$
+    .ofType(MessageActions.GET_MESSANGER_LIST)
+    .map(toPayload)
+    .switchMap((payload) => this.messageService.getMessangerList(payload)
+      .map(res => ({ type: MessageActions.GET_MESSANGER_LIST_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: MessageActions.GET_MESSANGER_LIST_FAILED, payload: res }))
+    );
 
   @Effect()
   loadConversation$ = this.actions$
@@ -86,7 +86,7 @@ export class MessageEffect {
     );
 
   constructor(
-  private actions$: Actions,
-  private messageService: MessageService
-  ) {}
+    private actions$: Actions,
+    private messageService: MessageService
+  ) { }
 }
