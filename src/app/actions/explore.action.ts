@@ -1,5 +1,3 @@
-import { Action } from '@ngrx/store';
-
 export class ExploreActions {
 
     static LOAD_SPOTFEEDS = 'LOAD_SPOTFEEDS';
