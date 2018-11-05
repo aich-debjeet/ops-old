@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
-import {Observable} from 'rxjs/Rx'
+import { Observable } from 'rxjs/Rx'
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -14,9 +13,9 @@ import { ClaimProfileActions } from '../actions/claim-profile.action';
 @Injectable()
 export class ClaimProfileEffect {
 
-   /**
-   * Get spotfeeds
-   */
+  /**
+  * Get spotfeeds
+  */
   @Effect()
   searchProfile$ = this.actions$
     .ofType(ClaimProfileActions.SEARCH_PROFILE)
@@ -29,9 +28,9 @@ export class ClaimProfileEffect {
       }))
     );
 
-    constructor(
-        private actions$: Actions,
-        private claimProfileService: ClaimProfileService
-    ) { }
+  constructor(
+    private actions$: Actions,
+    private claimProfileService: ClaimProfileService
+  ) { }
 
 }

@@ -9,9 +9,6 @@ import 'rxjs/add/operator/withLatestFrom';
 
 import { MediaService } from '../services/media.service';
 import { MediaActions } from '../actions/media.action';
-// import * as MediaActions from '../actions/media.action';
-
-import { Media, initialMedia  } from '../models/media.model';
 
 @Injectable()
 export class MediaEffect {
@@ -133,9 +130,9 @@ export class MediaEffect {
       }))
     );
 
-   /**
-   * Delete comment
-   */
+  /**
+  * Delete comment
+  */
   @Effect()
   deleteComment$ = this.actions$
     .ofType(MediaActions.DELETE_COMMENT)
@@ -167,25 +164,25 @@ export class MediaEffect {
    * Spot a Media
    */
   @Effect()
-    spotMedia$ = this.actions$
-      .ofType(MediaActions.MEDIA_SPOT)
-      .map(toPayload)
-      .switchMap((payload) => this.mediaService.spotMedia(payload)
-        .map(res => ({ type: MediaActions.MEDIA_SPOT_SUCCESS, payload: res }))
-        .catch((res) => Observable.of({
-          type: MediaActions.MEDIA_SPOT_FAILED,
-          payload: { errorStatus: res.status }
-        }))
-      );
+  spotMedia$ = this.actions$
+    .ofType(MediaActions.MEDIA_SPOT)
+    .map(toPayload)
+    .switchMap((payload) => this.mediaService.spotMedia(payload)
+      .map(res => ({ type: MediaActions.MEDIA_SPOT_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: MediaActions.MEDIA_SPOT_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
 
-      /**
-       *Get Media Report
-       */
-      @Effect()
-      getReport$ = this.actions$
-      .ofType(MediaActions.MEDIA_POST_REPORT)
-      .map(toPayload)
-      .switchMap((payload) => this.mediaService.getReports(payload)
+  /**
+   *Get Media Report
+   */
+  @Effect()
+  getReport$ = this.actions$
+    .ofType(MediaActions.MEDIA_POST_REPORT)
+    .map(toPayload)
+    .switchMap((payload) => this.mediaService.getReports(payload)
       .map(res => ({ type: MediaActions.MEDIA_POST_REPORT_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: MediaActions.MEDIA_POST_REPORT_FAILED, payload: res }))
     );
@@ -194,16 +191,16 @@ export class MediaEffect {
    *Media post delete
    */
   @Effect()
-    mediaPostDelete$ = this.actions$
-      .ofType(MediaActions.MEDIA_POST_DELETE)
-      .map(toPayload)
-      .switchMap((payload) => this.mediaService.mediaPostDelete(payload)
-        .map(res => ({ type: MediaActions.MEDIA_POST_DELETE_SUCCESS, payload: res }))
-        .catch((res) => Observable.of({
-          type: MediaActions.MEDIA_POST_DELETE_FAILED,
-          payload: { errorStatus: res.status }
-        }))
-      );
+  mediaPostDelete$ = this.actions$
+    .ofType(MediaActions.MEDIA_POST_DELETE)
+    .map(toPayload)
+    .switchMap((payload) => this.mediaService.mediaPostDelete(payload)
+      .map(res => ({ type: MediaActions.MEDIA_POST_DELETE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: MediaActions.MEDIA_POST_DELETE_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
 
   /**
    * media edit
@@ -268,7 +265,7 @@ export class MediaEffect {
 
 
   constructor(
-      private actions$: Actions,
-      private mediaService: MediaService
-    ) {}
+    private actions$: Actions,
+    private mediaService: MediaService
+  ) { }
 }
