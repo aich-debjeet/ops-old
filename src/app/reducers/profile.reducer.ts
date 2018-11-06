@@ -1,5 +1,5 @@
 import { ActionReducer, Action } from '@ngrx/store';
-import { initialTag, ProfileModal, ProfileCards, UserCard} from '../models/profile.model';
+import { initialTag, ProfileModal, ProfileCards, UserCard } from '../models/profile.model';
 
 import { ProfileActions } from '../actions/profile.action';
 import { OrganizationActions } from '../actions/organization.action';
@@ -18,7 +18,7 @@ export interface State {
  */
 function genUserCard(profile: any, isOrg: boolean = true) {
   if (!isOrg && profile['isOrganization'] === true) {
-    const org  = profile['organization'];
+    const org = profile['organization'];
     const oCard: UserCard = {
       name: org.organizationName,
       image: org.organizationImage,
@@ -71,7 +71,7 @@ function getActiveProfile(profile_details: any, profile_type: string = 'profile'
   return userCardsList;
 }
 
-export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload, type}: Action) =>  {
+export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload, type }: Action) => {
 
   switch (type) {
 
@@ -491,71 +491,71 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         profile_loaded: false
       });
 
-      /**
-       * Load user data details
-       */
-      case ProfileActions.LOAD_USER_DATA_DETAILS:
+    /**
+     * Load user data details
+     */
+    case ProfileActions.LOAD_USER_DATA_DETAILS:
       return Object.assign({}, state, {
         details_loaded: false
       });
 
-      case ProfileActions.LOAD_USER_DATA_DETAILS_SUCCESS:
+    case ProfileActions.LOAD_USER_DATA_DETAILS_SUCCESS:
       return Object.assign({}, state, {
         user_details: payload,
         details_loaded: true
       });
 
-      case ProfileActions.LOAD_USER_DATA_DETAILS_FAILED:
+    case ProfileActions.LOAD_USER_DATA_DETAILS_FAILED:
       return Object.assign({}, state, {
         details_loaded: false
       });
 
 
-      /**
-       * Load image to database
-       */
-      case ProfileActions.LOAD_PROFILE_IMAGE:
-        return Object.assign({}, state, {
-          profile_img_upload_loading: true,
-          profile_img_upload_loaded: false,
-          success: true
-        });
+    /**
+     * Load image to database
+     */
+    case ProfileActions.LOAD_PROFILE_IMAGE:
+      return Object.assign({}, state, {
+        profile_img_upload_loading: true,
+        profile_img_upload_loaded: false,
+        success: true
+      });
 
-      case ProfileActions.LOAD_PROFILE_IMAGE_SUCCESS:
+    case ProfileActions.LOAD_PROFILE_IMAGE_SUCCESS:
       console.log(payload)
-        return Object.assign({}, state, {
-          profile_img_upload_loading: false,
-          profile_img_upload_loaded: true,
-          profileImage: payload,
-          image_upload_success: true,
-          success: true
-        });
+      return Object.assign({}, state, {
+        profile_img_upload_loading: false,
+        profile_img_upload_loaded: true,
+        profileImage: payload,
+        image_upload_success: true,
+        success: true
+      });
 
-      case ProfileActions.LOAD_PROFILE_IMAGE_FAILED:
-        return Object.assign({}, state, {
-          profile_img_upload_loading: false,
-          profile_img_upload_loaded: false,
-          success: false
-        });
+    case ProfileActions.LOAD_PROFILE_IMAGE_FAILED:
+      return Object.assign({}, state, {
+        profile_img_upload_loading: false,
+        profile_img_upload_loaded: false,
+        success: false
+      });
 
-      /**
-       * Save image to ProfileUI
-       */
-      case ProfileActions.SAVE_PROFILE_IMAGE:
-        return Object.assign({}, state, {
-          success: true
-        });
+    /**
+     * Save image to ProfileUI
+     */
+    case ProfileActions.SAVE_PROFILE_IMAGE:
+      return Object.assign({}, state, {
+        success: true
+      });
 
-      case ProfileActions.SAVE_PROFILE_IMAGE_SUCCESS:
-        return Object.assign({}, state, {
-          profileImage: payload,
-          success: true
-        });
+    case ProfileActions.SAVE_PROFILE_IMAGE_SUCCESS:
+      return Object.assign({}, state, {
+        profileImage: payload,
+        success: true
+      });
 
-      case ProfileActions.SAVE_PROFILE_IMAGE_FAILED:
-        return Object.assign({}, state, {
-          success: false
-        });
+    case ProfileActions.SAVE_PROFILE_IMAGE_FAILED:
+      return Object.assign({}, state, {
+        success: false
+      });
 
 
     /**
@@ -610,85 +610,85 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
     case ProfileActions.LOAD_USER_MEDIA_FAILED:
 
-    return Object.assign({}, state, {
+      return Object.assign({}, state, {
         user_posts_loaded: false,
         user_posts_loading: false
       });
 
-     /**
-     * Get User following Media Post
-     */
+    /**
+    * Get User following Media Post
+    */
     case ProfileActions.LOAD_USER_FOLLOWING_POSTS:
-    if (payload.scrollId === null) {
+      if (payload.scrollId === null) {
+        return Object.assign({}, state, {
+          user_following_posts_loading: true,
+          user_following_posts_loaded: false,
+          user_following_posts: []
+        });
+      }
       return Object.assign({}, state, {
         user_following_posts_loading: true,
-        user_following_posts_loaded: false,
-        user_following_posts: []
+        user_following_posts_loaded: false
       });
-    }
-    return Object.assign({}, state, {
-      user_following_posts_loading: true,
-      user_following_posts_loaded: false
-    });
 
 
-  case ProfileActions.LOAD_USER_FOLLOWING_POSTS_SUCCESS:
-  const followingPosts = payload.mediaResponse;
-  const following_new_post = state.user_following_posts.concat(followingPosts)
-  return Object.assign({}, state, {
-    mediaEntity: payload,
-    user_following_posts_loaded: true,
-    user_following_posts_loading: false,
-    user_following_posts: following_new_post,
-    user_following_post_scroll_id: payload.scrollId
-  });
+    case ProfileActions.LOAD_USER_FOLLOWING_POSTS_SUCCESS:
+      const followingPosts = payload.mediaResponse;
+      const following_new_post = state.user_following_posts.concat(followingPosts)
+      return Object.assign({}, state, {
+        mediaEntity: payload,
+        user_following_posts_loaded: true,
+        user_following_posts_loading: false,
+        user_following_posts: following_new_post,
+        user_following_post_scroll_id: payload.scrollId
+      });
 
-  case ProfileActions.LOAD_USER_FOLLOWING_POSTS_FAILED:
+    case ProfileActions.LOAD_USER_FOLLOWING_POSTS_FAILED:
 
-  return Object.assign({}, state, {
-    user_following_posts_loaded: false,
-      user_following_posts_loading: false
-    });
+      return Object.assign({}, state, {
+        user_following_posts_loaded: false,
+        user_following_posts_loading: false
+      });
 
     /**
      * Get current User channel of profile
      */
-  case ProfileActions.CHANNEL_SAVE:
-    return Object.assign({}, state, {
-      channel_saved: false,
-      user_channels_loaded: false,
-      channel_create_success: false
-    });
+    case ProfileActions.CHANNEL_SAVE:
+      return Object.assign({}, state, {
+        channel_saved: false,
+        user_channels_loaded: false,
+        channel_create_success: false
+      });
 
-  case ProfileActions.CHANNEL_SAVE_SUCCESS:
-    return Object.assign({}, state, {
-      channel_created_details: payload['SUCCESS'],
-      channel_saved: true,
-      channel_create_success: true
-    });
+    case ProfileActions.CHANNEL_SAVE_SUCCESS:
+      return Object.assign({}, state, {
+        channel_created_details: payload['SUCCESS'],
+        channel_saved: true,
+        channel_create_success: true
+      });
 
-  case ProfileActions.CHANNEL_SAVE_FAILED:
-    return Object.assign({}, state, {
-      channel_saved: false
-    });
+    case ProfileActions.CHANNEL_SAVE_FAILED:
+      return Object.assign({}, state, {
+        channel_saved: false
+      });
 
-  /**
-   * User channel update
-   */
-  case ProfileActions.CHANNEL_UPDATE:
-    return Object.assign({}, state, {
-      channel_updated: false
-    });
+    /**
+     * User channel update
+     */
+    case ProfileActions.CHANNEL_UPDATE:
+      return Object.assign({}, state, {
+        channel_updated: false
+      });
 
-  case ProfileActions.CHANNEL_UPDATE_SUCCESS:
-    return Object.assign({}, state, {
-      channel_updated: true
-    });
+    case ProfileActions.CHANNEL_UPDATE_SUCCESS:
+      return Object.assign({}, state, {
+        channel_updated: true
+      });
 
-  case ProfileActions.CHANNEL_UPDATE_FAILED:
-    return Object.assign({}, state, {
-      channel_updated: false
-    });
+    case ProfileActions.CHANNEL_UPDATE_FAILED:
+      return Object.assign({}, state, {
+        channel_updated: false
+      });
 
     /**
      * Get home page spotfeeds
@@ -749,13 +749,13 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Get current user following channel
      */
     case ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL:
-    if (payload.scrollId === null) {
-      return Object.assign({}, state, {
-        user_following_channels_loading: true,
-        user_following_channels_loaded: false,
-        user_following_channel: []
-      });
-    }
+      if (payload.scrollId === null) {
+        return Object.assign({}, state, {
+          user_following_channels_loading: true,
+          user_following_channels_loaded: false,
+          user_following_channel: []
+        });
+      }
       return Object.assign({}, state, {
         // success: true,
         user_following_channels_loading: true,
@@ -763,8 +763,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL_SUCCESS:
-    const followingChannel = payload['spotFeedResponse'];
-    const following_new_channel = state.user_following_channel.concat(followingChannel)
+      const followingChannel = payload['spotFeedResponse'];
+      const following_new_channel = state.user_following_channel.concat(followingChannel)
       return Object.assign({}, state, {
         user_channel_scroll_id: payload['scrollId'],
         user_following_channel: following_new_channel,
@@ -799,7 +799,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_USER_CHANNEL_SUCCESS:
       const channel = payload['spotFeedResponse'];
       return Object.assign({}, state, {
-        other_channel: state.other_channel.concat(channel) ,
+        other_channel: state.other_channel.concat(channel),
         other_channels_loading: false,
         other_channels_loaded: true,
         profile_scrolling_channel: payload['scrollId'],
@@ -823,7 +823,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.LOAD_PROFILE_UPDATE_SUCCESS:
-    // console.log(payload)
+      // console.log(payload)
       return Object.assign({}, state, {
         isUpdating: false,
         profileUpdate: payload,
@@ -840,10 +840,10 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * updating user details
      */
     case ProfileActions.LOAD_USER_UPDATE:
-    return Object.assign({}, state, {
-      success: true,
-      userUpdateSuccess: false,
-    });
+      return Object.assign({}, state, {
+        success: true,
+        userUpdateSuccess: false,
+      });
 
     case ProfileActions.LOAD_USER_UPDATE_SUCCESS:
       return Object.assign({}, state, {
@@ -1031,9 +1031,9 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       return Object.assign({}, state, {
         profile_other_followed: false
       });
-      /**
-     * Follow Profile
-     */
+    /**
+   * Follow Profile
+   */
     case ProfileActions.CHANNEL_FOLLOW:
       return Object.assign({}, state, {
         channel_followed: false
@@ -1056,7 +1056,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.CURRENT_PROFILE_USER:
       return Object.assign({}, state, {
         current_user_profile: payload,
-        profile_user_info : payload
+        profile_user_info: payload
       });
 
     /**
@@ -1142,7 +1142,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         success: false
       });
 
-      // Get single spotfeed details
+    // Get single spotfeed details
     case ProfileActions.CHANNEL_DELETE:
       return Object.assign({}, state, {
         channel_delete_success: false,
@@ -1201,9 +1201,9 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         channel_unpin_failed: true
       });
 
-      /**
-       * [TEMP] Load all profiles
-       */
+    /**
+     * [TEMP] Load all profiles
+     */
     case ProfileActions.LOAD_ALL_PROFILES:
       if (payload.name.scrollId === null) {
         return Object.assign({}, state, {
@@ -1247,19 +1247,19 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       const trend_spot_inc_count = trend_spot_inc ? trend_spot_inc.spotsCount + 1 : 0;
 
       return Object.assign({}, state, {
-        user_following_posts: home_post_spot  === undefined ? [...state.user_following_posts] : [
+        user_following_posts: home_post_spot === undefined ? [...state.user_following_posts] : [
           ...state.user_following_posts.slice(0, home_post_spot_index),
-          Object.assign({}, home_post_spot, {spotsCount: home_post_spot_count, isSpotted: true }),
+          Object.assign({}, home_post_spot, { spotsCount: home_post_spot_count, isSpotted: true }),
           ...state.user_following_posts.slice(home_post_spot_index + 1)
         ],
-        trending_post: trend_spot_inc  === undefined ? [...state.trending_post] : [
+        trending_post: trend_spot_inc === undefined ? [...state.trending_post] : [
           ...state.trending_post.slice(0, trend_spot_inc_index),
-          Object.assign({}, trend_spot_inc , {spotsCount: trend_spot_inc_count, isSpotted: true }),
+          Object.assign({}, trend_spot_inc, { spotsCount: trend_spot_inc_count, isSpotted: true }),
           ...state.trending_post.slice(trend_spot_inc_index + 1)
         ],
-        user_posts: post_spot  === undefined ? [...state.user_posts] : [
+        user_posts: post_spot === undefined ? [...state.user_posts] : [
           ...state.user_posts.slice(0, post_spot_index),
-          Object.assign({}, post_spot , {spotsCount: post_spot_count, isSpotted: true }),
+          Object.assign({}, post_spot, { spotsCount: post_spot_count, isSpotted: true }),
           ...state.user_posts.slice(post_spot_index + 1)
         ]
       });
@@ -1278,20 +1278,20 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       const trend_spot_dec_count = trend_spot_dec ? trend_spot_dec.spotsCount - 1 : 0;
 
       return Object.assign({}, state, {
-        user_following_posts: home_post_unspot  === undefined ? [...state.user_following_posts] : [
+        user_following_posts: home_post_unspot === undefined ? [...state.user_following_posts] : [
           ...state.user_following_posts.slice(0, home_post_unspot_index),
-          Object.assign({}, home_post_unspot, {spotsCount: home_post_unspot_count, isSpotted: false }),
+          Object.assign({}, home_post_unspot, { spotsCount: home_post_unspot_count, isSpotted: false }),
           ...state.user_following_posts.slice(home_post_unspot_index + 1)
         ],
 
-        trending_post: trend_spot_dec  === undefined ? [...state.trending_post] : [
+        trending_post: trend_spot_dec === undefined ? [...state.trending_post] : [
           ...state.trending_post.slice(0, trend_spot_dec_index),
-          Object.assign({}, trend_spot_dec , { spotsCount: trend_spot_dec_count, isSpotted: false}),
+          Object.assign({}, trend_spot_dec, { spotsCount: trend_spot_dec_count, isSpotted: false }),
           ...state.trending_post.slice(trend_spot_dec_index + 1)
         ],
         user_posts: post_unspot === undefined ? [...state.user_posts] : [
           ...state.user_posts.slice(0, post_unspot_index),
-          Object.assign({}, post_unspot , {spotsCount: post_unspot_count, isSpotted: false }),
+          Object.assign({}, post_unspot, { spotsCount: post_unspot_count, isSpotted: false }),
           ...state.user_posts.slice(post_unspot_index + 1)
         ]
       });
@@ -1365,7 +1365,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.BLOCK_USER_SUCCESS:
-    // console.log(payload)
+      // console.log(payload)
       return Object.assign({}, state, {
         isBlocked: true,
       });
@@ -1379,9 +1379,9 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      *  Get default notification
      */
     case ProfileActions.DEFAULT_NOTIFICATION_SETTINGS:
-    return Object.assign({}, state, {
-      default_notification: []
-    });
+      return Object.assign({}, state, {
+        default_notification: []
+      });
     case ProfileActions.DEFAULT_NOTIFICATION_SETTINGS_SUCCESS:
       return Object.assign({}, state, {
         default_notification: payload.settings.notificationSettings,
@@ -1532,36 +1532,36 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     * get default settings of an organization
     */
     case OrganizationActions.GET_ORGANIZATION_BY_HANDLE:
-    return Object.assign({}, state, {
+      return Object.assign({}, state, {
         defaultSettings: []
 
-    });
+      });
     case OrganizationActions.GET_ORGANIZATION_BY_HANDLE_SUCCESS:
-    return Object.assign({}, state, {
+      return Object.assign({}, state, {
         defaultSettings: payload.extras.settings
-    });
+      });
 
     case OrganizationActions.GET_ORGANIZATION_BY_HANDLE_FAILED:
-    return Object.assign({}, state, {
+      return Object.assign({}, state, {
         success: false
-    });
+      });
 
     /**
     * Get current Org channels
     */
     case OrganizationActions.LOAD_ORG_CHANNELS:
-    return Object.assign({}, state, {
+      return Object.assign({}, state, {
         org_channels_loading: true,
         org_channels_loaded: false,
         org_channels: []
-    });
+      });
 
     case OrganizationActions.LOAD_ORG_CHANNELS_SUCCESS:
-    return Object.assign({}, state, {
+      return Object.assign({}, state, {
         org_channels: payload,
         org_channels_loading: false,
         org_channels_loaded: true
-    });
+      });
 
     case OrganizationActions.LOAD_ORG_CHANNELS_FAILED:
       return Object.assign({}, state, {
@@ -1586,7 +1586,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       }
 
       localStorage.setItem('profileType', profileType);
-      const profileData =  getActiveProfile(state.profile_navigation_details, profileType )
+      const profileData = getActiveProfile(state.profile_navigation_details, profileType)
 
       return Object.assign({}, state, {
         profile_cards: profileData
@@ -1596,23 +1596,23 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Member invitation to join org
      */
     case OrganizationActions.INVITE_MEMBER:
-    return Object.assign({}, state, {
+      return Object.assign({}, state, {
         sending_invite: true,
         invite_sent: false,
         org_invite_req_data: payload
-    });
+      });
 
     case OrganizationActions.INVITE_MEMBER_SUCCESS:
-    return Object.assign({}, state, {
+      return Object.assign({}, state, {
         sending_invite: false,
         invite_sent: true
-    });
+      });
 
     case OrganizationActions.INVITE_MEMBER_FAILED:
-    return Object.assign({}, state, {
+      return Object.assign({}, state, {
         sending_invite: false,
         invite_sent: false
-    });
+      });
 
     /**
      * Load an imported profile
@@ -1636,9 +1636,9 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         profile_other_loading: false
       });
 
-      /**
-       * get network sent requests
-       */
+    /**
+     * get network sent requests
+     */
     case ProfileActions.SENT_REQUEST_LIST:
       return Object.assign({}, state, {
         network_sent_requests: [],
@@ -1661,174 +1661,174 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     /**
      * Sent network request
      */
-  case ProfileActions.SENT_NETWORK_REQUEST:
-    return Object.assign({}, state, {
-      network_sent_request_success: [],
-      network_sent_request_fail: [],
-      network_request_success: null
-    });
+    case ProfileActions.SENT_NETWORK_REQUEST:
+      return Object.assign({}, state, {
+        network_sent_request_success: [],
+        network_sent_request_fail: [],
+        network_request_success: null
+      });
 
-  case ProfileActions.SENT_NETWORK_REQUEST_SUCCESS:
-    return Object.assign({}, state, {
-      network_sent_request_success: payload,
-      network_request_success: true
-      // network_sent_request_fail: [],
-    });
+    case ProfileActions.SENT_NETWORK_REQUEST_SUCCESS:
+      return Object.assign({}, state, {
+        network_sent_request_success: payload,
+        network_request_success: true
+        // network_sent_request_fail: [],
+      });
 
-  case ProfileActions.SENT_NETWORK_REQUEST_FAILED:
-    return Object.assign({}, state, {
-      // network_sent_request_success: [],
-      network_sent_request_fail: payload._body,
-      network_request_success: false
-    });
+    case ProfileActions.SENT_NETWORK_REQUEST_FAILED:
+      return Object.assign({}, state, {
+        // network_sent_request_success: [],
+        network_sent_request_fail: payload._body,
+        network_request_success: false
+      });
 
-   /**
-     * Get Pending request list
-     */
-  case ProfileActions.GET_PENDING_REQUEST_LIST:
-    return Object.assign({}, state, {
-      pending_request_list: [],
-      list_loaded: false,
-    });
+    /**
+      * Get Pending request list
+      */
+    case ProfileActions.GET_PENDING_REQUEST_LIST:
+      return Object.assign({}, state, {
+        pending_request_list: [],
+        list_loaded: false,
+      });
 
-  case ProfileActions.GET_PENDING_REQUEST_LIST_SUCCESS:
-    return Object.assign({}, state, {
-      pending_request_list: payload,
-      list_loaded: true,
-    });
+    case ProfileActions.GET_PENDING_REQUEST_LIST_SUCCESS:
+      return Object.assign({}, state, {
+        pending_request_list: payload,
+        list_loaded: true,
+      });
 
-  case ProfileActions.GET_PENDING_REQUEST_LIST_FAILED:
-    return Object.assign({}, state, {
-      pending_request_list: [],
-      list_loaded: false,
-    });
+    case ProfileActions.GET_PENDING_REQUEST_LIST_FAILED:
+      return Object.assign({}, state, {
+        pending_request_list: [],
+        list_loaded: false,
+      });
 
-   /**
-     * Get Connection list
-     */
-  case ProfileActions.GET_ACTIVE_CONNECTIONS_LIST:
-  return Object.assign({}, state, {
-    active_connection_list: [],
-    connection_loaded: false,
-  });
+    /**
+      * Get Connection list
+      */
+    case ProfileActions.GET_ACTIVE_CONNECTIONS_LIST:
+      return Object.assign({}, state, {
+        active_connection_list: [],
+        connection_loaded: false,
+      });
 
-  case ProfileActions.GET_ACTIVE_CONNECTIONS_LIST_SUCCESS:
-    return Object.assign({}, state, {
-      active_connection_list: payload,
-      connection_loaded: true,
-    });
+    case ProfileActions.GET_ACTIVE_CONNECTIONS_LIST_SUCCESS:
+      return Object.assign({}, state, {
+        active_connection_list: payload,
+        connection_loaded: true,
+      });
 
-  case ProfileActions.GET_ACTIVE_CONNECTIONS_LIST_FAILED:
-    return Object.assign({}, state, {
-      active_connection_list: [],
-      connection_loaded: false,
-    });
+    case ProfileActions.GET_ACTIVE_CONNECTIONS_LIST_FAILED:
+      return Object.assign({}, state, {
+        active_connection_list: [],
+        connection_loaded: false,
+      });
 
     /**
      * Accept network request
      */
-  case ProfileActions.ACCEPT_NETWORK_REQUEST:
-    return Object.assign({}, state, {
-      accepted_request: false,
-      accepted_network_request: [],
-      accept_request_payload: payload
+    case ProfileActions.ACCEPT_NETWORK_REQUEST:
+      return Object.assign({}, state, {
+        accepted_request: false,
+        accepted_network_request: [],
+        accept_request_payload: payload
 
-    });
+      });
 
-  case ProfileActions.ACCEPT_NETWORK_REQUEST_SUCCESS:
-    return Object.assign({}, state, {
-      accepted_request: true,
-      accepted_network_request: payload,
-      pending_request_list: state.pending_request_list.filter(request => request.owner.handle !== state.accept_request_payload.receiver_id)
-    });
+    case ProfileActions.ACCEPT_NETWORK_REQUEST_SUCCESS:
+      return Object.assign({}, state, {
+        accepted_request: true,
+        accepted_network_request: payload,
+        pending_request_list: state.pending_request_list.filter(request => request.owner.handle !== state.accept_request_payload.receiver_id)
+      });
 
-  case ProfileActions.ACCEPT_NETWORK_REQUEST_FAILED:
-    return Object.assign({}, state, {
-      accepted_request: false,
-      accepted_network_request:[]
-    });
+    case ProfileActions.ACCEPT_NETWORK_REQUEST_FAILED:
+      return Object.assign({}, state, {
+        accepted_request: false,
+        accepted_network_request: []
+      });
 
     /**
      * decline network request
      */
-  case ProfileActions.DECLINE_NETWORK_REQUEST:
-    return Object.assign({}, state, {
-      declined_request: false,
-      declined_network_request: [],
-      declined_request_payload: payload,
-    });
+    case ProfileActions.DECLINE_NETWORK_REQUEST:
+      return Object.assign({}, state, {
+        declined_request: false,
+        declined_network_request: [],
+        declined_request_payload: payload,
+      });
 
-  case ProfileActions.DECLINE_NETWORK_REQUEST_SUCCESS:
-    return Object.assign({}, state, {
-      declined_request: false,
-      declined_network_request: [],
-      pending_request_list: state.pending_request_list.filter(request => request.owner.handle !== state.declined_request_payload.receiver_id)
-    });
+    case ProfileActions.DECLINE_NETWORK_REQUEST_SUCCESS:
+      return Object.assign({}, state, {
+        declined_request: false,
+        declined_network_request: [],
+        pending_request_list: state.pending_request_list.filter(request => request.owner.handle !== state.declined_request_payload.receiver_id)
+      });
 
-  case ProfileActions.DECLINE_NETWORK_REQUEST_FAILED:
-    return Object.assign({}, state, {
-      declined_request: false,
-      declined_network_request: [],
-    });
+    case ProfileActions.DECLINE_NETWORK_REQUEST_FAILED:
+      return Object.assign({}, state, {
+        declined_request: false,
+        declined_network_request: [],
+      });
 
-     /**
-     * cancel sent network request
-     */
-  case ProfileActions.CANCEL_NETWORK_REQUEST:
-    return Object.assign({}, state, {
-      cancel_network_request: false,
-      cancel_sent_request:[],
-      cancel_sent_request_data: payload
-    });
+    /**
+    * cancel sent network request
+    */
+    case ProfileActions.CANCEL_NETWORK_REQUEST:
+      return Object.assign({}, state, {
+        cancel_network_request: false,
+        cancel_sent_request: [],
+        cancel_sent_request_data: payload
+      });
 
-  case ProfileActions.CANCEL_NETWORK_REQUEST_SUCCESS:
-    return Object.assign({}, state, {
-      cancel_network_request: true,
-      cancel_sent_request: payload,
-      network_sent_requests: state.network_sent_requests.filter(request => request.owner.handle !== state.cancel_sent_request_data.receiver_id)
-    });
+    case ProfileActions.CANCEL_NETWORK_REQUEST_SUCCESS:
+      return Object.assign({}, state, {
+        cancel_network_request: true,
+        cancel_sent_request: payload,
+        network_sent_requests: state.network_sent_requests.filter(request => request.owner.handle !== state.cancel_sent_request_data.receiver_id)
+      });
 
-  case ProfileActions.COMMUNITY_MEDIA_POST:
-    return Object.assign({}, state, {
-      community_media_success: false
-    });
+    case ProfileActions.COMMUNITY_MEDIA_POST:
+      return Object.assign({}, state, {
+        community_media_success: false
+      });
 
-  case ProfileActions.COMMUNITY_MEDIA_POST_SUCCESS:
-    return Object.assign({}, state, {
-      community_media_success: true
-    });
+    case ProfileActions.COMMUNITY_MEDIA_POST_SUCCESS:
+      return Object.assign({}, state, {
+        community_media_success: true
+      });
 
-  case ProfileActions.CANCEL_NETWORK_REQUEST_FAILED:
-    return Object.assign({}, state, {
-      cancel_network_request: false,
-      cancel_sent_request: []
-    });
+    case ProfileActions.CANCEL_NETWORK_REQUEST_FAILED:
+      return Object.assign({}, state, {
+        cancel_network_request: false,
+        cancel_sent_request: []
+      });
 
-  case ProfileActions.USER_PASSWORD_UPDATE_SUCCESS:
-    return Object.assign({}, state, {
-      pass_success : payload,
-    });
+    case ProfileActions.USER_PASSWORD_UPDATE_SUCCESS:
+      return Object.assign({}, state, {
+        pass_success: payload,
+      });
     case ProfileActions.USER_PASSWORD_UPDATE_FAILED:
-    const data = JSON.parse(payload._body);
-    return Object.assign({}, state, {
-      pass_fail : data.ERROR,
-    });
+      const data = JSON.parse(payload._body);
+      return Object.assign({}, state, {
+        pass_fail: data.ERROR,
+      });
 
-  case ProfileActions.COMMENT_MORE_SUCCESS:
-    const home_post_comment = state.user_following_posts.find(t => t.id === payload[0].postId);
-    const home_list_comment_index = state.user_following_posts.indexOf(home_post_comment);
+    case ProfileActions.COMMENT_MORE_SUCCESS:
+      const home_post_comment = state.user_following_posts.find(t => t.id === payload[0].postId);
+      const home_list_comment_index = state.user_following_posts.indexOf(home_post_comment);
 
-    const profile_post_comment = state.user_posts.find(t => t.id === payload[0].postId);
-    const profile_list_comment_index = state.user_posts.indexOf(profile_post_comment);
+      const profile_post_comment = state.user_posts.find(t => t.id === payload[0].postId);
+      const profile_list_comment_index = state.user_posts.indexOf(profile_post_comment);
 
       if (home_post_comment) {
         return Object.assign({}, state, {
           user_following_posts: [
-              ...state.user_following_posts.slice(0, home_list_comment_index),
-              Object.assign({}, home_post_comment, {
-                commentsList: payload
-              }),
-              ...state.user_following_posts.slice(home_list_comment_index + 1)
+            ...state.user_following_posts.slice(0, home_list_comment_index),
+            Object.assign({}, home_post_comment, {
+              commentsList: payload
+            }),
+            ...state.user_following_posts.slice(home_list_comment_index + 1)
           ]
         });
       }
@@ -1836,11 +1836,11 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       if (profile_post_comment) {
         return Object.assign({}, state, {
           user_posts: [
-              ...state.user_posts.slice(0, profile_list_comment_index),
-              Object.assign({}, profile_post_comment, {
-                commentsList: payload
-              }),
-              ...state.user_posts.slice(profile_list_comment_index + 1)
+            ...state.user_posts.slice(0, profile_list_comment_index),
+            Object.assign({}, profile_post_comment, {
+              commentsList: payload
+            }),
+            ...state.user_posts.slice(profile_list_comment_index + 1)
           ]
         });
       }
@@ -1865,11 +1865,11 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
       if (home_post_delete) {
         return Object.assign({}, state, {
-            user_following_posts: [
-                ...state.user_following_posts.slice(0, home_list_delete_index),
-                Object.assign({}, home_post_delete, {commentsList: home_post_delete.commentsList.filter(comment => comment.commentsId !== payload.id) }),
-                ...state.user_following_posts.slice(home_list_delete_index + 1)
-            ],
+          user_following_posts: [
+            ...state.user_following_posts.slice(0, home_list_delete_index),
+            Object.assign({}, home_post_delete, { commentsList: home_post_delete.commentsList.filter(comment => comment.commentsId !== payload.id) }),
+            ...state.user_following_posts.slice(home_list_delete_index + 1)
+          ],
         });
       }
 
@@ -1877,71 +1877,71 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         return Object.assign({}, state, {
           user_posts: [
             ...state.user_posts.slice(0, profile_list_delete_index),
-            Object.assign({}, profile_post_delete_List, {commentsList: profile_post_delete_List.commentsList.filter(comment => comment.commentsId !== payload.id) }),
+            Object.assign({}, profile_post_delete_List, { commentsList: profile_post_delete_List.commentsList.filter(comment => comment.commentsId !== payload.id) }),
             ...state.user_posts.slice(profile_list_delete_index + 1)
           ],
         });
       }
       return state;
 
-  case ProfileActions.COMMENT_POST_LIST:
-    const home_post_List = state.user_following_posts.find(t => t.id === payload.postId);
-    const home_list_index = state.user_following_posts.indexOf(home_post_List);
+    case ProfileActions.COMMENT_POST_LIST:
+      const home_post_List = state.user_following_posts.find(t => t.id === payload.postId);
+      const home_list_index = state.user_following_posts.indexOf(home_post_List);
 
-    const profile_post_List = state.user_posts.find(t => t.id === payload.postId);
-    const profile_list_index = state.user_posts.indexOf(profile_post_List);
+      const profile_post_List = state.user_posts.find(t => t.id === payload.postId);
+      const profile_list_index = state.user_posts.indexOf(profile_post_List);
 
-    return Object.assign({}, state, {
-      user_following_posts:  home_post_List === undefined ? [...state.user_following_posts] : [
-        ...state.user_following_posts.slice(0, home_list_index),
-        Object.assign({}, home_post_List, {
-          commentsList: [
-          payload,
-          ...home_post_List.commentsList
-          ],
-        }),
-        ...state.user_following_posts.slice(home_list_index + 1)
-      ],
-      user_posts: profile_post_List === undefined ? [...state.user_posts] : [
-        ...state.user_posts.slice(0, profile_list_index),
-        Object.assign({}, profile_post_List, {
-          commentsList: [
-          payload,
-          ...profile_post_List.commentsList
-          ],
-        }),
-        ...state.user_posts.slice(profile_list_index + 1)
-      ]
-    });
+      return Object.assign({}, state, {
+        user_following_posts: home_post_List === undefined ? [...state.user_following_posts] : [
+          ...state.user_following_posts.slice(0, home_list_index),
+          Object.assign({}, home_post_List, {
+            commentsList: [
+              payload,
+              ...home_post_List.commentsList
+            ],
+          }),
+          ...state.user_following_posts.slice(home_list_index + 1)
+        ],
+        user_posts: profile_post_List === undefined ? [...state.user_posts] : [
+          ...state.user_posts.slice(0, profile_list_index),
+          Object.assign({}, profile_post_List, {
+            commentsList: [
+              payload,
+              ...profile_post_List.commentsList
+            ],
+          }),
+          ...state.user_posts.slice(profile_list_index + 1)
+        ]
+      });
 
 
-  case ProfileActions.COMMENT_COUNT_INCREMENT:
-    const home_post = state.user_following_posts.find(t => t.id === payload);
-    const home_index = home_post ? state.user_following_posts.indexOf(home_post) : null;
-    const home_count = home_post ? home_post.commentsCount + 1 : 0;
+    case ProfileActions.COMMENT_COUNT_INCREMENT:
+      const home_post = state.user_following_posts.find(t => t.id === payload);
+      const home_index = home_post ? state.user_following_posts.indexOf(home_post) : null;
+      const home_count = home_post ? home_post.commentsCount + 1 : 0;
 
-    const profile_post = state.user_posts.find(t => t.id === payload);
-    const profile_index = profile_post ? state.user_posts.indexOf(profile_post) : null;
-    const profile_count = profile_post ? profile_post.commentsCount + 1 : 0;
+      const profile_post = state.user_posts.find(t => t.id === payload);
+      const profile_index = profile_post ? state.user_posts.indexOf(profile_post) : null;
+      const profile_count = profile_post ? profile_post.commentsCount + 1 : 0;
 
-    const tranding_post_comment = state.trending_post.find(t => t.id === payload);
-    const tranding_post_comment_index = tranding_post_comment ? state.trending_post.indexOf(tranding_post_comment) : null;
-    const tranding_post_comment_count = tranding_post_comment ? tranding_post_comment.commentsCount + 1 : 0;
+      const tranding_post_comment = state.trending_post.find(t => t.id === payload);
+      const tranding_post_comment_index = tranding_post_comment ? state.trending_post.indexOf(tranding_post_comment) : null;
+      const tranding_post_comment_count = tranding_post_comment ? tranding_post_comment.commentsCount + 1 : 0;
 
       return Object.assign({}, state, {
         user_following_posts: home_post === undefined ? [...state.user_following_posts] : [
           ...state.user_following_posts.slice(0, home_index),
-          Object.assign({}, home_post, {commentsCount: home_count }),
+          Object.assign({}, home_post, { commentsCount: home_count }),
           ...state.user_following_posts.slice(home_index + 1)
         ],
         user_posts: profile_post === undefined ? [...state.user_posts] : [
           ...state.user_posts.slice(0, profile_index),
-          Object.assign({}, profile_post, {commentsCount: profile_count }),
+          Object.assign({}, profile_post, { commentsCount: profile_count }),
           ...state.user_posts.slice(profile_index + 1)
         ],
         trending_post: tranding_post_comment === undefined ? [...state.trending_post] : [
           ...state.trending_post.slice(0, tranding_post_comment_index),
-          Object.assign({}, tranding_post_comment, {commentsCount: tranding_post_comment_count }),
+          Object.assign({}, tranding_post_comment, { commentsCount: tranding_post_comment_count }),
           ...state.trending_post.slice(tranding_post_comment_index + 1)
         ]
 
@@ -1950,7 +1950,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.COMMENT_COUNT_DECREMENT:
       const home_post_de = state.user_following_posts.find(t => t.id === payload);
       const home_index_de = home_post_de ? state.user_following_posts.indexOf(home_post_de) : null;
-      const home_count_de = home_post_de  ? home_post_de.commentsCount - 1 : 0;
+      const home_count_de = home_post_de ? home_post_de.commentsCount - 1 : 0;
 
       const profile_post_de = state.user_posts.find(t => t.id === payload);
       const profile_index_de = profile_post_de ? state.user_posts.indexOf(profile_post_de) : null;
@@ -1960,24 +1960,24 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       const tranding_post_comment_dec_index = tranding_post_comment_dec ? state.trending_post.indexOf(tranding_post_comment_dec) : null;
       const tranding_post_comment_dec_count = tranding_post_comment_dec ? tranding_post_comment_dec.commentsCount - 1 : 0;
 
-        return Object.assign({}, state, {
-            user_following_posts: home_post_de === undefined  ? [...state.user_following_posts] : [
-                ...state.user_following_posts.slice(0, home_index_de),
-                Object.assign({}, home_post_de , {commentsCount: home_count_de }),
-                ...state.user_following_posts.slice(home_index_de + 1)
-            ],
-            user_posts: profile_post_de === undefined  ? [...state.user_posts] : [
-              ...state.user_posts.slice(0, profile_index_de),
-              Object.assign({}, profile_post_de, {commentsCount: profile_count_de }),
-              ...state.user_posts.slice(profile_index_de + 1)
-            ],
-            trending_post: tranding_post_comment_dec === undefined ? [...state.trending_post] : [
-              ...state.trending_post.slice(0, tranding_post_comment_dec_index),
-              Object.assign({}, tranding_post_comment_dec, {commentsCount: tranding_post_comment_dec_count }),
-              ...state.trending_post.slice(tranding_post_comment_dec_index + 1)
-            ]
+      return Object.assign({}, state, {
+        user_following_posts: home_post_de === undefined ? [...state.user_following_posts] : [
+          ...state.user_following_posts.slice(0, home_index_de),
+          Object.assign({}, home_post_de, { commentsCount: home_count_de }),
+          ...state.user_following_posts.slice(home_index_de + 1)
+        ],
+        user_posts: profile_post_de === undefined ? [...state.user_posts] : [
+          ...state.user_posts.slice(0, profile_index_de),
+          Object.assign({}, profile_post_de, { commentsCount: profile_count_de }),
+          ...state.user_posts.slice(profile_index_de + 1)
+        ],
+        trending_post: tranding_post_comment_dec === undefined ? [...state.trending_post] : [
+          ...state.trending_post.slice(0, tranding_post_comment_dec_index),
+          Object.assign({}, tranding_post_comment_dec, { commentsCount: tranding_post_comment_dec_count }),
+          ...state.trending_post.slice(tranding_post_comment_dec_index + 1)
+        ]
 
-        })
+      })
 
     case ProfileActions.PROFILE_REPORT:
       return Object.assign({}, state, {
@@ -1992,10 +1992,10 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         reports: []
       });
 
-  case ProfileActions.TRENDING_POST_SUCCESS:
-    return Object.assign({}, state, {
-      trending_post: payload['mediaResponse']
-    });
+    case ProfileActions.TRENDING_POST_SUCCESS:
+      return Object.assign({}, state, {
+        trending_post: payload['mediaResponse']
+      });
 
     default:
       return state;
