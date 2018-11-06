@@ -14,6 +14,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
       });
 
     case MediaActions.MEDIA_ADD_VIEW_COUNT_SUCCESS:
+      console.log('media state', state);
       return Object.assign({}, state, {
         mediaUpdatingViewCount: false,
         mediaUpdatedViewCount: true,

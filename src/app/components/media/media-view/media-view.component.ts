@@ -1,11 +1,8 @@
-import { Component, EventEmitter, Input, OnDestroy, Output, ViewChild} from '@angular/core';
-import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { PlatformLocation } from '@angular/common';
+import { Component, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from './../../../../environments/environment';
 import { ModalService } from '../../../shared/modal/modal.component.service';
-
-import FilesHelper from '../../../helpers/fileUtils';
 
 // Action
 import { MediaActions } from '../../../actions/media.action';
@@ -23,7 +20,7 @@ import { UtcDatePipe } from './../../../pipes/utcdate.pipe';
 @Component({
   selector: 'app-media-view',
   templateUrl: './media-view.component.html',
-  providers: [ ModalService, UtcDatePipe ],
+  providers: [ModalService, UtcDatePipe],
   styleUrls: ['./media-view.component.scss']
 })
 
@@ -56,15 +53,15 @@ export class MediaViewComponent implements OnDestroy {
   deleteMsg: boolean;
   isEdit: boolean;
   editMsg: boolean;
-  mediaCarousal: any = {prev: '', next: ''};
+  mediaCarousal: any = { prev: '', next: '' };
   userData: any;
+  viewCounted = false;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
     private toastr: ToastrService,
-    platformLocation: PlatformLocation,
     private store: Store<Media>
   ) {
     this.spot = false;
@@ -77,6 +74,14 @@ export class MediaViewComponent implements OnDestroy {
       this.spotCount = this.mediaStore.media_detail.spotsCount;
       this.mediaType = this.mediaStore.media_detail.mtype;
       this.mediaId = this.mediaStore.media_detail.id;
+      if (!this.viewCounted && this.mediaId) {
+        const data = {
+          contentType: 'media',
+          contentId: this.mediaId
+        }
+        this.store.dispatch({ type: MediaActions.MEDIA_ADD_VIEW_COUNT, payload: data });
+        this.viewCounted = true;
+      }
       this.spot = this.mediaStore.media_detail.isSpotted;
       this.comments = this.mediaStore.media_comment;
       if (state['media_carousel']) {
@@ -84,13 +89,13 @@ export class MediaViewComponent implements OnDestroy {
       }
 
       if (state['media_edit_msg'] && this.editMsg) {
-       this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
-       this.toastr.success('Post Edited', '', {
-        timeOut: 2000
-      });
-       this.doClose();
-       this.editMsg = false;
-     }
+        this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
+        this.toastr.success('Post Edited', '', {
+          timeOut: 2000
+        });
+        this.doClose();
+        this.editMsg = false;
+      }
     });
 
     this.userState$ = this.store.select('profileTags');
@@ -135,7 +140,7 @@ export class MediaViewComponent implements OnDestroy {
   loadMedia() {
     this.sub = this.route.params.subscribe(params => {
       if (!this.checkEmpty(params)) {
-        this.store.dispatch({ type: MediaActions.MEDIA_DETAILS, payload: params['id']});
+        this.store.dispatch({ type: MediaActions.MEDIA_DETAILS, payload: params['id'] });
         // comment fetch
         const send = {
           'media_id': params['id'],
@@ -173,10 +178,6 @@ export class MediaViewComponent implements OnDestroy {
     }
   }
 
-  checkFileType(fileName: string, fileType: string) {
-    return FilesHelper.fileType(fileName, fileType);
-  }
-
   /**
    * Close
    */
@@ -193,7 +194,7 @@ export class MediaViewComponent implements OnDestroy {
     if (data.id !== 'undefined') {
       const id = data.id;
       // console.log('channelid', this.channelId)
-      this.store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id});
+      this.store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id });
     }
   }
 
@@ -206,10 +207,10 @@ export class MediaViewComponent implements OnDestroy {
     this.editMsg = true;
     // console.log('comment', '+ message', message)
     const data = {
-      'id' : this.data.id,
-      'description' : message
+      'id': this.data.id,
+      'description': message
     }
     // console.log(data)
-    this.store.dispatch({ type: MediaActions.MEDIA_EDIT, payload: data});
+    this.store.dispatch({ type: MediaActions.MEDIA_EDIT, payload: data });
   }
 }
