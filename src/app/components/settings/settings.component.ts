@@ -68,7 +68,7 @@ export class SettingsComponent implements OnInit {
   dob: any;
   userName: any;
   email: any;
-  phone: any;
+  phone: string;
   gender: any;
   error: boolean = false;
   isRequired: boolean= false;
@@ -76,6 +76,8 @@ export class SettingsComponent implements OnInit {
   capitalLetters : boolean =false;
   invalidLength: boolean = false;
   specialChars: boolean = false;
+  isCharacter: boolean = false;
+  invalidPhoneField: boolean = false;
   shortCode: string;
   public otpForm: FormGroup;
   phNumbrReq: boolean =false;
@@ -84,6 +86,7 @@ export class SettingsComponent implements OnInit {
   validSuccess: boolean = true;
   privacy: number;
   msgDisplay: string;
+  regExp = /^[0-9]+$/;
 
   @ViewChild('countrySelSet') countrySelectorSet: CountrySelectorComponent;
   @ViewChild('otpPopup') otpPopup: Modal;
@@ -251,43 +254,51 @@ export class SettingsComponent implements OnInit {
     const k = e.keyCode;
     return ((k >= 48 && k <= 57) || (k >= 96 && k <= 105) || k === 8);
   }
-
-  updateContactNumber() {
-    if (this.phone.length < 4) {
-      if (this.phone.length <= 0) {
+  onNumberChange(event){
+    console.log(event);
+    console.log(event.length);
+    if(!event.match(this.regExp)){
+      console.log('hey');
+      this.isCharacter = true;
+      this.invalidPhoneField = true;
+    } else {
+      this.isCharacter = false;
+    }
+    if (event.length < 4) {
+      this.phMinLent = true;
+      this.invalidPhoneField = true;
+      if (event.length <= 0) {
         this.phNumbrReq = true;
-        this.phMinLent = false;
+        this.invalidPhoneField = true;
       } else {
-        this.phMinLent = true;
         this.phNumbrReq = false;
       }
-      return
     } else {
+      this.phMinLent = false;
+    }
+    if(!this.isCharacter && !this.phMinLent && !this.phNumbrReq){
+      this.invalidPhoneField = false;
+      this.phone = event;
+    }
+  }
+
+  updateContactNumber() {
+      if(!this.invalidPhoneField){
       const contactDetails = {
           contactNumber: this.phone.trim(),
-          countryCode: this.country.callingCodes[0]
+          countryCode: this.country.callingCodes[0],
+          otp:''
       };
-      // contactDetails.contactNumber = this.phone;
-      // contactDetails.countryCode = this.country.callingCodes[0];
-        // console.log(contactDetails)
-        this.authService.mobileNumberCheck(contactDetails).subscribe( data => {
-          if (data.SUCCESS.code === 1) {
-             this.isMobileUnique = true;
-          } else {
-            const contactDetail = {
-              contact: {
-                contactNumber: contactDetails.contactNumber,
-                countryCode: contactDetails.countryCode
-              }
-            }
-            this.store.dispatch({ type: AuthActions.OTP_NUMBER_CHANGE, payload: contactDetail });
-            this.otpPopup.open();
-          }
-          });
-        // this.store.dispatch({ type: AuthActions.OTP_NUMBER_CHANGE, payload: contactDetails });
-        // this.otpPopup.open();
-        
-      }
+        console.log(contactDetails)
+      this.authService.mobileNumberCheck(contactDetails).subscribe( data => {
+        if (data.SUCCESS.code === 1) {
+            this.isMobileUnique = true;
+        } else {
+          this.store.dispatch({ type: AuthActions.SETTINGS_OTP_NUMBER_CHANGE, payload: contactDetails });
+          // this.otpPopup.open();
+        }
+        });      
+    }
   }
     // OTP Validation
     otpSubmit(value) {

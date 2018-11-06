@@ -347,6 +347,16 @@ export class AuthEffect {
       .catch((res) => Observable.of({ type: AuthActions.OTP_NUMBER_CHANGE_FAILED, payload: res }))
     );
 
+    /* OTP Number Change under settings*/
+  @Effect()
+  settingOtpNumberChange$ = this.actions$
+    .ofType(AuthActions.SETTINGS_OTP_NUMBER_CHANGE)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.settingOtpNumberChange(payload)
+      .map(res => ({ type: AuthActions.SETTINGS_OTP_NUMBER_CHANGE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.SETTINGS_OTP_NUMBER_CHANGE_FAILED, payload: res }))
+    );
+
   @Effect()
   isUserLoggedIn$ = this.actions$
     .ofType(AuthActions.USER_LOGGED_IN)

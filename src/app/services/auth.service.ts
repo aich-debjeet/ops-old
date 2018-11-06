@@ -284,6 +284,12 @@ export class AuthService {
       return this.http.put(this.apiLink + '/portal/auth/user/update', contactDetails, { headers: head });
     }
 
+    settingOtpNumberChange(contactDetails: any){
+      console.log(contactDetails)
+      const head = this.getTempAuthHeaders();
+      return this.http.put(this.apiLink + '/portal/auth/update/contact.........', contactDetails, { headers: head });
+    }
+
     fpCreatePass(req: any) {
         const reqBody = {
             password: req.password,

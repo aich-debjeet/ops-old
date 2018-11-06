@@ -549,6 +549,42 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       });
 
     /**
+     * Settings OTP Number Change
+     */
+  case AuthActions.SETTINGS_OTP_NUMBER_CHANGE:
+  console.log(payload)
+    return Object.assign({}, state, {
+      setting_number_update_sent: true,
+      setting_number_update_success: false,
+    });
+  case AuthActions.SETTINGS_OTP_NUMBER_CHANGE_SUCCESS:
+  console.log(payload)
+    // if (state['update_number_params']['contact']['contactNumber']) {
+    //   const reg_basic_form_data_updated = state['reg_basic_form_data'];
+    //   reg_basic_form_data_updated['contact'] = {
+    //     contactNumber: state['update_number_params']['contact']['contactNumber'],
+    //     countryCode: state['update_number_params']['contact']['countryCode']
+    //   }
+    //   return Object.assign({}, state, {
+    //     number_update_sent: false,
+    //     number_update_success: true,
+    //     reg_basic_form_data: reg_basic_form_data_updated
+    //   });
+    // }
+    // return Object.assign({}, state, {
+    //   number_update_sent: false,
+    //   number_update_success: true
+    // });
+
+  case AuthActions.SETTINGS_OTP_NUMBER_CHANGE_FAILED:
+  console.log(payload)
+    // return Object.assign({}, state, {
+    //   number_update_sent: false,
+    //   number_update_success: false,
+    //   user_number_cng_failed: true
+    // });
+
+    /**
      * OTP RESENT FORGET USER
      */
     case AuthActions.OTP_RESEND_FORGET_USER:
