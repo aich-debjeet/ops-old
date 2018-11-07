@@ -75,6 +75,20 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
 
   switch (type) {
 
+    case ProfileActions.MEDIA_VIEW_COUNT_UPDATE:
+      return Object.assign({}, state, {
+        user_following_posts: state.user_following_posts.map(post => {
+          if (post.id === payload['contentId']) {
+            if (payload['totalViews']) {
+              post.viewcount = payload['totalViews'];
+            } else {
+              post.viewcount++;
+            }
+          }
+          return post;
+        })
+      });
+
     /**
      * for: portfolio
      */
@@ -1042,7 +1056,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
     case ProfileActions.CHANNEL_FOLLOW_SUCCESS:
       return Object.assign({}, state, {
         channel_followed: true,
-        user_following_channel: state.user_following_channel.filter(channel => channel.spotfeedId !== payload.id)
+        user_following_channel: state.user_following_channel.filter(chnl => chnl.spotfeedId !== payload.id)
       });
 
     case ProfileActions.CHANNEL_FOLLOW_FAILED:

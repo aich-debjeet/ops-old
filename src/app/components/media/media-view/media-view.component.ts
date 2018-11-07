@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from './../../../../environments/environment';
 import { ModalService } from '../../../shared/modal/modal.component.service';
@@ -34,7 +33,6 @@ export class MediaViewComponent implements OnDestroy {
   @ViewChild('firstModal') modal: any;
   domainLink: string = environment.API_DOMAIN;
   messageText: string;
-  statusForm: FormGroup;
   private mediaSub: Subscription;
   private profSub: Subscription;
   mediaState$: Observable<Media>;
@@ -58,7 +56,6 @@ export class MediaViewComponent implements OnDestroy {
   viewCounted = false;
 
   constructor(
-    private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
     private toastr: ToastrService,
