@@ -234,7 +234,8 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
       return Object.assign({}, state, {
         creating_opportunity: false,
         create_opportunity_response: payload.SUCCESS,
-        create_opportunity_success: true
+        create_opportunity_success: true,
+        fileupload_response: []
       });
 
     case OpportunityActions.CREATE_OPPORTUNITY_FAILED:
@@ -287,6 +288,11 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
         fileupload_success: false
       });
     /* create opportunity file upload */
+
+    case OpportunityActions.OPPORTUNITY_FORM_REMOVE_ATTACHMENTS:
+      return Object.assign({}, state, {
+        fileupload_response: []
+      });
 
     /* delete opp by id */
     case OpportunityActions.DELETE_OPPORTUNITY:

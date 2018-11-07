@@ -1,27 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response, RequestOptions } from '@angular/http';
-import { Router, ActivatedRoute } from '@angular/router';
-import { environment } from './../../environments/environment';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map'
-
 import { ApiService } from '../helpers/api.service';
-import { TokenService } from '../helpers/token.service';
 
 @Injectable()
 export class MediaService {
   handle: string;
   headers: any;
-  private apiLink: string = environment.API_ENDPOINT;
 
-  constructor(
-    private http: Http,
-    private router: Router,
-    private api: ApiService,
-    private tokenService: TokenService) {
-      this.headers = this.api.getHeaders();
-      this.handle = this.api.getHandle();
-    }
+  constructor(private api: ApiService) {
+    this.headers = this.api.getHeaders();
+    this.handle = this.api.getHandle();
+  }
+
+  mediaAddViewCount(data: any) {
+    return this.api.post('/portal/views/create', data);
+  }
 
   /**
    * Post multiple media
@@ -77,7 +69,7 @@ export class MediaService {
    * @param body
    */
   postComment(body: any) {
-    return this.api.post( '/portal/cdn/comment/' + body.parent, body);
+    return this.api.post('/portal/cdn/comment/' + body.parent, body);
   }
 
   /**
@@ -85,7 +77,7 @@ export class MediaService {
    * @param body
    */
   updateComment(body: any) {
-    return this.api.put( '/portal/cdn/comment/' + body.parent, body);
+    return this.api.put('/portal/cdn/comment/' + body.parent, body);
   }
 
   /**
@@ -93,7 +85,7 @@ export class MediaService {
    * @param body
    */
   deleteComment(body: any) {
-    return this.api.del( `/portal/cdn/comment/${body.parent}/${body.id}/${body.commentType}`);
+    return this.api.del(`/portal/cdn/comment/${body.parent}/${body.id}/${body.commentType}`);
   }
 
   /**
@@ -116,14 +108,14 @@ export class MediaService {
    * Media post delete
    */
   mediaPostDelete(id: string) {
-    return this.api.del( `/portal/cdn/media/delete/${id}`);
+    return this.api.del(`/portal/cdn/media/delete/${id}`);
 
   }
   /**
    * media edit
    */
   mediaEdit(payload: any) {
-    return this.api.put( '/portal/cdn/media/update', payload);
+    return this.api.put('/portal/cdn/media/update', payload);
   }
 
   /**
@@ -146,7 +138,7 @@ export class MediaService {
    * @param body
    */
   getMyMedia(body: any) {
-    return this.api.put( '/portal/cdn/myMedia', body);
+    return this.api.put('/portal/cdn/myMedia', body);
   }
 
   /**
@@ -154,7 +146,7 @@ export class MediaService {
    * @param body
    */
   getCurrentPost(body: any) {
-    return this.api.post( '/portal/cdn/media/search', body);
+    return this.api.post('/portal/cdn/media/search', body);
   }
 
   /**

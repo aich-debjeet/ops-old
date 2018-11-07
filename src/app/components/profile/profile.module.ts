@@ -37,6 +37,9 @@ import { AuthGuard } from './../../guard/auth.guard';
 import { ProfileSpotfeedComponent } from './profile-spotfeed/profile-spotfeed.component';
 import { ProfileNetworkRequestsComponent } from './profile-network-requests/profile-network-requests.component';
 import { ProfileAcceptedRequestsComponent } from './profile-accepted-requests/profile-accepted-requests.component';
+import { AboutAwardsFormComponent } from './forms/about-awards-form/about-awards-form.component';
+import { AboutWorkFormComponent } from './forms/about-work-form/about-work-form.component';
+import { AboutEducationFormComponent } from './forms/about-education-form/about-education-form.component';
 
 const childRoutes = [
   {
@@ -124,7 +127,10 @@ const routes: Routes = [
     ProfileSpotfeedComponent,
     ProfileNetworkComponent,
     ProfileNetworkRequestsComponent,
-    ProfileAcceptedRequestsComponent
+    ProfileAcceptedRequestsComponent,
+    AboutAwardsFormComponent,
+    AboutWorkFormComponent,
+    AboutEducationFormComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

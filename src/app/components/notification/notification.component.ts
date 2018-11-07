@@ -69,32 +69,33 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   // message maker
   processNotifications() {
-    this.notifications.forEach((notif, index) => {
-      switch (notif.notificationType) {
-        case 'Following':
-          this.notifications[index]['message'] = '@' + notif.username + ' has started following you';
-          break;
-        case 'Media_Spot':
-          this.notifications[index]['message'] = ' and ' + notif.spotCount + ' others spotted your post';
-          break;
-        case 'Media_Comments':
-          this.notifications[index]['message'] = ' and ' + notif.commentsCount + ' others commented on your post';
-          break;
-        case 'Status_Spot':
-          this.notifications[index]['message'] = ' and ' + notif.spotCount + ' others spotted your status';
-          break;
-        case 'Status_Comments':
-          this.notifications[index]['message'] = ' and ' + notif.commentsCount + ' others commented on your status';
-          break;
-        case 'Network_Sent':
-          this.notifications[index]['message'] = ' sent you a network request';
-          break;
-        case 'Network_Accepted':
-          this.notifications[index]['message'] = ' accepted your network request';
-          break;
+    if (this.notifications.length > 0) {
+      for (let i = 0; i < this.notifications.length; i++) {
+        switch (this.notifications[i].notificationType) {
+          case 'Following':
+            this.notifications[i].message = '@' + this.notifications[i].username + ' has started following you';
+            break;
+          case 'Media_Spot':
+            this.notifications[i].message = ' has spotted your post';
+            break;
+          case 'Media_Comments':
+            this.notifications[i].message = ' has commented on your post';
+            break;
+          case 'Status_Spot':
+            this.notifications[i].message = ' has spotted your status';
+            break;
+          case 'Status_Comments':
+            this.notifications[i].message = ' has commented on your status';
+            break;
+          case 'Network_Sent':
+            this.notifications[i].message = ' has sent you a network request';
+            break;
+          case 'Network_Accepted':
+            this.notifications[i].message = ' has accepted your network request';
+            break;
+        }
       }
-    });
-
+    }
   }
 
 

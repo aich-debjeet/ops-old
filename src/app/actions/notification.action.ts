@@ -1,5 +1,3 @@
-import { Action } from '@ngrx/store';
-
 export class NotificationActions {
 
   static GET_NOTIFICATIONS = 'GET_NOTIFICATIONS';

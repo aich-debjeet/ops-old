@@ -1,5 +1,3 @@
-import { Action } from '@ngrx/store';
-
 export class EventActions {
 
     static EVENT_REPORT = 'EVENT_REPORT';
@@ -21,7 +19,7 @@ export class EventActions {
     static BANNER_SEARCH = 'BANNER_SEARCH';
     static BANNER_SEARCH_SUCCESS = 'BANNER_SEARCH_SUCCESS';
     static BANNER_SEARCH_FAILED = 'BANNER_SEARCH_FAILED';
-    
+
     static EVENT_ATTENDEE_LOAD = 'EVENT_ATTENDEE_LOAD';
     static EVENT_ATTENDEE_LOAD_SUCCESS = 'EVENT_ATTENDEE_LOAD_SUCCES';
     static EVENT_ATTENDEE_LOAD_FAILED = 'EVENT_ATTENDEE_LOAD_FAILED';

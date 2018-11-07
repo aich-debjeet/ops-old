@@ -51,6 +51,19 @@ export class OpportunityJobComponent implements OnInit, OnDestroy {
   baseUrl = environment.API_IMAGE;
   @ViewChild('termsPopup') termsPopup: Modal;
 
+  quillModules = {
+    toolbar: [
+      ['bold', 'italic', 'underline'],
+      ['link'],
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+      [{ 'color': [] }],          // dropdown with defaults from theme
+      [{ 'align': [] }],
+      ['clean'],                                         // remove formatting button
+    ]
+  };
+
   constructor(
     private fb: FormBuilder,
     private location: Location,
@@ -78,9 +91,10 @@ export class OpportunityJobComponent implements OnInit, OnDestroy {
           this.uploadedFile = true;
           for (let i = 0; i < state['fileupload_response'].length; i++) {
             const attUrl = state['fileupload_response'][i].repoPath;
-            if (this.jobAttachments.indexOf(attUrl) === -1) {
-              this.jobAttachments.push(attUrl);
-            }
+            // if (this.jobAttachments.indexOf(attUrl) === -1) {
+            //   this.jobAttachments.push(attUrl);
+            // }
+            this.jobAttachments = [attUrl];
           }
         } else {
           this.uploadingFile = false;
@@ -257,7 +271,9 @@ export class OpportunityJobComponent implements OnInit, OnDestroy {
    * Remove media from the attachments
    */
   removeAttachedMedia(fileName: string) {
-    _pull(this.jobAttachments, fileName);
+    // _pull(this.jobAttachments, fileName);
+    this.jobAttachments = [];
+    this.oppStore.dispatch({ type: OpportunityActions.OPPORTUNITY_FORM_REMOVE_ATTACHMENTS });
   }
 
   cancelUpdate() {

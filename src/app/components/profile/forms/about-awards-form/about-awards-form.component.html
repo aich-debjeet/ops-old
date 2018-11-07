@@ -1,0 +1,90 @@
+<form [formGroup]="awardForm" novalidate #myform="ngForm" (submit)="awardFormSubmit(awardForm.value)">
+  <div id="o-bio-det__add-work" class="o-bio-det__add-work">
+      <!-- <div class="o-bio-det-display__media fill-white">
+          <input type="file" class="o-bio-add-media">
+          <label for="" class="c-text_sm color-theme text-center m-t--8">Add Photo</label>
+      </div> -->
+      <div class="o-bio-det-edit__form">
+          <div class="c-form__group c-form--sm c-form--noeffect">
+              <input class="c-form__input" required="" type="text" formControlName="title" maxlength="40">
+              <span class="c-form__highlight"></span>
+              <span class="c-form__bar"></span>
+              <label>Title</label>
+              <p class="error_alert" *ngIf="awardForm.controls['title'].errors?.required && myform.submitted">Role is required</p>
+          </div>
+          <div class="c-form__group c-form--sm c-form--noeffect">
+              <input class="c-form__input" required="" type="text" formControlName="presenter" maxlength="40">
+              <span class="c-form__highlight"></span>
+              <span class="c-form__bar"></span>
+              <label>Given By</label>
+              <p class="error_alert" *ngIf="awardForm.controls['presenter'].errors?.required && myform.submitted">Company is required</p>
+          </div>
+          <div class="col-md-12 p-0">
+              <p class="c-text_md">Date(DD-MM-YYYY)</p>
+              <div class="col-md-6 p-0">
+                <div class="c-form__group c-form--sm c-form--noeffect">
+                    <input class="c-form__input" type="text" formControlName="date" [textMask]="{mask: dateMask}">
+                    <span class="c-form__highlight"></span>
+                    <span class="c-form__bar"></span>
+                    <p class="error_alert" *ngIf="awardForm.controls['date'].errors?.required && myform.submitted">From Date is required</p>
+                    <p class="error_alert" *ngIf="awardForm.controls['date'].errors?.invalidWorkDate">Invalid Date</p>
+                  </div>
+              </div>
+              <!-- <div class="col-md-2 p-0">
+                  <div class="c-form__group">
+                      <select class="c-form-control p-l-0" formControlName="from_month" required>
+                          <option value="" disabled selected hidden>Month</option>
+                          <option *ngFor="let p of months">{{p.name}}</option>
+                      </select>
+                  </div>
+              </div>
+              <div class="col-md-2 p-r-0">
+                  <div class="c-form__group">
+                      <select class="c-form-control p-l-0" formControlName="from_year" required>
+                          <option value="" disabled selected hidden>Year</option>
+                          <option *ngFor="let y of years">{{y}}</option>
+                      </select>
+                  </div>
+              </div> -->
+          </div>
+          <div class="o-bio-info__edit-actions width100 m-t-24">
+              <button type="button" class="btn btn-primary btn-sm m-l-8" [type]="'submit'">Save</button>
+              <button type="button" class="btn btn-default btn-sm m-l-r-8" (click)="closeForm(_awardDetails)">Cancel</button>
+
+              <div class="dropdown float_left m-r-8" appDropdown>   
+                  <span class="com-head" data-toggle="dropdown" aria-expanded="false" appDropdownOpen>
+                      <div class="o-bio-edit__ico">
+                            <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" *ngIf="_awardDetails?.data?.access === 0 || _awardDetails?.formType === 'create'">
+                            <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" *ngIf="_awardDetails?.data?.access === 1">
+                      </div>
+                      <div class="o-bio-edit__ico-arrow">
+                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
+                          <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch  -->
+                          <title>Path 2 Copy</title>
+                          <desc>Created with Sketch.</desc>
+                          <defs></defs>
+                          <g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                              <polyline id="Path-2-Copy" stroke="#333" stroke-width="1" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) " points="1 1 8 8 15 1"></polyline>
+                          </g>
+                      </svg>
+                      </div>
+                  </span>
+                  <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
+                    <li>
+                    <a (click)="choosePrivacy(0)" class="c-opsdropdown__list">
+                        <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
+                        <span class="c-opsdropdown--text">Public</span>
+                    </a>
+                    </li>
+                    <li>
+                    <a (click)="choosePrivacy(1)" class="c-opsdropdown__list">
+                        <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
+                        <span class="c-opsdropdown--text">Private</span>
+                    </a>
+                    </li>
+                </ul>
+              </div>
+          </div>
+      </div>
+  </div>
+</form>

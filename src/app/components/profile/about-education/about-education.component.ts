@@ -34,6 +34,14 @@ export class AboutEducationComponent implements OnInit {
   ownProfile: boolean;
   imageBaseUrl = environment.API_IMAGE;
   jobId: any;
+  activateCreateForm: boolean = false;
+  activateEditForm: boolean = false;
+  formData: any = {
+    formType: '',
+    data: {}
+  };
+  currentId: string;
+  formType: string;
   @ViewChild('deleteModal') deleteModal: Modal;
 
   constructor(
@@ -54,14 +62,10 @@ export class AboutEducationComponent implements OnInit {
         } else {
           this.ownProfile = true;
           this.userProfile = this.stateProfile.profile_details;
+          console.log(this.userProfile)
         }
       }
     });
-
-    // this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
-
-    // Init Form
-    this.buildEditForm();
   }
 
   ngOnInit() {
@@ -71,8 +75,12 @@ export class AboutEducationComponent implements OnInit {
    * Add Work User
    */
   addEducationUser() {
-    this.editFormPopup = false;
-    this.modalService.open('userEducationkAdd');
+    this.activateCreateForm =true;
+    this.formType = 'create';
+    this.formData = {
+      formType: 'create',
+      data: {}
+    }
   }
 
   /**
@@ -84,61 +92,29 @@ export class AboutEducationComponent implements OnInit {
   }
 
   /**
-   * Form initial value
-   */
-  buildEditForm(): void {
-    this.educationForm = this.fb.group({
-      'institute' : ['' , [Validators.required]],
-      'course' : ['' , [Validators.required]],
-      'from' : ['' , [Validators.required], this.databaseValidator.validWorkFromDate.bind(this.databaseValidator)],
-      'to' : ['' , [Validators.required], this.databaseValidator.validWorkToDate.bind(this.databaseValidator)],
-      'publicWork': '0',
-      'id': ''
-    })
-  }
-
-  /**
    * Add Work form submit
    */
-  educationSubmit(value) {
-    if ( this.educationForm.valid === true ) {
-      if (this.editFormPopup === false) {
-        const body = {
-          'institute': value.institute,
-          'name': value.course,
-          'from': this.reverseDate(value.from) + 'T05:00:00',
-          'to': this.reverseDate(value.to) + 'T05:00:00',
-        }
-        this.modalService.close('userEducationkAdd');
-        this.profileStore.dispatch({ type: ProfileActions.ADD_USER_EDUCATION, payload: body});
-        this.toastr.success('Your education details has been updated successfully!', '', {
+  educationFormSubmit(value) {
+    console.log(value);
+    console.log(this.formData.formType);
+    if(this.formData.formType === 'create'){
+      this.profileStore.dispatch({ type: ProfileActions.ADD_USER_EDUCATION, payload: value});
+      this.activateCreateForm = false;
+        this.toastr.success('Your education has been added successfully!', '', {
           timeOut: 3000
         });
-      } else {
-        const body = {
-          'institute': value.institute,
-          'name': value.course,
-          'from': this.reverseDate(value.from) + 'T05:00:00',
-          'to': this.reverseDate(value.to) + 'T05:00:00',
-          'id': value.id
-        }
-        this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_EDUCATION, payload: body});
-        this.modalService.close('userEducationkAdd');
-        this.toastr.success('Your education details has been updated successfully!', '', {
-          timeOut: 3000
-        });
-      }
     }
-    this.educationForm.reset();
-
+    if(this.formData.formType === 'edit'){
+      this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_EDUCATION, payload: value});
+      this.activateEditForm = false;
+      this.toastr.success('Your education has been updated successfully!');
+    }
   }
 
   /**
    * Delete Current Work of user
    */
   deleteCurrentEducation(id) {
-    // this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_EDUCATION, payload: id});
-    // this.toastr.success('Your education has been deleted successfully!');
     this.deleteModal.open();
     this.jobId = id;
   }
@@ -147,36 +123,13 @@ export class AboutEducationComponent implements OnInit {
    * Edit Current Work of user
    */
   editCurrentEducation(data) {
-    this.editFormPopup = true;
-    this.educationForm.patchValue({
-      institute: data.institute,
-      course: data.name,
-      from: this.datepipe.transform(data.from, 'dd-MM-yyyy'),
-      to: this.datepipe.transform(data.to, 'dd-MM-yyyy'),
-      id: data.id
-    });
-    this.modalService.open('userEducationkAdd');
-  }
-
-  /**
-   * Close work add form
-   */
-  educationFormClose() {
-    this.modalService.close('userEducationkAdd');
-    this.educationForm.reset();
-  }
-  /**
-   * Reset Form
-   */
-  reset() {
-    this.educationForm.patchValue({
-      institute : '' ,
-      course : '',
-      from : '',
-      to : '',
-      publicWork: '0',
-      id: ''
-    });
+    this.currentId = data.id;
+    this.formData = {
+      formType: 'edit',
+      data: data
+    }
+    this.activateEditForm =true;
+    this.formType = 'edit';
   }
 
   confirmation(eve){
@@ -191,4 +144,14 @@ export class AboutEducationComponent implements OnInit {
     this.deleteModal.close();
   }
 
+  formsClose(eve){
+    console.log(eve);
+    console.log('closure under process');
+    if(eve.formType === 'create'){
+      this.activateCreateForm = false;
+    }
+    if(eve.formType === 'edit') {
+      this.activateEditForm = false;
+    }
+  }
 }

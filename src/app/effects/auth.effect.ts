@@ -9,7 +9,7 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/operator/ignoreElements';
 import 'rxjs/add/operator/mapTo';
 
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { AuthService } from '../services/auth.service';
 import { AuthActions } from '../actions/auth.action';
@@ -95,22 +95,22 @@ export class AuthEffect {
     );
 
   @Effect()
-    userLogout$ = this.actions$
-      .ofType(AuthActions.USER_LOGOUT)
-      .mergeMap(reachedThreshold => {
-        localStorage.clear();
-        this.router.navigate(['/']);
-        return Observable.of({ type: 'NOTHING', payload: 'NOTHING' });
-      });
+  userLogout$ = this.actions$
+    .ofType(AuthActions.USER_LOGOUT)
+    .mergeMap(reachedThreshold => {
+      localStorage.clear();
+      this.router.navigate(['/']);
+      return Observable.of({ type: 'NOTHING', payload: 'NOTHING' });
+    });
 
 
   @Effect()
   loadArtist$ = this.actions$
-      .ofType(AuthActions.LOAD_ARTIST)
-      .map(toPayload)
-      .switchMap((payload) => this.authService.loadArtistType()
-        .map(res => ({ type: AuthActions.LOAD_ARTIST_SUCCESS, payload: res }))
-      );
+    .ofType(AuthActions.LOAD_ARTIST)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.loadArtistType()
+      .map(res => ({ type: AuthActions.LOAD_ARTIST_SUCCESS, payload: res }))
+    );
 
   @Effect()
   registerProfile$ = this.actions$
@@ -215,7 +215,7 @@ export class AuthEffect {
   fpResetTypePhoneSuccess$ = this.actions$
     .ofType(AuthActions.FP_RESET_TYPE_PHONE_SUCCESS)
     .mergeMap(reachedThreshold => {
-      this.router.navigateByUrl('/account/confirm_pin_rest' );
+      this.router.navigateByUrl('/account/confirm_pin_rest');
       return Observable.of({ type: 'NOTHING', payload: 'NOTHING' });
     });
   /* reset with phone */
@@ -266,17 +266,6 @@ export class AuthEffect {
       .map(res => ({ type: AuthActions.FP_CREATE_PASS_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: AuthActions.FP_CREATE_PASS_FAILED, payload: res }))
     );
-
-  /**
-   * Forget password create sucess redirect login page
-   */
-  // @Effect()
-  // fpCreatePassSucess$ = this.actions$
-  //   .ofType(AuthActions.FP_CREATE_PASS_SUCCESS)
-  //   .mergeMap(reachedThreshold => {
-  //       this.router.navigateByUrl('/login');
-  //       return Observable.of({ type: 'NOTHING', payload: 'NOTHING' });
-  //     });
 
   // OTP RESENT FORGET USER
   @Effect()
@@ -379,24 +368,17 @@ export class AuthEffect {
     );
 
   @Effect()
-    sendContactus$ = this.actions$
-      .ofType(AuthActions.SEND_CONTACTUS)
-      .map(toPayload)
-      .switchMap((payload) => this.authService.sendContact(payload)
-        .map(res => ({ type: AuthActions.SEND_CONTACTUS_SUCCESS, payload: res }))
-        .catch((res) => Observable.of({ type: AuthActions.SEND_CONTACTUS_FAILED, payload: res }))
-      );
-
-  /**
-   * forget password state
-   */
-  // @Effect()
-  // fPStateReset$ = this.actions$
-  //   .ofType(AuthActions.FP_STATE_RESET)
+  sendContactus$ = this.actions$
+    .ofType(AuthActions.SEND_CONTACTUS)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.sendContact(payload)
+      .map(res => ({ type: AuthActions.SEND_CONTACTUS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.SEND_CONTACTUS_FAILED, payload: res }))
+    );
 
   constructor(
-      private actions$: Actions,
-      private authService: AuthService,
-      private router: Router
-    ) {}
+    private actions$: Actions,
+    private authService: AuthService,
+    private router: Router
+  ) { }
 }

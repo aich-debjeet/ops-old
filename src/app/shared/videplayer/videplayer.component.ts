@@ -7,7 +7,7 @@ import { Component, OnInit, Input, AfterViewInit, Renderer } from '@angular/core
 })
 export class VideplayerComponent implements OnInit, AfterViewInit {
   @Input() src: any;
-  @Input() play = false;
+  @Input() showControls = false;
   preload = 'auto';
   source: any;
   isPortrait = false; // assuming video is landscape by default
