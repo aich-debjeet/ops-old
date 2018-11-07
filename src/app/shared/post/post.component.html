@@ -116,6 +116,9 @@
                 <span class="c-links__count">{{ commentCount }}  Comments</span>
             </div>
             <div class="c-links__actions">
+                <span class="c-links__view-count">
+                    <span class="color-grey-darker">{{ mediaData?.viewcount || 0 }}</span> Views
+                </span>
                 <!-- <span class="c-links__add">
                     <a>
                         <img [src]="imageLink + 'img/svg/ico_addtochannel.svg'" class="c-action__image">

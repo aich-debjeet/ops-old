@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { Store, Action } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { ModalService } from '../../../shared/modal/modal.component.service';
-import { Media, initialMedia  } from '../../../models/media.model';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Media, initialMedia } from '../../../models/media.model';
+import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../../../environments/environment';
 
 // action
@@ -28,8 +28,7 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
   baseUrl = environment.API_IMAGE;
   tagState$: Observable<ProfileModal>;
   mediaState$: Observable<Media>;
-  private subscription: ISubscription;
-  private navigationSubscription: ISubscription;
+  private profSub: ISubscription;
   userMedia = initialTag;
   mediaDetails = initialMedia;
   userData: any;
@@ -54,28 +53,25 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
   playingVideoId = '';
 
   constructor(
-    private _router: Router,
     public route: ActivatedRoute,
-    private router: Router,
-    private modalService: ModalService,
     private _store: Store<Media>
   ) {
     this.tagState$ = this._store.select('profileTags');
     // this.mediaState$ = this._store.select('mediaStore');
     this.counter = 0;
     this.posts = [];
-    this.subscription = this.tagState$.subscribe((state) => {
+    this.profSub = this.tagState$.subscribe((state) => {
       this.userData = state['profile_navigation_details']
       this.userMedia = state;
-       this.posts = this.userMedia.user_posts;
-       this.setMediaViewportKey();
-       this.post_scroll_id = this.userMedia.user_post_scrollId
-        if (state['user_profiles_all'] !== 'undefined') {
-          this.profiles = state.user_profiles_all;
-        }
-        if (state.people_follow_scroll_id) {
-          this.people_follow_id = state.people_follow_scroll_id
-        }
+      this.posts = this.userMedia.user_posts;
+      this.setMediaViewportKey();
+      this.post_scroll_id = this.userMedia.user_post_scrollId
+      if (state['user_profiles_all'] !== 'undefined') {
+        this.profiles = state.user_profiles_all;
+      }
+      if (state.people_follow_scroll_id) {
+        this.people_follow_id = state.people_follow_scroll_id
+      }
     });
   }
 
@@ -84,18 +80,16 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
     this.post_scroll_id = '';
     this.userType();
     this.loadProfiles();
-
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.profSub.unsubscribe();
   }
 
   userType() {
-
     this._store.select('profileTags')
       .first(profile => profile['profile_user_info'] && profile['profile_navigation_details'].handle)
-      .subscribe( data => {
+      .subscribe(data => {
         if (data['profile_user_info'].isCurrentUser === true) {
           const handle = this.userMedia.profile_navigation_details.handle;
           this.isOwner = true;
@@ -104,8 +98,8 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
       });
 
     this._store.select('profileTags')
-      .first(profile => profile['profile_user_info'] && profile['profile_other'].handle )
-      .subscribe( data => {
+      .first(profile => profile['profile_user_info'] && profile['profile_other'].handle)
+      .subscribe(data => {
         if (data['profile_user_info'].isCurrentUser === false) {
           const handle = this.userMedia.profile_other.handle;
           this.isOwner = false;
@@ -129,7 +123,7 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
     if (index !== -1) {
       this.posts.splice(index, 1);
       const id = post.id;
-      this._store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id});
+      this._store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id });
     }
   }
 
@@ -165,16 +159,16 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
     return Object.keys(obj).length === 0 && obj.constructor === Object;
   }
 
-    /**
-   * Follow an artist
-   * @param user obj
-   */
+  /**
+ * Follow an artist
+ * @param user obj
+ */
   followUser(user: any) {
     this._store.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: user.handle });
     user.extra.isFollowing = true;
     this._store.select('profileTags')
       .first(state => state['profile_other_followed'] === true)
-      .subscribe( datas => {
+      .subscribe(datas => {
         this.followPostLoad();
         this.loadChannels();
       });
@@ -203,12 +197,14 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
   }
 
   loadProfiles(value = null) {
-    this._store.dispatch({ type: ProfileActions.LOAD_ALL_PROFILES, payload: {
-      'isHuman' : '1' ,
-      'name': {
-        'scrollId': value === null ? null : value
-       }
-      }});
+    this._store.dispatch({
+      type: ProfileActions.LOAD_ALL_PROFILES, payload: {
+        isHuman: '1',
+        name: {
+          scrollId: value === null ? null : value
+        }
+      }
+    });
   }
   onScrol(e) {
     this.scrolling = e.currentScrollPosition;
@@ -224,7 +220,6 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
         this.posts[i]['inViewport'] = false;
       }
     }
-    // console.log('this.posts', this.posts);
   }
 
   elemInViewportStatus(data: any) {
