@@ -86,6 +86,16 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
             }
           }
           return post;
+        }),
+        user_posts: state.user_posts.map(post => {
+          if (post.id === payload['contentId']) {
+            if (payload['totalViews']) {
+              post.viewcount = payload['totalViews'];
+            } else {
+              post.viewcount++;
+            }
+          }
+          return post;
         })
       });
 
