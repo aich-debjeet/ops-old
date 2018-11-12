@@ -73,7 +73,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
       for (let i = 0; i < this.notifications.length; i++) {
         switch (this.notifications[i].notificationType) {
           case 'Following':
-            this.notifications[i].message = '@' + this.notifications[i].username + ' has started following you';
+            this.notifications[i].message = ' has started following you';
             break;
           case 'Media_Spot':
             this.notifications[i].message = ' has spotted your post';
