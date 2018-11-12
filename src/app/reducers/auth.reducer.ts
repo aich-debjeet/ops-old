@@ -559,6 +559,13 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
     });
   case AuthActions.SETTINGS_OTP_NUMBER_CHANGE_SUCCESS:
   console.log(payload)
+  if(payload['SUCCESS']['code'] === 0){
+    return Object.assign({}, state,{
+      setting_number_update_sent: false,
+      setting_number_update_success: true,
+      setting_contact_information: payload.SUCCESS.SUCCESS
+    })
+  }
     // if (state['update_number_params']['contact']['contactNumber']) {
     //   const reg_basic_form_data_updated = state['reg_basic_form_data'];
     //   reg_basic_form_data_updated['contact'] = {
@@ -578,11 +585,10 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
 
   case AuthActions.SETTINGS_OTP_NUMBER_CHANGE_FAILED:
   console.log(payload)
-    // return Object.assign({}, state, {
-    //   number_update_sent: false,
-    //   number_update_success: false,
-    //   user_number_cng_failed: true
-    // });
+    return Object.assign({}, state, {
+      setting_number_update_sent: false,
+      setting_number_update_success: false
+    });
 
     /**
      * OTP RESENT FORGET USER

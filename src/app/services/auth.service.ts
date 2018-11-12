@@ -287,7 +287,8 @@ export class AuthService {
     settingOtpNumberChange(contactDetails: any){
       console.log(contactDetails)
       const head = this.getTempAuthHeaders();
-      return this.http.put(this.apiLink + '/portal/auth/update/contact.........', contactDetails, { headers: head });
+      return this.http.put(this.apiLink + '/portal/auth/update/contact', contactDetails, { headers: head })
+      .map((data: Response) => data.json());
     }
 
     fpCreatePass(req: any) {

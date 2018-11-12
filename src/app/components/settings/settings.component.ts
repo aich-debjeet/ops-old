@@ -120,6 +120,10 @@ export class SettingsComponent implements OnInit {
         //   // this._modalService.open('otpSuccess');
         //     this.phoneFormUpdate();
         // }
+        if (state['setting_number_update_sent'] === false && state['setting_number_update_success'] === true) {
+          console.log('open otp model');
+          this.otpPopup.open();
+        }
 
         if (state['user_otp_success'] === true) {
           this._store.dispatch({ type: ProfileActions.LOAD_USER_DATA_DETAILS });
@@ -314,7 +318,8 @@ export class SettingsComponent implements OnInit {
           countryCode: this.country.callingCodes[0],
           otp: otpValue
         }
-        this.store.dispatch({ type: AuthActions.OTP_SUBMIT, payload: otpData });
+        console.log('otp value is', otpData)
+        this.store.dispatch({ type: AuthActions.SETTINGS_OTP_NUMBER_CHANGE, payload: otpData });
       }
     }
   /**
@@ -333,14 +338,14 @@ export class SettingsComponent implements OnInit {
   }
 
   getContactDetails(cType: string) {
-    if (this.petTag['reg_basic_form_data']
-      && this.petTag['reg_basic_form_data']['contact']
+    if (this.petTag['setting_contact_information']
+      && this.petTag['setting_contact_information']['contactNumber']
     ) {
-      if (cType === 'number' && this.petTag['reg_basic_form_data']['contact']['contactNumber']) {
-        return this.petTag['reg_basic_form_data']['contact']['contactNumber'];
+      if (cType === 'number' && this.petTag['setting_contact_information']['contactNumber']) {
+        return this.petTag['setting_contact_information']['contactNumber'];
       }
-      if (cType === 'country' && this.petTag['reg_basic_form_data']['contact']['countryCode']) {
-        return this.petTag['reg_basic_form_data']['contact']['countryCode'];
+      if (cType === 'country' && this.petTag['setting_contact_information']['countryCode']) {
+        return this.petTag['setting_contact_information']['countryCode'];
       }
     }
   }
