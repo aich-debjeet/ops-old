@@ -15,7 +15,7 @@ import { EventActions } from '../actions/event.action';
 export class EventEffect {
 
   /**
-   *Get Events Report 
+   * Get Events Report
   */
     @Effect()
       getReport$ = this.actions$
@@ -26,7 +26,7 @@ export class EventEffect {
       .catch((res) => Observable.of({ type: EventActions.EVENT_REPORT_FAILED, payload: res }))
     );
 
-  //Banner search for events
+  // Banner search for events
   @Effect()
     bannerSearch$ = this.actions$
     .ofType(EventActions.BANNER_SEARCH)
@@ -36,7 +36,7 @@ export class EventEffect {
       .catch((res) => Observable.of({ type: EventActions.BANNER_SEARCH_FAILED, payload: res }))
     );
 
-  //Edit  for events
+  // Edit  for events
   @Effect()
   eventsEdit$ = this.actions$
   .ofType(EventActions.EVENT_EDIT)
@@ -46,7 +46,7 @@ export class EventEffect {
     .catch((res) => Observable.of({ type: EventActions.EVENT_EDIT_FAILED, payload: res }))
   );
 
-    //Attendee list
+    // Attendee list
     @Effect()
      attendeeList$ = this.actions$
      .ofType(EventActions.EVENT_ATTENDEE_LOAD)

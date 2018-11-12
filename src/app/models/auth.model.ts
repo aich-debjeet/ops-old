@@ -1,51 +1,51 @@
 export class Login {
- completed: string[];
- loading = false;
- success = true;
- user_unique = false;
- fp_user_exists?: false;
- fp_user_options?: any;
- fp_user_input?: any;
- fp_userdata_resp?: any;
- page_loading: boolean;
- error_description?: any;
- fp_create_success?: boolean;
- fp_submit_otp_failed?: boolean;
- fp_userdata_loading_failed: boolean;
- otp_forget_user_success?: boolean;
- login_status_response?: any;
- login_status?: boolean;
- login_uploading_data?: boolean;
- user_otp_failed?: boolean;
- user_otp_checking?: boolean;
- fp_user_response?: any;
- fp_checking?: boolean;
- fb_uploading_data?: boolean;
+  completed: string[];
+  loading = false;
+  success = true;
+  user_unique = false;
+  fp_user_exists?: false;
+  fp_user_options?: any;
+  fp_user_input?: any;
+  fp_userdata_resp?: any;
+  page_loading: boolean;
+  error_description?: any;
+  fp_create_success?: boolean;
+  fp_submit_otp_failed?: boolean;
+  fp_userdata_loading_failed: boolean;
+  otp_forget_user_success?: boolean;
+  login_status_response?: any;
+  login_status?: boolean;
+  login_uploading_data?: boolean;
+  user_otp_failed?: boolean;
+  user_otp_checking?: boolean;
+  fp_user_response?: any;
+  fp_checking?: boolean;
+  fb_uploading_data?: boolean;
 }
 
 export class Register {
- completed: string[];
- loading = false;
- success = true;
- user_unique = false;
- page_loading: false;
+  completed: string[];
+  loading = false;
+  success = true;
+  user_unique = false;
+  page_loading: false;
 }
 
 export class AuthModel {
- completed: string[];
- loading = false;
- success = true;
- user_unique = false;
- page_loading: false;
+  completed: string[];
+  loading = false;
+  success = true;
+  user_unique = false;
+  page_loading: false;
 }
 
-export class SearchCards {}
+export class SearchCards { }
 
 export class RegisterProfile {
- completed: string[];
- loading = false;
- success = true;
- user_unique: false
+  completed: string[];
+  loading = false;
+  success = true;
+  user_unique: false
 }
 
 export interface RightBlockTag {
@@ -71,7 +71,7 @@ export class UserTag {
 
 export const initialTag: Login = {
   completed: [],
-  loading:  false,
+  loading: false,
   success: true,
   user_unique: false,
   fp_user_exists: false,
@@ -83,12 +83,12 @@ export const initialTag: Login = {
 };
 
 export class Follow {
- completed: ArtistFollows[];
- loading = false;
- success = true;
- user_unique = false;
- skills?: String[];
- industries?: String[];
+  completed: ArtistFollows[];
+  loading = false;
+  success = true;
+  user_unique = false;
+  skills?: String[];
+  industries?: String[];
 }
 export class ArtistFollows {
   isFollowing: boolean;
@@ -98,7 +98,7 @@ export const artistFollowTag: Follow = {
   completed: [
     // isFollowing: true,
   ],
-  loading:  false,
+  loading: false,
   success: true,
   user_unique: false
 };
@@ -132,7 +132,7 @@ export class BasicRegTag {
   completed: RegCode[];
   loading = false;
   success = true;
-  user_unique= false;
+  user_unique = false;
   access_Token?: String;
   user_basic_reg_success?: boolean;
   fp_create_success: boolean;

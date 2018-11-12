@@ -3,7 +3,29 @@ import { Media, initialMedia  } from '../models/media.model';
 import { MediaActions } from '../actions/media.action';
 
 export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload, type}: Action) =>  {
+
   switch (type) {
+
+    case MediaActions.MEDIA_ADD_VIEW_COUNT:
+      return Object.assign({}, state, {
+        mediaUpdatingViewCount: true,
+        mediaUpdatedViewCount: false,
+        mediaUpdatedViewCountData: payload
+      });
+
+    case MediaActions.MEDIA_ADD_VIEW_COUNT_SUCCESS:
+      return Object.assign({}, state, {
+        mediaUpdatingViewCount: false,
+        mediaUpdatedViewCount: true,
+        mediaUpdatedViewCountResponse: payload
+      });
+
+    case MediaActions.MEDIA_ADD_VIEW_COUNT_FAILED:
+      return Object.assign({}, state, {
+        mediaUpdatingViewCount: false,
+        mediaUpdatedViewCount: false
+      });
+
     case MediaActions.STATUS_SAVE:
       return Object.assign({}, state, {
         status_saved: false

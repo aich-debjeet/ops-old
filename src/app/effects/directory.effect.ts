@@ -37,9 +37,9 @@ export class DirectoryEffect {
       }))
     );
 
-    constructor(
-        private actions$: Actions,
-        private directoryService: DirectoryService
-    ) { }
+  constructor(
+    private actions$: Actions,
+    private directoryService: DirectoryService
+  ) { }
 
 }

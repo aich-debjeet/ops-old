@@ -1,12 +1,12 @@
 
 export class EventModal {
- event_create_success?: boolean;
- event_id?: any;
- bannerload: any;
- event_list: any;
- event_loaded: boolean;
- event_updated: boolean;
- event_filter: any;
+    event_create_success?: boolean;
+    event_id?: any;
+    bannerload: any;
+    event_list: any;
+    event_loaded: boolean;
+    event_updated: boolean;
+    event_filter: any;
 }
 
 export const initialTagEve: EventModal = {

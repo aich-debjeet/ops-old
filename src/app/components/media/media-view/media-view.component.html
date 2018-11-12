@@ -6,9 +6,9 @@
         <div class="c-mediamodal__left">
             <div class="c-mediamodal__left__block">
                 <figure class="c-mediamodal--img">
-                    <app-videoplayer [showControls]="'true'" *ngIf="checkFileType(data?.repopath, 'Video')" [src]="imageLink + data?.repopath"></app-videoplayer>
-                    <img *ngIf="checkFileType(data?.repopath, 'Image')" [src]="imageLink + data?.repopath" class="img-responsive">
-                    <app-audioplayer *ngIf="checkFileType(data?.repopath, 'Audio')" [src]="imageLink + data?.repopath"></app-audioplayer>
+                    <app-videoplayer [showControls]="'true'" *ngIf="data?.contentType === 'video'" [src]="imageLink + data?.repopath"></app-videoplayer>
+                    <img  *ngIf="data?.contentType === 'image'" [src]="imageLink + data?.repopath" class="img-responsive">
+                    <app-audioplayer  *ngIf="data?.contentType === 'audio'" [src]="imageLink + data?.repopath"></app-audioplayer>
                 </figure>
                 <div class="c-mediamodal__l-arrow" *ngIf="mediaCarousal?.prev != ''">
                     <div class="c-mediamodal__arrow--icon">

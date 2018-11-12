@@ -1,5 +1,3 @@
-import { Action } from '@ngrx/store';
-
 export class ClaimProfileActions {
 
     static SEARCH_PROFILE = 'SEARCH_PROFILE';

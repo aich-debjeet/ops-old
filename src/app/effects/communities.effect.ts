@@ -17,7 +17,7 @@ export class CommunitiesEffect {
     .ofType(CommunitiesActions.COMMUNITY_CREATE)
     .map(toPayload)
     .switchMap((payload) => this.communitiesService.createCommnuity(payload)
-      .map(res => ({ type:  CommunitiesActions.COMMUNITY_CREATE_SUCCESS, payload: res }))
+      .map(res => ({ type: CommunitiesActions.COMMUNITY_CREATE_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: CommunitiesActions.COMMUNITY_CREATE_FAILED, payload: res }))
     );
 
@@ -26,7 +26,7 @@ export class CommunitiesEffect {
     .ofType(CommunitiesActions.COMMUNITY_LIST)
     .map(toPayload)
     .switchMap((payload) => this.communitiesService.listCommnuity(payload)
-      .map(res => ({ type:  CommunitiesActions.COMMUNITY_LIST_SUCCESS, payload: res }))
+      .map(res => ({ type: CommunitiesActions.COMMUNITY_LIST_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: CommunitiesActions.COMMUNITY_LIST_FAILED, payload: res }))
     );
 
@@ -35,7 +35,7 @@ export class CommunitiesEffect {
     .ofType(CommunitiesActions.COMMUNITY_JOIN)
     .map(toPayload)
     .switchMap((payload) => this.communitiesService.joinCommunity(payload)
-      .map(res => ({ type:  CommunitiesActions.COMMUNITY_JOIN_SUCCESS, payload: res }))
+      .map(res => ({ type: CommunitiesActions.COMMUNITY_JOIN_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: CommunitiesActions.COMMUNITY_JOIN_FAILED, payload: res }))
     );
 
@@ -44,7 +44,7 @@ export class CommunitiesEffect {
     .ofType(CommunitiesActions.COMMUNITY_DETAILS)
     .map(toPayload)
     .switchMap((payload) => this.communitiesService.detailCommunity(payload)
-      .map(res => ({ type:  CommunitiesActions.COMMUNITY_DETAILS_SUCCESS, payload: res }))
+      .map(res => ({ type: CommunitiesActions.COMMUNITY_DETAILS_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: CommunitiesActions.COMMUNITY_DETAILS_FAILED, payload: res }))
     );
 
@@ -53,7 +53,7 @@ export class CommunitiesEffect {
     .ofType(CommunitiesActions.COMMUNITY_INVITE_PEOPLE_LIST)
     .map(toPayload)
     .switchMap((payload) => this.communitiesService.invitePeopleCommunity(payload)
-      .map(res => ({ type:  CommunitiesActions.COMMUNITY_INVITE_PEOPLE_LIST_SUCCESS, payload: res }))
+      .map(res => ({ type: CommunitiesActions.COMMUNITY_INVITE_PEOPLE_LIST_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: CommunitiesActions.COMMUNITY_INVITE_PEOPLE_LIST_FAILED, payload: res }))
     );
 
@@ -62,7 +62,7 @@ export class CommunitiesEffect {
     .ofType(CommunitiesActions.COMMUNITY_RELATED)
     .map(toPayload)
     .switchMap((payload) => this.communitiesService.relatedCommunity(payload)
-      .map(res => ({ type:  CommunitiesActions.COMMUNITY_RELATED_SUCCESS, payload: res }))
+      .map(res => ({ type: CommunitiesActions.COMMUNITY_RELATED_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: CommunitiesActions.COMMUNITY_RELATED_FAILED, payload: res }))
     );
 
@@ -71,7 +71,7 @@ export class CommunitiesEffect {
     .ofType(CommunitiesActions.COMMUNITY_UNJOIN)
     .map(toPayload)
     .switchMap((payload) => this.communitiesService.unjoinCommunity(payload)
-      .map(res => ({ type:  CommunitiesActions.COMMUNITY_UNJOIN_SUCCESS, payload: res }))
+      .map(res => ({ type: CommunitiesActions.COMMUNITY_UNJOIN_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: CommunitiesActions.COMMUNITY_UNJOIN_FAILED, payload: res }))
     );
 
@@ -80,7 +80,7 @@ export class CommunitiesEffect {
     .ofType(CommunitiesActions.COMMUNITY_POST_GET)
     .map(toPayload)
     .switchMap((payload) => this.communitiesService.getPostCommunity(payload)
-      .map(res => ({ type:  CommunitiesActions.COMMUNITY_POST_GET_SUCCESS, payload: res }))
+      .map(res => ({ type: CommunitiesActions.COMMUNITY_POST_GET_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: CommunitiesActions.COMMUNITY_POST_GET_FAILED, payload: res }))
     );
 
@@ -89,7 +89,7 @@ export class CommunitiesEffect {
     .ofType(CommunitiesActions.COMMUNITY_INVITE_PEOPLE)
     .map(toPayload)
     .switchMap((payload) => this.communitiesService.invitePeopleToCommunity(payload)
-      .map(res => ({ type:  CommunitiesActions.COMMUNITY_INVITE_PEOPLE_SUCCESS, payload: res }))
+      .map(res => ({ type: CommunitiesActions.COMMUNITY_INVITE_PEOPLE_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: CommunitiesActions.COMMUNITY_INVITE_PEOPLE_FAILED, payload: res }))
     );
 
@@ -130,8 +130,8 @@ export class CommunitiesEffect {
     );
 
 
-    constructor(
+  constructor(
     private actions$: Actions,
-    private communitiesService: CommunitiesService,
-  ) {}
+    private communitiesService: CommunitiesService
+  ) { }
 }

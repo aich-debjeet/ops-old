@@ -338,18 +338,6 @@ export class ProfileEffect {
       .catch((res) => Observable.of({ type: ProfileActions.ADD_USER_WORK_FAILED, payload: res }))
     );
 
-  // /**
-  //  * Edit Current user work
-  //  */
-  // @Effect()
-  // editUserWork$ = this.actions$
-  //   .ofType(ProfileActions.EDIT_USER_WORK)
-  //   .map(toPayload)
-  //   .switchMap((payload) => this.profileService.editUserWork(payload)
-  //     .map(res => ({ type: ProfileActions.EDIT_USER_WORK_SUCCESS, payload: res }))
-  //     .catch((res) => Observable.of({ type: ProfileActions.EDIT_USER_WORK_FAILED, payload: res }))
-  //   );
-
   /**
    * Get Current work and award
    */
@@ -456,18 +444,6 @@ export class ProfileEffect {
     );
 
   /**
-   * Edit Current user Award
-   */
-  // @Effect()
-  // editUserAward$ = this.actions$
-  //   .ofType(ProfileActions.EDIT_USER_WORK)
-  //   .map(toPayload)
-  //   .switchMap((payload) => this.profileService.editUserWork(payload)
-  //     .map(res => ({ type: ProfileActions.EDIT_USER_WORK_SUCCESS, payload: res }))
-  //     .catch((res) => Observable.of({ type: ProfileActions.EDIT_USER_WORK_FAILED, payload: res }))
-  //   );
-
-  /**
    * Delete Current user Award
    */
   @Effect()
@@ -478,18 +454,6 @@ export class ProfileEffect {
       .map(res => ({ type: ProfileActions.DELETE_USER_WORK_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: ProfileActions.DELETE_USER_WORK_FAILED, payload: res }))
     );
-
-  /**
-   * 401 error
-   */
-  // @Effect() errorStatus401$ = this.actions$
-  //   .map(action => action.payload)
-  //   .filter(payload => payload && payload.errorStatus === 401)
-  //   .switchMap(payload => {
-  //       localStorage.removeItem('currentUser');
-  //       this.router.navigate(['/login']);
-  //       return Observable.empty();
-  //   });
 
   /**
    * User Work Delete Success
@@ -837,21 +801,6 @@ export class ProfileEffect {
     );
 
   /**
-   *  Load my Directory
-   */
-  // @Effect()
-  // directory$ = this.actions$
-  //   .ofType(ProfileActions.LOAD_DIRECTORY)
-  //   .map(toPayload)
-  //   .switchMap((payload) => this.profileService.loadDirectory(payload)
-  //     .map(res => ({ type: ProfileActions.LOAD_DIRECTORY_SUCCESS, payload: res }))
-  //     .catch((res) => Observable.of({
-  //       type: ProfileActions.LOAD_DIRECTORY_FAILED,
-  //       payload: { errorStatus: res.status }
-  //     }))
-  //   );
-
-  /**
    * Get List of Block Users
    */
   @Effect()
@@ -893,18 +842,6 @@ export class ProfileEffect {
       .catch((res) => Observable.of({ type: ProfileActions.BLOCK_USER_FAILED, payload: res })
       )
     );
-
-  // @Effect()
-  // UpdateblockedUsers$ = this.actions$
-  // .ofType(ProfileActions.UNBLOCK_USER_SUCCESS)
-  // .map(toPayload)
-  // .switchMap((payload) => this.profileService.getBlockedUsers( payload )
-  //   .map(res => ({ type: ProfileActions.LOAD_BLOCK_USERS_SUCCESS, payload: res }))
-  //   .catch((res) => Observable.of({
-  //     type: ProfileActions.LOAD_BLOCK_USERS_FAILED,
-  //     payload: { errorStatus: res.status }
-  //   }))
-  // );
 
   /**
    * Get default notification settings
@@ -1091,11 +1028,8 @@ export class ProfileEffect {
       }))
     );
 
-
   constructor(
-    private toastr: ToastrService,
     private actions$: Actions,
-    private router: Router,
     private profileService: ProfileService
   ) { }
 
