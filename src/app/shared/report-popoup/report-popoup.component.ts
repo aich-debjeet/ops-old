@@ -70,7 +70,7 @@ export class ReportPopoupComponent implements OnInit, OnDestroy {
       description: value.desc || '',
     }
     // console.log(data)
-    this._store.dispatch({ type: SharedActions.GET_REPORT_OPTIONS, payload: data });
+    this._store.dispatch({ type: SharedActions.POST_SELECTED_OPTION, payload: data });
   }
   closeThankyou() {
     this.profileThankYou = false;

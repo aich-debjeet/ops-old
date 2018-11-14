@@ -15,11 +15,11 @@ export class SharedEffect {
 
   @Effect()
   getReports$ = this.actions$
-    .ofType(SharedActions.GET_REPORT_OPTIONS)
+    .ofType(SharedActions.POST_SELECTED_OPTION)
     .map(toPayload)
     .switchMap((payload) => this.sharedService.getReport(payload)
-      .map(res => ({ type: SharedActions.GET_REPORT_OPTIONS_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: SharedActions.GET_REPORT_OPTIONS_FAILED, payload: res }))
+      .map(res => ({ type: SharedActions.POST_SELECTED_OPTION_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: SharedActions.POST_SELECTED_OPTION_FAILED, payload: res }))
     );
 
 
