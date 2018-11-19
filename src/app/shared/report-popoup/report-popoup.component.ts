@@ -84,7 +84,7 @@ export class ReportPopoupComponent implements OnInit, OnDestroy {
       reason: value.repOption,
       description: value.desc || '',
     }
-    // console.log(data)
+    console.log(data)
     this._store.dispatch({ type: SharedActions.POST_SELECTED_OPTION, payload: data });
   }
   closeThankyou() {
