@@ -2004,10 +2004,12 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
       })
 
     case ProfileActions.PROFILE_REPORT:
+    console.log(payload)
       return Object.assign({}, state, {
         reports: []
       });
     case ProfileActions.PROFILE_REPORT_SUCCESS:
+    console.log(payload)
       return Object.assign({}, state, {
         reports: payload.Success.questions
       });

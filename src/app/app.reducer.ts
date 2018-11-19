@@ -28,7 +28,8 @@ const reducers = {
   exploreTags: ExploreReducer,
   eventTags: EventReducer,
   communitiesTags: CommunitiesReducer,
-  directoryTags: DirectoryReducer
+  directoryTags: DirectoryReducer,
+  sharedTags: SharedReducer
 }
 
 /**

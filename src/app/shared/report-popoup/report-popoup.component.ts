@@ -5,6 +5,7 @@ import { SharedActions } from '../../actions/shared.action';
 import { Store } from '@ngrx/store';
 import { environment } from '../../../environments/environment';
 import { Subscription } from 'rxjs/Subscription';
+import {SharedModal, initialSharedTags} from '../../models/shared.model';
 
 // rx
 import { Observable } from 'rxjs/Observable';
@@ -22,11 +23,14 @@ export class ReportPopoupComponent implements OnInit, OnDestroy {
   @Input() reportType;
   @Output() onclose: EventEmitter<any> = new EventEmitter<any>();
   thirdSubscription: Subscription;
+  secondSubscription: Subscription;
   public repPop: FormGroup;
   profileThankYou: boolean;
   describe: boolean = false;
   imageLink: string = environment.API_IMAGE;
   mediaState$: Observable<any>;
+  sharedStates$: Observable<SharedModal>;
+  sharedStore = initialSharedTags;
 
   constructor(
     private fb: FormBuilder,
@@ -37,10 +41,21 @@ export class ReportPopoupComponent implements OnInit, OnDestroy {
       this.mediaState$ = _store.select('mediaStore');
       this.thirdSubscription = this.mediaState$.subscribe((state) => {
         if (state['reports']) {
+          console.log(state)
           this.reportQues = state['reports'];
         }
       });
-// console.log(this.reportQues)
+      this.sharedStates$ = _store.select('sharedTags');
+      this.secondSubscription = this.sharedStates$.subscribe((state)=> {
+        console.log('initailstate', this.sharedStore)
+        this.sharedStore = state;
+        if(state !== undefined){
+          console.log(state);
+          if(state['report']){
+            this.reportQues = state['report'];
+          }
+        }
+      })
    }
 
   ngOnInit() {

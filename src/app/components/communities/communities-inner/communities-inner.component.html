@@ -267,6 +267,8 @@
     </modal-content>
 </app-modal-new>
 
-<app-modal-new #reportPopUp>
-    <app-report-popoup [reportQues]="questions" [reportContentId]="reportId" [reportType]="reportType" (onclose)= "closeReport()" ></app-report-popoup>
+<app-modal-new #reportPopUp modalClass="modal-report__popup">
+    <modal-content>
+        <app-report-popoup [reportContentId]="reportId" [reportType]="'community'" (onclose)= "closeReport()" ></app-report-popoup>
+    </modal-content>
 </app-modal-new>

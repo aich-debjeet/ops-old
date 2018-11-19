@@ -24,6 +24,7 @@ export class SharedService {
     return this.api.post('/portal/report', data);
   }
   getReportOptions(type: string){
+    console.log('shared servises')
     return this.api.get('/portal/report/questions/getByType/' + type)
   }
 
