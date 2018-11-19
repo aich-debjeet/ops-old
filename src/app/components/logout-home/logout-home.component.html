@@ -1,5 +1,5 @@
 <div class="landing_cont">
-<section class="landing_top" style="background: url('https://cdn.onepagespotlight.com/v2/index/hero_bg.png') no-repeat; background-size: 100%; background-position: top;">
+  <section class="landing_top" style="background: url('https://cdn.onepagespotlight.com/v2/index/hero_bg.png') no-repeat; background-size: 100%; background-position: top;">
     <div class="container">
       <div class="row landing_top_block">
         <div class="landing-header">
@@ -18,10 +18,31 @@
               Empowering artists to entertain <br>and inspire the world
             </div>
             <div class="slider_text c-text_lg">
-              An ecosystem for the Arts & Entertainment community providing tools to exhibit work, network, collaborate on projects with other artists, craftspeople, and organizations. Alongside, creating an immersive and entertaining experience for art lovers around the world.
+              An ecosystem for the Arts & Entertainment community providing tools to exhibit work, network, collaborate
+              on projects with other artists, craftspeople, and organizations. Alongside, creating an immersive and
+              entertaining experience for art lovers around the world.
             </div>
-            <a [routerLink]="['/reg']" class="btn btn-primary btn-lg o-landing-signup-btn">Sign up</a>
-              <!-- <a href="login.html" class="o-landing-more-btn m-l-16">Login</a> -->
+            <form [formGroup]="inviteForm" (ngSubmit)="sendInvite()" #myform="ngForm">
+              <div class="o-invitation-block">
+                <div class="col-xs-8 col-md-6 p-0">
+                  <div class="c-form__group c-form--lg m-t-0">
+                    <input class="c-form__input" type="text" formControlName="emailId" placeholder="Enter your email">
+                    <span class="c-form__highlight"></span>
+                    <span class="c-form__bar"></span>
+                    <!-- <label>Enter your email</label> -->
+                    <p class="c-form__validation" *ngIf="inviteForm.controls['emailId'].errors?.required && myform.submitted">Email
+                      is required</p>
+                    <p class="c-form__validation" *ngIf="inviteForm.controls['emailId'].errors?.isInvalidEmail && myform.submitted">Email
+                      is not valid</p>
+                  </div>
+                </div>
+                <div class="col-xs-4 col-md-6">
+                  <button class="btn btn-primary btn-lg o-landing-signup-btn" [disabled]="disableSubmit">Get Invite</button>
+                </div>
+              </div>
+            </form>
+            <!-- <a [routerLink]="['/reg']" class="btn btn-primary btn-lg o-landing-signup-btn">Sign up</a> -->
+            <!-- <a href="login.html" class="o-landing-more-btn m-l-16">Login</a> -->
           </div>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-5 col-lg-5 col-xl-5 landing_top_art">
@@ -29,11 +50,11 @@
         </div>
       </div>
     </div>
-</section>
-<section class="o-platform-sec">
-  <div class="container">
-    <div class="row o-platform-det-block">
-      <div class="col-md-12 col-sm-12 col-xs-12">
+  </section>
+  <section class="o-platform-sec">
+    <div class="container">
+      <div class="row o-platform-det-block">
+        <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="c-h1 o-platform-title--margin text-center margin_b_32">
             Platform for <span class="color-theme">all</span>
           </div>
@@ -91,126 +112,147 @@
               <img [src]="base_image + 'v2/index/platform.png'" alt="">
             </div>
           </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="o-org">
-  <div class="o-landing-org-block">
-    <div class="o-org-overlay">
-      <div class="container">
-        <div class="col-md-12 col-sm-12 col-xs-12 organization_padd">
-          <div class="c-h2 margin_b_16 o-landing-organization__title color-white">
-            Organisation
-          </div>
-          <p class=" c-text_lg o-organization__txt color-white">
-            Always be on the lookout for new talent. Network and<br>discover artists and art lovers across all disciplines.
-          </p>
-          <button type="button" [routerLink]="['login']" [queryParams]="{ next: 'org/page/profile' }" class="btn btn-primary btn-lg margin_t_16">Try Organisation</button>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="product-features">
+  <section class="o-org">
+    <div class="o-landing-org-block">
+      <div class="o-org-overlay">
+        <div class="container">
+          <div class="col-md-12 col-sm-12 col-xs-12 organization_padd">
+            <div class="c-h2 margin_b_16 o-landing-organization__title color-white">
+              Organisation
+            </div>
+            <p class=" c-text_lg o-organization__txt color-white">
+              Always be on the lookout for new talent. Network and<br>discover artists and art lovers across all
+              disciplines.
+            </p>
+            <button type="button" [routerLink]="['login']" [queryParams]="{ next: 'org/page/profile' }" class="btn btn-primary btn-lg margin_t_16">Try
+              Organisation</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="product-features">
     <div class="container">
-        <h2 class="c-h2 o-landing-product--margin text-center float_left">Product Features</h2>
-        <div class="row float_left">
-          <div class="col-xs-6 col-md-4 col-sm-6 col-xs-6">
-              <div class="o-product">
-                  <div class="o-product_media">
-                      <img [src]="base_image + 'v2/landing/channel.png'" alt="">
-                  </div>
-                  <div class="o-product_det">
-                      <div class="o-product-det__title">
-                          Channel
-                      </div>
-                      <p class="o-product-det__txt">
-                        Channels are like folders to organize and share multi media content based on your specific skills to ensure you reach the right audience with similar interests.
-                      </p>
-                  </div>
+      <h2 class="c-h2 o-landing-product--margin text-center float_left">Product Features</h2>
+      <div class="row float_left">
+        <div class="col-xs-6 col-md-4 col-sm-6 col-xs-6">
+          <div class="o-product">
+            <div class="o-product_media">
+              <img [src]="base_image + 'v2/landing/channel.png'" alt="">
+            </div>
+            <div class="o-product_det">
+              <div class="o-product-det__title">
+                Channel
               </div>
+              <p class="o-product-det__txt">
+                Channels are like folders to organize and share multi media content based on your specific skills to
+                ensure you reach the right audience with similar interests.
+              </p>
+            </div>
           </div>
-          <div class="col-xs-6 col-md-4 col-sm-6 col-xs-6">
-              <div class="o-product">
-                  <div class="o-product_media">
-                      <img [src]="base_image + 'v2/landing/spotfeed.png'" alt="">
-                  </div>
-                  <div class="o-product_det">
-                      <div class="o-product-det__title">
-                          Spotfeed
-                      </div>
-                      <p class="o-product-det__txt">
-                          Feeds designed, categorized & curated into multimedia channels of personal interests
-                      </p>
-                  </div>
-              </div>
-          </div>
-          <div class="col-xs-6 col-md-4 col-sm-6 col-xs-6">
-              <div class="o-product">
-                  <div class="o-product_media">
-                      <img [src]="base_image + 'v2/landing/opportunity.png'" alt="">
-                  </div>
-                  <div class="o-product_det">
-                      <div class="o-product-det__title">
-                          Opportunity
-                      </div>
-                      <p class="o-product-det__txt">
-                         Artists can collaborate on projects with multiple forms of talents across all industries. Companies can post jobs full time or part time. Charity Organisations can seek volunteers and performers for events.
-                      </p>
-                  </div>
-              </div>
-          </div>
-
-          <div class="col-xs-6 col-md-4 col-sm-6 col-xs-6">
-              <div class="o-product">
-                  <div class="o-product_media">
-                      <img [src]="base_image + 'v2/landing/event.png'" alt="">
-                  </div>
-                  <div class="o-product_det">
-                      <div class="o-product-det__title">
-                          Event
-                      </div>
-                      <p class="o-product-det__txt">
-                         Users can create, invite, share & attend events which can be categorized into workshops, performances and movies that may be ticketed or offer free entry. 
-                      </p>
-                  </div>
-              </div>
-          </div>
-          <div class="col-xs-6 col-md-4 col-sm-6 col-xs-6">
-              <div class="o-product">
-                  <div class="o-product_media">
-                      <img [src]="base_image + 'v2/landing/community.png'" alt="">
-                  </div>
-                  <div class="o-product_det">
-                      <div class="o-product-det__title">
-                          Community
-                      </div>
-                      <p class="o-product-det__txt">
-                        An effective way to build connection and engagement, communities help in bringing together people of the same interests, kick up conversations around the central theme of the group, and keep things vibrant 
-                      </p>
-                  </div>
-              </div>
-          </div>
-          <div class="col-xs-6 col-md-4 col-sm-6 col-xs-6">
-              <div class="o-product">
-                  <div class="o-product_media">
-                      <img [src]="base_image + 'v2/landing/pedia.png'" alt="">
-                  </div>
-                  <div class="o-product_det">
-                      <div class="o-product-det__title">
-                          Pedia
-                      </div>
-                      <p class="o-product-det__txt">
-                         Curated content for all art forms, crafts & skills required in the arts industry for any one aspiring to learn and progress in their fields, careers or interests. 
-                      </p>
-                  </div>
-              </div>
-          </div>
-
         </div>
+        <div class="col-xs-6 col-md-4 col-sm-6 col-xs-6">
+          <div class="o-product">
+            <div class="o-product_media">
+              <img [src]="base_image + 'v2/landing/spotfeed.png'" alt="">
+            </div>
+            <div class="o-product_det">
+              <div class="o-product-det__title">
+                Spotfeed
+              </div>
+              <p class="o-product-det__txt">
+                Feeds designed, categorized & curated into multimedia channels of personal interests
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-6 col-md-4 col-sm-6 col-xs-6">
+          <div class="o-product">
+            <div class="o-product_media">
+              <img [src]="base_image + 'v2/landing/opportunity.png'" alt="">
+            </div>
+            <div class="o-product_det">
+              <div class="o-product-det__title">
+                Opportunity
+              </div>
+              <p class="o-product-det__txt">
+                Artists can collaborate on projects with multiple forms of talents across all industries. Companies can
+                post jobs full time or part time. Charity Organisations can seek volunteers and performers for events.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-6 col-md-4 col-sm-6 col-xs-6">
+          <div class="o-product">
+            <div class="o-product_media">
+              <img [src]="base_image + 'v2/landing/event.png'" alt="">
+            </div>
+            <div class="o-product_det">
+              <div class="o-product-det__title">
+                Event
+              </div>
+              <p class="o-product-det__txt">
+                Users can create, invite, share & attend events which can be categorized into workshops, performances
+                and movies that may be ticketed or offer free entry.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-6 col-md-4 col-sm-6 col-xs-6">
+          <div class="o-product">
+            <div class="o-product_media">
+              <img [src]="base_image + 'v2/landing/community.png'" alt="">
+            </div>
+            <div class="o-product_det">
+              <div class="o-product-det__title">
+                Community
+              </div>
+              <p class="o-product-det__txt">
+                An effective way to build connection and engagement, communities help in bringing together people of
+                the same interests, kick up conversations around the central theme of the group, and keep things
+                vibrant
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-6 col-md-4 col-sm-6 col-xs-6">
+          <div class="o-product">
+            <div class="o-product_media">
+              <img [src]="base_image + 'v2/landing/pedia.png'" alt="">
+            </div>
+            <div class="o-product_det">
+              <div class="o-product-det__title">
+                Pedia
+              </div>
+              <p class="o-product-det__txt">
+                Curated content for all art forms, crafts & skills required in the arts industry for any one aspiring
+                to learn and progress in their fields, careers or interests.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
-</section>
+  </section>
 </div>
+
+<app-modal-new #inviteSuccessModal [closeOnEscape]="true" [closeOnOutsideClick]="true" modalClass="">
+  <modal-content>
+    <div class="modal-dialog o-invitation-pop">
+      <!-- Modal content-->
+      <div class="modal-content o-invitation-pop">
+        <h2>Thank you for showing your interest</h2>
+        <div class="c-text_lg color-grey-dark o-invitation--space">We'll let you know as soon as your account is ready!</div>
+        <button type="button" class="btn btn-primary btn-md" (click)="inviteSuccessModal.close()">Close</button>
+      </div>
+    </div>
+  </modal-content>
+</app-modal-new>

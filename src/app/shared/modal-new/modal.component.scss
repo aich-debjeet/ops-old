@@ -109,7 +109,7 @@
 .modal-cus-body{
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
         margin: 10px;
-        width: 100%;
+        width: calc(100% - 20px);
     }
 }
 
