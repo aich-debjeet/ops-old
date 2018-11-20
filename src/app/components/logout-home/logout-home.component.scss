@@ -755,3 +755,27 @@ line-height: 24px;
      color:$color-theme;
  }
 }
+
+.o-invitation-block{
+  width: 100%;
+  float: left;
+}
+.o-invitation-pop{
+  width: 764px;
+  height: 444px;
+  display: flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  @include mq($from: $mobile_sm, $until: $tablet) {
+      width: 100%;
+  }
+}
+.o-invitation--space{
+  padding:22px 0px 36px 0px;
+}
+.invitation_pop{
+  display: flex;
+  justify-content:center;
+  align-items:center;
+}
