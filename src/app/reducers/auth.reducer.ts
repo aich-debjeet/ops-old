@@ -10,6 +10,24 @@ const gUtils = new GeneralUtilities;
 export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, type}: Action) =>  {
   switch (type) {
 
+    case AuthActions.VERIFY_REFERENCE_CODE:
+      return Object.assign({}, state, {
+        verifyRefCode: true,
+        verifyRefCodeSuccess: false,
+        verifyRefCodeParams: payload
+      });
+    case AuthActions.VERIFY_REFERENCE_CODE_SUCCESS:
+      return Object.assign({}, state, {
+        verifyRefCode: false,
+        verifyRefCodeSuccess: true,
+        verifyRefCodeResponse: payload
+      });
+    case AuthActions.VERIFY_REFERENCE_CODE_FAILED:
+      return Object.assign({}, state, {
+        verifyRefCode: false,
+        verifyRefCodeSuccess: false
+      });
+
     case AuthActions.SEND_INVITATION:
       return Object.assign({}, state, {
         send_invite: true,
