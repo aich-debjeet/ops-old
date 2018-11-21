@@ -75,6 +75,42 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
 
   switch (type) {
 
+    case ProfileActions.REMOVE_COVER_IMAGE:
+      return Object.assign({}, state, {
+        removingCoverImage: true,
+        removedCoverImage: false,
+      });
+
+    case ProfileActions.REMOVE_COVER_IMAGE_SUCCESS:
+      return Object.assign({}, state, {
+        removingCoverImage: false,
+        removedCoverImage: true,
+      });
+
+    case ProfileActions.REMOVE_COVER_IMAGE_FAILED:
+      return Object.assign({}, state, {
+        removingCoverImage: false,
+        removedCoverImage: false,
+      });
+
+    case ProfileActions.REMOVE_PROFILE_IMAGE:
+      return Object.assign({}, state, {
+        removingProfileImage: true,
+        removedProfileImage: false,
+      });
+
+    case ProfileActions.REMOVE_PROFILE_IMAGE_SUCCESS:
+      return Object.assign({}, state, {
+        removingProfileImage: false,
+        removedProfileImage: true,
+      });
+
+    case ProfileActions.REMOVE_PROFILE_IMAGE_FAILED:
+      return Object.assign({}, state, {
+        removingProfileImage: false,
+        removedProfileImage: false,
+      });
+
     case ProfileActions.MEDIA_VIEW_COUNT_UPDATE:
       return Object.assign({}, state, {
         user_following_posts: state.user_following_posts.map(post => {

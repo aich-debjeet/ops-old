@@ -14,6 +14,25 @@ import { ProfileActions } from '../actions/profile.action';
 
 @Injectable()
 export class ProfileEffect {
+
+  @Effect()
+  removeCoverImage$ = this.actions$
+    .ofType(ProfileActions.REMOVE_COVER_IMAGE)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.removeCoverImage(payload)
+      .map(res => ({ type: ProfileActions.REMOVE_COVER_IMAGE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.REMOVE_COVER_IMAGE_FAILED, payload: res }))
+    );
+
+  @Effect()
+  removeProfileImage$ = this.actions$
+    .ofType(ProfileActions.REMOVE_PROFILE_IMAGE)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.removeProfileImage(payload)
+      .map(res => ({ type: ProfileActions.REMOVE_PROFILE_IMAGE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.REMOVE_PROFILE_IMAGE_FAILED, payload: res }))
+    );
+
   @Effect()
   postChannelStatus$ = this.actions$
     .ofType(ProfileActions.POST_CHANNEL_STATUS)
