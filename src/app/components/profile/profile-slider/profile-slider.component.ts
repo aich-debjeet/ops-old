@@ -16,6 +16,7 @@ import { FormValidation, ProfileUpdateValidator } from '../../../helpers/form.va
 // action
 import { ProfileActions } from '../../../actions/profile.action';
 import { AuthActions } from '../../../actions/auth.action';
+import { SharedActions } from '../../../actions/shared.action';
 
 import { ToastrService } from 'ngx-toastr';
 import { initialProfileTag, ProfileCard } from '../../../models/profile.model';
@@ -40,6 +41,7 @@ export class ProfileSliderComponent implements OnInit {
   @ViewChild('networkModal') NetworktypeModal: Modal;
   @ViewChild('blockSuccessful') blockSuccessful: Modal;
   @ViewChild('blockModal') blockModal: Modal;
+  @ViewChild('reportModal') reportModal: Modal;
   @Input() profileData: any;
   @Input() isOtherProfile: any;
   @Input() userName: string;
@@ -279,16 +281,8 @@ export class ProfileSliderComponent implements OnInit {
    * open report modal
   */
   reportModalOpen() {
-    this.modalService.open('reportPopUp');
-    this.profileStore.dispatch({ type: ProfileActions.PROFILE_REPORT, payload: 'profile' });
-    // this.profileStore.select('profileTags')
-    //   .first(state => state['reports'])
-    //   .subscribe( data => {
-    //     if (data['reports']) {
-    //       this.questions = data['reports'];
-    //       console.log(this.questions)
-    //     }
-    //   });
+    this.reportModal.open();
+    this.profileStore.dispatch({ type: SharedActions.GET_OPTIONS_REPORT, payload: 'profile' });
   }
 
   closeReport() {

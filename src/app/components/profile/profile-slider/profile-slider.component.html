@@ -252,9 +252,15 @@
     </div>
 </app-modal>
 
-<app-modal [modalTitle]="''" [blocking]='false' modalId='reportPopUp' *ngIf="!this.isOwner">
-    <app-report-popoup [reportQues]="questions" [reportContentId]="otherProfileHandle" [reportType]="reportType" (onclose)= "closeReport()" ></app-report-popoup>
-</app-modal>
+<!-- <app-modal [modalTitle]="''" [blocking]='false' modalId='reportPopUp' *ngIf="!this.isOwner">
+    <app-report-popoup  [reportContentId]="otherProfileHandle" [reportType]="reportType" (onclose)= "closeReport()" ></app-report-popoup>
+</app-modal> -->
+
+<app-modal-new #reportModal modalClass="modal-report__popup" >
+    <modal-content>
+            <app-report-popoup  [reportContentId]="otherProfileHandle" [reportType]="'profile'" (onclose)= "reportModal.close()"></app-report-popoup>
+    </modal-content>
+</app-modal-new>
 
 <app-modal-new #blockModal modalClass="modal-cus__sm">
     <modal-content>
