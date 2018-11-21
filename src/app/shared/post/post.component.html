@@ -191,7 +191,7 @@
 
 <app-modal-new #reportModal modalClass="modal-report__popup" >
     <modal-content>
-            <app-report-popoup  [reportContentId]="reportId" [reportType]="'post'" (onclose)= "closeReport()" ></app-report-popoup>
+            <app-report-popoup  [reportContentId]="reportId" [reportType]="'post'" (onclose)= "reportModal.close()" ></app-report-popoup>
     </modal-content>
 </app-modal-new>
 

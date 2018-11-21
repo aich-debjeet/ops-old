@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { environment } from '../../../environments/environment';
 import { Subscription } from 'rxjs/Subscription';
 import {SharedModal, initialSharedTags} from '../../models/shared.model';
+import { ToastrService } from 'ngx-toastr';
 
 // rx
 import { Observable } from 'rxjs/Observable';
@@ -31,11 +32,13 @@ export class ReportPopoupComponent implements OnInit, OnDestroy {
   mediaState$: Observable<any>;
   sharedStates$: Observable<SharedModal>;
   sharedStore = initialSharedTags;
+  openThankYou: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     public modalService: ModalService,
     private _store: Store<any>,
+    private toastr: ToastrService,
   ) {
       this.profileThankYou = false;
       this.mediaState$ = _store.select('mediaStore');
@@ -49,10 +52,19 @@ export class ReportPopoupComponent implements OnInit, OnDestroy {
       this.secondSubscription = this.sharedStates$.subscribe((state)=> {
         console.log('initailstate', this.sharedStore)
         this.sharedStore = state;
-        if(state !== undefined){
+        if(typeof state !== 'undefined'){
           console.log(state);
           if(state['report']){
             this.reportQues = state['report'];
+          }
+          if(state['report_failed'] && state['report_failed'].length > 0){
+            this.toastr.error('You have already reported');
+          }
+          if(state['rep_success'] === true && state['report_success'].Success){
+            if(this.openThankYou){
+              this.profileThankYou = true;
+              this.openThankYou = false;
+            }
           }
         }
       })
@@ -75,7 +87,7 @@ export class ReportPopoupComponent implements OnInit, OnDestroy {
   }
   submitForm(value) {
     // this.onclose.emit();
-    this.profileThankYou = true;
+    this.openThankYou = true;
     // this.modalService.open('thankYou');
 
     const data = {

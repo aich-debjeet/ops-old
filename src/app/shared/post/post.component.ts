@@ -11,6 +11,7 @@ import { MediaActions } from '../../actions/media.action';
 import { ProfileActions } from '../../actions/profile.action';
 import { CommunitiesActions } from '../../actions/communities.action';
 
+import { SharedActions } from '../../actions/shared.action';
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
@@ -149,16 +150,17 @@ export class PostComponent implements OnInit, OnDestroy {
    * open report modal
   */
   reportModalOpen(id: string) {
-    this.popupActive = true;
+    // this.popupActive = true;
     this.reportModal.open();
     this.reportId = id;
-    this.modalService.open('reportPopUp');
-    this.store.dispatch({ type: MediaActions.MEDIA_POST_REPORT, payload: 'post' });
+    // this.modalService.open('reportPopUp');
+    // this.store.dispatch({ type: MediaActions.MEDIA_POST_REPORT, payload: 'post' });
+    this.store.dispatch({ type: SharedActions.GET_OPTIONS_REPORT, payload: 'post' });
   }
 
-  closeReport() {
-    this.reportModal.close();
-  }
+  // closeReport() {
+  //   this.reportModal.close();
+  // }
 
   /**
    * Submit Comment

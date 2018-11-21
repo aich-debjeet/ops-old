@@ -47,18 +47,23 @@ export const SharedReducer: ActionReducer<any> = (state, {payload, type}: Action
 
     case SharedActions.POST_SELECTED_OPTION:
     return Object.assign({}, state, {
-      success: true
+      report_success:'',
+      report_failed:'',
+      rep_success: false
     });
 
     case SharedActions.POST_SELECTED_OPTION_SUCCESS:
-    return Object.assign({}, state, {
-      report_success: payload,
-      success: true
-    });
+    console.log(payload)
+      return Object.assign({}, state, {
+        report_success: payload,
+        rep_success: true
+      });
 
     case SharedActions.POST_SELECTED_OPTION_FAILED:
+    console.log(payload)
     return Object.assign({}, state, {
-      success: false
+      report_failed:JSON.parse(payload['_body']).ERROR,
+      rep_success: false
     });
 
     case SharedActions.GET_OPTIONS_REPORT:
