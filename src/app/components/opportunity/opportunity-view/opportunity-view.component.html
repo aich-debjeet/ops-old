@@ -781,9 +781,14 @@
   </div>
 </section>
 
-<app-modal [modalTitle]="''" [blocking]='false' modalId='reportPopUp'>
+<!-- <app-modal [modalTitle]="''" [blocking]='false' modalId='reportPopUp'>
   <app-report-popoup [reportQues]="questions" [reportContentId]="reportId" [reportType]="reportType" (onclose)="closeReport()"></app-report-popoup>
-</app-modal>
+</app-modal> -->
+<app-modal-new #reportModal modalClass="modal-report__popup" >
+  <modal-content>
+          <app-report-popoup  [reportContentId]="reportId" [reportType]="'opportunity'" (onclose)= "reportModal.close()"></app-report-popoup>
+  </modal-content>
+</app-modal-new>
 
 
 <app-modal-new #cancelApplicationModal modalClass="o-comodal_main in">

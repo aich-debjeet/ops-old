@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 // actions
 import { OpportunityActions } from 'app/actions/opportunity.action';
+import { SharedActions } from '../../../actions/shared.action';
 
 // store
 import { Store } from '@ngrx/store';
@@ -45,6 +46,7 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
   questions: any;
   reportType: string;
   @ViewChild('cancelApplicationModal') cancelApplicationModal: Modal;
+  @ViewChild('reportModal') reportModal:Modal;
 
   similarOpportunities: any;
   similarOpportunitiesLoaded = false;
@@ -185,8 +187,9 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
 
   reportModalOpen(id: string) {
     this.reportId = id;
-    this.modalService.open('reportPopUp');
-    this.store.dispatch({ type: OpportunityActions.OPPORTUNITY_REPORT, payload: 'opportunity' });
+    this.reportModal.open();
+    // this.store.dispatch({ type: OpportunityActions.OPPORTUNITY_REPORT, payload: 'opportunity' });
+    this.store.dispatch({ type: SharedActions.GET_OPTIONS_REPORT, payload: 'opportunity' });
   }
 
   closeReport() {
