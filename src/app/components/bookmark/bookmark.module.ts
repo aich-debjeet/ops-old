@@ -13,6 +13,7 @@ import { BookmarkAllComponent } from './bookmark-all/bookmark-all.component';
 import { AuthGuard } from 'app/guard/auth.guard';
 import { SharedModule } from 'app/shared/shared.module';
 import { BookmarkAudioCardComponent } from './cards/bookmark-audio-card/bookmark-audio-card.component';
+import { BookmarkImageCardComponent } from './cards/bookmark-image-card/bookmark-image-card.component';
 
 const routes: Routes = [
   {
@@ -47,7 +48,8 @@ const routes: Routes = [
     BookmarkProfileComponent,
     BookmarkVideoComponent,
     BookmarkAllComponent,
-    BookmarkAudioCardComponent
+    BookmarkAudioCardComponent,
+    BookmarkImageCardComponent
   ]
 })
 export class BookmarkModule { }
