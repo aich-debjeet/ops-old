@@ -2003,21 +2003,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
 
       })
 
-    case ProfileActions.PROFILE_REPORT:
-    console.log(payload)
-      return Object.assign({}, state, {
-        reports: []
-      });
-    case ProfileActions.PROFILE_REPORT_SUCCESS:
-    console.log(payload)
-      return Object.assign({}, state, {
-        reports: payload.Success.questions
-      });
-    case ProfileActions.PROFILE_REPORT_FAILED:
-      return Object.assign({}, state, {
-        reports: []
-      });
-
     case ProfileActions.TRENDING_POST_SUCCESS:
       return Object.assign({}, state, {
         trending_post: payload['mediaResponse']

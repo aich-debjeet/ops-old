@@ -145,18 +145,6 @@ export class OpportunityEffect {
       .catch((res) => Observable.of({ type: OpportunityActions.APPLY_FOR_AN_OPPORTUNITY_FAILED, payload: res }))
     );
 
-  /**
-   * Get Opportunity Report
-  */
-  @Effect()
-  getReport$ = this.actions$
-    .ofType(OpportunityActions.OPPORTUNITY_REPORT)
-    .map(toPayload)
-    .switchMap((payload) => this.opportunityService.getReports(payload)
-      .map(res => ({ type: OpportunityActions.OPPORTUNITY_REPORT_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: OpportunityActions.OPPORTUNITY_REPORT_FAILED, payload: res }))
-    );
-
   // File Upload
   @Effect()
   fileUpload$ = this.actions$

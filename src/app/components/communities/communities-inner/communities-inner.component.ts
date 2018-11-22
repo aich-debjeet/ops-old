@@ -219,10 +219,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   }
 
   reportModalOpen(id: string){
-    // console.log(id)
     this.reportId = id;
-  //  this.modalService.open('reportPopUp');
-  console.log('calling api');
    this.store.dispatch({ type: SharedActions.GET_OPTIONS_REPORT, payload: 'community' });
  }
 

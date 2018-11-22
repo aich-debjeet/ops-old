@@ -41,8 +41,6 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
   isAttend: boolean;
   attendeeList: any;
   reportId: string;
-  questions: any;
-  reportType: string;
   @ViewChild('reportModal') reportModal: Modal;
 
   constructor(
@@ -58,11 +56,6 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
       this.eventDetail = state['event_detail'];
       this.attendeeList = state['attendee_load'];
       // console.log(this.eventDetail)
-      if (state['reports']) {
-        this.questions = state['reports'];
-        this.reportType = 'event';
-        // console.log(this.questions)
-      }
     });
 
     // Event tag
@@ -136,16 +129,8 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
   }
 
  reportModalOpen(id: string){
-    // console.log(id)
     this.reportId = id;
     this.reportModal.open();
-  //  this.store.dispatch({ type: EventActions.EVENT_REPORT, payload: 'event' });
   this.store.dispatch({ type: SharedActions.GET_OPTIONS_REPORT, payload: 'event' });
  }
-
- closeReport(){
-  // console.log('comming')
-  this.modalService.close('reportPopUp');
-}
-
 }

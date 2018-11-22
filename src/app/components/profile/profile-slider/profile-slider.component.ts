@@ -80,8 +80,6 @@ export class ProfileSliderComponent implements OnInit {
   otherProfileName: String;
   error = false;
   showThis = false;
-  questions: any;
-  reportType: string;
   isBlocked: boolean;
 
   hasFollowed: boolean;
@@ -114,11 +112,6 @@ export class ProfileSliderComponent implements OnInit {
         //  console.log('state', state);
       // get followers
       if (state) {
-        if (state['reports']) {
-          this.questions = state['reports'];
-          this.reportType = 'profile';
-          // console.log(this.questions)
-        }
         if ((state['searching_following_profiles'] === false && state['searching_following_profiles_success'] === true) || (state['searching_follower_profiles'] === false && state['searching_follower_profiles_success'] === true)) {
           this.showPreloader = false;
         }
@@ -283,11 +276,6 @@ export class ProfileSliderComponent implements OnInit {
   reportModalOpen() {
     this.reportModal.open();
     this.profileStore.dispatch({ type: SharedActions.GET_OPTIONS_REPORT, payload: 'profile' });
-  }
-
-  closeReport() {
-    // console.log('comming')
-    this.modalService.close('reportPopUp');
   }
 
   /**

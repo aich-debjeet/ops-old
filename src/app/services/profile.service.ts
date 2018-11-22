@@ -626,13 +626,6 @@ export class ProfileService {
   }
 
   /**
-   * get reports
-   */
-  getReports(type: string) {
-    return this.api.get('/portal/report/questions/getByType/' + type)
-  }
-
-  /**
    * Media comment fetch
    * @param mediaId Channel ID
    */

@@ -44,16 +44,13 @@ export class ReportPopoupComponent implements OnInit, OnDestroy {
       this.mediaState$ = _store.select('mediaStore');
       this.thirdSubscription = this.mediaState$.subscribe((state) => {
         if (state['reports']) {
-          console.log(state)
           this.reportQues = state['reports'];
         }
       });
       this.sharedStates$ = _store.select('sharedTags');
       this.secondSubscription = this.sharedStates$.subscribe((state)=> {
-        console.log('initailstate', this.sharedStore)
         this.sharedStore = state;
         if(typeof state !== 'undefined'){
-          console.log(state);
           if(state['report']){
             this.reportQues = state['report'];
           }
@@ -72,7 +69,6 @@ export class ReportPopoupComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.buildForm();
-    // console.log(this.reportContentId)
   }
 
   ngOnDestroy() {

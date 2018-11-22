@@ -43,8 +43,7 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
   isOwnOpportunity = false;
   showOptions = false;
   reportId: string;
-  questions: any;
-  reportType: string;
+
   @ViewChild('cancelApplicationModal') cancelApplicationModal: Modal;
   @ViewChild('reportModal') reportModal:Modal;
 
@@ -66,11 +65,6 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
       // console.log('state', state);
       if (state) {
         // get opp data
-        if (state['reports']) {
-          this.questions = state['reports'];
-          this.reportType = 'opportunity';
-          // console.log(this.questions)
-        }
 
         if (state.get_opportunity_data) {
           this.opportunity = state.get_opportunity_data;
@@ -188,12 +182,7 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
   reportModalOpen(id: string) {
     this.reportId = id;
     this.reportModal.open();
-    // this.store.dispatch({ type: OpportunityActions.OPPORTUNITY_REPORT, payload: 'opportunity' });
     this.store.dispatch({ type: SharedActions.GET_OPTIONS_REPORT, payload: 'opportunity' });
-  }
-
-  closeReport() {
-    this.modalService.close('reportPopUp');
   }
 
   confirmation(action: string) {
