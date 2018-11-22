@@ -101,6 +101,14 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
 
     case ProfileActions.REMOVE_PROFILE_IMAGE_SUCCESS:
       return Object.assign({}, state, {
+        profile_details: Object.assign({}, state.profile_details, {
+          profileImage: ''
+        }),
+        profile_cards: Object.assign({}, state.profile_cards, {
+          active: Object.assign({}, state.profile_cards.active, {
+            image: ''
+          })
+        }),
         removingProfileImage: false,
         removedProfileImage: true,
       });

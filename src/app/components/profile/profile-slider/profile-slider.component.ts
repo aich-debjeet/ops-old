@@ -711,5 +711,20 @@ export class ProfileSliderComponent implements OnInit {
      }
    });
  }
+
+ removeImage(imageType: string) {
+  if (imageType === 'profile') {
+    this.profileStore.dispatch({type: ProfileActions.REMOVE_PROFILE_IMAGE, payload: ''});
+  } else if (imageType === 'cover') {
+    this.profileStore.dispatch({type: ProfileActions.REMOVE_COVER_IMAGE, payload: ''});
+  }
+  this.profileStore.select('profileTags')
+   .take(2)
+   .subscribe(data => {
+     if (data['removingProfileImage'] === false && data['removedProfileImage'] === true) {
+      this.toastr.success('Profile images has been removed', 'Success!');
+     }
+   });
+ }
 }
 
