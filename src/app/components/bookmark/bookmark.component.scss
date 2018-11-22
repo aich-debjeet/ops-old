@@ -453,3 +453,23 @@
         display: none;
     }
 }
+
+.bookmark-info__posts {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: row;
+    margin-top: 8px;
+}
+
+.bookmark-info__post-item {
+    width: 87px;
+    height: 87px;
+    float: left;
+    position: relative;
+    background: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
