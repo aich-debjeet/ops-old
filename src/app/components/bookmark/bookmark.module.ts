@@ -9,6 +9,7 @@ import { BookmarkImageComponent } from './bookmark-image/bookmark-image.componen
 import { BookmarkOpportunityComponent } from './bookmark-opportunity/bookmark-opportunity.component';
 import { BookmarkProfileComponent } from './bookmark-profile/bookmark-profile.component';
 import { BookmarkVideoComponent } from './bookmark-video/bookmark-video.component';
+import { BookmarkAllComponent } from './bookmark-all/bookmark-all.component';
 import { AuthGuard } from 'app/guard/auth.guard';
 import { SharedModule } from 'app/shared/shared.module';
 
@@ -18,6 +19,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     component: BookmarkComponent,
     children: [
+      { path: '', pathMatch: 'full', redirectTo: 'all' },
+      { path: 'all', component: BookmarkAllComponent },
       { path: 'audio', component: BookmarkAudioComponent },
       { path: 'event', component: BookmarkEventComponent },
       { path: 'image', component: BookmarkImageComponent },
@@ -41,7 +44,8 @@ const routes: Routes = [
     BookmarkImageComponent,
     BookmarkOpportunityComponent,
     BookmarkProfileComponent,
-    BookmarkVideoComponent
+    BookmarkVideoComponent,
+    BookmarkAllComponent
   ]
 })
 export class BookmarkModule { }
