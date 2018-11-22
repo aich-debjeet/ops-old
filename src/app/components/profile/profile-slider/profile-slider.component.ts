@@ -193,22 +193,15 @@ export class ProfileSliderComponent implements OnInit {
       return false;
     }
     let coverImageURL;
-
-    // if (profile && profile['extra'] && profile['extra']['isImported'] === true) {
-    //   coverImageURL = this.baseUrl + '/assets/img/new/s14.jpg';
-    // } else
     if (!profile.image.cover || profile.image.cover === '') {
       coverImageURL = 'https://cdn.onepagespotlight.com/img/profile-cover.png';
     } else {
       coverImageURL = this.baseUrl + profile.image.cover;
     }
-    // coverImageURL = 'https://www.dropbox.com/s/kskr4b3c0afc59i/default_coverImage__opt.jpg?raw=1';
-
     const resp = {
       'background-image': 'url(' + coverImageURL + ')',
       'background-size': 'cover'
     }
-
     return resp;
   }
 
@@ -693,6 +686,28 @@ export class ProfileSliderComponent implements OnInit {
       this.isBlocked = false;
      }
    });
+ }
+
+ removeImage(imageType: string) {
+  if (imageType === 'profile') {
+    this.profileStore.dispatch({type: ProfileActions.REMOVE_PROFILE_IMAGE, payload: ''});
+    this.profileStore.select('profileTags')
+     .take(2)
+     .subscribe(data => {
+       if (data['removingProfileImage'] === false && data['removedProfileImage'] === true) {
+        this.toastr.success('Profile images has been removed', 'Success!');
+       }
+     });
+  } else if (imageType === 'cover') {
+    this.profileStore.dispatch({type: ProfileActions.REMOVE_COVER_IMAGE, payload: ''});
+    this.profileStore.select('profileTags')
+     .take(2)
+     .subscribe(data => {
+       if (data['removingCoverImage'] === false && data['removedCoverImage'] === true) {
+        this.toastr.success('Cover images has been removed', 'Success!');
+       }
+     });
+  }
  }
 }
 

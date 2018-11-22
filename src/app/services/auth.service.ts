@@ -38,6 +38,10 @@ export class AuthService {
       this.headers = this.api.getHeaders();
     }
 
+    verifyRefCode(reqBody: any) {
+      return this.api.post('/portal/auth/validate/invitation', reqBody);
+    }
+
     sendInvitation(reqBody: any) {
       return this.api.post('/portal/auth/inviteByEmail', reqBody);
     }

@@ -20,6 +20,14 @@ export class ProfileService {
     this.headers = this.api.getHeaders();
   }
 
+  removeCoverImage(reqBody: any) {
+    return this.api.delete('/portal/cdn/media/remove/coverImage', reqBody);
+  }
+
+  removeProfileImage(reqBody: any) {
+    return this.api.delete('/portal/cdn/media/remove/profileImage', reqBody);
+  }
+
   postChannelStatus(payload: any) {
     const channelId = payload.channelId;
     const reqBody = payload.reqBody;
