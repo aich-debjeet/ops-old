@@ -83,6 +83,9 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
 
     case ProfileActions.REMOVE_COVER_IMAGE_SUCCESS:
       return Object.assign({}, state, {
+        profile_details: Object.assign({}, state.profile_details, {
+          coverImage: ''
+        }),
         removingCoverImage: false,
         removedCoverImage: true,
       });
