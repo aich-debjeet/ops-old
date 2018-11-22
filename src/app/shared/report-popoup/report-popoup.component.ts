@@ -47,6 +47,9 @@ export class ReportPopoupComponent implements OnInit, OnDestroy {
           this.reportQues = state['reports'];
         }
       });
+      /**
+       * observing state changes for shared model
+       */
       this.sharedStates$ = _store.select('sharedTags');
       this.secondSubscription = this.sharedStates$.subscribe((state)=> {
         this.sharedStore = state;
@@ -81,20 +84,24 @@ export class ReportPopoupComponent implements OnInit, OnDestroy {
       desc: ''
     });
   }
+  /**
+   * 
+   * @param value Method invoked after submiting selected option for reporting
+   */
   submitForm(value) {
-    // this.onclose.emit();
     this.openThankYou = true;
-    // this.modalService.open('thankYou');
-
     const data = {
       reportType: this.reportType,
       reportContentId: this.reportContentId,
       reason: value.repOption,
       description: value.desc || '',
     }
-    console.log(data)
     this._store.dispatch({ type: SharedActions.POST_SELECTED_OPTION, payload: data });
   }
+
+  /**
+   * closure method for Thank you Modal
+   */
   closeThankyou() {
     this.profileThankYou = false;
     this.onclose.emit();

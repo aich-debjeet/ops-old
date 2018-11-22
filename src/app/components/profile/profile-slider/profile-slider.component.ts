@@ -270,9 +270,10 @@ export class ProfileSliderComponent implements OnInit {
     });
   }
 
-  /** 
-   * open report modal
-  */
+  /**
+   * method to open report pop-up with options for profile 
+   * @param id to open specific report model
+   */
   reportModalOpen() {
     this.reportModal.open();
     this.profileStore.dispatch({ type: SharedActions.GET_OPTIONS_REPORT, payload: 'profile' });

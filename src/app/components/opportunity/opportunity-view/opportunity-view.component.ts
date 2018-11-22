@@ -179,6 +179,10 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * method to open report pop-up with options for opportunity 
+   * @param id to open specific report model
+   */
   reportModalOpen(id: string) {
     this.reportId = id;
     this.reportModal.open();

@@ -128,9 +128,13 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
     this.store.dispatch({ type: EventActions.EVENT_ATTEND, payload: data });
   }
 
- reportModalOpen(id: string){
+  /**
+   * method to open report pop-up with options for event 
+   * @param id to open specific report model
+   */
+  reportModalOpen(id: string){
     this.reportId = id;
     this.reportModal.open();
-  this.store.dispatch({ type: SharedActions.GET_OPTIONS_REPORT, payload: 'event' });
- }
+    this.store.dispatch({ type: SharedActions.GET_OPTIONS_REPORT, payload: 'event' });
+  }
 }

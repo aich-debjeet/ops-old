@@ -146,8 +146,9 @@ export class PostComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * open report modal
-  */
+   * method to open report pop-up with options for post 
+   * @param id to open specific report model
+   */
   reportModalOpen(id: string) {
     this.reportModal.open();
     this.reportId = id;

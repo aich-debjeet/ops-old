@@ -217,7 +217,10 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
     this.communityAdminFormInit();
     this.CommuityLeaveModal.open();
   }
-
+/**
+ * method to open report pop-up with options for community 
+ * @param id to open specific report model
+ */
   reportModalOpen(id: string){
     this.reportId = id;
    this.store.dispatch({ type: SharedActions.GET_OPTIONS_REPORT, payload: 'community' });

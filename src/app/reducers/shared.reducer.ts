@@ -45,6 +45,9 @@ export const SharedReducer: ActionReducer<any> = (state, {payload, type}: Action
       });
     /* unpinning channel */
 
+    /**
+     * reducer to manage state on submiting selected option for reporting
+     */
     case SharedActions.POST_SELECTED_OPTION:
     return Object.assign({}, state, {
       report_success:'',
@@ -64,6 +67,9 @@ export const SharedReducer: ActionReducer<any> = (state, {payload, type}: Action
       rep_success: false
     });
 
+    /**
+     * reducer to manage state on getting options for reporting
+     */
     case SharedActions.GET_OPTIONS_REPORT:
     return Object.assign({}, state, {
       report: []
