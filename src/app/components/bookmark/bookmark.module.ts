@@ -15,6 +15,7 @@ import { SharedModule } from 'app/shared/shared.module';
 import { BookmarkAudioCardComponent } from './cards/bookmark-audio-card/bookmark-audio-card.component';
 import { BookmarkImageCardComponent } from './cards/bookmark-image-card/bookmark-image-card.component';
 import { BookmarkVideoCardComponent } from './cards/bookmark-video-card/bookmark-video-card.component';
+import { BookmarkEventCardComponent } from './cards/bookmark-event-card/bookmark-event-card.component';
 
 const routes: Routes = [
   {
@@ -51,7 +52,8 @@ const routes: Routes = [
     BookmarkAllComponent,
     BookmarkAudioCardComponent,
     BookmarkImageCardComponent,
-    BookmarkVideoCardComponent
+    BookmarkVideoCardComponent,
+    BookmarkEventCardComponent
   ]
 })
 export class BookmarkModule { }
