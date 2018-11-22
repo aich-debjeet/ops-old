@@ -1,7 +1,7 @@
 export class Bookmark {
     loadingBookmarks?: boolean;
     loadedBookmarks?: boolean;
-    bookmarks?: [];
+    bookmarks?: any[];
 }
 
 export const initialBookmarkState: Bookmark  = {
