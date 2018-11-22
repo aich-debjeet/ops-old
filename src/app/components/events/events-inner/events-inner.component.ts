@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { UtcDatePipe } from './../../../pipes/utcdate.pipe';
@@ -9,9 +9,11 @@ import { Location } from '@angular/common';
 
 // Model
 import { EventModal, initialTagEve  } from '../../../models/event.model';
+import { Modal } from '../../../shared/modal-new/Modal';
 
 // action
 import { EventActions } from '../../../actions/event.action';
+import { SharedActions } from '../../../actions/shared.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
@@ -41,6 +43,7 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
   reportId: string;
   questions: any;
   reportType: string;
+  @ViewChild('reportModal') reportModal: Modal;
 
   constructor(
     private route: ActivatedRoute,
@@ -135,8 +138,9 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
  reportModalOpen(id: string){
     // console.log(id)
     this.reportId = id;
-   this.modalService.open('reportPopUp');
-   this.store.dispatch({ type: EventActions.EVENT_REPORT, payload: 'event' });
+    this.reportModal.open();
+  //  this.store.dispatch({ type: EventActions.EVENT_REPORT, payload: 'event' });
+  this.store.dispatch({ type: SharedActions.GET_OPTIONS_REPORT, payload: 'event' });
  }
 
  closeReport(){
