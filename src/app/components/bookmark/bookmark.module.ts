@@ -16,6 +16,7 @@ import { BookmarkAudioCardComponent } from './cards/bookmark-audio-card/bookmark
 import { BookmarkImageCardComponent } from './cards/bookmark-image-card/bookmark-image-card.component';
 import { BookmarkVideoCardComponent } from './cards/bookmark-video-card/bookmark-video-card.component';
 import { BookmarkEventCardComponent } from './cards/bookmark-event-card/bookmark-event-card.component';
+import { BookmarkOpportunityCardComponent } from './cards/bookmark-opportunity-card/bookmark-opportunity-card.component';
 
 const routes: Routes = [
   {
@@ -53,7 +54,8 @@ const routes: Routes = [
     BookmarkAudioCardComponent,
     BookmarkImageCardComponent,
     BookmarkVideoCardComponent,
-    BookmarkEventCardComponent
+    BookmarkEventCardComponent,
+    BookmarkOpportunityCardComponent
   ]
 })
 export class BookmarkModule { }
