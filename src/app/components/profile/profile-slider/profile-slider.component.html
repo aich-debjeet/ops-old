@@ -2,11 +2,15 @@
     <div class="c-timeline__img" *ngIf="profileObject !== null" [ngStyle]="coverImageStyle(profileObject)">
         <div class="container" *ngIf="this.isOwner">
             <span class="c-timeline__imgchange" appDropdown>
-               <a data-toggle="modal" data-target="#cover-upload" appDropdownOpen>
+               <a data-toggle="modal" data-target="#cover-upload">
                     <div class="c-timeline__changecover">
-                        <a routerLink="/profile/about/cover_image"><img [src]="baseUrl + 'v2/svg/edit_red.svg'" class="c-timeline__icon"> Change cover</a>
+                        <a class="dropdown-toggle" appDropdownOpen><img [src]="baseUrl + 'v2/svg/edit_red.svg'" class="c-timeline__icon"> Change cover</a>
                     </div>
                 </a>
+                <ul class="dropdown-menu dropdown-menu prof-img-drop cover-img-drop">
+                    <li><a routerLink="/profile/about/cover_image">Upload</a></li>
+                    <li><a (click)="removeImage('cover')">Remove</a></li>
+                </ul>
             </span>
         </div>
         <div class="c-timeline__gradient">
@@ -20,11 +24,19 @@
                 <div class="c-profile__userblock">
                     <img *ngIf="profileObject?.image?.profile" [src]="profileObject?.extra?.isExternallySourced ? profileObject?.image?.profile : baseUrl + profileObject?.image?.profile" class="img-responsive img-circle c-profile__userimg">
                     <img *ngIf="!profileObject?.image?.profile" [src]="defaultImage" class="img-responsive img-circle c-profile__userimg">
-                    <span *ngIf="this.isOwner" class="c-profile__imgchange">
-                        <a  data-toggle="modal" data-target="#profile-upload">
-                           <a routerLink="/profile/about/image"> <img [src]="baseUrl + 'v2/svg/edit_red.svg'" class="c-profile__imgchange--icon"></a>
-                        </a>
-                    </span>
+                    <div *ngIf="this.isOwner">
+                        <div class="dropdown c-dropdown" appDropdown>
+                            <span class="c-profile__imgchange" data-toggle="dropdown" aria-expanded="true">
+                                <a class="dropdown-toggle" appDropdownOpen>
+                                    <img [src]="baseUrl + 'v2/svg/edit_red.svg'" class="c-profile__imgchange--icon">
+                                </a>
+                            </span>
+                            <ul class="dropdown-menu dropdown-menu prof-img-drop">
+                                <li><a routerLink="/profile/about/image">Upload image</a></li>
+                                <li><a (click)="removeImage('profile')">Remove image</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="c-profile__userdetail">
@@ -252,9 +264,11 @@
     </div>
 </app-modal>
 
-<app-modal [modalTitle]="''" [blocking]='false' modalId='reportPopUp' *ngIf="!this.isOwner">
-    <app-report-popoup [reportQues]="questions" [reportContentId]="otherProfileHandle" [reportType]="reportType" (onclose)= "closeReport()" ></app-report-popoup>
-</app-modal>
+<app-modal-new #reportModal modalClass="modal-report__popup" >
+    <modal-content>
+            <app-report-popoup  [reportContentId]="otherProfileHandle" [reportType]="'profile'" (onclose)= "reportModal.close()"></app-report-popoup>
+    </modal-content>
+</app-modal-new>
 
 <app-modal-new #blockModal modalClass="modal-cus__sm">
     <modal-content>

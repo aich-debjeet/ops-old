@@ -1,6 +1,6 @@
 <app-navigation-logo></app-navigation-logo>
 
-<section class="container-fluid ops_signup">
+<section *ngIf="refCodeVerified" class="container-fluid ops_signup">
     <div class="container p-0 m-t-b-24">
         <div class="row m-0">
             <div class="col-md-6 col-sm-6 col-xs-12 ops_signup_left">
@@ -127,6 +127,13 @@
             </div>
         </div>
     </div>
+</section>
+
+<section *ngIf="!refCodeVerified" class="container-fluid ops_signup">
+  <h5 class="text-center reg-claim-text">Verifying the reference code, please wait....</h5>
+  <div class="preloader">
+    <div class="sticky"><div class="loader">Loading...</div></div>
+  </div>
 </section>
 
 <app-modal-new #claimPopup [closeOnEscape]="false" [closeOnOutsideClick]="false" modalClass="reg_step1_otp modal-test-claim">

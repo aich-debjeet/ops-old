@@ -45,20 +45,44 @@ export const SharedReducer: ActionReducer<any> = (state, {payload, type}: Action
       });
     /* unpinning channel */
 
-    case SharedActions.GET_REPORT_OPTIONS:
+    /**
+     * reducer to manage state on submiting selected option for reporting
+     */
+    case SharedActions.POST_SELECTED_OPTION:
     return Object.assign({}, state, {
-      success: true
+      report_success:'',
+      report_failed:'',
+      rep_success: false
     });
 
-    case SharedActions.GET_REPORT_OPTIONS_SUCCESS:
+    case SharedActions.POST_SELECTED_OPTION_SUCCESS:
+      return Object.assign({}, state, {
+        report_success: payload,
+        rep_success: true
+      });
+
+    case SharedActions.POST_SELECTED_OPTION_FAILED:
     return Object.assign({}, state, {
-      report_success: payload,
-      success: true
+      report_failed:JSON.parse(payload['_body']).ERROR,
+      rep_success: false
     });
 
-    case SharedActions.GET_REPORT_OPTIONS_FAILED:
+    /**
+     * reducer to manage state on getting options for reporting
+     */
+    case SharedActions.GET_OPTIONS_REPORT:
     return Object.assign({}, state, {
-      success: false
+      report: []
+    });
+
+    case SharedActions.GET_OPTIONS_REPORT_SUCCESS:
+    return Object.assign({}, state, {
+      report: payload.Success.questions
+    });
+
+    case SharedActions.GET_OPTIONS_REPORT_FAILED:
+    return Object.assign({}, state, {
+      report: []
     });
 
     default:

@@ -1,82 +1,87 @@
 <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand"><img [src]="image_base_url + 'v2/ops_logo.png'"></a>
-            <div class="signup_next">
-                <button [disabled]="!skillsSelected || uploadingSkills" (click)="saveSkills()" class="btn btn-primary btn-md">CONTINUE</button>
-            </div>
-        </div>
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand"><img [src]="image_base_url + 'v2/ops_logo.png'"></a>
+      <div class="signup_next">
+        <button [disabled]="!skillsSelected || uploadingSkills" (click)="saveSkills()" class="btn btn-primary btn-md">CONTINUE</button>
+      </div>
     </div>
-    <!-- /.container-fluid -->
+  </div>
+  <!-- /.container-fluid -->
 </nav>
 
 <section class="o-sign_block">
-    <div class="o-skill-selection-top">
-        <div class="container">
-            <h3 class="c-h3 f-w_500 text-center m-t-32">Select your skills</h3>
-            <div class="c-text_md color-grey-dark text-center m-t-8">
-                Please enter you'r skills and select from the list below.
-            </div>
-            <form [formGroup]="searchSkillForm">
-                <div class="o-skill-search m-t-16">
-                    <div class="c-form__group c-form--lg c-form--noeffect c-form__faded--lg">
-                        <input #searchInput class="c-form__input p-l-16" type="text" formControlName="profession" [(ngModel)]="search" (ngModelChange)="onSearchChange($event)">
-                        <label class="p-l-8">Search skills</label>
-                        <span>
-                            <img *ngIf="skillSelectionState?.signup_search_skill_success || skillSelectionState?.skills_loaded" [src]="image_base_url + 'img/svg/ico_search.svg'" class="c-form__input--righticon">
-                            <img *ngIf="skillSelectionState?.signup_search_skill || skillSelectionState?.skills_loading" [src]="image_base_url + 'img/search-preloader.gif'" class="c-form__input--righticon">
-                        </span>
-                    </div>
-                </div>
-            </form>
-            <div class="skillslider o-skill-result-top m-t-8 p-t-b-8 slick-initialized slick-slider">
-                <a *ngFor="let skill of selectedSkills" (click)="toggleSelectSkill(skill.code)" class="o-skill__remove-btn">
-                    {{skill.name}} 
-                    <span class="o-skill__remove">
-                        <img [src]="image_base_url + 'img/svg/ico_close-white.svg'">
-                    </span>
-                </a>
-            </div>
+  <div class="o-skill-selection-top">
+    <div class="container">
+      <h3 class="c-h3 f-w_500 text-center m-t-32">Select your interests</h3>
+      <div class="c-text_md color-grey-dark text-center m-t-8">
+        Please enter your interests and select from the list below.
+      </div>
+      <form [formGroup]="searchSkillForm">
+        <div class="o-skill-search m-t-16">
+          <div class="c-form__group c-form--lg c-form--noeffect c-form__faded--lg">
+            <input #searchInput class="c-form__input p-l-16" type="text" formControlName="profession" [(ngModel)]="search"
+              (ngModelChange)="onSearchChange($event)">
+            <label class="p-l-8">Search interests</label>
+            <span>
+              <img *ngIf="skillSelectionState?.signup_search_skill_success || skillSelectionState?.skills_loaded" [src]="image_base_url + 'img/svg/ico_search.svg'"
+                class="c-form__input--righticon">
+              <img *ngIf="skillSelectionState?.signup_search_skill || skillSelectionState?.skills_loading" [src]="image_base_url + 'img/search-preloader.gif'"
+                class="c-form__input--righticon">
+            </span>
+          </div>
         </div>
+      </form>
+      <div class="skillslider o-skill-result-top m-t-8 p-t-b-8 slick-initialized slick-slider">
+        <a *ngFor="let skill of selectedSkills" (click)="toggleSelectSkill(skill.code)" class="o-skill__remove-btn">
+          {{skill.name}}
+          <span class="o-skill__remove">
+            <img [src]="image_base_url + 'img/svg/ico_close-white.svg'">
+          </span>
+        </a>
+      </div>
     </div>
-    <!-- top sec end -->
-    <div class="o-skill">
-        <div class="container">
-            <div class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12 p-0">
-                <div *ngIf="selectedSkills?.length === 0" class="c-text_md color-grey-dark text-center m-t-b-16">No skill selected</div>
-                <ul
-                infiniteScroll
-                [infiniteScrollDistance]="2"
-                [infiniteScrollThrottle]="1000"
-                (scrolled)="loadMoreSkills($event)"
-                *ngIf="skills?.length > 0" class="o-add-skill-block">
-                    <li class="o-add-skill__item" *ngFor="let skill of skills">
-                        <a class="o-add-skill__link" (click)="toggleSelectSkill(skill.code)" [ngClass]="skill?.isSelected ? 'selected' : ''">
-                            <span class="o-skill__list-container">
-                                <span *ngIf="skill?.background" class="o-skill__list-bg-img">
-                                    <figure>
-                                        <img [src]="skill.background">
-                                    </figure>
-                                </span>
-                                <span class="o-skill__title">
-                                    <p class="c-text_lg f-w_600 color-white">
-                                        {{ skill.name }}
-                                    </p>
-                                </span>
-                            </span>
-                        </a>
-                    </li>
-                </ul>
-                <div *ngIf="(skillSelectionState?.signup_search_skill === true && skillSelectionState?.signup_search_skill_success === false) || skillSelectionState?.skills_loading" class="preloader">
-                    <div class="sticky"><div class="loader">Loading...</div></div>
-                </div>
-                <div *ngIf="skills?.length === 0 && skillSelectionState?.signup_search_skill === false && skillSelectionState?.signup_search_skill_success === true" class="o-skill-more">
-                    <p class="c-text_lg m-t-24 f-w_300">Sorry we couldn't find anything. you may add '{{ search }}' as a skill</p>
-                    <button type="button" (click)="addNewSkill(search)" class="o-skill-btn-add m-t-8">{{ search }}
-                        <span class="o-add-skill-btn-ico"><img [src]="image_base_url + 'v2/svg/plus-red.svg'" alt=""></span>
-                    </button>
-                </div>
-            </div>
+  </div>
+  <!-- top sec end -->
+  <div class="o-skill">
+    <div class="container">
+      <div class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12 p-0">
+        <div *ngIf="selectedSkills?.length === 0" class="c-text_md color-grey-dark text-center m-t-b-16">No interest
+          selected</div>
+        <ul infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="1000" (scrolled)="loadMoreSkills($event)"
+          *ngIf="skills?.length > 0" class="o-add-skill-block">
+          <li class="o-add-skill__item" *ngFor="let skill of skills">
+            <a class="o-add-skill__link" (click)="toggleSelectSkill(skill.code)" [ngClass]="skill?.isSelected ? 'selected' : ''">
+              <span class="o-skill__list-container">
+                <span *ngIf="skill?.background" class="o-skill__list-bg-img">
+                  <figure>
+                    <img [src]="skill.background">
+                  </figure>
+                </span>
+                <span class="o-skill__title">
+                  <p class="c-text_lg f-w_600 color-white">
+                    {{ skill.name }}
+                  </p>
+                </span>
+              </span>
+            </a>
+          </li>
+        </ul>
+        <div *ngIf="(skillSelectionState?.signup_search_skill === true && skillSelectionState?.signup_search_skill_success === false) || skillSelectionState?.skills_loading"
+          class="preloader">
+          <div class="sticky">
+            <div class="loader">Loading...</div>
+          </div>
         </div>
+        <div *ngIf="skills?.length === 0 && skillSelectionState?.signup_search_skill === false && skillSelectionState?.signup_search_skill_success === true"
+          class="o-skill-more">
+          <p class="c-text_lg m-t-24 f-w_300">Sorry we couldn't find anything. You may add '{{ search }}' as an
+            interest</p>
+          <button type="button" (click)="addNewSkill(search)" class="o-skill-btn-add m-t-8">{{ search }}
+            <span class="o-add-skill-btn-ico"><img [src]="image_base_url + 'v2/svg/plus-red.svg'" alt=""></span>
+          </button>
+        </div>
+      </div>
     </div>
+  </div>
 </section>

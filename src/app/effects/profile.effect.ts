@@ -14,6 +14,25 @@ import { ProfileActions } from '../actions/profile.action';
 
 @Injectable()
 export class ProfileEffect {
+
+  @Effect()
+  removeCoverImage$ = this.actions$
+    .ofType(ProfileActions.REMOVE_COVER_IMAGE)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.removeCoverImage(payload)
+      .map(res => ({ type: ProfileActions.REMOVE_COVER_IMAGE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.REMOVE_COVER_IMAGE_FAILED, payload: res }))
+    );
+
+  @Effect()
+  removeProfileImage$ = this.actions$
+    .ofType(ProfileActions.REMOVE_PROFILE_IMAGE)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.removeProfileImage(payload)
+      .map(res => ({ type: ProfileActions.REMOVE_PROFILE_IMAGE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.REMOVE_PROFILE_IMAGE_FAILED, payload: res }))
+    );
+
   @Effect()
   postChannelStatus$ = this.actions$
     .ofType(ProfileActions.POST_CHANNEL_STATUS)
@@ -984,18 +1003,6 @@ export class ProfileEffect {
     .switchMap((payload) => this.profileService.declinerequest(payload)
       .map(res => ({ type: ProfileActions.DECLINE_NETWORK_REQUEST_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: ProfileActions.DECLINE_NETWORK_REQUEST_FAILED, payload: res }))
-    );
-
-  /**
-   *Get Profile Report 
-   */
-  @Effect()
-  getReport$ = this.actions$
-    .ofType(ProfileActions.PROFILE_REPORT)
-    .map(toPayload)
-    .switchMap((payload) => this.profileService.getReports(payload)
-      .map(res => ({ type: ProfileActions.PROFILE_REPORT_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: ProfileActions.PROFILE_REPORT_FAILED, payload: res }))
     );
 
   /**

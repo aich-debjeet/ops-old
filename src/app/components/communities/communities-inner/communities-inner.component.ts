@@ -5,6 +5,7 @@ import { NgxfUploaderService, UploadEvent, FileError } from 'ngxf-uploader';
 import { TokenService } from '../../../helpers/token.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Modal } from '../../../shared/modal-new/Modal';
+import { SharedActions } from '../../../actions/shared.action';
 
 // pipes
 import { TruncatePipe } from 'app/pipes/truncate.pipe';
@@ -76,6 +77,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   token: any;
   handle: any;
   userData: any;
+  reportId: string;
   constructor(
     private fb: FormBuilder,
     private store: Store<any>,
@@ -215,6 +217,14 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
     this.communityAdminFormInit();
     this.CommuityLeaveModal.open();
   }
+/**
+ * method to open report pop-up with options for community 
+ * @param id to open specific report model
+ */
+  reportModalOpen(id: string){
+    this.reportId = id;
+   this.store.dispatch({ type: SharedActions.GET_OPTIONS_REPORT, payload: 'community' });
+ }
 
   comunityMemberFetch(text = '', page = 0, page_limit = 20) {
     const data = {
