@@ -212,19 +212,21 @@ export class MediaViewComponent implements OnDestroy {
     this.store.dispatch({ type: MediaActions.MEDIA_EDIT, payload: data });
   }
 
-  bookmarkMedia(mediaDetails) {
-    const reqBody = {
-      bookmarkType: mediaDetails['mtype'],
-      contentId: mediaDetails['id']
-    };
-    this.store.dispatch({ type: BookmarkActions.BOOKMARK, payload: reqBody });
-    const bookmarkSub = this.store.select('bookmarkStore')
-     .take(2)
-     .subscribe(data => {
-       if (data['bookmarking'] === false && data['bookmarked'] === true) {
-        this.toastr.success('Bookmarked successfully', 'Success!');
-        bookmarkSub.unsubscribe();
-       }
-     });
+  bookmarkAction(action: string, mediaDetails: any) {
+    if (action === 'add') {
+      const reqBody = {
+        bookmarkType: mediaDetails['mtype'],
+        contentId: mediaDetails['id']
+      };
+      this.store.dispatch({ type: BookmarkActions.BOOKMARK, payload: reqBody });
+      const bookmarkSub = this.store.select('bookmarkStore')
+      .take(2)
+      .subscribe(data => {
+        if (data['bookmarking'] === false && data['bookmarked'] === true) {
+          this.toastr.success('Bookmarked successfully', 'Success!');
+          bookmarkSub.unsubscribe();
+        }
+      });
+    }
   }
 }
