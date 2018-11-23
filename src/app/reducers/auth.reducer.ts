@@ -574,14 +574,21 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
     return Object.assign({}, state, {
       setting_number_update_sent: true,
       setting_number_update_success: false,
+      request_type:''
     });
   case AuthActions.SETTINGS_OTP_NUMBER_CHANGE_SUCCESS:
   console.log(payload)
   if(payload['SUCCESS']['code'] === 0){
+    const set_user_contact_det = payload['SUCCESS']['SUCCESS'];
+    const contac_det = {
+      contactNumber: set_user_contact_det['contactNumber'],
+      countryCode: set_user_contact_det['countryCode']
+    }
     return Object.assign({}, state,{
       setting_number_update_sent: false,
       setting_number_update_success: true,
-      setting_contact_information: payload.SUCCESS.SUCCESS
+      setting_contact_information: contac_det,
+      request_type: set_user_contact_det['requestType'],
     })
   }
     // if (state['update_number_params']['contact']['contactNumber']) {

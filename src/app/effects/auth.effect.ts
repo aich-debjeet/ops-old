@@ -335,6 +335,18 @@ export class AuthEffect {
       .catch((res) => Observable.of({ type: AuthActions.OTP_RESEND_SUBMIT_FAILED, payload: res }))
     );
 
+    /**
+     * settings resend otp
+     */
+    @Effect()
+    settOtpResend$ = this.actions$
+      .ofType(AuthActions.SETTING_OTP_RESEND_SUBMIT)
+      .map(toPayload)
+      .switchMap((payload) => this.authService.settOtpResend(payload)
+        .map(res => ({ type: AuthActions.SETTING_OTP_RESEND_SUBMIT_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: AuthActions.SETTING_OTP_RESEND_SUBMIT_FAILED, payload: res }))
+      );
+
   /* OTP Number Change */
   @Effect()
   otpNumberChange$ = this.actions$

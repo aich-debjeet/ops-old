@@ -109,7 +109,9 @@ export class SettingsComponent implements OnInit {
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
+        console.log('initial tag', this.petTag);
         this.petTag = state;
+        console.log('state',state)
         // if (state['user_number_cng_success'] === true ) {
         //   this._modalService.open('otpWindow');
         // }
@@ -120,12 +122,13 @@ export class SettingsComponent implements OnInit {
         //   // this._modalService.open('otpSuccess');
         //     this.phoneFormUpdate();
         // }
-        if (state['setting_number_update_sent'] === false && state['setting_number_update_success'] === true) {
+        if (state['setting_number_update_sent'] === false && state['setting_number_update_success'] === true && state['request_type'] === 'OTP Request') {
           console.log('open otp model');
           this.otpPopup.open();
         }
 
-        if (state['user_otp_success'] === true) {
+        if (state['request_type'] === 'OTP Submission') {
+          console.log('closing otp nodel');
           this._store.dispatch({ type: ProfileActions.LOAD_USER_DATA_DETAILS });
           this.otpPopup.close();
           this.cancelEdit();
@@ -331,7 +334,8 @@ export class SettingsComponent implements OnInit {
       contactNumber: this.getContactDetails('number'),
       countryCode: this.getContactDetails('country')
     }
-    this.store.dispatch({ type: AuthActions.OTP_RESEND_SUBMIT, payload: resendOtpData });
+    console.log('rensedotpbody', resendOtpData);
+    this.store.dispatch({ type: AuthActions.SETTING_OTP_RESEND_SUBMIT, payload: resendOtpData });
     setTimeout(() => {
       this.resendingOtp = false;
     }, 1500);
