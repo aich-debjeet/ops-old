@@ -15,6 +15,7 @@ import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
 
 import { UtcDatePipe } from './../../../pipes/utcdate.pipe';
+import { BookmarkActions } from 'app/actions/bookmark.action';
 
 @Component({
   selector: 'app-media-view',
@@ -209,5 +210,20 @@ export class MediaViewComponent implements OnDestroy {
     }
     // console.log(data)
     this.store.dispatch({ type: MediaActions.MEDIA_EDIT, payload: data });
+  }
+
+  bookmarkMedia(mediaDetails) {
+    const reqBody = {
+      bookmarkType: mediaDetails['mtype'],
+      contentId: mediaDetails['id']
+    };
+    this.store.dispatch({ type: BookmarkActions.BOOKMARK, payload: reqBody });
+    this.store.select('bookmarkStore')
+     .take(2)
+     .subscribe(data => {
+       if (data['bookmarking'] === false && data['bookmarked'] === true) {
+        this.toastr.success('Bookmarked successfully', 'Success!');
+       }
+     });
   }
 }

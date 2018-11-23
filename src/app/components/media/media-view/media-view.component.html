@@ -72,6 +72,11 @@
                             <span class="c-links__count">{{ comments?.length }}</span>
                         </div>
                         <div class="c-links__actions">
+                            <span class="c-links__bookmark">
+                                <a (click)="bookmarkMedia(data)">
+                                    <img [src]="imageLink + 'img/svg/bookmark.svg'" class="c-action__image">
+                                </a>
+                            </span>
                             <span class="c-links__add">
                                 <div class="c-links__actions">
                                     <span class="c-links__add">
