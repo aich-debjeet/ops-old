@@ -12,7 +12,8 @@ export const BookmarkReducer: ActionReducer<any> = (state = initialBookmarkState
             return Object.assign({}, state, {
                 loadingBookmarks: true,
                 loadedBookmarks: false,
-                requestPayload: payload
+                requestPayload: payload,
+                bookmarkType: payload['bookmarkType']
             });
 
         case BookmarkActions.GET_BOOKMARKS_SUCCESS:
