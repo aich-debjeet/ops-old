@@ -11,7 +11,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class BookmarkImageComponent implements OnInit, OnDestroy {
 
-  showPreloader = true;
+  showPreloader: boolean;
   bookmarkSub: ISubscription;
   bookmarkStore$: Observable<BookmarkModel>;
   bookmarkState: any;
@@ -27,6 +27,9 @@ export class BookmarkImageComponent implements OnInit, OnDestroy {
         if (state.loadingBookmarks === false && state.loadedBookmarks === true) {
           this.showPreloader = false;
           this.bookmarks = state.bookmarks;
+        }
+        if (state.loadingBookmarks === true && state.loadedBookmarks === false) {
+          this.showPreloader = true;
         }
       }
     });
