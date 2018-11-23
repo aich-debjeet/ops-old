@@ -24,8 +24,16 @@ export class GeneralUtilities {
             const data = resp['SUCCESS'];
             const bookmarks = [];
             for (let i = 0; i < data.length; i++) {
-                if (typeof data[i]['bookmarkedPosts'][0] !== 'undefined') {
+                if (data[i] && data[i]['bookmarkedPosts'] && data[i]['bookmarkedPosts'][0]) {
                     bookmarks.push(data[i]['bookmarkedPosts'][0]);
+                }
+                if (data[i] && data[i]['bookmarkedEvents'] && data[i]['bookmarkedEvents'][0]) {
+                    data[i]['bookmarkedEvents'][0]['type'] = 'event';
+                    bookmarks.push(data[i]['bookmarkedEvents'][0]);
+                }
+                if (data[i] && data[i]['bookmarkedJobs'] && data[i]['bookmarkedJobs'][0]) {
+                    data[i]['bookmarkedJobs'][0]['type'] = 'opportunity';
+                    bookmarks.push(data[i]['bookmarkedJobs'][0]);
                 }
                 if (i >= (data.length - 1)) {
                     return bookmarks;
