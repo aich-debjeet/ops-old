@@ -20,6 +20,15 @@ export class GeneralUtilities {
     sortBookmarks(type: string, resp: any) {
         if (type === 'image' || type === 'video') {
             return resp['SUCCESS'][0]['bookmarkedPosts'];
+        } else if (type === 'all') {
+            const data = resp['SUCCESS'];
+            const bookmarks = [];
+            for (let i = 0; i < data.length; i++) {
+                bookmarks.push(data[i]['bookmarkedPosts'][0]);
+                if (i >= (data.length - 1)) {
+                    return bookmarks;
+                }
+            }
         }
         return [];
     }
