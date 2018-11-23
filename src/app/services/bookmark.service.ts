@@ -12,4 +12,8 @@ export class BookmarkService {
     return this.api.post('/portal/bookmark/search', reqBody);
   }
 
+  bookmark(reqBody: any) {
+    return this.api.post('/portal/bookmark', reqBody);
+  }
+
 }

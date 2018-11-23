@@ -14,15 +14,27 @@ import { BookmarkActions } from '../actions/bookmark.action';
 export class BookmarkEffect {
 
   /**
-   * explore media post delete
+   * get all bookmarks
    */
   @Effect()
-  exploreMediaPostDelete$ = this.actions$
+  getAllBookmarks$ = this.actions$
     .ofType(BookmarkActions.GET_ALL_BOOKMARKS)
     .map(toPayload)
     .switchMap((payload) => this.bookmarkService.getAllBookmarks(payload)
       .map(res => ({ type: BookmarkActions.GET_ALL_BOOKMARKS_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: BookmarkActions.GET_ALL_BOOKMARKS_FAILED, payload: res }))
+    );
+
+  /**
+   * bookmark
+   */
+  @Effect()
+  bookmark$ = this.actions$
+    .ofType(BookmarkActions.BOOKMARK)
+    .map(toPayload)
+    .switchMap((payload) => this.bookmarkService.bookmark(payload)
+      .map(res => ({ type: BookmarkActions.BOOKMARK_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: BookmarkActions.BOOKMARK_FAILED, payload: res }))
     );
 
   constructor(
