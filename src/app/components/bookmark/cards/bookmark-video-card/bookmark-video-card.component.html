@@ -1,7 +1,7 @@
 <div class="bookmark">
     <div class="bookmark__media">
         <a *ngIf="mediaDetails?.postId" [routerLink]="['', { outlets: { media : ['media', mediaDetails?.postId] } }]">
-            <div class="bookmark__media__video" [ngStyle]="{'background-image': 'url(' + imageBaseUrl + mediaDetails?.postUrl + ')',
+            <div class="bookmark__media__video" [ngStyle]="{'background-image': 'url(' + imageBaseUrl + mediaDetails?.postThumbNails?.mediumLarge + ')',
                 'background-size': 'cover',
                 'background-position': 'center',
                 'width': '100%'}">
