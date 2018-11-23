@@ -1,7 +1,7 @@
 <div class="bookmark">
     <div class="bookmark__profile">
         <div class="bookmark-profile__image">
-            <img src="https://ops-v2-2.netlify.com/assets/demo/avatar.jpg" alt="">
+            <img [src]="imageBaseUrl + profileDetails?.profileImage" alt="">
         </div>
         <div class="bookmark-profile__name">
             {{ profileDetails?.name }}

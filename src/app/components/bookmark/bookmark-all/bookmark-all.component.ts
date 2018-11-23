@@ -27,7 +27,6 @@ export class BookmarkAllComponent implements OnInit, OnDestroy {
         if (state.loadingBookmarks === false && state.loadedBookmarks === true) {
           this.showPreloader = false;
           this.bookmarks = state.bookmarks;
-          console.log('this.bookmarks', this.bookmarks);
         }
         if (state.loadingBookmarks === true && state.loadedBookmarks === false) {
           this.showPreloader = true;
