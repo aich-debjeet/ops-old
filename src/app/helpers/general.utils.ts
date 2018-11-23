@@ -24,7 +24,9 @@ export class GeneralUtilities {
             const data = resp['SUCCESS'];
             const bookmarks = [];
             for (let i = 0; i < data.length; i++) {
-                bookmarks.push(data[i]['bookmarkedPosts'][0]);
+                if (typeof data[i]['bookmarkedPosts'][0] !== 'undefined') {
+                    bookmarks.push(data[i]['bookmarkedPosts'][0]);
+                }
                 if (i >= (data.length - 1)) {
                     return bookmarks;
                 }
