@@ -17,6 +17,13 @@ export class GeneralUtilities {
 
     constructor() { }
 
+    sortBookmarks(type: string, resp: any) {
+        if (type === 'image') {
+            return resp['SUCCESS'][0]['bookmarkedPosts'];
+        }
+        return [];
+    }
+
     /**
      * get current time
      */

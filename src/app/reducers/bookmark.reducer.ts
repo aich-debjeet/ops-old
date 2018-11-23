@@ -1,8 +1,10 @@
 import { ActionReducer, Action } from '@ngrx/store';
 import { BookmarkModel, initialBookmarkState } from '../models/bookmark.model';
-
 import { BookmarkActions } from '../actions/bookmark.action';
 
+import { GeneralUtilities } from '../helpers/general.utils';
+
+const gUtils = new GeneralUtilities;
 
 export const BookmarkReducer: ActionReducer<any> = (state = initialBookmarkState, { payload, type }: Action) => {
 
@@ -20,7 +22,7 @@ export const BookmarkReducer: ActionReducer<any> = (state = initialBookmarkState
             return Object.assign({}, state, {
                 loadingBookmarks: false,
                 loadedBookmarks: true,
-                bookmarkData: payload['SUCCESS'][0]
+                bookmarks: gUtils.sortBookmarks(state.bookmarkType, payload)
             });
 
         case BookmarkActions.GET_BOOKMARKS_FAILED:
