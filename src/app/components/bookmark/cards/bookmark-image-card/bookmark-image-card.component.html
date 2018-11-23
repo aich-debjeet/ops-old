@@ -1,9 +1,11 @@
 <div class="bookmark">
     <div class="bookmark__media">
-        <div class="bookmark__media__img" [ngStyle]="{'background-image': 'url(' + imageBaseUrl + mediaDetails?.postUrl + ')',
-        'background-size': 'cover',
-        'background-position': 'center',
-        'width': '100%'}"></div>
+        <a  [routerLink]="['', { outlets: { media : ['media', mediaDetails?.postId] } }]">
+            <div class="bookmark__media__img" [ngStyle]="{'background-image': 'url(' + imageBaseUrl + mediaDetails?.postUrl + ')',
+                'background-size': 'cover',
+                'background-position': 'center',
+                'width': '100%'}"></div>
+        </a>
     </div>
     <div class="bookmark__info">
         <div class="bookmark-info__media-type">
