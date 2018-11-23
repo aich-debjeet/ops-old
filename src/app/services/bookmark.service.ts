@@ -8,7 +8,7 @@ export class BookmarkService {
     private api: ApiService
   ) { }
 
-  getAllBookmarks(reqBody: any) {
+  getBookmarks(reqBody: any) {
     return this.api.post('/portal/bookmark/search', reqBody);
   }
 

@@ -17,12 +17,12 @@ export class BookmarkEffect {
    * get all bookmarks
    */
   @Effect()
-  getAllBookmarks$ = this.actions$
-    .ofType(BookmarkActions.GET_ALL_BOOKMARKS)
+  getBookmarks$ = this.actions$
+    .ofType(BookmarkActions.GET_BOOKMARKS)
     .map(toPayload)
-    .switchMap((payload) => this.bookmarkService.getAllBookmarks(payload)
-      .map(res => ({ type: BookmarkActions.GET_ALL_BOOKMARKS_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: BookmarkActions.GET_ALL_BOOKMARKS_FAILED, payload: res }))
+    .switchMap((payload) => this.bookmarkService.getBookmarks(payload)
+      .map(res => ({ type: BookmarkActions.GET_BOOKMARKS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: BookmarkActions.GET_BOOKMARKS_FAILED, payload: res }))
     );
 
   /**

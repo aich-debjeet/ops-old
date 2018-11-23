@@ -8,21 +8,21 @@ export const BookmarkReducer: ActionReducer<any> = (state = initialBookmarkState
 
     switch (type) {
 
-        case BookmarkActions.GET_ALL_BOOKMARKS:
+        case BookmarkActions.GET_BOOKMARKS:
             return Object.assign({}, state, {
                 loadingBookmarks: true,
                 loadedBookmarks: false,
                 requestPayload: payload
             });
 
-        case BookmarkActions.GET_ALL_BOOKMARKS_SUCCESS:
+        case BookmarkActions.GET_BOOKMARKS_SUCCESS:
             return Object.assign({}, state, {
                 loadingBookmarks: false,
                 loadedBookmarks: true,
-                bookmarks: payload
+                bookmarkData: payload['SUCCESS'][0]
             });
 
-        case BookmarkActions.GET_ALL_BOOKMARKS_FAILED:
+        case BookmarkActions.GET_BOOKMARKS_FAILED:
             return Object.assign({}, state, {
                 loadingBookmarks: false,
                 loadedBookmarks: false
@@ -39,7 +39,7 @@ export const BookmarkReducer: ActionReducer<any> = (state = initialBookmarkState
             return Object.assign({}, state, {
                 bookmarking: false,
                 bookmarked: true,
-                response: payload
+                bookmarkResponse: payload
             });
 
         case BookmarkActions.BOOKMARK_FAILED:
