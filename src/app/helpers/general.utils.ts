@@ -43,6 +43,8 @@ export class GeneralUtilities {
             return resp['SUCCESS'][0]['bookmarkedJobs'];
         } else if (type === 'event') {
             return resp['SUCCESS'][0]['bookmarkedEvents'];
+        } else if (type === 'profile') {
+            return resp['SUCCESS'][0]['bookmarkedProfiles'];
         }
         return [];
     }
