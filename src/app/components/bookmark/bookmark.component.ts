@@ -16,7 +16,7 @@ export class BookmarkComponent implements OnInit, OnDestroy {
   routerSub: ISubscription;
   bookmarkState$: Observable<BookmarkModel>;
   reqParams = {
-    bookmarkType: 'all',
+    bookmarkType: 'profile',
     offset: 0,
     limit: 1
   }
