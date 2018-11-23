@@ -21,11 +21,11 @@
                 </div>
                 <div class="o-commu__short-det p-16">
                     <div class="c-h4 m-b-16">{{ details?.title }}
-                        <div class="c-mediamodal__opt dropdown c-dropdown" appDropdown *ngIf="details?.isOwner">
+                        <div class="c-mediamodal__opt dropdown c-dropdown" appDropdown>
                             <span class="dropdown-toggle" data-toggle="dropdown" appDropdownOpen>
                                 <img [src]="basePath + 'img/svg/ico_options.svg'" class="c-options--img">
                             </span>
-                            <ul class="dropdown-menu dropdown-menu-right">
+                            <ul class="dropdown-menu dropdown-menu-right" *ngIf="details?.isOwner">
                                 <li>
                                     <a (click)="communityEdit()">Edit</a>
                                 </li>
@@ -34,6 +34,14 @@
                                 </li>
                                 <li>
                                     <a (click)="communityRemove.open()">Remove</a>
+                                </li>
+                            </ul>
+                            <ul class="dropdown-menu dropdown-menu-right" *ngIf="!details?.isOwner">
+                                <li>
+                                    <a (click)="communityLeave()">Leave</a>
+                                </li>
+                                <li>
+                                    <a (click)="reportModalOpen(details?.communityId);reportPopUp.open()">Report</a>
                                 </li>
                             </ul>
                         </div>
@@ -256,5 +264,11 @@
                 </div>
             </div>
         </div>
+    </modal-content>
+</app-modal-new>
+
+<app-modal-new #reportPopUp modalClass="modal-report__popup">
+    <modal-content>
+        <app-report-popoup [reportContentId]="reportId" [reportType]="'community'" (onclose)= "reportPopUp.close()" ></app-report-popoup>
     </modal-content>
 </app-modal-new>

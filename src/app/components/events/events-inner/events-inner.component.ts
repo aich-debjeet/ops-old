@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { UtcDatePipe } from './../../../pipes/utcdate.pipe';
@@ -9,9 +9,11 @@ import { Location } from '@angular/common';
 
 // Model
 import { EventModal, initialTagEve  } from '../../../models/event.model';
+import { Modal } from '../../../shared/modal-new/Modal';
 
 // action
 import { EventActions } from '../../../actions/event.action';
+import { SharedActions } from '../../../actions/shared.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
@@ -40,8 +42,7 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
   isAttend: boolean;
   attendeeList: any;
   reportId: string;
-  questions: any;
-  reportType: string;
+  @ViewChild('reportModal') reportModal: Modal;
 
   constructor(
     private route: ActivatedRoute,
@@ -56,11 +57,6 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
       this.eventDetail = state['event_detail'];
       this.attendeeList = state['attendee_load'];
       // console.log(this.eventDetail)
-      if (state['reports']) {
-        this.questions = state['reports'];
-        this.reportType = 'event';
-        // console.log(this.questions)
-      }
     });
 
     // Event tag
@@ -133,17 +129,15 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
     this.store.dispatch({ type: EventActions.EVENT_ATTEND, payload: data });
   }
 
- reportModalOpen(id: string){
-    // console.log(id)
+  /**
+   * method to open report pop-up with options for event 
+   * @param id to open specific report model
+   */
+  reportModalOpen(id: string) {
     this.reportId = id;
-   this.modalService.open('reportPopUp');
-   this.store.dispatch({ type: EventActions.EVENT_REPORT, payload: 'event' });
- }
-
- closeReport(){
-  // console.log('comming')
-  this.modalService.close('reportPopUp');
-}
+    this.reportModal.open();
+    this.store.dispatch({ type: SharedActions.GET_OPTIONS_REPORT, payload: 'event' });
+  }
 
   bookmarkAction(action: string, eventId: string) {
     if (action === 'add') {
@@ -162,5 +156,4 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
       });
     }
   }
-
 }

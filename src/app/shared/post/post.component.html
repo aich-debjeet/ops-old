@@ -193,12 +193,6 @@
 
 <app-modal-new #reportModal modalClass="modal-report__popup" >
     <modal-content>
-            <app-report-popoup  [reportContentId]="reportId" [reportType]="'post'" (onclose)= "closeReport()" ></app-report-popoup>
+            <app-report-popoup  [reportContentId]="reportId" [reportType]="'post'" (onclose)= "reportModal.close()" ></app-report-popoup>
     </modal-content>
 </app-modal-new>
-
-
-
-<!-- <app-modal [modalTitle]="''" [blocking]='false' modalId='reportPopUp' >
-    <app-report-popoup *ngIf="popupActive" [reportQues]="questions" [reportContentId]="reportId" [reportType]="'post'" (onclose)= "closeReport()" ></app-report-popoup>
-</app-modal> -->

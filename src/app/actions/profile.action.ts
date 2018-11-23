@@ -101,10 +101,6 @@ export class ProfileActions {
   static GET_FOLLOWER_PROFILES_SUCCESS = 'GET_FOLLOWER_PROFILES_SUCCESS';
   static GET_FOLLOWER_PROFILES_FAILED = 'GET_FOLLOWER_PROFILES_FAILED';
 
-  static PROFILE_REPORT = 'PROFILE_REPORT';
-  static PROFILE_REPORT_SUCCESS = 'PROFILE_REPORT_SUCCESS';
-  static PROFILE_REPORT_FAILED = 'PROFILE_REPORT_FAILED';
-
   /**
    * Reset org created success value to prevent redirections
    * */

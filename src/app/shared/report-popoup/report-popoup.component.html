@@ -39,6 +39,32 @@
   </div>
 </div>
 
+<div id="report_thank4" *ngIf ="profileThankYou && reportType === 'community'">
+    <div class="modal-content report_container">
+        <div class="report_pop_head">
+            <div class="c-text_lg-bold text-center">Report</div>
+            <span class="search_close">
+        <a (click)="closeThankyou()" data-dismiss="modal">
+            <img [src]="imageLink + 'img/svg/ico_close-38.svg'">
+        </a>
+    </span>
+        </div>
+        <div class="report_content_sec">
+            <div class="msg_report_container c-text_lg text-center">
+                Thank you for letting us know
+            </div>
+            <div class="c-text_md text-center">You will no longer a member of this community</div>
+        </div>
+        <div class="report_bottom">
+            <div class="text-center">
+                <button type="button" class="btn btn-primary btn-md" data-dismiss="modal" (click)="closeThankyou()">
+                    Okay
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="report_thank" *ngIf ="profileThankYou && reportType === 'profile'">
     <div class="modal-content report_container">
         <div class="report_pop_head">

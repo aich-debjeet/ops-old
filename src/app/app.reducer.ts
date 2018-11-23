@@ -30,7 +30,8 @@ const reducers = {
   eventTags: EventReducer,
   communitiesTags: CommunitiesReducer,
   directoryTags: DirectoryReducer,
-  bookmarkStore:  BookmarkReducer
+  bookmarkStore: BookmarkReducer,
+  sharedTags: SharedReducer
 }
 
 /**
