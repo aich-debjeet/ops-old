@@ -19,6 +19,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { ModalService } from '../../../shared/modal/modal.component.service';
 
 import { TruncatePipe } from 'app/pipes/truncate.pipe';
+import { BookmarkActions } from 'app/actions/bookmark.action';
 
 @Component({
   selector: 'app-events-inner',
@@ -143,5 +144,23 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
   // console.log('comming')
   this.modalService.close('reportPopUp');
 }
+
+  bookmarkAction(action: string, eventId: string) {
+    if (action === 'add') {
+      const reqBody = {
+        bookmarkType: 'event',
+        contentId: eventId
+      };
+      this.store.dispatch({ type: BookmarkActions.BOOKMARK, payload: reqBody });
+      const bookmarkSub = this.store.select('bookmarkStore')
+      .take(2)
+      .subscribe(data => {
+        if (data['bookmarking'] === false && data['bookmarked'] === true) {
+          this.toastr.success('Bookmarked successfully', 'Success!');
+          bookmarkSub.unsubscribe();
+        }
+      });
+    }
+  }
 
 }

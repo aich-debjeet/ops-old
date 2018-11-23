@@ -31,6 +31,8 @@ export class GeneralUtilities {
             }
         } else if (type === 'opportunity') {
             return resp['SUCCESS'][0]['bookmarkedJobs'];
+        } else if (type === 'event') {
+            return resp['SUCCESS'][0]['bookmarkedEvents'];
         }
         return [];
     }

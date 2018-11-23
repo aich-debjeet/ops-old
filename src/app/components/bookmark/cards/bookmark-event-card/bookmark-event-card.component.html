@@ -1,7 +1,9 @@
 <div class="bookmark">
     <div class="bookmark__media">
-        <div class="bookmark__media__img">
-            <!-- <img src="https://ops-v2-2.netlify.com/assets/demo/e2.jpg" alt=""> -->
+        <div class="bookmark__media__img" [ngStyle]="{'background-image': 'url(' + imageBaseUrl + eventDetails?.imagePath + ')',
+            'background-size': 'cover',
+            'background-position': 'center',
+            'width': '100%'}">
         </div>
     </div>
     <div class="bookmark__info">
@@ -15,14 +17,15 @@
             </div>
             <div class="bookmark-info__discription">
                 <div class="c-text_lg f-w_600">
-                    Why read motivational sayings? For motivation! 
+                    {{ eventDetails?.title }}
                     <div class="o-bookmarkevent__detail">
                         <div class="o-bookmarkevent__date">
                             <img src="https://ops-v2-2.netlify.com/assets/svg/calendar.svg" class="o-bookmarkevent__detail--img"> 
-                            30, Dec, 2018
+                            {{ eventDetails?.startDate  | utcDate | date: 'hh:mm a dd MMM, yy' }}
                         </div>
                         <div class="o-bookmarkevent__address">
-                            <img src="https://ops-v2-2.netlify.com/assets/svg/ico_location2.svg" class="o-bookmarkevent__detail--img"> Bengaluru, India
+                            <img src="https://ops-v2-2.netlify.com/assets/svg/ico_location2.svg" class="o-bookmarkevent__detail--img"> 
+                            {{ eventDetails?.venue }}
                         </div>
                     </div>
                 </div>
@@ -34,13 +37,13 @@
                             <img src="https://ops-v2-2.netlify.com/assets/demo/avatar.jpg" alt="">
                         </div>
                         <div class="bookmark-user-info__user-name">
-                            Alfred Adkins
+                            {{ eventDetails?.ownerName }}
                         </div>
                     </a>
                 </div>
             </div>
             <div class="bookmark-info__action">
-                <a href="#" class="bookmark-info__view-link">
+                <a [routerLink]="'/event/inner/' + eventDetails?.id" class="bookmark-info__view-link">
                     View
                 </a>
             </div>
