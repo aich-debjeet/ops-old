@@ -1006,18 +1006,6 @@ export class ProfileEffect {
     );
 
   /**
-   *Get Profile Report 
-   */
-  @Effect()
-  getReport$ = this.actions$
-    .ofType(ProfileActions.PROFILE_REPORT)
-    .map(toPayload)
-    .switchMap((payload) => this.profileService.getReports(payload)
-      .map(res => ({ type: ProfileActions.PROFILE_REPORT_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: ProfileActions.PROFILE_REPORT_FAILED, payload: res }))
-    );
-
-  /**
    * Media Comment ALL
    */
   @Effect()

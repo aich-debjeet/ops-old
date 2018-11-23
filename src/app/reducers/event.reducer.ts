@@ -6,22 +6,6 @@ export const EventReducer: ActionReducer<any> = (state = initialTagEve, {payload
 
   switch (type) {
 
-    /**
-     * event report
-    */
-    case EventActions.EVENT_REPORT:
-    return Object.assign({}, state, {
-      reports: []
-    });
-    case EventActions.EVENT_REPORT_SUCCESS:
-    return Object.assign({}, state, {
-      reports: payload.Success.questions
-    });
-    case EventActions.EVENT_REPORT_FAILED:
-    return Object.assign({}, state, {
-      reports: []
-    });
-
     case EventActions.EVENT_EDIT:
       return Object.assign({}, state, {
         event_update: [],

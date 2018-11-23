@@ -12,14 +12,27 @@ import { SharedService } from '../services/shared.service';
 
 @Injectable()
 export class SharedEffect {
-
+/**
+ * effects to handle payload and reponse of actions for submition of selected report options
+ */
   @Effect()
-  getReports$ = this.actions$
-    .ofType(SharedActions.GET_REPORT_OPTIONS)
+  postReports$ = this.actions$
+    .ofType(SharedActions.POST_SELECTED_OPTION)
     .map(toPayload)
-    .switchMap((payload) => this.sharedService.getReport(payload)
-      .map(res => ({ type: SharedActions.GET_REPORT_OPTIONS_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: SharedActions.GET_REPORT_OPTIONS_FAILED, payload: res }))
+    .switchMap((payload) => this.sharedService.postReport(payload)
+      .map(res => ({ type: SharedActions.POST_SELECTED_OPTION_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: SharedActions.POST_SELECTED_OPTION_FAILED, payload: res }))
+    );
+/**
+ * Effects to handle payload and reponse of actions to get options for report
+ */
+  @Effect()
+    getReports$ = this.actions$
+    .ofType(SharedActions.GET_OPTIONS_REPORT)
+    .map(toPayload)
+    .switchMap((payload) => this.sharedService.getReportOptions(payload)
+      .map(res => ({ type: SharedActions.GET_OPTIONS_REPORT_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: SharedActions.GET_OPTIONS_REPORT_FAILED, payload: res }))
     );
 
 
