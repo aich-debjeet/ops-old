@@ -29,6 +29,8 @@ export class GeneralUtilities {
                     return bookmarks;
                 }
             }
+        } else if (type === 'opportunity') {
+            return resp['SUCCESS'][0]['bookmarkedJobs'];
         }
         return [];
     }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-bookmark-opportunity-card',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./../../bookmark.component.scss']
 })
 export class BookmarkOpportunityCardComponent implements OnInit {
+
+  @Input() oppDetails: any;
+  imageBaseUrl = environment.API_IMAGE;
 
   constructor() { }
 

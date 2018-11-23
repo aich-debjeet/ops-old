@@ -10,7 +10,7 @@
             </div>
             <div class="bookmark-info__discription">
                 <div class="c-text_lg f-w_600">
-                    Why read motivational sayings? For motivation! 
+                    {{ oppDetails?.opportunityTitle }}
                 </div>
             </div>
             <div class="bookmark-info__post-detail">
@@ -20,13 +20,13 @@
                             <img src="https://ops-v2-2.netlify.com/assets/demo/avatar.jpg" alt="">
                         </div>
                         <div class="bookmark-user-info__user-name">
-                            Alfred Adkins
+                                {{ oppDetails?.ownerName }}
                         </div>
                     </a>
                 </div>
             </div>
             <div class="bookmark-info__action">
-                <a href="#" class="bookmark-info__view-link">
+                <a [routerLink]="'/opportunity/view/' + oppDetails?.id" class="bookmark-info__view-link">
                     View
                 </a>
             </div>
