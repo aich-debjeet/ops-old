@@ -18,7 +18,7 @@ export class GeneralUtilities {
     constructor() { }
 
     sortBookmarks(type: string, resp: any) {
-        if (type === 'image' || type === 'video') {
+        if (type === 'image' || type === 'video' || type === 'audio') {
             return resp['SUCCESS'][0]['bookmarkedPosts'];
         } else if (type === 'all') {
             const data = resp['SUCCESS'];
