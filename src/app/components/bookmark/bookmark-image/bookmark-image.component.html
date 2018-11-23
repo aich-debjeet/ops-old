@@ -1,1 +1,8 @@
-<app-bookmark-image-card></app-bookmark-image-card>
+<div *ngIf="showPreloader">
+  <div class="sticky">
+    <div class="loader">Loading...</div>
+  </div>
+</div>
+<ng-container *ngIf="!showPreloader">
+  <app-bookmark-image-card *ngFor="let bookmark of bookmarks" [mediaDetails]="bookmark"></app-bookmark-image-card>
+</ng-container>

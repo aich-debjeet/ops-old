@@ -1,8 +1,9 @@
 <div class="bookmark">
     <div class="bookmark__media">
-        <div class="bookmark__media__img">
-            <!-- <img src="https://ops-v2-2.netlify.com/assets/demo/e2.jpg" alt=""> -->
-        </div>
+        <div class="bookmark__media__img" [ngStyle]="{'background-image': 'url(' + imageBaseUrl + mediaDetails?.postUrl + ')',
+        'background-size': 'cover',
+        'background-position': 'center',
+        'width': '100%'}"></div>
     </div>
     <div class="bookmark__info">
         <div class="bookmark-info__media-type">
@@ -15,17 +16,17 @@
             </div>
             <div class="bookmark-info__discription">
                 <div class="c-text_lg bookmark-discription__overflow">
-                    Why read motivational sayings? For motivation! You might need a bit, if you can use last yearâ€™s list of goals this year because itâ€™s as good as new. All of us can benefit from
+                    {{ mediaDetails?.postDescription }}
                 </div>
             </div>
             <div class="bookmark-info__post-detail">
                 <div class="bookmark-post-detail__user-info">
                     <a href="profile_others.html" class="bookmark-user-link">
                         <div class="bookmark-user-info__prof-pic">
-                            <img src="https://ops-v2-2.netlify.com/assets/demo/avatar.jpg" alt="">
+                            <img src="{{ imageBaseUrl }}img/avatar.jpg" alt="">
                         </div>
                         <div class="bookmark-user-info__user-name">
-                            Alfred Adkins
+                            {{ mediaDetails?.ownerName }}
                         </div>
                     </a>
                 </div>
@@ -35,7 +36,7 @@
                             <img src="https://ops-v2-2.netlify.com/assets/svg/ico_addtochannel.svg">
                         </div>
                         <div class="bookmark-channel__name">
-                            Dreams of drops
+                            {{ mediaDetails?.channelName }}
                         </div>
                     </a>
                 </div>
