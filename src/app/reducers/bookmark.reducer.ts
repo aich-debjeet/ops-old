@@ -1,5 +1,5 @@
 import { ActionReducer, Action } from '@ngrx/store';
-import { Bookmark, initialBookmarkState } from '../models/bookmark.model';
+import { BookmarkModel, initialBookmarkState } from '../models/bookmark.model';
 
 import { BookmarkActions } from '../actions/bookmark.action';
 
