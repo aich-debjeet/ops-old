@@ -11,6 +11,7 @@ import { MediaActions } from '../../actions/media.action';
 import { ProfileActions } from '../../actions/profile.action';
 import { CommunitiesActions } from '../../actions/communities.action';
 
+import { SharedActions } from '../../actions/shared.action';
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
@@ -49,10 +50,9 @@ export class PostComponent implements OnInit, OnDestroy {
   desText: string;
   isEdit: boolean;
   userImage: string;
-  popupActive = false;
+  
 
   imageLink: string = environment.API_IMAGE;
-  questions: any;
   domainLink: string = environment.API_DOMAIN;
   messageEdit: string;
 
@@ -146,18 +146,13 @@ export class PostComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * open report modal
-  */
+   * method to open report pop-up with options for post 
+   * @param id to open specific report model
+   */
   reportModalOpen(id: string) {
-    this.popupActive = true;
     this.reportModal.open();
     this.reportId = id;
-    this.modalService.open('reportPopUp');
-    this.store.dispatch({ type: MediaActions.MEDIA_POST_REPORT, payload: 'post' });
-  }
-
-  closeReport() {
-    this.reportModal.close();
+    this.store.dispatch({ type: SharedActions.GET_OPTIONS_REPORT, payload: 'post' });
   }
 
   /**

@@ -18,6 +18,15 @@ import { AuthActions } from '../actions/auth.action';
 export class AuthEffect {
 
   @Effect()
+  verifyRefCode$ = this.actions$
+    .ofType(AuthActions.VERIFY_REFERENCE_CODE)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.verifyRefCode(payload)
+      .map(res => ({ type: AuthActions.VERIFY_REFERENCE_CODE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.VERIFY_REFERENCE_CODE_FAILED, payload: res }))
+    );
+
+  @Effect()
   sendInvitation$ = this.actions$
     .ofType(AuthActions.SEND_INVITATION)
     .map(toPayload)

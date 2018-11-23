@@ -16,6 +16,7 @@ import { FormValidation, ProfileUpdateValidator } from '../../../helpers/form.va
 // action
 import { ProfileActions } from '../../../actions/profile.action';
 import { AuthActions } from '../../../actions/auth.action';
+import { SharedActions } from '../../../actions/shared.action';
 
 import { ToastrService } from 'ngx-toastr';
 import { initialProfileTag, ProfileCard } from '../../../models/profile.model';
@@ -40,6 +41,7 @@ export class ProfileSliderComponent implements OnInit {
   @ViewChild('networkModal') NetworktypeModal: Modal;
   @ViewChild('blockSuccessful') blockSuccessful: Modal;
   @ViewChild('blockModal') blockModal: Modal;
+  @ViewChild('reportModal') reportModal: Modal;
   @Input() profileData: any;
   @Input() isOtherProfile: any;
   @Input() userName: string;
@@ -78,8 +80,6 @@ export class ProfileSliderComponent implements OnInit {
   otherProfileName: String;
   error = false;
   showThis = false;
-  questions: any;
-  reportType: string;
   isBlocked: boolean;
 
   hasFollowed: boolean;
@@ -112,11 +112,6 @@ export class ProfileSliderComponent implements OnInit {
         //  console.log('state', state);
       // get followers
       if (state) {
-        if (state['reports']) {
-          this.questions = state['reports'];
-          this.reportType = 'profile';
-          // console.log(this.questions)
-        }
         if ((state['searching_following_profiles'] === false && state['searching_following_profiles_success'] === true) || (state['searching_follower_profiles'] === false && state['searching_follower_profiles_success'] === true)) {
           this.showPreloader = false;
         }
@@ -198,22 +193,15 @@ export class ProfileSliderComponent implements OnInit {
       return false;
     }
     let coverImageURL;
-
-    // if (profile && profile['extra'] && profile['extra']['isImported'] === true) {
-    //   coverImageURL = this.baseUrl + '/assets/img/new/s14.jpg';
-    // } else
     if (!profile.image.cover || profile.image.cover === '') {
       coverImageURL = 'https://cdn.onepagespotlight.com/img/profile-cover.png';
     } else {
       coverImageURL = this.baseUrl + profile.image.cover;
     }
-    // coverImageURL = 'https://www.dropbox.com/s/kskr4b3c0afc59i/default_coverImage__opt.jpg?raw=1';
-
     const resp = {
       'background-image': 'url(' + coverImageURL + ')',
       'background-size': 'cover'
     }
-
     return resp;
   }
 
@@ -275,25 +263,13 @@ export class ProfileSliderComponent implements OnInit {
     });
   }
 
-  /** 
-   * open report modal
-  */
+  /**
+   * method to open report pop-up with options for profile 
+   * @param id to open specific report model
+   */
   reportModalOpen() {
-    this.modalService.open('reportPopUp');
-    this.profileStore.dispatch({ type: ProfileActions.PROFILE_REPORT, payload: 'profile' });
-    // this.profileStore.select('profileTags')
-    //   .first(state => state['reports'])
-    //   .subscribe( data => {
-    //     if (data['reports']) {
-    //       this.questions = data['reports'];
-    //       console.log(this.questions)
-    //     }
-    //   });
-  }
-
-  closeReport() {
-    // console.log('comming')
-    this.modalService.close('reportPopUp');
+    this.reportModal.open();
+    this.profileStore.dispatch({ type: SharedActions.GET_OPTIONS_REPORT, payload: 'profile' });
   }
 
   /**
@@ -710,6 +686,28 @@ export class ProfileSliderComponent implements OnInit {
       this.isBlocked = false;
      }
    });
+ }
+
+ removeImage(imageType: string) {
+  if (imageType === 'profile') {
+    this.profileStore.dispatch({type: ProfileActions.REMOVE_PROFILE_IMAGE, payload: ''});
+    this.profileStore.select('profileTags')
+     .take(2)
+     .subscribe(data => {
+       if (data['removingProfileImage'] === false && data['removedProfileImage'] === true) {
+        this.toastr.success('Profile images has been removed', 'Success!');
+       }
+     });
+  } else if (imageType === 'cover') {
+    this.profileStore.dispatch({type: ProfileActions.REMOVE_COVER_IMAGE, payload: ''});
+    this.profileStore.select('profileTags')
+     .take(2)
+     .subscribe(data => {
+       if (data['removingCoverImage'] === false && data['removedCoverImage'] === true) {
+        this.toastr.success('Cover images has been removed', 'Success!');
+       }
+     });
+  }
  }
 }
 

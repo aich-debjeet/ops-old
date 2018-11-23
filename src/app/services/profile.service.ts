@@ -20,6 +20,14 @@ export class ProfileService {
     this.headers = this.api.getHeaders();
   }
 
+  removeCoverImage(reqBody: any) {
+    return this.api.delete('/portal/cdn/media/remove/coverImage', reqBody);
+  }
+
+  removeProfileImage(reqBody: any) {
+    return this.api.delete('/portal/cdn/media/remove/profileImage', reqBody);
+  }
+
   postChannelStatus(payload: any) {
     const channelId = payload.channelId;
     const reqBody = payload.reqBody;
@@ -623,13 +631,6 @@ export class ProfileService {
    */
   declinerequest(body: any) {
     return this.api.put('/portal/network/connection/response', body);
-  }
-
-  /**
-   * get reports
-   */
-  getReports(type: string) {
-    return this.api.get('/portal/report/questions/getByType/' + type)
   }
 
   /**
