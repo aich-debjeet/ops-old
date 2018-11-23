@@ -18,6 +18,7 @@ import { BookmarkVideoCardComponent } from './cards/bookmark-video-card/bookmark
 import { BookmarkEventCardComponent } from './cards/bookmark-event-card/bookmark-event-card.component';
 import { BookmarkOpportunityCardComponent } from './cards/bookmark-opportunity-card/bookmark-opportunity-card.component';
 import { BookmarkProfileCardComponent } from './cards/bookmark-profile-card/bookmark-profile-card.component';
+import { SharedPipesModule } from 'app/pipes/shared-pipes.module';
 
 const routes: Routes = [
   {
@@ -41,7 +42,8 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    SharedModule
+    SharedModule,
+    SharedPipesModule
   ],
   declarations: [
     BookmarkComponent,
