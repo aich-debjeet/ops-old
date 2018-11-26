@@ -73,12 +73,12 @@ export class BookmarkComponent implements OnInit, OnDestroy {
     const urlArr = location.href.split('/');
     this.activeTab = urlArr[urlArr.length - 1];
     this.getData();
+    this.getBookmarkCount();
   }
 
   getData() {
     this.reqParams.offset = 0;
     this.getBookmarks();
-    this.getBookmarkCount();
   }
 
   ngOnDestroy() {
