@@ -258,7 +258,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
     document.body.scrollTop = 0;
     const profileType = localStorage.getItem('profileType') || 'profile';
     this.store.select('profileTags')
-      .first(profile => profile['profile_navigation_details'].name)
+      .first(profile => profile['profile_navigation_details'].handle)
       .subscribe(data => {
         this.isProfileSet = true;
       });
