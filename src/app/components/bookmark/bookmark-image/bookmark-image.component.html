@@ -1,6 +1,12 @@
-<app-bookmark-image-card *ngFor="let bookmark of bookmarks" [mediaDetails]="bookmark"></app-bookmark-image-card>
+<app-bookmark-image-card (removeBookmark)="deleteBookmarkAction($event)" *ngFor="let bookmark of bookmarks" [mediaDetails]="bookmark"></app-bookmark-image-card>
 <div *ngIf="showPreloader">
   <div class="sticky">
     <div class="loader">Loading...</div>
   </div>
 </div>
+<app-modal-new #confirmDeleteModal modalClass="o-comodal_main in">
+  <modal-content>
+      <app-confirm-box [message]="'Are you sure you want to delete this bookmark?'" [heading]="'Delete'" (confirmAction)="confirmation($event)"
+      (closeModal)="confirmDeleteModal.close()"></app-confirm-box>
+  </modal-content>
+</app-modal-new>
