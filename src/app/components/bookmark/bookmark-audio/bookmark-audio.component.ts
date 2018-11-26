@@ -1,8 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ISubscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { BookmarkModel } from 'app/models/bookmark.model';
 import { Store } from '@ngrx/store';
+import { Modal } from 'app/shared/modal-new/Modal';
+import { BookmarkActions } from 'app/actions/bookmark.action';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-bookmark-audio',
@@ -16,9 +19,12 @@ export class BookmarkAudioComponent implements OnInit, OnDestroy {
   bookmarkStore$: Observable<BookmarkModel>;
   bookmarkState: any;
   bookmarks = [];
+  @ViewChild('confirmDeleteModal') confirmDeleteModal: Modal;
+  delBookData: any;
 
   constructor(
-    private store: Store<BookmarkModel>
+    private store: Store<BookmarkModel>,
+    private toastr: ToastrService
   ) {
     this.bookmarkStore$ = this.store.select('bookmarkStore');
     this.bookmarkSub = this.bookmarkStore$.subscribe((state) => {
@@ -40,6 +46,30 @@ export class BookmarkAudioComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.bookmarkSub.unsubscribe();
+  }
+
+  deleteBookmarkAction(data) {
+    this.delBookData = data;
+    this.confirmDeleteModal.open();
+  }
+
+  confirmation(action: string) {
+    this.confirmDeleteModal.close();
+    if (action === 'yes') {
+      this.deleteBookmark();
+    }
+  }
+
+  deleteBookmark() {
+    this.store.dispatch({ type: BookmarkActions.DELETE_BOOKMARK, payload: this.delBookData });
+    const bookmarkSub = this.store.select('bookmarkStore')
+      .take(2)
+      .subscribe(resp => {
+        if (resp['deletingBookmark'] === false && resp['deletedBookmark'] === true) {
+          this.toastr.success('Bookmark deleted successfully', 'Success!');
+          bookmarkSub.unsubscribe();
+        }
+      });
   }
 
 }
