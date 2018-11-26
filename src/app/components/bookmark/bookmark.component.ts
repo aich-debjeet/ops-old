@@ -1,10 +1,13 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { BookmarkModel } from 'app/models/bookmark.model';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { BookmarkActions } from 'app/actions/bookmark.action';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { ISubscription } from 'rxjs/Subscription';
+import { GeneralUtilities } from 'app/helpers/general.utils';
+import { Modal } from 'app/shared/modal-new/Modal';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-bookmark',
@@ -15,6 +18,7 @@ export class BookmarkComponent implements OnInit, OnDestroy {
 
   routerSub: ISubscription;
   bookmarkSub: ISubscription;
+  gUtilsSub: ISubscription;
   bookmarkStore$: Observable<BookmarkModel>;
   bookmarkState: any;
   reqParams = {
@@ -24,12 +28,21 @@ export class BookmarkComponent implements OnInit, OnDestroy {
   }
   activeTab: string;
   bookmarkTotalCount = 0;
+  @ViewChild('confirmDeleteModal') confirmDeleteModal: Modal;
+  delBookData: any;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private store: Store<BookmarkModel>
+    private store: Store<BookmarkModel>,
+    private gUtils: GeneralUtilities,
+    private toastr: ToastrService
   ) {
+    this.gUtilsSub = this.gUtils.listen().subscribe((e: any) => {
+      if (e.component && e.component === 'BookmarkComponent' && e.action === 'deleteBookmark' && e.payload) {
+        this.deleteBookmarkAction(e.payload);
+      }
+    });
     this.bookmarkStore$ = this.store.select('bookmarkStore');
     this.bookmarkSub = this.bookmarkStore$.subscribe((state) => {
       this.bookmarkState = state;
@@ -62,6 +75,7 @@ export class BookmarkComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.gUtilsSub.unsubscribe();
     this.routerSub.unsubscribe();
     this.bookmarkSub.unsubscribe();
   }
@@ -78,6 +92,30 @@ export class BookmarkComponent implements OnInit, OnDestroy {
   loadMore(e: any) {
     this.reqParams.offset += this.reqParams.limit;
     this.getBookmarks();
+  }
+
+  deleteBookmarkAction(data) {
+    this.delBookData = data;
+    this.confirmDeleteModal.open();
+  }
+
+  confirmation(action: string) {
+    this.confirmDeleteModal.close();
+    if (action === 'yes') {
+      this.deleteBookmark();
+    }
+  }
+
+  deleteBookmark() {
+    this.store.dispatch({ type: BookmarkActions.DELETE_BOOKMARK, payload: this.delBookData });
+    const bookmarkSub = this.store.select('bookmarkStore')
+      .take(2)
+      .subscribe(resp => {
+        if (resp['deletingBookmark'] === false && resp['deletedBookmark'] === true) {
+          this.toastr.success('Bookmark deleted successfully', 'Success!');
+          bookmarkSub.unsubscribe();
+        }
+      });
   }
 
 }

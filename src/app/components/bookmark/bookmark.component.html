@@ -52,3 +52,10 @@
     </div>
   </div>
 </section>
+
+<app-modal-new #confirmDeleteModal modalClass="o-comodal_main in">
+  <modal-content>
+      <app-confirm-box [message]="'Are you sure you want to delete this bookmark?'" [heading]="'Delete'" (confirmAction)="confirmation($event)"
+      (closeModal)="confirmDeleteModal.close()"></app-confirm-box>
+  </modal-content>
+</app-modal-new>
