@@ -1,4 +1,6 @@
 export class BookmarkModel {
+    deletingBookmark?: boolean;
+    deletedBookmark?: boolean;
     loadingBookmarks?: boolean;
     loadedBookmarks?: boolean;
     bookmarkType?: string;

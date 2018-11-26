@@ -14,6 +14,18 @@ import { BookmarkActions } from '../actions/bookmark.action';
 export class BookmarkEffect {
 
   /**
+   * delete bookmark
+   */
+  @Effect()
+  deleteBookmark$ = this.actions$
+    .ofType(BookmarkActions.DELETE_BOOKMARK)
+    .map(toPayload)
+    .switchMap((payload) => this.bookmarkService.deleteBookmark(payload)
+      .map(res => ({ type: BookmarkActions.DELETE_BOOKMARK_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: BookmarkActions.DELETE_BOOKMARK_FAILED, payload: res }))
+    );
+
+  /**
    * get all bookmarks count
    */
   @Effect()

@@ -20,4 +20,8 @@ export class BookmarkService {
     return this.api.post('/portal/bookmark', reqBody);
   }
 
+  deleteBookmark(reqBody: any) {
+    return this.api.delete('/portal/bookmark/' + reqBody.type + '/', reqBody.id);
+  }
+
 }

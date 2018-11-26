@@ -10,6 +10,25 @@ export const BookmarkReducer: ActionReducer<any> = (state = initialBookmarkState
 
     switch (type) {
 
+        case BookmarkActions.DELETE_BOOKMARK:
+            return Object.assign({}, state, {
+                deletingBookmark: true,
+                deletedBookmark: false,
+                deleteBookmarkReqParams: payload
+            });
+
+        case BookmarkActions.DELETE_BOOKMARK_SUCCESS:
+            return Object.assign({}, state, {
+                deletingBookmark: false,
+                deletedBookmark: true
+            });
+
+        case BookmarkActions.DELETE_BOOKMARK_FAILED:
+            return Object.assign({}, state, {
+                deletingBookmark: false,
+                deletedBookmark: false
+            });
+
         case BookmarkActions.GET_BOOKMARKS_COUNT:
             return Object.assign({}, state, {
                 loadingBookmarksCount: true,
