@@ -15,6 +15,7 @@ import { ClaimProfileReducer } from './reducers/claim-profile.reducer';
 import { combineReducers } from '@ngrx/store';
 import { environment } from '../environments/environment';
 import { DirectoryReducer } from './reducers/directory.reducer';
+import { BookmarkReducer } from './reducers/bookmark.reducer';
 
 const reducers = {
   loginTags: AuthReducer,
@@ -29,6 +30,7 @@ const reducers = {
   eventTags: EventReducer,
   communitiesTags: CommunitiesReducer,
   directoryTags: DirectoryReducer,
+  bookmarkStore: BookmarkReducer,
   sharedTags: SharedReducer
 }
 
