@@ -20,7 +20,8 @@ export const BookmarkReducer: ActionReducer<any> = (state = initialBookmarkState
         case BookmarkActions.DELETE_BOOKMARK_SUCCESS:
             return Object.assign({}, state, {
                 deletingBookmark: false,
-                deletedBookmark: true
+                deletedBookmark: true,
+                bookmarks: gUtils.removeRecordFromState(state.deleteBookmarkReqParams, state.bookmarks)
             });
 
         case BookmarkActions.DELETE_BOOKMARK_FAILED:

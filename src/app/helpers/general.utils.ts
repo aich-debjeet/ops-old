@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
+import { remove as _remove } from 'lodash';
 
 @Injectable()
 export class GeneralUtilities {
@@ -16,6 +17,16 @@ export class GeneralUtilities {
     }
 
     constructor() { }
+
+    removeRecordFromState(reqParams: any, bookmarks: any) {
+        if (reqParams['type'] === 'image' || reqParams['type'] === 'video' || reqParams['type'] === 'audio') {
+            return _remove(bookmarks, (b) => !(b.postType === reqParams['type'] && b.postId === reqParams['id']));
+        }
+        if (reqParams['type'] === 'opportunity' || reqParams['type'] === 'event') {
+            return _remove(bookmarks, (b) => !(b.id === reqParams['id']));
+        }
+        return bookmarks;
+    }
 
     sortBookmarks(type: string, resp: any) {
         if (type === 'image' || type === 'video' || type === 'audio') {
