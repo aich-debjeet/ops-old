@@ -14,43 +14,66 @@ import { ISubscription } from 'rxjs/Subscription';
 export class BookmarkComponent implements OnInit, OnDestroy {
 
   routerSub: ISubscription;
-  bookmarkState$: Observable<BookmarkModel>;
+  bookmarkSub: ISubscription;
+  bookmarkStore$: Observable<BookmarkModel>;
+  bookmarkState: any;
   reqParams = {
     bookmarkType: '',
     offset: 0,
     limit: 0
   }
   activeTab: string;
+  bookmarkTotalCount = 0;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private bookmarkStore: Store<BookmarkModel>
+    private store: Store<BookmarkModel>
   ) {
+    this.bookmarkStore$ = this.store.select('bookmarkStore');
+    this.bookmarkSub = this.bookmarkStore$.subscribe((state) => {
+      this.bookmarkState = state;
+      if (this.bookmarkState && this.bookmarkState.bookmarksCount && this.bookmarkTotalCount === 0) {
+        const bookCountArr = this.bookmarkState.bookmarksCount;
+        for (const key in bookCountArr) {
+          if (bookCountArr.hasOwnProperty(key)) {
+            this.bookmarkTotalCount += bookCountArr[key];
+          }
+        }
+      }
+    });
   }
 
   ngOnInit() {
     this.routerSub = this.router.events.filter(evt => evt instanceof NavigationEnd)
       .subscribe((event) => {
-        // console.log(event['url']);
-        // console.log(this.route.firstChild.routeConfig.path);
         this.activeTab = this.route.firstChild.routeConfig.path;
-        this.getBookmarks();
+        this.getData();
       });
-    const urlArr = location.href.split('/')
+    const urlArr = location.href.split('/');
     this.activeTab = urlArr[urlArr.length - 1];
+    this.getData();
+  }
+
+  getData() {
     this.getBookmarks();
+    this.getBookmarkCount();
   }
 
   ngOnDestroy() {
     this.routerSub.unsubscribe();
+    this.bookmarkSub.unsubscribe();
   }
 
   getBookmarks() {
     this.reqParams.bookmarkType = this.activeTab;
     this.reqParams.offset = 0;
     this.reqParams.limit = 10;
-    this.bookmarkStore.dispatch({ type: BookmarkActions.GET_BOOKMARKS, payload: this.reqParams });
+    this.store.dispatch({ type: BookmarkActions.GET_BOOKMARKS, payload: this.reqParams });
+  }
+
+  getBookmarkCount() {
+    this.store.dispatch({ type: BookmarkActions.GET_BOOKMARKS_COUNT });
   }
 
 }
