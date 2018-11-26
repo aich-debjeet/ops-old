@@ -38,7 +38,7 @@ export class PostComponent implements OnInit, OnDestroy {
   // private subscription: ISubscription;
   comments: any;
   following: boolean;
-  followingCount: any;
+  spotCount: any;
   commentCount: any;
   mediaId: any;
   mediaType: any;
@@ -74,7 +74,7 @@ export class PostComponent implements OnInit, OnDestroy {
     }
 
     this.following = this.mediaData.isSpotted;
-    this.followingCount = this.mediaData.spotsCount;
+    this.spotCount = this.mediaData.spotsCount;
     this.mediaId = this.mediaData.id;
     this.mediaType = this.mediaData.mtype;
     this.commentCount = this.mediaData.commentsCount;
@@ -129,7 +129,7 @@ export class PostComponent implements OnInit, OnDestroy {
         return
       }
       // this.following = true;
-      // this.followingCount++;
+      // this.spotCount++;
       this.store.dispatch({ type: MediaActions.MEDIA_SPOT, payload: data });
       this.store.dispatch({ type: ProfileActions.PROFILE_MEDIA_SPOT, payload: data });
     } else {
@@ -141,7 +141,7 @@ export class PostComponent implements OnInit, OnDestroy {
       this.store.dispatch({ type: MediaActions.MEDIA_UNSPOT, payload: data });
       this.store.dispatch({ type: ProfileActions.PROFILE_MEDIA_UNSPOT, payload: data });
       // this.following = false
-      // this.followingCount--;
+      // this.spotCount--;
     }
   }
 

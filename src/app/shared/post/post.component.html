@@ -105,7 +105,7 @@
             <div class="c-links__spots" (click)="spotMedia(mediaData)">
                 <img *ngIf="following" [src]="imageLink + 'img/svg/spot_icon.svg'" class="c-links__image">
                 <img *ngIf="!following" [src]="imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
-                <span class="c-links__count">{{ followingCount }} Spots</span>
+                <span class="c-links__count">{{ spotCount }} Spots</span>
             </div>
             <div  *ngIf="mediaData?.description && mediaData?.mtype === 'status' " class="c-links__comments">
                 <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
