@@ -30,6 +30,7 @@ export class BookmarkComponent implements OnInit, OnDestroy {
   bookmarkTotalCount = 0;
   @ViewChild('confirmDeleteModal') confirmDeleteModal: Modal;
   delBookData: any;
+  noRecordsFound = false;
 
   constructor(
     private router: Router,
@@ -46,6 +47,12 @@ export class BookmarkComponent implements OnInit, OnDestroy {
     this.bookmarkStore$ = this.store.select('bookmarkStore');
     this.bookmarkSub = this.bookmarkStore$.subscribe((state) => {
       this.bookmarkState = state;
+      if (state.loadingBookmarks === false && state.loadedBookmarks === true) {
+        if (state.bookmarks.length === 0) { this.noRecordsFound = true; }
+      }
+      if (state.loadingBookmarks === true && state.loadedBookmarks === false) {
+        this.noRecordsFound = false;
+      }
       if (this.bookmarkState && this.bookmarkState.bookmarksCount && this.bookmarkTotalCount === 0) {
         const bookCountArr = this.bookmarkState.bookmarksCount;
         for (const key in bookCountArr) {

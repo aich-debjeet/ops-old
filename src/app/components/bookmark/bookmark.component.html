@@ -46,6 +46,7 @@
           [infiniteScrollDistance]="2"
           [infiniteScrollThrottle]="1000"
           (scrolled)="loadMore($event)">
+          <p *ngIf="noRecordsFound" class="result-not-found">No records found!</p>
           <router-outlet></router-outlet>
         </div>
       </div>
