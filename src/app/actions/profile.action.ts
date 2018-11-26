@@ -15,6 +15,13 @@ export class ProfileActions {
   static POST_CHANNEL_STATUS_FAILED = 'POST_CHANNEL_STATUS_FAILED';
 
   /**
+   * for: post story
+   */
+  static POST_STORY= 'POST_STORY';
+  static POST_STORY_SUCCESS= 'POST_STORY_SUCCESS';
+  static POST_STORY_FAILED= 'POST_STORY_FAILED';
+
+  /**
    * for: portfolio
    */
   static PORTFOLIO_PROFILE_LOAD = 'PORTFOLIO_PROFILE_LOAD';

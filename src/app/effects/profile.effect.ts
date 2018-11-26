@@ -945,6 +945,18 @@ export class ProfileEffect {
       .map(res => ({ type: ProfileActions.COMMUNITY_MEDIA_POST_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: ProfileActions.COMMUNITY_MEDIA_POST_FAILED, payload: res }))
     );
+
+    /**
+     * effects: story
+     */
+    @Effect()
+    storyPost$ = this.actions$
+    .ofType(ProfileActions.POST_STORY)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.storyPost(payload)
+    .map(res => ({ type: ProfileActions.POST_STORY_SUCCESS, payload: res }))
+    .catch((res) => Observable.of({ type: ProfileActions.POST_STORY_FAILED, payload: res }))
+    );
   /**
    * GET PENDING REQUEST LIST
    */

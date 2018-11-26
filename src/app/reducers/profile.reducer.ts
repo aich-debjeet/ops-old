@@ -1869,6 +1869,15 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
         community_media_success: true
       });
 
+      case ProfileActions.POST_STORY:
+      return Object.assign({}, state, {
+        story_media_success: false
+      });
+
+    case ProfileActions.POST_STORY_SUCCESS:
+      return Object.assign({}, state, {
+        story_media_success: true
+      });
     case ProfileActions.CANCEL_NETWORK_REQUEST_FAILED:
       return Object.assign({}, state, {
         cancel_network_request: false,

@@ -597,6 +597,10 @@ export class ProfileService {
     return this.api.put(`/portal/community/add/update/mediaCommunity/${communityId}`, req);
   }
 
+  storyPost(payload: any){
+    return this.api.post('/portal/myStory', payload);
+  }
+
   /**
    * get pending requets list
   */

@@ -131,7 +131,14 @@ export class MediaSelectorComponent implements OnInit {
     }
 
     this.route.queryParams.subscribe(params => {
-      this.ct_name = params['ct_name']
+      if (this.route.snapshot.queryParams['post_to'] === 'my_story') {
+        console.log('my story')
+        this.ct_name = 'My Story';
+        this.external_post_active = true;
+        this.post_to = this.route.snapshot.queryParams['post_to'];
+      } else {
+        this.ct_name = params['ct_name'];
+      }
       if (Object.keys(params).length) {
         this.nameActive = true;
       }
@@ -209,7 +216,7 @@ export class MediaSelectorComponent implements OnInit {
      */
 
     this.profileState$.subscribe((state) => {
-
+console.log('state',state)
       this.profileChannel = state;
       // Post states
       this.postSuccess = this.profileChannel.media_channel_posted;
@@ -491,6 +498,22 @@ export class MediaSelectorComponent implements OnInit {
             this.router.navigateByUrl('/communities/' + this.ct_id);
           });
       }
+    }
+    if(this.post_to === 'my_story'){
+      console.log('multipleMedias', multipleMedias);
+      const data = {
+        media : multipleMedias
+      }
+      console.log('data', data)
+      this._store.dispatch({ type: ProfileActions.POST_STORY, payload: data });
+      this._store.select('profileTags')
+      .first(media => media['story_media_success'] === true)
+      .subscribe(data => {
+        this.toastr.success('Your media has been successfully posted to your channel', 'Upload', {
+          timeOut: 3000
+        });
+        this.router.navigate(['/profile/user/']);
+      });
     }
     if (this.post_to === 'channel') {
       this.postMediaToChannel(this.ct_id, multipleMedias)

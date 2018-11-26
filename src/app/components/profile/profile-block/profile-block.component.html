@@ -30,6 +30,53 @@
                 </div> -->
       <!-- </div> -->
 
+      <!--MY story widget start-->
+      <div class="row">
+        <div class="o-mystory">
+            <div class="o-mystory__title">
+                <span class="c-text_md text_uppercase color-grey-dark f-w_600">My story</span>
+                <div class="pull-right dropdown c-dropdown">
+                    <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                        <img src="{{imageBaseUrl}}img/svg/ico_options.svg" class="c-status__options m-0">
+                    </span>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li>
+                            <a href="javascript:void(0)">Edit</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">Delete</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="o-mystory__media">
+                <div class="o-mystory-media__one" [ngStyle]="{'background': 'url(' + imageBaseUrl + 'assets/demo/art1.jpg' +')', 'background-size': 'cover'}">
+                    
+                </div>
+                <div class="o-mystory-media__two" [ngStyle]="{'background': 'url(' + imageBaseUrl + 'assets/demo/art2.jpg' +')', 'background-size': 'cover'}">
+                    
+                </div>
+                <div class="o-mystory-media__three" [ngStyle]="{'background': 'url(' + imageBaseUrl + 'assets/demo/art3.jpg' +')', 'background-size': 'cover'}">
+                    
+                </div>
+                <div class="o-mystory-media__four" [ngStyle]="{'background': 'url(' + imageBaseUrl + 'assets/demo/art1.jpg' +')', 'background-size': 'cover'}">
+                    
+                </div>
+            </div>
+            <div class="o-mystory__add">
+                <a [routerLink]="['/post/media']" [queryParams]="{post_to: 'my_story'}" class="o-mystory-add__link">
+                    <div class="o-mystory-add__icon">
+                        <img src="{{imageBaseUrl}}img/svg/ico_create-plus.svg" alt="">
+                    </div>
+                    <div class="o-mystory-add__txt">
+                        Add My story
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!--MY story widget end-->
+
       <!-- attend event -->
       <div class="row m-t-16">
         <div class="c-card">
