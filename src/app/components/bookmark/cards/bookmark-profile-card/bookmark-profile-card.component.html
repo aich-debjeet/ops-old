@@ -26,7 +26,7 @@
             <div *ngIf="profileDetails?.posts" class="bookmark-info__posts">
                 <ng-container *ngFor="let post of profileDetails?.posts.slice(0, 6)">
                     <a *ngIf="post?.id" [routerLink]="['', { outlets: { media : ['media', post?.id] } }]">
-                        <div *ngIf="post?.postType === 'image'" class="bookmark-info__post-item" [ngStyle]="{'background-image': 'url(' + imageBaseUrl + post?.thumbNail + ')',
+                        <div *ngIf="post?.postType === 'image'" class="bookmark-info__post-item" [ngStyle]="{'background-image': 'url(' + imageBaseUrl + post?.thumbNail?.mediumSmall + ')',
                             'background-size': 'cover',
                             'background-position': 'center'}"></div>
                     </a>
