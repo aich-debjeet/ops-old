@@ -1,13 +1,11 @@
+<app-bookmark-profile-card
+  *ngFor="let bookmark of bookmarks"
+  (follow)="followUser($event)"
+  (unfollow)="unfollowUser($event)"
+[profileDetails]="bookmark">
+</app-bookmark-profile-card>
 <div *ngIf="showPreloader">
   <div class="sticky">
     <div class="loader">Loading...</div>
   </div>
 </div>
-<ng-container *ngIf="!showPreloader">
-  <app-bookmark-profile-card
-    *ngFor="let bookmark of bookmarks"
-    (follow)="followUser($event)"
-    (unfollow)="unfollowUser($event)"
-    [profileDetails]="bookmark">
-  </app-bookmark-profile-card>
-</ng-container>

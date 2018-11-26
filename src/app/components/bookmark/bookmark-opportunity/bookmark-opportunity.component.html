@@ -1,8 +1,6 @@
+<app-bookmark-opportunity-card *ngFor="let bookmark of bookmarks" [oppDetails]="bookmark"></app-bookmark-opportunity-card>
 <div *ngIf="showPreloader">
   <div class="sticky">
     <div class="loader">Loading...</div>
   </div>
 </div>
-<ng-container *ngIf="!showPreloader">
-  <app-bookmark-opportunity-card *ngFor="let bookmark of bookmarks" [oppDetails]="bookmark"></app-bookmark-opportunity-card>
-</ng-container>
