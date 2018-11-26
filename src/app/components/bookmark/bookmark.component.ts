@@ -20,7 +20,7 @@ export class BookmarkComponent implements OnInit, OnDestroy {
   reqParams = {
     bookmarkType: '',
     offset: 0,
-    limit: 0
+    limit: 10
   }
   activeTab: string;
   bookmarkTotalCount = 0;
@@ -56,6 +56,7 @@ export class BookmarkComponent implements OnInit, OnDestroy {
   }
 
   getData() {
+    this.reqParams.offset = 0;
     this.getBookmarks();
     this.getBookmarkCount();
   }
@@ -67,13 +68,16 @@ export class BookmarkComponent implements OnInit, OnDestroy {
 
   getBookmarks() {
     this.reqParams.bookmarkType = this.activeTab;
-    this.reqParams.offset = 0;
-    this.reqParams.limit = 10;
     this.store.dispatch({ type: BookmarkActions.GET_BOOKMARKS, payload: this.reqParams });
   }
 
   getBookmarkCount() {
     this.store.dispatch({ type: BookmarkActions.GET_BOOKMARKS_COUNT });
+  }
+
+  loadMore(e: any) {
+    this.reqParams.offset += this.reqParams.limit;
+    this.getBookmarks();
   }
 
 }

@@ -41,7 +41,11 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
       <div class="tab-content">
-        <div class="tab-pane fade active in">
+        <div class="tab-pane fade active in"
+          infiniteScroll
+          [infiniteScrollDistance]="2"
+          [infiniteScrollThrottle]="1000"
+          (scrolled)="loadMore($event)">
           <router-outlet></router-outlet>
         </div>
       </div>
