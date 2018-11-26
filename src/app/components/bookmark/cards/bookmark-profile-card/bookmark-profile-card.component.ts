@@ -12,6 +12,7 @@ export class BookmarkProfileCardComponent implements OnInit {
   imageBaseUrl = environment.API_IMAGE;
   @Output() follow: EventEmitter<any> = new EventEmitter<any>();
   @Output() unfollow: EventEmitter<any> = new EventEmitter<any>();
+  @Output() removeBookmark: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() { }
 
@@ -24,6 +25,14 @@ export class BookmarkProfileCardComponent implements OnInit {
     } else {
       this.unfollow.emit(this.profileDetails);
     }
+  }
+
+  deleteBookmark(data) {
+    const reqParams = {
+      type: 'profile',
+      id: data.handle
+    }
+    this.removeBookmark.emit(reqParams);
   }
 
 }

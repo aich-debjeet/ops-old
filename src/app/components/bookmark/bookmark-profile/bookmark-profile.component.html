@@ -1,8 +1,9 @@
 <app-bookmark-profile-card
+  (removeBookmark)="deleteBookmark($event)"
   *ngFor="let bookmark of bookmarks"
   (follow)="followUser($event)"
   (unfollow)="unfollowUser($event)"
-[profileDetails]="bookmark">
+  [profileDetails]="bookmark">
 </app-bookmark-profile-card>
 <div *ngIf="showPreloader">
   <div class="sticky">

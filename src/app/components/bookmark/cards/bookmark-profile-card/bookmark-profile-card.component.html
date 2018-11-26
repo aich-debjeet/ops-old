@@ -17,11 +17,11 @@
     <div class="bookmark__info bookmark__info--profile ">
         <div class="bookmark-info__media-type">
             <div class="bookmark-media-type__label">Posts
-                <!-- <div class="bookmark-delet">
-                    <div class="bookmark-delet__icon">
+                <div class="bookmark-delet">
+                    <div (click)="deleteBookmark(profileDetails)" class="bookmark-delet__icon">
                         <img src="https://ops-v2-2.netlify.com/assets/svg/ico_close-38.svg" alt="">
                     </div>
-                </div> -->
+                </div>
             </div>
             <div *ngIf="profileDetails?.posts" class="bookmark-info__posts">
                 <ng-container *ngFor="let post of profileDetails?.posts.slice(0, 6)">
