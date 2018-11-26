@@ -38,11 +38,20 @@ export const BookmarkReducer: ActionReducer<any> = (state = initialBookmarkState
             });
 
         case BookmarkActions.GET_BOOKMARKS_SUCCESS:
-            return Object.assign({}, state, {
-                loadingBookmarks: false,
-                loadedBookmarks: true,
-                bookmarks: gUtils.sortBookmarks(state.bookmarkType, payload)
-            });
+            const newBookmarks = gUtils.sortBookmarks(state.bookmarkType, payload);
+            if (state.requestPayload && state.requestPayload.offset === 0) {
+                return Object.assign({}, state, {
+                    loadingBookmarks: false,
+                    loadedBookmarks: true,
+                    bookmarks: newBookmarks
+                });
+            } else {
+                return Object.assign({}, state, {
+                    loadingBookmarks: false,
+                    loadedBookmarks: true,
+                    bookmarks: state.bookmarks.concat(newBookmarks)
+                });
+            }
 
         case BookmarkActions.GET_BOOKMARKS_FAILED:
             return Object.assign({}, state, {
