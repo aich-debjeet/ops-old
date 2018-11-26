@@ -120,6 +120,7 @@ export class BookmarkComponent implements OnInit, OnDestroy {
       .subscribe(resp => {
         if (resp['deletingBookmark'] === false && resp['deletedBookmark'] === true) {
           this.toastr.success('Bookmark deleted successfully', 'Success!');
+          this.getBookmarkCount();
           bookmarkSub.unsubscribe();
         }
       });
