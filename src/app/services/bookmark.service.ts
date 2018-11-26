@@ -12,6 +12,10 @@ export class BookmarkService {
     return this.api.post('/portal/bookmark/search', reqBody);
   }
 
+  getBookmarksCount() {
+    return this.api.get('/portal/bookmark/all/counts/loggedInProfile');
+  }
+
   bookmark(reqBody: any) {
     return this.api.post('/portal/bookmark', reqBody);
   }

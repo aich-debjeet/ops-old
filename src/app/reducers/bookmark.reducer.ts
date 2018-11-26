@@ -10,6 +10,25 @@ export const BookmarkReducer: ActionReducer<any> = (state = initialBookmarkState
 
     switch (type) {
 
+        case BookmarkActions.GET_BOOKMARKS_COUNT:
+            return Object.assign({}, state, {
+                loadingBookmarksCount: true,
+                loadedBookmarksCount: false
+            });
+
+        case BookmarkActions.GET_BOOKMARKS_COUNT_SUCCESS:
+            return Object.assign({}, state, {
+                loadingBookmarksCount: false,
+                loadedBookmarksCount: true,
+                bookmarksCount: payload['SUCCESS']
+            });
+
+        case BookmarkActions.GET_BOOKMARKS_COUNT_FAILED:
+            return Object.assign({}, state, {
+                loadingBookmarksCount: false,
+                loadedBookmarksCount: false
+            });
+
         case BookmarkActions.GET_BOOKMARKS:
             return Object.assign({}, state, {
                 loadingBookmarks: true,

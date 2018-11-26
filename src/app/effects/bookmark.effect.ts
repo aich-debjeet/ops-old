@@ -14,6 +14,18 @@ import { BookmarkActions } from '../actions/bookmark.action';
 export class BookmarkEffect {
 
   /**
+   * get all bookmarks count
+   */
+  @Effect()
+  getBookmarksCount$ = this.actions$
+    .ofType(BookmarkActions.GET_BOOKMARKS_COUNT)
+    .map(toPayload)
+    .switchMap(() => this.bookmarkService.getBookmarksCount()
+      .map(res => ({ type: BookmarkActions.GET_BOOKMARKS_COUNT_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: BookmarkActions.GET_BOOKMARKS_COUNT_FAILED, payload: res }))
+    );
+
+  /**
    * get all bookmarks
    */
   @Effect()
