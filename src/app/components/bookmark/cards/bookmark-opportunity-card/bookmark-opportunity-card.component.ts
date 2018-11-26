@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { environment } from 'environments/environment';
 
 @Component({
@@ -9,11 +9,20 @@ import { environment } from 'environments/environment';
 export class BookmarkOpportunityCardComponent implements OnInit {
 
   @Input() oppDetails: any;
+  @Output() removeBookmark: EventEmitter<any> = new EventEmitter<any>();
   imageBaseUrl = environment.API_IMAGE;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  deleteBookmark(data) {
+    const reqParams = {
+      type: 'opportunity',
+      id: data.id
+    }
+    this.removeBookmark.emit(reqParams);
   }
 
 }
