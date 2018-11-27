@@ -196,8 +196,14 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
         ],
         media_detail: {
           ...state.media_detail,
-          spotsCount: state.media_detail ? state.media_detail.spotsCount + 1 : 0,
-          isSpotted:  state.media_detail ? true : false
+          isSpotted: true,
+          extras: {
+            ...state.media_detail.extras,
+            counts: {
+              ...state.media_detail.extras.counts,
+              spotsCount: state.media_detail.extras.counts.spotsCount + 1
+            }
+          }
         }
       });
 
@@ -215,8 +221,14 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
         ],
         media_detail: {
           ...state.media_detail,
-          spotsCount: state.media_detail ? state.media_detail.spotsCount - 1 : 0,
-          isSpotted:  state.media_detail ? false : false
+          isSpotted: false,
+          extras: {
+            ...state.media_detail.extras,
+            counts: {
+              ...state.media_detail.extras.counts,
+              spotsCount: state.media_detail.extras.counts.spotsCount - 1
+            }
+          }
         }
       });
 
