@@ -16,6 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { UtcDatePipe } from './../../../pipes/utcdate.pipe';
 import { BookmarkActions } from 'app/actions/bookmark.action';
+import { GeneralUtilities } from 'app/helpers/general.utils';
 
 @Component({
   selector: 'app-media-view',
@@ -44,9 +45,6 @@ export class MediaViewComponent implements OnDestroy {
   sub: any;
   data: any;
   comments: any;
-  commentCount: number;
-  spot: boolean;
-  spotCount: number;
   message: boolean;
   channelId: string;
   deleteMsg: boolean;
@@ -60,16 +58,15 @@ export class MediaViewComponent implements OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private toastr: ToastrService,
-    private store: Store<Media>
+    private store: Store<Media>,
+    private gUtils: GeneralUtilities
   ) {
-    this.spot = false;
     this.mediaState$ = store.select('mediaStore');
 
     this.mediaSub = this.mediaState$.subscribe((state) => {
       this.mediaStore = state;
       this.channelId = this.mediaStore.channel_detail['channelId']
       this.data = this.mediaStore.media_detail;
-      this.spotCount = this.mediaStore.media_detail.spotsCount;
       this.mediaType = this.mediaStore.media_detail.mtype;
       this.mediaId = this.mediaStore.media_detail.id;
       if (!this.viewCounted && this.mediaId) {
@@ -80,7 +77,6 @@ export class MediaViewComponent implements OnDestroy {
         this.store.dispatch({ type: MediaActions.MEDIA_ADD_VIEW_COUNT, payload: data });
         this.viewCounted = true;
       }
-      this.spot = this.mediaStore.media_detail.isSpotted;
       this.comments = this.mediaStore.media_comment;
       if (state['media_carousel']) {
         this.mediaCarousal = state['media_carousel'];
@@ -102,7 +98,6 @@ export class MediaViewComponent implements OnDestroy {
     });
 
     store.select('mediaStore').take(6).subscribe((state) => {
-      this.commentCount = this.mediaStore.media_detail.commentsCount;
       if (state['media_delete_msg'] && this.deleteMsg) {
         this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
         this.toastr.warning('Post Deleted', '', {
@@ -163,11 +158,10 @@ export class MediaViewComponent implements OnDestroy {
    */
   spotMedia(value: string) {
     const data = {
-      'mediaType': value['mtype'],
-      'id': value['id']
+      mediaType: value['mtype'],
+      id: value['id']
     }
-    this.spot = !this.spot;
-    if (this.spot === true) {
+    if (this.gUtils.checkNestedKey(this.mediaStore, ['media_detail', 'isSpotted']) && this.mediaStore['media_detail']['isSpotted'] === false) {
       this.store.dispatch({ type: MediaActions.MEDIA_SPOT, payload: data });
       this.store.dispatch({ type: ProfileActions.PROFILE_MEDIA_SPOT, payload: data });
     } else {
