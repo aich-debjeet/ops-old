@@ -204,6 +204,7 @@ export class ProfileCard {
   follwerCount?: number;
   extra?: any;
   isFollowing?: boolean;
+  physical?: any;
 }
 
 export const initialProfileTag: ProfileCard = {

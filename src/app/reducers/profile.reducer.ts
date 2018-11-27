@@ -75,6 +75,17 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
 
   switch (type) {
 
+    case ProfileActions.RPOFILE_BOOKAMRK_FLAG_UPDATE:
+      return Object.assign({}, state, {
+        profile_other: {
+          ...state.profile_other,
+          physical: {
+            ...state.profile_other.physical,
+            isBookmarked: payload.isBookmarked
+          }
+        }
+      });
+
     case ProfileActions.REMOVE_COVER_IMAGE:
       return Object.assign({}, state, {
         removingCoverImage: true,
