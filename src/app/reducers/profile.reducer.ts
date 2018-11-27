@@ -1989,30 +1989,30 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
     case ProfileActions.COMMENT_COUNT_INCREMENT:
       const home_post = state.user_following_posts.find(t => t.id === payload);
       const home_index = home_post ? state.user_following_posts.indexOf(home_post) : null;
-      const home_count = home_post ? home_post.commentsCount + 1 : 0;
+      const home_count = home_post ? home_post.counts.commentsCount + 1 : 0;
 
       const profile_post = state.user_posts.find(t => t.id === payload);
       const profile_index = profile_post ? state.user_posts.indexOf(profile_post) : null;
-      const profile_count = profile_post ? profile_post.commentsCount + 1 : 0;
+      const profile_count = profile_post ? profile_post.counts.commentsCount + 1 : 0;
 
       const tranding_post_comment = state.trending_post.find(t => t.id === payload);
       const tranding_post_comment_index = tranding_post_comment ? state.trending_post.indexOf(tranding_post_comment) : null;
-      const tranding_post_comment_count = tranding_post_comment ? tranding_post_comment.commentsCount + 1 : 0;
+      const tranding_post_comment_count = tranding_post_comment ? tranding_post_comment.counts.commentsCount + 1 : 0;
 
       return Object.assign({}, state, {
         user_following_posts: home_post === undefined ? [...state.user_following_posts] : [
           ...state.user_following_posts.slice(0, home_index),
-          Object.assign({}, home_post, { commentsCount: home_count }),
+          Object.assign({}, home_post, { ...home_post, counts: { ...home_post.counts, commentsCount: home_count } }),
           ...state.user_following_posts.slice(home_index + 1)
         ],
         user_posts: profile_post === undefined ? [...state.user_posts] : [
           ...state.user_posts.slice(0, profile_index),
-          Object.assign({}, profile_post, { commentsCount: profile_count }),
+          Object.assign({}, profile_post, { ...profile_post, counts: { ...profile_post.counts, commentsCount: profile_count } }),
           ...state.user_posts.slice(profile_index + 1)
         ],
         trending_post: tranding_post_comment === undefined ? [...state.trending_post] : [
           ...state.trending_post.slice(0, tranding_post_comment_index),
-          Object.assign({}, tranding_post_comment, { commentsCount: tranding_post_comment_count }),
+          Object.assign({}, tranding_post_comment, { ...tranding_post_comment, counts: { ...tranding_post_comment.counts, commentsCount: tranding_post_comment_count } }),
           ...state.trending_post.slice(tranding_post_comment_index + 1)
         ]
 
