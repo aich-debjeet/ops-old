@@ -11,6 +11,14 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
 
   switch (type) {
 
+    case OpportunityActions.OPPORTUNITY_BOOKAMRK_FLAG_UPDATE:
+      return Object.assign({}, state, {
+        get_opportunity_data: {
+          ...state.get_opportunity_data,
+          isBookmarked: payload.isBookmarked
+        }
+      });
+
     /* get opportunity collabs */
     case OpportunityActions.GET_OPPORTUNITY_COLLABORATORS:
       return Object.assign({}, state, {

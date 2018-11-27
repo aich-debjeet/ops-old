@@ -6,7 +6,7 @@ export const EventReducer: ActionReducer<any> = (state = initialTagEve, {payload
 
   switch (type) {
 
-    case EventActions.BOOKAMRK_FLAG_UPDATE:
+    case EventActions.EVENT_BOOKAMRK_FLAG_UPDATE:
       return Object.assign({}, state, {
         event_detail: {
           ...state.event_detail,
