@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, Output, OnInit, Inject, OnDestroy, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, ViewChild } from '@angular/core';
 import { environment } from './../../../environments/environment';
 import { Router } from '@angular/router';
-import { DatePipe, PlatformLocation } from '@angular/common';
+import { DatePipe } from '@angular/common';
 // import { ISubscription } from 'rxjs/Subscription';
 import { Modal } from '../../shared/modal-new/Modal';
 
@@ -11,8 +11,8 @@ import { MediaActions } from '../../actions/media.action';
 import { ProfileActions } from '../../actions/profile.action';
 import { CommunitiesActions } from '../../actions/communities.action';
 
+import { SharedActions } from '../../actions/shared.action';
 // rx
-import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
 import { ModalService } from '../../shared/modal/modal.component.service';
@@ -23,7 +23,7 @@ import { ModalService } from '../../shared/modal/modal.component.service';
   providers: [ ModalService, DatePipe ],
   styleUrls: ['./post.component.scss']
 })
-export class PostComponent implements OnInit, OnDestroy {
+export class PostComponent implements OnInit {
   @Input() mediaData;
   @Input() userData;
   @Input() className: string;
@@ -34,36 +34,27 @@ export class PostComponent implements OnInit, OnDestroy {
   @Output() elemViewportStatus = new EventEmitter();
   @ViewChild('reportModal') reportModal: Modal;
   dotMenuState: boolean;
-  // private subscription: ISubscription;
   comments: any;
   following: boolean;
-  followingCount: any;
-  commentCount: any;
   mediaId: any;
   mediaType: any;
   mediaStore = initialMedia;
-  // mediaState$: Observable<Media>;
   reportId: string;
-  // userState$: Observable<any>;
   messageText: string;
   desText: string;
   isEdit: boolean;
   userImage: string;
-  popupActive = false;
 
   imageLink: string = environment.API_IMAGE;
-  questions: any;
   domainLink: string = environment.API_DOMAIN;
   messageEdit: string;
 
   constructor(
     private router: Router,
     private store: Store<Media>,
-    // platformLocation: PlatformLocation,
     public modalService: ModalService,
   ) {
     this.dotMenuState = false;
-    // this.mediaState$ = store.select('mediaStore');
   }
 
   ngOnInit() {
@@ -72,12 +63,9 @@ export class PostComponent implements OnInit, OnDestroy {
     } else {
       this.userImage = this.imageLink + this.mediaData.ownerImage;
     }
-
     this.following = this.mediaData.isSpotted;
-    this.followingCount = this.mediaData.spotsCount;
     this.mediaId = this.mediaData.id;
     this.mediaType = this.mediaData.mtype;
-    this.commentCount = this.mediaData.commentsCount;
     this.comments = this.mediaData.commentsList;
     this.desText = this.mediaData.description;
   }
@@ -86,20 +74,9 @@ export class PostComponent implements OnInit, OnDestroy {
     this.isEdit = true;
   }
 
-  /**
-   * Delete Media from Channel
-   * @param event
-   */
-  deleteMedia(channel: any) {
-  }
-
   handleClick(id) {
     this.router.navigateByUrl('/media/' + id);
   }
-
-  // checkFileType(fileName: string, fileType: string) {
-  //   return FilesHelper.fileType(fileName, fileType);
-  // }
 
   dotMenuOpen() {
     this.dotMenuState = !this.dotMenuState;
@@ -128,8 +105,6 @@ export class PostComponent implements OnInit, OnDestroy {
         this.store.dispatch({ type: CommunitiesActions.MEDIA_SPOT, payload: data });
         return
       }
-      // this.following = true;
-      // this.followingCount++;
       this.store.dispatch({ type: MediaActions.MEDIA_SPOT, payload: data });
       this.store.dispatch({ type: ProfileActions.PROFILE_MEDIA_SPOT, payload: data });
     } else {
@@ -140,24 +115,17 @@ export class PostComponent implements OnInit, OnDestroy {
       }
       this.store.dispatch({ type: MediaActions.MEDIA_UNSPOT, payload: data });
       this.store.dispatch({ type: ProfileActions.PROFILE_MEDIA_UNSPOT, payload: data });
-      // this.following = false
-      // this.followingCount--;
     }
   }
 
   /**
-   * open report modal
-  */
+   * method to open report pop-up with options for post
+   * @param id to open specific report model
+   */
   reportModalOpen(id: string) {
-    this.popupActive = true;
     this.reportModal.open();
     this.reportId = id;
-    this.modalService.open('reportPopUp');
-    this.store.dispatch({ type: MediaActions.MEDIA_POST_REPORT, payload: 'post' });
-  }
-
-  closeReport() {
-    this.reportModal.close();
+    this.store.dispatch({ type: SharedActions.GET_OPTIONS_REPORT, payload: 'post' });
   }
 
   /**
@@ -171,18 +139,12 @@ export class PostComponent implements OnInit, OnDestroy {
         'parent': mediaId
       }
       this.store.dispatch({ type: MediaActions.POST_COMMENT, payload: send});
-      // this.addNewComment();
       this.messageText = null;
     }
   }
 
-  ngOnDestroy() {
-    // this.subscription.unsubscribe();
-  }
-
   onContentSaved() {
     this.isEdit = false;
-    // console.log(this.desText);
   }
 
   onReachingInViewport(mediaId: any) {

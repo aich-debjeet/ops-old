@@ -1,0 +1,11 @@
+<ng-container *ngFor="let bookmark of bookmarks">
+    <app-bookmark-image-card (removeBookmark)="deleteBookmark($event)" *ngIf="bookmark?.postType === 'image'" [mediaDetails]="bookmark"></app-bookmark-image-card>
+    <app-bookmark-video-card (removeBookmark)="deleteBookmark($event)" *ngIf="bookmark?.postType === 'video'" [mediaDetails]="bookmark"></app-bookmark-video-card>
+    <app-bookmark-event-card (removeBookmark)="deleteBookmark($event)" *ngIf="bookmark?.type === 'event'" [eventDetails]="bookmark"></app-bookmark-event-card>
+    <app-bookmark-opportunity-card (removeBookmark)="deleteBookmark($event)" *ngIf="bookmark?.type === 'opportunity'" [oppDetails]="bookmark"></app-bookmark-opportunity-card>
+</ng-container>
+<div *ngIf="showPreloader">
+  <div class="sticky">
+    <div class="loader">Loading...</div>
+  </div>
+</div>

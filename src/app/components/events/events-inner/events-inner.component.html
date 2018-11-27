@@ -35,6 +35,10 @@
             <div class="o-eventinner__date">
                 <img [src]="baseUrl + 'img/svg/calendar.svg'" class="o-eventinner__detail--img"> {{ eventDetail?.eventTiming?.startDate | utcDate | date: 'dd, LLLL'}}
             </div>
+
+            <a (click)="bookmarkAction('add', eventDetail?.id)" class="o-action-icons__link m-r-16">
+                <img width="24" src="https://ops-v2.netlify.com/assets/svg/bookmark.svg">
+              </a>
             <div class="o-eventinner__address">
               <img [src]="baseUrl + 'img/svg/ico_location2.svg'" class="o-eventinner__detail--img"> {{ eventDetail?.venue?.location }}
             </div>
@@ -140,6 +144,8 @@
   </div>
 </section>
 
-<app-modal [modalTitle]="''" [blocking]='false' modalId='reportPopUp'>
-  <app-report-popoup [reportQues]="questions" [reportContentId]="reportId" [reportType]="reportType" (onclose)= "closeReport()" ></app-report-popoup>
-</app-modal>
+<app-modal-new #reportModal modalClass="modal-report__popup" >
+  <modal-content>
+          <app-report-popoup  [reportContentId]="reportId" [reportType]="'event'" (onclose)= "reportModal.close()"></app-report-popoup>
+  </modal-content>
+</app-modal-new>

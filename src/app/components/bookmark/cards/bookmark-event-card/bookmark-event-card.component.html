@@ -1,0 +1,52 @@
+<div class="bookmark">
+    <div class="bookmark__media">
+        <div class="bookmark__media__img" [ngStyle]="{'background-image': 'url(' + imageBaseUrl + eventDetails?.imagePath + ')',
+            'background-size': 'cover',
+            'background-position': 'center',
+            'width': '100%'}">
+        </div>
+    </div>
+    <div class="bookmark__info">
+        <div class="bookmark-info__media-type">
+            <div class="bookmark-media-type__label">Event
+                <div class="bookmark-delet">
+                    <div (click)="deleteBookmark(eventDetails)" class="bookmark-delet__icon">
+                        <img src="https://ops-v2-2.netlify.com/assets/svg/ico_close-38.svg" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="bookmark-info__discription">
+                <div class="c-text_lg f-w_600">
+                    {{ eventDetails?.title }}
+                    <div class="o-bookmarkevent__detail">
+                        <div class="o-bookmarkevent__date">
+                            <img src="https://ops-v2-2.netlify.com/assets/svg/calendar.svg" class="o-bookmarkevent__detail--img"> 
+                            {{ eventDetails?.startDate  | utcDate | date: 'hh:mm a dd MMM, yy' }}
+                        </div>
+                        <div class="o-bookmarkevent__address">
+                            <img src="https://ops-v2-2.netlify.com/assets/svg/ico_location2.svg" class="o-bookmarkevent__detail--img"> 
+                            {{ eventDetails?.venue }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bookmark-info__post-detail">
+                <div class="bookmark-post-detail__user-info">
+                    <a href="profile_others.html" class="bookmark-user-link">
+                        <div class="bookmark-user-info__prof-pic">
+                            <img src="https://ops-v2-2.netlify.com/assets/demo/avatar.jpg" alt="">
+                        </div>
+                        <div class="bookmark-user-info__user-name">
+                            {{ eventDetails?.ownerName }}
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="bookmark-info__action">
+                <a [routerLink]="'/event/inner/' + eventDetails?.id" class="bookmark-info__view-link">
+                    View
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

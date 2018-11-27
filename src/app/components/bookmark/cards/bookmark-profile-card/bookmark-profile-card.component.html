@@ -1,0 +1,46 @@
+<div class="bookmark">
+    <div class="bookmark__profile">
+        <div class="bookmark-profile__image">
+            <img [src]="imageBaseUrl + profileDetails?.profileImage" alt="">
+        </div>
+        <div class="bookmark-profile__name">
+            {{ profileDetails?.name }}
+        </div>
+        <div *ngIf="profileDetails?.username" class="bookmark-profile__username">
+            @{{ profileDetails?.username }}
+        </div>
+        <div class=" bookmark-info__action--mob">
+            <a (click)="followAction('unfollow')" *ngIf="profileDetails?.isFollowing === true" class="bookmark-action__follow--mob">Unfollow</a>
+            <a (click)="followAction('follow')" *ngIf="profileDetails?.isFollowing === false" class="bookmark-action__follow--mob">Follow</a>
+        </div>
+    </div>
+    <div class="bookmark__info bookmark__info--profile ">
+        <div class="bookmark-info__media-type">
+            <div class="bookmark-media-type__label">Posts
+                <div class="bookmark-delet">
+                    <div (click)="deleteBookmark(profileDetails)" class="bookmark-delet__icon">
+                        <img src="https://ops-v2-2.netlify.com/assets/svg/ico_close-38.svg" alt="">
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="profileDetails?.posts" class="bookmark-info__posts">
+                <ng-container *ngFor="let post of profileDetails?.posts.slice(0, 6)">
+                    <a *ngIf="post?.id" [routerLink]="['', { outlets: { media : ['media', post?.id] } }]">
+                        <div *ngIf="post?.postType === 'image'" class="bookmark-info__post-item" [ngStyle]="{'background-image': 'url(' + imageBaseUrl + post?.thumbNail?.mediumSmall + ')',
+                            'background-size': 'cover',
+                            'background-position': 'center'}"></div>
+                    </a>
+                </ng-container>
+                <!-- <div class="bookmark-info__post-item" style="background:url(https://ops-v2-2.netlify.com/assets/demo/e4.jpg)no-repeat; background-size: cover; background-position: left top;">
+                    <div class="bookmark-info__post-video">
+                        <img src="https://ops-v2-2.netlify.com/assets/svg/ico-play-white.svg" alt="">
+                    </div>
+                </div> -->
+            </div>
+            <div class="bookmark-info__action">
+                <a (click)="followAction('unfollow')" *ngIf="profileDetails?.isFollowing === true" class="bookmark-action__follow">Unfollow</a>
+                <a (click)="followAction('follow')" *ngIf="profileDetails?.isFollowing === false" class="bookmark-action__follow">Follow</a>
+            </div>
+        </div>
+    </div>
+</div>

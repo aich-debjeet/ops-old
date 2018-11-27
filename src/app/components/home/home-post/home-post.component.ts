@@ -110,7 +110,6 @@ export class HomePostComponent implements OnInit, OnDestroy {
 
   // is spoted ture or false
   isSpoted(value) {
-    console.log(value);
     const data = {
       'mediaType': value.mtype,
       'id': value.id

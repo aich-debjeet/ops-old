@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 // actions
 import { OpportunityActions } from 'app/actions/opportunity.action';
+import { SharedActions } from '../../../actions/shared.action';
 
 // store
 import { Store } from '@ngrx/store';
@@ -18,6 +19,7 @@ import { ToastrService } from 'ngx-toastr';
 import { GeneralUtilities } from '../../../helpers/general.utils';
 import { ModalService } from '../../../shared/modal/modal.component.service';
 import { Modal } from '../../../shared/modal-new/Modal';
+import { BookmarkActions } from 'app/actions/bookmark.action';
 
 @Component({
   selector: 'app-opportunity-view',
@@ -42,9 +44,9 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
   isOwnOpportunity = false;
   showOptions = false;
   reportId: string;
-  questions: any;
-  reportType: string;
+
   @ViewChild('cancelApplicationModal') cancelApplicationModal: Modal;
+  @ViewChild('reportModal') reportModal:Modal;
 
   similarOpportunities: any;
   similarOpportunitiesLoaded = false;
@@ -64,11 +66,6 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
       // console.log('state', state);
       if (state) {
         // get opp data
-        if (state['reports']) {
-          this.questions = state['reports'];
-          this.reportType = 'opportunity';
-          // console.log(this.questions)
-        }
 
         if (state.get_opportunity_data) {
           this.opportunity = state.get_opportunity_data;
@@ -183,14 +180,14 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * method to open report pop-up with options for opportunity 
+   * @param id to open specific report model
+   */
   reportModalOpen(id: string) {
     this.reportId = id;
-    this.modalService.open('reportPopUp');
-    this.store.dispatch({ type: OpportunityActions.OPPORTUNITY_REPORT, payload: 'opportunity' });
-  }
-
-  closeReport() {
-    this.modalService.close('reportPopUp');
+    this.reportModal.open();
+    this.store.dispatch({ type: SharedActions.GET_OPTIONS_REPORT, payload: 'opportunity' });
   }
 
   confirmation(action: string) {
@@ -214,6 +211,24 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
 
   closeCancelApplicationModal() {
     this.cancelApplicationModal.close();
+  }
+
+  bookmarkAction(action: string, oppId: string) {
+    if (action === 'add') {
+      const reqBody = {
+        bookmarkType: 'opportunity',
+        contentId: oppId
+      };
+      this.store.dispatch({ type: BookmarkActions.BOOKMARK, payload: reqBody });
+      const bookmarkSub = this.store.select('bookmarkStore')
+      .take(2)
+      .subscribe(data => {
+        if (data['bookmarking'] === false && data['bookmarked'] === true) {
+          this.toastr.success('Bookmarked successfully', 'Success!');
+          bookmarkSub.unsubscribe();
+        }
+      });
+    }
   }
 
 }

@@ -14,18 +14,6 @@ import { EventActions } from '../actions/event.action';
 @Injectable()
 export class EventEffect {
 
-  /**
-   * Get Events Report
-  */
-    @Effect()
-      getReport$ = this.actions$
-      .ofType(EventActions.EVENT_REPORT)
-      .map(toPayload)
-      .switchMap((payload) => this.eventService.getReports(payload)
-      .map(res => ({ type: EventActions.EVENT_REPORT_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: EventActions.EVENT_REPORT_FAILED, payload: res }))
-    );
-
   // Banner search for events
   @Effect()
     bannerSearch$ = this.actions$
