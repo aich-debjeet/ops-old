@@ -76,9 +76,11 @@
 
     <!-- audio -->
     <div class="c-feed__img2" appAppear (reached)="onReachingInViewport(mediaData?.id)" (departed)="onDepartedFromViewport(mediaData?.id)" *ngIf="mediaData?.mtype === 'audio'">
-        <img [src]="imageLink + mediaData?.thumbNails?.large" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="img-responsive audio-image" [class.c-feed__adult-blur]="mediaData?.isNsfw && mediaData?.isOwner === false">
-        <app-audioplayer *ngIf="mediaData?.inViewport" [size]="'small'" [src]="imageLink + mediaData?.repopath"></app-audioplayer>
-        <div *ngIf="!mediaData?.inViewport" class="audio-placeholder"></div>
+        <a [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
+            <img [src]="imageLink + mediaData?.thumbNails?.large" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="img-responsive audio-image" [class.c-feed__adult-blur]="mediaData?.isNsfw && mediaData?.isOwner === false">
+            <app-audioplayer *ngIf="mediaData?.inViewport" [size]="'small'" [src]="imageLink + mediaData?.repopath"></app-audioplayer>
+            <div *ngIf="!mediaData?.inViewport" class="audio-placeholder"></div>
+        </a>
     </div>
     <!-- image -->
 

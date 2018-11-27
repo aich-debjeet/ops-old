@@ -1,0 +1,165 @@
+<div class="bookmark">
+    <div class="bookmark__media">
+        <a *ngIf="mediaDetails?.postId" [routerLink]="['', { outlets: { media : ['media', mediaDetails?.postId] } }]">
+            <div class="bookmark__media__img" [ngStyle]="{'background-image': 'url(' + imageBaseUrl + mediaDetails?.postThumbNails?.mediumLarge + ')',
+                'background-size': 'cover',
+                'background-position': 'center',
+                'width': '100%'}"></div>
+        </a>
+    </div>
+    <div class="bookmark__info">
+        <div class="bookmark-info__media-type">
+            <div class="bookmark-media-type__label">Image
+                <div class="bookmark-delet">
+                    <div (click)="deleteBookmark(mediaDetails)" class="bookmark-delet__icon">
+                        <img src="https://ops-v2-2.netlify.com/assets/svg/ico_close-38.svg" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="bookmark-info__discription">
+                <div class="c-text_lg bookmark-discription__overflow">
+                    {{ mediaDetails?.postDescription }}
+                </div>
+            </div>
+            <div class="bookmark-info__post-detail">
+                <div class="bookmark-post-detail__user-info">
+                    <a href="profile_others.html" class="bookmark-user-link">
+                        <div class="bookmark-user-info__prof-pic">
+                            <img src="{{ imageBaseUrl }}img/avatar.jpg" alt="">
+                        </div>
+                        <div class="bookmark-user-info__user-name">
+                            {{ mediaDetails?.ownerName }}
+                        </div>
+                    </a>
+                </div>
+                <div class="bookmark-post-detail__channel">
+                    <a href="channel_inner.html" class="bookmark-channel-link">
+                        <div class="bookmark-channel__icon">
+                            <img src="https://ops-v2-2.netlify.com/assets/svg/ico_addtochannel.svg">
+                        </div>
+                        <div class="bookmark-channel__name">
+                            {{ mediaDetails?.channelName }}
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="bookmark-info__action">
+                <div class="bookmark-action__add-to-channel">
+                    <span class="c-links__add dropdown c-dropdown">
+                        <!-- <a class="dropdown-toggle bookmark-add-to-channel__link" data-toggle="dropdown" aria-expanded="false">
+                            <div class="bookmark-add-to-channel__icon">
+                                <img src="https://ops-v2-2.netlify.com/assets/svg/add_channel_theme_color.svg">
+                            </div>
+                            <div class="bookmark-add-to-channel__txt">
+                                Add to channel
+                            </div>
+                        </a> -->
+                        <div class="dropdown-menu c-ch__drop p-16">
+                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                <div class="c-invite--search m-0">
+                                    <form class="fill-grey-light">
+                                        <div class="c-form__group c-form--sm c-form--noeffect c-form__faded--sm m-0">
+                                            <input class="c-form__input p-l-24" required="" type="text">
+                                            <label class="p-l-16">Search</label>
+                                            <span>
+                                                <img src="https://ops-v2-2.netlify.com/assets/svg/ico_search.svg" class="c-form__input--lefticon">
+                                            </span>
+                                        </div>
+                                    </form>
+                                </div>
+                            </a>
+                            <div class="c-invite__block">
+                                <a class="dropdown-toggle" data-toggle="dropdown">
+                                </a>
+                                <a class="c-user__avatar c-avatar--status4">
+                                    <img src="https://ops-v2-2.netlify.com/assets/demo/new/avatar.png" class="o-share__avatar">
+                                </a>
+                                <a class="c-text_md c-invite--user">The Power of Notes</a>
+                            </div>
+                            <div class="c-invite__block">
+                                <a class="c-user__avatar c-avatar--status4">
+                                    <img src="https://ops-v2-2.netlify.com/assets/demo/new/avatar.png" class="o-share__avatar">
+                                </a>
+                                <a class="c-text_md c-invite--user">How Hypnosis can help</a>
+                            </div>
+                            <div class="c-invite__block">
+                                <a class="c-user__avatar c-avatar--status4">
+                                    <img src="https://ops-v2-2.netlify.com/assets/demo/new/avatar.png" class="o-share__avatar">
+                                </a>
+                                <a class="c-text_md c-invite--user">How to set intentions</a>
+                            </div>
+                            <div class="c-invite__block c-skill_active">
+                                <a class="c-user__avatar c-avatar--status4">
+                                    <img src="https://ops-v2-2.netlify.com/assets/demo/new/avatar.png" class="o-share__avatar">
+                                </a>
+                                <a class="c-text_md c-invite--user">Break through self</a>
+                                <span class="c-skill_act-tick"><img src="https://ops-v2-2.netlify.com/assets/svg/ico_tick.svg"></span>
+                            </div>
+                
+                        </div>
+                    </span>
+                </div>
+                <div class="bookmark-action__share">
+                    <span class="c-links__add dropdown c-dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <img src="https://ops-v2-2.netlify.com/assets/svg/ico_share-02.svg" class="c-action__image">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right o-share__profile2 p-16">
+                            <div class="c-text_md">Share this Profile</div>
+                            <div class="c-invite--search m-0">
+                                <form class="fill-grey-light">
+                                    <div class="c-form__group c-form--sm c-form--noeffect c-form__faded--sm">
+                                        <input class="c-form__input p-l-24" required="" type="text">
+                                        <label class="p-l-16">Input with icon</label>
+                                        <span>
+                                            <img src="https://ops-v2-2.netlify.com/assets/svg/ico_search.svg" class="c-form__input--lefticon">
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="o-share__recent m-t-b-16">Recent Contacts</div>
+                            <div class="c-invite__block">
+                                <a class="c-user__avatar c-avatar--status">
+                                    <img src="https://ops-v2-2.netlify.com/assets/demo/new/avatar.png" class="o-share__avatar">
+                                </a>
+                                <a class="c-text_md c-invite--user">Seth Chevz1</a>
+                            </div>
+                            <div class="c-invite__block">
+                                <a class="c-user__avatar c-avatar--status">
+                                    <img src="https://ops-v2-2.netlify.com/assets/demo/new/avatar2.png" class="o-share__avatar">
+                                </a>
+                                <a class="c-text_md c-invite--user">Seth Chevz2</a>
+                            </div>
+                            <div class="c-invite__block">
+                                <a class="c-user__avatar c-avatar--status">
+                                    <img src="https://ops-v2-2.netlify.com/assets/demo/new/avatar3.png" class="o-share__avatar">
+                                </a>
+                                <a class="c-text_md c-invite--user">Seth Chevz3</a>
+                            </div>
+                            <div class="c-invite__block">
+                                <a class="c-user__avatar c-avatar--status">
+                                    <img src="https://ops-v2-2.netlify.com/assets/demo/new/avatar2.png" class="o-share__avatar">
+                                </a>
+                                <a class="c-text_md c-invite--user">Seth Chevz4</a>
+                            </div>
+                            <div class="o-share__social">
+                                <div class="o-share__social-icon p-l-0">
+                                    <img src="https://ops-v2-2.netlify.com/assets/svg/googleplus.svg">
+                                </div>
+                                <div class="o-share__social-icon">
+                                    <img src="https://ops-v2-2.netlify.com/assets/svg/twitter.svg">
+                                </div>
+                                <div class="o-share__social-icon">
+                                    <img src="https://ops-v2-2.netlify.com/assets/svg/facebook.svg">
+                                </div>
+                                <div class="o-share__social-icon p-r-0">
+                                    <img src="https://ops-v2-2.netlify.com/assets/svg/envelope.svg">
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

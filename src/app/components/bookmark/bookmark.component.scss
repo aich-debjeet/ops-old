@@ -1,0 +1,494 @@
+@import './src/assets/scss/helpers/_variables.scss';
+@import './src/assets/scss/helpers/_functions.scss';
+@import './src/assets/scss/helpers/_mixins.scss';
+@import '~sass-mq/_mq.scss';
+// bookmark
+
+.bookmark-sec{
+    width: 100%;
+    margin-top: 75px;
+}
+// title
+
+.bookmark-title{
+    width: 100%;
+    margin-bottom: 8px;
+    @include mq($from: $mobile_sm, $until: $desktop_sm){
+        margin-bottom: 16px;
+    }
+    &__icon{
+        width: 24px;
+        float: left;
+        height: 32px;
+        margin-right: 16px;
+    }
+    &__name{
+        font-size: 21px;	
+        font-weight: 600;	
+        line-height: 28px;
+        color:$color-grey-darker;
+    }
+}
+.bookmark-tabs{
+    margin-top:14px;
+    @include mq($from: $mobile_sm, $until: $tablet){
+        display: none;
+        transition: .25s;
+        background: #fff;
+        position: absolute;
+        z-index: 1;
+        box-shadow: 0 10px 17px 0 rgba(0, 0, 0, 0.5);
+        border: 1px solid #ECEFF1;
+        border-radius: 3px;
+        width: 91%;
+        margin: 0;
+    }
+    @include mq($from: $tablet, $until: $desktop_sm){
+        display: none;
+        transition: .25s;
+        background: #fff;
+        position: absolute;
+        z-index: 1;
+        box-shadow: 0 10px 17px 0 rgba(0, 0, 0, 0.5);
+        border: 1px solid #ECEFF1;
+        border-radius: 3px;
+        width: 91%;
+        margin: 0;
+    }
+    .nav-tabs > li {
+        float: left;
+        width: 100%;
+    }
+    .active{
+        background: $color-white;
+    }
+    .nav-tabs>li>a {
+        font-size: 13px;
+        font-weight: 600;
+        text-align: left;
+        color: $color-black;
+        background: transparent;
+        border: none;
+        text-transform: capitalize;
+        line-height: 18px;
+        width: 100%;
+    }
+    .nav-tabs li .active a {
+        color: #333;
+    }
+    .nav-tabs>li.active>a,
+    .nav-tabs>li.active>a:hover,
+    .nav-tabs>li.active>a:focus {
+        color: #333;
+        background-color: transparent;
+        border: none;
+        border-bottom-color: transparent;
+        cursor: default;
+    }
+    .nav>li>a {
+        position: relative;
+        display: block;
+        padding: 8px;
+    }
+    .nav-tabs {
+        border-bottom: none;
+        width: 100%;
+    }
+}
+
+// bookmark card
+
+.bookmark{
+    border-radius: 3px;	
+    margin-bottom: 16px;
+    background-color:$color-white;	
+    box-shadow: 0 2px 4px 0 rgba(102,45,145,0.15);
+    // overflow: hidden;
+    position: relative;
+    float: left;
+    width: 100%;
+    &:hover .bookmark-delet{
+        display: block;
+    }
+    &__media{
+        width: 195px;
+        height: 194px;
+        border-radius: 3px 0 0 3px;
+        position: relative;
+        overflow: hidden;
+        float: left;
+        @include mq($from: $mobile_sm, $until: $tablet) {
+            width: 100%!important;
+        }
+        &__img{
+            width: 100%;
+            background: url(https://ops-v2-2.netlify.com/assets/demo/e1.jpg);
+            height: 100%;
+            background-size: cover;
+            background-position: left top;
+        }
+        &__video{
+            width: 100%;
+            background: url(https://ops-v2-2.netlify.com/assets/demo/e1.jpg);
+            height: 100%;
+            background-size: cover;
+            background-position: left top;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+    &__profile{
+        width: 195px;
+        height: 194px;
+        border-radius: 3px 0 0 3px;
+        overflow: hidden;
+        float: left;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        @include mq($from: $mobile_sm, $until: $tablet) {
+            width: 100%!important;
+            height: 100%;
+        }
+    }
+    &__info{
+        width: calc(100% - 195px);
+        height: 194px;
+        float: left;
+        padding:10px 24px 16px 30px;
+        @include mq($from: $mobile_sm, $until: $tablet) {
+            width: 100%!important;
+            padding: 8px 8px;
+            height: 100%;
+        }
+        &__media-type{
+            width: 100%;
+        }
+    }
+}
+.bookmarkk-video__icon{
+    width: 27px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
+}
+.bookmark-info__media-type{
+    width: 100%;
+}
+.bookmark-delet{
+    float: right;
+    display: none;
+    width: 16px;
+    height: 16px;
+    margin-top: 8px;
+}
+.bookmark-delet__icon{
+    width: 16px;
+    height: 16px;
+    img{
+        width: 16px;
+    }
+}
+.bookmark-media-type__label{
+    font-size: 11px;	
+    font-weight: 600;	
+    line-height: 22px;
+    color: $color-grey-dark;
+}
+.bookmark-info__discription{
+    width: 100%;
+    height: 51px;
+    position: relative;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        height: 100px;
+    }
+    @include mq($from: $tablet, $until: $desktop_sm) {
+        height: 60px;
+    }
+}
+.bookmark-info__post-detail{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 14px;
+}
+.bookmark-post-detail__user-info{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    float: left;
+}
+.bookmark-user-link{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+.bookmark-user-info__prof-pic{
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    overflow: hidden;
+    img{
+        width: 100%;
+    }
+}
+.bookmark-user-info__user-name{
+    font-size: 13px;	
+    font-weight: 600;	
+    line-height: 22px;
+    color: $color-black;
+    margin-left: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+}
+.bookmark-post-detail__channel{
+    margin-left: 24px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    float: left;
+}
+.bookmark-channel-link{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+.bookmark-channel__icon{
+    width: 24px;
+    img{
+        width: 100%;
+    }
+}
+.bookmark-channel__name{
+    font-size: 13px;	
+    font-weight: 600;	
+    line-height: 22px;
+    color: $color-grey-dark;
+    margin-left: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+}
+.bookmark-info__action{
+    width: 100%;
+    border-top: 1px solid #ECEFF1;
+    padding: 10px 0px 0px;
+    margin-top: 20px;
+}
+.bookmark-add-to-channel__link{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+.bookmark-action__add-to-channel{
+    float: left;
+}
+.bookmark-add-to-channel__icon{
+    width: 24px;
+}
+.bookmark-add-to-channel__txt{
+    font-size: 13px;	
+    font-weight: 600;	
+    line-height: 22px;
+    color: $color-theme;
+    margin-left: 8px;
+}
+.bookmark-action__share{
+    float: right;
+}
+.bookmark-info__view-link{
+    font-size: 13px;	
+    font-weight: 600;	
+    line-height: 22px;
+    color: $color-theme;
+    float: left;
+}
+// for profile
+
+.bookmark-profile__image{
+    width: 89px;
+    height: 89px;
+    border-radius: 50%;
+    overflow: hidden;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        margin-top: 24px;
+    }
+    img{
+        width: 100%;
+    }
+}
+.bookmark-profile__name{
+    font-size: 15px;	
+    font-weight: 600;	
+    line-height: 26px;	
+    text-align: center;
+    color: $color-black;
+    margin-top: 8px;
+}
+.bookmark-profile__username{
+    font-size: 13px;	
+    font-weight: 600;	
+    line-height: 26px;
+    color: $color-grey-dark;
+    text-align: center;
+}
+.bookmark-info__posts{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: row;
+    margin-top: 8px;
+}
+.bookmark-info__post-item{
+    width: 87px;
+    height: 87px;
+    float: left;
+    position: relative;
+    background: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include mq($from: $tablet, $until: $desktop_sm) {
+        width: 75px;
+        height: 80px;
+    }
+}
+.bookmark-info__post-video{
+    width: 27px;
+    box-shadow: 0 3px 18px 0 #000000;
+}
+.bookmark-action__follow{
+    font-size: 13px;	
+    font-weight: 600;	
+    line-height: 22px;
+    color: $color-theme;
+}
+// .bookmark-discription__overflow{
+//     white-space: nowrap;
+//     overflow: hidden;
+//     text-overflow: ellipsis;
+//     max-width: 200px;
+// }
+.o-bookmark__count{
+    float: right;
+    color: $color-grey-darker;	
+    font-size: 11px;	
+    font-weight: 600;	
+    line-height: 15px;
+}
+
+//event bookmark
+
+.o-bookmarkevent__detail {
+    clear: both;
+    margin-bottom: 16px;
+}
+.o-bookmarkevent__date {
+    color: #808080;
+    font-size: 13px;
+    line-height: 20px;
+    display: inline;
+}
+.o-bookmarkevent__address {
+    @extend .o-bookmarkevent__date;
+    margin-left: 24px;
+}
+.o-bookmarkevent__detail--img {
+    height: 12px;
+    margin-right: 4px;
+}
+.bookmark__info--profile{
+    @include mq($from: $mobile_sm, $until: $tablet){
+        display: none;
+    }
+}
+.bookmark-info__action--mob{
+    display: none;
+    margin:24px 0px;
+    @include mq($from: $mobile_sm, $until: $tablet){
+        display: block;
+    }
+}
+.bookmark-action__follow--mob{
+    font-size: 13px;	
+    font-weight: 600;	
+    line-height: 22px;
+    color: $color-theme;
+}
+//for mobile filter
+
+.bookmark-filter{
+    @include mq($from: $mobile_sm, $until: $desktop_sm){
+        float: right;
+        &:hover .bookmark-tabs{
+            display: block;
+        }
+    }
+}
+.bookmark-tabs--mob{
+    @include mq($from: $mobile_sm, $until: $desktop_sm){
+        background: #fff;
+        position: absolute;
+        z-index: 1;
+        box-shadow: 0 10px 17px 0 rgba(0, 0, 0, 0.5);
+        border: 1px solid #ECEFF1;
+        border-radius: 3px;
+        width: 91%;
+        margin: 0;
+    }
+}
+.bookmark-filter{
+    @include mq($from: $desktop_sm, $until: $desktop_imac){
+        display: none;
+    }
+}
+
+.bookmark-info__posts {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: row;
+    margin-top: 8px;
+}
+
+.bookmark-info__post-item {
+    width: 87px;
+    height: 87px;
+    float: left;
+    position: relative;
+    background: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.width_100 {
+    width: 100% !important;
+}
+
+.bookmark-delet__icon {
+    cursor: pointer;
+}
+
+.sticky {
+    clear: both;
+}
+
+.result-not-found {
+    margin: 80px 0;
+    text-align: center;
+    font-size: 15px;
+    color: #000;
+}

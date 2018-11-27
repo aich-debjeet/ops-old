@@ -28,6 +28,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { find as _find, forEach as _forEach  } from 'lodash';
 import { ProfileHelper } from '../../../helpers/profile.helper';
 import { GeneralUtilities } from '../../../helpers/general.utils';
+import { BookmarkActions } from 'app/actions/bookmark.action';
 
 @Component({
   selector: 'app-profile-slider',
@@ -709,5 +710,23 @@ export class ProfileSliderComponent implements OnInit {
      });
   }
  }
+
+  bookmarkAction(action: string) {
+    if (action === 'add') {
+      const reqBody = {
+        bookmarkType: 'profile',
+        contentId: this.profileObject['userDetails']['handle']
+      };
+      this.profileStore.dispatch({ type: BookmarkActions.BOOKMARK, payload: reqBody });
+      const bookmarkSub = this.profileStore.select('bookmarkStore')
+      .take(2)
+      .subscribe(data => {
+        if (data['bookmarking'] === false && data['bookmarked'] === true) {
+          this.toastr.success('Bookmarked successfully', 'Success!');
+          bookmarkSub.unsubscribe();
+        }
+      });
+    }
+  }
 }
 

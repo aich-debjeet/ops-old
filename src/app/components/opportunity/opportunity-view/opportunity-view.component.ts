@@ -19,6 +19,7 @@ import { ToastrService } from 'ngx-toastr';
 import { GeneralUtilities } from '../../../helpers/general.utils';
 import { ModalService } from '../../../shared/modal/modal.component.service';
 import { Modal } from '../../../shared/modal-new/Modal';
+import { BookmarkActions } from 'app/actions/bookmark.action';
 
 @Component({
   selector: 'app-opportunity-view',
@@ -210,6 +211,24 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
 
   closeCancelApplicationModal() {
     this.cancelApplicationModal.close();
+  }
+
+  bookmarkAction(action: string, oppId: string) {
+    if (action === 'add') {
+      const reqBody = {
+        bookmarkType: 'opportunity',
+        contentId: oppId
+      };
+      this.store.dispatch({ type: BookmarkActions.BOOKMARK, payload: reqBody });
+      const bookmarkSub = this.store.select('bookmarkStore')
+      .take(2)
+      .subscribe(data => {
+        if (data['bookmarking'] === false && data['bookmarked'] === true) {
+          this.toastr.success('Bookmarked successfully', 'Success!');
+          bookmarkSub.unsubscribe();
+        }
+      });
+    }
   }
 
 }
