@@ -2020,30 +2020,30 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
     case ProfileActions.COMMENT_COUNT_DECREMENT:
       const home_post_de = state.user_following_posts.find(t => t.id === payload);
       const home_index_de = home_post_de ? state.user_following_posts.indexOf(home_post_de) : null;
-      const home_count_de = home_post_de ? home_post_de.commentsCount - 1 : 0;
+      const home_count_de = home_post_de ? home_post_de.counts.commentsCount - 1 : 0;
 
       const profile_post_de = state.user_posts.find(t => t.id === payload);
       const profile_index_de = profile_post_de ? state.user_posts.indexOf(profile_post_de) : null;
-      const profile_count_de = profile_post_de ? profile_post_de.commentsCount - 1 : 0;
+      const profile_count_de = profile_post_de ? profile_post_de.counts.commentsCount - 1 : 0;
 
       const tranding_post_comment_dec = state.trending_post.find(t => t.id === payload);
       const tranding_post_comment_dec_index = tranding_post_comment_dec ? state.trending_post.indexOf(tranding_post_comment_dec) : null;
-      const tranding_post_comment_dec_count = tranding_post_comment_dec ? tranding_post_comment_dec.commentsCount - 1 : 0;
+      const tranding_post_comment_dec_count = tranding_post_comment_dec ? tranding_post_comment_dec.counts.commentsCount - 1 : 0;
 
       return Object.assign({}, state, {
         user_following_posts: home_post_de === undefined ? [...state.user_following_posts] : [
           ...state.user_following_posts.slice(0, home_index_de),
-          Object.assign({}, home_post_de, { commentsCount: home_count_de }),
+          Object.assign({}, home_post_de, { ...home_post_de, counts: { ...home_post_de.counts, commentsCount: home_count_de } }),
           ...state.user_following_posts.slice(home_index_de + 1)
         ],
         user_posts: profile_post_de === undefined ? [...state.user_posts] : [
           ...state.user_posts.slice(0, profile_index_de),
-          Object.assign({}, profile_post_de, { commentsCount: profile_count_de }),
+          Object.assign({}, profile_post_de, { ...profile_post_de, counts: { ...profile_post_de.counts, commentsCount: profile_count_de } }),
           ...state.user_posts.slice(profile_index_de + 1)
         ],
         trending_post: tranding_post_comment_dec === undefined ? [...state.trending_post] : [
           ...state.trending_post.slice(0, tranding_post_comment_dec_index),
-          Object.assign({}, tranding_post_comment_dec, { commentsCount: tranding_post_comment_dec_count }),
+          Object.assign({}, tranding_post_comment_dec, { ...tranding_post_comment_dec, counts: { ...tranding_post_comment_dec.counts, commentsCount: tranding_post_comment_dec_count } }),
           ...state.trending_post.slice(tranding_post_comment_dec_index + 1)
         ]
 
