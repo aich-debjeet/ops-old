@@ -1314,30 +1314,30 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
     case ProfileActions.PROFILE_MEDIA_SPOT:
       const home_post_spot = state.user_following_posts.find(t => t.id === payload.id);
       const home_post_spot_index = home_post_spot ? state.user_following_posts.indexOf(home_post_spot) : null;
-      const home_post_spot_count = home_post_spot ? home_post_spot.spotsCount + 1 : 0;
+      const home_post_spot_count = home_post_spot ? home_post_spot.counts.spotsCount + 1 : 0;
 
       const post_spot = state.user_posts.find(t => t.id === payload.id);
       const post_spot_index = post_spot ? state.user_posts.indexOf(post_spot) : null;
-      const post_spot_count = post_spot ? post_spot.spotsCount + 1 : 0;
+      const post_spot_count = post_spot ? post_spot.counts.spotsCount + 1 : 0;
 
       const trend_spot_inc = state.trending_post.find(t => t.id === payload.id);
       const trend_spot_inc_index = trend_spot_inc ? state.trending_post.indexOf(trend_spot_inc) : null;
-      const trend_spot_inc_count = trend_spot_inc ? trend_spot_inc.spotsCount + 1 : 0;
+      const trend_spot_inc_count = trend_spot_inc ? trend_spot_inc.counts.spotsCount + 1 : 0;
 
       return Object.assign({}, state, {
         user_following_posts: home_post_spot === undefined ? [...state.user_following_posts] : [
           ...state.user_following_posts.slice(0, home_post_spot_index),
-          Object.assign({}, home_post_spot, { spotsCount: home_post_spot_count, isSpotted: true }),
+          Object.assign({}, home_post_spot, { ...home_post_spot, isSpotted: true, counts: { ...home_post_spot.counts, spotsCount: home_post_spot_count }}),
           ...state.user_following_posts.slice(home_post_spot_index + 1)
         ],
         trending_post: trend_spot_inc === undefined ? [...state.trending_post] : [
           ...state.trending_post.slice(0, trend_spot_inc_index),
-          Object.assign({}, trend_spot_inc, { spotsCount: trend_spot_inc_count, isSpotted: true }),
+          Object.assign({}, trend_spot_inc, { ...trend_spot_inc, isSpotted: true, counts: { ...trend_spot_inc.counts, spotsCount: trend_spot_inc_count }}),
           ...state.trending_post.slice(trend_spot_inc_index + 1)
         ],
         user_posts: post_spot === undefined ? [...state.user_posts] : [
           ...state.user_posts.slice(0, post_spot_index),
-          Object.assign({}, post_spot, { spotsCount: post_spot_count, isSpotted: true }),
+          Object.assign({}, post_spot, { ...post_spot, isSpotted: true, counts: { ...post_spot.counts, spotsCount: post_spot_count }}),
           ...state.user_posts.slice(post_spot_index + 1)
         ]
       });
@@ -1345,31 +1345,30 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
     case ProfileActions.PROFILE_MEDIA_UNSPOT:
       const home_post_unspot = state.user_following_posts.find(t => t.id === payload.id);
       const home_post_unspot_index = state.user_following_posts.indexOf(home_post_unspot);
-      const home_post_unspot_count = home_post_unspot ? home_post_unspot.spotsCount - 1 : 0;
+      const home_post_unspot_count = home_post_unspot ? home_post_unspot.counts.spotsCount - 1 : 0;
 
       const post_unspot = state.user_posts.find(t => t.id === payload.id);
       const post_unspot_index = post_unspot ? state.user_posts.indexOf(post_unspot) : null;
-      const post_unspot_count = post_unspot ? post_unspot.spotsCount - 1 : 0;
+      const post_unspot_count = post_unspot ? post_unspot.counts.spotsCount - 1 : 0;
 
       const trend_spot_dec = state.trending_post.find(t => t.id === payload.id);
       const trend_spot_dec_index = trend_spot_dec ? state.trending_post.indexOf(trend_spot_dec) : null;
-      const trend_spot_dec_count = trend_spot_dec ? trend_spot_dec.spotsCount - 1 : 0;
+      const trend_spot_dec_count = trend_spot_dec ? trend_spot_dec.counts.spotsCount - 1 : 0;
 
       return Object.assign({}, state, {
         user_following_posts: home_post_unspot === undefined ? [...state.user_following_posts] : [
           ...state.user_following_posts.slice(0, home_post_unspot_index),
-          Object.assign({}, home_post_unspot, { spotsCount: home_post_unspot_count, isSpotted: false }),
+          Object.assign({}, home_post_unspot, { ...home_post_unspot, isSpotted: false, counts: { ...home_post_unspot.counts, spotsCount: home_post_unspot_count }}),
           ...state.user_following_posts.slice(home_post_unspot_index + 1)
         ],
-
         trending_post: trend_spot_dec === undefined ? [...state.trending_post] : [
           ...state.trending_post.slice(0, trend_spot_dec_index),
-          Object.assign({}, trend_spot_dec, { spotsCount: trend_spot_dec_count, isSpotted: false }),
+          Object.assign({}, trend_spot_dec, { ...trend_spot_dec, isSpotted: false, counts: { ...trend_spot_dec.counts, spotsCount: trend_spot_dec_count }}),
           ...state.trending_post.slice(trend_spot_dec_index + 1)
         ],
         user_posts: post_unspot === undefined ? [...state.user_posts] : [
           ...state.user_posts.slice(0, post_unspot_index),
-          Object.assign({}, post_unspot, { spotsCount: post_unspot_count, isSpotted: false }),
+          Object.assign({}, post_unspot, { ...post_unspot, isSpotted: false, counts: { ...post_unspot.counts, spotsCount: post_unspot_count }}),
           ...state.user_posts.slice(post_unspot_index + 1)
         ]
       });
@@ -2033,11 +2032,11 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
     case ProfileActions.COMMENT_COUNT_INCREMENT:
       const home_post = state.user_following_posts.find(t => t.id === payload);
       const home_index = home_post ? state.user_following_posts.indexOf(home_post) : null;
-      const home_count = home_post ? home_post.commentsCount + 1 : 0;
+      const home_count = home_post ? home_post.counts.commentsCount + 1 : 0;
 
       const profile_post = state.user_posts.find(t => t.id === payload);
       const profile_index = profile_post ? state.user_posts.indexOf(profile_post) : null;
-      const profile_count = profile_post ? profile_post.commentsCount + 1 : 0;
+      const profile_count = profile_post ? profile_post.counts.commentsCount + 1 : 0;
 
       const tranding_post_comment = state.trending_post.find(t => t.id === payload);
       const tranding_post_comment_index = tranding_post_comment ? state.trending_post.indexOf(tranding_post_comment) : null;
@@ -2046,12 +2045,12 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
       return Object.assign({}, state, {
         user_following_posts: home_post === undefined ? [...state.user_following_posts] : [
           ...state.user_following_posts.slice(0, home_index),
-          Object.assign({}, home_post, { commentsCount: home_count }),
+          Object.assign({}, home_post, { ...home_post, counts: { ...home_post.counts, commentsCount: home_count } }),
           ...state.user_following_posts.slice(home_index + 1)
         ],
         user_posts: profile_post === undefined ? [...state.user_posts] : [
           ...state.user_posts.slice(0, profile_index),
-          Object.assign({}, profile_post, { commentsCount: profile_count }),
+          Object.assign({}, profile_post, { ...profile_post, counts: { ...profile_post.counts, commentsCount: profile_count } }),
           ...state.user_posts.slice(profile_index + 1)
         ],
         trending_post: tranding_post_comment === undefined ? [...state.trending_post] : [
@@ -2065,30 +2064,30 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
     case ProfileActions.COMMENT_COUNT_DECREMENT:
       const home_post_de = state.user_following_posts.find(t => t.id === payload);
       const home_index_de = home_post_de ? state.user_following_posts.indexOf(home_post_de) : null;
-      const home_count_de = home_post_de ? home_post_de.commentsCount - 1 : 0;
+      const home_count_de = home_post_de ? home_post_de.counts.commentsCount - 1 : 0;
 
       const profile_post_de = state.user_posts.find(t => t.id === payload);
       const profile_index_de = profile_post_de ? state.user_posts.indexOf(profile_post_de) : null;
-      const profile_count_de = profile_post_de ? profile_post_de.commentsCount - 1 : 0;
+      const profile_count_de = profile_post_de ? profile_post_de.counts.commentsCount - 1 : 0;
 
       const tranding_post_comment_dec = state.trending_post.find(t => t.id === payload);
       const tranding_post_comment_dec_index = tranding_post_comment_dec ? state.trending_post.indexOf(tranding_post_comment_dec) : null;
-      const tranding_post_comment_dec_count = tranding_post_comment_dec ? tranding_post_comment_dec.commentsCount - 1 : 0;
+      const tranding_post_comment_dec_count = tranding_post_comment_dec ? tranding_post_comment_dec.counts.commentsCount - 1 : 0;
 
       return Object.assign({}, state, {
         user_following_posts: home_post_de === undefined ? [...state.user_following_posts] : [
           ...state.user_following_posts.slice(0, home_index_de),
-          Object.assign({}, home_post_de, { commentsCount: home_count_de }),
+          Object.assign({}, home_post_de, { ...home_post_de, counts: { ...home_post_de.counts, commentsCount: home_count_de } }),
           ...state.user_following_posts.slice(home_index_de + 1)
         ],
         user_posts: profile_post_de === undefined ? [...state.user_posts] : [
           ...state.user_posts.slice(0, profile_index_de),
-          Object.assign({}, profile_post_de, { commentsCount: profile_count_de }),
+          Object.assign({}, profile_post_de, { ...profile_post_de, counts: { ...profile_post_de.counts, commentsCount: profile_count_de } }),
           ...state.user_posts.slice(profile_index_de + 1)
         ],
         trending_post: tranding_post_comment_dec === undefined ? [...state.trending_post] : [
           ...state.trending_post.slice(0, tranding_post_comment_dec_index),
-          Object.assign({}, tranding_post_comment_dec, { commentsCount: tranding_post_comment_dec_count }),
+          Object.assign({}, tranding_post_comment_dec, { ...tranding_post_comment_dec, counts: { ...tranding_post_comment_dec.counts, commentsCount: tranding_post_comment_dec_count } }),
           ...state.trending_post.slice(tranding_post_comment_dec_index + 1)
         ]
 
