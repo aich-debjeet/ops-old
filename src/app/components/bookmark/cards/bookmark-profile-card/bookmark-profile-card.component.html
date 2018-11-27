@@ -3,12 +3,12 @@
         <div class="bookmark-profile__image">
             <img [src]="imageBaseUrl + profileDetails?.profileImage" alt="">
         </div>
-        <div class="bookmark-profile__name">
+        <a *ngIf="profileDetails?.name" routerLink="{{ '/profile/u/' + oppDetails?.username }}" class="bookmark-profile__name">
             {{ profileDetails?.name }}
-        </div>
-        <div *ngIf="profileDetails?.username" class="bookmark-profile__username">
+        </a>
+        <a *ngIf="profileDetails?.username" routerLink="{{ '/profile/u/' + oppDetails?.username }}" class="bookmark-profile__username">
             @{{ profileDetails?.username }}
-        </div>
+        </a>
         <div class=" bookmark-info__action--mob">
             <a (click)="followAction('unfollow')" *ngIf="profileDetails?.isFollowing === true" class="bookmark-action__follow--mob">Unfollow</a>
             <a (click)="followAction('follow')" *ngIf="profileDetails?.isFollowing === false" class="bookmark-action__follow--mob">Follow</a>

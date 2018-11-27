@@ -69,8 +69,11 @@
               <a class="o-action-icons__link m-r-16">
                 <img width="24" src="https://ops-v2.netlify.com/assets/svg/ico_share-02.svg">
               </a>
-              <a (click)="bookmarkAction('add', opportunity?.id)" class="o-action-icons__link m-r-16">
-                <img width="24" src="https://ops-v2.netlify.com/assets/svg/bookmark.svg">
+              <a *ngIf="opportunity?.isBookmarked === true" (click)="bookmarkAction('remove', opportunity?.id)">
+                <img src="https://ops-v2-2.netlify.com/assets/svg/bookmarked.svg" class="c-action__image">
+              </a>
+              <a *ngIf="opportunity?.isBookmarked === false" (click)="bookmarkAction('add', opportunity?.id)">
+                <img src="https://ops-v2-2.netlify.com/assets/svg/bookmark.svg" class="c-action__image">
               </a>
             </div><!-- action icons end -->
             <div class="o-oppo-post__uplod-info">
@@ -141,8 +144,11 @@
                 <a class="o-action-icons__link m-r-16">
                   <img width="24" src="https://ops-v2.netlify.com/assets/svg/ico_share-02.svg">
                 </a>
-                <a (click)="bookmarkAction('add', opportunity?.id)" class="o-action-icons__link m-r-16">
-                  <img width="24" src="https://ops-v2.netlify.com/assets/svg/bookmark.svg">
+                <a *ngIf="opportunity?.isBookmarked === true" (click)="bookmarkAction('remove', opportunity?.id)">
+                  <img src="https://ops-v2-2.netlify.com/assets/svg/bookmarked.svg" class="c-action__image">
+                </a>
+                <a *ngIf="opportunity?.isBookmarked === false" (click)="bookmarkAction('add', opportunity?.id)">
+                  <img src="https://ops-v2-2.netlify.com/assets/svg/bookmark.svg" class="c-action__image">
                 </a>
                 <!-- <a class="o-action-icons__link m-r-16">
                       <img width="24" src="https://ops-v2.netlify.com/assets/svg/bookmark.svg">
