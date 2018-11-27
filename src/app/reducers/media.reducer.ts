@@ -151,7 +151,17 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
           ...state.channel_post.slice(0, spotfeed_del_index),
           Object.assign({}, spotfeed_del_post, {commentsCount: spotfeed_del_count }),
           ...state.channel_post.slice(spotfeed_del_index + 1)
-        ]
+        ],
+        media_detail: {
+          ...state.media_detail,
+          extras: {
+            ...state.media_detail.extras,
+            counts: {
+              ...state.media_detail.extras.counts,
+              commentsCount: state.media_detail.extras.counts.commentsCount - 1
+            }
+          }
+        }
       });
 
 
@@ -178,7 +188,17 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
           ...state.channel_post.slice(0, spotfeed_index),
           Object.assign({}, spotfeed_post, {commentsCount: spotfeed_count }),
           ...state.channel_post.slice(spotfeed_index + 1)
-        ]
+        ],
+        media_detail: {
+          ...state.media_detail,
+          extras: {
+            ...state.media_detail.extras,
+            counts: {
+              ...state.media_detail.extras.counts,
+              commentsCount: state.media_detail.extras.counts.commentsCount + 1
+            }
+          }
+        }
       });
 
 
