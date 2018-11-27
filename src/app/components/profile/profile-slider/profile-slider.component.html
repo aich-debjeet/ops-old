@@ -92,7 +92,7 @@
                   <a (click)="reportModalOpen()" data-toggle="modal" data-target="#reportmodal">Report</a>
                 </li>
                 <li class="p-t-0 p-b-0">
-                  <a (click)="blockModal.open()" data-toggle="modal" *ngIf="!isBlocked" data-target="#reportmodal">BLock</a>
+                  <a (click)="blockModal.open()" data-toggle="modal" *ngIf="!isBlocked" data-target="#reportmodal">Block</a>
                   <a (click)="unBlockUser(profileObject?.userDetails?.handle)" data-toggle="modal" *ngIf="isBlocked"
                     data-target="#reportmodal">Unblock</a>
                 </li>
@@ -101,6 +101,11 @@
             <li class="list-line-item dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                 <img [src]="baseUrl + 'img/svg/ico_share.svg'" class="o-profile__nav--img">
+              </a>
+            </li>
+            <li class="list-line-item" *ngIf="!this.isOwner">
+              <a (click)="bookmarkAction('add')">
+                <img [src]="baseUrl + 'img/svg/bookmark.svg'" class="o-profile__nav--img">
               </a>
             </li>
             <li class="list-line-item" *ngIf="!this.isOwner">
