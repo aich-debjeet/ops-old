@@ -132,8 +132,7 @@ export class MediaSelectorComponent implements OnInit {
 
     this.route.queryParams.subscribe(params => {
       if (this.route.snapshot.queryParams['post_to'] === 'my_story') {
-        console.log('my story')
-        this.ct_name = 'My Story';
+        this.ct_name = 'My_Story';
         this.external_post_active = true;
         this.post_to = this.route.snapshot.queryParams['post_to'];
       } else {
@@ -216,7 +215,6 @@ export class MediaSelectorComponent implements OnInit {
      */
 
     this.profileState$.subscribe((state) => {
-console.log('state',state)
       this.profileChannel = state;
       // Post states
       this.postSuccess = this.profileChannel.media_channel_posted;
@@ -500,16 +498,14 @@ console.log('state',state)
       }
     }
     if(this.post_to === 'my_story'){
-      console.log('multipleMedias', multipleMedias);
       const data = {
         media : multipleMedias
       }
-      console.log('data', data)
       this._store.dispatch({ type: ProfileActions.POST_STORY, payload: data });
       this._store.select('profileTags')
       .first(media => media['story_media_success'] === true)
       .subscribe(data => {
-        this.toastr.success('Your media has been successfully posted to your channel', 'Upload', {
+        this.toastr.success('Your media has been successfully posted to your story', 'Upload', {
           timeOut: 3000
         });
         this.router.navigate(['/profile/user/']);

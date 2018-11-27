@@ -4,6 +4,7 @@ import { initialTag, ProfileModal, ProfileCards, UserCard } from '../models/prof
 import { ProfileActions } from '../actions/profile.action';
 import { OrganizationActions } from '../actions/organization.action';
 import * as _ from 'lodash';
+import { Media } from 'app/models/media.model';
 
 export interface State {
   user_channel: any,
@@ -1217,6 +1218,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
     case ProfileActions.CHANNEL_DELETE:
       return Object.assign({}, state, {
         channel_delete_success: false,
+        channel_id: payload
       });
 
     case ProfileActions.CHANNEL_DELETE_SUCCESS:
@@ -1227,6 +1229,11 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
     case ProfileActions.CHANNEL_DELETE_FAILED:
       return Object.assign({}, state, {
         channel_delete_success: false,
+        my_story: {
+          ...state.my_story,
+          media: []
+          // media: state.my_story.media.filter(med => med.channelId !== state.channel_id)
+        }
       });
 
     /**

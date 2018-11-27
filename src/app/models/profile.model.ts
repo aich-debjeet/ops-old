@@ -96,6 +96,7 @@ export class ProfileModal {
 
   reports: any[];
   user_post_scrollId?: any;
+  my_story: any;
 
 }
 
@@ -187,7 +188,8 @@ export const initialTag: ProfileModal = {
   list_loaded: false,
   connection_loaded: false,
   reports: [],
-  trending_post: []
+  trending_post: [],
+  my_story: {}
 };
 
 export class ProfileCard {
