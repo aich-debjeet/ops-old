@@ -151,7 +151,7 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
       .subscribe(data => {
         if (data['bookmarking'] === false && data['bookmarked'] === true) {
           this.toastr.success('Bookmarked successfully', 'Success!');
-          this.store.dispatch({ type: EventActions.BOOKAMRK_FLAG_UPDATE, payload: { isBookmarked: true } });
+          this.store.dispatch({ type: EventActions.EVENT_BOOKAMRK_FLAG_UPDATE, payload: { isBookmarked: true } });
           bookmarkSub.unsubscribe();
         }
       });
@@ -166,7 +166,7 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
       .subscribe(data => {
         if (data['deletingBookmark'] === false && data['deletedBookmark'] === true) {
           this.toastr.success('Bookmark deleted successfully', 'Success!');
-          this.store.dispatch({ type: EventActions.BOOKAMRK_FLAG_UPDATE, payload: { isBookmarked: false } });
+          this.store.dispatch({ type: EventActions.EVENT_BOOKAMRK_FLAG_UPDATE, payload: { isBookmarked: false } });
           bookmarkSub.unsubscribe();
         }
       });
