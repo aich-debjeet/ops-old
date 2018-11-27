@@ -76,11 +76,11 @@
                   <div class="c-links">
                     <div class="c-links__spots" (click)="isSpoted(trending)">
                       <img [src]="trending?.isSpotted ? imageLink + 'img/svg/spot_icon.svg' : imageLink + 'img/svg/spot_icon_default.svg'"  class="c-links__image">
-                      <span class="c-links__count">{{ trending?.spotsCount }}</span>
+                      <span class="c-links__count">{{ trending?.counts?.spotsCount }}</span>
                     </div>
                     <div class="c-links__comments">
                       <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
-                      <span class="c-links__count">{{ trending?.commentsCount }}</span>
+                      <span class="c-links__count">{{ trending?.counts?.commentsCount }}</span>
                     </div>
                     <!-- <div class="c-links__actions">
                         <span class="c-links__add">
@@ -145,11 +145,11 @@
                   <div class="c-links">
                     <div class="c-links__spots" (click)="isSpoted(trending)">
                       <img [src]="trending?.isSpotted ? imageLink + 'img/svg/spot_icon.svg' : imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
-                      <span class="c-links__count">{{ trending?.spotsCount }}</span>
+                      <span class="c-links__count">{{ trending?.counts?.spotsCount }}</span>
                     </div>
                     <div class="c-links__comments">
                       <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
-                      <span class="c-links__count">{{ trending?.commentsCount }}</span>
+                      <span class="c-links__count">{{ trending?.counts?.commentsCount }}</span>
                     </div>
                     <div class="c-links__actions">
                       <span class="c-links__add">
