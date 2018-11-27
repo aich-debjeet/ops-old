@@ -15,7 +15,7 @@ export class BookmarkAudioComponent implements OnInit, OnDestroy {
   showPreloader: boolean;
   bookmarkSub: ISubscription;
   bookmarkStore$: Observable<BookmarkModel>;
-  bookmarkState: any;
+  // bookmarkState: any;
   bookmarks = [];
 
   constructor(
@@ -24,7 +24,7 @@ export class BookmarkAudioComponent implements OnInit, OnDestroy {
   ) {
     this.bookmarkStore$ = this.store.select('bookmarkStore');
     this.bookmarkSub = this.bookmarkStore$.subscribe((state) => {
-      this.bookmarkState = state;
+      // this.bookmarkState = state;
       if (state.bookmarkType && state.bookmarkType === 'audio') {
         if (state.loadingBookmarks === false && state.loadedBookmarks === true) {
           this.showPreloader = false;
