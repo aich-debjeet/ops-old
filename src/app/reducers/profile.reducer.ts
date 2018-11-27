@@ -1311,7 +1311,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
 
       const post_spot = state.user_posts.find(t => t.id === payload.id);
       const post_spot_index = post_spot ? state.user_posts.indexOf(post_spot) : null;
-      const post_spot_count = post_spot ? post_spot.spotsCount + 1 : 0;
+      const post_spot_count = post_spot ? post_spot.counts.spotsCount + 1 : 0;
 
       const trend_spot_inc = state.trending_post.find(t => t.id === payload.id);
       const trend_spot_inc_index = trend_spot_inc ? state.trending_post.indexOf(trend_spot_inc) : null;
@@ -1330,7 +1330,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
         ],
         user_posts: post_spot === undefined ? [...state.user_posts] : [
           ...state.user_posts.slice(0, post_spot_index),
-          Object.assign({}, post_spot, { spotsCount: post_spot_count, isSpotted: true }),
+          Object.assign({}, post_spot, { ...post_spot, isSpotted: true, counts: { ...post_spot.counts, spotsCount: post_spot_count }}),
           ...state.user_posts.slice(post_spot_index + 1)
         ]
       });
