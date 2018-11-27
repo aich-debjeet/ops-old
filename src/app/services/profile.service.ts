@@ -601,6 +601,10 @@ export class ProfileService {
     return this.api.post('/portal/myStory', payload);
   }
 
+  storyGet(payload: any){
+    return this.api.get('/portal/myStoryDetails');   
+  }
+
   /**
    * get pending requets list
   */

@@ -57,6 +57,7 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
   recordsPerPage = 2;
   eventState: any;
   eventsLoading = true;
+  storyList: any;
 
   constructor(
     private _router: Router,
@@ -75,7 +76,12 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
     this.eventStore$ = this._store.select('eventTags');
 
     this.profSub = this.tagState$.subscribe((state) => {
+      console.log('state', state)
       this.userQuickAccess = state;
+      if(state && state['my_story']){
+        this.storyList = state['my_story']['media'];
+        console.log('list', this.storyList)
+      }
       if (state && state['other_channel']) {
         this.pinListEmpty = _every(state['other_channel'], ['isPinned', true]);
       }
@@ -126,6 +132,7 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
         this.eventsLoading = false;
       }
     });
+    this._store.dispatch({type: ProfileActions.GET_MY_STORY});
   }
 
   ngOnInit(): void {

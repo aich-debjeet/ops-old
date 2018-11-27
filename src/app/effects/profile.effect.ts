@@ -947,7 +947,7 @@ export class ProfileEffect {
     );
 
     /**
-     * effects: story
+     * effects: post story
      */
     @Effect()
     storyPost$ = this.actions$
@@ -957,6 +957,19 @@ export class ProfileEffect {
     .map(res => ({ type: ProfileActions.POST_STORY_SUCCESS, payload: res }))
     .catch((res) => Observable.of({ type: ProfileActions.POST_STORY_FAILED, payload: res }))
     );
+
+    /**
+     * Get users story
+     */
+    @Effect()
+    storyGet$ = this.actions$
+    .ofType(ProfileActions.GET_MY_STORY)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.storyGet(payload)
+    .map(res => ({ type: ProfileActions.GET_MY_STORY_SUCCESS, payload: res }))
+    .catch((res) => Observable.of({ type: ProfileActions.GET_MY_STORY_FAILED, payload: res }))
+    );
+
   /**
    * GET PENDING REQUEST LIST
    */

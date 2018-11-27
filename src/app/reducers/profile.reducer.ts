@@ -1868,7 +1868,9 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
       return Object.assign({}, state, {
         community_media_success: true
       });
-
+      /**
+       * Reducer for post story
+       */
       case ProfileActions.POST_STORY:
       return Object.assign({}, state, {
         story_media_success: false
@@ -1878,6 +1880,32 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
       return Object.assign({}, state, {
         story_media_success: true
       });
+
+      /**
+       * For getting my stories
+       */
+      case ProfileActions.GET_MY_STORY:
+      return Object.assign({}, state, {
+        my_story: [],
+        stories_loading: false
+      });
+
+      case ProfileActions.GET_MY_STORY_SUCCESS:
+      return Object.assign({}, state, {
+        my_story: payload,
+        stories_loading: true
+      });
+
+      case ProfileActions.GET_MY_STORY_FAILED:
+      return Object.assign({}, state, {
+        stories_loading: false
+      });
+
+
+
+
+
+
     case ProfileActions.CANCEL_NETWORK_REQUEST_FAILED:
       return Object.assign({}, state, {
         cancel_network_request: false,

@@ -20,6 +20,13 @@ export class ProfileActions {
   static POST_STORY= 'POST_STORY';
   static POST_STORY_SUCCESS= 'POST_STORY_SUCCESS';
   static POST_STORY_FAILED= 'POST_STORY_FAILED';
+  
+  /**
+   * for: Get My Story
+   */
+  static GET_MY_STORY = 'GET_MY_STORY';
+  static GET_MY_STORY_SUCCESS = 'GET_MY_STORY_SUCCESS';
+  static GET_MY_STORY_FAILED = 'GET_MY_STORY_FAILED';
 
   /**
    * for: portfolio
