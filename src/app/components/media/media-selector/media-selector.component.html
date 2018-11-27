@@ -65,8 +65,66 @@
         </div>
         <div class="col-md-1"></div>
       </div>
-      <!-- add media  -->
-      <div class="col-md-12 padding_none">
+
+      <!--add media for my story-->
+      <div class="col-md-12 padding_none" *ngIf="post_to === 'my_story'">
+        <div class="o-add-media__upload text-center" *ngIf="cards?.length === 0">
+          <div class="o-add-media-upload__icon">
+            <img width="95" [src]="baseUrl + 'img/svg/upload.svg'" alt="">
+          </div>
+          <h3 class="c-h3 o-upload__head">Upload videos</h3>
+          <p class="c-text_sm o-add-media-upload__type">You can upload mp4, avi, mov, x-m4v</p>
+          <div class="o-add-media-btn">
+            <input type="file" class="o-add-media_upload" (ngxf-select)="uploadFileList($event)" multiple accept="video/mp4,video/x-m4v,video/avi,video/mov"
+              name="photo" id="upload-photo">
+            <div class="btn btn-primary btn-lg o-add-media__upload-btn">
+              <span class="o-media-upload-btn m-r-5"></span> Upload
+            </div>
+          </div>
+        </div>
+
+        <div class="o-add-media__upload text-center" *ngIf="cards?.length > 0">
+          <ul class="o-file-list">
+            <li class="o-file_item">
+              <div class="o-media-more">
+                <input type="file" class="o-media_upload" name="photo" id="upload-photo" (ngxf-select)="uploadFileList($event)"
+                  multiple accept="video/mp4,video/x-m4v,video/avi,video/mov">
+                <div class="o-media_add-icon">
+                  <img width="42" [src]="baseUrl + 'img/svg/upload.svg'">
+                </div>
+                <div class="o-media_add-txt">
+                  <p>Upload More</p>
+                </div>
+              </div>
+            </li>
+            <li class="o-file_item selected" [ngClass]="{ 'selected': isSelectedFile(file) }" *ngFor="let file of cards">
+              <div class="o-media-block">
+                <figure class="o-media_img">
+                  <img class="obj-fit-fill" [src]="file?.preview">
+                  <!-- <img  *ngIf="file.fileType === 'image' || file.fileType === 'audio'" class="obj-fit-fill" [src]="file?.preview"> -->
+                  <!-- <video *ngIf="file.fileType === 'video'"  class="obj-fit-fill" [src]="file?.preview" ></video> -->
+                </figure>
+                <div class="o-media__info">
+                  <div class="o-media_type">
+                    <img *ngIf="file.fileType === 'video'" width="14" [src]="baseUrl + 'img/svg/ico_video.svg'">
+                  </div>
+                  <div class="o-media_delet">
+                    <img (click)="removeFile(file)" [src]="baseUrl + 'v2/svg/ico_create-close.svg'">
+                  </div>
+                </div>
+                <div class="o-media-progress-main" *ngIf="file?.pre > 0 && file?.pre < 100">
+                  <div class="o-media-progress__bar">
+                    <span class="o-media-progress__value" [style.width.%]="file?.pre"></span>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- add media for community and channels -->
+      <div class="col-md-12 padding_none" *ngIf="post_to !== 'my_story'">
         <div class="o-add-media__upload text-center" *ngIf="cards?.length === 0">
           <div class="o-add-media-upload__icon">
             <img width="95" [src]="baseUrl + 'img/svg/upload.svg'" alt="">

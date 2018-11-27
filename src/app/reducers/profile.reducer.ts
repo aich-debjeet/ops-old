@@ -4,6 +4,7 @@ import { initialTag, ProfileModal, ProfileCards, UserCard } from '../models/prof
 import { ProfileActions } from '../actions/profile.action';
 import { OrganizationActions } from '../actions/organization.action';
 import * as _ from 'lodash';
+import { Media } from 'app/models/media.model';
 
 export interface State {
   user_channel: any,
@@ -1228,6 +1229,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
     case ProfileActions.CHANNEL_DELETE:
       return Object.assign({}, state, {
         channel_delete_success: false,
+        channel_id: payload
       });
 
     case ProfileActions.CHANNEL_DELETE_SUCCESS:
@@ -1238,6 +1240,11 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
     case ProfileActions.CHANNEL_DELETE_FAILED:
       return Object.assign({}, state, {
         channel_delete_success: false,
+        my_story: {
+          ...state.my_story,
+          media: []
+          // media: state.my_story.media.filter(med => med.channelId !== state.channel_id)
+        }
       });
 
     /**
@@ -1878,6 +1885,43 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
       return Object.assign({}, state, {
         community_media_success: true
       });
+      /**
+       * Reducer for post story
+       */
+      case ProfileActions.POST_STORY:
+      return Object.assign({}, state, {
+        story_media_success: false
+      });
+
+    case ProfileActions.POST_STORY_SUCCESS:
+      return Object.assign({}, state, {
+        story_media_success: true
+      });
+
+      /**
+       * For getting my stories
+       */
+      case ProfileActions.GET_MY_STORY:
+      return Object.assign({}, state, {
+        my_story: [],
+        stories_loading: false
+      });
+
+      case ProfileActions.GET_MY_STORY_SUCCESS:
+      return Object.assign({}, state, {
+        my_story: payload,
+        stories_loading: true
+      });
+
+      case ProfileActions.GET_MY_STORY_FAILED:
+      return Object.assign({}, state, {
+        stories_loading: false
+      });
+
+
+
+
+
 
     case ProfileActions.CANCEL_NETWORK_REQUEST_FAILED:
       return Object.assign({}, state, {
