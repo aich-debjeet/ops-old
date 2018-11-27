@@ -1338,31 +1338,30 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
     case ProfileActions.PROFILE_MEDIA_UNSPOT:
       const home_post_unspot = state.user_following_posts.find(t => t.id === payload.id);
       const home_post_unspot_index = state.user_following_posts.indexOf(home_post_unspot);
-      const home_post_unspot_count = home_post_unspot ? home_post_unspot.spotsCount - 1 : 0;
+      const home_post_unspot_count = home_post_unspot ? home_post_unspot.counts.spotsCount - 1 : 0;
 
       const post_unspot = state.user_posts.find(t => t.id === payload.id);
       const post_unspot_index = post_unspot ? state.user_posts.indexOf(post_unspot) : null;
-      const post_unspot_count = post_unspot ? post_unspot.spotsCount - 1 : 0;
+      const post_unspot_count = post_unspot ? post_unspot.counts.spotsCount - 1 : 0;
 
       const trend_spot_dec = state.trending_post.find(t => t.id === payload.id);
       const trend_spot_dec_index = trend_spot_dec ? state.trending_post.indexOf(trend_spot_dec) : null;
-      const trend_spot_dec_count = trend_spot_dec ? trend_spot_dec.spotsCount - 1 : 0;
+      const trend_spot_dec_count = trend_spot_dec ? trend_spot_dec.counts.spotsCount - 1 : 0;
 
       return Object.assign({}, state, {
         user_following_posts: home_post_unspot === undefined ? [...state.user_following_posts] : [
           ...state.user_following_posts.slice(0, home_post_unspot_index),
-          Object.assign({}, home_post_unspot, { spotsCount: home_post_unspot_count, isSpotted: false }),
+          Object.assign({}, home_post_unspot, { ...home_post_unspot, isSpotted: false, counts: { ...home_post_unspot.counts, spotsCount: home_post_unspot_count }}),
           ...state.user_following_posts.slice(home_post_unspot_index + 1)
         ],
-
         trending_post: trend_spot_dec === undefined ? [...state.trending_post] : [
           ...state.trending_post.slice(0, trend_spot_dec_index),
-          Object.assign({}, trend_spot_dec, { spotsCount: trend_spot_dec_count, isSpotted: false }),
+          Object.assign({}, trend_spot_dec, { ...trend_spot_dec, isSpotted: false, counts: { ...trend_spot_dec.counts, spotsCount: trend_spot_dec_count }}),
           ...state.trending_post.slice(trend_spot_dec_index + 1)
         ],
         user_posts: post_unspot === undefined ? [...state.user_posts] : [
           ...state.user_posts.slice(0, post_unspot_index),
-          Object.assign({}, post_unspot, { spotsCount: post_unspot_count, isSpotted: false }),
+          Object.assign({}, post_unspot, { ...post_unspot, isSpotted: false, counts: { ...post_unspot.counts, spotsCount: post_unspot_count }}),
           ...state.user_posts.slice(post_unspot_index + 1)
         ]
       });
