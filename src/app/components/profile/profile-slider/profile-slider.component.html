@@ -1,267 +1,284 @@
 <section>
-    <div class="c-timeline__img" *ngIf="profileObject !== null" [ngStyle]="coverImageStyle(profileObject)">
-        <div class="container" *ngIf="this.isOwner">
-            <span class="c-timeline__imgchange" appDropdown>
-               <a data-toggle="modal" data-target="#cover-upload">
-                    <div class="c-timeline__changecover">
-                        <a class="dropdown-toggle" appDropdownOpen><img [src]="baseUrl + 'v2/svg/edit_red.svg'" class="c-timeline__icon"> Change cover</a>
-                    </div>
+  <div class="c-timeline__img" *ngIf="profileObject !== null" [ngStyle]="coverImageStyle(profileObject)">
+    <div class="container" *ngIf="this.isOwner">
+      <span class="c-timeline__imgchange" appDropdown>
+        <a data-toggle="modal" data-target="#cover-upload">
+          <div class="c-timeline__changecover">
+            <a class="dropdown-toggle" appDropdownOpen><img [src]="baseUrl + 'v2/svg/edit_red.svg'" class="c-timeline__icon">
+              Change cover</a>
+          </div>
+        </a>
+        <ul class="dropdown-menu dropdown-menu prof-img-drop cover-img-drop">
+          <li><a routerLink="/profile/about/cover_image">Upload</a></li>
+          <li><a (click)="removeImage('cover')">Remove</a></li>
+        </ul>
+      </span>
+    </div>
+    <div class="c-timeline__gradient">
+    </div>
+  </div>
+  <!-- -->
+  <div class="container o-profile__cont" *ngIf="profileObject !== null">
+    <div class="row m-0">
+      <!-- -->
+      <div class="col-md-8 col-sm-12 p-0">
+        <div class="c-profile__userblock">
+          <img *ngIf="profileObject?.image?.profile" [src]="profileObject?.extra?.isExternallySourced ? profileObject?.image?.profile : baseUrl + profileObject?.image?.profile"
+            class="img-responsive img-circle c-profile__userimg">
+          <img *ngIf="!profileObject?.image?.profile" [src]="defaultImage" class="img-responsive img-circle c-profile__userimg">
+          <div *ngIf="this.isOwner">
+            <div class="dropdown c-dropdown" appDropdown>
+              <span class="c-profile__imgchange" data-toggle="dropdown" aria-expanded="true">
+                <a class="dropdown-toggle" appDropdownOpen>
+                  <img [src]="baseUrl + 'v2/svg/edit_red.svg'" class="c-profile__imgchange--icon">
                 </a>
-                <ul class="dropdown-menu dropdown-menu prof-img-drop cover-img-drop">
-                    <li><a routerLink="/profile/about/cover_image">Upload</a></li>
-                    <li><a (click)="removeImage('cover')">Remove</a></li>
-                </ul>
-            </span>
+              </span>
+              <ul class="dropdown-menu dropdown-menu prof-img-drop">
+                <li><a routerLink="/profile/about/image">Upload image</a></li>
+                <li><a (click)="removeImage('profile')">Remove image</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div class="c-timeline__gradient">
-        </div>
-    </div>
-    <!-- -->
-    <div class="container o-profile__cont" *ngIf="profileObject !== null">
-        <div class="row m-0">
-            <!-- -->
-            <div class="col-md-8 col-sm-12 p-0">
-                <div class="c-profile__userblock">
-                    <img *ngIf="profileObject?.image?.profile" [src]="profileObject?.extra?.isExternallySourced ? profileObject?.image?.profile : baseUrl + profileObject?.image?.profile" class="img-responsive img-circle c-profile__userimg">
-                    <img *ngIf="!profileObject?.image?.profile" [src]="defaultImage" class="img-responsive img-circle c-profile__userimg">
-                    <div *ngIf="this.isOwner">
-                        <div class="dropdown c-dropdown" appDropdown>
-                            <span class="c-profile__imgchange" data-toggle="dropdown" aria-expanded="true">
-                                <a class="dropdown-toggle" appDropdownOpen>
-                                    <img [src]="baseUrl + 'v2/svg/edit_red.svg'" class="c-profile__imgchange--icon">
-                                </a>
-                            </span>
-                            <ul class="dropdown-menu dropdown-menu prof-img-drop">
-                                <li><a routerLink="/profile/about/image">Upload image</a></li>
-                                <li><a (click)="removeImage('profile')">Remove image</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="c-profile__userdetail">
-                    <h2 class="c-profile__username" *ngIf="this.isOwner">{{ profileObject?.name | truncate:[40, '...'] }}</h2>
-                    <h2 class="c-profile__username" *ngIf="!this.isOwner">{{ profileObject?.name }}
-                        <a [routerLink]="['/reg/information']" [queryParams]="{ action: 'claim_profile', username: profileObject?.extra?.username }" *ngIf="profileObject?.extra?.isImported" type="button" class="btn btn-primary btn-md m-l-8">Claim</a>
-                    </h2>
-                    <span *ngIf="profileObject?.userHandle" class="c-profile__userhandle">{{ '@' + profileObject?.userHandle }}</span>
-                    <span *ngIf="profileObject?.extra?.profession" class="c-profile__userprofession">{{ profileObject?.extra?.profession }}</span>
-                    <div *ngIf="profileObject?.name" class="o-profile__others-follow-btn">
-                        <button type="button" *ngIf="!profileObject?.extra?.isImported && !this.isOwner" (click)="userFollow(profileObject?.extra?.isFollowing, profileObject?.userDetails?.handle )" [ngClass]="(profileObject?.extra?.isFollowing) ? 'btn-following' : 'btn-primary'"
-                            class="btn btn-primary btn-md">{{ (profileObject?.extra?.isFollowing)? 'Unfollow' : 'Follow'}}</button>
-                        <a *ngIf="!profileObject?.extra?.isImported && !this.isOwner" type="button" class="btn btn-default btn-md" (click)="networkModal.open()">Network</a>
-                        <!-- <button *ngIf="!profileObject?.extra?.isImported && !this.isOwner" type="button" class="btn btn-default btn-md">Donate</button> -->
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4"></div>
-            <!-- -->
+        <div class="c-profile__userdetail">
+          <h2 class="c-profile__username" *ngIf="this.isOwner">{{ profileObject?.name | truncate:[40, '...'] }}</h2>
+          <h2 class="c-profile__username" *ngIf="!this.isOwner">{{ profileObject?.name }}
+            <a [routerLink]="['/reg/information']" [queryParams]="{ action: 'claim_profile', username: profileObject?.extra?.username }"
+              *ngIf="profileObject?.extra?.isImported" type="button" class="btn btn-primary btn-md m-l-8">Claim</a>
+          </h2>
+          <span *ngIf="profileObject?.userHandle" class="c-profile__userhandle">{{ '@' + profileObject?.userHandle }}</span>
+          <span *ngIf="profileObject?.extra?.profession" class="c-profile__userprofession">{{
+            profileObject?.extra?.profession }}</span>
+          <div *ngIf="profileObject?.name" class="o-profile__others-follow-btn">
+            <button type="button" *ngIf="!profileObject?.extra?.isImported && !this.isOwner" (click)="userFollow(profileObject?.extra?.isFollowing, profileObject?.userDetails?.handle )"
+              [ngClass]="(profileObject?.extra?.isFollowing) ? 'btn-following' : 'btn-primary'" class="btn btn-primary btn-md">{{
+              (profileObject?.extra?.isFollowing)? 'Unfollow' : 'Follow'}}</button>
+            <a *ngIf="!profileObject?.extra?.isImported && !this.isOwner" type="button" class="btn btn-default btn-md" [routerLink]="['/bookmark']">Bookmark</a>
+            <!-- <a *ngIf="!profileObject?.extra?.isImported && !this.isOwner" type="button" class="btn btn-default btn-md" (click)="networkModal.open()">Network</a> -->
+            <!-- <button *ngIf="!profileObject?.extra?.isImported && !this.isOwner" type="button" class="btn btn-default btn-md">Donate</button> -->
+          </div>
         </div>
-        <div class="row o-profile__details" *ngIf="!profileObject?.extra?.isImported">
-            <div class="o-profile__info-main" [ngClass]="(profileObject?.extra?.isImported) ? 'blur-main': ''">
-                <div class="col-md-9 col-sm-9 col-xs-9 p-r-0">
-                    <ul class="list-inline o-profile__nav">
-                        <li class="list-line-item">
-                            <a routerLinkActive="activein" [routerLink]="['user']">Feed</a>
-                        </li>
-                        <li class="list-line-item">
-                            <a routerLinkActive="activein" [routerLink]="['about']">About</a>
-                        </li>
-                        <li class="list-line-item">
-                            <a routerLinkActive="activein" [routerLink]="['/portfolio/u', profileObject?.userHandle]">Portfolio</a>
-                        </li>
-                        <!-- <li class="list-line-item hidden-xs" *ngIf = "isOwner">
-                            <a routerLinkActive="activein" routerLink="/planner">Planner</a>
-                        </li> -->
-                        <li class="list-line-item" *ngIf = "isOwner">
-                            <a routerLinkActive="activein" [routerLink]="['network']">Network</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-3 p-l-0">
-                    <ul class="list-inline o-profile__nav--icon">
-                        <li class="list-line-item dropdown c-dropdown" *ngIf="!this.isOwner" appDropdown>
-                            <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
-                                <img [src]="baseUrl + 'img/svg/ico_options.svg'" class="o-profile__nav--img">
-                            </span>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li class="p-t-0 p-b-0">
-                                    <a (click)="reportModalOpen()" data-toggle="modal" data-target="#reportmodal">Report</a>
-                                </li>
-                                <li class="p-t-0 p-b-0">
-                                    <a (click)="blockModal.open()" data-toggle="modal" *ngIf="!isBlocked" data-target="#reportmodal">BLock</a>
-                                    <a (click)="unBlockUser(profileObject?.userDetails?.handle)" data-toggle="modal" *ngIf="isBlocked" data-target="#reportmodal">Unblock</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="list-line-item dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                <img [src]="baseUrl + 'img/svg/ico_share.svg'" class="o-profile__nav--img">
-                            </a>
-                        </li>
-                        <!-- <li class="list-line-item" *ngIf="this.isOwner">
-                            <a (click)="profileEdit()" data-toggle="modal" data-target="#edit_profile_pop">
-                                <img [src]="baseUrl + 'img/svg/ico_edit.svg'" class="o-profile__nav--img">
-                            </a>
-                        </li> -->
-                        <li class="list-line-item" *ngIf="!this.isOwner">
-                            <a routerLink="/message" routerLinkActive="active"><img [src]="baseUrl + 'img/svg/ico_message.svg'"></a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-12 col-sm-12 o-profile__detail__cont">
-                    <div class="col-md-4 col-sm-4 text-center o-profile__detail__block with_border_right">
-                        <div class="row">
-                            <div class="col-md-4 col-sm-4 col-xs-4 o-profile__followers">
-                                <a (click)="showModal('followers')" class="o-follow-and-following" data-toggle="modal" data-target="#followers">
-                                    <div class="o-profile--count">{{ profileObject?.follwerCount }}</div>
-                                    <p class="o-follow__title">Followers</p>
-                                </a>
-                            </div>
-                            <div class="col-md-4 col-sm-4 col-xs-4 o-profile__following">
-                                <a (click)="showModal('following')" class="o-follow-and-following" data-toggle="modal" data-target="#o-following">
-                                    <div class="o-profile--count">{{ profileObject?.followingCount }}</div>
-                                    <p class="o-follow__title">Following</p>
-                                </a>
-                            </div>
-                            <div class="col-md-3 col-sm-4 col-xs-4 o-profile__spot">
-                                <div class="o-profile--count">{{ profileObject?.extra?.spotsCount }}</div>
-                                <p class="o-follow__title">Spots</p>
-                            </div>
-                        </div>
-                        <div class="row hidden-xs">
-                            <div class="o-profile__channelpost hidden-xs hidden-sm">
-                                <div class="o-profile__channelpost--count">{{ profileObject?.extra?.postCount }}
-                                    <small>Posts</small>
-                                </div>
-                                <div class="o-profile__channelpost--count">{{ profileObject?.extra?.channelCount }}
-                                    <small>Channels</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-4 o-profile__detail__block with_border_right p-24">
-                        <div class="o-profile__detail--heading">About Me</div>
-                        <!-- <button *ngIf="profileObject?.userBio == '' && this.isOwner" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Bio Here</button> -->
-                        <p class="o-profile__detail--text">{{ profileObject?.userBio | slice:0:200}}</p>
-                    </div>
-                    <div class="col-md-4 col-sm-4 o-profile__detail__block p-24 hidden-xs">
-                        <div class="o-profile__detail--heading">Skills</div>
-                        <!-- <button *ngIf="profileObject?.userSkill == '' && this.isOwner" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Skill Here</button> -->
-                        <a [routerLink]="'/spotfeed/' + skill?.name" *ngFor="let skill of profileObject?.userSkill | slice:0:4" class="c-skill__tags">{{ skill?.name }}</a>
-                        <a *ngIf="profileObject?.userSkill?.length > 4" (click)="skillModal.open()" class="c-skill__tags--more" >More</a>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="col-md-4"></div>
+      <!-- -->
+    </div>
+    <div class="row o-profile__details" *ngIf="!profileObject?.extra?.isImported">
+      <div class="o-profile__info-main" [ngClass]="(profileObject?.extra?.isImported) ? 'blur-main': ''">
+        <div class="col-md-9 col-sm-9 col-xs-9 p-r-0">
+          <ul class="list-inline o-profile__nav">
+            <li class="list-line-item">
+              <a routerLinkActive="activein" [routerLink]="['user']">Feed</a>
+            </li>
+            <li class="list-line-item">
+              <a routerLinkActive="activein" [routerLink]="['about']">About</a>
+            </li>
+            <li class="list-line-item">
+              <a routerLinkActive="activein" [routerLink]="['/portfolio/u', profileObject?.userHandle]">Portfolio</a>
+            </li>
+            <li class="list-line-item" *ngIf="isOwner">
+              <a *ngIf="this.isOwner" [routerLink]="['/bookmark']">Bookmark</a>
+            </li>
+          </ul>
         </div>
+        <div class="col-md-3 col-sm-3 col-xs-3 p-l-0">
+          <ul class="list-inline o-profile__nav--icon">
+            <li class="list-line-item dropdown c-dropdown" *ngIf="!this.isOwner" appDropdown>
+              <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
+                <img [src]="baseUrl + 'img/svg/ico_options.svg'" class="o-profile__nav--img">
+              </span>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li class="p-t-0 p-b-0">
+                  <a (click)="reportModalOpen()" data-toggle="modal" data-target="#reportmodal">Report</a>
+                </li>
+                <li class="p-t-0 p-b-0">
+                  <a (click)="blockModal.open()" data-toggle="modal" *ngIf="!isBlocked" data-target="#reportmodal">Block</a>
+                  <a (click)="unBlockUser(profileObject?.userDetails?.handle)" data-toggle="modal" *ngIf="isBlocked"
+                    data-target="#reportmodal">Unblock</a>
+                </li>
+              </ul>
+            </li>
+            <li class="list-line-item dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                <img [src]="baseUrl + 'img/svg/ico_share.svg'" class="o-profile__nav--img">
+              </a>
+            </li>
+            <li class="list-line-item" *ngIf="!this.isOwner">
+              <a (click)="bookmarkAction('add')">
+                <img [src]="baseUrl + 'img/svg/bookmark.svg'" class="o-profile__nav--img">
+              </a>
+            </li>
+            <li class="list-line-item" *ngIf="!this.isOwner">
+              <a routerLink="/message" routerLinkActive="active"><img [src]="baseUrl + 'img/svg/ico_message.svg'"></a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-12 col-sm-12 o-profile__detail__cont">
+          <div class="col-md-4 col-sm-4 text-center o-profile__detail__block with_border_right">
+            <div class="row">
+              <div class="col-md-4 col-sm-4 col-xs-4 o-profile__followers">
+                <a (click)="showModal('followers')" class="o-follow-and-following" data-toggle="modal" data-target="#followers">
+                  <div class="o-profile--count">{{ profileObject?.follwerCount }}</div>
+                  <p class="o-follow__title">Followers</p>
+                </a>
+              </div>
+              <div class="col-md-4 col-sm-4 col-xs-4 o-profile__following">
+                <a (click)="showModal('following')" class="o-follow-and-following" data-toggle="modal" data-target="#o-following">
+                  <div class="o-profile--count">{{ profileObject?.followingCount }}</div>
+                  <p class="o-follow__title">Following</p>
+                </a>
+              </div>
+              <div class="col-md-3 col-sm-4 col-xs-4 o-profile__spot">
+                <div class="o-profile--count">{{ profileObject?.extra?.spotsCount }}</div>
+                <p class="o-follow__title">Spots</p>
+              </div>
+            </div>
+            <div class="row hidden-xs">
+              <div class="o-profile__channelpost hidden-xs hidden-sm">
+                <div class="o-profile__channelpost--count">{{ profileObject?.extra?.postCount }}
+                  <small>Posts</small>
+                </div>
+                <div class="o-profile__channelpost--count">{{ profileObject?.extra?.channelCount }}
+                  <small>Channels</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-4 o-profile__detail__block with_border_right p-24">
+            <div class="o-profile__detail--heading">About Me</div>
+            <!-- <button *ngIf="profileObject?.userBio == '' && this.isOwner" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Bio Here</button> -->
+            <p class="o-profile__detail--text">{{ profileObject?.userBio | slice:0:200}}</p>
+          </div>
+          <div class="col-md-4 col-sm-4 o-profile__detail__block p-24 hidden-xs">
+            <div class="o-profile__detail--heading">Skills</div>
+            <!-- <button *ngIf="profileObject?.userSkill == '' && this.isOwner" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Skill Here</button> -->
+            <a [routerLink]="'/spotfeed/' + skill?.name" *ngFor="let skill of profileObject?.userSkill | slice:0:4"
+              class="c-skill__tags">{{ skill?.name }}</a>
+            <a *ngIf="profileObject?.userSkill?.length > 4" (click)="skillModal.open()" class="c-skill__tags--more">More</a>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="claim-text" *ngIf="profileObject?.extra?.isImported">
-        <h2 class="c-h2 color-grey o-claim__account">Claim your account to post your works</h2>
-    </div>
-    <router-outlet></router-outlet>
+  </div>
+  <div class="claim-text" *ngIf="profileObject?.extra?.isImported">
+    <h2 class="c-h2 color-grey o-claim__account">Claim your account to post your works</h2>
+  </div>
+  <router-outlet></router-outlet>
 </section>
 
 <app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='profileEditWindow' *ngIf="this.isOwner" size="profile_update">
-    <div>
-        <form [formGroup]="profileForm" novalidate #myform="ngForm" (submit)="profileFormSubmit(profileForm.value)">
-            <div class="edit-profile_main">
-                <!-- <div class="modal-header" style="border: none;">
+  <div>
+    <form [formGroup]="profileForm" novalidate #myform="ngForm" (submit)="profileFormSubmit(profileForm.value)">
+      <div class="edit-profile_main">
+        <!-- <div class="modal-header" style="border: none;">
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div> -->
-                <div class="edit-profile_head">
-                    <div class="col-md-6 padding_none">
-                        <h2>Edit Profile</h2>
-                    </div>
-                    <div class="col-md-6 padding_none text-right">
-                        <app-button [className]="'btn btn-default btn-sm'" [type]="'button'" (click)="profileFormClose()">Close</app-button>
-                        <app-button [className]="'btn btn-primary btn-sm'" [type]="'submit'">Save</app-button>
-                    </div>
-                </div>
-                <!-- edit profile head end -->
+        <div class="edit-profile_head">
+          <div class="col-md-6 padding_none">
+            <h2>Edit Profile</h2>
+          </div>
+          <div class="col-md-6 padding_none text-right">
+            <app-button [className]="'btn btn-default btn-sm'" [type]="'button'" (click)="profileFormClose()">Close</app-button>
+            <app-button [className]="'btn btn-primary btn-sm'" [type]="'submit'">Save</app-button>
+          </div>
+        </div>
+        <!-- edit profile head end -->
 
-                <div class="edit-profile_sec_block">
-                    <div class="edit-profile_sec_head" data-toggle="collapse " data-target="#basic_info">
-                        <h3 class="edit-profile_subtitle">Basic Info</h3>
-                        <!-- <div class="edit-profile_iconbox">
+        <div class="edit-profile_sec_block">
+          <div class="edit-profile_sec_head" data-toggle="collapse " data-target="#basic_info">
+            <h3 class="edit-profile_subtitle">Basic Info</h3>
+            <!-- <div class="edit-profile_iconbox">
                             <img src="{{ baseUrl }}img/svg/ico-arrow-down.svg" alt="">
                         </div> -->
-                    </div>
-                    <!-- edit profile sec head -->
-                    <div id="basic_info" class="edit-profile_content_block show" style="display: none;">
-                        <div class="editarea">
-                            <div class="form_group">
-                                <input class="form_input" required="" type="text" formControlName="name">
-                                <span class="form_highlight"></span>
-                                <span class="form_bar"></span>
-                                <label>Name</label>
-                                <p class="error_alert" *ngIf="profileForm.controls['name'].errors?.required && myform.submitted">Name is required</p>
-                                <p class="error_alert" *ngIf="profileForm.controls['name'].errors?.maxlength && myform.submitted">Maximum Character limit 30</p>
-                            </div>
-                            <div class="form_group">
-                                <textarea class="form_input form_textarea" maxlength="220" [(ngModel)]="bioMessage" name="" formControlName="bio"></textarea>
-                                <span class="form_highlight">{{ (220) - (bioMessage?.length) }}</span>
-                                <span class="form_bar"></span>
-                                <label class="o-ng_bio-space">Bio</label>
-                                <!-- <span class="o-status-action__count">
+          </div>
+          <!-- edit profile sec head -->
+          <div id="basic_info" class="edit-profile_content_block show" style="display: none;">
+            <div class="editarea">
+              <div class="form_group">
+                <input class="form_input" required="" type="text" formControlName="name">
+                <span class="form_highlight"></span>
+                <span class="form_bar"></span>
+                <label>Name</label>
+                <p class="error_alert" *ngIf="profileForm.controls['name'].errors?.required && myform.submitted">Name
+                  is required</p>
+                <p class="error_alert" *ngIf="profileForm.controls['name'].errors?.maxlength && myform.submitted">Maximum
+                  Character limit 30</p>
+              </div>
+              <div class="form_group">
+                <textarea class="form_input form_textarea" maxlength="220" [(ngModel)]="bioMessage" name=""
+                  formControlName="bio"></textarea>
+                <span class="form_highlight">{{ (220) - (bioMessage?.length) }}</span>
+                <span class="form_bar"></span>
+                <label class="o-ng_bio-space">Bio</label>
+                <!-- <span class="o-status-action__count">
                                     {{ (220) - (bioMessage?.length) }}
                                   </span> -->
-                                <p class="error_alert" *ngIf="profileForm.controls['bio'].errors?.required && myform.submitted">Bio is required</p>
-                            </div>
-                            <div class="form_group">
-                                <input class="form_input" required="" type="text" formControlName="username">
-                                <span class="form_highlight"></span>
-                                <span class="form_bar"></span>
-                                <label>Username</label>
-                                <p class="error_alert" *ngIf="profileForm.controls['username'].errors?.required && myform.submitted">Username is required</p>
-                                <p class="error_alert" *ngIf="profileForm.controls['username'].errors?.whitespace">White Space Not Allowed</p>
-                                <p class="error_alert" *ngIf="profileForm.controls['username'].errors?.minlength">Username must be min length 4</p>
-                                <p class="error_alert" *ngIf="profileForm.controls['username'].errors?.isUsernameUnique">This username is already taken</p>
-                            </div>
-                            <div class="form_group">
-                                <input class="form_input" type="text" [ngModel]="mymodel" formControlName="skill" (ngModelChange)="onSearchChange($event)" placeholder="Search skill">
-                                <span class="form_highlight"></span>
-                                <span class="form_bar"></span>
-                                <label>Skills</label>
+                <p class="error_alert" *ngIf="profileForm.controls['bio'].errors?.required && myform.submitted">Bio is
+                  required</p>
+              </div>
+              <div class="form_group">
+                <input class="form_input" required="" type="text" formControlName="username">
+                <span class="form_highlight"></span>
+                <span class="form_bar"></span>
+                <label>Username</label>
+                <p class="error_alert" *ngIf="profileForm.controls['username'].errors?.required && myform.submitted">Username
+                  is required</p>
+                <p class="error_alert" *ngIf="profileForm.controls['username'].errors?.whitespace">White Space Not
+                  Allowed</p>
+                <p class="error_alert" *ngIf="profileForm.controls['username'].errors?.minlength">Username must be min
+                  length 4</p>
+                <p class="error_alert" *ngIf="profileForm.controls['username'].errors?.isUsernameUnique">This username
+                  is already taken</p>
+              </div>
+              <div class="form_group">
+                <input class="form_input" type="text" [ngModel]="mymodel" formControlName="skill" (ngModelChange)="onSearchChange($event)"
+                  placeholder="Search skill">
+                <span class="form_highlight"></span>
+                <span class="form_bar"></span>
+                <label>Skills</label>
 
-                                <div class="selected_skill">
-                                    <button *ngFor="let skill of selectedSkills" (click)="toggleSelectSkill(skill.code)" type="button" class="btn btn-tag btn-primary btn-sm btn-skill">
-                                        <span >
-                                            {{skill?.name}}
-                                        </span>
+                <div class="selected_skill">
+                  <button *ngFor="let skill of selectedSkills" (click)="toggleSelectSkill(skill.code)" type="button"
+                    class="btn btn-tag btn-primary btn-sm btn-skill">
+                    <span>
+                      {{skill?.name}}
+                    </span>
 
-                                    </button>
-                                </div>
-                                <div class="selected_tags">
-                                    <div *ngIf="findSkill?.skills_loaded === false">
-                                        <span class="loading">Loading...</span>
-                                    </div>
-                                    <span *ngFor="let skill of findSkill?.industries">
-                                        <button type="button" (click)="toggleSelectSkill(skill.code)" [ngClass]="skill.isSelected?'btn btn-reg_tag-active':''" class="btn btn-tag btn-sm">
-                                            {{skill?.name}}
-                                        </button>
-                                    </span>
-                                    <!--<div *ngIf='skillSelectionPage.skills_loaded===true && skillSelectionPage.skills && skillSelectionPage.skills.length === 0'>
+                  </button>
+                </div>
+                <div class="selected_tags">
+                  <div *ngIf="findSkill?.skills_loaded === false">
+                    <span class="loading">Loading...</span>
+                  </div>
+                  <span *ngFor="let skill of findSkill?.industries">
+                    <button type="button" (click)="toggleSelectSkill(skill.code)" [ngClass]="skill.isSelected?'btn btn-reg_tag-active':''"
+                      class="btn btn-tag btn-sm">
+                      {{skill?.name}}
+                    </button>
+                  </span>
+                  <!--<div *ngIf='skillSelectionPage.skills_loaded===true && skillSelectionPage.skills && skillSelectionPage.skills.length === 0'>
                                         <a class="adder" (click)="addNewSkill(search)">Add <span class="adder__name">{{search}}?</span></a>
                                     </div>-->
-                                </div>
-                            </div>
-                            <div class="form_group">
-                                <input class="form_input" type="text" required [textMask]="{mask: dateMask}" formControlName="dob">
-                                <span class="form_highlight"></span>
-                                <span class="form_bar"></span>
-                                <label>Date of birth</label>
-                                <p class="error_alert" *ngIf="profileForm.controls['dob'].errors?.required && myform.submitted">Date of Brith is required</p>
-                                <p class="error_alert" *ngIf="profileForm.controls['dob'].errors?.invalidDOB">Invalid Date of Birth</p>
-                                <p class="error_alert" *ngIf="profileForm.controls['dob'].errors?.isUnderAge">You should be above 13</p>
-                                <p class="error_alert" *ngIf="profileForm.controls['dob'].errors?.isOverAge">You should be below 100</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- edit profile content block end -->
                 </div>
+              </div>
+              <div class="form_group">
+                <input class="form_input" type="text" required [textMask]="{mask: dateMask}" formControlName="dob">
+                <span class="form_highlight"></span>
+                <span class="form_bar"></span>
+                <label>Date of birth</label>
+                <p class="error_alert" *ngIf="profileForm.controls['dob'].errors?.required && myform.submitted">Date of
+                  Brith is required</p>
+                <p class="error_alert" *ngIf="profileForm.controls['dob'].errors?.invalidDOB">Invalid Date of Birth</p>
+                <p class="error_alert" *ngIf="profileForm.controls['dob'].errors?.isUnderAge">You should be above 13</p>
+                <p class="error_alert" *ngIf="profileForm.controls['dob'].errors?.isOverAge">You should be below 100</p>
+              </div>
             </div>
-        </form>
-    </div>
+          </div>
+          <!-- edit profile content block end -->
+        </div>
+      </div>
+    </form>
+  </div>
 </app-modal>
 
 <app-modal-new #reportModal modalClass="modal-report__popup" >
@@ -271,184 +288,190 @@
 </app-modal-new>
 
 <app-modal-new #blockModal modalClass="modal-cus__sm">
-    <modal-content>
-        <div class="modal-dialog modal-lg" id="report_2">
-            <div class="modal-content report_container">
-                <div class="report_pop_head">
-                    <!-- <div class="c-text_lg-bold text-center">Block</div> -->
-                    <span class="search_close" (click)="blockModal.close()">
-                        <a><img [src]="baseUrl + 'img/svg/ico_close-38.svg'" alt=""></a>
-                    </span>
-                </div>
-                <div class="row">
-                    <div class="c-text_lg text-center">
-                        <strong>Are you sure you want to block {{ profileObject?.name }}?</strong>
-                        <br>
-                        <br> {{ profileObject?.name }} will no longer be able to:
-                    </div>
-                    <ul class="c-text_md col-md-7 col-md-offset-4 m-t-16">
-                        <li>See things you post</li>
-                        <li class="m-t-8">Tag you</li>
-                        <li class="m-t-8">Invite you to communities</li>
-                        <li class="m-t-8">Start a conversation with you</li>
-                    </ul>
-                </div>
-                <div class="report_bottom">
-                    <div class="text-center">
-                        <button type="button" class="btn btn-primary btn-md" (click)="subResponse(profileObject?.userDetails?.handle);blockModal.close();" data-toggle="modal">Submit</button>
-                    </div>
-                </div>
-            </div>
+  <modal-content>
+    <div class="modal-dialog modal-lg" id="report_2">
+      <div class="modal-content report_container">
+        <div class="report_pop_head">
+          <!-- <div class="c-text_lg-bold text-center">Block</div> -->
+          <span class="search_close" (click)="blockModal.close()">
+            <a><img [src]="baseUrl + 'img/svg/ico_close-38.svg'" alt=""></a>
+          </span>
         </div>
-    </modal-content>
+        <div class="row">
+          <div class="c-text_lg text-center">
+            <strong>Are you sure you want to block {{ profileObject?.name }}?</strong>
+            <br>
+            <br> {{ profileObject?.name }} will no longer be able to:
+          </div>
+          <ul class="c-text_md col-md-7 col-md-offset-4 m-t-16">
+            <li>See things you post</li>
+            <li class="m-t-8">Tag you</li>
+            <li class="m-t-8">Invite you to communities</li>
+            <li class="m-t-8">Start a conversation with you</li>
+          </ul>
+        </div>
+        <div class="report_bottom">
+          <div class="text-center">
+            <button type="button" class="btn btn-primary btn-md" (click)="subResponse(profileObject?.userDetails?.handle);blockModal.close();"
+              data-toggle="modal">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </modal-content>
 </app-modal-new>
 
 <app-modal-new #blockSuccessful modalClass="modal-cus__sm">
-    <modal-content>
-        <div class="modal-dialog modal-lg" id="report_thank2">
-            <div class="modal-content report_container">
-                <div class="report_pop_head">
-                    <div class="c-text_lg-bold text-center">Blocked</div>
-                    <span class="search_close" (click)="updateState()">
-                        <a>
-                            <img [src]="baseUrl + 'img/svg/ico_close-38.svg'" alt="">
-                        </a>
-                    </span>
-                </div>
-                <div class="report_content_sec">
-                    <div class="msg_report_container c-text_lg text-center">
-                        You have successfully blocked this user. We're sorry that
-                        <br>you've had this experience.
-                    </div>
-                </div>
-                <div class="report_bottom">
-                    <div class="text-center">
-                        <button type="button" class="btn btn-primary btn-md" data-dismiss="modal" (click)="updateState()">
-                            Done
-                        </button>
-                    </div>
-                </div>
-            </div>
+  <modal-content>
+    <div class="modal-dialog modal-lg" id="report_thank2">
+      <div class="modal-content report_container">
+        <div class="report_pop_head">
+          <div class="c-text_lg-bold text-center">Blocked</div>
+          <span class="search_close" (click)="updateState()">
+            <a>
+              <img [src]="baseUrl + 'img/svg/ico_close-38.svg'" alt="">
+            </a>
+          </span>
         </div>
-    </modal-content>
+        <div class="report_content_sec">
+          <div class="msg_report_container c-text_lg text-center">
+            You have successfully blocked this user. We're sorry that
+            <br>you've had this experience.
+          </div>
+        </div>
+        <div class="report_bottom">
+          <div class="text-center">
+            <button type="button" class="btn btn-primary btn-md" data-dismiss="modal" (click)="updateState()">
+              Done
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </modal-content>
 </app-modal-new>
 
 <!--Skill more -->
 
 <app-modal-new #skillModal modalClass="modal-cus__sm">
-    <modal-content>
-        <div class="modal-content o-tag-pop o-skills__popup">
-            <div class="o-tag-head">
-                <h2 class="o-tag__title">More Skills
-                    <span class="pop-close" (click)="skillModal.close()">
-                  <a><img [src]="baseUrl + 'img/svg/ico_close-38.svg'" alt=""></a>
-                </span>
-                </h2>
-            </div>
-            <div class="o-tag-list">
-                <span *ngFor="let skill of profileObject?.userSkill" [routerLink]="'/spotfeed/' + skill?.name" class="c-skill__tags">{{ skill?.name }}</span>
-            </div>
-        </div>
-    </modal-content>
+  <modal-content>
+    <div class="modal-content o-tag-pop o-skills__popup">
+      <div class="o-tag-head">
+        <h2 class="o-tag__title">More Skills
+          <span class="pop-close" (click)="skillModal.close()">
+            <a><img [src]="baseUrl + 'img/svg/ico_close-38.svg'" alt=""></a>
+          </span>
+        </h2>
+      </div>
+      <div class="o-tag-list">
+        <span *ngFor="let skill of profileObject?.userSkill" [routerLink]="'/spotfeed/' + skill?.name" class="c-skill__tags">{{
+          skill?.name }}</span>
+      </div>
+    </div>
+  </modal-content>
 </app-modal-new>
 
 <app-modal [blocking]='false' modalId='donationPopup' *ngIf="!this.isOwner" size="tiny__donation">
-    <div id="donation_pop">
-        <div id="report_thank">
-            <!-- Modal content-->
-            <div class="donation_container">
-                <span class="search_close">
-                    <a (click)="donatePopup()" data-dismiss="modal"><img [src]="baseUrl + 'img/svg/ico_close-38.svg'" alt=""></a>
-                </span>
+  <div id="donation_pop">
+    <div id="report_thank">
+      <!-- Modal content-->
+      <div class="donation_container">
+        <span class="search_close">
+          <a (click)="donatePopup()" data-dismiss="modal"><img [src]="baseUrl + 'img/svg/ico_close-38.svg'" alt=""></a>
+        </span>
 
-                <div class="donation_content">
-                    <h2>Support<br>Coming Soon</h2>
-                    <div class="donation_illustration">
-                        <img [src]="baseUrl + 'img/svg/asset2.svg'" alt="">
-                    </div>
-                    <div class="donation_msg">
-                        <p>
-                            We're working on this feature to help<br>our fellow artists.
-                            <span class="stay_tuned">Stay tuned.</span>
-                        </p>
-                    </div>
-                    <div class="text-center">
-                        <app-button [className]="'btn btn-default btn-sm'" [type]="'button'" (click)="donationClose()">Okay</app-button>
-                    </div>
-                </div>
-            </div>
+        <div class="donation_content">
+          <h2>Support<br>Coming Soon</h2>
+          <div class="donation_illustration">
+            <img [src]="baseUrl + 'img/svg/asset2.svg'" alt="">
+          </div>
+          <div class="donation_msg">
+            <p>
+              We're working on this feature to help<br>our fellow artists.
+              <span class="stay_tuned">Stay tuned.</span>
+            </p>
+          </div>
+          <div class="text-center">
+            <app-button [className]="'btn btn-default btn-sm'" [type]="'button'" (click)="donationClose()">Okay</app-button>
+          </div>
         </div>
-        <!-- report confirm end -->
+      </div>
     </div>
+    <!-- report confirm end -->
+  </div>
 </app-modal>
 
 
 <!--NetWork-->
 <app-modal-new #networkModal modalClass="pop-container-md">
-    <modal-content>
-        <div class="modal-body p-0">
-            <div class="pop-container-md o-following-pop">
-                <div class="pop-head m-b-16">
-                    <div class="c-text_lg c-text-semibold text-center">You are Networking with
-                            <br><span class="color-theme">{{ profileObject?.name }}</span></div>
-                    <span class="pop-close">
-                        <a href="javascript:void(0)" (click)="networkModal.close()" data-dismiss="modal"><img [src]="baseUrl + 'img/svg/ico_close-38.svg'"></a>
-                    </span>
-                </div>
-                <form [formGroup]="networkForm" (ngSubmit)="onFormSubmit(networkForm.value)" #netform="ngForm">
-                    <div class="col-md-12">
-                        <div class="c-text_md m-t-16 text-center">
-                                You will be able to chat with {{ profileObject?.name }} after
-                                <br>he/she accept the network request
-                        </div>
-                        <div class="c-radio__sm">
-                            <label class="col-md-8 col-xs-12 col-md-offset-2 o-network_option m-t-16">
-                                <input name="request" type="radio" class="c-form__bar2" value="network" (click)="openMsg('network')" formControlName="request">
-                                <span></span>
-                                <div class="c-radio--label">Hey {{ profileObject?.name }}, I want to connect with you.</div>
-                            </label>
-                            <label class="col-md-8 col-xs-12 col-md-offset-2 o-network_option m-t-16">
-                                <!-- <input id="hereShow" name="request" type="radio" class="c-form__bar2" value="personalMessage" formControlName="request"> -->
-                                <input id="hereShow" name="request" (click)="openMsg('personalMessage')" type="radio" class="c-form__bar2" value="personalMessage" formControlName="request">
-                                <span></span>
-                                <div class="c-radio--label">Personal message</div>
-                                <div *ngIf="showThis">
-                                    <input class="c-form__input" id="" type="text" maxlength="220" [(ngModel)]="personalMessage" formControlName="message"required placeholder="Type Message">
-                                    <p class="pull-right">{{ (220) - (personalMessage?.length) }}</p>
-                                    <!-- <p *ngIf="networkForm.get('message').invalid && networkForm.get('request').invalid " class="error_alert text-center"> 
+  <modal-content>
+    <div class="modal-body p-0">
+      <div class="pop-container-md o-following-pop">
+        <div class="pop-head m-b-16">
+          <div class="c-text_lg c-text-semibold text-center">You are Networking with
+            <br><span class="color-theme">{{ profileObject?.name }}</span></div>
+          <span class="pop-close">
+            <a href="javascript:void(0)" (click)="networkModal.close()" data-dismiss="modal"><img [src]="baseUrl + 'img/svg/ico_close-38.svg'"></a>
+          </span>
+        </div>
+        <form [formGroup]="networkForm" (ngSubmit)="onFormSubmit(networkForm.value)" #netform="ngForm">
+          <div class="col-md-12">
+            <div class="c-text_md m-t-16 text-center">
+              You will be able to chat with {{ profileObject?.name }} after
+              <br>he/she accept the network request
+            </div>
+            <div class="c-radio__sm">
+              <label class="col-md-8 col-xs-12 col-md-offset-2 o-network_option m-t-16">
+                <input name="request" type="radio" class="c-form__bar2" value="network" (click)="openMsg('network')"
+                  formControlName="request">
+                <span></span>
+                <div class="c-radio--label">Hey {{ profileObject?.name }}, I want to connect with you.</div>
+              </label>
+              <label class="col-md-8 col-xs-12 col-md-offset-2 o-network_option m-t-16">
+                <!-- <input id="hereShow" name="request" type="radio" class="c-form__bar2" value="personalMessage" formControlName="request"> -->
+                <input id="hereShow" name="request" (click)="openMsg('personalMessage')" type="radio" class="c-form__bar2"
+                  value="personalMessage" formControlName="request">
+                <span></span>
+                <div class="c-radio--label">Personal message</div>
+                <div *ngIf="showThis">
+                  <input class="c-form__input" id="" type="text" maxlength="220" [(ngModel)]="personalMessage"
+                    formControlName="message" required placeholder="Type Message">
+                  <p class="pull-right">{{ (220) - (personalMessage?.length) }}</p>
+                  <!-- <p *ngIf="networkForm.get('message').invalid && networkForm.get('request').invalid " class="error_alert text-center"> 
                                         Enter text
                                    </p>	 -->
-                                   <!-- <p *ngIf="networkForm.controls['message'].errors?.required && netform.submitted" class="error_alert text-center"> 
+                  <!-- <p *ngIf="networkForm.controls['message'].errors?.required && netform.submitted" class="error_alert text-center"> 
                                     Enter text
                                    </p>	 -->
-                                </div>
-                            </label>
-                            
-                        </div>
-                        </div>
-                        <p *ngIf="error && netform.submitted" class="error_alert text-center"> 
-                            Selection of either of the two options is mandatory 
-                       </p>	
-                        <div class="col-md-12 m-t-16 text-center">
-                                <button class="btn btn-default btn-md" (click)="networkModal.close()">Close</button>
-                                <button type="submit" class="btn btn-primary btn-md">send</button>
-                        </div>
-                </form>
+                </div>
+              </label>
+
             </div>
-        </div>
-    </modal-content>
+          </div>
+          <p *ngIf="error && netform.submitted" class="error_alert text-center">
+            Selection of either of the two options is mandatory
+          </p>
+          <div class="col-md-12 m-t-16 text-center">
+            <button class="btn btn-default btn-md" (click)="networkModal.close()">Close</button>
+            <button type="submit" class="btn btn-primary btn-md">send</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </modal-content>
 </app-modal-new>
 
 <app-modal-new #followersModal modalClass="modal-profile-followers">
-    <modal-content>
-        <div class="pop-container-md o-following-pop">
-            <div class="pop-head m-b-16">
-                <h5 class="c-text_lg f-w_600">Followers <span class="f-w_500 color-grey-dark">{{ profileObject?.follwerCount }}</span></h5>
-                <span class="pop-close">
-                    <a (click)="followersModal.close()" data-dismiss="modal"><img [src]="baseUrl + 'img/svg/ico_close-38.svg'" alt=""></a>
-                </span>
-            </div>
-            <!-- <div class="o-following__search">
+  <modal-content>
+    <div class="pop-container-md o-following-pop">
+      <div class="pop-head m-b-16">
+        <h5 class="c-text_lg f-w_600">Followers <span class="f-w_500 color-grey-dark">{{ profileObject?.follwerCount }}</span></h5>
+        <span class="pop-close">
+          <a (click)="followersModal.close()" data-dismiss="modal"><img [src]="baseUrl + 'img/svg/ico_close-38.svg'"
+              alt=""></a>
+        </span>
+      </div>
+      <!-- <div class="o-following__search">
                 <div class="c-form__group  fill-grey-light">
                     <input class="c-form__input c-form__input--border-none fpadding_l32" required="" type="text" placeholder="Search">
                     <span>
@@ -456,57 +479,63 @@
                     </span>
                 </div>
             </div> -->
-            <div (scroll)="onFollowerScroll($event)" *ngIf="followersProfiles.length > 0" id="ops_scrollbar" class="o-following__container">
-                <ul class="o-follow-people">
-                    <li *ngFor="let follower of followersProfiles" class="o-follow-people__list">
-                        <a routerLink="{{ '/profile/u/' + follower?.extra?.username }}">
-                            <div class="o-follow-people__avatar">
-                                <img [src]="baseUrl + follower?.profileImage" alt="">
-                            </div>
-                            <div class="o-follow-people__info">
-                                <h6 *ngIf="follower?.name" class="c-text_md">{{ follower?.name | truncate:[10, '...'] }}</h6>
-                                <h6 *ngIf="!follower?.name" class="c-text_md">&nbsp;</h6>
-                                <p *ngIf="follower?.extra?.username" class="c-text_sm color-grey-dark">@{{ follower?.extra?.username | truncate:[10, '...'] }}</p>
-                                <p *ngIf="!follower?.extra?.username" class="c-text_sm color-grey-dark">&nbsp;</p>
-                            </div>
-                        </a>
-                        <div class="o-profile__others-follow-btn">
-                            <div *ngIf="follower?.extra.isImported; else not_imported">
-                                <button [routerLink]="'/profile/u/' + follower?.extra?.username" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
-                                    <span class="btn-label-follow"> CLAIM </span>
-                                </button>
-                            </div>
-                            <ng-template #not_imported>
-                                <button (click)="unfollowUser(follower)" *ngIf="follower?.extra.isFollowing" type="button" class="btn btn-xs btn-default btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
-                                    <span class="btn-label-follow"> UNFOLLOW </span>
-                                </button>
-                                <button (click)="followUser(follower)" *ngIf="!follower?.extra.isFollowing" type="button" class="btn btn-xs btn-primary btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
-                                    <span class="btn-label-follow"> FOLLOW </span>
-                                </button>
-                            </ng-template>
-                        </div>
-                    </li>
-                </ul>
+      <div (scroll)="onFollowerScroll($event)" *ngIf="followersProfiles.length > 0" id="ops_scrollbar" class="o-following__container">
+        <ul class="o-follow-people">
+          <li *ngFor="let follower of followersProfiles" class="o-follow-people__list">
+            <a routerLink="{{ '/profile/u/' + follower?.extra?.username }}">
+              <div class="o-follow-people__avatar">
+                <img [src]="baseUrl + follower?.profileImage" alt="">
+              </div>
+              <div class="o-follow-people__info">
+                <h6 *ngIf="follower?.name" class="c-text_md">{{ follower?.name | truncate:[10, '...'] }}</h6>
+                <h6 *ngIf="!follower?.name" class="c-text_md">&nbsp;</h6>
+                <p *ngIf="follower?.extra?.username" class="c-text_sm color-grey-dark">@{{ follower?.extra?.username |
+                  truncate:[10, '...'] }}</p>
+                <p *ngIf="!follower?.extra?.username" class="c-text_sm color-grey-dark">&nbsp;</p>
+              </div>
+            </a>
+            <div class="o-profile__others-follow-btn">
+              <div *ngIf="follower?.extra.isImported; else not_imported">
+                <button [routerLink]="'/profile/u/' + follower?.extra?.username" type="button" class="btn btn-xs btn-basic btn-following"
+                  [disabled]="disableFollowForSelf(follower?.extra?.username)">
+                  <span class="btn-label-follow"> CLAIM </span>
+                </button>
+              </div>
+              <ng-template #not_imported>
+                <button (click)="unfollowUser(follower)" *ngIf="follower?.extra.isFollowing" type="button" class="btn btn-xs btn-default btn-following"
+                  [disabled]="disableFollowForSelf(follower?.extra?.username)">
+                  <span class="btn-label-follow"> UNFOLLOW </span>
+                </button>
+                <button (click)="followUser(follower)" *ngIf="!follower?.extra.isFollowing" type="button" class="btn btn-xs btn-primary btn-following"
+                  [disabled]="disableFollowForSelf(follower?.extra?.username)">
+                  <span class="btn-label-follow"> FOLLOW </span>
+                </button>
+              </ng-template>
             </div>
-            <div class="clb" *ngIf="showPreloader === true">
-                <div class="sticky">
-                    <div class="loader">Loading...</div>
-                </div>
-            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="clb" *ngIf="showPreloader === true">
+        <div class="sticky">
+          <div class="loader">Loading...</div>
         </div>
-    </modal-content>
+      </div>
+    </div>
+  </modal-content>
 </app-modal-new>
 
 <app-modal-new #followingModal modalClass="modal-profile-followers">
-    <modal-content>
-        <div class="pop-container-md o-following-pop">
-            <div class="pop-head m-b-16">
-                <h5 class="c-text_lg f-w_600">Following <span class="f-w_500 color-grey-dark">{{ profileObject?.followingCount }}</span></h5>
-                <span class="pop-close">
-                    <a (click)="followingModal.close()" data-dismiss="modal"><img [src]="baseUrl + 'img/svg/ico_close-38.svg'" alt=""></a>
-                </span>
-            </div>
-            <!-- <div class="o-following__search">
+  <modal-content>
+    <div class="pop-container-md o-following-pop">
+      <div class="pop-head m-b-16">
+        <h5 class="c-text_lg f-w_600">Following <span class="f-w_500 color-grey-dark">{{ profileObject?.followingCount
+            }}</span></h5>
+        <span class="pop-close">
+          <a (click)="followingModal.close()" data-dismiss="modal"><img [src]="baseUrl + 'img/svg/ico_close-38.svg'"
+              alt=""></a>
+        </span>
+      </div>
+      <!-- <div class="o-following__search">
                 <div class="c-form__group  fill-grey-light">
                     <input class="c-form__input c-form__input--border-none fpadding_l32" required="" type="text" placeholder="Search">
                     <span>
@@ -514,41 +543,45 @@
                     </span>
                 </div>
             </div> -->
-            <div (scroll)="onFollowingScroll($event)" *ngIf="followingProfiles.length > 0" id="ops_scrollbar" class="o-following__container">
-                <ul class="o-follow-people">
-                    <li *ngFor="let follower of followingProfiles" class="o-follow-people__list">
-                        <a [routerLink]="'/profile/u/' + follower?.extra?.username">
-                            <div class="o-follow-people__avatar">
-                                <img [src]="baseUrl + follower?.profileImage" alt="">
-                            </div>
-                            <div class="o-follow-people__info">
-                                <h6 *ngIf="follower?.name" class="c-text_md">{{ follower?.name | truncate:[10, '...'] }}</h6>
-                                <h6 *ngIf="!follower?.name" class="c-text_md">&nbsp;</h6>
-                                <p *ngIf="follower?.extra?.username" class="c-text_sm color-grey-dark">@{{ follower?.extra?.username | truncate:[10, '...'] }}</p>
-                                <p *ngIf="!follower?.extra?.username" class="c-text_sm color-grey-dark">&nbsp;</p>
-                            </div>
-                        </a>
-                        <div *ngIf="follower?.extra.isImported; else not_imported">
-                            <button [routerLink]="'/profile/u/' + follower?.extra?.username" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
-                                <span class="btn-label-follow"> CLAIM </span>
-                            </button>
-                        </div>
-                        <ng-template #not_imported>
-                            <button (click)="unfollowUser(follower)" *ngIf="follower?.extra.isFollowing" type="button" class="btn btn-xs btn-default btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
-                                <span class="btn-label-follow"> UNFOLLOW </span>
-                            </button>
-                            <button (click)="followUser(follower)" *ngIf="!follower?.extra.isFollowing" type="button" class="btn btn-xs btn-primary btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
-                                <span class="btn-label-follow"> FOLLOW </span>
-                            </button>
-                        </ng-template>
-                    </li>
-                </ul>
+      <div (scroll)="onFollowingScroll($event)" *ngIf="followingProfiles.length > 0" id="ops_scrollbar" class="o-following__container">
+        <ul class="o-follow-people">
+          <li *ngFor="let follower of followingProfiles" class="o-follow-people__list">
+            <a [routerLink]="'/profile/u/' + follower?.extra?.username">
+              <div class="o-follow-people__avatar">
+                <img [src]="baseUrl + follower?.profileImage" alt="">
+              </div>
+              <div class="o-follow-people__info">
+                <h6 *ngIf="follower?.name" class="c-text_md">{{ follower?.name | truncate:[10, '...'] }}</h6>
+                <h6 *ngIf="!follower?.name" class="c-text_md">&nbsp;</h6>
+                <p *ngIf="follower?.extra?.username" class="c-text_sm color-grey-dark">@{{ follower?.extra?.username |
+                  truncate:[10, '...'] }}</p>
+                <p *ngIf="!follower?.extra?.username" class="c-text_sm color-grey-dark">&nbsp;</p>
+              </div>
+            </a>
+            <div *ngIf="follower?.extra.isImported; else not_imported">
+              <button [routerLink]="'/profile/u/' + follower?.extra?.username" type="button" class="btn btn-xs btn-basic btn-following"
+                [disabled]="disableFollowForSelf(follower?.extra?.username)">
+                <span class="btn-label-follow"> CLAIM </span>
+              </button>
             </div>
-            <div class="clb" *ngIf="showPreloader === true">
-                <div class="sticky">
-                    <div class="loader">Loading...</div>
-                </div>
-            </div>
+            <ng-template #not_imported>
+              <button (click)="unfollowUser(follower)" *ngIf="follower?.extra.isFollowing" type="button" class="btn btn-xs btn-default btn-following"
+                [disabled]="disableFollowForSelf(follower?.extra?.username)">
+                <span class="btn-label-follow"> UNFOLLOW </span>
+              </button>
+              <button (click)="followUser(follower)" *ngIf="!follower?.extra.isFollowing" type="button" class="btn btn-xs btn-primary btn-following"
+                [disabled]="disableFollowForSelf(follower?.extra?.username)">
+                <span class="btn-label-follow"> FOLLOW </span>
+              </button>
+            </ng-template>
+          </li>
+        </ul>
+      </div>
+      <div class="clb" *ngIf="showPreloader === true">
+        <div class="sticky">
+          <div class="loader">Loading...</div>
         </div>
-    </modal-content>
+      </div>
+    </div>
+  </modal-content>
 </app-modal-new>

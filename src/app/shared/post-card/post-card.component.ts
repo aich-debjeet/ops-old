@@ -31,7 +31,7 @@ export class PostCardComponent implements OnInit {
   @Output() postDelete = new EventEmitter();
   dotMenuState: boolean;
   following: boolean;
-  followingCount: any;
+  spotCount: any;
   mediaType: any;
 
   userImage: string;
@@ -56,7 +56,7 @@ export class PostCardComponent implements OnInit {
         this.userImage = this.imageLink + this.mediaData.ownerImage;
       }
       this.following = this.mediaData.isSpotted;
-      this.followingCount = this.mediaData.spotsCount;
+      this.spotCount = this.mediaData.spotsCount;
       this.mediaType = this.mediaData.mtype;
       // this.useThumb = false;
     }
@@ -110,14 +110,14 @@ export class PostCardComponent implements OnInit {
     }
     if (this.following === false) {
       this.following = true;
-      this.followingCount++;
+      this.spotCount++;
       this.store.dispatch({ type: MediaActions.MEDIA_SPOT, payload: data });
       this.store.dispatch({ type: ProfileActions.PROFILE_MEDIA_SPOT, payload: data });
     } else {
       this.store.dispatch({ type: MediaActions.MEDIA_UNSPOT, payload: data });
       this.store.dispatch({ type: ProfileActions.PROFILE_MEDIA_SPOT, payload: data });
       this.following = false;
-      this.followingCount--;
+      this.spotCount--;
     }
   }
 
