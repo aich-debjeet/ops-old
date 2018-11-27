@@ -73,8 +73,11 @@
                         </div>
                         <div class="c-links__actions">
                             <span class="c-links__bookmark">
-                                <a (click)="bookmarkAction('add', data)">
-                                    <img [src]="imageLink + 'img/svg/bookmark.svg'" class="c-action__image">
+                                <a *ngIf="mediaStore?.media_detail?.extras?.isBookmarked === true" (click)="bookmarkAction('remove', mediaStore?.media_detail)">
+                                    <img src="https://ops-v2-2.netlify.com/assets/svg/bookmarked.svg" class="c-action__image">
+                                </a>
+                                <a *ngIf="mediaStore?.media_detail?.extras?.isBookmarked === false" (click)="bookmarkAction('add', mediaStore?.media_detail)">
+                                    <img src="https://ops-v2-2.netlify.com/assets/svg/bookmark.svg" class="c-action__image">
                                 </a>
                             </span>
                             <span class="c-links__add">
