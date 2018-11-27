@@ -65,11 +65,11 @@
                         <div class="c-links__spots" (click)="spotMedia(data)">
                             <img *ngIf="mediaStore?.media_detail?.isSpotted === false" [src]="imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
                             <img *ngIf="mediaStore?.media_detail?.isSpotted === true" [src]="imageLink + 'img/svg/spot_icon.svg'" class="c-links__image">
-                            <span class="c-links__count">{{ mediaStore?.counts?.spotsCount }}</span>
+                            <span class="c-links__count">{{ mediaStore?.media_detail?.extras?.counts?.spotsCount }}</span>
                         </div>
                         <div class="c-links__comments">
                             <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
-                            <span class="c-links__count">{{ mediaStore?.counts?.commentsCount }}</span>
+                            <span class="c-links__count">{{ mediaStore?.media_detail?.extras?.counts?.commentsCount }}</span>
                         </div>
                         <div class="c-links__actions">
                             <span class="c-links__bookmark">
