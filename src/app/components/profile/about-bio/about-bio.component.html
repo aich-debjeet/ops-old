@@ -147,10 +147,10 @@
                         <div class="c-form__group">
                             <input type="text" [(ngModel)]="dob" [textMask]="{mask: dateMask}" class="c-form__input" placeholder="">
                             <img *ngIf="isUpdating" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '6px','right': '0'}" [src]="imageBaseUrl + 'img/search-preloader.gif'">
-                            <!-- <p class="error_alert" *ngIf="profileForm.controls['dob'].errors?.required && myform.submitted">Date of Brith is required</p> -->
-                            <p class="error_alert" *ngIf="invalidDOB">Invalid Date of Birth</p>
-                            <p class="error_alert" *ngIf="isUnderAge">You should be above 13</p>
-                            <p class="error_alert" *ngIf="isOverAge">You should be below 100</p>
+                            <!-- <p class="c-form__validation" *ngIf="profileForm.controls['dob'].errors?.required && myform.submitted">Date of Brith is required</p> -->
+                            <p class="c-form__validation" *ngIf="invalidDOB">Invalid Date of Birth</p>
+                            <p class="c-form__validation" *ngIf="isUnderAge">You should be above 13</p>
+                            <p class="c-form__validation" *ngIf="isOverAge">You should be below 100</p>
                         </div>
                         <!-- action start -->
                         <div class="o-bio-info__edit-actions m-t-24">
@@ -214,7 +214,7 @@
                                 <!-- <input class="c-form__input" required="" type="text" value="162"> -->
                                 <textarea class="c-form__input" [(ngModel)]="height" [ngModelOptions]="{standalone: true}">{{ height }}</textarea>
                                 <img *ngIf="isUpdating" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '15px','right': '0'}" [src]="imageBaseUrl + 'img/search-preloader.gif'">
-                                <p class="error_alert" *ngIf="validHeight">characters Not Accepted</p>
+                                <p class="c-form__validation" *ngIf="validHeight">characters Not Accepted</p>
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -280,7 +280,7 @@
                             <div class="c-form__group c-form--sm c-form--noeffect">
                                 <textarea class="c-form__input" [(ngModel)]="weight" [ngModelOptions]="{standalone: true}" >{{ weight }}</textarea>
                                 <img *ngIf="isUpdating" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '15px','right': '0'}" [src]="imageBaseUrl + 'img/search-preloader.gif'">
-                                <p class="error_alert" *ngIf="validWeight">characters Not Accepted</p>
+                                <p class="c-form__validation" *ngIf="validWeight">characters Not Accepted</p>
                             </div>
                         </div>
                         <div class="col-md-2">

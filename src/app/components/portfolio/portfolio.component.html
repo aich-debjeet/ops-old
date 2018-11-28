@@ -191,7 +191,7 @@
                             <span class="c-form__highlight"></span>
                             <span class="c-form__bar"></span>
                             <!-- <label>Add New Category</label> -->
-                            <p class="error_alert" *ngIf="catNameIsRequired">Please enter category name</p>
+                            <p class="c-form__validation" *ngIf="catNameIsRequired">Please enter category name</p>
                         </div>
                         <div class="m-t-24 text-right">
                             <button [disabled]="profileState?.create_portfolio_category === true && profileState?.create_portfolio_category_success === false" type="submit" class="btn btn-primary btn-sm p-l-r-16" data-dismiss="modal">ADD</button>
