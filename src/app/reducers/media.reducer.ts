@@ -6,6 +6,17 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
 
   switch (type) {
 
+    case MediaActions.MEDIA_BOOKAMRK_FLAG_UPDATE:
+      return Object.assign({}, state, {
+        media_detail: {
+          ...state.media_detail,
+          extras: {
+            ...state.media_detail.extras,
+            isBookmarked: payload.isBookmarked
+          }
+        }
+      });
+
     case MediaActions.MEDIA_ADD_VIEW_COUNT:
       return Object.assign({}, state, {
         mediaUpdatingViewCount: true,

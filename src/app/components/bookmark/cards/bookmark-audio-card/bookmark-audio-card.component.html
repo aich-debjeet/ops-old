@@ -16,7 +16,7 @@
             <div class="bookmark-media-type__label">Audio
                 <div class="bookmark-delet">
                     <div (click)="deleteBookmark(mediaDetails)" class="bookmark-delet__icon">
-                        <img src="https://ops-v2-2.netlify.com/assets/svg/ico_close-38.svg" alt="">
+                        <img [src]="imageBaseUrl + mediaDetails?.ownerImage" alt="">
                     </div>
                 </div>
             </div>
@@ -27,9 +27,9 @@
             </div>
             <div class="bookmark-info__post-detail">
                 <div class="bookmark-post-detail__user-info">
-                    <a href="profile_others.html" class="bookmark-user-link">
+                    <a routerLink="{{ '/profile/u/' + mediaDetails?.ownerUsername }}" class="bookmark-user-link">
                         <div class="bookmark-user-info__prof-pic">
-                            <img src="https://ops-v2-2.netlify.com/assets/demo/avatar.jpg" alt="">
+                            <img [src]="imageBaseUrl + mediaDetails?.ownerImage" alt="">
                         </div>
                         <div class="bookmark-user-info__user-name">
                             {{ mediaDetails?.ownerName }}
@@ -37,7 +37,7 @@
                     </a>
                 </div>
                 <div class="bookmark-post-detail__channel">
-                    <a href="channel_inner.html" class="bookmark-channel-link">
+                    <a [routerLink]="['/channel', mediaDetails?.channelId]" class="bookmark-channel-link">
                         <div class="bookmark-channel__icon">
                             <img src="https://ops-v2-2.netlify.com/assets/svg/ico_addtochannel.svg">
                         </div>

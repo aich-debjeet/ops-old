@@ -32,9 +32,9 @@
             </div>
             <div class="bookmark-info__post-detail">
                 <div class="bookmark-post-detail__user-info">
-                    <a href="profile_others.html" class="bookmark-user-link">
+                    <a routerLink="{{ '/profile/u/' + eventDetails?.ownerUsername }}" class="bookmark-user-link">
                         <div class="bookmark-user-info__prof-pic">
-                            <img src="https://ops-v2-2.netlify.com/assets/demo/avatar.jpg" alt="">
+                            <img [src]="imageBaseUrl + eventDetails?.ownerImage" alt="">
                         </div>
                         <div class="bookmark-user-info__user-name">
                             {{ eventDetails?.ownerName }}

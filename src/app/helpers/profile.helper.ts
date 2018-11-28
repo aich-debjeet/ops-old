@@ -52,6 +52,7 @@ export class ProfileHelper {
       userDetails: profile,
       followingCount: profile.followingCount,
       follwerCount: profile.followersCount,
+      physical: profile.physical,
       extra: profile.extra,
       isFollowing: this.checkFollowing(profile)
     }
