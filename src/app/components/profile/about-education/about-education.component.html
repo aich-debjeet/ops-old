@@ -1,81 +1,49 @@
 <div id="about_education">
-    <div class="row m-0">
-        <div class="col-md-6 col-sm-6">
-            <div class="o-bio-add-sec m-t-b-16" *ngIf="ownProfile">
-                <a (click)="addEducationUser()">
-                    <span class="o-bio-add__icon"><img [src]="imageBaseUrl + 'img/svg/plus-red.svg'" alt=""></span>
-                    <span class="o-bio-add__txt c-text_md ltr_space color-theme f-w_600">Add Education</span>
-                </a>
-                <div *ngIf="activateCreateForm && formType === 'create'" id="award-form">
-                    <app-about-education-form (formSubmitted)="educationFormSubmit($event)" (closeForms)="formsClose($event)" [educationDetails]="formData"></app-about-education-form>
-                </div>
-            </div>
-    
-            <div class="o-bio-det-block o-bio-det-block--active" *ngFor="let education of userProfile?.academics; let i = index">
-                <div class="o-bio-det-edit-icon-block" *ngIf="ownProfile">
-                    <span class="o-bio-det__edit-ico m-r-8" (click)="deleteCurrentEducation(education.id)">
-                        <img [src]="imageBaseUrl + 'img/svg/ico_delete.svg'">
-                    </span>
-                    <span class="o-bio-det__edit-ico" (click)="editCurrentEducation(education)">
-                        <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
-                    </span>
-                </div>
-                <div *ngIf="activateEditForm && education.id === currentId && formType === 'edit'" id="award-form">
-                    <app-about-education-form (formSubmitted)="educationFormSubmit($event)" (closeForms)="formsClose($event)" [educationDetails]="formData"></app-about-education-form>
-                </div>
-                <div id="o-bio-det__work" class="o-bio-det__display" [hidden]="education.id === currentId && activateEditForm && formType === 'edit'">
-                    <!-- <div class="o-bio-det-display__media">
-                        <img [src]="imageBaseUrl + 'img/about/work.png'" alt="">
-                    </div> -->
-                    <div class="o-bio-det-display__info" *ngIf="!education.currently">
-                        <span class="c-text_md">Studied {{ education.name }} at {{ education.institute }}</span>
-                        <span class="c-text_sm color-grey-dark">From {{ education.from | date:'MMMM, y'}} To {{ education.to | date:'MMMM, y'}}</span>
-                    </div>
-                    <div class="o-bio-det-display__info" *ngIf="education.currently">
-                        <span class="c-text_md">Studying {{ education.name }} at {{ education.institute }}</span>
-                        <span class="c-text_sm color-grey-dark">From {{ education.from | date:'MMMM, y'}} To Present</span>
-                    </div>
-                </div>
-            </div>
-            <!-- <div class="row sm_panel_body" *ngIf="ownProfile">
-                <div class="col-md-2 sm_panel_left">
-                    <a (click)="addEducationUser()">
-                        <div class="add_plus">+</div>
-                    </a>
-                </div>
-                <div class="col-md-8 sm_panel_right">
-                    <h3 class="padd_t12">Add Education Details</h3>
-                </div>
-            </div>
-
-            <div class="row sm_panel_body" *ngFor="let work of userProfile?.academics">
-                <div class="col-md-2 sm_panel_left">
-                    <figure class="avatar_overview">
-                        <img [src]="imageBaseUrl + 'img/event.jpg'" class="img-responsive">
-                    </figure>
-                </div>
-                <div class="col-md-8 sm_panel_right">
-                    <div class="work-group">
-                        <h3>{{ work.name }}<span> at </span> {{ work.institute }}</h3>
-                        <p>From {{ work.from | date:'MMMM, y'}}</p>
-                        <p>To {{ work.to | date:'MMMM, y'}}</p>
-                    </div>
-                    <div class="workplace_edit_remove_ico" *ngIf="ownProfile">
-                        <a (click)="editCurrentEducation(work)" class="edit_remove_ico"><img [src]="imageBaseUrl + 'img/svg/ico_edit.svg'" alt=""></a>
-                        <a (click)="deleteCurrentEducation(work.id)" class="edit_remove_ico"><img [src]="imageBaseUrl + 'img/svg/ico_delete.svg'"></a>
-                    </div>
-                </div>
-
-            </div> -->
+  <div class="row m-0">
+    <div class="col-md-6 col-sm-6">
+      <div class="o-bio-add-sec m-t-b-16" *ngIf="ownProfile">
+        <a (click)="addEducationUser()">
+          <span class="o-bio-add__icon"><img [src]="imageBaseUrl + 'img/svg/plus-red.svg'" alt=""></span>
+          <span class="o-bio-add__txt c-text_md ltr_space color-theme f-w_600">Add Education</span>
+        </a>
+        <div *ngIf="activateCreateForm && formType === 'create'" id="award-form">
+          <app-about-education-form (formSubmitted)="educationFormSubmit($event)" (closeForms)="formsClose($event)"
+            [educationDetails]="formData"></app-about-education-form>
         </div>
-
+      </div>
+      <div class="o-bio-det-block o-bio-det-block--active" *ngFor="let education of userProfile?.academics; let i = index">
+        <div class="o-bio-det-edit-icon-block" *ngIf="ownProfile">
+          <span class="o-bio-det__edit-ico m-r-8" (click)="deleteCurrentEducation(education.id)">
+            <img [src]="imageBaseUrl + 'img/svg/ico_delete.svg'">
+          </span>
+          <span class="o-bio-det__edit-ico" (click)="editCurrentEducation(education)">
+            <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
+          </span>
+        </div>
+        <div *ngIf="activateEditForm && education.id === currentId && formType === 'edit'" id="award-form">
+          <app-about-education-form (formSubmitted)="educationFormSubmit($event)" (closeForms)="formsClose($event)"
+            [educationDetails]="formData"></app-about-education-form>
+        </div>
+        <div id="o-bio-det__work" class="o-bio-det__display" [hidden]="education.id === currentId && activateEditForm && formType === 'edit'">
+          <div class="o-bio-det-display__info" *ngIf="!education.currently">
+            <span class="c-text_md">Studied {{ education.name }} at {{ education.institute }}</span>
+            <span class="c-text_sm color-grey-dark">From {{ education.from | date:'MMMM, y'}} To {{ education.to |
+              date:'MMMM, y'}}</span>
+          </div>
+          <div class="o-bio-det-display__info" *ngIf="education.currently">
+            <span class="c-text_md">Studying {{ education.name }} at {{ education.institute }}</span>
+            <span class="c-text_sm color-grey-dark">From {{ education.from | date:'MMMM, y'}} To Present</span>
+          </div>
+        </div>
+      </div>
     </div>
+
+  </div>
 </div>
 
-
 <app-modal-new #deleteModal modalClass="o-comodal_main in">
-    <modal-content>
-      <app-confirm-box [message]="'Are you sure you want to permanently Delete?'" [heading]="'Delete'"  (confirmAction)="confirmation($event)"
-        (closeModal)="closeCancelApplicationModal()"></app-confirm-box>
-    </modal-content>
+  <modal-content>
+    <app-confirm-box [message]="'Are you sure you want to permanently Delete?'" [heading]="'Delete'" (confirmAction)="confirmation($event)"
+      (closeModal)="closeCancelApplicationModal()"></app-confirm-box>
+  </modal-content>
 </app-modal-new>

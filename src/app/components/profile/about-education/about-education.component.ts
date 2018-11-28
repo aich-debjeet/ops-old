@@ -2,16 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { ModalService } from '../../../shared/modal/modal.component.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
-import {DatabaseValidator } from '../../../helpers/form.validator';
-
-// action
+import { DatabaseValidator } from '../../../helpers/form.validator';
 import { ProfileActions } from '../../../actions/profile.action';
-
 import { ToastrService } from 'ngx-toastr';
-
-// rx
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../../environments/environment';
 import { Modal } from '../../../shared/modal-new/Modal';
@@ -25,17 +19,14 @@ import { Modal } from '../../../shared/modal-new/Modal';
 export class AboutEducationComponent implements OnInit {
 
   tagState$: Observable<ProfileModal>;
-  aboutWork = initialTag ;
-  public educationForm: FormGroup;
-  private dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
-  private editFormPopup: boolean;
+  aboutWork = initialTag;
   stateProfile = initialTag;
   userProfile: any;
   ownProfile: boolean;
   imageBaseUrl = environment.API_IMAGE;
   jobId: any;
-  activateCreateForm: boolean = false;
-  activateEditForm: boolean = false;
+  activateCreateForm = false;
+  activateEditForm = false;
   formData: any = {
     formType: '',
     data: {}
@@ -46,10 +37,7 @@ export class AboutEducationComponent implements OnInit {
 
   constructor(
     public modalService: ModalService,
-    private fb: FormBuilder,
-    private datepipe: DatePipe,
     private profileStore: Store<ProfileModal>,
-    private databaseValidator: DatabaseValidator,
     private toastr: ToastrService
   ) {
     this.tagState$ = this.profileStore.select('profileTags');
@@ -75,7 +63,7 @@ export class AboutEducationComponent implements OnInit {
    * Add Work User
    */
   addEducationUser() {
-    this.activateCreateForm =true;
+    this.activateCreateForm = true;
     this.formType = 'create';
     this.formData = {
       formType: 'create',
@@ -97,15 +85,15 @@ export class AboutEducationComponent implements OnInit {
   educationFormSubmit(value) {
     // console.log(value);
     // console.log(this.formData.formType);
-    if(this.formData.formType === 'create'){
-      this.profileStore.dispatch({ type: ProfileActions.ADD_USER_EDUCATION, payload: value});
+    if (this.formData.formType === 'create') {
+      this.profileStore.dispatch({ type: ProfileActions.ADD_USER_EDUCATION, payload: value });
       this.activateCreateForm = false;
-        this.toastr.success('Your education has been added successfully!', '', {
-          timeOut: 3000
-        });
+      this.toastr.success('Your education has been added successfully!', '', {
+        timeOut: 3000
+      });
     }
-    if(this.formData.formType === 'edit'){
-      this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_EDUCATION, payload: value});
+    if (this.formData.formType === 'edit') {
+      this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_EDUCATION, payload: value });
       this.activateEditForm = false;
       this.toastr.success('Your education has been updated successfully!');
     }
@@ -128,14 +116,14 @@ export class AboutEducationComponent implements OnInit {
       formType: 'edit',
       data: data
     }
-    this.activateEditForm =true;
+    this.activateEditForm = true;
     this.formType = 'edit';
   }
 
-  confirmation(eve){
+  confirmation(eve) {
     this.closeCancelApplicationModal();
     if (eve === 'yes') {
-      this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_EDUCATION, payload: this.jobId});
+      this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_EDUCATION, payload: this.jobId });
       this.toastr.success('Your education has been deleted successfully!');
     }
   }
@@ -144,13 +132,11 @@ export class AboutEducationComponent implements OnInit {
     this.deleteModal.close();
   }
 
-  formsClose(eve){
-    // console.log(eve);
-    // console.log('closure under process');
-    if(eve.formType === 'create'){
+  formsClose(eve) {
+    if (eve.formType === 'create') {
       this.activateCreateForm = false;
     }
-    if(eve.formType === 'edit') {
+    if (eve.formType === 'edit') {
       this.activateEditForm = false;
     }
   }
