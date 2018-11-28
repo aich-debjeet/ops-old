@@ -282,10 +282,26 @@ export class AuthService {
     otpResend(reqBody: any) {
       return this.http.post(this.apiLink + '/portal/auth/resendotp', reqBody);
     }
+    /**
+     * 
+     * @param reqBody contact details to resend otp
+     */
+    settOtpResend(reqBody: any){
+      console.log('reqBody',reqBody)
+      const head = this.getTempAuthHeaders();
+      return this.http.put(this.apiLink + '/portal/auth/resend/updateContactNumber', reqBody, { headers: head });
+    }
 
     otpChangeNumber(contactDetails: any) {
       const head = this.getTempAuthHeaders();
       return this.http.put(this.apiLink + '/portal/auth/user/update', contactDetails, { headers: head });
+    }
+
+    settingOtpNumberChange(contactDetails: any){
+      console.log(contactDetails)
+      const head = this.getTempAuthHeaders();
+      return this.http.put(this.apiLink + '/portal/auth/update/contact', contactDetails, { headers: head })
+      .map((data: Response) => data.json());
     }
 
     fpCreatePass(req: any) {

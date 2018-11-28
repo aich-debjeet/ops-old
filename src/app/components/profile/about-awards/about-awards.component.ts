@@ -1,11 +1,9 @@
-import { Component, OnInit, OnDestroy,ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { ModalService } from '../../../shared/modal/modal.component.service';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { DatePipe } from '@angular/common';
 import { environment } from '../../../../environments/environment';
-import {DatabaseValidator } from '../../../helpers/form.validator';
+import { DatabaseValidator } from '../../../helpers/form.validator';
 
 // action
 import { ProfileActions } from '../../../actions/profile.action';
@@ -26,17 +24,14 @@ export class AboutAwardsComponent implements OnInit, OnDestroy {
 
   tagState$: Observable<ProfileModal>;
   private subscription: ISubscription;
-  aboutWork = initialTag ;
-  public awardForm: FormGroup;
-  private dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
-  private editFormPopup: boolean;
+  aboutWork = initialTag;
   stateProfile = initialTag;
   userProfile: any;
   ownProfile: boolean;
   imageBaseUrl = environment.API_IMAGE;
   jobId: any;
-  activateCreateForm: boolean = false;
-  activateEditForm: boolean = false;
+  activateCreateForm = false;
+  activateEditForm = false;
   formData: any = {
     formType: '',
     data: {}
@@ -47,11 +42,8 @@ export class AboutAwardsComponent implements OnInit, OnDestroy {
 
   constructor(
     public modalService: ModalService,
-    private fb: FormBuilder,
-    private datepipe: DatePipe,
     private profileStore: Store<ProfileModal>,
     private toastr: ToastrService,
-    private databaseValidator: DatabaseValidator,
   ) {
     this.tagState$ = this.profileStore.select('profileTags');
     // this.test = 'salabeel';
@@ -81,7 +73,7 @@ export class AboutAwardsComponent implements OnInit, OnDestroy {
    * Add Award User
    */
   addAwardUser() {
-    this.activateCreateForm =true;
+    this.activateCreateForm = true;
     this.formType = 'create';
     this.formData = {
       formType: 'create',
@@ -90,28 +82,20 @@ export class AboutAwardsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Reserve date
-   * @param string
-   */
-  // reverseDate(string) {
-  //   return string.split('-').reverse().join('-');
-  // }
-
-  /**
    * Add Work form submit
    */
   awardFormSubmit(value) {
-    console.log(value);
-    console.log(this.formData.formType);
-    if(this.formData.formType === 'create'){
-      this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: value});
+    // console.log(value);
+    // console.log(this.formData.formType);
+    if (this.formData.formType === 'create') {
+      this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: value });
       this.activateCreateForm = false;
-        this.toastr.success('Your award has been added successfully!', '', {
-          timeOut: 3000
-        });
+      this.toastr.success('Your award has been added successfully!', '', {
+        timeOut: 3000
+      });
     }
-    if(this.formData.formType === 'edit'){
-      this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_WORK, payload: value});
+    if (this.formData.formType === 'edit') {
+      this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_WORK, payload: value });
       this.activateEditForm = false;
       this.toastr.success('Your award has been updated successfully!');
     }
@@ -134,14 +118,14 @@ export class AboutAwardsComponent implements OnInit, OnDestroy {
       formType: 'edit',
       data: data
     }
-    this.activateEditForm =true;
+    this.activateEditForm = true;
     this.formType = 'edit';
   }
 
-  confirmation(eve){
+  confirmation(eve) {
     this.closeCancelApplicationModal();
     if (eve === 'yes') {
-      this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_WORK, payload: this.jobId});
+      this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_WORK, payload: this.jobId });
       this.toastr.success('Your award has been deleted successfully!');
     }
   }
@@ -150,13 +134,13 @@ export class AboutAwardsComponent implements OnInit, OnDestroy {
     this.deleteModal.close();
   }
 
-  formsClose(eve){
-    console.log(eve);
-    console.log('closure under process');
-    if(eve.formType === 'create'){
+  formsClose(eve) {
+    // console.log(eve);
+    // console.log('closure under process');
+    if (eve.formType === 'create') {
       this.activateCreateForm = false;
     }
-    if(eve.formType === 'edit') {
+    if (eve.formType === 'edit') {
       this.activateEditForm = false;
     }
   }

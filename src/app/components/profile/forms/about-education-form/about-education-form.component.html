@@ -10,14 +10,14 @@
                 <span class="c-form__highlight"></span>
                 <span class="c-form__bar"></span>
                 <label>Name of Institute</label>
-                <p class="error_alert" *ngIf="educationForm.controls['institute'].errors?.required && myform.submitted">Name of Institute is required</p>
+                <p class="c-form__validation" *ngIf="educationForm.controls['institute'].errors?.required && myform.submitted">Name of Institute is required</p>
             </div>
             <div class="c-form__group c-form--sm c-form--noeffect">
                 <input class="c-form__input" required="" type="text" formControlName="description" maxlength="40">
                 <span class="c-form__highlight"></span>
                 <span class="c-form__bar"></span>
                 <label>Description</label>
-                <p class="error_alert" *ngIf="educationForm.controls['description'].errors?.required && myform.submitted">Description is required</p>
+                <p class="c-form__validation" *ngIf="educationForm.controls['description'].errors?.required && myform.submitted">Description is required</p>
             </div>
             <div class="col-md-12 p-0">
                 <p class="c-text_md">From (DD-MM-YYYY)</p>
@@ -27,8 +27,8 @@
                         <span class="c-form__highlight"></span>
                         <span class="c-form__bar"></span>
                         <label>From (DD-MM-YYYY)</label>
-                        <p class="error_alert" *ngIf="educationForm.controls['from'].errors?.required && myform.submitted">From Date is required</p>
-                        <p class="error_alert" *ngIf="educationForm.controls['from'].errors?.invalidWorkDate">Invalid Date</p>
+                        <p class="c-form__validation" *ngIf="educationForm.controls['from'].errors?.required && myform.submitted">From Date is required</p>
+                        <p class="c-form__validation" *ngIf="educationForm.controls['from'].errors?.invalidWorkDate">Invalid Date</p>
                     </div>
                 </div>
                 <!-- <div class="col-md-2 p-0">
@@ -49,7 +49,7 @@
                 </div> -->
             </div>
             <div class="o-about-form-check width100 float_left m-r-16">
-                <label for="work"> Currently im working here
+                <label for="work"> Currently I am studying here
                 <input id="work" type="checkbox" formControlName="currentWork" [ngModel]='checkbox' (ngModelChange)='onCheckboxChange($event)' class="c-form__bar2">
                 </label>
             </div>
@@ -60,9 +60,9 @@
                             <input class="c-form__input" type="text" formControlName="to" [textMask]="{mask: dateMask}">
                             <span class="c-form__highlight"></span>
                             <span class="c-form__bar"></span>
-                            <p class="error_alert" *ngIf="myform.submitted && educationForm.controls['to'].errors?.isRequired">To Date is required</p>
-                            <p class="error_alert" *ngIf="educationForm.controls['to'].errors?.invalidWorkDate">Invalid Date</p>
-                            <p class="error_alert" *ngIf="educationForm.controls['to'].errors?.isvalid">From Date field can not be greater than or equal to To Date field</p>
+                            <p class="c-form__validation" *ngIf="myform.submitted && educationForm.controls['to'].errors?.isRequired">To Date is required</p>
+                            <p class="c-form__validation" *ngIf="educationForm.controls['to'].errors?.invalidWorkDate">Invalid Date</p>
+                            <p class="c-form__validation" *ngIf="educationForm.controls['to'].errors?.isvalid">From Date field can not be greater than or equal to To Date field</p>
                         </div>
                     </div>
                 <!-- <div class="col-md-2 p-0">

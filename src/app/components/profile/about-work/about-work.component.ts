@@ -104,8 +104,8 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
    * Add Work form submit
    */
   workFormSubmit(value) {
-    console.log(value);
-    console.log(this.formData.formType);
+    // console.log(value);
+    // console.log(this.formData.formType);
     if(this.formData.formType === 'create'){
       this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: value});
       this.activateCreateForm = false;
@@ -157,8 +157,8 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
   }
 
   formsClose(eve){
-    console.log(eve);
-    console.log('closure under process');
+    // console.log(eve);
+    // console.log('closure under process');
     if(eve.formType === 'create'){
       this.activateCreateForm = false;
     }

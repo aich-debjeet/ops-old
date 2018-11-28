@@ -84,7 +84,7 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.profSub = this.tagState$.subscribe((state) => {
       this.userQuickAccess = state;
-      if(state && state['my_story']){
+      if (state && state['my_story']) {
         this.storyList = state['my_story']['media'];
         this.storyDetails = state['my_story'];
       }
@@ -93,7 +93,7 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
       }
       if (state.profile_user_info) {
         if (state.profile_user_info.isCurrentUser) {
-          this.profileObject = this.loadProfile( state, 'own' );
+          this.profileObject = this.loadProfile(state, 'own');
           // console.log(this.profileObject)
           // this.userHandle = this.profileObject.userDetails.handle;
           // this._store.dispatch({ type: EventActions.EVENT_SEARCH, payload: {
@@ -138,31 +138,35 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
         this.eventsLoading = false;
       }
     });
-    this._store.dispatch({type: ProfileActions.GET_MY_STORY});
+    this._store.dispatch({ type: ProfileActions.GET_MY_STORY });
   }
 
   ngOnInit(): void {
 
     this.profileStore.select('profileTags')
-    .first(profile => profile['profile_user_info'])
-    .subscribe( datas => {
-      if (datas['profile_user_info'].isCurrentUser) {
-        this._store.dispatch({ type: EventActions.EVENT_SEARCH, payload: {
+      .first(profile => profile['profile_user_info'])
+      .subscribe(datas => {
+        if (datas['profile_user_info'].isCurrentUser) {
+          this._store.dispatch({
+            type: EventActions.EVENT_SEARCH, payload: {
+              scrollId: '',
+              searchType: 'created',
+            }
+          });
+          return
+        }
+        this._store.dispatch({
+          type: EventActions.EVENT_SEARCH, payload: {
             scrollId: '',
-            searchType: 'created',
-          }});
-        return
-      }
-      this._store.dispatch({ type: EventActions.EVENT_SEARCH, payload: {
-        scrollId: '',
-        searchType: 'recommended',
-      } });
-    });
+            searchType: 'recommended',
+          }
+        });
+      });
 
 
     this.checkProfile();
     this.carouselOne = {
-      grid: {xs: 3, sm: 3, md: 5, lg: 5, all: 0},
+      grid: { xs: 3, sm: 3, md: 5, lg: 5, all: 0 },
       slide: 2,
       speed: 4000,
       // interval: 400000,
@@ -219,11 +223,11 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
     return Object.keys(obj).length === 0 && obj.constructor === Object;
   }
 
-   /**
-   * User type based user load
-   */
+  /**
+  * User type based user load
+  */
   loadProfile(profile: any, type: string) {
-      return this.utils.profileValueMapping(profile, type );
+    return this.utils.profileValueMapping(profile, type);
   }
 
   /**
@@ -252,16 +256,16 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   pinChannel(spotfeedId) {
-        const data = {
-       'spotfeedId': spotfeedId,
-       'profileHandle': this.userHandle
-     }
-     this.profileStore.dispatch({ type: ProfileActions.PIN_CHANNEL, payload: data });
-     this.channelPinSuccess = true;
+    const data = {
+      'spotfeedId': spotfeedId,
+      'profileHandle': this.userHandle
+    }
+    this.profileStore.dispatch({ type: ProfileActions.PIN_CHANNEL, payload: data });
+    this.channelPinSuccess = true;
   }
   channelList() {
     if (this.openChannel) {
-    this.openChannel = false;
+      this.openChannel = false;
     }
     this.openChannel = true;
   }

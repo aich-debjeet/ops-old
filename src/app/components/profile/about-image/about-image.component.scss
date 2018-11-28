@@ -1,163 +1,159 @@
 @import './src/assets/scss/helpers/_variables.scss';
 @import '~sass-mq/_mq.scss';
 
-.o-cover-upload{
-    width: 887px;
-    height: 480px;
-    background: #fff;
-    margin: 40px auto;
+.o-cover-upload {
+  width: 887px;
+  height: 480px;
+  background: #fff;
+  margin: 40px auto;
 }
-.o-cover-upload__head{
+
+.o-cover-upload__head {
+  width: 100%;
+  padding: 0 24px;
+  float: left;
+}
+
+.o-cover-head--heading {
+  font-size: 16px;
+  color: #333;
+  font-weight: 700;
+}
+
+.o-cover-upload__media {
+  width: 100%;
+  float: left;
+  position: relative;
+}
+
+.o-cover-media__image {
+  width: 480px;
+  height: 482px;
+  float: left;
+  background: #F3F5F7;
+
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
     width: 100%;
-    padding: 0 24px;
-    float: left;
+  }
 }
-.o-cover-head--heading{
-    font-size: 16px;
-    color: #333;
-    font-weight: 700;
-}
-.o-cover-upload__media{
-    width: 100%;
-    float: left;
-    position: relative;
-}
-.o-cover-media__image{
-    width: 480px;
-    height: 482px;
-    float: left;
-    background: #F3F5F7;
-    @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        width: 100%;
-    }
-}
+
 .preview-image {
-    width: 480px;
-    height: 482px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        width: 100%;
-        height: auto;
-        margin-bottom: 15%;
-    }
-}
-.o-cover-media__browse{
+  width: 480px;
+  height: 482px;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
     width: 100%;
-    padding: 24px;
-    text-align: center;
+    height: auto;
+    margin-bottom: 15%;
+  }
+}
+
+.o-cover-media__browse {
+  width: 100%;
+  padding: 24px;
+  text-align: center;
+  float: left;
+}
+
+.o-cover-upload-footer {
+  width: 100%;
+  float: left;
+  border-top: 1px solid rgba(102, 45, 145, 0.1);
+  padding: 16px 24px;
+
+  p {
+    width: 40%;
     float: left;
+  }
 }
-.o-cover-upload-footer{
-    width: 100%;
-    float: left;
-    border-top: 1px solid rgba(102,45,145,0.1);
-    padding: 16px 24px;
-    p{
-        width: 40%;
-        float: left;
-    }
-}
-.o-cover-footer__btn{
-    width: 50%;
-    float: right;
-    text-align: right;
-}
-// .o-cover-btn__mod{
-//     margin-left: 16px;
-// }
-// .cover_change_drop::before{
-//     width: 11px;
-//     height: 11px;
-//     content: ' ';
-//     position: absolute;
-//     background: #fff;
-//     left: -6px;
-//     top: 4px;
-//     -ms-transform: rotate(46deg);
-//     -webkit-transform: rotate(46deg);
-//     transform: rotate(46deg);
-// }
 
+.o-cover-footer__btn {
+  width: 50%;
+  float: right;
+  text-align: right;
+}
 
-.o-profile-upload{
-    width: 482px;
-    height: 645px;
-    background: #fff;
-    margin: 1.2em auto;
-    border-radius: 3px;
-    @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        width: 97%;
-    }
+.o-profile-upload {
+  width: 482px;
+  height: 645px;
+  background: #fff;
+  margin: 1.2em auto;
+  border-radius: 3px;
+
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    width: 97%;
+  }
 }
 
 
-.pop-close{
-    float: right;
+.pop-close {
+  float: right;
+  width: 12px;
+  height: 12px;
+
+  img {
     width: 12px;
     height: 12px;
-    img {
-        width: 12px;
-        height: 12px;
-    }
+  }
 }
-.pop-close--mt{
+
+.pop-close--mt {
+  position: absolute;
+  top: -38px;
+  right: 0;
+  z-index: 1;
+}
+
+.o-cover-media__browse {
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  float: left;
+
+  .upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+  }
+
+  .upload-btn-wrapper input[type=file] {
+    font-size: 100px;
     position: absolute;
-    top: -38px;
-    right: 0;
-    z-index: 1;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+
+    &:hover {
+      color: $color-theme;
+      background-color: #ffffff;
+      border-color: $color-theme;
+    }
+  }
+
+  .btn-network {
+    color: $color-theme;
+    background-color: #ffffff;
+    border-color: $color-theme;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    font-size: 14px;
+    line-height: 1.0;
+    border-radius: 3px;
+    font-weight: 700;
+    cursor: pointer;
+
+    &:hover {
+      color: $color-theme;
+      background-color: #ffffff;
+      border-color: $color-theme;
+    }
+  }
 }
-
-.o-cover-media__browse{
-    width: 100%;
-    padding: 10px;
-    text-align: center;
-    float: left;
-    .upload-btn-wrapper {
-        position: relative;
-        overflow: hidden;
-        display: inline-block;
-    }
-
-    .upload-btn-wrapper input[type=file] {
-        font-size: 100px;
-        position: absolute;
-        left: 0;
-        top: 0;
-        opacity: 0;
-        cursor: pointer;
-        &:hover{
-            color: $color-theme;
-            background-color: #ffffff;
-            border-color: $color-theme;
-        }
-    }
-    .btn-network {
-        color: $color-theme;
-        background-color: #ffffff;
-        border-color: $color-theme;
-        text-transform: uppercase;
-        padding: 6px 18px;
-        font-size: 14px;
-        line-height: 1.0;
-        border-radius: 3px;
-        font-weight: 700;
-        cursor: pointer;
-        &:hover{
-            color: $color-theme;
-            background-color: #ffffff;
-            border-color: $color-theme;
-        }
-    }
-}
-
-// img-cropper {
-//   canvas{
-//     margin-top: 0rem!important;
-//   }
-// }
 
 :host ::ng-deep canvas {
-       margin-top: 0rem!important;
+  margin-top: 0rem !important;
 }

@@ -265,9 +265,9 @@
                                         <span class="c-form__highlight"></span>
                                         <span class="c-form__bar"></span>
                                         <label>Type name or username</label>
-                                        <!-- <p class="error_alert" *ngIf="adminNameForm.controls['adminName'].errors?.required && userform.submitted">Admin name is required</p>
-                                        <p class="error_alert" *ngIf="adminNameForm.controls['adminName'].errors?.whitespace">White Space Not Allowed</p>
-                                        <p class="error_alert" *ngIf="adminNameForm.controls['adminName'].errors?.minlength">Admin name must be min length 4</p> -->
+                                        <!-- <p class="c-form__validation" *ngIf="adminNameForm.controls['adminName'].errors?.required && userform.submitted">Admin name is required</p>
+                                        <p class="c-form__validation" *ngIf="adminNameForm.controls['adminName'].errors?.whitespace">White Space Not Allowed</p>
+                                        <p class="c-form__validation" *ngIf="adminNameForm.controls['adminName'].errors?.minlength">Admin name must be min length 4</p> -->
                                         <ul class="dropdown-menu show o-set-admin-list" *ngIf="recipientsListState">
                                             <li class="o-set-admin__item" *ngFor="let skill of receipientList | slice:0:5" (click)="toggleSelectSkill(skill.handle)">
                                                 <!-- <a class="c-user__avatar c-avatar--status"> -->

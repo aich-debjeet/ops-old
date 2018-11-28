@@ -567,6 +567,55 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       });
 
     /**
+     * Settings OTP Number Change
+     */
+  case AuthActions.SETTINGS_OTP_NUMBER_CHANGE:
+  console.log(payload)
+    return Object.assign({}, state, {
+      setting_number_update_sent: true,
+      setting_number_update_success: false,
+      request_type:''
+    });
+  case AuthActions.SETTINGS_OTP_NUMBER_CHANGE_SUCCESS:
+  console.log(payload)
+  if(payload['SUCCESS']['code'] === 0){
+    const set_user_contact_det = payload['SUCCESS']['SUCCESS'];
+    const contac_det = {
+      contactNumber: set_user_contact_det['contactNumber'],
+      countryCode: set_user_contact_det['countryCode']
+    }
+    return Object.assign({}, state,{
+      setting_number_update_sent: false,
+      setting_number_update_success: true,
+      setting_contact_information: contac_det,
+      request_type: set_user_contact_det['requestType'],
+    })
+  }
+    // if (state['update_number_params']['contact']['contactNumber']) {
+    //   const reg_basic_form_data_updated = state['reg_basic_form_data'];
+    //   reg_basic_form_data_updated['contact'] = {
+    //     contactNumber: state['update_number_params']['contact']['contactNumber'],
+    //     countryCode: state['update_number_params']['contact']['countryCode']
+    //   }
+    //   return Object.assign({}, state, {
+    //     number_update_sent: false,
+    //     number_update_success: true,
+    //     reg_basic_form_data: reg_basic_form_data_updated
+    //   });
+    // }
+    // return Object.assign({}, state, {
+    //   number_update_sent: false,
+    //   number_update_success: true
+    // });
+
+  case AuthActions.SETTINGS_OTP_NUMBER_CHANGE_FAILED:
+  console.log(payload)
+    return Object.assign({}, state, {
+      setting_number_update_sent: false,
+      setting_number_update_success: false
+    });
+
+    /**
      * OTP RESENT FORGET USER
      */
     case AuthActions.OTP_RESEND_FORGET_USER:

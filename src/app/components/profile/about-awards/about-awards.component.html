@@ -1,46 +1,45 @@
 <div id="about_awards">
   <div class="row m-0">
-      <div class="col-md-6 col-sm-6">
-          <div class="o-bio-add-sec m-t-b-16" *ngIf="ownProfile">
-                <a (click)="addAwardUser()">
-                    <span class="o-bio-add__icon"><img [src]="imageBaseUrl + 'img/svg/plus-red.svg'" alt=""></span>
-                    <span class="o-bio-add__txt c-text_md ltr_space color-theme f-w_600">Add Awards</span>
-                </a>
-                <div *ngIf="activateCreateForm && formType === 'create'" id="award-form">
-                    <app-about-awards-form (formSubmitted)="awardFormSubmit($event)" (closeForms)="formsClose($event)" [awardDetails]="formData"></app-about-awards-form>
-                </div>
-          </div>
-
-          <div class="o-bio-det-block o-bio-det-block--active" *ngFor="let award of userProfile?.extra?.awards; let i = index">
-                <div class="o-bio-det-edit-icon-block" *ngIf="ownProfile">
-                    <span class="o-bio-det__edit-ico m-r-8" (click)="deleteCurrentAward(award.id)">
-                        <img [src]="imageBaseUrl + 'img/svg/ico_delete.svg'">
-                    </span>
-                    <span class="o-bio-det__edit-ico" (click)="editCurrentAward(award)">
-                        <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
-                    </span>
-                </div>
-                <div *ngIf="activateEditForm && award.id === currentId && formType === 'edit'" id="award-form">
-                    <app-about-awards-form (formSubmitted)="awardFormSubmit($event)" (closeForms)="formsClose($event)" [awardDetails]="formData"></app-about-awards-form>
-                </div>
-                <div id="o-bio-det__work" class="o-bio-det__display" [hidden]="award.id === currentId && activateEditForm && formType === 'edit'">
-                    <!-- <div class="o-bio-det-display__media">
-                        <img [src]="imageBaseUrl + 'img/about/work.png'" alt="">
-                    </div> -->
-                    <div class="o-bio-det-display__info">
-                        <span class="c-text_md">{{ award.role }}</span>
-                        <span class="c-text_sm color-grey-dark">From {{ award.from | date:'MMMM, y'}}</span>
-                    </div>
-                </div>
-            </div>
+    <div class="col-md-6 col-sm-6">
+      <div class="o-bio-add-sec m-t-b-16" *ngIf="ownProfile">
+        <a (click)="addAwardUser()">
+          <span class="o-bio-add__icon"><img [src]="imageBaseUrl + 'img/svg/plus-red.svg'" alt=""></span>
+          <span class="o-bio-add__txt c-text_md ltr_space color-theme f-w_600">Add Awards</span>
+        </a>
+        <div *ngIf="activateCreateForm && formType === 'create'" id="award-form">
+          <app-about-awards-form (formSubmitted)="awardFormSubmit($event)" (closeForms)="formsClose($event)"
+            [awardDetails]="formData"></app-about-awards-form>
+        </div>
       </div>
-      <!-- //awards -->
+
+      <div class="o-bio-det-block o-bio-det-block--active" *ngFor="let award of userProfile?.extra?.awards; let i = index">
+        <div class="o-bio-det-edit-icon-block" *ngIf="ownProfile">
+          <span class="o-bio-det__edit-ico m-r-8" (click)="deleteCurrentAward(award.id)">
+            <img [src]="imageBaseUrl + 'img/svg/ico_delete.svg'">
+          </span>
+          <span class="o-bio-det__edit-ico" (click)="editCurrentAward(award)">
+            <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
+          </span>
+        </div>
+        <div *ngIf="activateEditForm && award.id === currentId && formType === 'edit'" id="award-form">
+          <app-about-awards-form (formSubmitted)="awardFormSubmit($event)" (closeForms)="formsClose($event)"
+            [awardDetails]="formData"></app-about-awards-form>
+        </div>
+        <div id="o-bio-det__work" class="o-bio-det__display" [hidden]="award.id === currentId && activateEditForm && formType === 'edit'">
+          <div class="o-bio-det-display__info">
+            <span class="c-text_md">{{ award.role }}</span>
+            <span class="c-text_sm color-grey-dark">From {{ award.from | date:'MMMM, y'}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- //awards -->
   </div>
 </div>
 
 <app-modal-new #deleteModal modalClass="o-comodal_main in">
-    <modal-content>
-      <app-confirm-box [message]="'Are you sure you want to permanently Delete?'" [heading]="'Delete'" (confirmAction)="confirmation($event)"
-        (closeModal)="closeCancelApplicationModal()"></app-confirm-box>
-    </modal-content>
+  <modal-content>
+    <app-confirm-box [message]="'Are you sure you want to permanently Delete?'" [heading]="'Delete'" (confirmAction)="confirmation($event)"
+      (closeModal)="closeCancelApplicationModal()"></app-confirm-box>
+  </modal-content>
 </app-modal-new>

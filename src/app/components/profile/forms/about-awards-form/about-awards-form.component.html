@@ -10,14 +10,14 @@
               <span class="c-form__highlight"></span>
               <span class="c-form__bar"></span>
               <label>Title</label>
-              <p class="error_alert" *ngIf="awardForm.controls['title'].errors?.required && myform.submitted">Role is required</p>
+              <p class="c-form__validation" *ngIf="awardForm.controls['title'].errors?.required && myform.submitted">Role is required</p>
           </div>
           <div class="c-form__group c-form--sm c-form--noeffect">
               <input class="c-form__input" required="" type="text" formControlName="presenter" maxlength="40">
               <span class="c-form__highlight"></span>
               <span class="c-form__bar"></span>
               <label>Given By</label>
-              <p class="error_alert" *ngIf="awardForm.controls['presenter'].errors?.required && myform.submitted">Company is required</p>
+              <p class="c-form__validation" *ngIf="awardForm.controls['presenter'].errors?.required && myform.submitted">Company is required</p>
           </div>
           <div class="col-md-12 p-0">
               <p class="c-text_md">Date(DD-MM-YYYY)</p>
@@ -26,8 +26,8 @@
                     <input class="c-form__input" type="text" formControlName="date" [textMask]="{mask: dateMask}">
                     <span class="c-form__highlight"></span>
                     <span class="c-form__bar"></span>
-                    <p class="error_alert" *ngIf="awardForm.controls['date'].errors?.required && myform.submitted">From Date is required</p>
-                    <p class="error_alert" *ngIf="awardForm.controls['date'].errors?.invalidWorkDate">Invalid Date</p>
+                    <p class="c-form__validation" *ngIf="awardForm.controls['date'].errors?.required && myform.submitted">From Date is required</p>
+                    <p class="c-form__validation" *ngIf="awardForm.controls['date'].errors?.invalidWorkDate">Invalid Date</p>
                   </div>
               </div>
               <!-- <div class="col-md-2 p-0">
