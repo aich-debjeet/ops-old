@@ -46,6 +46,10 @@ export class GeneralUtilities {
                     data[i]['bookmarkedJobs'][0]['type'] = 'opportunity';
                     bookmarks.push(data[i]['bookmarkedJobs'][0]);
                 }
+                if (data[i] && data[i]['bookmarkedProfiles'] && data[i]['bookmarkedProfiles'][0]) {
+                    data[i]['bookmarkedProfiles'][0]['type'] = 'profile';
+                    bookmarks.push(data[i]['bookmarkedProfiles'][0]);
+                }
                 if (i >= (data.length - 1)) {
                     return bookmarks;
                 }
