@@ -1,5 +1,7 @@
 export class MediaActions {
 
+  static MEDIA_BOOKAMRK_FLAG_UPDATE = 'MEDIA_BOOKAMRK_FLAG_UPDATE';
+
   // for updating view count of a media
   static MEDIA_ADD_VIEW_COUNT = 'MEDIA_ADD_VIEW_COUNT';
   static MEDIA_ADD_VIEW_COUNT_SUCCESS = 'MEDIA_ADD_VIEW_COUNT_SUCCESS';

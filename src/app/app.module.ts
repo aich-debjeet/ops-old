@@ -116,6 +116,8 @@ import { AboutComponent } from './components/about/about.component';
 import { DirectoryEffect } from './effects/directory.effect';
 import { DirectoryService } from './services/directory.service';
 import { NgProgressModule } from 'ngx-progressbar';
+import { BookmarkEffect } from './effects/bookmark.effect';
+import { BookmarkService } from './services/bookmark.service';
 
 @NgModule({
   declarations: [
@@ -180,6 +182,7 @@ import { NgProgressModule } from 'ngx-progressbar';
     EffectsModule.run(ClaimProfileEffect),
     EffectsModule.run(CommunitiesEffect),
     EffectsModule.run(DirectoryEffect),
+    EffectsModule.run(BookmarkEffect),
     // Video
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     VgCoreModule,
@@ -218,7 +221,8 @@ import { NgProgressModule } from 'ngx-progressbar';
     ClaimProfileService,
     FileService,
     CommunitiesService,
-    DirectoryService
+    DirectoryService,
+    BookmarkService
   ],
   bootstrap: [AppComponent]
 })

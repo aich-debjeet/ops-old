@@ -21,6 +21,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { ModalService } from '../../../shared/modal/modal.component.service';
 
 import { TruncatePipe } from 'app/pipes/truncate.pipe';
+import { BookmarkActions } from 'app/actions/bookmark.action';
 
 @Component({
   selector: 'app-events-inner',
@@ -132,9 +133,43 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
    * method to open report pop-up with options for event 
    * @param id to open specific report model
    */
-  reportModalOpen(id: string){
+  reportModalOpen(id: string) {
     this.reportId = id;
     this.reportModal.open();
     this.store.dispatch({ type: SharedActions.GET_OPTIONS_REPORT, payload: 'event' });
+  }
+
+  bookmarkAction(action: string, eventId: string) {
+    if (action === 'add') {
+      const reqBody = {
+        bookmarkType: 'event',
+        contentId: eventId
+      };
+      this.store.dispatch({ type: BookmarkActions.BOOKMARK, payload: reqBody });
+      const bookmarkSub = this.store.select('bookmarkStore')
+      .take(2)
+      .subscribe(data => {
+        if (data['bookmarking'] === false && data['bookmarked'] === true) {
+          this.toastr.success('Bookmarked successfully', 'Success!');
+          this.store.dispatch({ type: EventActions.EVENT_BOOKAMRK_FLAG_UPDATE, payload: { isBookmarked: true } });
+          bookmarkSub.unsubscribe();
+        }
+      });
+    } else {
+      const reqBody = {
+        type: 'event',
+        id: eventId
+      };
+      this.store.dispatch({ type: BookmarkActions.DELETE_BOOKMARK, payload: reqBody });
+      const bookmarkSub = this.store.select('bookmarkStore')
+      .take(2)
+      .subscribe(data => {
+        if (data['deletingBookmark'] === false && data['deletedBookmark'] === true) {
+          this.toastr.success('Bookmark deleted successfully', 'Success!');
+          this.store.dispatch({ type: EventActions.EVENT_BOOKAMRK_FLAG_UPDATE, payload: { isBookmarked: false } });
+          bookmarkSub.unsubscribe();
+        }
+      });
+    }
   }
 }

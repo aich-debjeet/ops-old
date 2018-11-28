@@ -1,196 +1,168 @@
 <div class="c-card m-t-8">
-    <div class="c-status--block">
-        <div class="c-card__user margin_none">
-            <div class="c-user">
-                <a *ngIf = "!mediaData?.isOwner">
-                    <a class="c-user__avatar c-avatar--status" [routerLink]="'/profile/u/' + mediaData?.ownerUserName">
-                        <img class="c-user__image" [src]="userImage">
-                    </a>
-                    <a [routerLink]="'/profile/u/' + mediaData?.ownerUserName" class="c-user__name c-user--align">{{ mediaData?.ownerName | truncate:[40, '...'] }}</a>
-                    <a [routerLink]="'/channel/' + mediaData?.channelId" class="c-user__channel2 c-user__channel-align" *ngIf="postType !== 'community'">{{ mediaData?.channelName }}</a>
-                </a>
-                <a  *ngIf = "mediaData?.isOwner">
-                    <a routerLink="/profile" class="c-user__avatar c-avatar--status">
-                        <img class="c-user__image" [src]="userImage">
-                    </a>
-                    <a routerLink="/profile" class="c-user__name c-user--align">{{ mediaData?.ownerName | truncate:[40, '...'] }}</a>
-                    <a [routerLink]="'/channel/' + mediaData?.channelId" class="c-user__channel2 c-user__channel-align" *ngIf="postType !== 'community'">{{ mediaData?.channelName }}</a>
-                </a>
-            </div>
-        </div>
-        <div class="pull-right dropdown c-dropdown" appDropdown>
-            <div class="c-post__time">{{ mediaData?.createdDate | utcDate | date:'d MMM h:m a'}}</div>
-            <a>
-                <img *ngIf="mediaData?.access === 1" [src]="imageLink + 'img/svg/ico_private.svg'" class="c-status__options">
-                <!-- <img [src]="imageLink + 'img/svg/ico_public.svg'" *ngIf="mediaData?.access === 0" class="c-status__options"> -->
-            </a>
-            <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
-                    <img [src]="imageLink + 'img/svg/ico_options.svg'" class="c-status__options">
-            </span>
-            <ul class="dropdown-menu dropdown-menu-right" *ngIf="mediaData?.isOwner">
-                <li>
-                    <a (click)="onContentEdit($event)">Edit</a>
-                </li>
-                <li>
-                    <a (click)="onContentDelete($event)">Delete</a>
-                </li>
-            </ul>
-            <ul class="dropdown-menu dropdown-menu-right" *ngIf="!mediaData?.isOwner">
-                <li>
-                    <a (click)="reportModalOpen(mediaData.id)">Report</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div class="c-status--block" *ngIf="mediaData?.description && mediaData?.mtype === 'status' ">
-        <div class="c-user__status">
-            {{ mediaData?.description }}
-        </div>
-    </div>
-    <div *ngIf="mediaData?.mtype === 'video' || mediaData?.mtype === 'audio' || mediaData?.mtype === 'image'">
-        <div class="c-feed__img-status" *ngIf="!isEdit">
-            {{ mediaData?.description | truncate:[200, '...']}}
-            
-        </div>
-        <div class="c-feed__img-status" *ngIf="isEdit">
-            <div class="content_editable" contentEditable="true" (keyup.enter)="onContentSaved()" [textContent]="desText" name="desText" (input)="desText=$event.target.textContent"></div>
-        </div>
-    </div>
-
-    <!-- image -->
-    <div class="c-feed__img2" *ngIf="mediaData?.mtype === 'image'">
-        <a [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
-            <img [src]="imageLink + mediaData?.thumbNails?.large" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="img-responsive" [class.c-feed__adult-blur]="mediaData?.isNsfw && mediaData?.isOwner === false">
-            <div class="c-feed__adult" id="c-feed__adult-hide" *ngIf="mediaData?.isNsfw && mediaData?.isOwner === false">
-                <div class="c-feed__adult-text">
-                    <div>
-                        This post may contain sensitive information that could be disturbing to some individuals.
-                        Viewer's discretion is strongly advised.
-                    </div>
-                    <a href="javascript:void(0)" class="c-feed__adult-a" id="feedRemove">see this post</a>
-                </div>
-            </div>
+  <div class="c-status--block">
+    <div class="c-card__user margin_none">
+      <div class="c-user">
+        <a *ngIf="!mediaData?.isOwner">
+          <a class="c-user__avatar c-avatar--status" [routerLink]="'/profile/u/' + mediaData?.ownerUserName">
+            <img class="c-user__image" [src]="userImage">
+          </a>
+          <a [routerLink]="'/profile/u/' + mediaData?.ownerUserName" class="c-user__name c-user--align">{{
+            mediaData?.ownerName | truncate:[40, '...'] }}</a>
+          <a [routerLink]="'/channel/' + mediaData?.channelId" class="c-user__channel2 c-user__channel-align" *ngIf="postType !== 'community'">{{
+            mediaData?.channelName }}</a>
         </a>
-    </div>
-    <!-- image -->
-
-    <!-- audio -->
-    <div class="c-feed__img2" appAppear (reached)="onReachingInViewport(mediaData?.id)" (departed)="onDepartedFromViewport(mediaData?.id)" *ngIf="mediaData?.mtype === 'audio'">
-        <img [src]="imageLink + mediaData?.thumbNails?.large" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="img-responsive audio-image" [class.c-feed__adult-blur]="mediaData?.isNsfw && mediaData?.isOwner === false">
-        <app-audioplayer *ngIf="mediaData?.inViewport" [size]="'small'" [src]="imageLink + mediaData?.repopath"></app-audioplayer>
-        <div *ngIf="!mediaData?.inViewport" class="audio-placeholder"></div>
-    </div>
-    <!-- image -->
-
-    <!-- video -->
-    <div class="c-feed__img2" appAppear (reached)="onReachingInViewport(mediaData?.id)" (departed)="onDepartedFromViewport(mediaData?.id)" *ngIf="mediaData?.mtype === 'video'">
-        <app-videoplayer [showControls]="'true'" *ngIf="mediaData?.inViewport === true" class="{{ imageLink + mediaData?.repopath }}" src="{{ imageLink +  mediaData?.repopath }}"></app-videoplayer>
-        <a *ngIf="mediaData?.inViewport === false" [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
-            <img [src]="imageLink + mediaData?.thumbNails?.large" [ngClass]="{'audio-image': mediaData?.mtype === 'audio'}" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="img-responsive" [class.c-feed__adult-blur]="mediaData?.isNsfw && mediaData?.isOwner === false">
-            <div class="c-feed__adult" id="c-feed__adult-hide" *ngIf="mediaData?.isNsfw && mediaData?.isOwner === false">
-                <div class="c-feed__adult-text">
-                    <div>
-                        This post may contain sensitive information that could be disturbing to some individuals.
-                        Viewer's discretion is strongly advised.
-                    </div>
-                    <a href="javascript:void(0)" class="c-feed__adult-a" id="feedRemove">see this post</a>
-                </div>
-            </div>
+        <a *ngIf="mediaData?.isOwner">
+          <a routerLink="/profile" class="c-user__avatar c-avatar--status">
+            <img class="c-user__image" [src]="userImage">
+          </a>
+          <a routerLink="/profile" class="c-user__name c-user--align">{{ mediaData?.ownerName | truncate:[40, '...'] }}</a>
+          <a [routerLink]="'/channel/' + mediaData?.channelId" class="c-user__channel2 c-user__channel-align" *ngIf="postType !== 'community'">{{
+            mediaData?.channelName }}</a>
         </a>
+      </div>
     </div>
-    <!-- video -->
-    
-    <div class="c-status--block">
-        <div class="c-links">
-            <div class="c-links__spots" (click)="spotMedia(mediaData)">
-                <img *ngIf="following" [src]="imageLink + 'img/svg/spot_icon.svg'" class="c-links__image">
-                <img *ngIf="!following" [src]="imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
-                <span class="c-links__count">{{ followingCount }} Spots</span>
-            </div>
-            <div  *ngIf="mediaData?.description && mediaData?.mtype === 'status' " class="c-links__comments">
-                <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
-                <span class="c-links__count">{{ commentCount }} Comments</span>
-            </div>
-            <div  *ngIf="mediaData?.mtype === 'video' || mediaData?.mtype === 'audio' || mediaData?.mtype === 'image'" class="c-links__comments" [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
-                <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
-                <span class="c-links__count">{{ commentCount }}  Comments</span>
-            </div>
-            <div class="c-links__actions">
-                <span class="c-links__view-count">
-                    <span class="color-grey-darker">{{ mediaData?.viewcount || 0 }}</span> Views
-                </span>
-                <!-- <span class="c-links__add">
-                    <a>
-                        <img [src]="imageLink + 'img/svg/ico_addtochannel.svg'" class="c-action__image">
-                    </a>
-                </span> -->
-                <span class="c-links__add dropdown c-dropdown" appDropdown>
-                    <a appDropdownOpen>
-                        <img [src]="imageLink + 'img/svg/ico_share-02.svg'" class="c-action__image">
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right o-share__profile2 p-16">
-                        <div class="c-text_md">Share this Profile</div>
-                        <!-- <div class="c-invite--search m-0">
-                            <form class="fill-grey-light">
-                                <div class="c-form__group c-form--sm c-form--noeffect c-form__faded--sm">
-                                    <input class="c-form__input p-l-24" required="" type="text">
-                                    <label class="p-l-16">Input with icon</label>
-                                    <span>
-                                        <img [src]="imageLink + 'img/svg/ico_search.svg'" class="c-form__input--lefticon">
-                                    </span>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="o-share__recent m-t-b-16">Recent Contacts</div>
-                        <div class="c-invite__block">
-                            <a class="c-user__avatar c-avatar--status">
-                                <img src="https://ops-v2.netlify.com/assets/demo/new/avatar.png" class="o-share__avatar">
-                            </a>
-                            <a class="c-text_md c-invite--user">Seth Chevz1</a>
-                        </div>
-                        <div class="c-invite__block">
-                            <a class="c-user__avatar c-avatar--status">
-                                <img src="https://ops-v2.netlify.com/assets/demo/new/avatar.png" class="o-share__avatar">
-                            </a>
-                            <a class="c-text_md c-invite--user">Seth Chevz2</a>
-                        </div>
-                        <div class="c-invite__block">
-                            <a class="c-user__avatar c-avatar--status">
-                                <img src="https://ops-v2.netlify.com/assets/demo/new/avatar.png" class="o-share__avatar">
-                            </a>
-                            <a class="c-text_md c-invite--user">Seth Chevz3</a>
-                        </div>
-                        <div class="c-invite__block">
-                            <a class="c-user__avatar c-avatar--status">
-                                <img src="https://ops-v2.netlify.com/assets/demo/new/avatar.png" class="o-share__avatar">
-                            </a>
-                            <a class="c-text_md c-invite--user">Seth Chevz4</a>
-                        </div> -->
+    <div class="pull-right dropdown c-dropdown" appDropdown>
+      <div class="c-post__time">{{ mediaData?.createdDate | utcDate | date:'d MMM h:m a'}}</div>
+      <a>
+        <img *ngIf="mediaData?.access === 1" [src]="imageLink + 'img/svg/ico_private.svg'" class="c-status__options">
+      </a>
+      <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
+        <img [src]="imageLink + 'img/svg/ico_options.svg'" class="c-status__options">
+      </span>
+      <ul class="dropdown-menu dropdown-menu-right" *ngIf="mediaData?.isOwner">
+        <li>
+          <a (click)="onContentEdit($event)">Edit</a>
+        </li>
+        <li>
+          <a (click)="onContentDelete($event)">Delete</a>
+        </li>
+      </ul>
+      <ul class="dropdown-menu dropdown-menu-right" *ngIf="!mediaData?.isOwner">
+        <li>
+          <a (click)="reportModalOpen(mediaData.id)">Report</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="c-status--block" *ngIf="mediaData?.description && mediaData?.mtype === 'status' ">
+    <div class="c-user__status">
+      {{ mediaData?.description }}
+    </div>
+  </div>
+  <div *ngIf="mediaData?.mtype === 'video' || mediaData?.mtype === 'audio' || mediaData?.mtype === 'image'">
+    <div class="c-feed__img-status" *ngIf="!isEdit">
+      {{ mediaData?.description | truncate:[200, '...']}}
 
-                        <div class="o-share__social">
-                            <div class="o-share__social-icon p-l-0" shareButton="google" [sbUrl]="domainLink + 'media/' + mediaData?.id">
-                                <img [src]="imageLink + 'img/svg/googleplus.svg'">
-                            </div>
-                            <div class="o-share__social-icon" shareButton="twitter" [sbUrl]="domainLink + 'media/' + mediaData?.id">
-                                <img [src]="imageLink + 'img/svg/twitter.svg'">
-                            </div>
-                            <div class="o-share__social-icon" [shareButton]="'facebook'" [sbUrl]="domainLink + 'media/' + mediaData?.id">
-                                <img [src]="imageLink + 'img/svg/facebook.svg'">
-                            </div>
-                            <div class="o-share__social-icon p-r-0" shareButton="email" [sbUrl]="domainLink + 'media/' + mediaData?.id">
-                                <img [src]="imageLink + 'img/svg/envelope.svg'">
-                            </div>
-                        </div>
-                    </div>
-                </span>
-            </div>
-        </div>
     </div>
-    <app-comment [mediaId]="mediaId" [commentsType]="'media-list'" [userData]="userData" [comments]="comments" [mediaType]="mediaType"  [commentCount]="commentCount"></app-comment>
+    <div class="c-feed__img-status" *ngIf="isEdit">
+      <div class="content_editable" contentEditable="true" (keyup.enter)="onContentSaved()" [textContent]="desText"
+        name="desText" (input)="desText=$event.target.textContent"></div>
+    </div>
+  </div>
+
+  <!-- image -->
+  <div class="c-feed__img2" *ngIf="mediaData?.mtype === 'image'">
+    <a [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
+      <img [src]="imageLink + mediaData?.thumbNails?.large" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';"
+        class="img-responsive" [class.c-feed__adult-blur]="mediaData?.isNsfw && mediaData?.isOwner === false">
+      <div class="c-feed__adult" id="c-feed__adult-hide" *ngIf="mediaData?.isNsfw && mediaData?.isOwner === false">
+        <div class="c-feed__adult-text">
+          <div>
+            This post may contain sensitive information that could be disturbing to some individuals.
+            Viewer's discretion is strongly advised.
+          </div>
+          <a href="javascript:void(0)" class="c-feed__adult-a" id="feedRemove">see this post</a>
+        </div>
+      </div>
+    </a>
+  </div>
+  <!-- image -->
+
+  <!-- audio -->
+  <div class="c-feed__img2" appAppear (reached)="onReachingInViewport(mediaData?.id)" (departed)="onDepartedFromViewport(mediaData?.id)"
+    *ngIf="mediaData?.mtype === 'audio'">
+    <a [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
+      <img [src]="imageLink + mediaData?.thumbNails?.large" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';"
+        class="img-responsive audio-image" [class.c-feed__adult-blur]="mediaData?.isNsfw && mediaData?.isOwner === false">
+      <app-audioplayer *ngIf="mediaData?.inViewport" [size]="'small'" [src]="imageLink + mediaData?.repopath"></app-audioplayer>
+      <div *ngIf="!mediaData?.inViewport" class="audio-placeholder"></div>
+    </a>
+  </div>
+  <!-- image -->
+
+  <!-- video -->
+  <div class="c-feed__img2" appAppear (reached)="onReachingInViewport(mediaData?.id)" (departed)="onDepartedFromViewport(mediaData?.id)"
+    *ngIf="mediaData?.mtype === 'video'">
+    <app-videoplayer [showControls]="'true'" *ngIf="mediaData?.inViewport === true" class="{{ imageLink + mediaData?.repopath }}"
+      src="{{ imageLink +  mediaData?.repopath }}"></app-videoplayer>
+    <a *ngIf="mediaData?.inViewport === false" [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
+      <img [src]="imageLink + mediaData?.thumbNails?.large" [ngClass]="{'audio-image': mediaData?.mtype === 'audio'}"
+        onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="img-responsive"
+        [class.c-feed__adult-blur]="mediaData?.isNsfw && mediaData?.isOwner === false">
+      <div class="c-feed__adult" id="c-feed__adult-hide" *ngIf="mediaData?.isNsfw && mediaData?.isOwner === false">
+        <div class="c-feed__adult-text">
+          <div>
+            This post may contain sensitive information that could be disturbing to some individuals.
+            Viewer's discretion is strongly advised.
+          </div>
+          <a href="javascript:void(0)" class="c-feed__adult-a" id="feedRemove">see this post</a>
+        </div>
+      </div>
+    </a>
+  </div>
+  <!-- video -->
+
+  <div class="c-status--block">
+    <div class="c-links">
+      <div class="c-links__spots" (click)="spotMedia(mediaData)">
+        <img *ngIf="following" [src]="imageLink + 'img/svg/spot_icon.svg'" class="c-links__image">
+        <img *ngIf="!following" [src]="imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
+        <span class="c-links__count">{{ mediaData?.counts?.spotsCount || 0 }} Spots</span>
+      </div>
+      <div *ngIf="mediaData?.description && mediaData?.mtype === 'status' " class="c-links__comments">
+        <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
+        <span class="c-links__count">{{ mediaData?.counts?.commentsCount || 0 }} Comments</span>
+      </div>
+      <div *ngIf="mediaData?.mtype === 'video' || mediaData?.mtype === 'audio' || mediaData?.mtype === 'image'" class="c-links__comments"
+        [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
+        <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
+        <span class="c-links__count">{{ mediaData?.counts?.commentsCount || 0 }} Comments</span>
+      </div>
+      <div class="c-links__actions">
+        <span class="c-links__view-count">
+          <span class="color-grey-darker">{{ mediaData?.counts?.viewcount || 0 }}</span> Views
+        </span>
+        <span class="c-links__add dropdown c-dropdown" appDropdown>
+          <a appDropdownOpen>
+            <img [src]="imageLink + 'img/svg/ico_share-02.svg'" class="c-action__image">
+          </a>
+          <div class="dropdown-menu dropdown-menu-right o-share__profile2 p-16">
+            <div class="c-text_md">Share this Profile</div>
+            <div class="o-share__social">
+              <div class="o-share__social-icon p-l-0" shareButton="google" [sbUrl]="domainLink + 'media/' + mediaData?.id">
+                <img [src]="imageLink + 'img/svg/googleplus.svg'">
+              </div>
+              <div class="o-share__social-icon" shareButton="twitter" [sbUrl]="domainLink + 'media/' + mediaData?.id">
+                <img [src]="imageLink + 'img/svg/twitter.svg'">
+              </div>
+              <div class="o-share__social-icon" [shareButton]="'facebook'" [sbUrl]="domainLink + 'media/' + mediaData?.id">
+                <img [src]="imageLink + 'img/svg/facebook.svg'">
+              </div>
+              <div class="o-share__social-icon p-r-0" shareButton="email" [sbUrl]="domainLink + 'media/' + mediaData?.id">
+                <img [src]="imageLink + 'img/svg/envelope.svg'">
+              </div>
+            </div>
+          </div>
+        </span>
+      </div>
+    </div>
+  </div>
+  <app-comment [mediaId]="mediaId" [commentsType]="'media-list'" [userData]="userData" [comments]="comments"
+    [mediaType]="mediaType" [commentCount]="mediaData?.counts?.commentsCount"></app-comment>
 </div>
 
-<app-modal-new #reportModal modalClass="modal-report__popup" >
-    <modal-content>
-            <app-report-popoup  [reportContentId]="reportId" [reportType]="'post'" (onclose)= "reportModal.close()" ></app-report-popoup>
-    </modal-content>
+<app-modal-new #reportModal modalClass="modal-report__popup">
+  <modal-content>
+    <app-report-popoup [reportContentId]="reportId" [reportType]="'post'" (onclose)="reportModal.close()"></app-report-popoup>
+  </modal-content>
 </app-modal-new>

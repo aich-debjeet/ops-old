@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
@@ -6,6 +6,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '../../../../environments/environment';
 import { OpportunityModel } from '../../../models/opportunity.model';
 import { EventActions } from '../../../actions/event.action';
+import { ToastrService } from 'ngx-toastr';
+import { Modal } from '../../../shared/modal-new/Modal';
 
 // action
 import { ProfileActions } from '../../../actions/profile.action';
@@ -22,6 +24,7 @@ import { EventModal } from '../../../models/event.model';
 import { OpportunityActions } from '../../../actions/opportunity.action';
 
 import { every as _every } from 'lodash';
+import { remove as _remove } from 'lodash';
 
 @Component({
   selector: 'app-profile-block',
@@ -57,6 +60,10 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
   recordsPerPage = 2;
   eventState: any;
   eventsLoading = true;
+  storyList: any;
+  storyDetails: any;
+
+  @ViewChild('deleteModal') deleteModal: Modal;
 
   constructor(
     private _router: Router,
@@ -64,7 +71,8 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
     private utils: ProfileHelper,
     private profileStore: Store<ProfileModal>,
     private _store: Store<any>,
-    private generalUtils: GeneralUtilities
+    private generalUtils: GeneralUtilities,
+    private toastr: ToastrService,
   ) {
     this.router = _router;
     this.userId = '';
@@ -76,6 +84,10 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.profSub = this.tagState$.subscribe((state) => {
       this.userQuickAccess = state;
+      if(state && state['my_story']){
+        this.storyList = state['my_story']['media'];
+        this.storyDetails = state['my_story'];
+      }
       if (state && state['other_channel']) {
         this.pinListEmpty = _every(state['other_channel'], ['isPinned', true]);
       }
@@ -126,6 +138,7 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
         this.eventsLoading = false;
       }
     });
+    this._store.dispatch({type: ProfileActions.GET_MY_STORY});
   }
 
   ngOnInit(): void {
@@ -251,5 +264,16 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
     this.openChannel = false;
     }
     this.openChannel = true;
+  }
+
+  confirmation(eve) {
+    this.closeCancelApplicationModal();
+    if (eve === 'yes') {
+      this._store.dispatch({ type: ProfileActions.CHANNEL_DELETE, payload: this.storyDetails.channelId });
+      this.toastr.success('Your story has been deleted successfully!');
+    }
+  }
+  closeCancelApplicationModal() {
+    this.deleteModal.close();
   }
 }
