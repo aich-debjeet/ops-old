@@ -68,7 +68,6 @@ export class BookmarkComponent implements OnInit, OnDestroy {
     this.routerSub = this.router.events.filter(evt => evt instanceof NavigationEnd)
       .subscribe((event) => {
         this.activeTab = this.route.firstChild.routeConfig.path;
-        window.scrollTo(0, 0);
         this.getData();
       });
     const urlArr = location.href.split('/');
@@ -78,6 +77,7 @@ export class BookmarkComponent implements OnInit, OnDestroy {
   }
 
   getData() {
+    window.scrollTo(0, 0);
     this.reqParams.offset = 0;
     this.getBookmarks();
   }
