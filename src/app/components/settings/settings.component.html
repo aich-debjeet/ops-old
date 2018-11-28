@@ -194,14 +194,14 @@
                                     <div class="col-md-9 p-0">
                                         <div id="acc_info-username" class="o-set-list__data" *ngIf="editingField != 'username'">
                                             <span class="c-text_md color-grey-dark">{{ userProfile?.username }}</span>
-                                            <span class="o-set-list__edit-btn">
+                                            <!-- <span class="o-set-list__edit-btn">
                                                 <a class="o-set-list-edit__link c-text_md" (click)="editField('username')">
                                                     <span class="o-set-list-edit__icon"><img [src]="imageBaseLink + 'img/svg/editpencil.svg'" alt=""></span>
                                                     Edit
                                                 </a>
-                                            </span>
+                                            </span> -->
                                         </div><!-- data end -->
-                                        <div id="acc-info-username__edit" class="o-set-list__edit" *ngIf="editingField == 'username'">
+                                        <!-- <div id="acc-info-username__edit" class="o-set-list__edit" *ngIf="editingField == 'username'">
                                             <div class="col-md-4 p-0">
                                                 <div class="c-form__group c-form--sm c-form--noeffect">
                                                     <input class="c-form__input c-form__input--alert p-0" [ngModel]="userName" (ngModelChange)="userExistCheck($event)" type="text">
@@ -223,7 +223,8 @@
                                                     <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()">Cancel</button>
                                                 </div>
                                             </div>
-                                        </div><!-- edit data end -->
+                                        </div> -->
+                                        <!-- edit data end -->
                                     </div>
                               </li><!-- username end -->
                               <li class="o-set-list_items">
