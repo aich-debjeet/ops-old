@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
@@ -13,7 +13,7 @@ import { GeneralUtilities } from '../../../helpers/general.utils';
 @Component({
   selector: 'app-about-image',
   templateUrl: './about-image.component.html',
-  providers: [ ModalService ],
+  providers: [ModalService],
   styleUrls: ['./about-image.component.scss']
 })
 
@@ -104,6 +104,6 @@ export class AboutImageComponent implements OnInit {
   }
 
   // image loaded
-  imageLoaded() {}
+  imageLoaded() { }
 
 }

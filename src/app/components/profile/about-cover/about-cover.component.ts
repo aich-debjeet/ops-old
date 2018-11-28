@@ -14,7 +14,7 @@ import { GeneralUtilities } from '../../../helpers/general.utils';
 @Component({
   selector: 'app-about-cover',
   templateUrl: './about-cover.component.html',
-  providers: [ ModalService ],
+  providers: [ModalService],
   styleUrls: ['./about-cover.component.scss']
 })
 
@@ -45,10 +45,10 @@ export class AboutCoverComponent implements OnInit {
 
   ngOnInit() {
     this.tagState$
-    .first(profile => this.stateProfile.profile_details.profileImage)
-    .subscribe( data => {
-      this.loadCoverImage();
-    });
+      .first(profile => this.stateProfile.profile_details.profileImage)
+      .subscribe(data => {
+        this.loadCoverImage();
+      });
   }
 
   /**
@@ -102,5 +102,5 @@ export class AboutCoverComponent implements OnInit {
   }
 
   // image loaded
-  imageLoaded() {}
+  imageLoaded() { }
 }

@@ -29,6 +29,7 @@
     font-weight: 300;
     float: left;
     margin-right: 8px;
+    cursor: pointer;
 }
 .o-bio-info__edit-ico {
     width: 16px;
@@ -182,6 +183,7 @@
     text-transform: capitalize;
     margin: 0px 0px 0px 0px;
     position: relative;
+    text-transform: initial !important;
 }
 
 .o-about-form-check label {
