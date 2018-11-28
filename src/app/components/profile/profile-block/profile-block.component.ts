@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
@@ -6,6 +6,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '../../../../environments/environment';
 import { OpportunityModel } from '../../../models/opportunity.model';
 import { EventActions } from '../../../actions/event.action';
+import { ToastrService } from 'ngx-toastr';
+import { Modal } from '../../../shared/modal-new/Modal';
 
 // action
 import { ProfileActions } from '../../../actions/profile.action';
@@ -22,6 +24,7 @@ import { EventModal } from '../../../models/event.model';
 import { OpportunityActions } from '../../../actions/opportunity.action';
 
 import { every as _every } from 'lodash';
+import { remove as _remove } from 'lodash';
 
 @Component({
   selector: 'app-profile-block',
@@ -57,6 +60,10 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
   recordsPerPage = 2;
   eventState: any;
   eventsLoading = true;
+  storyList: any;
+  storyDetails: any;
+
+  @ViewChild('deleteModal') deleteModal: Modal;
 
   constructor(
     private _router: Router,
@@ -64,7 +71,8 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
     private utils: ProfileHelper,
     private profileStore: Store<ProfileModal>,
     private _store: Store<any>,
-    private generalUtils: GeneralUtilities
+    private generalUtils: GeneralUtilities,
+    private toastr: ToastrService,
   ) {
     this.router = _router;
     this.userId = '';
@@ -76,12 +84,16 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.profSub = this.tagState$.subscribe((state) => {
       this.userQuickAccess = state;
+      if (state && state['my_story']) {
+        this.storyList = state['my_story']['media'];
+        this.storyDetails = state['my_story'];
+      }
       if (state && state['other_channel']) {
         this.pinListEmpty = _every(state['other_channel'], ['isPinned', true]);
       }
       if (state.profile_user_info) {
         if (state.profile_user_info.isCurrentUser) {
-          this.profileObject = this.loadProfile( state, 'own' );
+          this.profileObject = this.loadProfile(state, 'own');
           // console.log(this.profileObject)
           // this.userHandle = this.profileObject.userDetails.handle;
           // this._store.dispatch({ type: EventActions.EVENT_SEARCH, payload: {
@@ -126,30 +138,35 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
         this.eventsLoading = false;
       }
     });
+    this._store.dispatch({ type: ProfileActions.GET_MY_STORY });
   }
 
   ngOnInit(): void {
 
     this.profileStore.select('profileTags')
-    .first(profile => profile['profile_user_info'])
-    .subscribe( datas => {
-      if (datas['profile_user_info'].isCurrentUser) {
-        this._store.dispatch({ type: EventActions.EVENT_SEARCH, payload: {
+      .first(profile => profile['profile_user_info'])
+      .subscribe(datas => {
+        if (datas['profile_user_info'].isCurrentUser) {
+          this._store.dispatch({
+            type: EventActions.EVENT_SEARCH, payload: {
+              scrollId: '',
+              searchType: 'created',
+            }
+          });
+          return
+        }
+        this._store.dispatch({
+          type: EventActions.EVENT_SEARCH, payload: {
             scrollId: '',
-            searchType: 'created',
-          }});
-        return
-      }
-      this._store.dispatch({ type: EventActions.EVENT_SEARCH, payload: {
-        scrollId: '',
-        searchType: 'recommended',
-      } });
-    });
+            searchType: 'recommended',
+          }
+        });
+      });
 
 
     this.checkProfile();
     this.carouselOne = {
-      grid: {xs: 3, sm: 3, md: 5, lg: 5, all: 0},
+      grid: { xs: 3, sm: 3, md: 5, lg: 5, all: 0 },
       slide: 2,
       speed: 4000,
       // interval: 400000,
@@ -206,11 +223,11 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
     return Object.keys(obj).length === 0 && obj.constructor === Object;
   }
 
-   /**
-   * User type based user load
-   */
+  /**
+  * User type based user load
+  */
   loadProfile(profile: any, type: string) {
-      return this.utils.profileValueMapping(profile, type );
+    return this.utils.profileValueMapping(profile, type);
   }
 
   /**
@@ -239,17 +256,28 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   pinChannel(spotfeedId) {
-        const data = {
-       'spotfeedId': spotfeedId,
-       'profileHandle': this.userHandle
-     }
-     this.profileStore.dispatch({ type: ProfileActions.PIN_CHANNEL, payload: data });
-     this.channelPinSuccess = true;
+    const data = {
+      'spotfeedId': spotfeedId,
+      'profileHandle': this.userHandle
+    }
+    this.profileStore.dispatch({ type: ProfileActions.PIN_CHANNEL, payload: data });
+    this.channelPinSuccess = true;
   }
   channelList() {
     if (this.openChannel) {
-    this.openChannel = false;
+      this.openChannel = false;
     }
     this.openChannel = true;
+  }
+
+  confirmation(eve) {
+    this.closeCancelApplicationModal();
+    if (eve === 'yes') {
+      this._store.dispatch({ type: ProfileActions.CHANNEL_DELETE, payload: this.storyDetails.channelId });
+      this.toastr.success('Your story has been deleted successfully!');
+    }
+  }
+  closeCancelApplicationModal() {
+    this.deleteModal.close();
   }
 }

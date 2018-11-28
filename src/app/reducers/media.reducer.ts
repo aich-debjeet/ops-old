@@ -6,6 +6,17 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
 
   switch (type) {
 
+    case MediaActions.MEDIA_BOOKAMRK_FLAG_UPDATE:
+      return Object.assign({}, state, {
+        media_detail: {
+          ...state.media_detail,
+          extras: {
+            ...state.media_detail.extras,
+            isBookmarked: payload.isBookmarked
+          }
+        }
+      });
+
     case MediaActions.MEDIA_ADD_VIEW_COUNT:
       return Object.assign({}, state, {
         mediaUpdatingViewCount: true,
@@ -151,7 +162,17 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
           ...state.channel_post.slice(0, spotfeed_del_index),
           Object.assign({}, spotfeed_del_post, {commentsCount: spotfeed_del_count }),
           ...state.channel_post.slice(spotfeed_del_index + 1)
-        ]
+        ],
+        media_detail: {
+          ...state.media_detail,
+          extras: {
+            ...state.media_detail.extras,
+            counts: {
+              ...state.media_detail.extras.counts,
+              commentsCount: state.media_detail.extras.counts.commentsCount - 1
+            }
+          }
+        }
       });
 
 
@@ -178,7 +199,17 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
           ...state.channel_post.slice(0, spotfeed_index),
           Object.assign({}, spotfeed_post, {commentsCount: spotfeed_count }),
           ...state.channel_post.slice(spotfeed_index + 1)
-        ]
+        ],
+        media_detail: {
+          ...state.media_detail,
+          extras: {
+            ...state.media_detail.extras,
+            counts: {
+              ...state.media_detail.extras.counts,
+              commentsCount: state.media_detail.extras.counts.commentsCount + 1
+            }
+          }
+        }
       });
 
 
@@ -196,8 +227,14 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
         ],
         media_detail: {
           ...state.media_detail,
-          spotsCount: state.media_detail ? state.media_detail.spotsCount + 1 : 0,
-          isSpotted:  state.media_detail ? true : false
+          isSpotted: true,
+          extras: {
+            ...state.media_detail.extras,
+            counts: {
+              ...state.media_detail.extras.counts,
+              spotsCount: state.media_detail.extras.counts.spotsCount + 1
+            }
+          }
         }
       });
 
@@ -215,8 +252,14 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
         ],
         media_detail: {
           ...state.media_detail,
-          spotsCount: state.media_detail ? state.media_detail.spotsCount - 1 : 0,
-          isSpotted:  state.media_detail ? false : false
+          isSpotted: false,
+          extras: {
+            ...state.media_detail.extras,
+            counts: {
+              ...state.media_detail.extras.counts,
+              spotsCount: state.media_detail.extras.counts.spotsCount - 1
+            }
+          }
         }
       });
 
@@ -290,23 +333,6 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
     return Object.assign({}, state, {
       media_carousel: payload
     });
-
-/**
- * media report
- */
-    case MediaActions.MEDIA_POST_REPORT:
-        return Object.assign({}, state, {
-          reports: []
-        });
-    case MediaActions.MEDIA_POST_REPORT_SUCCESS:
-        // console.log(payload)
-        return Object.assign({}, state, {
-          reports: payload.Success.questions
-        });
-    case MediaActions.MEDIA_POST_REPORT_FAILED:
-        return Object.assign({}, state, {
-          reports: []
-        });
 
     default:
       return state;

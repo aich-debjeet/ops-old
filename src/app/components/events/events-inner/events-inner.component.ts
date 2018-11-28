@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { UtcDatePipe } from './../../../pipes/utcdate.pipe';
@@ -9,9 +9,11 @@ import { Location } from '@angular/common';
 
 // Model
 import { EventModal, initialTagEve  } from '../../../models/event.model';
+import { Modal } from '../../../shared/modal-new/Modal';
 
 // action
 import { EventActions } from '../../../actions/event.action';
+import { SharedActions } from '../../../actions/shared.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
@@ -19,6 +21,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { ModalService } from '../../../shared/modal/modal.component.service';
 
 import { TruncatePipe } from 'app/pipes/truncate.pipe';
+import { BookmarkActions } from 'app/actions/bookmark.action';
 
 @Component({
   selector: 'app-events-inner',
@@ -39,8 +42,7 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
   isAttend: boolean;
   attendeeList: any;
   reportId: string;
-  questions: any;
-  reportType: string;
+  @ViewChild('reportModal') reportModal: Modal;
 
   constructor(
     private route: ActivatedRoute,
@@ -55,11 +57,6 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
       this.eventDetail = state['event_detail'];
       this.attendeeList = state['attendee_load'];
       // console.log(this.eventDetail)
-      if (state['reports']) {
-        this.questions = state['reports'];
-        this.reportType = 'event';
-        // console.log(this.questions)
-      }
     });
 
     // Event tag
@@ -132,16 +129,47 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
     this.store.dispatch({ type: EventActions.EVENT_ATTEND, payload: data });
   }
 
- reportModalOpen(id: string){
-    // console.log(id)
+  /**
+   * method to open report pop-up with options for event 
+   * @param id to open specific report model
+   */
+  reportModalOpen(id: string) {
     this.reportId = id;
-   this.modalService.open('reportPopUp');
-   this.store.dispatch({ type: EventActions.EVENT_REPORT, payload: 'event' });
- }
+    this.reportModal.open();
+    this.store.dispatch({ type: SharedActions.GET_OPTIONS_REPORT, payload: 'event' });
+  }
 
- closeReport(){
-  // console.log('comming')
-  this.modalService.close('reportPopUp');
-}
-
+  bookmarkAction(action: string, eventId: string) {
+    if (action === 'add') {
+      const reqBody = {
+        bookmarkType: 'event',
+        contentId: eventId
+      };
+      this.store.dispatch({ type: BookmarkActions.BOOKMARK, payload: reqBody });
+      const bookmarkSub = this.store.select('bookmarkStore')
+      .take(2)
+      .subscribe(data => {
+        if (data['bookmarking'] === false && data['bookmarked'] === true) {
+          this.toastr.success('Bookmarked successfully', 'Success!');
+          this.store.dispatch({ type: EventActions.EVENT_BOOKAMRK_FLAG_UPDATE, payload: { isBookmarked: true } });
+          bookmarkSub.unsubscribe();
+        }
+      });
+    } else {
+      const reqBody = {
+        type: 'event',
+        id: eventId
+      };
+      this.store.dispatch({ type: BookmarkActions.DELETE_BOOKMARK, payload: reqBody });
+      const bookmarkSub = this.store.select('bookmarkStore')
+      .take(2)
+      .subscribe(data => {
+        if (data['deletingBookmark'] === false && data['deletedBookmark'] === true) {
+          this.toastr.success('Bookmark deleted successfully', 'Success!');
+          this.store.dispatch({ type: EventActions.EVENT_BOOKAMRK_FLAG_UPDATE, payload: { isBookmarked: false } });
+          bookmarkSub.unsubscribe();
+        }
+      });
+    }
+  }
 }

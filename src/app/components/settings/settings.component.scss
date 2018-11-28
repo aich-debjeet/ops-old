@@ -6,6 +6,7 @@
 @import '~sass-mq/_mq.scss';
 @import './src/assets/scss/components/_form.scss';
 @import './src/assets/scss/components/_dropdowns.scss';
+@import './src/assets/scss/components/_radio-checkbox.scss';
 .o-set-single-block {
     width: 100%;
     float: left;
@@ -127,7 +128,7 @@
     float: left;
     padding: 24px 32px;
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        padding: 15px;
+        padding:15px;
         border-top: 1px #f3f5f7 solid;
     }
 }
@@ -191,7 +192,7 @@
 }
 
 .o-set-list__edit {
-    //display: none;
+    display: block;
 }
 
 .o-set-list-edit__actions {
@@ -200,7 +201,6 @@
         margin-top: 8px;
     }
 }
-
 // settings pop
 .o-settings-pop-contianer {
     width: 380px;

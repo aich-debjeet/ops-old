@@ -2,7 +2,7 @@
 import { Component, OnInit, ElementRef, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import {INgxMyDpOptions} from 'ngx-mydatepicker';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Modal } from '../../../shared/modal-new/Modal';
 
 // third party dependancies
@@ -50,6 +50,8 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   claimData: any;
   claimActive = false;
   regSub: ISubscription;
+  refCodeVerified = false;
+  refCodeVerifying = false;
 
   myOptions: INgxMyDpOptions = {
     showTodayBtn: false,
@@ -75,6 +77,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   public regFormBasic: FormGroup;
   public newNumberForm: FormGroup;
   otpOpenOnce = true;
+  reffCode = '';
 
   @ViewChild('countrySelReg') countrySelectorReg: CountrySelectorComponent;
   @ViewChild('countrySelOtp') countrySelectorOtp: CountrySelectorComponent;
@@ -94,7 +97,8 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
     private router: Router,
     public modalService: ModalService,
     private authService: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private activatedRoute: ActivatedRoute
   ) {
 
     // store select
@@ -123,6 +127,19 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
         if (state['user_otp_success'] === true) {
           this.otpPopup.close();
           this.router.navigate(['/reg/addskill']);
+        }
+        if (state['verifyRefCode'] === false && state['verifyRefCodeSuccess'] === true) {
+          this.refCodeVerifying = false;
+          this.refCodeVerified = true;
+          localStorage.setItem('reffCode', this.reffCode);
+          this.initFormDependancies();
+        }
+        if (state['verifyRefCode'] === false && state['verifyRefCodeSuccess'] === false) {
+          setTimeout(() => {
+            this.refCodeVerifying = false;
+            this.toastr.warning('Verification failed!');
+            this.router.navigateByUrl('/');
+          }, 2000);
         }
       }
     });
@@ -167,12 +184,25 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   }
 
   ngOnInit() {
+    this.reffCode = this.activatedRoute.snapshot.queryParams['ref'];
+    if (this.reffCode !== '') {
+      this.refCodeVerifying = true;
+      const data = { reffCode: this.reffCode };
+      this.store.dispatch({ type: AuthActions.VERIFY_REFERENCE_CODE, payload: data });
+    }
     // this.otpPopup.open();
-    this.store.dispatch({ type: AuthActions.STORE_COUNTRY_CODE, payload: this.country.callingCodes[0] });
+    // this.store.dispatch({ type: AuthActions.STORE_COUNTRY_CODE, payload: this.country.callingCodes[0] });
   }
 
   ngAfterViewInit() {
-    this.countrySelectorReg.initCountrySelector('country-options-reg');
+    // this.countrySelectorReg.initCountrySelector('country-options-reg');
+  }
+
+  initFormDependancies() {
+    this.store.dispatch({ type: AuthActions.STORE_COUNTRY_CODE, payload: this.country.callingCodes[0] });
+    setTimeout(() => {
+      this.countrySelectorReg.initCountrySelector('country-options-reg');
+    }, 10);
   }
 
   // build all forms
@@ -377,6 +407,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
         countryCode: this.country.callingCodes[0]
       },
       other: {
+        reffCode: localStorage.getItem('reffCode') || '',
         completionStatus: 1,
         accountType: [{
           name: 'Artist',

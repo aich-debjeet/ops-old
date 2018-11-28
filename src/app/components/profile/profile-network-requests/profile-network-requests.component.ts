@@ -40,12 +40,12 @@ export class ProfileNetworkRequestsComponent implements OnInit {
    }
 
    acceptRequest(handle: string) {
-    //  console.log('receivers handle ', handle)
+    //  // console.log('receivers handle ', handle)
      const data = {
       'receiver_id': handle,
       'status': 'accept'
      }
-    //  console.log('data', data)
+    //  // console.log('data', data)
      this.profileStore.dispatch({ type: ProfileActions.ACCEPT_NETWORK_REQUEST, payload: data });
    }
    declineRequest(handle: string) {
@@ -54,7 +54,7 @@ export class ProfileNetworkRequestsComponent implements OnInit {
       'receiver_id': handle,
       'status': 'reject'
      }
-    //  console.log('data', data)
+    //  // console.log('data', data)
      this.profileStore.dispatch({ type: ProfileActions.DECLINE_NETWORK_REQUEST, payload: data });
   }
   ngOnInit() {

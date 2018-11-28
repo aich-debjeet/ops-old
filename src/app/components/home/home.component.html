@@ -1,17 +1,9 @@
 <app-navigation></app-navigation>
 <section class="o-home-content p-t-80">
     <div class="container">
-        <div class="o-home-tab-sec c-ops__tabs o-opportunity-tabs">
-            <div class="col-md-3 col-md-offset-5 p-0">
-                <ul class="nav nav-tabs">
-                    <li routerLinkActive="active"><a data-toggle="tab" [routerLink]="['post']">Posts</a></li>
-                    <li routerLinkActive="active"><a data-toggle="tab" [routerLink]="['channel']">Channel</a></li>
-                </ul>
-            </div>
-        </div>
         <div class="col-md-9 p-0 clearfix m-b-24">
             <div class="tab-content">
-                <router-outlet></router-outlet>
+                <app-home-post></app-home-post>
             </div>
         </div>
         <!-- //left home feed -->

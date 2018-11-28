@@ -68,7 +68,7 @@ export class SettingsComponent implements OnInit {
   dob: any;
   userName: any;
   email: any;
-  phone: any;
+  phone: string;
   gender: any;
   error: boolean = false;
   isRequired: boolean= false;
@@ -76,6 +76,8 @@ export class SettingsComponent implements OnInit {
   capitalLetters : boolean =false;
   invalidLength: boolean = false;
   specialChars: boolean = false;
+  isCharacter: boolean = false;
+  invalidPhoneField: boolean = false;
   shortCode: string;
   public otpForm: FormGroup;
   phNumbrReq: boolean =false;
@@ -84,6 +86,7 @@ export class SettingsComponent implements OnInit {
   validSuccess: boolean = true;
   privacy: number;
   msgDisplay: string;
+  regExp = /^[0-9]+$/;
 
   @ViewChild('countrySelSet') countrySelectorSet: CountrySelectorComponent;
   @ViewChild('otpPopup') otpPopup: Modal;
@@ -106,7 +109,9 @@ export class SettingsComponent implements OnInit {
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
+        console.log('initial tag', this.petTag);
         this.petTag = state;
+        console.log('state',state)
         // if (state['user_number_cng_success'] === true ) {
         //   this._modalService.open('otpWindow');
         // }
@@ -117,8 +122,13 @@ export class SettingsComponent implements OnInit {
         //   // this._modalService.open('otpSuccess');
         //     this.phoneFormUpdate();
         // }
+        if (state['setting_number_update_sent'] === false && state['setting_number_update_success'] === true && state['request_type'] === 'OTP Request') {
+          console.log('open otp model');
+          this.otpPopup.open();
+        }
 
-        if (state['user_otp_success'] === true) {
+        if (state['request_type'] === 'OTP Submission') {
+          console.log('closing otp nodel');
           this._store.dispatch({ type: ProfileActions.LOAD_USER_DATA_DETAILS });
           this.otpPopup.close();
           this.cancelEdit();
@@ -251,43 +261,51 @@ export class SettingsComponent implements OnInit {
     const k = e.keyCode;
     return ((k >= 48 && k <= 57) || (k >= 96 && k <= 105) || k === 8);
   }
-
-  updateContactNumber() {
-    if (this.phone.length < 4) {
-      if (this.phone.length <= 0) {
+  onNumberChange(event){
+    console.log(event);
+    console.log(event.length);
+    if(!event.match(this.regExp)){
+      console.log('hey');
+      this.isCharacter = true;
+      this.invalidPhoneField = true;
+    } else {
+      this.isCharacter = false;
+    }
+    if (event.length < 4) {
+      this.phMinLent = true;
+      this.invalidPhoneField = true;
+      if (event.length <= 0) {
         this.phNumbrReq = true;
-        this.phMinLent = false;
+        this.invalidPhoneField = true;
       } else {
-        this.phMinLent = true;
         this.phNumbrReq = false;
       }
-      return
     } else {
+      this.phMinLent = false;
+    }
+    if(!this.isCharacter && !this.phMinLent && !this.phNumbrReq){
+      this.invalidPhoneField = false;
+      this.phone = event;
+    }
+  }
+
+  updateContactNumber() {
+      if(!this.invalidPhoneField){
       const contactDetails = {
           contactNumber: this.phone.trim(),
-          countryCode: this.country.callingCodes[0]
+          countryCode: this.country.callingCodes[0],
+          otp:''
       };
-      // contactDetails.contactNumber = this.phone;
-      // contactDetails.countryCode = this.country.callingCodes[0];
-        // console.log(contactDetails)
-        this.authService.mobileNumberCheck(contactDetails).subscribe( data => {
-          if (data.SUCCESS.code === 1) {
-             this.isMobileUnique = true;
-          } else {
-            const contactDetail = {
-              contact: {
-                contactNumber: contactDetails.contactNumber,
-                countryCode: contactDetails.countryCode
-              }
-            }
-            this.store.dispatch({ type: AuthActions.OTP_NUMBER_CHANGE, payload: contactDetail });
-            this.otpPopup.open();
-          }
-          });
-        // this.store.dispatch({ type: AuthActions.OTP_NUMBER_CHANGE, payload: contactDetails });
-        // this.otpPopup.open();
-        
-      }
+        console.log(contactDetails)
+      this.authService.mobileNumberCheck(contactDetails).subscribe( data => {
+        if (data.SUCCESS.code === 1) {
+            this.isMobileUnique = true;
+        } else {
+          this.store.dispatch({ type: AuthActions.SETTINGS_OTP_NUMBER_CHANGE, payload: contactDetails });
+          // this.otpPopup.open();
+        }
+        });      
+    }
   }
     // OTP Validation
     otpSubmit(value) {
@@ -303,7 +321,8 @@ export class SettingsComponent implements OnInit {
           countryCode: this.country.callingCodes[0],
           otp: otpValue
         }
-        this.store.dispatch({ type: AuthActions.OTP_SUBMIT, payload: otpData });
+        console.log('otp value is', otpData)
+        this.store.dispatch({ type: AuthActions.SETTINGS_OTP_NUMBER_CHANGE, payload: otpData });
       }
     }
   /**
@@ -315,21 +334,22 @@ export class SettingsComponent implements OnInit {
       contactNumber: this.getContactDetails('number'),
       countryCode: this.getContactDetails('country')
     }
-    this.store.dispatch({ type: AuthActions.OTP_RESEND_SUBMIT, payload: resendOtpData });
+    console.log('rensedotpbody', resendOtpData);
+    this.store.dispatch({ type: AuthActions.SETTING_OTP_RESEND_SUBMIT, payload: resendOtpData });
     setTimeout(() => {
       this.resendingOtp = false;
     }, 1500);
   }
 
   getContactDetails(cType: string) {
-    if (this.petTag['reg_basic_form_data']
-      && this.petTag['reg_basic_form_data']['contact']
+    if (this.petTag['setting_contact_information']
+      && this.petTag['setting_contact_information']['contactNumber']
     ) {
-      if (cType === 'number' && this.petTag['reg_basic_form_data']['contact']['contactNumber']) {
-        return this.petTag['reg_basic_form_data']['contact']['contactNumber'];
+      if (cType === 'number' && this.petTag['setting_contact_information']['contactNumber']) {
+        return this.petTag['setting_contact_information']['contactNumber'];
       }
-      if (cType === 'country' && this.petTag['reg_basic_form_data']['contact']['countryCode']) {
-        return this.petTag['reg_basic_form_data']['contact']['countryCode'];
+      if (cType === 'country' && this.petTag['setting_contact_information']['countryCode']) {
+        return this.petTag['setting_contact_information']['countryCode'];
       }
     }
   }

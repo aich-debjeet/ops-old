@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
+import { remove as _remove } from 'lodash';
 
 @Injectable()
 export class GeneralUtilities {
@@ -16,6 +17,48 @@ export class GeneralUtilities {
     }
 
     constructor() { }
+
+    removeRecordFromState(reqParams: any, bookmarks: any) {
+        if (reqParams['type'] === 'image' || reqParams['type'] === 'video' || reqParams['type'] === 'audio') {
+            return _remove(bookmarks, (b) => !(b.postType === reqParams['type'] && b.postId === reqParams['id']));
+        }
+        if (reqParams['type'] === 'opportunity' || reqParams['type'] === 'event') {
+            return _remove(bookmarks, (b) => !(b.id === reqParams['id']));
+        }
+        return bookmarks;
+    }
+
+    sortBookmarks(type: string, resp: any) {
+        if (type === 'image' || type === 'video' || type === 'audio') {
+            return resp['SUCCESS'][0]['bookmarkedPosts'];
+        } else if (type === 'all') {
+            const data = resp['SUCCESS'];
+            const bookmarks = [];
+            for (let i = 0; i < data.length; i++) {
+                if (data[i] && data[i]['bookmarkedPosts'] && data[i]['bookmarkedPosts'][0]) {
+                    bookmarks.push(data[i]['bookmarkedPosts'][0]);
+                }
+                if (data[i] && data[i]['bookmarkedEvents'] && data[i]['bookmarkedEvents'][0]) {
+                    data[i]['bookmarkedEvents'][0]['type'] = 'event';
+                    bookmarks.push(data[i]['bookmarkedEvents'][0]);
+                }
+                if (data[i] && data[i]['bookmarkedJobs'] && data[i]['bookmarkedJobs'][0]) {
+                    data[i]['bookmarkedJobs'][0]['type'] = 'opportunity';
+                    bookmarks.push(data[i]['bookmarkedJobs'][0]);
+                }
+                if (i >= (data.length - 1)) {
+                    return bookmarks;
+                }
+            }
+        } else if (type === 'opportunity') {
+            return resp['SUCCESS'][0]['bookmarkedJobs'];
+        } else if (type === 'event') {
+            return resp['SUCCESS'][0]['bookmarkedEvents'];
+        } else if (type === 'profile') {
+            return resp['SUCCESS'][0]['bookmarkedProfiles'];
+        }
+        return [];
+    }
 
     /**
      * get current time

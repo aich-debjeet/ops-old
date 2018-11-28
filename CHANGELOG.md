@@ -1,6 +1,70 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+### [0.9.13] - 07 Nov, 2018
+### Added
+- OPS-2085 Audio files in the feeds should be autoplay
+- Helper function to get the current time
+- Redux for media view count
+- View count for media on home and profile page
+
+### Updated/Improved
+- Media player improvements
+- Media selector improvements
+- Education privacy settings
+- Media upload: Description won't be disabled
+- OPS-2088 Adding description to the media before the uploading is completed
+- Opportunity: Single file upload label update
+- Redux for removing opportunity form attachments
+- OPS-916 Setting: "You should be above 13" error validation message shouldn't show to DOB: "15-05-2004"
+- Helper function to validate the date and calculate the age
+- Media modal comment alignment
+- Improvement: Script update for dist bundle report
+- Cleanup: All action classes
+- Cleanup: Removing unused redux
+- Cleanup: All effect classes
+- Cleanup: Models
+
+### Fixed
+- OPS-2012 About_award: Previously opened window's data is displaying in a freshly opened window
+- OPS-1985 About: Just now added "Work/award" is not displaying "Public/private" data on placeholder if the user comes for the second time on update pop up  
+- OPS-1934 About_Work: If a user selects "Currently working here" option while adding work "Add" button will not function
+- OPS-1610 Award: Before entering date only "Time period" field is displaying "Invalid date" error message
+- OPS-2094 Login page scrollbar issue 
+- OPS-2106 About: Under Work, award, education "Public/ private" dropdown is not functioning
+- OPS-2021 About_bio: There is a time delay while saving edited data under "About_Bio" tab
+- OPS-1986 About: Two pages are displaying simultaneously under the "About" tab
+- OPS-2049 Setting: User should have provision to edit the e-mail id under the setting
+- OPS-2047 settings: "Username is required"  and "Username length limit is 3 to 15 characters" for the mentioned scenario
+- OPS-2049 Setting: User should have provision to edit the e-mail id under the setting
+- OPS-2046 Setting: Old username shouldn't show for the below-mentioned scenario (Profile which has changed username twice)
+- OPS-2041 Settings: User shouldn't get an error message for the below-mentioned scenario
+- OPS-2039 Settings: User experience of the selecting gender is not good 
+- OPS-2038 setting: Error validation message should be displayed in red color
+- OPS-1571 Work/award/education: When user add new work success message should be displayed as " " Your work has been added successfully"
+- OPS-258 "Private work-details" should not be shown to another Login user
+- OPS-166 User unable to add an image under Profile About "Work" pop-up
+- OPS-212 The Placement of "Delete/Edit" icons it is slowing down when a user enters Lengthy text for the title 
+- OPS-171 "Success deleted message" is not  displaying under "Award" tab
+- Fix: Following/Follower modal user card UI issues
+- OPS-1953 Opportunity: UI of the add collaborator is incorrect on the project form
+- OPS-599 Settings: "Public/Private" drop-down list is not showing on "Date of Birth", "Mobile number" and "e-mail" field under "General settings".
+- OPS-1413 Opportunity: Rich text editor for description fields needs to be updated
+- Notification message copy update
+- OPS-2088 Adding description to the media before the uploading is completed
+- OPS-1962 The error message under the phone number is getting broken at the end of the line this issue is present throughout the website
+- OPS-2124 Settings: User should not be allowed to enter text on the mobile number field 
+- OPS-2040 Settings: User should get an error validation message for the mentioned date format 
+- OPS-870 Password change: User should get appropriate validation message if the user enters the wrong current password
+
+### removed
+- Component level Automated test files
+- OPS-2125 Opportunity: Change multiple media upload to single
+- Media modal: Media type check removed lib
+
+
+
+
 ### [0.9.12] - 2018-10-24
 ### Added
 - Helper function added to check if the string is JSON or not
