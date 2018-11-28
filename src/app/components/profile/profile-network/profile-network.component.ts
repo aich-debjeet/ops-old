@@ -68,7 +68,7 @@ export class ProfileNetworkComponent implements OnInit {
   //   this.sendRequestList =  _filter(this.sendRequestList, function(item) {
   //     return item.owner.handle !== handle;
   //   });
-  //   console.log(this.sendRequestList)
+  // console.log(this.sendRequestList)
   // }
 
   ngOnInit() {

@@ -65,7 +65,7 @@ private yy : number;
   }
   // getMonth(){
   //   const today = moment().month();
-  //   // console.log(today.getMonth());
+  // console.log(today.getMonth());
   //   this.monthNumber = today +1;     
   //   if(this.monthNumber<10) {
   //   this.mm = '0' + this.monthNumber;        

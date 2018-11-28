@@ -208,12 +208,12 @@ export class AboutBioComponent implements OnInit, OnDestroy {
             }
           }
           if(state && state.isUpdating === true){
-            console.log('updating');
+            // console.log('updating');
             this.isUpdating = true;
           }
           if(state && state.isUpdating === false){
             if(this.isUpdating){
-              console.log('updating done');
+              // console.log('updating done');
               this.cancelEdit();
               this.toastr.success('Your profile has been updated successfully!', '', {
                 timeOut: 3000
@@ -423,7 +423,7 @@ export class AboutBioComponent implements OnInit, OnDestroy {
         this.findSkill.industries = [];
       }
     }
-    //  console.log(reqBody)
+    //  // console.log(reqBody)
     this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: reqBody});
   }
 

@@ -62,7 +62,7 @@ export class AboutEducationComponent implements OnInit {
         } else {
           this.ownProfile = true;
           this.userProfile = this.stateProfile.profile_details;
-          console.log(this.userProfile)
+          // console.log(this.userProfile)
         }
       }
     });
@@ -95,8 +95,8 @@ export class AboutEducationComponent implements OnInit {
    * Add Work form submit
    */
   educationFormSubmit(value) {
-    console.log(value);
-    console.log(this.formData.formType);
+    // console.log(value);
+    // console.log(this.formData.formType);
     if(this.formData.formType === 'create'){
       this.profileStore.dispatch({ type: ProfileActions.ADD_USER_EDUCATION, payload: value});
       this.activateCreateForm = false;
@@ -145,8 +145,8 @@ export class AboutEducationComponent implements OnInit {
   }
 
   formsClose(eve){
-    console.log(eve);
-    console.log('closure under process');
+    // console.log(eve);
+    // console.log('closure under process');
     if(eve.formType === 'create'){
       this.activateCreateForm = false;
     }
