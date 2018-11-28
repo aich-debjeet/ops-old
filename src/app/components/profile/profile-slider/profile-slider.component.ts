@@ -146,7 +146,6 @@ export class ProfileSliderComponent implements OnInit {
           }
           this.isOwner = false;
         }
-        console.log('this.profileObject', this.profileObject);
       }
 
     });
