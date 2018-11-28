@@ -10,6 +10,28 @@ export const BookmarkReducer: ActionReducer<any> = (state = initialBookmarkState
 
     switch (type) {
 
+        case BookmarkActions.BOOKMARK_UPDATE_PROFILE_FOLLOW:
+            const profFlIdx = state.bookmarks.map(bookmark => bookmark.handle).indexOf(payload);
+            if (profFlIdx >= 0) {
+                const flBookmarks = state.bookmarks;
+                flBookmarks[profFlIdx].isFollowing = true;
+                return Object.assign({}, state, {
+                    bookmarks: flBookmarks
+                });
+            }
+            return state;
+
+        case BookmarkActions.BOOKMARK_UPDATE_PROFILE_UNFOLLOW:
+            const profUfIdx = state.bookmarks.map(bookmark => bookmark.handle).indexOf(payload);
+            if (profUfIdx >= 0) {
+                const ufBookmarks = state.bookmarks;
+                ufBookmarks[profUfIdx].isFollowing = false;
+                return Object.assign({}, state, {
+                    bookmarks: ufBookmarks
+                });
+            }
+            return state;
+
         case BookmarkActions.DELETE_BOOKMARK:
             return Object.assign({}, state, {
                 deletingBookmark: true,
