@@ -103,8 +103,8 @@
                                                 <div class="dropdown margin_l_16" appDropdown>   
                                                     <span class="com-head" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
                                                         <div class="o-action__ico">
-                                                            <img [src]="imageBaseLink + 'img/svg/ico-public.svg'" alt="" *ngIf="userProfile?.other?.dob?.access === 0">
-                                                            <img [src]="imageBaseLink + 'img/svg/Ico-private.svg'" alt="" *ngIf="userProfile?.other?.dob?.access === 1">
+                                                            <img [src]="imageBaseLink + 'img/svg/ico-public.svg'" alt="" *ngIf="privacy === 0">
+                                                            <img [src]="imageBaseLink + 'img/svg/Ico-private.svg'" alt="" *ngIf="privacy === 1">
                                                         </div>
                                                         <div class="o-action__ico-arrow">
                                                             <svg xmlns="http://www.w3.set/2000/svg" xmlns:xlink="http://www.w3.set/1999/xlink" width="10px" height="6px" viewBox="0 0 16 10" version="1.1">
@@ -147,12 +147,12 @@
                                     </span>
                                     </div>
                                     <div class="col-md-9 p-0">
-                                        <div id="acc_info-gender" class="o-set-list__data">
+                                        <div id="acc_info-gender" class="o-set-list__data" *ngIf="editingField !== 'gender'">
                                             <span class="c-text_md color-grey-dark" *ngIf="userProfile?.gender === 'M' && editingField != 'gender'">Male</span>
                                             <span class="c-text_md color-grey-dark" *ngIf="userProfile?.gender === 'F' && editingField != 'gender'">Female</span>
                                             <span class="c-text_md color-grey-dark" *ngIf="userProfile?.gender === 'O' && editingField != 'gender'">Others</span>
                                             <span class="o-set-list__edit-btn">
-                                                <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="editField('gender')">
+                                                <a class="o-set-list-edit__link c-text_md" (click)="editField('gender')">
                                                     <span class="o-set-list-edit__icon"><img [src]="imageBaseLink + 'img/svg/editpencil.svg'" alt=""></span>
                                                     Edit
                                                 </a>
@@ -194,14 +194,14 @@
                                     <div class="col-md-9 p-0">
                                         <div id="acc_info-username" class="o-set-list__data" *ngIf="editingField != 'username'">
                                             <span class="c-text_md color-grey-dark">{{ userProfile?.username }}</span>
-                                            <span class="o-set-list__edit-btn">
+                                            <!-- <span class="o-set-list__edit-btn">
                                                 <a class="o-set-list-edit__link c-text_md" (click)="editField('username')">
                                                     <span class="o-set-list-edit__icon"><img [src]="imageBaseLink + 'img/svg/editpencil.svg'" alt=""></span>
                                                     Edit
                                                 </a>
-                                            </span>
+                                            </span> -->
                                         </div><!-- data end -->
-                                        <div id="acc-info-username__edit" class="o-set-list__edit" *ngIf="editingField == 'username'">
+                                        <!-- <div id="acc-info-username__edit" class="o-set-list__edit" *ngIf="editingField == 'username'">
                                             <div class="col-md-4 p-0">
                                                 <div class="c-form__group c-form--sm c-form--noeffect">
                                                     <input class="c-form__input c-form__input--alert p-0" [ngModel]="userName" (ngModelChange)="userExistCheck($event)" type="text">
@@ -223,7 +223,8 @@
                                                     <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()">Cancel</button>
                                                 </div>
                                             </div>
-                                        </div><!-- edit data end -->
+                                        </div> -->
+                                        <!-- edit data end -->
                                     </div>
                               </li><!-- username end -->
                               <li class="o-set-list_items">
