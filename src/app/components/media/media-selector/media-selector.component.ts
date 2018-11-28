@@ -132,7 +132,7 @@ export class MediaSelectorComponent implements OnInit {
 
     this.route.queryParams.subscribe(params => {
       if (this.route.snapshot.queryParams['post_to'] === 'my_story') {
-        this.ct_name = 'My_Story';
+        this.ct_name = 'My Story';
         this.external_post_active = true;
         this.post_to = this.route.snapshot.queryParams['post_to'];
       } else {
