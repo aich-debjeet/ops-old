@@ -147,12 +147,12 @@
                                     </span>
                                     </div>
                                     <div class="col-md-9 p-0">
-                                        <div id="acc_info-gender" class="o-set-list__data">
+                                        <div id="acc_info-gender" class="o-set-list__data" *ngIf="editingField !== 'gender'">
                                             <span class="c-text_md color-grey-dark" *ngIf="userProfile?.gender === 'M' && editingField != 'gender'">Male</span>
                                             <span class="c-text_md color-grey-dark" *ngIf="userProfile?.gender === 'F' && editingField != 'gender'">Female</span>
                                             <span class="c-text_md color-grey-dark" *ngIf="userProfile?.gender === 'O' && editingField != 'gender'">Others</span>
                                             <span class="o-set-list__edit-btn">
-                                                <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="editField('gender')">
+                                                <a class="o-set-list-edit__link c-text_md" (click)="editField('gender')">
                                                     <span class="o-set-list-edit__icon"><img [src]="imageBaseLink + 'img/svg/editpencil.svg'" alt=""></span>
                                                     Edit
                                                 </a>
