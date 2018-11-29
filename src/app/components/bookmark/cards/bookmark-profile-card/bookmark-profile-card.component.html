@@ -3,10 +3,10 @@
         <div class="bookmark-profile__image">
             <img [src]="imageBaseUrl + profileDetails?.profileImage" alt="">
         </div>
-        <a *ngIf="profileDetails?.name" routerLink="{{ '/profile/u/' + oppDetails?.username }}" class="bookmark-profile__name">
+        <a *ngIf="profileDetails?.name" routerLink="{{ '/profile/u/' + profileDetails?.username }}" class="bookmark-profile__name">
             {{ profileDetails?.name }}
         </a>
-        <a *ngIf="profileDetails?.username" routerLink="{{ '/profile/u/' + oppDetails?.username }}" class="bookmark-profile__username">
+        <a *ngIf="profileDetails?.username" routerLink="{{ '/profile/u/' + profileDetails?.username }}" class="bookmark-profile__username">
             @{{ profileDetails?.username }}
         </a>
         <div class=" bookmark-info__action--mob">

@@ -54,8 +54,8 @@
             <button type="button" *ngIf="!profileObject?.extra?.isImported && !this.isOwner" (click)="userFollow(profileObject?.extra?.isFollowing, profileObject?.userDetails?.handle )"
               [ngClass]="(profileObject?.extra?.isFollowing) ? 'btn-following' : 'btn-primary'" class="btn btn-primary btn-md">{{
               (profileObject?.extra?.isFollowing)? 'Unfollow' : 'Follow'}}</button>
-            <a *ngIf="!profileObject?.extra?.isImported && !this.isOwner" type="button" class="btn btn-default btn-md" [routerLink]="['/bookmark']">Bookmark</a>
-            <!-- <a *ngIf="!profileObject?.extra?.isImported && !this.isOwner" type="button" class="btn btn-default btn-md" (click)="networkModal.open()">Network</a> -->
+            <!-- <a *ngIf="!profileObject?.extra?.isImported && !this.isOwner" type="button" class="btn btn-default btn-md" [routerLink]="['/bookmark']">Bookmark</a> -->
+            <a *ngIf="!profileObject?.extra?.isImported && !this.isOwner" type="button" class="btn btn-default btn-md" (click)="networkModal.open()">Network</a>
             <!-- <button *ngIf="!profileObject?.extra?.isImported && !this.isOwner" type="button" class="btn btn-default btn-md">Donate</button> -->
           </div>
         </div>
