@@ -33,6 +33,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
   scrolling = 0;
   scrollingLoad = 251;
   page = 0;
+  notificationType: string;
 
   constructor(
     private store: Store<Notification>,
@@ -165,7 +166,9 @@ export class NotificationComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.notificationType = 'all';
+   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
@@ -182,6 +185,10 @@ export class NotificationComponent implements OnInit, OnDestroy {
       }
       this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS, payload: data });
     }
+  }
+
+  switchtabs(tab: string){
+    this.notificationType = tab;
   }
 
 }
