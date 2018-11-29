@@ -41,10 +41,13 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   @ViewChild('communityLeaveModal') CommuityLeaveModal: Modal;
   @ViewChild('communityLeaveConfirmModal') CommunityLeaveConfirmModal: Modal;
 
-  private subscription: ISubscription;
-  private routerSubscription: ISubscription;
-  private profileSubscription: ISubscription;
-  private industrySubscription: ISubscription;
+  private commSub: ISubscription;
+  private routerSub: ISubscription;
+  private profileSub: ISubscription;
+  private loginSub: ISubscription;
+  private searchFieldSub: ISubscription;
+  private memberSearchSub: ISubscription;
+  private mediaUploadSub: ISubscription;
 
   searchField: FormControl;
   memberSearch: FormControl;
@@ -61,14 +64,14 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   relatedCommunity: any;
   memeberList: any;
   communityPost: any;
-  postLoader: boolean = false;
-  inviteBtnActive: boolean = true;
+  postLoader = false;
+  inviteBtnActive = true;
   public communityForm: FormGroup;
   public communityAdminForm: FormGroup;
   selectedIndustry = '';
-  isMemeberLoading: boolean = false;
-  communityLoading: boolean = false;
-  updateCommunityLoading: boolean = false;
+  isMemeberLoading = false;
+  communityLoading = false;
+  updateCommunityLoading = false;
   industryState$: Observable<any>;
   profileState$: Observable<any>;
   fileData: File;
@@ -89,20 +92,20 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   ) {
     this.token = this.api.getToken();
 
-    this.routerSubscription = this.route.params.subscribe(params => {
+    this.routerSub = this.route.params.subscribe(params => {
       this.id = params['communitiesId'];
       this.communityDetails();
     });
 
     this.industryState$ = store.select('loginTags');
-    this.industrySubscription = this.industryState$.subscribe((state) => {
+    this.loginSub = this.industryState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
         this.industries = state.industries;
       }
     });
 
     this.tagState$ = this.store.select('communitiesTags');
-    this.subscription = this.tagState$.subscribe((state) => {
+    this.commSub = this.tagState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
         if (state['communityDetails']) {
           this.details = state['communityDetails'];
@@ -132,7 +135,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
       }
 
       this.profileState$ = store.select('profileTags');
-      this.profileSubscription = this.profileState$.subscribe(event => {
+      this.profileSub = this.profileState$.subscribe(event => {
         this.userData = event['profile_navigation_details']
         if (event.profile_navigation_details && event.profile_navigation_details.handle) {
           this.handle = event.profile_navigation_details.handle;
@@ -150,32 +153,29 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
 
     // Search leave popup
     this.searchField = new FormControl();
-    this.searchField.valueChanges
+    this.searchFieldSub = this.searchField.valueChanges
       .debounceTime(400)
       .subscribe(name => {
         this.comunityMemberFetch(name);
       });
 
     // Member search invite people
-      this.memberSearch = new FormControl();
-      this.memberSearch.valueChanges
-        .debounceTime(400)
-        .subscribe(name => {
-          this.comunityInvitePeopleFetch(name);
-        });
-
-    // this.searchInput.valueChanges
-    // .debounceTime(500)
-    // .subscribe(() => {
-    //   // this.loadCommunity();
-    // });
+    this.memberSearch = new FormControl();
+    this.memberSearchSub = this.memberSearch.valueChanges
+      .debounceTime(400)
+      .subscribe(name => {
+        this.comunityInvitePeopleFetch(name);
+      });
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
-    this.routerSubscription.unsubscribe();
-    this.profileSubscription.unsubscribe();
-    this.industrySubscription.unsubscribe();
+    this.searchFieldSub.unsubscribe();
+    this.memberSearchSub.unsubscribe();
+    this.mediaUploadSub.unsubscribe();
+    this.commSub.unsubscribe();
+    this.routerSub.unsubscribe();
+    this.profileSub.unsubscribe();
+    this.loginSub.unsubscribe();
   }
 
   // Comunity member to admin form
@@ -302,15 +302,16 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
    */
   communityDelete() {
     this.store.dispatch({ type: CommunitiesActions.COMMUNITY_DELETE, payload: this.id });
-    this.store.select('communitiesTags')
-    .first(channel => channel['communnity_delete'] === true)
-    .subscribe( datas => {
+    const tempSub = this.store.select('communitiesTags')
+      .first(channel => channel['communnity_delete'] === true)
+      .subscribe( datas => {
         this.toastr.success('Your community has been successfully deleted', 'Success!', {
           timeOut: 3000
         });
         this.router.navigateByUrl('/communities');
-        return
-    });
+        tempSub.unsubscribe();
+        return;
+      });
   }
 
   /**
@@ -368,15 +369,16 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
       }
       this.store.dispatch({ type: CommunitiesActions.COMMUNITY_UPDATE, payload: data });
 
-      this.store.select('communitiesTags')
-      .first(channel => channel['community_update_success'] === true)
-      .subscribe( datas => {
-        this.toastr.success('Your community has been successfully updated', 'Update', {
-          timeOut: 3000
+      const tempSub = this.store.select('communitiesTags')
+        .first(channel => channel['community_update_success'] === true)
+        .subscribe( datas => {
+          this.toastr.success('Your community has been successfully updated', 'Update', {
+            timeOut: 3000
+          });
+          this.CommunityUpdate.close();
+          tempSub.unsubscribe();
+          return;
         });
-        this.CommunityUpdate.close();
-        return
-      });
     } else {
       this.toastr.warning('Please fill all required fields', '', {
         timeOut: 3000
@@ -394,7 +396,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.Upload.upload({
+    this.mediaUploadSub = this.Upload.upload({
       url: this.base,
       headers: { Authorization: 'Bearer ' + this.token },
       params: { handle: this.handle },
@@ -415,12 +417,8 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
           }
         }
       },
-      (err) => {
-        //
-      },
-      () => {
-        //
-      });
+      (err) => { },
+      () => { });
   }
 
   // Do something you want when file error occur.
