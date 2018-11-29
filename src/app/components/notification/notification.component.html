@@ -40,31 +40,36 @@
                             <div class="not_date">october 21</div>
                         </div>
 
-                        <div class="row not_block_main">
-                            <a href="javascript:void(0)">
+                        <div class="row not_block_main" *ngFor="let notification of notifications; let notifIndex = index;" [ngClass]="{'fill_grey': !notification.isRead}">
+                            <a (click)="openLink(notification)">
                                 <div class="not_block1 c-checkbox__md2">
                                     <label class="checkbox-inline">
                                         <input type="checkbox" value="1">
                                     </label>
                                 </div>
                                 <div class="not_block2 p-t-b-16">
-                                    <div class="not_avatar_img">
-                                        <img class="navdrop__img" src="assets/demo/new/avatar2.png">
+                                    <div class="not_avatar_img" [routerLink]="['', 'profile', 'u', notification.username, 'user']">
+                                        <img *ngIf="!notification.profileImage" class="navdrop__img" [src]="baseUrl + 'img/avatar2.png'">
+                                        <img *ngIf="notification.profileImage" [src]="baseUrl + notification.profileImage" class="navdrop__img">
                                     </div>
                                     <div class="not_block2_details">
-                                        <div class="not_block2_comm"><span class="color-grey-darker">Terry Carroll</span> Spotted your photo</div>
-                                        <div class="not_block2_tim"><img src="assets/svg/spot_icon.svg"> Oct 21, 08:15 PM</div>
+                                        <div class="not_block2_comm"><span class="color-grey-darker">{{ notification.name }}</span>{{ notification.message }}</div>
+                                        <div class="not_block2_tim">
+                                            <img *ngIf="notification?.notificationType == 'Status_Comments' || notification?.notificationType == 'Media_Comments'" [src]="baseUrl + 'img/svg/ico_comment.svg'">
+                                            <img *ngIf="notification?.notificationType == 'Media_Spot'" [src]="baseUrl + 'img/svg/spot_icon.svg'">
+                                            {{ notification.createdDate | utcDate | date:'d MMM hh:mm a' }}
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="not_block3 p-t-b-16">
+                                <div class="not_block3 p-t-b-16" *ngIf="(notification.media | json) != '{}'">
                                     <div class="not_block3_img">
-                                        <img src="assets/demo/art_img.jpg">
+                                        <img [src]="baseUrl + notification.media.thumbNails.mediumSmall">
                                     </div>
                                 </div>
                             </a>
                         </div>
 
-                        <div class="row not_block_main">
+                        <!-- <div class="row not_block_main">
                             <a href="javascript:void(0)">
                                 <div class="not_block1 c-checkbox__md2">
                                     <label class="checkbox-inline">
@@ -309,7 +314,7 @@
                                     </div>
                                 </div>
                             </a>
-                        </div>
+                        </div> -->
                     </div>
                     <div id="02" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'spots'">
                         <div class="row p-l-24 p-l-16 p-t-b-8">
