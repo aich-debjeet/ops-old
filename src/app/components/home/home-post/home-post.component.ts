@@ -17,7 +17,7 @@ import { findIndex as _findIndex } from 'lodash';
 })
 export class HomePostComponent implements OnInit, OnDestroy {
 
-  private subscription: ISubscription;
+  private profSub: ISubscription;
   tagState$: Observable<ProfileModal>;
   userProfile = initialTag ;
   trendingPost: any;
@@ -42,7 +42,7 @@ export class HomePostComponent implements OnInit, OnDestroy {
   ) {
     this.tagState$ = this.store.select('profileTags');
     this.posts = [];
-    this.subscription = this.tagState$.subscribe((state) => {
+    this.profSub = this.tagState$.subscribe((state) => {
       this.userProfile = state;
       this.userData = state['profile_navigation_details']
 
@@ -140,7 +140,7 @@ export class HomePostComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.profSub.unsubscribe();
   }
 
 }
