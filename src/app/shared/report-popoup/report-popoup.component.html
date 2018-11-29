@@ -15,11 +15,11 @@
             <ul>
                 <li>
                     <div class="c-radio__sm" *ngFor = "let options of reportQues">
-                        <label class="col-md-12" *ngIf = "options.question !== 'Other issues'">
+                        <label class="col-md-12" *ngIf="options.question !== 'Other issues'">
                             <input name="repOption" type="radio" value="{{options.question}}" formControlName="repOption" (change)="onSelectionChange(options.question)"><span></span>
                             <div class="radio-text">{{options.question}}</div>
                         </label>
-                        <label class="col-md-12" *ngIf = "options.question === 'Other issues'">
+                        <label class="col-md-12" *ngIf="options.question === 'Other issues'">
                             <input name="repOption" type="radio" value="{{options.question}}" formControlName="repOption" (change)="onSelectionChange(options.question)"><span></span>
                             <div class="radio-text">{{options.question}}</div>
                             <div class="" *ngIf ="describe">

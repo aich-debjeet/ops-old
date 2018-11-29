@@ -16,7 +16,7 @@
                 <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
                     <img [src]="baseUrl + 'img/svg/ico_options.svg'" class="c-status__options">
                 </span>
-                <ul class="dropdown-menu dropdown-menu-right m-r-8" *ngIf = "eventDetail?.isOwner">
+                <ul class="dropdown-menu dropdown-menu-right m-r-8" *ngIf="eventDetail?.isOwner">
                     <li>
                         <a [routerLink] = "'/event/edit/'+ eventDetail?.id">Edit</a>
                     </li>
@@ -24,13 +24,13 @@
                         <a (click) = "deleteEvent(eventDetail?.id)">Delete</a>
                     </li>
                 </ul>
-                <ul class="dropdown-menu dropdown-menu-right m-r-8" *ngIf = "!eventDetail?.isOwner">
+                <ul class="dropdown-menu dropdown-menu-right m-r-8" *ngIf="!eventDetail?.isOwner">
                   <li>
                       <a (click)="reportModalOpen(eventDetail?.id)">Report</a>
                   </li>
               </ul>
             </div>
-            <span class="c-links__bookmark pull-right">
+            <span *ngIf="!eventDetail?.isOwner" class="c-links__bookmark pull-right">
               <a *ngIf="eventDetail?.extras?.isBookmarked === true" (click)="bookmarkAction('remove', eventDetail?.id)">
                 <img src="https://ops-v2-2.netlify.com/assets/svg/bookmarked.svg" class="c-action__image">
               </a>
