@@ -1,30 +1,30 @@
 <app-navigation></app-navigation>
 
 <section class="message-container">
-    <div class="container">
-        <!-- registraion middle container -->
-        <div class="row mess_block">
-            <!-- left section -->
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 mess_left with_border_right">
-                <div class="row p-24">
-                    <div class="c-text_lg">Messages
-                        <!-- <button type="button" class="btn btn-primary btn-md pull-right" (click)="composeNewMessage()" >
+  <div class="container">
+    <!-- registraion middle container -->
+    <div class="row mess_block">
+      <!-- left section -->
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 mess_left with_border_right">
+        <div class="row p-24">
+          <div class="c-text_lg">Messages
+            <!-- <button type="button" class="btn btn-primary btn-md pull-right" (click)="composeNewMessage()" >
                             <span class="btn-label-icon2 m-r-5"></span> compose
                         </button> -->
-                    </div>
-                </div>
-                <div class="row p-l-r-24">
-                    <div class="c-form__group c-form--md c-form--noeffect c-form__faded--sm m-0">
-                        <input class="c-form__input p-l-24" type="text" [formControl]="msgUserSearch" placeholder="Search">
-                        <label class="p-l-16">Search</label>
-                        <span>
-                        <img *ngIf="!isSearching" [src]="imageBaseUrl + 'img/svg/ico_search.svg'" class="c-form__input--lefticon">
-                        <img *ngIf="isSearching" [src]="imageBaseUrl + 'img/search-preloader.gif'" class="c-form__input--lefticon">
-                    </span>
-                    </div>
-                </div>
-                <div class="row p-l-r-24 p-t-b-8">
-                    <!-- <div class="col-md-7 c-text_md c-checkbox__md2 p-l-0">
+          </div>
+        </div>
+        <div class="row p-l-r-24">
+          <div class="c-form__group c-form--md c-form--noeffect c-form__faded--sm m-0">
+            <input class="c-form__input p-l-24" type="text" [formControl]="msgUserSearch" placeholder="Search">
+            <label class="p-l-16">Search</label>
+            <span>
+              <img *ngIf="!isSearching" [src]="imageBaseUrl + 'img/svg/ico_search.svg'" class="c-form__input--lefticon">
+              <img *ngIf="isSearching" [src]="imageBaseUrl + 'img/search-preloader.gif'" class="c-form__input--lefticon">
+            </span>
+          </div>
+        </div>
+        <div class="row p-l-r-24 p-t-b-8">
+          <!-- <div class="col-md-7 c-text_md c-checkbox__md2 p-l-0">
                         <label class="checkbox-inline p-l-0 m-t-8">
                             <input type="checkbox" value="1"> Select all
                         </label>
@@ -38,150 +38,150 @@
                             </select>
                         </div>
                     </div> -->
-                </div>
-                <div *ngIf="messangerList && messangerList?.length > 0" class="mess_list row" id="ops_scrollbar">
-                    <div *ngFor="let user of messangerList" class="row with_border_bottom with_border_top xs-m-l-r-0" [ngClass]="{'msg__unread': !user?.isRead }">
-                        <div class="c-checkbox__md2 col-md-2">
-                            <label class="checkbox-inline pull-right m-t-24">
-                                <input type="checkbox" value="1">
-                            </label>
-                        </div>
-                        <div class="col-md-10 desktop-p-l-0">
-                            <div class="dropdown__item p-t-b-16" (click)="selectUser(user)">
-                                <div class="dropnoti__avatar">
-                                    <img *ngIf="user?.profileImage === ''" class="navdrop__img" [src]="imageBaseUrl + 'avatars/user-avatar-male.png'">
-                                    <img *ngIf="user?.profileImage !== ''" class="navdrop__img" [src]="imageBaseUrl + user?.profileImage">
-                                </div>
-                                <div class="dropnoti__detail">
-                                    <p class="dropnoti__bold color-grey-darker">{{ user?.name | truncate:[25, '...'] }}</p>
-                                    <p>{{ user?.latestMessage | truncate:[30, '...'] }}</p>
-                                </div>
-                                <p class="msg__time2">{{ user?.time | utcDate | date:'d MMM hh:mm a' }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        </div>
+        <div *ngIf="messangerList && messangerList?.length > 0" class="mess_list row" id="ops_scrollbar">
+          <div *ngFor="let user of messangerList" class="row with_border_bottom with_border_top xs-m-l-r-0" [ngClass]="{'msg__unread': !user?.isRead }">
+            <div class="c-checkbox__md2 col-md-2">
+              <label class="checkbox-inline pull-right m-t-24">
+                <input type="checkbox" value="1">
+              </label>
             </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 mess_right xs-chat-box">
-                <div class="c-text_lg p-t-b-24">
-                    Message with 
-                    <a routerLink="/profile/u/{{ selectedUser?.username }}">
-                        <strong>{{ selectedUser?.name }}</strong>
-                    </a>
-                    <div class="dropdown c-dropdown pull-right">
-                        <p class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            <!-- <img [src]="imageBaseUrl + 'img/svg/ico_settings.svg'" class="mess_set_icon"> -->
-                        </p>
-                        <ul class="dropdown-menu">
-                            <li class="with_border_bottom">
-                                <a href="#">
-                                    <img [src]="imageBaseUrl + 'img/svg/ico_archive.svg'" class="mess_set_icon"> &nbsp;
-                                    <span>Archive</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img [src]="imageBaseUrl + 'img/svg/ico_delete.svg'" class="mess_set_icon"> &nbsp;
-                                    <span>x</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+            <div class="col-md-10 desktop-p-l-0">
+              <div class="dropdown__item p-t-b-16" (click)="selectUser(user)">
+                <div class="dropnoti__avatar">
+                  <img *ngIf="user?.profileImage === ''" class="navdrop__img" [src]="imageBaseUrl + 'avatars/user-avatar-male.png'">
+                  <img *ngIf="user?.profileImage !== ''" class="navdrop__img" [src]="imageBaseUrl + user?.profileImage">
                 </div>
+                <div class="dropnoti__detail">
+                  <p class="dropnoti__bold color-grey-darker">{{ user?.name | truncate:[25, '...'] }}</p>
+                  <p>{{ user?.latestMessage | truncate:[30, '...'] }}</p>
+                </div>
+                <p class="msg__time2">{{ user?.time | utcDate | date:'d MMM hh:mm a' }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 mess_right xs-chat-box">
+        <div class="c-text_lg p-t-b-24">
+          Message with
+          <a routerLink="/profile/u/{{ selectedUser?.username }}">
+            <strong>{{ selectedUser?.name }}</strong>
+          </a>
+          <div class="dropdown c-dropdown pull-right">
+            <p class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+              <!-- <img [src]="imageBaseUrl + 'img/svg/ico_settings.svg'" class="mess_set_icon"> -->
+            </p>
+            <ul class="dropdown-menu">
+              <li class="with_border_bottom">
+                <a href="#">
+                  <img [src]="imageBaseUrl + 'img/svg/ico_archive.svg'" class="mess_set_icon"> &nbsp;
+                  <span>Archive</span>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <img [src]="imageBaseUrl + 'img/svg/ico_delete.svg'" class="mess_set_icon"> &nbsp;
+                  <span>x</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
 
-                <!-- preloader -->
-                <div *ngIf="showPreloader === true">
-                    <div class="sticky">
-                        <div class="loader">Loading...</div>
-                    </div>
-                </div>
-                <!-- preloader -->
-                
-                <ng-container *ngIf="showPreloader === false">
-                    <!-- message container -->
-                    <!-- <div class="mess_chat_block" #chatWindow [scrollTop]="chatWindow.scrollHeight" -->
-                    <div class="mess_chat_block" id="ops_scrollbar" #chatWindow 
-                        infiniteScroll
-                        [infiniteScrollDistance]="5"
-                        [infiniteScrollThrottle]="50"
-                        [scrollWindow]="false"
-                        (scrolled)="onScrollDown()"
-                        (scrolledUp)="onScrollUp()">
-                        <ng-container *ngIf="conversation?.length > 0">
-                            <div *ngFor="let message of conversation" class="msg_container">
-                                <div class="col-md-12" *ngIf="message?.messageType === 'sent'">
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item avatar_msg_input float_right">
-                                            <img *ngIf="message?.profileImage === ''" [src]="imageBaseUrl + 'avatars/user-avatar-male.png'" class="img-responsive">
-                                            <img *ngIf="message?.profileImage !== ''" [src]="imageBaseUrl + message?.profileImage" class="img-responsive">
-                                        </li>
-                                        <li class="list-inline-item msg_cont_block2 right-message">
-                                            <p class="ops_msg_aero2" *ngIf="message?.isDeleted === false">{{ message?.content }}</p>
-                                            <p class="ops_msg_aero2" *ngIf="message?.isDeleted === true">
-                                                <i>{{ message?.content }}</i>
-                                            </p>
-                                            <div *ngIf="message?.isDeleted === false" class="msg_sent_time2">{{ message?.time | utcDate | date:'d MMM hh:mm a' }}</div>
-                                            <div *ngIf="message?.isDeleted === true" class="msg_sent_time2">&nbsp;</div>
-                                            <!-- <ng-template #notSending>
+        <!-- preloader -->
+        <div *ngIf="showPreloader === true">
+          <div class="sticky">
+            <div class="loader">Loading...</div>
+          </div>
+        </div>
+        <!-- preloader -->
+
+        <ng-container *ngIf="showPreloader === false">
+          <!-- message container -->
+          <!-- <div class="mess_chat_block" #chatWindow [scrollTop]="chatWindow.scrollHeight" -->
+          <div class="mess_chat_block" id="ops_scrollbar" #chatWindow infiniteScroll [infiniteScrollDistance]="5"
+            [infiniteScrollThrottle]="50" [scrollWindow]="false" (scrolled)="onScrollDown()" (scrolledUp)="onScrollUp()">
+            <ng-container *ngIf="conversation?.length > 0">
+              <div *ngFor="let message of conversation" class="msg_container">
+                <div class="col-md-12" *ngIf="message?.messageType === 'sent'">
+                  <ul class="list-inline">
+                    <li class="list-inline-item avatar_msg_input float_right">
+                      <img *ngIf="message?.profileImage === ''" [src]="imageBaseUrl + 'avatars/user-avatar-male.png'"
+                        class="img-responsive">
+                      <img *ngIf="message?.profileImage !== ''" [src]="imageBaseUrl + message?.profileImage" class="img-responsive">
+                    </li>
+                    <li class="list-inline-item msg_cont_block2 right-message">
+                      <p class="ops_msg_aero2" *ngIf="message?.isDeleted === false">{{ message?.content }}</p>
+                      <p class="ops_msg_aero2" *ngIf="message?.isDeleted === true">
+                        <i>{{ message?.content }}</i>
+                      </p>
+                      <div *ngIf="message?.isDeleted === false" class="msg_sent_time2">{{ message?.time | utcDate |
+                        date:'d MMM hh:mm a' }}</div>
+                      <div *ngIf="message?.isDeleted === true" class="msg_sent_time2">&nbsp;</div>
+                      <!-- <ng-template #notSending>
                                                 <span title="Delete" class="del-msg" *ngIf="!message?.isNetworkRequest && !message?.isDeleted" (click)="deleteMessage(message)">x</span>
                                             </ng-template> -->
-                                            <!-- <span class="sending-msg" *ngIf="message?.isSending === true; else notSending">
+                      <!-- <span class="sending-msg" *ngIf="message?.isSending === true; else notSending">
                                                 <img [src]="imageBaseUrl + 'img/search-preloader.gif'" class="c-form__input--lefticon">
                                             </span> -->
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-12" *ngIf="message?.messageType !== 'sent'">
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item avatar_msg_input float_left">
-                                            <img *ngIf="message?.profileImage === ''" [src]="imageBaseUrl + 'avatars/user-avatar-male.png'" class="img-responsive">
-                                            <img *ngIf="message?.profileImage !== ''" [src]="imageBaseUrl + message?.profileImage" class="img-responsive">
-                                        </li>
-                                        <li class="list-inline-item msg_cont_block left-message">
-                                            <p class="ops_msg_aero" *ngIf="message?.isDeleted === true">
-                                                <i>{{ message?.content }}</i>
-                                            </p>
-                                            <p class="ops_msg_aero" *ngIf="message?.isDeleted === false">
-                                                {{ message?.content }}
-                                                <br>
-                                                <ng-container *ngIf="message?.isNetworkRequest">
-                                                    <button (click)="networkReqAction('accept', message)" type="button" class="btn btn-primary btn-sm">accept</button>
-                                                    <button (click)="networkReqAction('reject', message)" type="button" class="btn btn-default btn-sm">decline</button>
-                                                </ng-container>
-                                            </p>
-                                            <div *ngIf="message?.isDeleted === false" class="msg_sent_time">{{ message?.time | utcDate | date:'d MMM hh:mm a' }}</div>
-                                            <div *ngIf="message?.isDeleted === true" class="msg_sent_time2">&nbsp;</div>
-                                            <!-- <span title="Delete" class="del-msg" *ngIf="!message?.isNetworkRequest && !message?.isDeleted" (click)="deleteMessage(message)">x</span> -->
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-md-12" *ngIf="message?.messageType !== 'sent'">
+                  <ul class="list-inline">
+                    <li class="list-inline-item avatar_msg_input float_left">
+                      <img *ngIf="message?.profileImage === ''" [src]="imageBaseUrl + 'avatars/user-avatar-male.png'"
+                        class="img-responsive">
+                      <img *ngIf="message?.profileImage !== ''" [src]="imageBaseUrl + message?.profileImage" class="img-responsive">
+                    </li>
+                    <li class="list-inline-item msg_cont_block left-message">
+                      <p class="ops_msg_aero" *ngIf="message?.isDeleted === true">
+                        <i>{{ message?.content }}</i>
+                      </p>
+                      <p class="ops_msg_aero" *ngIf="message?.isDeleted === false">
+                        {{ message?.content }}
+                        <br>
+                        <ng-container *ngIf="message?.isNetworkRequest">
+                          <button (click)="networkReqAction('accept', message)" type="button" class="btn btn-primary btn-sm">accept</button>
+                          <button (click)="networkReqAction('reject', message)" type="button" class="btn btn-default btn-sm">decline</button>
                         </ng-container>
-                    </div>
-                    <!-- //message container -->
+                      </p>
+                      <div *ngIf="message?.isDeleted === false" class="msg_sent_time">{{ message?.time | utcDate |
+                        date:'d MMM hh:mm a' }}</div>
+                      <div *ngIf="message?.isDeleted === true" class="msg_sent_time2">&nbsp;</div>
+                      <!-- <span title="Delete" class="del-msg" *ngIf="!message?.isNetworkRequest && !message?.isDeleted" (click)="deleteMessage(message)">x</span> -->
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+          <!-- //message container -->
 
-                    <!-- message input block -->
-                    <div *ngIf="enableMsgInput" class="row msg-input-block">
-                        <div class="col-md-12 typing" >
-                            <p *ngIf="isTyping" >{{ selectedUser?.name }} is typing...</p>
-                        </div>
-                        <div class="col-md-1">
-                            <div class="c-user__avatar c-avatar--feed3 m-t-16">
-                                <img class="c-user__image" [src]="imageBaseUrl + profileState?.profile_cards?.active?.image">
-                            </div>
-                        </div>
-                        <div class="col-md-11 p-l-0">
-                            <div class="c-form__group c-form--md c-form--noeffect c-form__faded--md">
-                                <input class="c-form__input xs-message-box" type="text" [(ngModel)]="messageText" (keyup)="userIsTyping($event)" placeholder="Message">
-                                <label>Message</label>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- //message input block -->
-                </ng-container>
-                
+          <!-- message input block -->
+          <div *ngIf="enableMsgInput" class="row msg-input-block">
+            <div class="col-md-12 typing">
+              <p *ngIf="isTyping">{{ selectedUser?.name }} is typing...</p>
             </div>
-        </div>
-        <!-- //registraion middle container -->
+            <div class="col-md-1">
+              <div class="c-user__avatar c-avatar--feed3 m-t-16">
+                <img class="c-user__image" [src]="imageBaseUrl + profileState?.profile_cards?.active?.image">
+              </div>
+            </div>
+            <div class="col-md-11 p-l-0">
+              <div class="c-form__group c-form--md c-form--noeffect c-form__faded--md">
+                <input class="c-form__input xs-message-box" type="text" [(ngModel)]="messageText" (keyup)="userIsTyping($event)"
+                  placeholder="Message">
+                <label>Message</label>
+              </div>
+            </div>
+          </div>
+          <!-- //message input block -->
+        </ng-container>
+
+      </div>
     </div>
+    <!-- //registraion middle container -->
+  </div>
 </section>

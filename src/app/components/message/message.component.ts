@@ -48,6 +48,8 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   profSub: Subscription;
   msgSub: Subscription;
+  gUtilsSub: Subscription;
+  msgUserSearchSub: Subscription;
 
   constructor(
     private messageStore: Store<MessageModal>,
@@ -56,7 +58,7 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
     private activatedRoute: ActivatedRoute,
     private gUtils: GeneralUtilities
   ) {
-    this.gUtils.listen().subscribe((e: any) => {
+    this.gUtilsSub = this.gUtils.listen().subscribe((e: any) => {
       if (e.component && e.component === 'MessageHomeComponent' && e.action === 'scrollToBottom') {
         this.scrollToBottom();
       }
@@ -165,26 +167,26 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
     }
 
     // search user input listener
-    this.msgUserSearch.valueChanges
-    .debounceTime(500)
-    .subscribe(() => {
-      // console.log('search: ', this.msgUserSearch.value);
-      if (this.msgUserSearch.value.length === 0) {
-        this.isSearching = true;
-        // fetch logged in user messanger list
-        this.messageStore.dispatch({
-          type: MessageActions.GET_MESSANGER_LIST,
-          payload: null
-        });
-      } else {
-        this.isSearching = true;
-        // fetch messanger lsit as per query
-        this.messageStore.dispatch({
-          type: MessageActions.MESSAGE_SEARCH_USER,
-          payload: this.msgUserSearch.value
-        });
-      }
-    });
+    this.msgUserSearchSub = this.msgUserSearch.valueChanges
+      .debounceTime(500)
+      .subscribe(() => {
+        // console.log('search: ', this.msgUserSearch.value);
+        if (this.msgUserSearch.value.length === 0) {
+          this.isSearching = true;
+          // fetch logged in user messanger list
+          this.messageStore.dispatch({
+            type: MessageActions.GET_MESSANGER_LIST,
+            payload: null
+          });
+        } else {
+          this.isSearching = true;
+          // fetch messanger lsit as per query
+          this.messageStore.dispatch({
+            type: MessageActions.MESSAGE_SEARCH_USER,
+            payload: this.msgUserSearch.value
+          });
+        }
+      });
   }
 
   /**
@@ -452,8 +454,10 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.pusherService.messagesChannel.unbind('New-Message');
     this.pusherService.notificationsChannel.unbind('Message-Typing');
 
-    this.profSub.unsubscribe();
     this.msgSub.unsubscribe();
+    this.profSub.unsubscribe();
+    this.gUtilsSub.unsubscribe();
+    this.msgUserSearchSub.unsubscribe();
   }
 
 }
