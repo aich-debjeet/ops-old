@@ -8,7 +8,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
 
     case MediaActions.MEDIA_BOOKAMRK_FLAG_UPDATE:
       return Object.assign({}, state, {
-        media_detail: {
+        media_detail: state.media_detail.extras === undefined ? { ...state.media_detail } : {
           ...state.media_detail,
           extras: {
             ...state.media_detail.extras,
@@ -163,7 +163,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
           Object.assign({}, spotfeed_del_post, {commentsCount: spotfeed_del_count }),
           ...state.channel_post.slice(spotfeed_del_index + 1)
         ],
-        media_detail: {
+        media_detail: state.media_detail.extras === undefined ? { ...state.media_detail } : {
           ...state.media_detail,
           extras: {
             ...state.media_detail.extras,
@@ -200,7 +200,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
           Object.assign({}, spotfeed_post, {commentsCount: spotfeed_count }),
           ...state.channel_post.slice(spotfeed_index + 1)
         ],
-        media_detail: {
+        media_detail: state.media_detail.extras === undefined ? { ...state.media_detail } : {
           ...state.media_detail,
           extras: {
             ...state.media_detail.extras,
@@ -225,7 +225,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
           Object.assign({}, channel_media_spot, {spotsCount: channel_media_spot_count, isSpotted: true }),
           ...state.channel_post.slice(channel_media_spot_index + 1)
         ],
-        media_detail: {
+        media_detail: state.media_detail.extras === undefined ? { ...state.media_detail } : {
           ...state.media_detail,
           isSpotted: true,
           extras: {
@@ -250,7 +250,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
           Object.assign({}, channel_media_unspot, {spotsCount: channel_media_unspot_count, isSpotted: false }),
           ...state.channel_post.slice(channel_media_unspot_index + 1)
         ],
-        media_detail: {
+        media_detail: state.media_detail.extras === undefined ? { ...state.media_detail } : {
           ...state.media_detail,
           isSpotted: false,
           extras: {
