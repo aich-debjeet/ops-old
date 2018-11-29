@@ -1,124 +1,126 @@
-<app-route-modal  modalClass="c-modal--size1" [cancelUrl]="['', {outlets: { media: null }}]">
-    <modal-content>
-
-        <button class="close" (click)="closeFunction()" data-dismiss="modal" type="button">×</button>
-
-        <div class="c-mediamodal__left">
-            <div class="c-mediamodal__left__block">
-                <figure class="c-mediamodal--img">
-                    <app-videoplayer [showControls]="'true'" *ngIf="data?.contentType === 'video'" [src]="imageLink + data?.repopath"></app-videoplayer>
-                    <img  *ngIf="data?.contentType === 'image'" [src]="imageLink + data?.repopath" class="img-responsive">
-                    <app-audioplayer  *ngIf="data?.contentType === 'audio'" [src]="imageLink + data?.repopath"></app-audioplayer>
-                </figure>
-                <div class="c-mediamodal__l-arrow" *ngIf="mediaCarousal?.prev != ''">
-                    <div class="c-mediamodal__arrow--icon">
-                        <a [routerLink]="['', { outlets: { media : ['media', mediaCarousal?.prev ] }}]">
-                            <img [src]="imageLink + 'img/svg/arrow-left.svg'">
-                        </a>
-                    </div>
-                </div>
-                <div class="c-mediamodal__r-arrow" *ngIf="mediaCarousal?.next != ''">
-                    <div class="c-mediamodal__arrow--icon">
-                        <a [routerLink]="['/', { outlets: { media : ['media', mediaCarousal?.next ] }}]">
-                            <img [src]="imageLink + 'img/svg/arrow-left.svg'">
-                        </a>
-                    </div>
-                </div>
-            </div>
+<app-route-modal modalClass="c-modal--size1" [cancelUrl]="['', {outlets: { media: null }}]">
+  <modal-content>
+    <button class="close" (click)="closeFunction()" data-dismiss="modal" type="button">×</button>
+    <div class="c-mediamodal__left">
+      <div class="c-mediamodal__left__block">
+        <figure class="c-mediamodal--img">
+          <app-videoplayer [showControls]="'true'" *ngIf="data?.contentType === 'video'" [src]="imageLink + data?.repopath"></app-videoplayer>
+          <img *ngIf="data?.contentType === 'image'" [src]="imageLink + data?.repopath" class="img-responsive">
+          <app-audioplayer *ngIf="data?.contentType === 'audio'" [src]="imageLink + data?.repopath"></app-audioplayer>
+        </figure>
+        <div class="c-mediamodal__l-arrow" *ngIf="mediaCarousal?.prev != ''">
+          <div class="c-mediamodal__arrow--icon">
+            <a [routerLink]="['', { outlets: { media : ['media', mediaCarousal?.prev ] }}]">
+              <img [src]="imageLink + 'img/svg/arrow-left.svg'">
+            </a>
+          </div>
         </div>
-
-        <div class="c-mediamodal__right" id="ops_scrollbar">
-            <div class="fill-white">
-                <div class="c-mediamodal__user p-16" *ngIf="data.isOwner">
-                    <a routerLink="/profile"  class="c-user__avatar c-avatar--status3">
-                        <img class="c-user__image" [src]="imageLink + data?.ownerImage">
-                    </a>
-                    <a routerLink="/profile" class="c-user__name">{{ data?.ownerName | truncate:[40, '...']}}</a>
-                    <div class="c-mediamodal__subhead">{{ data?.channelName }}
-                        <span class="c-mediamodal__time">{{ data?.createdDate | utcDate | date: 'hh:mm a dd MMM, yy'}}</span>
-                    </div>
-                    <div class="c-mediamodal__opt dropdown c-dropdown" appDropdown>
-                        <img *ngIf="data.access === 1" [src]="imageLink + 'img/svg/ico_private.svg'">
-                        <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
-                                <img [src]="imageLink + 'img/svg/ico_options.svg'" class="c-options--img">
-                        </span>
-                        <ul class="dropdown-menu dropdown-menu-right">
-                            <li><a (click)="onContentEdit($event)">Edit</a></li>
-                            <li><a (click)="deletePost(data)">Delete</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="c-mediamodal__user p-16" *ngIf="!data.isOwner">
-                    <a [routerLink]="['/', {outlets: { primary: ['profile', 'u', data?.ownerUsername], media: null }}]"  class="c-user__avatar c-avatar--status3">
-                        <img *ngIf="data?.ownerImage" class="c-user__image" [src]="imageLink + data?.ownerImage">
-                    </a>
-                    <a [routerLink]="['/', {outlets: { primary: ['profile', 'u', data?.ownerUsername], media: null }}]" class="c-user__name">{{ data?.ownerName | truncate:[40, '...'] }}</a>
-                    <div class="c-mediamodal__subhead" [routerLink]="['/', {outlets: { primary: ['channel', data?.channelId], media: null }}]"><span class="cursor_pointer">{{ data?.channelName }}</span>
-                        <span class="c-mediamodal__time">{{ data?.createdDate | utcDate | date: 'hh:mm a dd MMM, yy'}}</span>
-                    </div>
-                </div>
-                <div class="c-text_sm p-16">
-                    <read-more [class]="'media-popup__text'" [isEdit]="isEdit" [text]="data?.description" [maxLength]=250 (commentEdited)="onCommentEdit($event)"></read-more>
-                </div>
-                <div class="c-card__links c-block__inline c-float--none p-t-0">
-                    <div class="c-links">
-                        <div class="c-links__spots" (click)="spotMedia(data)">
-                            <img *ngIf="mediaStore?.media_detail?.isSpotted === false" [src]="imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
-                            <img *ngIf="mediaStore?.media_detail?.isSpotted === true" [src]="imageLink + 'img/svg/spot_icon.svg'" class="c-links__image">
-                            <span class="c-links__count">{{ mediaStore?.media_detail?.extras?.counts?.spotsCount }}</span>
-                        </div>
-                        <div class="c-links__comments">
-                            <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
-                            <span class="c-links__count">{{ mediaStore?.media_detail?.extras?.counts?.commentsCount }}</span>
-                        </div>
-                        <div class="c-links__actions">
-                            <span class="c-links__bookmark">
-                                <a *ngIf="mediaStore?.media_detail?.extras?.isBookmarked === true" (click)="bookmarkAction('remove', mediaStore?.media_detail)">
-                                    <img src="https://ops-v2-2.netlify.com/assets/svg/bookmarked.svg" class="c-action__image">
-                                </a>
-                                <a *ngIf="mediaStore?.media_detail?.extras?.isBookmarked === false" (click)="bookmarkAction('add', mediaStore?.media_detail)">
-                                    <img src="https://ops-v2-2.netlify.com/assets/svg/bookmark.svg" class="c-action__image">
-                                </a>
-                            </span>
-                            <span class="c-links__add">
-                                <div class="c-links__actions">
-                                    <span class="c-links__add">
-                                        <a href="javascript:void(0)">
-                                            <img [src]="imageLink + 'img/svg/ico_addtochannel.svg'" class="c-action__image">
-                                        </a>
-                                    </span>
-                                    <span class="c-links__share dropdown c-dropdown" appDropdown>
-                                        <a appDropdownOpen>
-                                            <img [src]="imageLink + 'img/svg/ico_share-02.svg'" class="c-action__image">
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right o-share__profile2 p-16">
-                                            <div class="c-text_md">Share this Profile</div>
-                                            <div class="o-share__social">
-                                                <div class="o-share__social-icon p-l-0" shareButton="google" [sbUrl]="domainLink + 'media/' + data?.id">
-                                                    <img [src]="imageLink + 'v2/svg/googleplus.svg'">
-                                                </div>
-                                                <div class="o-share__social-icon" shareButton="twitter" [sbUrl]="domainLink + 'media/' + data?.id">
-                                                    <img [src]="imageLink + 'v2/svg/twitter.svg'">
-                                                </div>
-                                                <div class="o-share__social-icon" [shareButton]="'facebook'" [sbUrl]="domainLink + 'media/' + data?.id">
-                                                    <img [src]="imageLink + 'v2/svg/facebook.svg'">
-                                                </div>
-                                                <div class="o-share__social-icon p-r-0" shareButton="email" [sbUrl]="domainLink + 'media/' + data?.id">
-                                                    <img [src]="imageLink + 'v2/svg/envelope.svg'">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </span>
-                                </div>
-                            </span>
-                        </div>  
-                    </div>
-                </div>
-            </div>
-            <div class="c-media__right--feed">
-                <app-comment [mediaId]="mediaId" [commentsType]="'media-popup'" [comments]="comments" [userData]="userData" [mediaType]="mediaType"></app-comment>
-            </div>
+        <div class="c-mediamodal__r-arrow" *ngIf="mediaCarousal?.next != ''">
+          <div class="c-mediamodal__arrow--icon">
+            <a [routerLink]="['/', { outlets: { media : ['media', mediaCarousal?.next ] }}]">
+              <img [src]="imageLink + 'img/svg/arrow-left.svg'">
+            </a>
+          </div>
         </div>
-
-    </modal-content>
+      </div>
+    </div>
+    <div class="c-mediamodal__right" id="ops_scrollbar">
+      <div class="fill-white">
+        <div class="c-mediamodal__user p-16" *ngIf="data.isOwner">
+          <a routerLink="/profile" class="c-user__avatar c-avatar--status3">
+            <img class="c-user__image" [src]="imageLink + data?.ownerImage">
+          </a>
+          <a routerLink="/profile" class="c-user__name">{{ data?.ownerName | truncate:[40, '...']}}</a>
+          <div class="c-mediamodal__subhead">{{ data?.channelName }}
+            <span class="c-mediamodal__time">{{ data?.createdDate | utcDate | date: 'hh:mm a dd MMM, yy'}}</span>
+          </div>
+          <div class="c-mediamodal__opt dropdown c-dropdown" appDropdown>
+            <img *ngIf="data.access === 1" [src]="imageLink + 'img/svg/ico_private.svg'">
+            <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
+              <img [src]="imageLink + 'img/svg/ico_options.svg'" class="c-options--img">
+            </span>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li><a (click)="onContentEdit($event)">Edit</a></li>
+              <li><a (click)="deletePost(data)">Delete</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="c-mediamodal__user p-16" *ngIf="!data.isOwner">
+          <a [routerLink]="['/', {outlets: { primary: ['profile', 'u', data?.ownerUsername], media: null }}]" class="c-user__avatar c-avatar--status3">
+            <img *ngIf="data?.ownerImage" class="c-user__image" [src]="imageLink + data?.ownerImage">
+          </a>
+          <a [routerLink]="['/', {outlets: { primary: ['profile', 'u', data?.ownerUsername], media: null }}]" class="c-user__name">{{
+            data?.ownerName | truncate:[40, '...'] }}</a>
+          <div class="c-mediamodal__subhead" [routerLink]="['/', {outlets: { primary: ['channel', data?.channelId], media: null }}]"><span
+              class="cursor_pointer">{{ data?.channelName }}</span>
+            <span class="c-mediamodal__time">{{ data?.createdDate | utcDate | date: 'hh:mm a dd MMM, yy'}}</span>
+          </div>
+        </div>
+        <div class="c-text_sm p-16">
+          <read-more [class]="'media-popup__text'" [isEdit]="isEdit" [text]="data?.description" [maxLength]=250
+            (commentEdited)="onCommentEdit($event)"></read-more>
+        </div>
+        <div class="c-card__links c-block__inline c-float--none p-t-0">
+          <div class="c-links">
+            <div class="c-links__spots" (click)="spotMedia(data)">
+              <img *ngIf="mediaStore?.media_detail?.isSpotted === false" [src]="imageLink + 'img/svg/spot_icon_default.svg'"
+                class="c-links__image">
+              <img *ngIf="mediaStore?.media_detail?.isSpotted === true" [src]="imageLink + 'img/svg/spot_icon.svg'"
+                class="c-links__image">
+              <span class="c-links__count">{{ mediaStore?.media_detail?.extras?.counts?.spotsCount }}</span>
+            </div>
+            <div class="c-links__comments">
+              <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
+              <span class="c-links__count">{{ mediaStore?.media_detail?.extras?.counts?.commentsCount }}</span>
+            </div>
+            <div class="c-links__actions">
+              <span class="c-links__bookmark">
+                <a *ngIf="mediaStore?.media_detail?.extras?.isBookmarked === true" (click)="bookmarkAction('remove', mediaStore?.media_detail)">
+                  <img src="https://ops-v2-2.netlify.com/assets/svg/bookmarked.svg" class="c-action__image">
+                </a>
+                <a *ngIf="mediaStore?.media_detail?.extras?.isBookmarked === false" (click)="bookmarkAction('add', mediaStore?.media_detail)">
+                  <img src="https://ops-v2-2.netlify.com/assets/svg/bookmark.svg" class="c-action__image">
+                </a>
+              </span>
+              <span class="c-links__add">
+                <div class="c-links__actions">
+                  <span class="c-links__add">
+                    <a href="javascript:void(0)">
+                      <img [src]="imageLink + 'img/svg/ico_addtochannel.svg'" class="c-action__image">
+                    </a>
+                  </span>
+                  <span class="c-links__share dropdown c-dropdown" appDropdown>
+                    <a appDropdownOpen>
+                      <img [src]="imageLink + 'img/svg/ico_share-02.svg'" class="c-action__image">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right o-share__profile2 p-16">
+                      <div class="c-text_md">Share this Profile</div>
+                      <div class="o-share__social">
+                        <div class="o-share__social-icon p-l-0" shareButton="google" [sbUrl]="domainLink + 'media/' + data?.id">
+                          <img [src]="imageLink + 'v2/svg/googleplus.svg'">
+                        </div>
+                        <div class="o-share__social-icon" shareButton="twitter" [sbUrl]="domainLink + 'media/' + data?.id">
+                          <img [src]="imageLink + 'v2/svg/twitter.svg'">
+                        </div>
+                        <div class="o-share__social-icon" [shareButton]="'facebook'" [sbUrl]="domainLink + 'media/' + data?.id">
+                          <img [src]="imageLink + 'v2/svg/facebook.svg'">
+                        </div>
+                        <div class="o-share__social-icon p-r-0" shareButton="email" [sbUrl]="domainLink + 'media/' + data?.id">
+                          <img [src]="imageLink + 'v2/svg/envelope.svg'">
+                        </div>
+                      </div>
+                    </div>
+                  </span>
+                </div>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="c-media__right--feed">
+        <app-comment [mediaId]="mediaId" [commentsType]="'media-popup'" [comments]="comments" [userData]="userData"
+          [mediaType]="mediaType"></app-comment>
+      </div>
+    </div>
+  </modal-content>
 </app-route-modal>

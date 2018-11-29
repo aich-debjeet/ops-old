@@ -7,255 +7,276 @@
 
 // new style
 .o-profileabout__block {
-    .table>thead>tr>th,
-    .table>thead>tr>td,
-    .table>tbody>tr>th,
-    .table>tbody>tr>td,
-    .table>tfoot>tr>th,
-    .table>tfoot>tr>td {
-        border: none;
-        padding-left: 0px;
-        text-transform: capitalize;
-    }
+
+  .table>thead>tr>th,
+  .table>thead>tr>td,
+  .table>tbody>tr>th,
+  .table>tbody>tr>td,
+  .table>tfoot>tr>th,
+  .table>tfoot>tr>td {
+    border: none;
+    padding-left: 0px;
+    text-transform: capitalize;
+  }
 }
 
 .c-profileabout__edit {
-    color: $color-theme;
-    font-size: 14px;
-    font-weight: 600;
-    vertical-align: super;
-    margin-bottom: 24px;
-    float: left;
-    width: 100%;
-    &:hover {
-        color: $theme_red;
-    }
-    &:focus {
-        color: $theme_red;
-        outline: none;
-    }
+  color: $color-theme;
+  font-size: 14px;
+  font-weight: 600;
+  vertical-align: super;
+  margin-bottom: 24px;
+  float: left;
+  width: 100%;
+
+  &:hover {
+    color: $theme_red;
+  }
+
+  &:focus {
+    color: $theme_red;
+    outline: none;
+  }
 }
 
 .c-profileabout__edit-icon {
-    width: 16px;
-    height: 16px;
-    float: left;
-    margin-right: 8px;
+  width: 16px;
+  height: 16px;
+  float: left;
+  margin-right: 8px;
 }
 
 #work,
 #awards,
 #education {
-    .overview_section {
-        padding: 0 24px; // height: 220px;
-        .sm_panel_body {
-            margin: 20px 0;
-        }
+  .overview_section {
+    padding: 0 24px; // height: 220px;
+
+    .sm_panel_body {
+      margin: 20px 0;
     }
-    .sm_panel_left {
-        float: left;
-    }
-    .add_plus {
-        width: 40px;
-        height: 40px;
-        border: solid 1px #929292;
-        border-radius: 3px;
-        font-size: 27px;
-        text-align: center;
-    }
+  }
+
+  .sm_panel_left {
+    float: left;
+  }
+
+  .add_plus {
+    width: 40px;
+    height: 40px;
+    border: solid 1px #929292;
+    border-radius: 3px;
+    font-size: 27px;
+    text-align: center;
+  }
 }
 
 .o-about-info-tab {
-    border-bottom: 1px solid #F3F5F7!important;
-    li {
-        a {
-            font-size: 13px!important;
-            font-weight: 600!important;
-            text-transform: uppercase!important;
-            @include mq($from: $mobile_sm, $until: $mobile_lg) {
-                font-size: 11px!important;
-                padding: 8px 4px!important;
-            }
-        }
+  border-bottom: 1px solid #F3F5F7 !important;
+
+  li {
+    a {
+      font-size: 13px !important;
+      font-weight: 600 !important;
+      text-transform: uppercase !important;
+
+      @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        font-size: 11px !important;
+        padding: 8px 4px !important;
+      }
     }
+  }
 }
 
 .o-bio-detail-sec {
-    // min-height: 500px;
+  // min-height: 500px;
 }
 
 // bio edit stlyle
 .o-bio-info-block {
-    width: 100%;
-    float: left;
-    padding: 8px;
-    position: relative;
-    &:hover {
-        background: $color-grey-light;
-    }
+  width: 100%;
+  float: left;
+  padding: 8px;
+  position: relative;
+
+  &:hover {
+    background: $color-grey-light;
+  }
 }
 
 .o-bio-active--block {
-    background: $color-grey-light;
-    .o-bio-info__edit-ico {
-        display: block;
-    }
+  background: $color-grey-light;
+
+  .o-bio-info__edit-ico {
+    display: block;
+  }
 }
 
 .o-bio-info__value {
-    width: 100%;
-    margin-top: 4px;
-    cursor: pointer;
+  width: 100%;
+  margin-top: 4px;
+  cursor: pointer;
 }
+
 .o-bio-info_plus {
-    font-size: 20px;
-    font-weight: 300;
-    float: left;
-    margin-right: 8px;
-    cursor: pointer;
+  font-size: 20px;
+  font-weight: 300;
+  float: left;
+  margin-right: 8px;
+  cursor: pointer;
 }
+
 .o-bio-info__edit-ico {
-    width: 16px;
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    display: none;
-    cursor: pointer;
-    @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        display: block;
-    }
-    img {
-        width: 100%;
-    }
+  width: 16px;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: none;
+  cursor: pointer;
+
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    display: block;
+  }
+
+  img {
+    width: 100%;
+  }
 }
 
 .o-bio-info-block:hover .o-bio-info__edit-ico {
-    display: block;
+  display: block;
 }
 
 .o-bio-info__edit {
-    width: 100%;
-    margin-top: 4px;
-    display: block;
-    float: left;
+  width: 100%;
+  margin-top: 4px;
+  display: block;
+  float: left;
 }
 
 .o-bio-info__edit-actions {
-    width: 100%;
+  width: 100%;
 }
 
 .o-bio-edit__ico {
-    width: 12px;
-    height: 12px;
-    float: left;
-    img {
-        width: 100%;
-    }
+  width: 12px;
+  height: 12px;
+  float: left;
+
+  img {
+    width: 100%;
+  }
 }
 
 .o-bio-edit__ico-arrow {
-    width: 10px;
-    height: 6px;
-    float: left;
-    margin-top: 3px;
-    margin-left: 8px;
-    img {
-        width: 100%;
-    }
+  width: 10px;
+  height: 6px;
+  float: left;
+  margin-top: 3px;
+  margin-left: 8px;
+
+  img {
+    width: 100%;
+  }
 }
 
 
 // add style
 .o-bio-add-sec {
-    width: 100%;
-    float: left;
+  width: 100%;
+  float: left;
 }
 
 .o-bio-add__icon {
+  width: 24px;
+  height: 24px;
+  float: left;
+
+  img {
     width: 24px;
-    height: 24px;
-    float: left;
-    img {
-        width: 24px;
-    }
+  }
 }
 
 .o-bio-add__txt {
-    float: left;
-    text-transform: uppercase;
-    margin-left: 8px;
-    padding-top: 3px;
+  float: left;
+  text-transform: uppercase;
+  margin-left: 8px;
+  padding-top: 3px;
 }
 
 
 // detail style
 .o-bio-det-block {
-    width: 100%;
-    float: left;
-    padding: 16px;
-    position: relative;
-    margin-bottom: 8px;
-    &:hover {
-        background: $color-grey-light;
-    }
+  width: 100%;
+  float: left;
+  padding: 16px;
+  position: relative;
+  margin-bottom: 8px;
+
+  &:hover {
+    background: $color-grey-light;
+  }
 }
 
 .o-bio-det-block--active {
-    background: $color-grey-light;
+  background: $color-grey-light;
 }
 
 .o-bio-det__display {
-    width: 100%;
+  width: 100%;
 }
 
 .o-bio-det-display__media {
-    width: 48px;
-    height: 48px;
-    float: left;
-    background: #ccc;
-    img {
-        width: 100%;
-    }
+  width: 48px;
+  height: 48px;
+  float: left;
+  background: #ccc;
+
+  img {
+    width: 100%;
+  }
 }
 
 .o-bio-det-display__info {
-    float: left;
-    margin-left: 8px;
-    span {
-        display: block;
-    }
+  float: left;
+  margin-left: 8px;
+
+  span {
+    display: block;
+  }
 }
 
 .o-bio-det-edit-icon-block {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    display: none;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: none;
 }
 
 .o-bio-det__edit-ico {
+  width: 16px;
+  cursor: pointer;
+  float: left;
+  overflow: hidden;
+
+  img {
     width: 16px;
-    cursor: pointer;
-    float: left;
-    overflow: hidden;
-    img {
-        width: 16px;
-    }
+  }
 }
 
 .o-bio-det-block:hover .o-bio-det-edit-icon-block {
-    display: block;
+  display: block;
 }
 
 .o-bio-det__edit {
-    width: 100%;
-    margin-top: 4px;
-    display: none;
-    float: left;
+  width: 100%;
+  margin-top: 4px;
+  display: none;
+  float: left;
 }
 
 .c-form__group {
-    position: relative;
-    margin-bottom: 14px;
-    margin-top: 16px;
+  position: relative;
+  margin-bottom: 14px;
+  margin-top: 16px;
 }

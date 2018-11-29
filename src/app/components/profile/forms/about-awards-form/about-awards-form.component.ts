@@ -22,7 +22,7 @@ export class AboutAwardsFormComponent implements OnInit {
   private mm : string ;
   private monthNumber: number;
   checkbox: boolean;
-  hide: boolean =false;
+  hide = false;
   privacy: number;
   public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   months = [

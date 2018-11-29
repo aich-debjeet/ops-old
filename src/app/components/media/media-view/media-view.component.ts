@@ -2,18 +2,13 @@ import { Component, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@a
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from './../../../../environments/environment';
 import { ModalService } from '../../../shared/modal/modal.component.service';
-
-// Action
 import { MediaActions } from '../../../actions/media.action';
 import { ProfileActions } from '../../../actions/profile.action';
 import { initialMedia, Media } from '../../../models/media.model';
-
-// rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
-
 import { UtcDatePipe } from './../../../pipes/utcdate.pipe';
 import { BookmarkActions } from 'app/actions/bookmark.action';
 import { GeneralUtilities } from 'app/helpers/general.utils';
@@ -34,7 +29,6 @@ export class MediaViewComponent implements OnDestroy {
   @Output() onMediaNext: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('firstModal') modal: any;
   domainLink: string = environment.API_DOMAIN;
-  messageText: string;
   private mediaSub: Subscription;
   private profSub: Subscription;
   mediaState$: Observable<Media>;
@@ -42,7 +36,6 @@ export class MediaViewComponent implements OnDestroy {
   mediaStore = initialMedia;
   mediaId: string;
   mediaType: string;
-  sub: any;
   data: any;
   comments: any;
   message: boolean;
@@ -62,7 +55,6 @@ export class MediaViewComponent implements OnDestroy {
     private gUtils: GeneralUtilities
   ) {
     this.mediaState$ = store.select('mediaStore');
-
     this.mediaSub = this.mediaState$.subscribe((state) => {
       this.mediaStore = state;
       this.channelId = this.mediaStore.channel_detail['channelId']
@@ -131,7 +123,7 @@ export class MediaViewComponent implements OnDestroy {
    * Load Particular Media
    */
   loadMedia() {
-    this.sub = this.route.params.subscribe(params => {
+    this.route.params.subscribe(params => {
       if (!this.checkEmpty(params)) {
         this.store.dispatch({ type: MediaActions.MEDIA_DETAILS, payload: params['id'] });
         // comment fetch
@@ -174,7 +166,6 @@ export class MediaViewComponent implements OnDestroy {
    * Close
    */
   doClose() {
-    // console.log('event', event)
     this.router.navigate(['.', { outlets: { media: null } }], {
       relativeTo: this.route.parent
     });
@@ -182,10 +173,8 @@ export class MediaViewComponent implements OnDestroy {
 
   deletePost(data) {
     this.deleteMsg = true;
-    // console.log('data', data)
     if (data.id !== 'undefined') {
       const id = data.id;
-      // console.log('channelid', this.channelId)
       this.store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id });
     }
   }
@@ -214,14 +203,14 @@ export class MediaViewComponent implements OnDestroy {
       };
       this.store.dispatch({ type: BookmarkActions.BOOKMARK, payload: reqBody });
       const bookmarkSub = this.store.select('bookmarkStore')
-      .take(2)
-      .subscribe(data => {
-        if (data['bookmarking'] === false && data['bookmarked'] === true) {
-          this.toastr.success('Bookmarked successfully', 'Success!');
-          this.store.dispatch({ type: MediaActions.MEDIA_BOOKAMRK_FLAG_UPDATE, payload: { isBookmarked: true } });
-          bookmarkSub.unsubscribe();
-        }
-      });
+        .take(2)
+        .subscribe(data => {
+          if (data['bookmarking'] === false && data['bookmarked'] === true) {
+            this.toastr.success('Bookmarked successfully', 'Success!');
+            this.store.dispatch({ type: MediaActions.MEDIA_BOOKAMRK_FLAG_UPDATE, payload: { isBookmarked: true } });
+            bookmarkSub.unsubscribe();
+          }
+        });
     } else {
       const reqBody = {
         type: mediaDetails['mtype'],
@@ -229,14 +218,14 @@ export class MediaViewComponent implements OnDestroy {
       };
       this.store.dispatch({ type: BookmarkActions.DELETE_BOOKMARK, payload: reqBody });
       const bookmarkSub = this.store.select('bookmarkStore')
-      .take(2)
-      .subscribe(data => {
-        if (data['deletingBookmark'] === false && data['deletedBookmark'] === true) {
-          this.toastr.success('Bookmark deleted successfully', 'Success!');
-          this.store.dispatch({ type: MediaActions.MEDIA_BOOKAMRK_FLAG_UPDATE, payload: { isBookmarked: false } });
-          bookmarkSub.unsubscribe();
-        }
-      });
+        .take(2)
+        .subscribe(data => {
+          if (data['deletingBookmark'] === false && data['deletedBookmark'] === true) {
+            this.toastr.success('Bookmark deleted successfully', 'Success!');
+            this.store.dispatch({ type: MediaActions.MEDIA_BOOKAMRK_FLAG_UPDATE, payload: { isBookmarked: false } });
+            bookmarkSub.unsubscribe();
+          }
+        });
     }
   }
 }

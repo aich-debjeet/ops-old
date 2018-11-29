@@ -1,13 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { UserSpotfeeds } from '../../../models/user-spotfeed.model';
-
-// action
 import { ProfileActions } from '../../../actions/profile.action';
-
-// rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription, ISubscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-home-spotfeed',
@@ -16,9 +12,8 @@ import { Subscription, ISubscription } from 'rxjs/Subscription';
 })
 export class HomeSpotfeedComponent implements OnInit, OnDestroy {
 
-  private subscription: ISubscription;
+  private profSub: Subscription;
   tagState$: Observable<UserSpotfeeds>;
-  private tagStateSubscription: Subscription;
   userState;
   spotfeeds: any = [];
   baseUrl: String;
@@ -26,9 +21,8 @@ export class HomeSpotfeedComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<UserSpotfeeds>,
   ) {
-
     this.tagState$ = this.store.select('profileTags');
-    this.subscription = this.tagState$.subscribe((state) => {
+    this.profSub = this.tagState$.subscribe((state) => {
       this.userState = state;
       if (this.userState.home_spotfeeds !== undefined && this.userState.home_spotfeeds.SUCCESS !== undefined) {
         this.spotfeeds = this.userState.home_spotfeeds.SUCCESS;
@@ -41,7 +35,7 @@ export class HomeSpotfeedComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.profSub.unsubscribe();
   }
 
 }

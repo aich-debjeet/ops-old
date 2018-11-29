@@ -20,7 +20,7 @@ export class AboutWorkFormComponent implements OnInit {
   _workDetails: any;
   private mm : string ;
   private monthNumber: number;
-  hide: boolean =false;
+  hide = false;
   privacy: number;
   public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   months = [

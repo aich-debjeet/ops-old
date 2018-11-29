@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class AboutContactComponent implements OnInit, OnDestroy {
   tagState$: Observable<ProfileModal>;
-  subscription: Subscription;
+  profSub: Subscription;
   stateProfile = initialTag;
   imageBaseUrl = environment.API_IMAGE;
   userProfile: any;
@@ -24,7 +24,7 @@ export class AboutContactComponent implements OnInit, OnDestroy {
     private profileStore: Store<ProfileModal>
   ) {
     this.tagState$ = this.profileStore.select('profileTags');
-    this.subscription = this.tagState$.subscribe((state) => {
+    this.profSub = this.tagState$.subscribe((state) => {
       this.stateProfile = state;
       if (state.profile_user_info) {
         if (this.stateProfile.profile_user_info.isCurrentUser === false && this.stateProfile.profile_other_loaded === true) {
@@ -42,7 +42,7 @@ export class AboutContactComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.profSub.unsubscribe();
   }
 
 }

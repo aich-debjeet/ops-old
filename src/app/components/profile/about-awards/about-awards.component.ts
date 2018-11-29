@@ -23,7 +23,7 @@ import { ISubscription } from 'rxjs/Subscription';
 export class AboutAwardsComponent implements OnInit, OnDestroy {
 
   tagState$: Observable<ProfileModal>;
-  private subscription: ISubscription;
+  private profSub: ISubscription;
   aboutWork = initialTag;
   stateProfile = initialTag;
   userProfile: any;
@@ -47,7 +47,7 @@ export class AboutAwardsComponent implements OnInit, OnDestroy {
   ) {
     this.tagState$ = this.profileStore.select('profileTags');
     // this.test = 'salabeel';
-    this.subscription = this.tagState$.subscribe((state) => {
+    this.profSub = this.tagState$.subscribe((state) => {
       this.stateProfile = state;
       // console.log('state', this.stateProfile)
       if (state.profile_user_info) {
@@ -66,7 +66,7 @@ export class AboutAwardsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.profSub.unsubscribe();
   }
 
   /**

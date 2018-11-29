@@ -32,7 +32,6 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
   userMedia = initialTag;
   mediaDetails = initialMedia;
   userData: any;
-  sub: any;
   userName: any;
   handle: string;
   counter: number;
@@ -144,7 +143,7 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
    * Check Profile state
    */
   checkProfile() {
-    this.sub = this.route.parent.parent.params.subscribe(params => {
+    this.route.parent.parent.params.subscribe(params => {
       if (params['id'] && params['id'] !== null && this.handle !== null) {
         this.userName = params['id'];
       }

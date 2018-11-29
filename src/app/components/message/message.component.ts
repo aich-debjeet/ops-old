@@ -12,6 +12,7 @@ import { PusherService } from './../../services/pusher.service';
 import { findIndex as _findIndex } from 'lodash';
 import { ActivatedRoute } from '@angular/router';
 import { GeneralUtilities } from '../../helpers/general.utils';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-message',
@@ -45,6 +46,9 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
   convUserHandle: any;
   conversationLoaded = false;
 
+  profSub: Subscription;
+  msgSub: Subscription;
+
   constructor(
     private messageStore: Store<MessageModal>,
     private profileStore: Store<ProfileModal>,
@@ -64,12 +68,12 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
     };
 
     this.profileState$ = this.profileStore.select('profileTags');
-    this.profileState$.subscribe((state) => {
+    this.profSub = this.profileState$.subscribe((state) => {
       this.profileState = state;
     });
 
     this.messageState$ = this.messageStore.select('messageTags');
-    this.messageState$.subscribe((state) => {
+    this.msgSub = this.messageState$.subscribe((state) => {
       this.messageState = state;
       if (this.messageState && this.messageState['messanger_list_data']) {
         this.messangerList = this.messageState['messanger_list_data'];
@@ -447,6 +451,9 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
     // unbind pusher listeners
     this.pusherService.messagesChannel.unbind('New-Message');
     this.pusherService.notificationsChannel.unbind('Message-Typing');
+
+    this.profSub.unsubscribe();
+    this.msgSub.unsubscribe();
   }
 
 }

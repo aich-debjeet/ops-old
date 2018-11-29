@@ -55,7 +55,8 @@
               [ngClass]="(profileObject?.extra?.isFollowing) ? 'btn-following' : 'btn-primary'" class="btn btn-primary btn-md">{{
               (profileObject?.extra?.isFollowing)? 'Unfollow' : 'Follow'}}</button>
             <!-- <a *ngIf="!profileObject?.extra?.isImported && !this.isOwner" type="button" class="btn btn-default btn-md" [routerLink]="['/bookmark']">Bookmark</a> -->
-            <a *ngIf="!profileObject?.extra?.isImported && !this.isOwner" type="button" class="btn btn-default btn-md" (click)="networkModal.open()">Network</a>
+            <a *ngIf="!profileObject?.extra?.isImported && !this.isOwner" type="button" class="btn btn-default btn-md"
+              (click)="networkModal.open()">Network</a>
             <!-- <button *ngIf="!profileObject?.extra?.isImported && !this.isOwner" type="button" class="btn btn-default btn-md">Donate</button> -->
           </div>
         </div>
@@ -216,7 +217,8 @@
                 <!-- <span class="o-status-action__count">
                                     {{ (220) - (bioMessage?.length) }}
                                   </span> -->
-                <p class="c-form__validation" *ngIf="profileForm.controls['bio'].errors?.required && myform.submitted">Bio is
+                <p class="c-form__validation" *ngIf="profileForm.controls['bio'].errors?.required && myform.submitted">Bio
+                  is
                   required</p>
               </div>
               <div class="form_group">
@@ -226,11 +228,14 @@
                 <label>Username</label>
                 <p class="c-form__validation" *ngIf="profileForm.controls['username'].errors?.required && myform.submitted">Username
                   is required</p>
-                <p class="c-form__validation" *ngIf="profileForm.controls['username'].errors?.whitespace">White Space Not
+                <p class="c-form__validation" *ngIf="profileForm.controls['username'].errors?.whitespace">White Space
+                  Not
                   Allowed</p>
-                <p class="c-form__validation" *ngIf="profileForm.controls['username'].errors?.minlength">Username must be min
+                <p class="c-form__validation" *ngIf="profileForm.controls['username'].errors?.minlength">Username must
+                  be min
                   length 4</p>
-                <p class="c-form__validation" *ngIf="profileForm.controls['username'].errors?.isUsernameUnique">This username
+                <p class="c-form__validation" *ngIf="profileForm.controls['username'].errors?.isUsernameUnique">This
+                  username
                   is already taken</p>
               </div>
               <div class="form_group">
@@ -269,11 +274,15 @@
                 <span class="form_highlight"></span>
                 <span class="form_bar"></span>
                 <label>Date of birth</label>
-                <p class="c-form__validation" *ngIf="profileForm.controls['dob'].errors?.required && myform.submitted">Date of
+                <p class="c-form__validation" *ngIf="profileForm.controls['dob'].errors?.required && myform.submitted">Date
+                  of
                   Brith is required</p>
-                <p class="c-form__validation" *ngIf="profileForm.controls['dob'].errors?.invalidDOB">Invalid Date of Birth</p>
-                <p class="c-form__validation" *ngIf="profileForm.controls['dob'].errors?.isUnderAge">You should be above 13</p>
-                <p class="c-form__validation" *ngIf="profileForm.controls['dob'].errors?.isOverAge">You should be below 100</p>
+                <p class="c-form__validation" *ngIf="profileForm.controls['dob'].errors?.invalidDOB">Invalid Date of
+                  Birth</p>
+                <p class="c-form__validation" *ngIf="profileForm.controls['dob'].errors?.isUnderAge">You should be
+                  above 13</p>
+                <p class="c-form__validation" *ngIf="profileForm.controls['dob'].errors?.isOverAge">You should be below
+                  100</p>
               </div>
             </div>
           </div>
@@ -284,10 +293,10 @@
   </div>
 </app-modal>
 
-<app-modal-new #reportModal modalClass="modal-report__popup" >
-    <modal-content>
-            <app-report-popoup  [reportContentId]="otherProfileHandle" [reportType]="'profile'" (onclose)= "reportModal.close()"></app-report-popoup>
-    </modal-content>
+<app-modal-new #reportModal modalClass="modal-report__popup">
+  <modal-content>
+    <app-report-popoup [reportContentId]="otherProfileHandle" [reportType]="'profile'" (onclose)="reportModal.close()"></app-report-popoup>
+  </modal-content>
 </app-modal-new>
 
 <app-modal-new #blockModal modalClass="modal-cus__sm">
