@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
@@ -7,7 +7,7 @@ import { TokenService } from '../../../helpers/token.service';
 
 import { ProfileActions } from '../../../actions/profile.action';
 import { environment } from '../../../../environments/environment';
-import { Observable } from 'rxjs/Rx';
+import { Observable, Subscription } from 'rxjs/Rx';
 import { GeneralUtilities } from '../../../helpers/general.utils';
 
 @Component({
@@ -17,7 +17,7 @@ import { GeneralUtilities } from '../../../helpers/general.utils';
   styleUrls: ['./about-image.component.scss']
 })
 
-export class AboutImageComponent implements OnInit {
+export class AboutImageComponent implements OnInit, OnDestroy {
   tagState$: Observable<ProfileModal>;
   stateProfile = initialTag;
   data: any;
@@ -28,6 +28,7 @@ export class AboutImageComponent implements OnInit {
   croppedImage = '';
   hidePreview = false;
   disableSave = true;
+  profSub: Subscription;
 
   constructor(
     public tokenService: TokenService,
@@ -37,7 +38,7 @@ export class AboutImageComponent implements OnInit {
   ) {
 
     this.tagState$ = this._store.select('profileTags');
-    this.tagState$.subscribe((state) => {
+    this.profSub = this.tagState$.subscribe((state) => {
       this.stateProfile = state;
     });
 
@@ -51,6 +52,10 @@ export class AboutImageComponent implements OnInit {
       .subscribe(() => {
         this.loadImage();
       });
+  }
+
+  ngOnDestroy() {
+    this.profSub.unsubscribe();
   }
 
   loadImage() {

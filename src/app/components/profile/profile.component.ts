@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { ProfileModal, initialTag, ProfileCard } from '../../models/profile.model';
+import { ProfileModal, initialTag } from '../../models/profile.model';
 
 // action
 import { ProfileActions } from '../../actions/profile.action';
@@ -19,10 +19,8 @@ import { Subscription, ISubscription } from 'rxjs/Subscription';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   tagState$: Observable<ProfileModal>;
-  private routerSubscription: ISubscription;
-  private tagStateSubscription: Subscription;
-  private sub: any;      // -> Subscriber
-  private mode: string;
+  private routerSub: ISubscription;
+  private profSub: Subscription;
 
   test: string;
   userProfile = initialTag;
@@ -30,25 +28,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
   isCurrentUser: boolean;
   userName: string;
   tester: string;
-  current_user_value: ProfileCard;
 
   constructor(
     public route: ActivatedRoute,
-    private utils: ProfileHelper,
     private profileStore: Store<ProfileModal>
   ) {
     this.tagState$ = this.profileStore.select('profileTags');
     this.router = this.route;
     this.isCurrentUser = false;
-    this.tagStateSubscription = this.tagState$.subscribe((state) => {
+    this.profSub = this.tagState$.subscribe((state) => {
       this.userProfile = state;
-      // console.log('state', state);
-      // this.current_user_value = this.checkUserType(this.userProfile);
     });
-
     this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
     this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
-
   }
 
   /**
@@ -57,8 +49,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     window.scrollTo(0, 0);
-    this.routerSubscription  = this.route.params
-      .subscribe(params => {
+    this.routerSub  = this.route.params.subscribe(params => {
         this.userName = params['id'];
         // console.log('this.userName', this.userName);
         if (this.userName && this.userName.length > 0 && localStorage.getItem('currentUser') === null) {
@@ -78,10 +69,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
       .first(profile => profile['profile_navigation_details'].name )
       .subscribe( data => {
         if (data['profile_navigation_details'].username === this.userName) {
-          // console.log('current user');
           this.loadProfile('');
         } else {
-          // console.log('other User');
           this.loadProfile(this.userName);
         }
       });
@@ -103,13 +92,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
         isCurrentUser: true,
         username: userName,
       }
-      // this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
-      // this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
       this.profileStore.dispatch({ type: ProfileActions.CURRENT_PROFILE_USER, payload: userdata });
     }
   }
 
   ngOnDestroy() {
-    this.tagStateSubscription.unsubscribe();
+    this.profSub.unsubscribe();
+    this.routerSub.unsubscribe();
   }
 }

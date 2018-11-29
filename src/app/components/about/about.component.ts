@@ -59,14 +59,13 @@ export class AboutComponent implements OnInit, OnDestroy {
       }
       this.store.dispatch({ type: AuthActions.SEND_CONTACTUS, payload: data });
 
-      const tempSub = this.store.select('loginTags')
+      this.store.select('loginTags')
         .first(contact => contact['contact_send_success'] === true)
         .subscribe( datas => {
           this.toastr.success('successfully Send', 'Success!', {
             timeOut: 3000
           });
           this.buildForm();
-          tempSub.unsubscribe();
           return;
         });
     } else {

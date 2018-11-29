@@ -39,6 +39,7 @@
   overflow: hidden;
   position: relative;
   display: block;
+
   &:hover {
     .c-spotfeed-single__content {
       height: 80px;
@@ -60,6 +61,7 @@
   position: absolute;
   top: 0px;
   left: 0px;
+
   img {
     width: 100%;
   }
@@ -93,8 +95,9 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
+
   img {
-      flex-shrink: 0;
-      width: auto !important;
+    flex-shrink: 0;
+    width: auto !important;
   }
 }

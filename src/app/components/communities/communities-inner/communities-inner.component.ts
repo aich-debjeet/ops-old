@@ -302,14 +302,13 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
    */
   communityDelete() {
     this.store.dispatch({ type: CommunitiesActions.COMMUNITY_DELETE, payload: this.id });
-    const tempSub = this.store.select('communitiesTags')
+    this.store.select('communitiesTags')
       .first(channel => channel['communnity_delete'] === true)
       .subscribe( datas => {
         this.toastr.success('Your community has been successfully deleted', 'Success!', {
           timeOut: 3000
         });
         this.router.navigateByUrl('/communities');
-        tempSub.unsubscribe();
         return;
       });
   }
@@ -369,14 +368,13 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
       }
       this.store.dispatch({ type: CommunitiesActions.COMMUNITY_UPDATE, payload: data });
 
-      const tempSub = this.store.select('communitiesTags')
+      this.store.select('communitiesTags')
         .first(channel => channel['community_update_success'] === true)
         .subscribe( datas => {
           this.toastr.success('Your community has been successfully updated', 'Update', {
             timeOut: 3000
           });
           this.CommunityUpdate.close();
-          tempSub.unsubscribe();
           return;
         });
     } else {

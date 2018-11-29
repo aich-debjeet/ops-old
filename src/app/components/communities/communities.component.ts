@@ -140,7 +140,7 @@ export class CommunitiesComponent implements OnInit, AfterViewInit, OnDestroy {
       }
       this.store.dispatch({ type: CommunitiesActions.COMMUNITY_CREATE, payload: data });
 
-      const tempSub = this.store.select('communitiesTags')
+      this.store.select('communitiesTags')
         .first(channel => channel['community_create_success'] === true)
         .subscribe( datas => {
             if (datas['completed']) {
@@ -149,7 +149,6 @@ export class CommunitiesComponent implements OnInit, AfterViewInit, OnDestroy {
                 timeOut: 3000
               });
               this.router.navigateByUrl('/communities/' + id);
-              tempSub.unsubscribe();
               return;
             }
         });
