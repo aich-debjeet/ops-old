@@ -78,14 +78,14 @@
                       <h4 class="o-portfolio-empty-text color-grey-dark">This category is empty</h4>
                     </ng-container>
                   </div>
-                  <div *ngIf="!ownProfile && profileState?.portfolio_user_profile?.extra?.isPublished === false && displayMedia?.length === 0"
-                    class="row">
-                    <h4 class="o-portfolio-empty-text color-grey-dark">Portfolio is not published!</h4>
-                  </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+        <div *ngIf="!ownProfile && profileState?.get_port_display_media === false && profileState?.get_port_display_media_success === false"
+          class="row">
+          <h4 class="o-portfolio-empty-text color-grey-dark">Portfolio is not published!</h4>
         </div>
       </div>
     </div>

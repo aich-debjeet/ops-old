@@ -27,6 +27,7 @@ export class GeneralUtilities {
             extra: portUser.extra,
             name: portUser.name
         };
+        console.log('user', user);
         return user;
     }
 
