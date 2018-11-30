@@ -18,6 +18,19 @@ export class GeneralUtilities {
 
     constructor() { }
 
+    preparePortUser(portUser) {
+        const user = {
+            profileImage: portUser.profileImage,
+            profileType: portUser.profileType,
+            summary: portUser.summary,
+            handle: portUser.handle,
+            extra: portUser.extra,
+            name: portUser.name
+        };
+        console.log('user', user);
+        return user;
+    }
+
     removeRecordFromState(reqParams: any, bookmarks: any) {
         if (reqParams['type'] === 'image' || reqParams['type'] === 'video' || reqParams['type'] === 'audio') {
             return _remove(bookmarks, (b) => !(b.postType === reqParams['type'] && b.postId === reqParams['id']));
