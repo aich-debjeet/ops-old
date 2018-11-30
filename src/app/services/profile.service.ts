@@ -68,14 +68,14 @@ export class ProfileService {
    * for: portfolio
    */
   getPortfolioDisplayMedia(reqParams: any) {
-    return this.api.put('/portal/portfolio/landing/' + reqParams.userHandle, reqParams.reqBody);
-    // // check if user is logged in or not
-    // if (this.tokenService.getToken().length > 0) {
-    //   return this.api.put('/portal/portfolio/landing/' + localStorage.getItem('portfolioUserHandle'), reqParams);
-    // } else {
-    //   return this.http.put(`${this.apiLink}/portal/portfolio/landing/` + localStorage.getItem('portfolioUserHandle'), reqParams)
-    //     .map((data: Response) => data.json());
-    // }
+    // return this.api.put('/portal/portfolio/landing/' + reqParams.userHandle, reqParams.reqBody);
+    // check if user is logged in or not
+    if (this.tokenService.getToken().length > 0) {
+      return this.api.put('/portal/portfolio/landing/' + localStorage.getItem('portfolioUserHandle'), reqParams.reqBody);
+    } else {
+      return this.http.put(`${this.apiLink}/portal/portfolio/landing/` + localStorage.getItem('portfolioUserHandle'), reqParams.reqBody)
+        .map((data: Response) => data.json());
+    }
   }
 
   /**
@@ -405,7 +405,10 @@ export class ProfileService {
 
   loadProfileByUsernameForPortfolio(userName: string) {
     return this.http.get(`${this.apiLink}/portal/profile/user/username/` + userName)
-      .map((data: Response) => data.json());
+      .map((data: Response) => {
+        localStorage.setItem('portfolioUserHandle', data.json().handle);
+        return data.json();
+      });
   }
 
   /**

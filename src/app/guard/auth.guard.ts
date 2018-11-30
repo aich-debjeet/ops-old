@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
             const data = e.json();
             // console.log('AUTH GUARD', data);
             localStorage.setItem('loggedInProfileHandle', data['profileId']);
-            // localStorage.setItem('portfolioUserHandle', data['profileId']);
+            localStorage.setItem('portfolioUserHandle', data['profileId']);
             if (e) {
                 return true;
             }
