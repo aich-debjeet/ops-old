@@ -338,7 +338,11 @@ export class PortfolioComponent implements OnInit, OnDestroy {
    * tab media get
    */
   getTabMedia(reqBody: any) {
-    this.profileStore.dispatch({ type: ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA, payload: reqBody });
+    const payload = {
+      userHandle: this.profileState['portfolio_user_profile']['handle'],
+      reqBody: reqBody
+    }
+    this.profileStore.dispatch({ type: ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA, payload: payload });
   }
 
   /**
