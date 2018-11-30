@@ -107,6 +107,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
       return Object.assign({}, state, {
         channel_post_loading: false,
         channel_post: channel_post,
+        postCount: payload['total'],
         channelPostScrollId: payload['scrollId']
       });
 
