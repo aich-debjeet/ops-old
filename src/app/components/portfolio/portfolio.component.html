@@ -1,213 +1,242 @@
 <app-navigation></app-navigation>
 
 <section>
-    <div class="container p-t-50">
-        <div class="row m-t-24">
-            <div class="col-md-3 p-b-20">
-                <div class="o-port_userimg">
-                    <img [src]="baseImageUrl + userProfile?.profileImage" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="o-port_user--img">
-                </div>
-                <div class="c-h4 text-center m-t-16">{{ userProfile?.name }}</div>
-                <div *ngIf="userProfile?.profileType?.length > 0" class="width100 float_left m-16">
-                    <a [routerLink]="'/spotfeed/' + skill?.name" *ngFor="let skill of userProfile?.profileType.slice(0, 5)" class="c-skill__tags2">
-                        {{ skill?.name }}
-                    </a>
-                </div>
-                <div class="c-text_sm text-center width100 float_left">
-                    {{ userProfile?.summary }}
-                </div>
-                <div *ngIf="ownProfile" class="width100 float_left">
-                    <button type="button" class="btn btn-primary btn-md btn-block m-t-16" (click)="showMediaSelection()">add work</button>
-                    <button type="button" *ngIf="ownProfile && displayMedia?.length > 0 && profileState?.portfolio_user_profile?.extra?.isPublished === false" (click)="publishAction('publish')" class="btn btn-default btn-md btn-block m-t-8">publish</button>
-                    <button type="button" *ngIf="ownProfile && profileState?.portfolio_user_profile?.extra?.isPublished === true" (click)="publishAction('unpublish')" class="btn btn-default btn-md btn-block m-t-8">unpublish</button>
-                </div>
-            </div>
-            <div class="col-md-9 float_left">
-                <div class="row">
-                    <div class="col-md-12 p-0">
-                        <div class="c-port__tabs">
-                            <ul class="nav nav-tabs">
-                                <li [ngClass]="{'active': activeTab === 'all'}">
-                                    <a (click)="selectTab({ categoryName: 'all', categoryId: 'all' })" data-toggle="tab" class="p-l-0">ALL</a>
-                                </li>
-                                <ng-container *ngIf="portCategories?.length > 0">
-                                    <li *ngFor="let category of portCategories" [ngClass]="{'active': activeTab === category.categoryName}" class="text-uppercase">
-                                        <a (click)="selectTab(category)">{{ category.categoryName }}</a>
-                                    </li>
-                                </ng-container>
-                                <div *ngIf="ownProfile" class="c-port__setting">
-                                    <a (click)="showCategories()" data-toggle="modal" data-target="#editCat">
-                                       <img src="https://ops-v2-2.netlify.com/assets/svg/ico_create-plus.svg">
-                                    </a>
-                                </div>
-                            </ul>
-                            <div class="tab-content">
-                                <div class="tab-pane fade active in m-l-r-8">
-                                    <div class="row"
-                                        infiniteScroll
-                                        [infiniteScrollDistance]="2"
-                                        [infiniteScrollThrottle]="1000"
-                                        (scrolled)="tabMediaScroll($event)">
-                                        <ngx-masonry *ngIf="displayMedia?.length > 0" [useImagesLoaded]="true">
-                                            <ngx-masonry-item *ngFor="let media of displayMedia" class="col-md-4 col-sm-4 c-portfolio--block">
-                                                <app-portfolio-media (removeSelectedMedia)="removeMediaFromCat($event)" (displaySelectedMedia)="displayMediaPopup($event)" [portMediaDetails]="media" [portMediaCategory]="activeTab" [isOwner]="ownProfile"></app-portfolio-media>
-                                            </ngx-masonry-item>
-                                        </ngx-masonry>
-                                        <ng-container *ngIf="activeTab === 'all' && isEmptyPortfolio">
-                                            <h4 class="o-portfolio-empty-text color-grey-dark">Portfolio is empty</h4>
-                                        </ng-container>
-                                        <ng-container *ngIf="activeTab !== 'all' && isEmptyCategory">
-                                            <h4 class="o-portfolio-empty-text color-grey-dark">This category is empty</h4>
-                                        </ng-container>
-                                    </div>
-                                    <div *ngIf="!ownProfile && profileState?.portfolio_user_profile?.extra?.isPublished === false" class="row">
-                                        <h4 class="o-portfolio-empty-text color-grey-dark">Portfolio is not published!</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <div class="container p-t-50">
+    <div *ngIf="profileState?.portfolio_user_profile_loading === true && profileState?.portfolio_user_profile_loaded === false"
+      class="row m-t-24">
+      <div>
+        <div class="sticky">
+          <div class="loader">Loading...</div>
         </div>
+      </div>
     </div>
+    <div *ngIf="profileState?.portfolio_user_profile_loading === false && profileState?.portfolio_user_profile_loaded === true"
+      class="row m-t-24">
+      <div class="col-md-3 p-b-20">
+        <div class="o-port_userimg">
+          <img [src]="baseImageUrl + portfolioUserProfile?.profileImage" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';"
+            class="o-port_user--img">
+        </div>
+        <div class="c-h4 text-center m-t-16">{{ portfolioUserProfile?.name }}</div>
+        <div *ngIf="portfolioUserProfile?.profileType?.length > 0" class="width100 float_left m-16">
+          <a [routerLink]="'/spotfeed/' + skill?.name" *ngFor="let skill of portfolioUserProfile?.profileType.slice(0, 5)" class="c-skill__tags2">
+            {{ skill?.name }}
+          </a>
+        </div>
+        <div class="c-text_sm text-center width100 float_left">
+          {{ portfolioUserProfile?.summary }}
+        </div>
+        <div *ngIf="ownProfile" class="width100 float_left">
+          <button type="button" class="btn btn-primary btn-md btn-block m-t-16" (click)="showMediaSelection()">add work</button>
+          <button type="button" *ngIf="ownProfile && displayMedia?.length > 0 && profileState?.portfolio_user_profile?.extra?.isPublished === false"
+            (click)="publishAction('publish')" class="btn btn-default btn-md btn-block m-t-8">publish</button>
+          <button type="button" *ngIf="ownProfile && profileState?.portfolio_user_profile?.extra?.isPublished === true"
+            (click)="publishAction('unpublish')" class="btn btn-default btn-md btn-block m-t-8">unpublish</button>
+        </div>
+      </div>
+      <div class="col-md-9 float_left">
+        <div *ngIf="profileState?.get_port_display_media === true && profileState?.get_port_display_media_success === false" class="row m-t-24">
+          <div>
+            <div class="sticky">
+              <div class="loader">Loading...</div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="profileState?.get_port_display_media === false && profileState?.get_port_display_media_success === true" class="row">
+          <div class="col-md-12 p-0">
+            <div class="c-port__tabs">
+              <ul class="nav nav-tabs">
+                <li [ngClass]="{'active': activeTab === 'all'}">
+                  <a (click)="selectTab({ categoryName: 'all', categoryId: 'all' })" data-toggle="tab" class="p-l-0">ALL</a>
+                </li>
+                <ng-container *ngIf="portCategories?.length > 0">
+                  <li *ngFor="let category of portCategories" [ngClass]="{'active': activeTab === category.categoryName}"
+                    class="text-uppercase">
+                    <a (click)="selectTab(category)">{{ category.categoryName }}</a>
+                  </li>
+                </ng-container>
+                <div *ngIf="ownProfile" class="c-port__setting">
+                  <a (click)="showCategories()" data-toggle="modal" data-target="#editCat">
+                    <img src="https://ops-v2-2.netlify.com/assets/svg/ico_create-plus.svg">
+                  </a>
+                </div>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane fade active in m-l-r-8">
+                  <div class="row" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="1000"
+                    (scrolled)="tabMediaScroll($event)">
+                    <ngx-masonry *ngIf="displayMedia?.length > 0" [useImagesLoaded]="true">
+                      <ngx-masonry-item *ngFor="let media of displayMedia" class="col-md-4 col-sm-4 c-portfolio--block">
+                        <app-portfolio-media (removeSelectedMedia)="removeMediaFromCat($event)" (displaySelectedMedia)="displayMediaPopup($event)"
+                          [portMediaDetails]="media" [portMediaCategory]="activeTab" [isOwner]="ownProfile"></app-portfolio-media>
+                      </ngx-masonry-item>
+                    </ngx-masonry>
+                    <ng-container *ngIf="activeTab === 'all' && isEmptyPortfolio">
+                      <h4 class="o-portfolio-empty-text color-grey-dark">Portfolio is empty</h4>
+                    </ng-container>
+                    <ng-container *ngIf="activeTab !== 'all' && isEmptyCategory">
+                      <h4 class="o-portfolio-empty-text color-grey-dark">This category is empty</h4>
+                    </ng-container>
+                  </div>
+                  <div *ngIf="!ownProfile && profileState?.portfolio_user_profile?.extra?.isPublished === false && displayMedia?.length === 0"
+                    class="row">
+                    <h4 class="o-portfolio-empty-text color-grey-dark">Portfolio is not published!</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- Portfolio media modal -->
 <app-modal-new #portMediaModal modalClass="modal-portfolio__media">
-    <modal-content>
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header p-0">
-                    <button type="button" class="close" data-dismiss="modal" (click)="closePortAddMediaModal()">×</button>
-                </div>
-                <div class="modal-body">
-                    <div class="row with_border_bottom p-b-8">
-                        <div class="col-md-3 c-text_md-bold text-uppercase m-t-8">Choose from image</div>
-                        <div class="col-md-5"></div>
-                        <div class="col-md-4">
-                            <div class="row">
-                                <form *ngIf="portCategories?.length > 0">
-                                    <div class="col-md-9 col-xs-8">
-                                        <div class="c-form__group m-0">
-                                            <select class="c-form-control" [(ngModel)]="selectedCategoryId" [ngModelOptions]="{standalone: true}" (change)="selectCategory($event.target.value)">
-                                                <option value="">Select Category</option>
-                                                <option *ngFor="let category of portCategories" [value]="category.categoryId">{{ category.categoryName }}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-xs-3">
-                                        <button type="button" class="btn btn-primary btn-md" [disabled]="profileState?.add_media_to_category === true && profileState?.add_media_to_category_success === false" (click)="addMediaToPortfolio()">Done</button>
-                                    </div>
-                                </form>
-                                <p *ngIf="portCategories?.length === 0 && profileState?.get_portfolio_categories === false && profileState?.get_portfolio_categories_success === true">No categories available!</p>
-                            </div>
-                        </div>
+  <modal-content>
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header p-0">
+          <button type="button" class="close" data-dismiss="modal" (click)="closePortAddMediaModal()">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="row with_border_bottom p-b-8">
+            <div class="col-md-3 c-text_md-bold text-uppercase m-t-8">Choose from image</div>
+            <div class="col-md-5"></div>
+            <div class="col-md-4">
+              <div class="row">
+                <form *ngIf="portCategories?.length > 0">
+                  <div class="col-md-9 col-xs-8">
+                    <div class="c-form__group m-0">
+                      <select class="c-form-control" [(ngModel)]="selectedCategoryId" [ngModelOptions]="{standalone: true}"
+                        (change)="selectCategory($event.target.value)">
+                        <option value="">Select Category</option>
+                        <option *ngFor="let category of portCategories" [value]="category.categoryId">{{
+                          category.categoryName }}</option>
+                      </select>
                     </div>
-                    <div class="row m-t-8">
-                        <div class="col-md-2">
-                            <div class="c-text_lg">All Posts</div>
-                            <div class="c-text_sm text-uppercase color-grey-dark m-t-8">channels</div>
-                            <div class="c-form__group c-form--sm c-form--noeffect c-form__faded--sm m-t-8">
-                                <input class="c-form__input p-l-24" #searchChannelHandle [(ngModel)]="searchChannel" (input)="filterChannels(searchChannelHandle.value)" type="text">
-                                <label class="p-l-16">Search Channel</label>
-                                <span>
-                                    <img src="https://ops-v2.netlify.com/assets/svg/ico_search.svg" class="c-form__input--lefticon">
-                                </span>
-                            </div>
-                            <div class="c-portscroll2" id="ops_scrollbar">
-                                <form>
-                                    <div class="c-checkbox__md">
-                                        <label *ngFor="let channel of filteredChannels" class="color-grey-darker">
-                                            <input type="checkbox" (change)="toggleChannelSelection($event, channel.channelId)" value="{{ channel.channelId }}" class="c-form__bar2">{{ channel.channelName }}
-                                        </label>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="col-md-10 c-portscroll" id="ops_scrollbar"
-                            infiniteScroll
-                            [infiniteScrollDistance]="2"
-                            [infiniteScrollThrottle]="1000"
-                            [scrollWindow]="false"
-                            (scrolled)="portMediaModalScroll($event)">
-                            <div *ngIf="userMedia?.length > 0;" class="row">
-                                <ngx-masonry [useImagesLoaded]="true">
-                                    <ngx-masonry-item *ngFor="let media of userMedia" class="col-xs-6 col-md-3 c-portfolio--block" (click)="toggleMediaSelection(media?.mediaId)" >
-                                        <app-portfolio-media [isOwner]=false [portMediaDetails]="media"></app-portfolio-media>
-                                    </ngx-masonry-item>
-                                </ngx-masonry>
-                            </div>
-                            <ng-container *ngIf="profileState?.get_users_media === false && profileState?.get_users_media_success === true && userMedia?.length === 0;" class="row">
-                                <div class="col-xs-12 col-md-12 c-portfolio--block">
-                                    <p class="no-result-found">No media found!</p>
-                                </div>
-                            </ng-container>
-                            <!-- <div *ngIf="userMedia?.length === 0 && profileState?.get_users_media === true && profileState?.get_users_media_success === false" class="preloader">
+                  </div>
+                  <div class="col-md-3 col-xs-3">
+                    <button type="button" class="btn btn-primary btn-md" [disabled]="profileState?.add_media_to_category === true && profileState?.add_media_to_category_success === false"
+                      (click)="addMediaToPortfolio()">Done</button>
+                  </div>
+                </form>
+                <p *ngIf="portCategories?.length === 0 && profileState?.get_portfolio_categories === false && profileState?.get_portfolio_categories_success === true">No
+                  categories available!</p>
+              </div>
+            </div>
+          </div>
+          <div class="row m-t-8">
+            <div class="col-md-2">
+              <div class="c-text_lg">All Posts</div>
+              <div class="c-text_sm text-uppercase color-grey-dark m-t-8">channels</div>
+              <div class="c-form__group c-form--sm c-form--noeffect c-form__faded--sm m-t-8">
+                <input class="c-form__input p-l-24" #searchChannelHandle [(ngModel)]="searchChannel" (input)="filterChannels(searchChannelHandle.value)"
+                  type="text">
+                <label class="p-l-16">Search Channel</label>
+                <span>
+                  <img src="https://ops-v2.netlify.com/assets/svg/ico_search.svg" class="c-form__input--lefticon">
+                </span>
+              </div>
+              <div class="c-portscroll2" id="ops_scrollbar">
+                <form>
+                  <div class="c-checkbox__md">
+                    <label *ngFor="let channel of filteredChannels" class="color-grey-darker">
+                      <input type="checkbox" (change)="toggleChannelSelection($event, channel.channelId)" value="{{ channel.channelId }}"
+                        class="c-form__bar2">{{ channel.channelName }}
+                    </label>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col-md-10 c-portscroll" id="ops_scrollbar" infiniteScroll [infiniteScrollDistance]="2"
+              [infiniteScrollThrottle]="1000" [scrollWindow]="false" (scrolled)="portMediaModalScroll($event)">
+              <div *ngIf="userMedia?.length > 0;" class="row">
+                <ngx-masonry [useImagesLoaded]="true">
+                  <ngx-masonry-item *ngFor="let media of userMedia" class="col-xs-6 col-md-3 c-portfolio--block"
+                    (click)="toggleMediaSelection(media?.mediaId)">
+                    <app-portfolio-media [isOwner]=false [portMediaDetails]="media"></app-portfolio-media>
+                  </ngx-masonry-item>
+                </ngx-masonry>
+              </div>
+              <ng-container *ngIf="profileState?.get_users_media === false && profileState?.get_users_media_success === true && userMedia?.length === 0;"
+                class="row">
+                <div class="col-xs-12 col-md-12 c-portfolio--block">
+                  <p class="no-result-found">No media found!</p>
+                </div>
+              </ng-container>
+              <!-- <div *ngIf="userMedia?.length === 0 && profileState?.get_users_media === true && profileState?.get_users_media_success === false" class="preloader">
                                 <div class="sticky"><div class="loader">Loading...</div></div>
                             </div> -->
-                        </div>
-                    </div>
-                </div>
             </div>
+          </div>
         </div>
-    </modal-content>
+      </div>
+    </div>
+  </modal-content>
 </app-modal-new>
 <!-- Portfolio media modal -->
 
 <!-- Edit categories modal -->
 <app-modal-new #editCategoriesModal modalClass="modal-portfolio__categories">
-    <modal-content>
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <!-- <button type="button" class="close" data-dismiss="modal" (click)="editCategoriesModal.close()">×</button> -->
-                    <p class="c-text_lg-bold">Edit Category</p>
-                </div>
-                <div class="modal-body">
-                    <div *ngIf="portCategories?.length === 0 && profileState?.get_portfolio_categories === true && profileState?.get_portfolio_categories_success === false" class="preloader">
-                        <div class="sticky"><div class="loader">Loading...</div></div>
-                    </div>
-                    <div id="ops_scrollbar" class="categories-modal" *ngIf="portCategories?.length > 0">
-                        <div *ngFor="let category of portCategories; let catIndex = index;" class="row c-port__cat-name" id="switchbranding">
-                            <div class="col-md-9 p-0">
-                                <input #newCatName class="editable-cat" type="text" [disabled]="!category?.isEditable" [value]="category.categoryName" (input)="updateCatName(newCatName.value, catIndex)">
-                            </div>
-                            <div class="col-md-3 p-0">
-                                <a class="o-category__delet" *ngIf="!category?.isEditable" (click)="deleteCategory(category.categoryId)">
-                                    <img src="https://ops-v2-2.netlify.com/assets/svg/trash.svg" alt="">
-                                </a>
-                                <a class="o-category__edit" *ngIf="!category?.isEditable" (click)="catEditAction('enable', catIndex)">Edit</a>
-                                <a *ngIf="category?.isEditable" (click)="saveCatNewName(catIndex)">Save</a>
-                            </div> 
-                        </div>
-                    </div>
-                    <div *ngIf="portCategories?.length === 0 && profileState?.get_portfolio_categories === false && profileState?.get_portfolio_categories_success === true" class="row c-port__cat-name" id="switchbranding">
-                        <div class="col-md-12 p-0">No categories found!</div>
-                    </div>
-                    <form [formGroup]="portAddCategoryForm" #portAddCatFrm="ngForm" (ngSubmit)="portAddCategory(portAddCategoryForm.value)">
-                        <div class="c-form__group c-form--sm c-form--noeffect">
-                            <input class="c-form__input" formControlName="categoryName" type="text" placeholder="Add New Category">
-                            <span class="c-form__highlight"></span>
-                            <span class="c-form__bar"></span>
-                            <!-- <label>Add New Category</label> -->
-                            <p class="c-form__validation" *ngIf="catNameIsRequired">Please enter category name</p>
-                        </div>
-                        <div class="m-t-24 text-right">
-                            <button [disabled]="profileState?.create_portfolio_category === true && profileState?.create_portfolio_category_success === false" type="submit" class="btn btn-primary btn-sm p-l-r-16" data-dismiss="modal">ADD</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+  <modal-content>
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <!-- <button type="button" class="close" data-dismiss="modal" (click)="editCategoriesModal.close()">×</button> -->
+          <p class="c-text_lg-bold">Edit Category</p>
         </div>
-    </modal-content>
+        <div class="modal-body">
+          <div *ngIf="portCategories?.length === 0 && profileState?.get_portfolio_categories === true && profileState?.get_portfolio_categories_success === false"
+            class="preloader">
+            <div class="sticky">
+              <div class="loader">Loading...</div>
+            </div>
+          </div>
+          <div id="ops_scrollbar" class="categories-modal" *ngIf="portCategories?.length > 0">
+            <div *ngFor="let category of portCategories; let catIndex = index;" class="row c-port__cat-name" id="switchbranding">
+              <div class="col-md-9 p-0">
+                <input #newCatName class="editable-cat" type="text" [disabled]="!category?.isEditable" [value]="category.categoryName"
+                  (input)="updateCatName(newCatName.value, catIndex)">
+              </div>
+              <div class="col-md-3 p-0">
+                <a class="o-category__delet" *ngIf="!category?.isEditable" (click)="deleteCategory(category.categoryId)">
+                  <img src="https://ops-v2-2.netlify.com/assets/svg/trash.svg" alt="">
+                </a>
+                <a class="o-category__edit" *ngIf="!category?.isEditable" (click)="catEditAction('enable', catIndex)">Edit</a>
+                <a *ngIf="category?.isEditable" (click)="saveCatNewName(catIndex)">Save</a>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="portCategories?.length === 0 && profileState?.get_portfolio_categories === false && profileState?.get_portfolio_categories_success === true"
+            class="row c-port__cat-name" id="switchbranding">
+            <div class="col-md-12 p-0">No categories found!</div>
+          </div>
+          <form [formGroup]="portAddCategoryForm" #portAddCatFrm="ngForm" (ngSubmit)="portAddCategory(portAddCategoryForm.value)">
+            <div class="c-form__group c-form--sm c-form--noeffect">
+              <input class="c-form__input" formControlName="categoryName" type="text" placeholder="Add New Category">
+              <span class="c-form__highlight"></span>
+              <span class="c-form__bar"></span>
+              <!-- <label>Add New Category</label> -->
+              <p class="c-form__validation" *ngIf="catNameIsRequired">Please enter category name</p>
+            </div>
+            <div class="m-t-24 text-right">
+              <button [disabled]="profileState?.create_portfolio_category === true && profileState?.create_portfolio_category_success === false"
+                type="submit" class="btn btn-primary btn-sm p-l-r-16" data-dismiss="modal">ADD</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </modal-content>
 </app-modal-new>
 <!-- Edit categories modal -->
 
 <!-- View media modal -->
 <app-modal-new #mediaViewModal modalClass="modal-portfolio__media_view">
-    <modal-content>
-        <app-portfolio-view-media (closeViewMediaModal)="mediaViewModal.close()" [viewMediaDetails]="viewMedia"></app-portfolio-view-media>
-    </modal-content>
+  <modal-content>
+    <app-portfolio-view-media (closeViewMediaModal)="mediaViewModal.close()" [viewMediaDetails]="viewMedia"></app-portfolio-view-media>
+  </modal-content>
 </app-modal-new>
 <!-- View media modal -->
