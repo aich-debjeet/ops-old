@@ -34,6 +34,8 @@ export class NotificationComponent implements OnInit, OnDestroy {
   scrollingLoad = 251;
   page = 0;
   notificationType: string;
+  isSelected = false;
+  notificationsList = [];
 
   constructor(
     private store: Store<Notification>,
@@ -127,9 +129,14 @@ export class NotificationComponent implements OnInit, OnDestroy {
    * Marking notification as read
    * @Param: notification id
    */
-  markAsRead(notificationId: string) {
-    this.notificationIds = [notificationId];
-    this.dispatchReadNotifications();
+  markAsRead() {
+    console.log(this.notificationsList)
+    // this.store.dispatch({
+    //   type: NotificationActions.MARK_AS_READ,
+    //   payload: {
+    //     notificationList: this.notificationsList
+    //   }
+    // });
   }
 
   /**
@@ -189,6 +196,31 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   switchtabs(tab: string){
     this.notificationType = tab;
+  }
+
+  onChange(notificationId:string, isChecked: boolean) {
+    console.log(notificationId,isChecked)
+    if(isChecked && !_.includes(this.notificationsList, notificationId)){
+        this.notificationsList.push(notificationId);
+    }
+    else {
+        _.remove(this.notificationsList, item => item === notificationId);
+    }
+  }
+  selectAll(event){
+    console.log(event)
+    if(!this.isSelected){
+      let i =0;
+      this.isSelected =true;
+      this.notifications.forEach( (element) => {
+        console.log(element)
+          this.notificationsList[i] = element.notificationId;
+          i=i+1;
+      });
+    } else {
+      this.isSelected =false;
+      this.notificationsList = [];
+    }
   }
 
 }
