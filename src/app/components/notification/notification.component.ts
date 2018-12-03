@@ -52,6 +52,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
     this.subscription = this.notificationsState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
         if (typeof state['recieved_notifications'] !== 'undefined') {
+          console.log('state', state);
           this.notifications = state['recieved_notifications'];
           // check is unread notification exits else mark all notifications as read
           this.processNotifications();
@@ -137,6 +138,16 @@ export class NotificationComponent implements OnInit, OnDestroy {
     //     notificationList: this.notificationsList
     //   }
     // });
+  }
+
+  markAsDelete(){
+    console.log(this.notificationsList)
+    this.store.dispatch({
+      type: NotificationActions.MARK_AS_DELETE,
+      payload: {
+        notificationList: this.notificationsList
+      }
+    });
   }
 
   /**

@@ -53,6 +53,10 @@ export class NotificationService {
     return this.api.get( '/portal/network/notification/mark/read');
   }
 
+  notificationDelete(reqBody: any){
+    return this.api.delete2('/portal/network/notification/delete', reqBody);
+  }
+
   /**
    * Pagination
    * @param page number

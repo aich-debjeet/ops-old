@@ -61,6 +61,25 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
         mark_as_all_read_success: true
       });
 
+    case NotificationActions.MARK_AS_DELETE:
+    console.log(payload);
+      return Object.assign({}, state, {
+        noti_delete: false,
+        noti_delete_id: payload
+      });
+    case NotificationActions.MARK_AS_DELETE_SUCCESS:
+    console.log(payload)
+      return Object.assign({}, state, {
+        noti_delete: true,
+        recieved_notifications: state.recieved_notifications.filter(function(el){
+          return !state.noti_delete_id.notificationList.includes( el.notificationId );
+        })
+      });
+    case NotificationActions.MARK_AS_DELETE_FAILED:
+      return Object.assign({}, state, {
+        noti_delete: false,
+      });
+
     case NotificationActions.ADD_PUSHER_NOTIFICATION:
       let updated_push_notifications;
       if (state && state['recieved_notifications'].length > 0) {
