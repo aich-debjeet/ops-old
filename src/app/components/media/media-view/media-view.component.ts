@@ -46,6 +46,8 @@ export class MediaViewComponent implements OnDestroy {
   mediaCarousal: any = { prev: '', next: '' };
   userData: any;
   viewCounted = false;
+  commentsLoading: boolean;
+  commentsLoaded: boolean;
 
   constructor(
     private router: Router,
@@ -61,6 +63,14 @@ export class MediaViewComponent implements OnDestroy {
       this.data = this.mediaStore.media_detail;
       this.mediaType = this.mediaStore.media_detail.mtype;
       this.mediaId = this.mediaStore.media_detail.id;
+      if (state.media_comments_loading === true && state.media_comments_loaded === false) {
+        this.commentsLoading = true;
+        this.commentsLoaded = false;
+      }
+      if (state.media_comments_loading === false && state.media_comments_loaded === true) {
+        this.commentsLoading = false;
+        this.commentsLoaded = true;
+      }
       if (!this.viewCounted && this.mediaId) {
         const data = {
           contentType: 'media',

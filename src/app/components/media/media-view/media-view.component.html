@@ -118,7 +118,13 @@
         </div>
       </div>
       <div class="c-media__right--feed">
-        <app-comment [mediaId]="mediaId" [commentsType]="'media-popup'" [comments]="comments" [userData]="userData"
+        <app-comment
+          [mediaId]="mediaId"
+          [commentsType]="'media-popup'"
+          [comments]="comments"
+          [userData]="userData"
+          [commentsLoaded]="commentsLoaded"
+          [commentsLoading]="commentsLoading"
           [mediaType]="mediaType"></app-comment>
       </div>
     </div>

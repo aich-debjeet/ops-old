@@ -17,6 +17,8 @@ export class CommentComponent implements OnInit, OnDestroy {
   @Input() comments: any;
   @Input() userData: any;
   @Input() commentCount: any;
+  @Input() commentsLoaded: boolean;
+  @Input() commentsLoading: boolean;
   @Input() commentsType = 'media-list';
   @Output() submitComment: EventEmitter<any> = new EventEmitter<any>();
   @Output() deleteComment: EventEmitter<any> = new EventEmitter<any>();

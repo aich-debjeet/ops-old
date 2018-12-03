@@ -157,8 +157,11 @@
       </div>
     </div>
   </div>
-  <app-comment [mediaId]="mediaId" [commentsType]="'media-list'" [userData]="userData" [comments]="comments"
-    [mediaType]="mediaType" [commentCount]="mediaData?.counts?.commentsCount"></app-comment>
+  <app-comment
+    [mediaId]="mediaId"
+    [commentsType]="'media-list'"
+    [comments]="comments"
+    [userData]="userData"></app-comment>
 </div>
 
 <app-modal-new #reportModal modalClass="modal-report__popup">
