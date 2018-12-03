@@ -76,10 +76,10 @@
     <!-- card footer links -->
     <div class="c-card__links p-t-0">
         <div class="c-links">
-            <div class="c-links__spots" (click)="spotMediaAction(mediaData, mediaData?.isSpotted)">
-                <img *ngIf="mediaData?.isSpotted === false" [src]="imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
-                <img *ngIf="mediaData?.isSpotted === true" [src]="imageLink + 'img/svg/spot_icon.svg'" class="c-links__image">
-                <span class="c-links__count">{{ mediaData?.counts?.spotsCount }}</span>
+            <div class="c-links__spots" (click)="spotMediaAction(mediaData)">
+                <img *ngIf="isSpotted === false" [src]="imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
+                <img *ngIf="isSpotted === true" [src]="imageLink + 'img/svg/spot_icon.svg'" class="c-links__image">
+                <span class="c-links__count">{{ spotsCount }}</span>
             </div>
             <div class="c-links__comments">
                 <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">

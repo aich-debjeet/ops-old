@@ -25,6 +25,8 @@ export class PostCardComponent implements OnInit {
   userImage: string;
   imageLink: string = environment.API_IMAGE;
   domainLink: string = environment.API_DOMAIN;
+  isSpotted: boolean;
+  spotsCount: number;
 
   constructor(
     private router: Router,
@@ -41,6 +43,8 @@ export class PostCardComponent implements OnInit {
         this.userImage = this.imageLink + this.mediaData.ownerImage;
       }
       this.mediaType = this.mediaData.mtype;
+      this.isSpotted = this.mediaData.isSpotted;
+      this.spotsCount = this.mediaData.counts.spotsCount;
     }
   }
 
@@ -67,15 +71,19 @@ export class PostCardComponent implements OnInit {
    * Spot a Media
    * @param mediaId
    */
-  spotMediaAction(media: any, spotted: boolean) {
+  spotMediaAction(media: any) {
     const data = {
       'mediaType': media['mtype'],
       'id': media['id']
     }
-    if (!spotted) {
+    if (!this.isSpotted) {
+      this.spotsCount++;
+      this.isSpotted = true;
       this.store.dispatch({ type: MediaActions.MEDIA_SPOT, payload: data });
       this.store.dispatch({ type: ProfileActions.PROFILE_MEDIA_SPOT, payload: data });
     } else {
+      this.spotsCount--;
+      this.isSpotted = false;
       this.store.dispatch({ type: MediaActions.MEDIA_UNSPOT, payload: data });
       this.store.dispatch({ type: ProfileActions.PROFILE_MEDIA_UNSPOT, payload: data });
     }
