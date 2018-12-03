@@ -1,15 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { environment } from './../../../environments/environment';
-// import { Store } from '@ngrx/store';
-// import { ProfileModal, initialTag } from '../../models/profile.model';
-// import FilesHelper from '../../helpers/fileUtils';
-
-// action
-// import { ProfileActions } from '../../actions/profile.action';
-
-// rx
-// import { Observable } from 'rxjs/Observable';
-// import { ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-channel',
@@ -22,33 +12,20 @@ export class ChannelComponent implements OnInit, OnDestroy {
   @Input() channelData;
   @Input() currentUser: boolean;
   @Input() loader = false;
-  // @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
   @Output() onFollow: EventEmitter<any> = new EventEmitter<any>();
   @Output() onDelete: EventEmitter<any> = new EventEmitter<any>();
   @Output() onEdit: EventEmitter<any> = new EventEmitter<any>();
   imageBaseLink: string = environment.API_IMAGE;
-  // private subscriptionOne: ISubscription;
-  // Its for admin spefic edit option
   @Input() type: boolean;
   userImage: string;
   isfollowing = false;
   ispin: boolean;
   showEdit: boolean;
-  // storeState$: Observable<ProfileModal>;
-  // userProfile = initialTag;
   userHandle: any;
   image_base_url: string = environment.API_IMAGE;
   ownerHandle = '';
 
-  constructor(
-    // private _store: Store<ProfileModal>
-  ) {
-    // this.storeState$ = this._store.select('profileTags');
-    // this.subscriptionOne = this.storeState$.subscribe((state) => {
-    //    this.userHandle = state['profile_details'].handle;
-    //    this.userProfile = state;
-    // });
-  }
+  constructor() { }
 
   ngOnInit() {
     this.ownerHandle = localStorage.getItem('loggedInProfileHandle');
@@ -65,9 +42,7 @@ export class ChannelComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
-    // this.subscriptionOne.unsubscribe();
-  }
+  ngOnDestroy() { }
 
   /**
    * Follow Channel Action
@@ -82,38 +57,11 @@ export class ChannelComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Check File type for component switching
-   * @param fileName
-   * @param fileType
-   */
-  // checkFileType(fileName: string, fileType: string) {
-  //   return FilesHelper.fileType(fileName, fileType);
-  // }
-
-  /**
    * Toggle Options
    */
   showOptions() {
     this.showEdit = !this.showEdit;
   }
-
-  // pinChannel(spotfeedId) {
-  //   if (this.ispin === false) {
-  //     this.ispin = true;
-  //     const data = {
-  //       spotfeedId: spotfeedId,
-  //       profileHandle: this.userHandle
-  //     }
-  //     this._store.dispatch({ type: ProfileActions.PIN_CHANNEL, payload: data });
-  //   } else {
-  //     this.ispin = false;
-  //     const data = {
-  //       spotfeedId: spotfeedId,
-  //       profileHandle: this.userHandle
-  //     }
-  //     this._store.dispatch({ type: ProfileActions.UNPIN_CHANNEL, payload: data });
-  //   }
-  // }
 
   /**
    * Delete a Channel
