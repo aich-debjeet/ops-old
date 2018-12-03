@@ -26,7 +26,7 @@
                                     <input type="checkbox" value="all" name="all" class="c-form__bar2" (change)="selectAll($event)"> Select all
                                 </label>
                             </div>
-                            <div class="col-xs-6 col-md-3">
+                            <!-- <div class="col-xs-6 col-md-3">
                                 <div class="m-nav__dropdown dropdown" appDropdown>
                                     <a class="m-nav__icons dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
                                             <a class="pull-right">Actions</a>
@@ -41,6 +41,16 @@
                                       </div>
                                     </div>
                                   </div>
+                            </div> -->
+                            <div class="col-xs-6 col-md-3">
+                                <div class="dropdown c-dropdown text-right" appDropdown>
+                                    <a class="noti-action dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" appDropdownOpen>Actions
+                                    <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                    <li><a (click)="markAsRead()">Mark as read</a></li>
+                                    <li><a (click)="markAsDelete()">Delete</a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
 
@@ -333,11 +343,14 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="c-form__group m-0 c-dropdown_icon m-l-24">
-                                    <select class="c-form-control with_border_none">
-                                        <option>Action</option>
-                                        <option>Read</option>
-                                        <option>Delete</option>
-                                    </select>
+                                    <div class="dropdown c-dropdown text-right" appDropdown>
+                                        <a class="noti-action dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" appDropdownOpen>Actions
+                                        <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                        <li><a (click)="markAsRead()">Mark as read</a></li>
+                                        <li><a (click)="markAsDelete()">Delete</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -346,31 +359,35 @@
                             <div class="not_date">october 21</div>
                         </div>
 
-                        <div class="row not_block_main">
-                            <a href="javascript:void(0)">
+                        <div class="row not_block_main" *ngFor="let notification of notifications; let notifIndex = index;" [ngClass]="{'fill_grey': !notification.isRead}">
+                            <a (click)="openLink(notification)">
                                 <div class="not_block1 c-checkbox__md2">
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" value="1">
+                                        <input type="checkbox" value="1" [checked]="isSelected" (change)="onChange(notification.notificationId, $event.target.checked)">
                                     </label>
                                 </div>
                                 <div class="not_block2 p-t-b-16">
-                                    <div class="not_avatar_img">
-                                        <img class="navdrop__img" src="assets/demo/new/avatar2.png">
+                                    <div class="not_avatar_img" [routerLink]="['', 'profile', 'u', notification.username, 'user']">
+                                        <img *ngIf="!notification.profileImage" class="navdrop__img" [src]="baseUrl + 'img/avatar2.png'">
+                                        <img *ngIf="notification.profileImage" [src]="baseUrl + notification.profileImage" class="navdrop__img">
                                     </div>
                                     <div class="not_block2_details">
-                                        <div class="not_block2_comm"><span class="color-grey-darker">Terry Carroll</span> Spotted your photo</div>
-                                        <div class="not_block2_tim"><img src="assets/svg/spot_icon.svg"> Oct 21, 08:15 PM</div>
+                                        <div class="not_block2_comm"><span class="color-grey-darker">{{ notification.name }}</span>{{ notification.message }}</div>
+                                        <div class="not_block2_tim">
+                                            <img *ngIf="notification?.notificationType == 'Media_Spot'" [src]="baseUrl + 'img/svg/spot_icon.svg'">
+                                            {{ notification.createdDate | utcDate | date:'d MMM hh:mm a' }}
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="not_block3 p-t-b-16">
+                                <div class="not_block3 p-t-b-16" *ngIf="(notification.media | json) != '{}'">
                                     <div class="not_block3_img">
-                                        <img src="assets/demo/art_img.jpg">
+                                        <img [src]="baseUrl + notification.media.thumbNails.mediumSmall">
                                     </div>
                                 </div>
                             </a>
                         </div>
 
-                        <div class="row not_block_main">
+                        <!-- <div class="row not_block_main">
                             <a href="javascript:void(0)">
                                 <div class="not_block1 c-checkbox__md2">
                                     <label class="checkbox-inline">
@@ -519,10 +536,9 @@
                                     </div>
                                 </div>
                             </a>
-                        </div>
+                        </div> -->
                     </div>
                     <div id="03" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'comments'">
-                        
 
                         <div class="row p-l-24 p-l-16 p-t-b-8">
                             <div class="col-md-10 c-text_md c-checkbox__md2 p-l-0">
@@ -532,11 +548,14 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="c-form__group m-0 c-dropdown_icon m-l-24">
-                                    <select class="c-form-control with_border_none">
-                                        <option>Action</option>
-                                        <option>Read</option>
-                                        <option>Delete</option>
-                                    </select>
+                                    <div class="dropdown c-dropdown text-right" appDropdown>
+                                        <a class="noti-action dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" appDropdownOpen>Actions
+                                        <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                        <li><a (click)="markAsRead()">Mark as read</a></li>
+                                        <li><a (click)="markAsDelete()">Delete</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -545,31 +564,35 @@
                             <div class="not_date">october 21</div>
                         </div>
 
-                        <div class="row not_block_main">
-                            <a href="javascript:void(0)">
+                        <div class="row not_block_main" *ngFor="let notification of notifications; let notifIndex = index;" [ngClass]="{'fill_grey': !notification.isRead}">
+                            <a (click)="openLink(notification)">
                                 <div class="not_block1 c-checkbox__md2">
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" value="1">
+                                        <input type="checkbox" value="1" [checked]="isSelected" (change)="onChange(notification.notificationId, $event.target.checked)">
                                     </label>
                                 </div>
                                 <div class="not_block2 p-t-b-16">
-                                    <div class="not_avatar_img">
-                                        <img class="navdrop__img" src="assets/demo/new/avatar.png">
+                                    <div class="not_avatar_img" [routerLink]="['', 'profile', 'u', notification.username, 'user']">
+                                        <img *ngIf="!notification.profileImage" class="navdrop__img" [src]="baseUrl + 'img/avatar2.png'">
+                                        <img *ngIf="notification.profileImage" [src]="baseUrl + notification.profileImage" class="navdrop__img">
                                     </div>
                                     <div class="not_block2_details">
-                                        <div class="not_block2_comm"><span class="color-grey-darker">Michael Carroll</span> Commented your video</div>
-                                        <div class="not_block2_tim"><img src="assets/svg/ico_comment.svg"> Oct 21, 08:15 PM</div>
+                                        <div class="not_block2_comm"><span class="color-grey-darker">{{ notification.name }}</span>{{ notification.message }}</div>
+                                        <div class="not_block2_tim">
+                                                <img *ngIf="notification?.notificationType == 'Status_Comments' || notification?.notificationType == 'Media_Comments'" [src]="baseUrl + 'img/svg/ico_comment.svg'">
+                                            {{ notification.createdDate | utcDate | date:'d MMM hh:mm a' }}
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="not_block3 p-t-b-16">
+                                <div class="not_block3 p-t-b-16" *ngIf="(notification.media | json) != '{}'">
                                     <div class="not_block3_img">
-                                        <img src="assets/demo/new/s06.jpg">
+                                        <img [src]="baseUrl + notification.media.thumbNails.mediumSmall">
                                     </div>
                                 </div>
                             </a>
                         </div>
 
-                        <div class="row not_block_main">
+                        <!-- <div class="row not_block_main">
                             <a href="javascript:void(0)">
                                 <div class="not_block1 c-checkbox__md2">
                                     <label class="checkbox-inline">
@@ -643,12 +666,10 @@
                                     </div>
                                 </div>
                             </a>
-                        </div>
+                        </div> -->
 
                     </div>
                     <div id="04" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'others'">
-                        
-
                         <div class="row p-l-24 p-l-16 p-t-b-8">
                             <div class="col-md-10 c-text_md c-checkbox__md2 p-l-0">
                                 <label class="checkbox-inline p-l-0 m-t-8">
@@ -657,11 +678,14 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="c-form__group m-0 c-dropdown_icon m-l-24">
-                                    <select class="c-form-control with_border_none">
-                                        <option>Action</option>
-                                        <option>Read</option>
-                                        <option>Delete</option>
-                                    </select>
+                                    <div class="dropdown c-dropdown text-right" appDropdown>
+                                        <a class="noti-action dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" appDropdownOpen>Actions
+                                        <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                        <li><a (click)="markAsRead()">Mark as read</a></li>
+                                        <li><a (click)="markAsDelete()">Delete</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -670,26 +694,27 @@
                             <div class="not_date">october 21</div>
                         </div>
 
-                        <div class="row not_block_main">
-                            <a href="javascript:void(0)">
+                        <div class="row not_block_main" *ngFor="let notification of notifications; let notifIndex = index;" [ngClass]="{'fill_grey': !notification.isRead}">
+                            <a (click)="openLink(notification)">
                                 <div class="not_block1 c-checkbox__md2">
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" value="1">
+                                        <input type="checkbox" value="1" [checked]="isSelected" (change)="onChange(notification.notificationId, $event.target.checked)">
                                     </label>
                                 </div>
                                 <div class="not_block2 p-t-b-16">
-                                    <div class="not_avatar_img">
-                                        <img class="navdrop__img" src="assets/demo/new/avatar.png">
+                                    <div class="not_avatar_img" [routerLink]="['', 'profile', 'u', notification.username, 'user']">
+                                        <img *ngIf="!notification.profileImage" class="navdrop__img" [src]="baseUrl + 'img/avatar2.png'">
+                                        <img *ngIf="notification.profileImage" [src]="baseUrl + notification.profileImage" class="navdrop__img">
                                     </div>
                                     <div class="not_block2_details">
-                                        <div class="not_block2_comm"><span class="color-grey-darker">Michael Carroll</span> Created a Channel</div>
-                                        <div class="not_block2_tim">Oct 21, 08:15 PM</div>
+                                        <div class="not_block2_comm"><span class="color-grey-darker">{{ notification.name }}</span>{{ notification.message }}</div>
+                                        <div class="not_block2_tim">{{ notification.createdDate | utcDate | date:'d MMM hh:mm a' }}</div>
                                     </div>
                                 </div>
                             </a>
                         </div>
 
-                        <div class="row not_block_main">
+                        <!-- <div class="row not_block_main">
                             <a href="javascript:void(0)">
                                 <div class="not_block1 c-checkbox__md2">
                                     <label class="checkbox-inline">
@@ -748,9 +773,7 @@
                                     </div>
                                 </div>
                             </a>
-                        </div>
-
-
+                        </div> -->
                     </div>
                 </div>
             </div>
