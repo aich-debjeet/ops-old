@@ -5,10 +5,9 @@
   </div>
 
   <div *ngIf="userMedia.user_posts_loading">
-    <div class="msg__loading">
-      <div class="loader">Loading...</div>
-    </div>
+    <app-post-card [className]="'c-card m-t-8'" [loader]=true *ngFor="let number of [0,1]"></app-post-card>
   </div>
+
   <div *ngIf="!userMedia.user_posts_loading && posts.length < 1 && isOwner === true" class="empty__state">
     <h4>You have no Post</h4>
     <p>You have not added any posts, click below to create your first Post!</p>
