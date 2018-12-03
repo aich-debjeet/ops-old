@@ -72,7 +72,7 @@ export class SearchPostComponent implements OnInit, OnDestroy {
   // Media Popup
   mediaOpenPopup(id) {
     this.mediaStore.dispatch({ type: MediaActions.MEDIA_DETAILS, payload: id});
-    this.mediaStore.dispatch({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: id});
+    // this.mediaStore.dispatch({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: id});
   }
 
   /**

@@ -79,7 +79,7 @@ export class PopularListComponent implements OnInit {
   // Media Popup
   mediaOpenPopup(id) {
     this._store.dispatch({ type: MediaActions.MEDIA_DETAILS, payload: id});
-    this._store.dispatch({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: id});
+    // this._store.dispatch({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: id});
   }
 
   /**

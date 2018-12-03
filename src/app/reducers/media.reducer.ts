@@ -107,6 +107,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
       return Object.assign({}, state, {
         channel_post_loading: false,
         channel_post: channel_post,
+        postCount: payload['total'],
         channelPostScrollId: payload['scrollId']
       });
 
@@ -133,23 +134,24 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
     // Fetch Media comment
     case MediaActions.MEDIA_COMMENT_FETCH:
       return Object.assign({}, state, {
-        media_comment_loading: true,
+        media_comments_loading: true,
+        media_comments_loaded: false,
         media_post_success: false,
         media_comment: []
       });
 
     case MediaActions.MEDIA_COMMENT_FETCH_SUCCESS:
       return Object.assign({}, state, {
-        media_comment_loading: false,
+        media_comments_loading: false,
+        media_comments_loaded: true,
         media_post_success: false,
         media_comment: payload
       });
 
     case MediaActions.MEDIA_COMMENT_FETCH_FAILED:
       return Object.assign({}, state, {
-        media_comment_loading: false,
-        media_comment_failed: true,
-        // media_comment: []
+        media_comments_loading: false,
+        media_comments_loaded: false,
       });
 
     case MediaActions.DELETE_COMMENT_SUCCESS:

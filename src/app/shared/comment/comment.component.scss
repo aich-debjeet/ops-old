@@ -346,18 +346,6 @@
     float: left;
 }
 
-.c-post__comment__blank {
-    height: 49vh;
-    vertical-align: middle;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 15px;
-    color: #808080;
-    font-weight: 300;
-    line-height: 24px;
-}
-
 .c-post__comment {
     padding: 8px 16px;
     @include clearfix;
@@ -420,18 +408,6 @@
     }
 }
 
-.c-post__comment__blank {
-    height: 49vh;
-    vertical-align: middle;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 15px;
-    color: #808080;
-    font-weight: 300;
-    line-height: 24px;
-}
-
 .m-b-0 {
     margin-top: 0px;
 }
@@ -454,7 +430,7 @@
 }
 
 .c-post__comment__blank {
-    height: 49vh;
+    height: 36vh;
     vertical-align: middle;
     display: flex;
     justify-content: center;
