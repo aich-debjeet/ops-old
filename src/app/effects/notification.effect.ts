@@ -13,13 +13,21 @@ import { NotificationService } from '../services/notification.service';
 export class NotificationEffect {
 
   @Effect()
+  // notifications$ = this.actions$
+  //   .ofType(NotificationActions.GET_NOTIFICATIONS)
+  //   .map(toPayload)
+  //   .switchMap((payload) => this.apiService.getNotifications(payload)
+  //     .map(res => ({ type: NotificationActions.GET_NOTIFICATIONS_SUCCESS, payload: res }))
+  //     .catch((res) => Observable.of({ type: NotificationActions.GET_NOTIFICATIONS_FAILED, payload: res }))
+  //   );
+
   notifications$ = this.actions$
-    .ofType(NotificationActions.GET_NOTIFICATIONS)
-    .map(toPayload)
-    .switchMap((payload) => this.apiService.getNotifications(payload)
-      .map(res => ({ type: NotificationActions.GET_NOTIFICATIONS_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: NotificationActions.GET_NOTIFICATIONS_FAILED, payload: res }))
-    );
+  .ofType(NotificationActions.GET_NOTIFICATIONS_BY_TYPE)
+  .map(toPayload)
+  .switchMap((payload) => this.apiService.getNotifications(payload)
+    .map(res => ({ type: NotificationActions.GET_NOTIFICATIONS_BY_TYPE_SUCCESS, payload: res }))
+    .catch((res) => Observable.of({ type: NotificationActions.GET_NOTIFICATIONS_BY_TYPE_FAILED, payload: res }))
+  );
 
   @Effect()
   notificationRead$ = this.actions$

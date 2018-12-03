@@ -36,7 +36,8 @@ export class NotificationService {
    * @param req
    */
   getNotifications(data: any) {
-    return this.api.get('/portal/network/notification/getAllNotification/' + data.page + '/' + data.limit);
+    console.log(data)
+    return this.api.put('/portal/network/notification/getNotificationByCategory', data);
   }
 
   /**

@@ -63,10 +63,12 @@ export class NotificationComponent implements OnInit, OnDestroy {
       } else {
         // if notifications state undefined init with initial list of notifications
         const reqBody = {
+          notificationType: 'all',
           limit: 10,
-          page: 0
+          offset: 0
         }
-        this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS, payload: reqBody });
+        // this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS, payload: reqBody });
+        this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS_BY_TYPE, payload: reqBody });
       }
     });
   }
@@ -198,15 +200,22 @@ export class NotificationComponent implements OnInit, OnDestroy {
       this.scrollingLoad += 500
       this.page += 10
       const data = {
+        notificationType: this.notificationType,
         limit: 10,
-        page: this.page
+        offset: this.page
       }
-      this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS, payload: data });
+      this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS_BY_TYPE, payload: data });
     }
   }
 
   switchtabs(tab: string){
     this.notificationType = tab;
+    const reqBody = {
+      notificationType: this.notificationType,
+      limit: 10,
+      offset: 0
+    }
+    this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS_BY_TYPE, payload: reqBody });
   }
 
   onChange(notificationId:string, isChecked: boolean) {

@@ -7,20 +7,49 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
 
   switch (type) {
 
-    case NotificationActions.GET_NOTIFICATIONS:
+    // case NotificationActions.GET_NOTIFICATIONS:
+    //   return Object.assign({}, state, {
+    //     requesting_notifications: true,
+    //     notifications_pagination: payload,
+    //     requesting_notifications_success: false
+    //   });
+
+    // case NotificationActions.GET_NOTIFICATIONS_SUCCESS:
+    //   let updated_notifications;
+    //   if (state['recieved_notifications'] && state['recieved_notifications'].length > 0) {
+    //     updated_notifications = [...state.recieved_notifications, ...payload];
+    //     updated_notifications = _uniqBy(updated_notifications, 'notificationId');
+    //   } else {
+    //     updated_notifications = payload;
+    //   }
+    //   return Object.assign({}, state, {
+    //     recieved_notifications: updated_notifications,
+    //     requesting_notifications: false,
+    //     requesting_notifications_success: true
+    //   });
+
+    // case NotificationActions.GET_NOTIFICATIONS_FAILED:
+    //   return Object.assign({}, state, {
+    //     requesting_notifications: false,
+    //     requesting_notifications_success: false
+    //   });
+
+      case NotificationActions.GET_NOTIFICATIONS_BY_TYPE:
+      console.log(payload)
       return Object.assign({}, state, {
         requesting_notifications: true,
         notifications_pagination: payload,
         requesting_notifications_success: false
       });
 
-    case NotificationActions.GET_NOTIFICATIONS_SUCCESS:
+    case NotificationActions.GET_NOTIFICATIONS_BY_TYPE_SUCCESS:
+    console.log(payload)
       let updated_notifications;
       if (state['recieved_notifications'] && state['recieved_notifications'].length > 0) {
-        updated_notifications = [...state.recieved_notifications, ...payload];
+        updated_notifications = [...state.recieved_notifications, ...payload.SUCCESS];
         updated_notifications = _uniqBy(updated_notifications, 'notificationId');
       } else {
-        updated_notifications = payload;
+        updated_notifications = payload.SUCCESS;
       }
       return Object.assign({}, state, {
         recieved_notifications: updated_notifications,
@@ -28,7 +57,7 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
         requesting_notifications_success: true
       });
 
-    case NotificationActions.GET_NOTIFICATIONS_FAILED:
+    case NotificationActions.GET_NOTIFICATIONS_BY_TYPE_FAILED:
       return Object.assign({}, state, {
         requesting_notifications: false,
         requesting_notifications_success: false
