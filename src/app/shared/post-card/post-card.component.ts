@@ -1,18 +1,10 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import {PlatformLocation } from '@angular/common';
 import { environment } from './../../../environments/environment';
 import { Router } from '@angular/router';
 import { Media } from '../../models/media.model';
 import { MediaActions } from '../../actions/media.action';
 import { ProfileActions } from '../../actions/profile.action';
-
-import { TruncatePipe } from '../../pipes/truncate.pipe';
-
-// rx
 import { Store } from '@ngrx/store';
-
-import FilesHelper from '../../helpers/fileUtils';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-post-card',
@@ -23,26 +15,19 @@ import { ToastrService } from 'ngx-toastr';
 export class PostCardComponent implements OnInit {
   @Input() mediaData;
   @Input() type: string;
-  // @Input() userThumb: string;
-  @Input() userThumb: boolean = false;
-  @Input() loader: boolean = false;
+  @Input() userThumb = false;
+  @Input() loader = false;
   @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
   @Output() imageLoad: EventEmitter<any> = new EventEmitter<any>();
   @Output() postDelete = new EventEmitter();
   dotMenuState: boolean;
-  following: boolean;
-  spotCount: any;
   mediaType: any;
-
   userImage: string;
-
   imageLink: string = environment.API_IMAGE;
   domainLink: string = environment.API_DOMAIN;
 
   constructor(
     private router: Router,
-    private toastr: ToastrService,
-    platformLocation: PlatformLocation,
     private store: Store<Media>,
   ) {
     this.dotMenuState = false;
@@ -55,10 +40,7 @@ export class PostCardComponent implements OnInit {
       } else {
         this.userImage = this.imageLink + this.mediaData.ownerImage;
       }
-      this.following = this.mediaData.isSpotted;
-      this.spotCount = this.mediaData.spotsCount;
       this.mediaType = this.mediaData.mtype;
-      // this.useThumb = false;
     }
   }
 
@@ -73,10 +55,6 @@ export class PostCardComponent implements OnInit {
     this.router.navigateByUrl('/media/' + id);
   }
 
-  checkFileType(fileName: string, fileType: string) {
-    return FilesHelper.fileType(fileName, fileType);
-  }
-
   dotMenuOpen() {
     this.dotMenuState = !this.dotMenuState;
   }
@@ -86,38 +64,20 @@ export class PostCardComponent implements OnInit {
   }
 
   /**
-   * Get thumb image
-   */
-  getThumb(src: string, showThumb: boolean = false) {
-    const basePath = this.imageLink;
-    const patt1 = /\.([0-9a-z]+)(?:[\?#]|$)/i;
-    const m3 = (src).match(patt1);
-    if (showThumb === true) {
-      return basePath + src.replace(m3[0], '_thumb_250.jpeg');
-    } else {
-      return basePath + src;
-    }
-  }
-
-  /**
    * Spot a Media
    * @param mediaId
    */
-  spotMedia(media: any) {
+  spotMediaAction(media: any, spotted: boolean) {
     const data = {
       'mediaType': media['mtype'],
       'id': media['id']
     }
-    if (this.following === false) {
-      this.following = true;
-      this.spotCount++;
+    if (!spotted) {
       this.store.dispatch({ type: MediaActions.MEDIA_SPOT, payload: data });
       this.store.dispatch({ type: ProfileActions.PROFILE_MEDIA_SPOT, payload: data });
     } else {
       this.store.dispatch({ type: MediaActions.MEDIA_UNSPOT, payload: data });
-      this.store.dispatch({ type: ProfileActions.PROFILE_MEDIA_SPOT, payload: data });
-      this.following = false;
-      this.spotCount--;
+      this.store.dispatch({ type: ProfileActions.PROFILE_MEDIA_UNSPOT, payload: data });
     }
   }
 
