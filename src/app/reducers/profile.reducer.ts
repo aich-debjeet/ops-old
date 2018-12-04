@@ -686,7 +686,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
       const posts = payload['SUCCESS']['mediaResponse'] || [];
       const new_post = state.user_posts.concat(posts)
       return Object.assign({}, state, {
-        mediaEntity: payload,
+        // mediaEntity: payload,
         user_posts_loaded: true,
         user_posts_loading: false,
         user_posts: new_post,
@@ -721,7 +721,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
       const followingPosts = payload.mediaResponse;
       const following_new_post = state.user_following_posts.concat(followingPosts)
       return Object.assign({}, state, {
-        mediaEntity: payload,
+        // mediaEntity: payload,
         user_following_posts_loaded: true,
         user_following_posts_loading: false,
         user_following_posts: following_new_post,

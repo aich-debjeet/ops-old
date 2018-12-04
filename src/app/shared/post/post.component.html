@@ -49,16 +49,36 @@
       {{ mediaData?.description }}
     </div>
   </div>
-  <div *ngIf="mediaData?.mtype === 'video' || mediaData?.mtype === 'audio' || mediaData?.mtype === 'image'">
+  <div *ngIf="mediaData?.mtype === 'video' || mediaData?.mtype === 'audio' || mediaData?.mtype === 'image' || mediaData?.mtype === 'collection'">
     <div class="c-feed__img-status" *ngIf="!isEdit">
       {{ mediaData?.description | truncate:[200, '...']}}
-
     </div>
     <div class="c-feed__img-status" *ngIf="isEdit">
       <div class="content_editable" contentEditable="true" (keyup.enter)="onContentSaved()" [textContent]="desText"
         name="desText" (input)="desText=$event.target.textContent"></div>
     </div>
   </div>
+
+  <!-- collection -->
+  <div class="c-feed__img2" *ngIf="mediaData?.mtype === 'collection' && mediaData?.counts?.collectionThumbnails?.length > 0">
+    <div *ngIf="mediaData?.counts?.collectionThumbnails?.length < 6; else aboveFiveElems" [ngClass]="'c-status-groupmedia-' + mediaData?.counts?.collectionThumbnails?.length">
+      <ng-container *ngFor="let mediaElem of mediaData?.counts?.collectionThumbnails.slice(0, 5); let idx = index;">
+        <a [routerLink]="['', { outlets: { media : ['media', mediaElem?.id] } }]" [ngClass]="'c-status-groupmedia__' + (idx + 1)"
+          [ngStyle]="{'background-image': 'url(' + imageLink + mediaElem?.thumbNails?.mediumLarge + ')','background-size': 'cover','background-position': 'center'}">
+        </a>
+      </ng-container>
+    </div>
+    <ng-template #aboveFiveElems>
+      <div class="c-status-groupmedia-5">
+        <ng-container *ngFor="let mediaElem of mediaData?.counts?.collectionThumbnails.slice(0, 5); let idx = index;">
+          <a [routerLink]="['', { outlets: { media : ['media', mediaElem?.id] } }]" [ngClass]="'c-status-groupmedia__' + (idx + 1)"
+            [ngStyle]="{'background-image': 'url(' + imageLink + mediaElem?.thumbNails?.mediumLarge + ')','background-size': 'cover','background-position': 'center'}">
+          </a>
+        </ng-container>
+      </div>
+    </ng-template>
+  </div>
+  <!-- collection -->
 
   <!-- image -->
   <div class="c-feed__img2" *ngIf="mediaData?.mtype === 'image'">
@@ -157,11 +177,7 @@
       </div>
     </div>
   </div>
-  <app-comment
-    [mediaId]="mediaId"
-    [commentsType]="'media-list'"
-    [comments]="comments"
-    [userData]="userData"></app-comment>
+  <app-comment [mediaId]="mediaId" [commentsType]="'media-list'" [comments]="comments" [userData]="userData"></app-comment>
 </div>
 
 <app-modal-new #reportModal modalClass="modal-report__popup">
