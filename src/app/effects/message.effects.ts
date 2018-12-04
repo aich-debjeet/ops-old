@@ -14,6 +14,15 @@ import { MessageActions } from '../actions/message.action';
 export class MessageEffect {
 
   @Effect()
+  deleteConversation$ = this.actions$
+    .ofType(MessageActions.DELETE_CONVERSATION)
+    .map(toPayload)
+    .switchMap((payload) => this.messageService.deleteConversation(payload)
+      .map(res => ({ type: MessageActions.DELETE_CONVERSATION_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: MessageActions.DELETE_CONVERSATION_FAILED, payload: res }))
+    );
+
+  @Effect()
   getReceipient$ = this.actions$
     .ofType(MessageActions.GET_RECEIPIENT)
     .map(toPayload)
