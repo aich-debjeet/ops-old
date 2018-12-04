@@ -36,11 +36,20 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
 
       case NotificationActions.GET_NOTIFICATIONS_BY_TYPE:
       console.log(payload)
-      return Object.assign({}, state, {
-        requesting_notifications: true,
-        notifications_pagination: payload,
-        requesting_notifications_success: false
-      });
+      if(payload.offset === 0){
+        return Object.assign({}, state, {
+          requesting_notifications: true,
+          notifications_pagination: payload,
+          requesting_notifications_success: false,
+          recieved_notifications:[]
+        });
+      } else {
+        return Object.assign({}, state, {
+          requesting_notifications: true,
+          notifications_pagination: payload,
+          requesting_notifications_success: false,
+        });
+      }
 
     case NotificationActions.GET_NOTIFICATIONS_BY_TYPE_SUCCESS:
     console.log(payload)

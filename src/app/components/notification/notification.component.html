@@ -8,10 +8,10 @@
                         <a data-toggle="tab" (click)="switchtabs('all')" aria-expanded="true" class="p-l-0">All</a>
                     </li>
                     <li class="o-noti-tab">
-                        <a data-toggle="tab" (click)="switchtabs('spots')" aria-expanded="false">Spots</a>
+                        <a data-toggle="tab" (click)="switchtabs('Media_Spot')" aria-expanded="false">Spots</a>
                     </li>
                     <li class="o-noti-tab">
-                        <a data-toggle="tab" (click)="switchtabs('comments')" aria-expanded="false">Comments</a>
+                        <a data-toggle="tab" (click)="switchtabs('Media_Comments')" aria-expanded="false">Comments</a>
                     </li>
                     <li class="o-noti-tab">
                         <a data-toggle="tab" (click)="switchtabs('others')" aria-expanded="false">Others</a>
@@ -334,7 +334,7 @@
                             </a>
                         </div> -->
                     </div>
-                    <div id="02" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'spots'">
+                    <div id="02" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'Media_Spot'">
                         <div class="row p-l-24 p-l-16 p-t-b-8">
                             <div class="col-md-10 c-text_md c-checkbox__md2 p-l-0">
                                 <label class="checkbox-inline p-l-0 m-t-8">
@@ -538,7 +538,7 @@
                             </a>
                         </div> -->
                     </div>
-                    <div id="03" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'comments'">
+                    <div id="03" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'Media_Comments'">
 
                         <div class="row p-l-24 p-l-16 p-t-b-8">
                             <div class="col-md-10 c-text_md c-checkbox__md2 p-l-0">
