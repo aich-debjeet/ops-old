@@ -4,16 +4,16 @@
         <div class="not_block">
             <div class="c-ops__tabs3">
                 <ul class="nav nav-tabs p-t-b-16 p-l-r-24">
-                    <li class="active o-noti-tab">
+                    <li class="o-noti-tab" [ngClass]="{'active':notificationType === 'all'}">
                         <a data-toggle="tab" (click)="switchtabs('all')" aria-expanded="true" class="p-l-0">All</a>
                     </li>
-                    <li class="o-noti-tab">
+                    <li class="o-noti-tab" [ngClass]="{'active':notificationType === 'Media_Spot'}">
                         <a data-toggle="tab" (click)="switchtabs('Media_Spot')" aria-expanded="false">Spots</a>
                     </li>
-                    <li class="o-noti-tab">
+                    <li class="o-noti-tab" [ngClass]="{'active':notificationType === 'Media_Comments'}">
                         <a data-toggle="tab" (click)="switchtabs('Media_Comments')" aria-expanded="false">Comments</a>
                     </li>
-                    <li class="o-noti-tab">
+                    <li class="o-noti-tab" [ngClass]="{'active':notificationType === 'others'}">
                         <a data-toggle="tab" (click)="switchtabs('others')" aria-expanded="false">Others</a>
                     </li>
                     <div class="c-text_md color-theme pull-right m-t-16">99 Notifications</div>
