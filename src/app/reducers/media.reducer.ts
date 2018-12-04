@@ -155,14 +155,19 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
       });
 
     case MediaActions.DELETE_COMMENT_SUCCESS:
-      const spotfeed_del_post = state.channel_post.find(t => t.id === payload['id']);
+      const spotfeed_del_post = state.channel_post.find(t => t.id === payload['mediaId']);
       const spotfeed_del_index = state.channel_post.indexOf(spotfeed_del_post);
-      const spotfeed_del_count = spotfeed_del_post ? spotfeed_del_post.commentsCount - 1 : 0;
+      const spotfeed_del_count = spotfeed_del_post ? spotfeed_del_post.counts.commentsCount - 1 : 0;
       return Object.assign({}, state, {
         media_comment: state.media_comment ? state.media_comment.filter(comment => comment.commentsId !== payload.id) : [],
         channel_post: [
           ...state.channel_post.slice(0, spotfeed_del_index),
-          Object.assign({}, spotfeed_del_post, {commentsCount: spotfeed_del_count }),
+          Object.assign({}, spotfeed_del_post, {
+            counts: {
+              ...spotfeed_del_post.counts,
+              commentsCount: spotfeed_del_count
+            }
+          }),
           ...state.channel_post.slice(spotfeed_del_index + 1)
         ],
         media_detail: state.media_detail.extras === undefined ? { ...state.media_detail } : {
@@ -190,7 +195,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
     case MediaActions.POST_COMMENT_SUCCESS:
       const spotfeed_post = state.channel_post.find(t => t.id === payload['comment'].postId);
       const spotfeed_index = spotfeed_post ? state.channel_post.indexOf(spotfeed_post) : null;
-      const spotfeed_count = spotfeed_post ? spotfeed_post.commentsCount + 1 : 0;
+      const spotfeed_count = spotfeed_post ? spotfeed_post.counts.commentsCount + 1 : 0;
 
       return Object.assign({}, state, {
         media_post_success: true,
@@ -199,7 +204,12 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
         media_comment: state.media_comment ? state.media_comment.concat(payload['comment']) : [],
         channel_post: spotfeed_post === undefined ? [...state.channel_post] : [
           ...state.channel_post.slice(0, spotfeed_index),
-          Object.assign({}, spotfeed_post, {commentsCount: spotfeed_count }),
+          Object.assign({}, spotfeed_post, {
+            counts: {
+              ...spotfeed_post.counts,
+              commentsCount: spotfeed_count
+            }
+          }),
           ...state.channel_post.slice(spotfeed_index + 1)
         ],
         media_detail: state.media_detail.extras === undefined ? { ...state.media_detail } : {
@@ -219,12 +229,18 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
     case MediaActions.MEDIA_SPOT:
       const channel_media_spot = state.channel_post.find(t => t.id === payload.id);
       const channel_media_spot_index = channel_media_spot ? state.channel_post.indexOf(channel_media_spot) : null;
-      const channel_media_spot_count = channel_media_spot ? channel_media_spot.spotsCount + 1 : 0;
+      const channel_media_spot_count = channel_media_spot ? channel_media_spot.counts.spotsCount + 1 : 0;
 
       return Object.assign({}, state, {
         channel_post: channel_media_spot === undefined ? [...state.channel_post] : [
           ...state.channel_post.slice(0, channel_media_spot_index),
-          Object.assign({}, channel_media_spot, {spotsCount: channel_media_spot_count, isSpotted: true }),
+          Object.assign({}, channel_media_spot, {
+            isSpotted: true,
+            counts: {
+              ...channel_media_spot.counts,
+              spotsCount: channel_media_spot_count
+            }
+          }),
           ...state.channel_post.slice(channel_media_spot_index + 1)
         ],
         media_detail: state.media_detail.extras === undefined ? { ...state.media_detail } : {
@@ -244,12 +260,18 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
     case MediaActions.MEDIA_UNSPOT:
       const channel_media_unspot = state.channel_post.find(t => t.id === payload.id);
       const channel_media_unspot_index = channel_media_unspot ? state.channel_post.indexOf(channel_media_unspot) : null;
-      const channel_media_unspot_count = channel_media_unspot ? channel_media_unspot.spotsCount - 1 : 0;
+      const channel_media_unspot_count = channel_media_unspot ? channel_media_unspot.counts.spotsCount - 1 : 0;
 
       return Object.assign({}, state, {
         channel_post: channel_media_unspot === undefined ? [...state.channel_post] : [
           ...state.channel_post.slice(0, channel_media_unspot_index),
-          Object.assign({}, channel_media_unspot, {spotsCount: channel_media_unspot_count, isSpotted: false }),
+          Object.assign({}, channel_media_unspot, {
+            isSpotted: false,
+            counts: {
+              ...channel_media_unspot.counts,
+              spotsCount: channel_media_unspot_count
+            }
+          }),
           ...state.channel_post.slice(channel_media_unspot_index + 1)
         ],
         media_detail: state.media_detail.extras === undefined ? { ...state.media_detail } : {
