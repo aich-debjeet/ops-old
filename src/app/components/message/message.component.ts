@@ -460,4 +460,12 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.msgUserSearchSub.unsubscribe();
   }
 
+  actionMarkRead() {
+
+  }
+
+  actionDelete() {
+
+  }
+
 }
