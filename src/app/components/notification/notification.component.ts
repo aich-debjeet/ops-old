@@ -36,6 +36,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
   notificationType: string;
   isSelected = false;
   notificationsList = [];
+  activities:any[];
 
   constructor(
     private store: Store<Notification>,
@@ -57,6 +58,9 @@ export class NotificationComponent implements OnInit, OnDestroy {
           // check is unread notification exits else mark all notifications as read
           this.processNotifications();
         }
+        if(state['activity_list']){
+          this.activities= state['activity_list']
+        }
         if (state && state['requesting_notifications'] === true) {
           this.showPreloader = false;
         }
@@ -69,6 +73,9 @@ export class NotificationComponent implements OnInit, OnDestroy {
         }
         // this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS, payload: reqBody });
         this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS_BY_TYPE, payload: reqBody });
+        this.store.dispatch({type:NotificationActions.GET_ACTIVITIES_FOR_THE_USER,payload: { offset:0,
+          limit:10
+        }});
       }
     });
   }
@@ -134,12 +141,12 @@ export class NotificationComponent implements OnInit, OnDestroy {
    */
   markAsRead() {
     console.log(this.notificationsList)
-    // this.store.dispatch({
-    //   type: NotificationActions.MARK_AS_READ,
-    //   payload: {
-    //     notificationList: this.notificationsList
-    //   }
-    // });
+    this.store.dispatch({
+      type: NotificationActions.MARK_AS_READ,
+      payload: {
+        notificationList: this.notificationsList
+      }
+    });
   }
 
   markAsDelete(){
@@ -195,6 +202,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
   }
 
   onScroll(e) {
+    console.log(e)
     this.scrolling = e.currentScrollPosition;
     if (this.scrollingLoad <= this.scrolling) {
       this.scrollingLoad += 500

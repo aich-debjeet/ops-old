@@ -131,6 +131,22 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
         recieved_pushed_notifications_success: true
       });
 
+    case NotificationActions.GET_ACTIVITIES_FOR_THE_USER:
+      return Object.assign({}, state, {
+        recived_activities: false
+      });
+
+    case NotificationActions.GET_ACTIVITIES_FOR_THE_USER_SUCCESS:
+      return Object.assign({}, state, {
+        activity_list: payload,
+        recived_activities: true
+      });
+
+    case NotificationActions.GET_ACTIVITIES_FOR_THE_USER_FAILED:
+      return Object.assign({}, state, {
+        recived_activities: false
+      });
+
     default:
       return state;
 

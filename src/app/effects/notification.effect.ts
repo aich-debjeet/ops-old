@@ -56,6 +56,14 @@ export class NotificationEffect {
         .catch((res) => Observable.of({ type: NotificationActions.MARK_AS_DELETE_FAILED, payload: res }))
       );
 
+    @Effect()
+    getActivities$ = this.actions$
+      .ofType(NotificationActions.GET_ACTIVITIES_FOR_THE_USER)
+      .map(toPayload)
+      .switchMap((payload) => this.apiService.getActivities(payload)
+        .map(res => ({ type: NotificationActions.GET_ACTIVITIES_FOR_THE_USER_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: NotificationActions.GET_ACTIVITIES_FOR_THE_USER_FAILED, payload: res }))
+      );
   constructor(
     private actions$: Actions,
     private apiService: NotificationService

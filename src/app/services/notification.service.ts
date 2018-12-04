@@ -58,6 +58,10 @@ export class NotificationService {
     return this.api.delete2('/portal/network/notification/delete', reqBody);
   }
 
+  getActivities(reqBody: any) {
+    return this.api.get( '/portal/network/activity/'+ reqBody.offset + '/' + reqBody.limit);
+  }   
+
   /**
    * Pagination
    * @param page number
