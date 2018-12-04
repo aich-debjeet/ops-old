@@ -49,7 +49,7 @@
           <div *ngFor="let user of messangerList" class="row with_border_bottom with_border_top xs-m-l-r-0" [ngClass]="{'msg__unread': !user?.isRead }">
             <div class="c-checkbox__md2 col-md-2">
               <label class="checkbox-inline pull-right m-t-24">
-                <input type="checkbox" value="{{ user?.handle }}">
+                <input (change)="markUser($event, user?.handle)" type="checkbox" value="{{ user?.handle }}">
               </label>
             </div>
             <div class="col-md-10 desktop-p-l-0">

@@ -13,6 +13,7 @@ import { findIndex as _findIndex } from 'lodash';
 import { ActivatedRoute } from '@angular/router';
 import { GeneralUtilities } from '../../helpers/general.utils';
 import { Subscription } from 'rxjs/Subscription';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-message',
@@ -45,6 +46,7 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
   chatScrollBottom = true;
   convUserHandle: any;
   conversationLoaded = false;
+  markedUsers = [];
 
   profSub: Subscription;
   msgSub: Subscription;
@@ -56,7 +58,8 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
     private profileStore: Store<ProfileModal>,
     private pusherService: PusherService,
     private activatedRoute: ActivatedRoute,
-    private gUtils: GeneralUtilities
+    private gUtils: GeneralUtilities,
+    private toastr: ToastrService
   ) {
     this.gUtilsSub = this.gUtils.listen().subscribe((e: any) => {
       if (e.component && e.component === 'MessageHomeComponent' && e.action === 'scrollToBottom') {
@@ -428,12 +431,10 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   enableTextMessage() {
-    // console.log('enableTextMessage');
     this.enableMsgInput = true;
   }
 
   disableTextMessage() {
-    // console.log('disableTextMessage');
     this.enableMsgInput = false;
   }
 
@@ -465,7 +466,33 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   actionDelete() {
+    const reqBody = {
+      handleList: this.markedUsers
+    }
+    this.messageStore.dispatch({ type: MessageActions.DELETE_CONVERSATION, payload: reqBody });
+    const tempSub = this.messageStore.select('messageTags')
+      .take(2)
+      .subscribe(resp => {
+        if (resp['deletingConversation'] === false && resp['deletedConversation'] === true) {
+          this.toastr.success('Conversation deleted successfully', 'Success!');
+          this.isConversationSelected = false;
+          this.selectLatestConversation();
+          tempSub.unsubscribe();
+        }
+      });
+  }
 
+  markUser(event: any, userHandle: string) {
+    const idx = this.markedUsers.indexOf(userHandle);
+    if (event.target.checked) {
+      if (idx === -1) {
+        this.markedUsers.push(userHandle);
+      }
+    } else {
+      if (idx !== -1) {
+        this.markedUsers.splice(idx, 1)
+      }
+    }
   }
 
 }
