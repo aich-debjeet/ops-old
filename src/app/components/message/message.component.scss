@@ -113,7 +113,17 @@
   outline: none;
   border: none;
   // visibility: hidden;
-  display: none;
+  // display: none;
+}
+
+.c-checkbox__md2 input[type="checkbox"]:checked {
+  background-image: url(https://cdn.onepagespotlight.com/img/svg/radio2s.svg);
+}
+
+.action-dropdown {
+  text-align: right;;
+  padding-right: 0;
+  border: none;
 }
 
 // Message style

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { TokenService } from './token.service';
@@ -113,6 +113,13 @@ export class ApiService {
   del(endpoint: string) {
     const head = this.getHeaders();
     return this.http.delete(this.apiLink + endpoint, { headers: head })
+      .map((data) => data.json());
+  }
+
+  delete2(endpoint: string, reqBody: any) {
+    const head = this.getHeaders();
+    const delOptions = new RequestOptions({ headers: head, body: reqBody });
+    return this.http.delete(this.apiLink + endpoint, delOptions)
       .map((data) => data.json());
   }
 }
