@@ -18,6 +18,13 @@ export class GeneralUtilities {
 
     constructor() { }
 
+    messangerListRemoveClearedRecords(messangerList, removedUsers) {
+        for (let i = 0 ; i < removedUsers.length; i++) {
+            _remove(messangerList, { handle: removedUsers[i] });
+        }
+        return messangerList;
+    }
+
     preparePortUser(portUser) {
         const user = {
             profileImage: portUser.profileImage,
