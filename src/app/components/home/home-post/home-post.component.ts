@@ -19,7 +19,7 @@ export class HomePostComponent implements OnInit, OnDestroy {
 
   private profSub: ISubscription;
   tagState$: Observable<ProfileModal>;
-  userProfile = initialTag ;
+  userProfile = initialTag;
   trendingPost: any;
   isOwner: boolean;
   posts: any;
@@ -60,7 +60,7 @@ export class HomePostComponent implements OnInit, OnDestroy {
 
       if (state['profile_navigation_details'].handle) {
         this.handle = this.userProfile.profile_navigation_details.handle;
-         this.isOwner = true;
+        this.isOwner = true;
         if (this.handle && !this.postsLoaded) {
           this.postsLoaded = true;
           this.postLoad();
@@ -94,7 +94,7 @@ export class HomePostComponent implements OnInit, OnDestroy {
     if (index !== -1) {
       this.posts.splice(index, 1);
       const id = post.id;
-      this.store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id});
+      this.store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id });
     }
   }
   onScroll(e) {
