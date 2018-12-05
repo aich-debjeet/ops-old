@@ -74,7 +74,6 @@ export class ProfileSliderComponent implements OnInit, OnDestroy {
   mymodel: string; // bind this to input with ngModel
   bioMessage = '';
   personalMessage = '';
-  txtQueryChanged: Subject<string> = new Subject<string>();
   otherProfileHandle: String;
   otherProfileName: String;
   error = false;
@@ -82,7 +81,6 @@ export class ProfileSliderComponent implements OnInit, OnDestroy {
   isBlocked: boolean;
 
   hasFollowed: boolean;
-  @ViewChild('skillModal') UsertypeModal: Modal;
   @ViewChild('followersModal') followersModal: Modal;
   @ViewChild('followingModal') followingModal: Modal;
 
@@ -147,12 +145,6 @@ export class ProfileSliderComponent implements OnInit, OnDestroy {
 
     this.buildEditForm();
     this.buildNetworkForm();
-
-    this.txtQueryChanged
-      .debounceTime(1000) // wait 1 sec after the last event before emitting last event
-      .subscribe(model => {
-        this.profileStore.dispatch({ type: AuthActions.SEARCH_SKILL, payload: model });
-      });
   }
 
   disableFollowForSelf(username: string) {
@@ -175,10 +167,6 @@ export class ProfileSliderComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.skillsSub.unsubscribe();
     this.profSub.unsubscribe();
-  }
-
-  modalInit() {
-    this.modalService.open('ChangeProfile');
   }
 
   /**
@@ -221,10 +209,6 @@ export class ProfileSliderComponent implements OnInit, OnDestroy {
     this.changingImage = event;
   }
 
-  testClick() {
-    this.UsertypeModal.open();
-  }
-
   /**
    * User Follow Check
    * @param follow User follow true or false check
@@ -238,23 +222,6 @@ export class ProfileSliderComponent implements OnInit, OnDestroy {
     }
   }
 
-
-  /**
-   * Profile Page Edit
-   */
-  profileEdit() {
-    this.loadSkill();
-    this.modalService.open('profileEditWindow');
-    const date = this.datepipe.transform(this.userProfile.profile_details['physical'].dateOfBirth, 'dd-MM-yyyy');
-    this.profileForm.setValue({
-      name: this.userProfile.profile_details['name'],
-      bio: this.userProfile.profile_navigation_details['bio'],
-      skill: '',
-      username: this.userProfile.profile_details['extra'].username,
-      dob: date
-    });
-  }
-
   /**
    * method to open report pop-up with options for profile 
    * @param id to open specific report model
@@ -265,72 +232,10 @@ export class ProfileSliderComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Close a modal window
-   * @param id modal ID
-   */
-  modalCloser(id: string, state: boolean) {
-    if (id != null && state === false) {
-      this.modalService.close(id);
-    }
-
-    if (id != null && state === true) {
-      this.modalService.open(id);
-    }
-  }
-
-  /**
-   * Reserve date
-   * @param string
-   */
-  reverseDate(string) {
-    if (string != null) {
-      return string.split('-').reverse().join('-');
-    }
-  }
-
-  /**
-   * Profile Form Popup close
-   */
-  profileFormClose() {
-    this.modalService.close('profileEditWindow');
-  }
-
-  /**
    * Add current user Work
    */
   deleteAddWork(id) {
     this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_WORK, payload: id });
-  }
-
-  /**
-   * Edit Form Submit
-   */
-  profileFormSubmit(value) {
-    if (this.profileForm.valid === true) {
-      const form = {
-        'extras': {
-          'association': {
-            'summary': value.bio
-          }
-        },
-        'physical': {
-          'dateOfBirth': this.reverseDate(value.dob) + 'T05:00:00',
-        },
-        'name': {
-          'firstName': value.name.charAt(0).toUpperCase() + value.name.slice(1),
-          'displayName': value.name.charAt(0).toUpperCase() + value.name.slice(1)
-        },
-        'profileTypeList': this.selectedSkills,
-        'username': value.username.toLowerCase()
-      }
-
-      this.profileStore.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form });
-      this.toastr.success('Your profile has been updated successfully!', '', {
-        timeOut: 3000
-      });
-      this.modalService.close('profileEditWindow');
-    }
-
   }
 
   /**
@@ -361,34 +266,6 @@ export class ProfileSliderComponent implements OnInit, OnDestroy {
       return { isInvalidEmail: true };
     }
     return null;
-  }
-
-
-  /**
-   * Upload Cover image
-   */
-  uploadCoverImage() {
-    // this.upload();
-  }
-  /**
-   * Toggle Coer Image upload modal
-   */
-  showCoverImageUploader() {
-    this.modalCloser('ChangeCover', true);
-  }
-
-  /**
-   * Search skill on profile Edit
-   */
-  onSearchChange(query) {
-    if (query) {
-      // console.log('query',query)
-      //   this.profileStore.dispatch({ type: AuthActions.SEARCH_SKILL, payload: query });
-      this.txtQueryChanged.next(query);
-    } else {
-      this.txtQueryChanged.next('undefined');
-    }
-    this.findSkill = [];
   }
 
   /**
