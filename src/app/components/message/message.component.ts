@@ -47,6 +47,7 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
   convUserHandle: any;
   conversationLoaded = false;
   markedUsers = [];
+  markedAll = false;
 
   profSub: Subscription;
   msgSub: Subscription;
@@ -492,6 +493,18 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
       if (idx !== -1) {
         this.markedUsers.splice(idx, 1)
       }
+    }
+  }
+
+  markAll(event: any) {
+    this.markedUsers = [];
+    if (event.target.checked) {
+      this.markedAll = true;
+      for (let i = 0; i < this.messangerList.length; i++) {
+        this.markedUsers.push(this.messangerList[i].handle);
+      }
+    } else {
+      this.markedAll = false;
     }
   }
 

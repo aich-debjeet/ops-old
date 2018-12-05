@@ -1,11 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-// SharedModule
 import { SharedModule } from '../../shared/shared.module';
 import { NgxMasonryModule } from 'ngx-masonry';
-
-// Component
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
 import { HomeChannelComponent } from './home-channel/home-channel.component';
@@ -14,10 +10,6 @@ import { HomeRightBlockComponent } from './home-right-block/home-right-block.com
 import { SharedPipesModule } from '../../pipes/shared-pipes.module'
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NguCarouselModule } from '@ngu/carousel';
-// import 'hammerjs';
-
-// Guard
-import { AuthGuard } from './../../guard/auth.guard';
 import { HomePostComponent } from './home-post/home-post.component';
 
 const routes: Routes = [
@@ -25,9 +17,9 @@ const routes: Routes = [
     path: '',
     component: HomeComponent,
     children: [
-      { path: '', redirectTo: 'post'},
-      { path: 'channel', component: HomeChannelComponent},
-      { path: 'post', component: HomePostComponent}
+      { path: '', redirectTo: 'post' },
+      // { path: 'channel', component: HomeChannelComponent},
+      { path: 'post', component: HomePostComponent }
     ]
   }
 ]
@@ -49,7 +41,7 @@ const routes: Routes = [
     HomeRightBlockComponent,
     HomePostComponent,
   ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 
 })
 export class HomeModule { }
