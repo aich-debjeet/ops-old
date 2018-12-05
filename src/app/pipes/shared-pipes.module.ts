@@ -8,6 +8,7 @@ import { FirstCharCapsPipe } from './first-char-caps.pipe';
 import { ChannelFilterPipe } from './channel-filter.pipe';
 import { NewLinePipe } from './new-line.pipe';
 import { SafeHtmlPipe } from './safehtml.pipe';
+// import { GroupByPipe } from './group-by.pipe';
 
 @NgModule({
   imports: [ CommonModule ],
@@ -18,7 +19,8 @@ import { SafeHtmlPipe } from './safehtml.pipe';
     FirstCharCapsPipe,
     ChannelFilterPipe,
     NewLinePipe,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    // GroupByPipe
   ],
   exports: [
     TruncatePipe,

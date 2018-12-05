@@ -43,8 +43,8 @@
                         <div class="row">
                             <div class="not_date">october 21</div>
                         </div>
-
-                        <div class="row not_block_main" *ngFor="let notification of notifications; let notifIndex = index;" [ngClass]="{'fill_grey': !notification.isRead}">
+<!--| groupBy:'createdDate'-->
+                        <div class="row not_block_main" *ngFor="let notification of notifications" [ngClass]="{'fill_grey': !notification.isRead}">
                             <a (click)="openLink(notification)">
                                 <div class="not_block1 c-checkbox__md2">
                                     <label class="checkbox-inline">
