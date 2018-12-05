@@ -602,7 +602,7 @@ export class ProfileService {
   }
 
   storyGet(payload: any){
-    return this.api.get('/portal/myStoryDetails');   
+    return this.api.get('/portal/myStoryDetails?handle='+ payload);   
   }
 
   /**
