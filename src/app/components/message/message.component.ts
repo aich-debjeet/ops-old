@@ -468,7 +468,8 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   actionDelete() {
     const reqBody = {
-      handleList: this.markedUsers
+      deleteType: 'clear',
+      otherHandle: this.markedUsers
     }
     this.messageStore.dispatch({ type: MessageActions.DELETE_CONVERSATION, payload: reqBody });
     const tempSub = this.messageStore.select('messageTags')

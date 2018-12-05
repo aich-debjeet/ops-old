@@ -18,7 +18,7 @@ export class MessageService {
     ) { }
 
     deleteConversation(reqBody: any) {
-        return this.api.delete2('/portal/message/deleteAll', reqBody);
+        return this.api.put('/portal/message/v-2/deleteMessage', reqBody);
     }
 
     getUserProfileDetails(value: any) {
