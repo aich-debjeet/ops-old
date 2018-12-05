@@ -39,39 +39,39 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="row">
-                            <div class="not_date">october 21</div>
-                        </div>
-<!--| groupBy:'createdDate'-->
-                        <div class="row not_block_main" *ngFor="let notification of notifications" [ngClass]="{'fill_grey': !notification.isRead}">
-                            <a (click)="openLink(notification)">
-                                <div class="not_block1 c-checkbox__md2">
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" value="1" [checked]="isSelected" (change)="onChange(notification.notificationId, $event.target.checked)">
-                                    </label>
-                                </div>
-                                <div class="not_block2 p-t-b-16">
-                                    <div class="not_avatar_img" [routerLink]="['', 'profile', 'u', notification.username, 'user']">
-                                        <img *ngIf="!notification.profileImage" class="navdrop__img" [src]="baseUrl + 'img/avatar2.png'">
-                                        <img *ngIf="notification.profileImage" [src]="baseUrl + notification.profileImage" class="navdrop__img">
+                        <ng-container *ngFor="let notification of notifications | groupBy:'date'">
+                            <div class="row">
+                                <div class="not_date">{{ notification.key }}</div>
+                            </div>
+                            <div class="row not_block_main" *ngFor="let noti of notification.value" [ngClass]="{'fill_grey': !noti.isRead}">           
+                                <a (click)="openLink(notification)">
+                                    <div class="not_block1 c-checkbox__md2">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" value="1" [checked]="isSelected" (change)="onChange(noti.notificationId, $event.target.checked)">
+                                        </label>
                                     </div>
-                                    <div class="not_block2_details">
-                                        <div class="not_block2_comm"><span class="color-grey-darker">{{ notification.name }}</span>{{ notification.message }}</div>
-                                        <div class="not_block2_tim">
-                                            <img *ngIf="notification?.notificationType == 'Status_Comments' || notification?.notificationType == 'Media_Comments'" [src]="baseUrl + 'img/svg/ico_comment.svg'">
-                                            <img *ngIf="notification?.notificationType == 'Media_Spot'" [src]="baseUrl + 'img/svg/spot_icon.svg'">
-                                            {{ notification.createdDate | utcDate | date:'d MMM hh:mm a' }}
+                                    <div class="not_block2 p-t-b-16">
+                                        <div class="not_avatar_img" [routerLink]="['', 'profile', 'u', noti.username, 'user']">
+                                            <img *ngIf="!noti.profileImage" class="navdrop__img" [src]="baseUrl + 'img/avatar2.png'">
+                                            <img *ngIf="noti.profileImage" [src]="baseUrl + noti.profileImage" class="navdrop__img">
+                                        </div>
+                                        <div class="not_block2_details">
+                                            <div class="not_block2_comm"><span class="color-grey-darker">{{noti.name }}</span>{{ noti.message }}</div>
+                                            <div class="not_block2_tim">
+                                                <img *ngIf="noti?.notificationType == 'Status_Comments' || noti?.notificationType == 'Media_Comments'" [src]="baseUrl + 'img/svg/ico_comment.svg'">
+                                                <img *ngIf="noti?.notificationType == 'Media_Spot'" [src]="baseUrl + 'img/svg/spot_icon.svg'">
+                                                {{ noti.createdDate | utcDate | date:'d MMM hh:mm a' }}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="not_block3 p-t-b-16" *ngIf="(notification.media | json) != '{}'">
-                                    <div class="not_block3_img">
-                                        <img [src]="baseUrl + notification.media.thumbNails.mediumSmall">
+                                    <div class="not_block3 p-t-b-16" *ngIf="(noti.media | json) != '{}'">
+                                        <div class="not_block3_img">
+                                            <img [src]="baseUrl + noti.media.thumbNails.mediumSmall">
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                        </div>
+                                </a>
+                            </div>
+                        </ng-container>
 
                         <!-- <div class="row not_block_main">
                             <a href="javascript:void(0)">
