@@ -26,7 +26,7 @@
         <div class="row p-l-r-24 p-t-b-8">
           <div class="col-md-7 c-text_md c-checkbox__md2 p-l-0">
             <label class="checkbox-inline p-l-0 m-t-8">
-              <input type="checkbox" value="1"> Select all
+              <input type="checkbox" (change)="markAll($event)"> Select all
             </label>
           </div>
           <div class="col-md-5">
@@ -49,7 +49,7 @@
           <div *ngFor="let user of messangerList" class="row with_border_bottom with_border_top xs-m-l-r-0" [ngClass]="{'msg__unread': !user?.isRead }">
             <div class="c-checkbox__md2 col-md-2">
               <label class="checkbox-inline pull-right m-t-24">
-                <input (change)="markUser($event, user?.handle)" type="checkbox" value="{{ user?.handle }}">
+                <input (change)="markUser($event, user?.handle)" type="checkbox" value="{{ user?.handle }}" [checked]="markedAll">
               </label>
             </div>
             <div class="col-md-10 desktop-p-l-0">
