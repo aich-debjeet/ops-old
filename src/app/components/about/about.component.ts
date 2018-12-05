@@ -60,14 +60,14 @@ export class AboutComponent implements OnInit, OnDestroy {
       this.store.dispatch({ type: AuthActions.SEND_CONTACTUS, payload: data });
 
       this.store.select('loginTags')
-      .first(contact => contact['contact_send_success'] === true)
-      .subscribe( datas => {
-        this.toastr.success('successfully Send', 'Success!', {
-          timeOut: 3000
+        .first(contact => contact['contact_send_success'] === true)
+        .subscribe( datas => {
+          this.toastr.success('successfully Send', 'Success!', {
+            timeOut: 3000
+          });
+          this.buildForm();
+          return;
         });
-        this.buildForm();
-        return
-      });
     } else {
       this.toastr.warning('Please fill all required fields', '', {
         timeOut: 3000

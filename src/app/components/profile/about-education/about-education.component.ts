@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { ModalService } from '../../../shared/modal/modal.component.service';
@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../../environments/environment';
 import { Modal } from '../../../shared/modal-new/Modal';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-about-education',
@@ -16,7 +17,7 @@ import { Modal } from '../../../shared/modal-new/Modal';
   providers: [ModalService, DatePipe, DatabaseValidator],
   styleUrls: ['./about-education.component.scss']
 })
-export class AboutEducationComponent implements OnInit {
+export class AboutEducationComponent implements OnInit, OnDestroy {
 
   tagState$: Observable<ProfileModal>;
   aboutWork = initialTag;
@@ -34,6 +35,7 @@ export class AboutEducationComponent implements OnInit {
   currentId: string;
   formType: string;
   @ViewChild('deleteModal') deleteModal: Modal;
+  profSub: Subscription;
 
   constructor(
     public modalService: ModalService,
@@ -41,7 +43,7 @@ export class AboutEducationComponent implements OnInit {
     private toastr: ToastrService
   ) {
     this.tagState$ = this.profileStore.select('profileTags');
-    this.tagState$.subscribe((state) => {
+    this.profSub = this.tagState$.subscribe((state) => {
       this.stateProfile = state;
       if (state.profile_user_info) {
         if (this.stateProfile.profile_user_info.isCurrentUser === false && this.stateProfile.profile_other_loaded === true) {
@@ -50,13 +52,16 @@ export class AboutEducationComponent implements OnInit {
         } else {
           this.ownProfile = true;
           this.userProfile = this.stateProfile.profile_details;
-          // console.log(this.userProfile)
         }
       }
     });
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    this.profSub.unsubscribe();
   }
 
   /**

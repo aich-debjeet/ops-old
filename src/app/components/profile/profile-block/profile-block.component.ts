@@ -14,7 +14,7 @@ import { ProfileActions } from '../../../actions/profile.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { ISubscription } from 'rxjs/Subscription';
+import { ISubscription, Subscription } from 'rxjs/Subscription';
 
 import { ProfileHelper } from '../../../helpers/profile.helper';
 
@@ -44,7 +44,6 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
   activeUser: string;
   isCurrentUser: boolean;
   userName: string;
-  sub: any;
   routeData: any;
   userId: string;
   channels: any;
@@ -94,28 +93,14 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
       if (state.profile_user_info) {
         if (state.profile_user_info.isCurrentUser) {
           this.profileObject = this.loadProfile(state, 'own');
-          // console.log(this.profileObject)
-          // this.userHandle = this.profileObject.userDetails.handle;
-          // this._store.dispatch({ type: EventActions.EVENT_SEARCH, payload: {
-          //   scrollId: '',
-          //   searchType: 'created',
-          // } });
-          // console.log(this.userHandle)
         } else {
           if (state.profile_user_info.isClaimForGuest && state.profile_user_info.isClaimForGuest === true) {
-            // console.log('state.profile_other', state.profile_other);
             if (state.profile_other && state.profile_other.length !== 0) {
               const profile = state.profile_other;
               this.profileObject = this.utils.claimProfileValueMapping(profile);
-              // console.log('claim');
             }
           } else {
             // console.log('other');
-            // this.profileObject = this.loadProfile( state, 'other' );
-            // this._store.dispatch({ type: EventActions.EVENT_SEARCH, payload: {
-            //   scrollId: '',
-            //   searchType: 'recommended',
-            // } });
           }
         }
       }
@@ -141,7 +126,7 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
     this._store.dispatch({ type: ProfileActions.GET_MY_STORY });
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
 
     this.profileStore.select('profileTags')
       .first(profile => profile['profile_user_info'])
@@ -162,7 +147,6 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
           }
         });
       });
-
 
     this.checkProfile();
     this.carouselOne = {
@@ -234,7 +218,7 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
    * Load a Profile
    */
   checkProfile() {
-    this.sub = this.router.routerState.parent(this.route)
+    this.router.routerState.parent(this.route)
       .params.subscribe(params => {
         if (this.checkEmpty(params)) {
           this.isCurrentUser = true;

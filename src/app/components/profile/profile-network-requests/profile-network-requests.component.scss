@@ -12,50 +12,57 @@
 @import '~sass-mq/_mq.scss';
 @import './src/assets/scss/vendors/bootstrap/stylesheets/bootstrap/mixins/_image.scss';
 
-.cursor_pointer{
-    cursor: pointer;
+.cursor_pointer {
+  cursor: pointer;
 }
+
 .o-network__userorg {
-    font-size: 11px;
-    letter-spacing: 1px;
-    line-height: 15px;
-    color: #808080;
-    text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 1px;
+  line-height: 15px;
+  color: #808080;
+  text-transform: uppercase;
 }
+
 .o-network__reqtext {
-    font-size: 11px;
-    line-height: 18px;
-    color: #333333;
+  font-size: 11px;
+  line-height: 18px;
+  color: #333333;
 }
+
 .network_img_map {
-    display: inline;
-    margin-right: 8px;
+  display: inline;
+  margin-right: 8px;
+  position: relative;
+  float: left;
+
+  img {
+    width: 12px;
     position: relative;
-    float: left;
-    img {
-        width: 12px;
-        position: relative;
-        top: 3px;
-    }
+    top: 3px;
+  }
 }
+
 .noti_avatar img {
-    width: 40px !important;
-    height: 40px !important;
-    border: solid 1px rgba(102, 45, 145, 0.1);
-    border-radius: 50%; }
+  width: 40px !important;
+  height: 40px !important;
+  border: solid 1px rgba(102, 45, 145, 0.1);
+  border-radius: 50%;
+}
 
-    .tab-content > .active {
-        display: block;
-    }
+.tab-content>.active {
+  display: block;
+}
 
-    .list_style_none ul {
-        padding: 24px 12px;
-    }
-    .empty__state h4 {
-        font-size: 15px;
-    }
-    
-    .empty__state {
-        // margin-top: 2rem;
-        padding-bottom: 20px;
-    }
+.list_style_none ul {
+  padding: 24px 12px;
+}
+
+.empty__state h4 {
+  font-size: 15px;
+}
+
+.empty__state {
+  // margin-top: 2rem;
+  padding-bottom: 20px;
+}

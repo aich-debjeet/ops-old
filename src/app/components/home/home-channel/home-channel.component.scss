@@ -3,69 +3,65 @@
 @import './src/assets/scss/helpers/_mixins.scss';
 @import './src/assets/scss/helpers/_helpers.scss';
 @import '~sass-mq/_mq.scss';
+
 .pad0 {
-    padding: 0;
+  padding: 0;
 }
 
 .tab-content>.active {
-    display: block;
+  display: block;
 }
 
 .fade.in {
-    opacity: 1;
+  opacity: 1;
 }
 
 .m-r-8 {
-    margin-right: 8px !important;
+  margin-right: 8px !important;
 }
 
-// .c-channel__card {
-//     width: 24%;
-//     float: left;
-//     margin: 5px;
-//     position: relative;
-// }
 .m-l-0 {
-    margin-left: 0 !important;
+  margin-left: 0 !important;
 }
 
 .c-card--overflow {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .c-card {
-    width: 100%;
-    height: auto;
-    float: left;
-    border-radius: 3px;
-    box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.15);
-    background-color: #ffffff;
+  width: 100%;
+  height: auto;
+  float: left;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.15);
+  background-color: #ffffff;
 }
 
 .empty__state h4 {
-    font-size: 15px;
+  font-size: 15px;
 }
 
 .empty__state {
-    margin-top: 2rem;
+  margin-top: 2rem;
 }
 
 .empty__center {
-    text-align: center
+  text-align: center
 }
 
 .m-home_channel {
-    @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        margin: 0 !important;
-        padding: 0 !important;
-        margin: 8px 0 !important;
-        width: 100%;
-    }
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    margin: 0 !important;
+    padding: 0 !important;
+    margin: 8px 0 !important;
+    width: 100%;
+  }
 }
 
 .md-m-r-8 {
-    margin-right: 8px;
-    @include mq($from: $mobile_sm, $until: $mobile_lg){
-        margin: 0;
-    }
+  margin-right: 8px;
+
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    margin: 0;
+  }
 }

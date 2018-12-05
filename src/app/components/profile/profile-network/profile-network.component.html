@@ -12,9 +12,7 @@
           </li>
         </ul>
       </div>
-      <!-- <div class="tab-content"> -->
-        <router-outlet></router-outlet>
-      <!-- </div> -->
+      <router-outlet></router-outlet>
     </div>
   </div>
   <div class="o-network__right netowrk_block_right">
@@ -37,7 +35,7 @@
                 <div class="pull-right c-text_sm color-grey-dark">{{request.questionaire.date| utcDate | date:'dd MMM yyyy, hh:mm a'}}</div>
              </li>
           </ul>
-          <ul class="list-inline request_flex" *ngIf = "!request.questionaire.isConfirm">
+          <ul class="list-inline request_flex" *ngIf="!request.questionaire.isConfirm">
             <li class="list-inline-item float_left">
               <img [src]="imageBaseUrl + request?.owner?.profileImage" class="o-network__avatar">
             </li>

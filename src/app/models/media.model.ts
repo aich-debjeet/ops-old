@@ -17,6 +17,8 @@ export class Media {
   comment_post_loading?: boolean;
   reports: any[];
   channel_post?: any[];
+  media_comments_loading: boolean;
+  media_comments_loaded: boolean;
 }
 
 export const initialMedia: Media = {
@@ -32,7 +34,9 @@ export const initialMedia: Media = {
   channel_loading: false,
   comment_post_loading: false,
   reports: [],
-  channel_post: []
+  channel_post: [],
+  media_comments_loading: true,
+  media_comments_loaded: false
 }
 
 export class ChannelDetails {

@@ -15,9 +15,10 @@
   border: 1px solid #EFEAF4;
   border-radius: 3px;
   box-shadow: 0 2px 4px 0 rgba(102, 45, 145, 0.1);
-  cursor: pointer!important;
+  cursor: pointer !important;
   transition: .25s;
   margin-left: 16px;
+
   @include mq($from: $mobile_sm, $until: $mobile_lg) {
     height: 100%;
     margin: 8px !important;
@@ -31,6 +32,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
   @include mq($from: $mobile_sm, $until: $mobile_lg) {
     height: 100%;
   }
@@ -42,9 +44,11 @@
 
 .o-oppo-tab__icon {
   width: 42px;
+
   img {
     width: 42px;
   }
+
   @include mq($from: $mobile_sm, $until: $mobile_lg) {
     display: none;
   }
@@ -52,6 +56,7 @@
 
 .o-oppo-tab__title {
   margin-top: 13px;
+
   @include mq($from: $mobile_sm, $until: $mobile_lg) {
     margin-top: 0px;
     padding: 8px;
@@ -63,7 +68,7 @@
 }
 
 .o-oppo-form-tab__item.active .o-oppo-tab__title {
-  color: #fff!important;
+  color: #fff !important;
 }
 
 .o-oppo-form__tab .m-0 {
@@ -110,20 +115,13 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   background-size: cover;
-  border: none!important;
+  border: none !important;
 }
 
 .o-oppo-form-check input[type="checkbox"]:checked {
   background: url(https://cdn.onepagespotlight.com/img/svg/checkboxactived.svg);
   background-size: cover;
 }
-
-
-
-
-
-
-
 
 .o-opportunities-form {
   width: 100%;
@@ -139,6 +137,7 @@
 .o-opportunities-form-block {
   width: 767px;
   margin: 0px auto;
+
   @include mq($from: $mobile_sm, $until: $mobile_lg) {
     padding: 15px !important;
     width: 100%;
@@ -202,11 +201,12 @@
   float: left;
 }
 
-.nav > li > a:hover {
+.nav>li>a:hover {
   background-color: transparent;
 }
 
-.c-form--sm .c-form__input:focus ~ label, .c-form--sm .c-form__input:valid ~ label {
+.c-form--sm .c-form__input:focus~label,
+.c-form--sm .c-form__input:valid~label {
   display: block;
 }
 

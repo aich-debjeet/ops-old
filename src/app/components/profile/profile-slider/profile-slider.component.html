@@ -54,8 +54,9 @@
             <button type="button" *ngIf="!profileObject?.extra?.isImported && !this.isOwner" (click)="userFollow(profileObject?.extra?.isFollowing, profileObject?.userDetails?.handle )"
               [ngClass]="(profileObject?.extra?.isFollowing) ? 'btn-following' : 'btn-primary'" class="btn btn-primary btn-md">{{
               (profileObject?.extra?.isFollowing)? 'Unfollow' : 'Follow'}}</button>
-            <a *ngIf="!profileObject?.extra?.isImported && !this.isOwner" type="button" class="btn btn-default btn-md" [routerLink]="['/bookmark']">Bookmark</a>
-            <!-- <a *ngIf="!profileObject?.extra?.isImported && !this.isOwner" type="button" class="btn btn-default btn-md" (click)="networkModal.open()">Network</a> -->
+            <!-- <a *ngIf="!profileObject?.extra?.isImported && !this.isOwner" type="button" class="btn btn-default btn-md" [routerLink]="['/bookmark']">Bookmark</a> -->
+            <a *ngIf="!profileObject?.extra?.isImported && !this.isOwner" type="button" class="btn btn-default btn-md"
+              (click)="networkModal.open()">Network</a>
             <!-- <button *ngIf="!profileObject?.extra?.isImported && !this.isOwner" type="button" class="btn btn-default btn-md">Donate</button> -->
           </div>
         </div>
@@ -149,12 +150,10 @@
           </div>
           <div class="col-md-4 col-sm-4 o-profile__detail__block with_border_right p-24">
             <div class="o-profile__detail--heading">About Me</div>
-            <!-- <button *ngIf="profileObject?.userBio == '' && this.isOwner" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Bio Here</button> -->
             <p class="o-profile__detail--text">{{ profileObject?.userBio | slice:0:200}}</p>
           </div>
           <div class="col-md-4 col-sm-4 o-profile__detail__block p-24 hidden-xs">
             <div class="o-profile__detail--heading">Skills</div>
-            <!-- <button *ngIf="profileObject?.userSkill == '' && this.isOwner" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Skill Here</button> -->
             <a [routerLink]="'/spotfeed/' + skill?.name" *ngFor="let skill of profileObject?.userSkill | slice:0:4"
               class="c-skill__tags">{{ skill?.name }}</a>
             <a *ngIf="profileObject?.userSkill?.length > 4" (click)="skillModal.open()" class="c-skill__tags--more">More</a>
@@ -169,125 +168,10 @@
   <router-outlet></router-outlet>
 </section>
 
-<app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='profileEditWindow' *ngIf="this.isOwner" size="profile_update">
-  <div>
-    <form [formGroup]="profileForm" novalidate #myform="ngForm" (submit)="profileFormSubmit(profileForm.value)">
-      <div class="edit-profile_main">
-        <!-- <div class="modal-header" style="border: none;">
-                <button type="button" class="close" data-dismiss="modal"></button>
-            </div> -->
-        <div class="edit-profile_head">
-          <div class="col-md-6 padding_none">
-            <h2>Edit Profile</h2>
-          </div>
-          <div class="col-md-6 padding_none text-right">
-            <app-button [className]="'btn btn-default btn-sm'" [type]="'button'" (click)="profileFormClose()">Close</app-button>
-            <app-button [className]="'btn btn-primary btn-sm'" [type]="'submit'">Save</app-button>
-          </div>
-        </div>
-        <!-- edit profile head end -->
-
-        <div class="edit-profile_sec_block">
-          <div class="edit-profile_sec_head" data-toggle="collapse " data-target="#basic_info">
-            <h3 class="edit-profile_subtitle">Basic Info</h3>
-            <!-- <div class="edit-profile_iconbox">
-                            <img src="{{ baseUrl }}img/svg/ico-arrow-down.svg" alt="">
-                        </div> -->
-          </div>
-          <!-- edit profile sec head -->
-          <div id="basic_info" class="edit-profile_content_block show" style="display: none;">
-            <div class="editarea">
-              <div class="form_group">
-                <input class="form_input" required="" type="text" formControlName="name">
-                <span class="form_highlight"></span>
-                <span class="form_bar"></span>
-                <label>Name</label>
-                <p class="c-form__validation" *ngIf="profileForm.controls['name'].errors?.required && myform.submitted">Name
-                  is required</p>
-                <p class="c-form__validation" *ngIf="profileForm.controls['name'].errors?.maxlength && myform.submitted">Maximum
-                  Character limit 30</p>
-              </div>
-              <div class="form_group">
-                <textarea class="form_input form_textarea" maxlength="220" [(ngModel)]="bioMessage" name=""
-                  formControlName="bio"></textarea>
-                <span class="form_highlight">{{ (220) - (bioMessage?.length) }}</span>
-                <span class="form_bar"></span>
-                <label class="o-ng_bio-space">Bio</label>
-                <!-- <span class="o-status-action__count">
-                                    {{ (220) - (bioMessage?.length) }}
-                                  </span> -->
-                <p class="c-form__validation" *ngIf="profileForm.controls['bio'].errors?.required && myform.submitted">Bio is
-                  required</p>
-              </div>
-              <div class="form_group">
-                <input class="form_input" required="" type="text" formControlName="username">
-                <span class="form_highlight"></span>
-                <span class="form_bar"></span>
-                <label>Username</label>
-                <p class="c-form__validation" *ngIf="profileForm.controls['username'].errors?.required && myform.submitted">Username
-                  is required</p>
-                <p class="c-form__validation" *ngIf="profileForm.controls['username'].errors?.whitespace">White Space Not
-                  Allowed</p>
-                <p class="c-form__validation" *ngIf="profileForm.controls['username'].errors?.minlength">Username must be min
-                  length 4</p>
-                <p class="c-form__validation" *ngIf="profileForm.controls['username'].errors?.isUsernameUnique">This username
-                  is already taken</p>
-              </div>
-              <div class="form_group">
-                <input class="form_input" type="text" [ngModel]="mymodel" formControlName="skill" (ngModelChange)="onSearchChange($event)"
-                  placeholder="Search skill">
-                <span class="form_highlight"></span>
-                <span class="form_bar"></span>
-                <label>Skills</label>
-
-                <div class="selected_skill">
-                  <button *ngFor="let skill of selectedSkills" (click)="toggleSelectSkill(skill.code)" type="button"
-                    class="btn btn-tag btn-primary btn-sm btn-skill">
-                    <span>
-                      {{skill?.name}}
-                    </span>
-
-                  </button>
-                </div>
-                <div class="selected_tags">
-                  <div *ngIf="findSkill?.skills_loaded === false">
-                    <span class="loading">Loading...</span>
-                  </div>
-                  <span *ngFor="let skill of findSkill?.industries">
-                    <button type="button" (click)="toggleSelectSkill(skill.code)" [ngClass]="skill.isSelected?'btn btn-reg_tag-active':''"
-                      class="btn btn-tag btn-sm">
-                      {{skill?.name}}
-                    </button>
-                  </span>
-                  <!--<div *ngIf='skillSelectionPage.skills_loaded===true && skillSelectionPage.skills && skillSelectionPage.skills.length === 0'>
-                                        <a class="adder" (click)="addNewSkill(search)">Add <span class="adder__name">{{search}}?</span></a>
-                                    </div>-->
-                </div>
-              </div>
-              <div class="form_group">
-                <input class="form_input" type="text" required [textMask]="{mask: dateMask}" formControlName="dob">
-                <span class="form_highlight"></span>
-                <span class="form_bar"></span>
-                <label>Date of birth</label>
-                <p class="c-form__validation" *ngIf="profileForm.controls['dob'].errors?.required && myform.submitted">Date of
-                  Brith is required</p>
-                <p class="c-form__validation" *ngIf="profileForm.controls['dob'].errors?.invalidDOB">Invalid Date of Birth</p>
-                <p class="c-form__validation" *ngIf="profileForm.controls['dob'].errors?.isUnderAge">You should be above 13</p>
-                <p class="c-form__validation" *ngIf="profileForm.controls['dob'].errors?.isOverAge">You should be below 100</p>
-              </div>
-            </div>
-          </div>
-          <!-- edit profile content block end -->
-        </div>
-      </div>
-    </form>
-  </div>
-</app-modal>
-
-<app-modal-new #reportModal modalClass="modal-report__popup" >
-    <modal-content>
-            <app-report-popoup  [reportContentId]="otherProfileHandle" [reportType]="'profile'" (onclose)= "reportModal.close()"></app-report-popoup>
-    </modal-content>
+<app-modal-new #reportModal modalClass="modal-report__popup">
+  <modal-content>
+    <app-report-popoup [reportContentId]="otherProfileHandle" [reportType]="'profile'" (onclose)="reportModal.close()"></app-report-popoup>
+  </modal-content>
 </app-modal-new>
 
 <app-modal-new #blockModal modalClass="modal-cus__sm">

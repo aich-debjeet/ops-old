@@ -12,6 +12,8 @@ import { PusherService } from './../../services/pusher.service';
 import { findIndex as _findIndex } from 'lodash';
 import { ActivatedRoute } from '@angular/router';
 import { GeneralUtilities } from '../../helpers/general.utils';
+import { Subscription } from 'rxjs/Subscription';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-message',
@@ -44,15 +46,23 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
   chatScrollBottom = true;
   convUserHandle: any;
   conversationLoaded = false;
+  markedUsers = [];
+  markedAll = false;
+
+  profSub: Subscription;
+  msgSub: Subscription;
+  gUtilsSub: Subscription;
+  msgUserSearchSub: Subscription;
 
   constructor(
     private messageStore: Store<MessageModal>,
     private profileStore: Store<ProfileModal>,
     private pusherService: PusherService,
     private activatedRoute: ActivatedRoute,
-    private gUtils: GeneralUtilities
+    private gUtils: GeneralUtilities,
+    private toastr: ToastrService
   ) {
-    this.gUtils.listen().subscribe((e: any) => {
+    this.gUtilsSub = this.gUtils.listen().subscribe((e: any) => {
       if (e.component && e.component === 'MessageHomeComponent' && e.action === 'scrollToBottom') {
         this.scrollToBottom();
       }
@@ -64,12 +74,12 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
     };
 
     this.profileState$ = this.profileStore.select('profileTags');
-    this.profileState$.subscribe((state) => {
+    this.profSub = this.profileState$.subscribe((state) => {
       this.profileState = state;
     });
 
     this.messageState$ = this.messageStore.select('messageTags');
-    this.messageState$.subscribe((state) => {
+    this.msgSub = this.messageState$.subscribe((state) => {
       this.messageState = state;
       if (this.messageState && this.messageState['messanger_list_data']) {
         this.messangerList = this.messageState['messanger_list_data'];
@@ -161,26 +171,26 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
     }
 
     // search user input listener
-    this.msgUserSearch.valueChanges
-    .debounceTime(500)
-    .subscribe(() => {
-      // console.log('search: ', this.msgUserSearch.value);
-      if (this.msgUserSearch.value.length === 0) {
-        this.isSearching = true;
-        // fetch logged in user messanger list
-        this.messageStore.dispatch({
-          type: MessageActions.GET_MESSANGER_LIST,
-          payload: null
-        });
-      } else {
-        this.isSearching = true;
-        // fetch messanger lsit as per query
-        this.messageStore.dispatch({
-          type: MessageActions.MESSAGE_SEARCH_USER,
-          payload: this.msgUserSearch.value
-        });
-      }
-    });
+    this.msgUserSearchSub = this.msgUserSearch.valueChanges
+      .debounceTime(500)
+      .subscribe(() => {
+        // console.log('search: ', this.msgUserSearch.value);
+        if (this.msgUserSearch.value.length === 0) {
+          this.isSearching = true;
+          // fetch logged in user messanger list
+          this.messageStore.dispatch({
+            type: MessageActions.GET_MESSANGER_LIST,
+            payload: null
+          });
+        } else {
+          this.isSearching = true;
+          // fetch messanger lsit as per query
+          this.messageStore.dispatch({
+            type: MessageActions.MESSAGE_SEARCH_USER,
+            payload: this.msgUserSearch.value
+          });
+        }
+      });
   }
 
   /**
@@ -422,12 +432,10 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   enableTextMessage() {
-    // console.log('enableTextMessage');
     this.enableMsgInput = true;
   }
 
   disableTextMessage() {
-    // console.log('disableTextMessage');
     this.enableMsgInput = false;
   }
 
@@ -447,6 +455,57 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
     // unbind pusher listeners
     this.pusherService.messagesChannel.unbind('New-Message');
     this.pusherService.notificationsChannel.unbind('Message-Typing');
+
+    this.msgSub.unsubscribe();
+    this.profSub.unsubscribe();
+    this.gUtilsSub.unsubscribe();
+    this.msgUserSearchSub.unsubscribe();
+  }
+
+  actionMarkRead() {
+
+  }
+
+  actionDelete() {
+    const reqBody = {
+      handleList: this.markedUsers
+    }
+    this.messageStore.dispatch({ type: MessageActions.DELETE_CONVERSATION, payload: reqBody });
+    const tempSub = this.messageStore.select('messageTags')
+      .take(2)
+      .subscribe(resp => {
+        if (resp['deletingConversation'] === false && resp['deletedConversation'] === true) {
+          this.toastr.success('Conversation deleted successfully', 'Success!');
+          this.isConversationSelected = false;
+          this.selectLatestConversation();
+          tempSub.unsubscribe();
+        }
+      });
+  }
+
+  markUser(event: any, userHandle: string) {
+    const idx = this.markedUsers.indexOf(userHandle);
+    if (event.target.checked) {
+      if (idx === -1) {
+        this.markedUsers.push(userHandle);
+      }
+    } else {
+      if (idx !== -1) {
+        this.markedUsers.splice(idx, 1)
+      }
+    }
+  }
+
+  markAll(event: any) {
+    this.markedUsers = [];
+    if (event.target.checked) {
+      this.markedAll = true;
+      for (let i = 0; i < this.messangerList.length; i++) {
+        this.markedUsers.push(this.messangerList[i].handle);
+      }
+    } else {
+      this.markedAll = false;
+    }
   }
 
 }

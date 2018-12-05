@@ -5,7 +5,9 @@ import { ProfileActions } from '../actions/profile.action';
 import { OrganizationActions } from '../actions/organization.action';
 import * as _ from 'lodash';
 import { Media } from 'app/models/media.model';
+import { GeneralUtilities } from 'app/helpers/general.utils';
 
+const gUtils = new GeneralUtilities;
 export interface State {
   user_channel: any,
   user_channels_loaded: boolean,
@@ -271,7 +273,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
 
     case ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA_SUCCESS:
       let new_port_media;
-      if (state['get_port_display_media_query']['offset'] === 0) {
+      if (state['get_port_display_media_query']['reqBody']['offset'] === 0) {
         new_port_media = payload.SUCCESS['medias'];
       } else {
         new_port_media = [...state['get_port_display_media_result'], ...payload.SUCCESS['medias']];
@@ -684,7 +686,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
       const posts = payload['SUCCESS']['mediaResponse'] || [];
       const new_post = state.user_posts.concat(posts)
       return Object.assign({}, state, {
-        mediaEntity: payload,
+        // mediaEntity: payload,
         user_posts_loaded: true,
         user_posts_loading: false,
         user_posts: new_post,
@@ -719,7 +721,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
       const followingPosts = payload.mediaResponse;
       const following_new_post = state.user_following_posts.concat(followingPosts)
       return Object.assign({}, state, {
-        mediaEntity: payload,
+        // mediaEntity: payload,
         user_following_posts_loaded: true,
         user_following_posts_loading: false,
         user_following_posts: following_new_post,
@@ -1092,15 +1094,25 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
      * Load a portfolio Profile
      */
     case ProfileActions.PORTFOLIO_PROFILE_LOAD:
-      return state;
+    return Object.assign({}, state, {
+      portfolio_user_profile_loading: true,
+      portfolio_user_profile_loaded: false,
+      portfolio_user_profile_params: payload,
+      portfolio_user_profile: null
+    });
 
     case ProfileActions.PORTFOLIO_PROFILE_LOAD_SUCCESS:
       return Object.assign({}, state, {
-        portfolio_user_profile: payload
+        portfolio_user_profile_loading: false,
+        portfolio_user_profile_loaded: true,
+        portfolio_user_profile: gUtils.preparePortUser(payload)
       });
 
     case ProfileActions.PORTFOLIO_PROFILE_LOAD_FAILED:
-      return state;
+      return Object.assign({}, state, {
+        portfolio_user_profile_loading: false,
+        portfolio_user_profile_loaded: false
+      });
 
     /**
      * Follow Profile

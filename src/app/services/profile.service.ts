@@ -67,12 +67,13 @@ export class ProfileService {
   /**
    * for: portfolio
    */
-  getDisplayMedia(reqParams: any) {
+  getPortfolioDisplayMedia(reqParams: any) {
+    // return this.api.put('/portal/portfolio/landing/' + reqParams.userHandle, reqParams.reqBody);
     // check if user is logged in or not
     if (this.tokenService.getToken().length > 0) {
-      return this.api.put('/portal/portfolio/landing/' + localStorage.getItem('portfolioUserHandle'), reqParams);
+      return this.api.put('/portal/portfolio/landing/' + localStorage.getItem('portfolioUserHandle'), reqParams.reqBody);
     } else {
-      return this.http.put(`${this.apiLink}/portal/portfolio/landing/` + localStorage.getItem('portfolioUserHandle'), reqParams)
+      return this.http.put(`${this.apiLink}/portal/portfolio/landing/` + localStorage.getItem('portfolioUserHandle'), reqParams.reqBody)
         .map((data: Response) => data.json());
     }
   }
@@ -406,7 +407,7 @@ export class ProfileService {
     return this.http.get(`${this.apiLink}/portal/profile/user/username/` + userName)
       .map((data: Response) => {
         localStorage.setItem('portfolioUserHandle', data.json().handle);
-        return data.json()
+        return data.json();
       });
   }
 

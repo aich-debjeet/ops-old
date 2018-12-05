@@ -6,328 +6,344 @@
 // }
 
 .msg_container {
-    width: 100%;
+  width: 100%;
 }
 
 .empty-state-msg {
-    width: 100vw;
-    text-align: center;
-    display: table-cell;
-    vertical-align: middle;
-    height: 80vh;
+  width: 100vw;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+  height: 80vh;
 }
 
 .message-container {
-    margin-top: 50px;
+  margin-top: 50px;
 }
 
 .msg__unread {
-    background-color: #F3F5F7;
-    border-top: 0.5px solid #fff;
-    border-bottom: 0.5px solid #fff;
+  background-color: #F3F5F7;
+  border-top: 0.5px solid #fff;
+  border-bottom: 0.5px solid #fff;
 }
 
 .c-checkbox__md2 label {
-    position: static;
-    text-align: center;
-    pointer-events: auto;
+  position: static;
+  text-align: center;
+  pointer-events: auto;
 }
 
 .dropdown__item {
-    width: 100%;
-    float: left;
-    position: relative;
-    cursor: pointer;
+  width: 100%;
+  float: left;
+  position: relative;
+  cursor: pointer;
 }
 
 .dropnoti__avatar {
-    width: 40px;
-    height: 40px;
-    float: left;
-    display: inline-block;
-    border-radius: 50px;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.26);
-    overflow: hidden;
+  width: 40px;
+  height: 40px;
+  float: left;
+  display: inline-block;
+  border-radius: 50px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.26);
+  overflow: hidden;
 }
 
 .dropnoti__detail {
-    width: 80%;
-    font-size: 13px;
-    line-height: 20px;
-    color: #808080;
-    float: left;
-    margin-left: 8px;
+  width: 80%;
+  font-size: 13px;
+  line-height: 20px;
+  color: #808080;
+  float: left;
+  margin-left: 8px;
 }
 
 .dropnoti__detail p {
-    font-size: 13px;
-    line-height: 20px;
+  font-size: 13px;
+  line-height: 20px;
 }
 
 .dropnoti__detail {
-    color: #333;
+  color: #333;
 }
 
 .msg__time2 {
-    color: #B4B4B4;
-    font-size: 11px;
-    line-height: 18px;
-    position: absolute;
-    top: 20px;
-    right: 12px;
+  color: #B4B4B4;
+  font-size: 11px;
+  line-height: 18px;
+  position: absolute;
+  top: 20px;
+  right: 12px;
 }
 
 .navdrop__img {
-    width: 100%;
+  width: 100%;
 }
 
 .c-avatar--feed3 {
-    width: 33px;
-    height: 33px;
+  width: 33px;
+  height: 33px;
 }
 
 .c-user__avatar {
-    display: inline-block;
-    vertical-align: middle;
-    overflow: hidden;
-    position: relative;
-    box-sizing: border-box;
-    background: #f8f8f8;
-    cursor: pointer;
-    border-radius: 50px;
-    float: left;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  background: #f8f8f8;
+  cursor: pointer;
+  border-radius: 50px;
+  float: left;
 }
 
 .c-user__image {
-    width: 100%;
+  width: 100%;
 }
 
 .c-checkbox__md2 input[type="checkbox"] {
-    background-image: url(https://cdn.onepagespotlight.com/img/svg/radio1s.svg);
-    display: inline-block;
-    margin: 0px 7px 3px 0px;
-    position: relative;
-    -webkit-appearance: none;
-    width: 12px;
-    height: 12px;
-    outline: none;
-    border: none;
-    // visibility: hidden;
-    display: none;
+  background-image: url(https://cdn.onepagespotlight.com/img/svg/radio1s.svg);
+  display: inline-block;
+  margin: 0px 7px 3px 0px;
+  position: relative;
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  outline: none;
+  border: none;
+  // visibility: hidden;
+  // display: none;
+}
+
+.c-checkbox__md2 input[type="checkbox"]:checked {
+  background-image: url(https://cdn.onepagespotlight.com/img/svg/radio2s.svg);
+}
+
+.action-dropdown {
+  text-align: right;;
+  padding-right: 0;
+  border: none;
 }
 
 // Message style
 .mess_block {
-    border-radius: 3px;
-    background-color: $white;
-    box-shadow: 0 2px 4px 0 rgba(102, 45, 145, 0.15);
-    overflow: hidden;
-    position: relative;
-    // min-height: 80vh;
-    margin-top: 16px;
-    margin-left: 0px;
-    margin-right: 0px;
+  border-radius: 3px;
+  background-color: $white;
+  box-shadow: 0 2px 4px 0 rgba(102, 45, 145, 0.15);
+  overflow: hidden;
+  position: relative;
+  // min-height: 80vh;
+  margin-top: 16px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 .msg-input-block {
-    position: absolute;
-    width: 100%;
-    bottom: 0;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
 }
 
 .mess_left {
-    // padding: 0;
-    height: 78vh;
+  // padding: 0;
+  height: 78vh;
 }
 
 .mess_list {
-    height: calc(100% - 118px);
-    overflow-y: auto;
-    overflow-x: hidden;
+  height: calc(100% - 118px);
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .mess_right {
-    // padding: 0;
-    height: 78vh;
+  // padding: 0;
+  height: 78vh;
 }
 
 .mess_set_icon {
-    width: 14px;
+  width: 14px;
 }
 
 .mess_chat_block {
-    height: calc(100% - 134px);
-    overflow-y: auto;
+  height: calc(100% - 134px);
+  overflow-y: auto;
 }
 
 .msg_container {
-    padding: 24px 0;
+  padding: 24px 0;
+  float: left;
+
+  .msg_cont_block {
+    background-color: #f3f5f7;
+    // border: solid 1px #e4e4e4;
+    border-radius: 2px;
+    width: 60%;
     float: left;
-    .msg_cont_block {
-        background-color: #f3f5f7;
-        // border: solid 1px #e4e4e4;
-        border-radius: 2px;
-        width: 60%;
-        float: left;
-        margin-left: 16px;
-    }
-    p {
-        font-size: 11px;
-        line-height: 1.64;
-        text-align: left;
-        color: #333333;
-        padding: 8px;
-        position: relative;
-    }
+    margin-left: 16px;
+  }
+
+  p {
+    font-size: 11px;
+    line-height: 1.64;
+    text-align: left;
+    color: #333333;
+    padding: 8px;
+    position: relative;
+  }
 }
 
 .msg_cont_block2 {
-    background-color: #c1c1c1;
-    // border: solid 1px #d8d8d8;
-    border-radius: 2px;
-    width: 60%;
-    float: right;
-    margin-right: 16px;
-    p {
-        font-size: 11px;
-        line-height: 1.64;
-        text-align: left;
-        color: #fff;
-        padding: 8px;
-        position: relative;
-    }
+  background-color: #c1c1c1;
+  // border: solid 1px #d8d8d8;
+  border-radius: 2px;
+  width: 60%;
+  float: right;
+  margin-right: 16px;
+
+  p {
+    font-size: 11px;
+    line-height: 1.64;
+    text-align: left;
+    color: #fff;
+    padding: 8px;
+    position: relative;
+  }
 }
 
 .ops_msg_aero {
-    &:before {
-        width: 11px;
-        height: 11px;
-        content: ' ';
-        position: absolute;
-        background: #f0f0f0;
-        left: -10px;
-        top: 3px;
-        border-radius: 1px;
-        -ms-transform: rotate(46deg);
-        -webkit-transform: rotate(46deg);
-        transform: rotate(46deg);
-    }
+  &:before {
+    width: 11px;
+    height: 11px;
+    content: ' ';
+    position: absolute;
+    background: #f0f0f0;
+    left: -10px;
+    top: 3px;
+    border-radius: 1px;
+    -ms-transform: rotate(46deg);
+    -webkit-transform: rotate(46deg);
+    transform: rotate(46deg);
+  }
 }
 
 .ops_msg_aero2 {
-    &:before {
-        width: 11px;
-        height: 11px;
-        content: ' ';
-        position: absolute;
-        background: #c1c1c1;
-        right: -10px;
-        top: 3px;
-        border-radius: 1px;
-        -ms-transform: rotate(46deg);
-        -webkit-transform: rotate(46deg);
-        transform: rotate(46deg);
-    }
+  &:before {
+    width: 11px;
+    height: 11px;
+    content: ' ';
+    position: absolute;
+    background: #c1c1c1;
+    right: -10px;
+    top: 3px;
+    border-radius: 1px;
+    -ms-transform: rotate(46deg);
+    -webkit-transform: rotate(46deg);
+    transform: rotate(46deg);
+  }
 }
 
 .avatar_msg_input {
-    img {
-        width: 40px !important;
-        height: 40px !important;
-        border: solid 1px rgba(102, 45, 145, 0.1);
-        border-radius: 50%;
-        padding-top: 0;
-    }
+  img {
+    width: 40px !important;
+    height: 40px !important;
+    border: solid 1px rgba(102, 45, 145, 0.1);
+    border-radius: 50%;
+    padding-top: 0;
+  }
 }
 
 .msg_sent_time {
-    position: absolute;
-    padding: 8px 0;
-    color: #979797;
-    font-size: 11px;
-    line-height: 20px;
+  position: absolute;
+  padding: 8px 0;
+  color: #979797;
+  font-size: 11px;
+  line-height: 20px;
 }
 
 .msg_sent_time2 {
-    position: absolute;
-    padding: 8px 0;
-    color: #979797;
-    font-size: 12px;
-    line-height: 20px;
-    right: 80px;
+  position: absolute;
+  padding: 8px 0;
+  color: #979797;
+  font-size: 12px;
+  line-height: 20px;
+  right: 80px;
 }
 
-.right-message, .left-message {
-    position: relative;
+.right-message,
+.left-message {
+  position: relative;
 }
 
 .del-msg {
-    position: absolute;
-    color: #909090;
-    top: 10px;
-    cursor: pointer;
-    right: 10px;
-    font-size: 10px;
-    font-weight: bold;
+  position: absolute;
+  color: #909090;
+  top: 10px;
+  cursor: pointer;
+  right: 10px;
+  font-size: 10px;
+  font-weight: bold;
 }
 
 .sending-msg img {
-    right: 10px;
+  right: 10px;
 }
 
 .typing {
-    position: absolute;
-    bottom: 55px;
+  position: absolute;
+  bottom: 55px;
 }
 
 .message-footer {
-    position: fixed;
-    width: 100%;
-    bottom: 0;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
 }
 
 .xs-m-l-r-0 {
-    @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        margin-right: 0;
-        margin-left: 0;
-    }
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    margin-right: 0;
+    margin-left: 0;
+  }
 }
 
 .desktop-p-l-0 {
-    padding-left: 0;
-    @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        padding-right: 15px;
-        padding-left: 15px;
-    }
+  padding-left: 0;
+
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
 }
 
 .xs-message-box {
-    @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        width: 80%;
-    }
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    width: 80%;
+  }
 }
 
 .xs-chat-box {
-    @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        margin-top: 20px;
-    }
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    margin-top: 20px;
+  }
 }
 
 .mess_block {
-    @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        background: transparent;
-        box-shadow: none;
-    }
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    background: transparent;
+    box-shadow: none;
+  }
 }
 
-.mess_left, .mess_right {
-    @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        background: #fff;
-    }
+.mess_left,
+.mess_right {
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    background: #fff;
+  }
 }
 
 .mess_right {
-    @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        margin-bottom: 20px;
-    }
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    margin-bottom: 20px;
+  }
 }
