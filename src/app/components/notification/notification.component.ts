@@ -37,6 +37,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
   isSelected = false;
   notificationsList = [];
   activities:any[];
+  notificationCount: string;
 
   constructor(
     private store: Store<Notification>,
@@ -55,6 +56,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
         if (typeof state['recieved_notifications'] !== 'undefined') {
           console.log('state', state);
           this.notifications = state['recieved_notifications'];
+          this.notificationCount = state['notification_count']
           // check is unread notification exits else mark all notifications as read
           this.processNotifications();
         }

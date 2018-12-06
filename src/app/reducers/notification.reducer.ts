@@ -63,7 +63,8 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
       return Object.assign({}, state, {
         recieved_notifications: updated_notifications,
         requesting_notifications: false,
-        requesting_notifications_success: true
+        requesting_notifications_success: true,
+        notification_count: payload.notificationCount
       });
 
     case NotificationActions.GET_NOTIFICATIONS_BY_TYPE_FAILED:

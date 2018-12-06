@@ -16,7 +16,7 @@
                     <li class="o-noti-tab" [ngClass]="{'active':notificationType === 'others'}">
                         <a data-toggle="tab" (click)="switchtabs('others')" aria-expanded="false">Others</a>
                     </li>
-                    <div class="c-text_md color-theme pull-right m-t-16">99 Notifications</div>
+                    <div class="c-text_md color-theme pull-right m-t-16">{{notificationCount}} Notifications</div>
                 </ul>
                 <div class="tab-content">
                     <div class="noti_left" id="ops_scrollbar" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="1000" [infiniteScrollContainer]="'#ops_scrollbar'"
@@ -41,7 +41,7 @@
                         </div>
                         <ng-container *ngFor="let notification of notifications | groupBy:'date'">
                             <div class="row">
-                                <div class="not_date">{{ notification.key }}</div>
+                                <div class="not_date">{{ notification.key | date}}</div>
                             </div>
                             <div class="row not_block_main" *ngFor="let noti of notification.value" [ngClass]="{'fill_grey': !noti.isRead}">           
                                 <a (click)="openLink(notification)">
