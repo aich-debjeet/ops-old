@@ -160,7 +160,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
       const spotfeed_del_count = spotfeed_del_post ? spotfeed_del_post.counts.commentsCount - 1 : 0;
       return Object.assign({}, state, {
         media_comment: state.media_comment ? state.media_comment.filter(comment => comment.commentsId !== payload.id) : [],
-        channel_post: [
+        channel_post: spotfeed_del_post === undefined ? [...state.channel_post] : [
           ...state.channel_post.slice(0, spotfeed_del_index),
           Object.assign({}, spotfeed_del_post, {
             counts: {
