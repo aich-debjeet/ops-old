@@ -5,6 +5,13 @@
 //     height: 30vh;
 // }
 
+.result-not-found {
+  margin: 80px 0;
+  text-align: center;
+  font-size: 15px;
+  color: #000;
+}
+
 .msg_container {
   width: 100%;
 }
@@ -121,7 +128,8 @@
 }
 
 .action-dropdown {
-  text-align: right;;
+  text-align: right;
+  ;
   padding-right: 0;
   border: none;
 }
