@@ -99,6 +99,9 @@
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
         margin-bottom: 5px;
     }
+    .text_undrline {
+        text-decoration: underline!important;
+    }
 }
 .not_block2_tim {
     width: 100%;
@@ -116,6 +119,9 @@
         width: 60%;
     }
 }
+// .text-underline {
+//     text-decoration: underline!important;
+// }
 .not_block3 {
     width: 17%;
     float: left;
@@ -246,3 +252,7 @@
     overflow-y: scroll;
     height: 540px;
 }
+
+// .text-underline{
+//     text-decoration: underline!important;
+// }

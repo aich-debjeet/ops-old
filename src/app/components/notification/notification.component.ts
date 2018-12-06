@@ -118,6 +118,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
    * Open respective link
    */
   openLink(notification: any) {
+    console.log(notification)
     switch (notification.notificationType) {
       case 'Media_Spot':
         this.router.navigate([{ outlets: { media : ['media', notification.media.mediaId] } } ]);

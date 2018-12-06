@@ -7,11 +7,11 @@
                     <li class="o-noti-tab" [ngClass]="{'active':notificationType === 'all'}">
                         <a data-toggle="tab" (click)="switchtabs('all')" aria-expanded="true" class="p-l-0">All</a>
                     </li>
-                    <li class="o-noti-tab" [ngClass]="{'active':notificationType === 'Media_Spot'}">
-                        <a data-toggle="tab" (click)="switchtabs('Media_Spot')" aria-expanded="false">Spots</a>
+                    <li class="o-noti-tab" [ngClass]="{'active':notificationType === 'spots'}">
+                        <a data-toggle="tab" (click)="switchtabs('spots')" aria-expanded="false">Spots</a>
                     </li>
-                    <li class="o-noti-tab" [ngClass]="{'active':notificationType === 'Media_Comments'}">
-                        <a data-toggle="tab" (click)="switchtabs('Media_Comments')" aria-expanded="false">Comments</a>
+                    <li class="o-noti-tab" [ngClass]="{'active':notificationType === 'comments'}">
+                        <a data-toggle="tab" (click)="switchtabs('comments')" aria-expanded="false">Comments</a>
                     </li>
                     <li class="o-noti-tab" [ngClass]="{'active':notificationType === 'others'}">
                         <a data-toggle="tab" (click)="switchtabs('others')" aria-expanded="false">Others</a>
@@ -56,10 +56,10 @@
                                             <img *ngIf="noti.profileImage" [src]="baseUrl + noti.profileImage" class="navdrop__img">
                                         </div>
                                         <div class="not_block2_details">
-                                            <div class="not_block2_comm"><span class="color-grey-darker">{{noti.name }}</span>{{ noti.message }}</div>
+                                            <div class="not_block2_comm"><span class="color-grey-darker">{{noti.name }}</span><a class="text_undrline" (click)="openLink(noti)">{{ noti.message }}</a></div>
                                             <div class="not_block2_tim">
                                                 <img *ngIf="noti?.notificationType == 'Status_Comments' || noti?.notificationType == 'Media_Comments'" [src]="baseUrl + 'img/svg/ico_comment.svg'">
-                                                <img *ngIf="noti?.notificationType == 'Media_Spot'" [src]="baseUrl + 'img/svg/spot_icon.svg'">
+                                                <img *ngIf="noti?.notificationType == 'Media_Spot' || noti?.notificationType == 'Status_Spot'" [src]="baseUrl + 'img/svg/spot_icon.svg'">
                                                 {{ noti.createdDate | utcDate | date:'d MMM hh:mm a' }}
                                             </div>
                                         </div>
@@ -72,7 +72,7 @@
                             </div>
                         </ng-container>
                     </div>
-                    <div id="02" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'Media_Spot'">
+                    <div id="02" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'spots'">
                         <div class="row p-l-24 p-l-16 p-t-b-8">
                             <div class="col-md-10 c-text_md c-checkbox__md2 p-l-0">
                                 <label class="checkbox-inline p-l-0 m-t-8">
@@ -108,14 +108,14 @@
                                         <img *ngIf="noti.profileImage" [src]="baseUrl + noti.profileImage" class="navdrop__img">
                                     </div>
                                     <div class="not_block2_details">
-                                        <div class="not_block2_comm"><span class="color-grey-darker">{{ noti.name }}</span>{{ noti.message }}</div>
+                                        <div class="not_block2_comm"><span class="color-grey-darker">{{ noti.name }}</span><a class="text_undrline" (click)="openLink(noti)">{{ noti.message }}</a></div>
                                         <div class="not_block2_tim">
                                             <img *ngIf="noti?.notificationType == 'Media_Spot'" [src]="baseUrl + 'img/svg/spot_icon.svg'">
                                             {{ noti.createdDate | utcDate | date:'d MMM hh:mm a' }}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="not_block3 p-t-b-16" *ngIf="(noti.media | json) != '{}'">
+                                <div class="not_block3 p-t-b-16" *ngIf="(noti.media | json) != '{}' && noti.media.mType !== 'status'">
                                     <a class="not_block3_img" (click)="openLink(noti)">
                                         <img [src]="baseUrl + noti.media.thumbNails.mediumSmall">
                                     </a>
@@ -123,7 +123,7 @@
                             </div>
                         </ng-container>
                     </div>
-                    <div id="03" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'Media_Comments'">
+                    <div id="03" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'comments'">
                         <div class="row p-l-24 p-l-16 p-t-b-8">
                             <div class="col-md-10 c-text_md c-checkbox__md2 p-l-0">
                                 <label class="checkbox-inline p-l-0 m-t-8">
@@ -159,14 +159,14 @@
                                         <img *ngIf="noti.profileImage" [src]="baseUrl + noti.profileImage" class="navdrop__img">
                                     </div>
                                     <div class="not_block2_details">
-                                        <div class="not_block2_comm"><span class="color-grey-darker">{{ noti.name }}</span>{{ noti.message }}</div>
+                                        <div class="not_block2_comm"><span class="color-grey-darker">{{ noti.name }}</span><a class="text_undrline" (click)="openLink(noti)">{{ noti.message }}</a></div>
                                         <div class="not_block2_tim">
                                                 <img *ngIf="noti?.notificationType == 'Status_Comments' || noti?.notificationType == 'Media_Comments'" [src]="baseUrl + 'img/svg/ico_comment.svg'">
                                             {{ noti.createdDate | utcDate | date:'d MMM hh:mm a' }}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="not_block3 p-t-b-16" *ngIf="(noti.media | json) != '{}'">
+                                <div class="not_block3 p-t-b-16" *ngIf="(noti.media | json) != '{}' && noti.media.mType !== 'status'">
                                     <a class="not_block3_img" (click)="openLink(noti)">
                                         <img [src]="baseUrl + noti.media.thumbNails.mediumSmall">
                                     </a>
