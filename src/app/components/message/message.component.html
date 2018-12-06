@@ -95,6 +95,8 @@
           </div>
         </div>
 
+        <p *ngIf="noRecordsFound" class="result-not-found">No records found!</p>
+
         <!-- preloader -->
         <div *ngIf="showPreloader === true">
           <div class="sticky">
