@@ -273,7 +273,8 @@ export const MessageReducer: ActionReducer<any> = (state, { payload, type }: Act
         const new_conv_data = [payload];
         messanger_list_updated = new_conv_data.concat(state.messanger_list_data);
       } else {
-        messanger_list_updated = state.messanger_list_data;
+        // messanger_list_updated = state.messanger_list_data;
+        messanger_list_updated = [payload];
       }
       return Object.assign({}, state, {
         messanger_list_data: messanger_list_updated
