@@ -6,8 +6,34 @@
         <div class="bookmark-title__icon">
           <img src="https://ops-v2-2.netlify.com/assets/svg/bookmarkpage.svg" alt="">
         </div>
-        <div class="bookmark-title__name">Bookmark
-          <a class="bookmark-filter"><img src="https://ops-v2-2.netlify.com/assets/svg/fiter.svg" alt=""></a>
+        <div class="bookmark-title__name" appDropdown>Bookmark
+          <a appDropdownOpen class="bookmark-filter"><img src="https://ops-v2-2.netlify.com/assets/svg/fiter.svg" alt=""></a>
+          <ul class="dropdown-menu">
+            <li routerLinkActive="active">
+              <a routerLink="all" aria-expanded="true">All <div class="o-bookmark__count">{{ bookmarkTotalCount }}</div></a>
+            </li>
+            <li routerLinkActive="active">
+              <a routerLink="image" aria-expanded="false">Images <div class="o-bookmark__count">{{ bookmarkState?.bookmarksCount?.imageCount }}</div></a>
+            </li>
+            <li routerLinkActive="active">
+              <a routerLink="video" aria-expanded="false">Video <div class="o-bookmark__count">{{ bookmarkState?.bookmarksCount?.videoCount }}</div></a>
+            </li>
+            <li routerLinkActive="active">
+              <a routerLink="audio" aria-expanded="false">Audio <div class="o-bookmark__count">{{ bookmarkState?.bookmarksCount?.audioCount }}</div></a>
+            </li>
+            <!-- <li routerLinkActive="active">
+                          <a routerLink="" aria-expanded="false">Blog <div class="o-bookmark__count">{{ bookmarkState?.bookmarksCount?.blogCount }}</div></a>
+                      </li> -->
+            <li routerLinkActive="active">
+              <a routerLink="opportunity" aria-expanded="false">Opportunity <div class="o-bookmark__count">{{ bookmarkState?.bookmarksCount?.opportunitiesCount }}</div></a>
+            </li>
+            <li routerLinkActive="active">
+              <a routerLink="event" aria-expanded="false">Events <div class="o-bookmark__count">{{ bookmarkState?.bookmarksCount?.eventsCount }}</div></a>
+            </li>
+            <li routerLinkActive="active">
+              <a routerLink="profile" aria-expanded="false">Profile <div class="o-bookmark__count">{{ bookmarkState?.bookmarksCount?.profilesCount }}</div></a>
+            </li>
+          </ul>
         </div>
       </div>
       <div id="bookmark-tabs" class="bookmark-tabs">
@@ -41,10 +67,7 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
       <div class="tab-content">
-        <div class="tab-pane fade active in"
-          infiniteScroll
-          [infiniteScrollDistance]="2"
-          [infiniteScrollThrottle]="1000"
+        <div class="tab-pane fade active in" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="1000"
           (scrolled)="loadMore($event)">
           <p *ngIf="noRecordsFound" class="result-not-found">No records found!</p>
           <router-outlet></router-outlet>
@@ -56,7 +79,7 @@
 
 <app-modal-new #confirmDeleteModal modalClass="o-comodal_main in">
   <modal-content>
-      <app-confirm-box [message]="'Are you sure you want to delete this bookmark?'" [heading]="'Delete'" (confirmAction)="confirmation($event)"
+    <app-confirm-box [message]="'Are you sure you want to delete this bookmark?'" [heading]="'Delete'" (confirmAction)="confirmation($event)"
       (closeModal)="confirmDeleteModal.close()"></app-confirm-box>
   </modal-content>
 </app-modal-new>
