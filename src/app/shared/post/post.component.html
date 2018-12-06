@@ -143,7 +143,7 @@
         <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
         <span class="c-links__count">{{ mediaData?.counts?.commentsCount || 0 }} Comments</span>
       </div>
-      <div *ngIf="mediaData?.mtype === 'video' || mediaData?.mtype === 'audio' || mediaData?.mtype === 'image'" class="c-links__comments"
+      <div *ngIf="mediaData?.mtype === 'video' || mediaData?.mtype === 'audio' || mediaData?.mtype === 'image' || mediaData?.mtype === 'collection'" class="c-links__comments"
         [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
         <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
         <span class="c-links__count">{{ mediaData?.counts?.commentsCount || 0 }} Comments</span>
