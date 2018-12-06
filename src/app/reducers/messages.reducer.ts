@@ -25,7 +25,7 @@ export const MessageReducer: ActionReducer<any> = (state, { payload, type }: Act
         deletingConversation: false,
         deletedConversation: true,
         deleteConversationResBody: payload,
-        messanger_list_data: gUtils.messangerListRemoveClearedRecords(state.messanger_list_data, state.deleteConversationReqBody.handleList)
+        messanger_list_data: gUtils.messangerListRemoveClearedRecords(state.messanger_list_data, state.deleteConversationReqBody.otherHandle)
       });
 
     case MessageActions.DELETE_CONVERSATION_FAILED:

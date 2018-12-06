@@ -19,7 +19,7 @@ export class ProfileNetworkComponent implements OnInit, OnDestroy {
   tagState$: Observable<ProfileModal>;
   userHandle: String;
   sendRequestList: any[];
-  profSub: Subscription;
+  // profSub: Subscription;
 
   constructor(
     private profileStore: Store<ProfileModal>,
@@ -64,7 +64,7 @@ export class ProfileNetworkComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.profSub.unsubscribe();
+    // this.profSub.unsubscribe();
   }
 
 }
