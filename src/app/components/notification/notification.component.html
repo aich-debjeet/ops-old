@@ -64,7 +64,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="not_block3 p-t-b-16" *ngIf="(noti.media | json) != '{}'">
+                                    <div class="not_block3 p-t-b-16" *ngIf="(noti.media | json) != '{}' && noti.media.mType !== 'status'">
                                         <a class="not_block3_img" (click)="openLink(noti)">
                                             <img [src]="baseUrl + noti.media.thumbNails.mediumSmall">
                                         </a>
