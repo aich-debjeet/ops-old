@@ -69,15 +69,6 @@ export class HomePostComponent implements OnInit, OnDestroy {
     });
   }
 
-  setMediaViewportKey() {
-    for (let i = 0; i < this.posts.length; i++) {
-      if (this.posts[i] && typeof this.posts[i].inViewport) {
-        this.posts[i]['inViewport'] = false;
-      }
-    }
-    // console.log('this.posts', this.posts);
-  }
-
   ngOnInit() {
     this.store.dispatch({ type: ProfileActions.TRENDING_POST });
   }
@@ -122,15 +113,29 @@ export class HomePostComponent implements OnInit, OnDestroy {
     }
   }
 
+  setMediaViewportKey() {
+    for (let i = 0; i < this.posts.length; i++) {
+      if (this.posts[i]) {
+        this.posts[i]['inViewport'] = false;
+        this.posts[i]['hasPlayed'] = false;
+      }
+    }
+  }
+
   elemInViewportStatus(data: any) {
     if (data && data.status && data.mediaId) {
       const medIndx = _findIndex(this.posts, { id: data.mediaId });
       if (medIndx) {
         if (data.status === 'reached') {
-          if (this.posts[medIndx].inViewport !== true && this.posts[medIndx].id !== this.playingVideoId) {
-            this.setMediaViewportKey();
-            this.posts[medIndx].inViewport = true;
-            this.playingVideoId = this.posts[medIndx].id;
+          if (this.posts[medIndx].inViewport === true && this.posts[medIndx].id === this.playingVideoId) { } else {
+            if (this.posts[medIndx].hasPlayed === false) {
+              for (let i = 0; i < this.posts.length; i++) {
+                this.posts[i]['inViewport'] = false;
+              }
+              this.posts[medIndx].inViewport = true;
+              this.posts[medIndx].hasPlayed = true;
+              this.playingVideoId = this.posts[medIndx].id;
+            }
           }
         } else if (data.status === 'departed') {
           this.posts[medIndx].inViewport = false;
