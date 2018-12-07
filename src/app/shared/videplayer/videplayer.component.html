@@ -1,20 +1,21 @@
-<vg-player (onPlayerReady)="onPlayerReady($event)">
-    <vg-overlay-play *ngIf="showControls"></vg-overlay-play>
-    <vg-buffering *ngIf="showControls"></vg-buffering>
+<vg-player>
 
-    <vg-controls *ngIf="showControls" [vgAutohide]="true" [vgAutohideTime]="2">
-        <vg-play-pause></vg-play-pause>
-        <vg-scrub-bar>
-            <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-            <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
-        </vg-scrub-bar>
-        <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>    
-        <vg-mute></vg-mute>
-        <vg-fullscreen></vg-fullscreen>
-    </vg-controls>
+  <vg-overlay-play *ngIf="showControls"></vg-overlay-play>
+  <vg-buffering *ngIf="showControls"></vg-buffering>
 
-    <video [ngClass]="{'portrait-video': isPortrait === true }" [vgMedia]="videoElem" #videoElem preload="auto">
-        <source [src]="src" type="video/mp4">
-    </video>
+  <vg-controls *ngIf="showControls" [vgAutohide]="true" [vgAutohideTime]="2">
+    <vg-play-pause></vg-play-pause>
+    <vg-scrub-bar>
+      <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+      <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+    </vg-scrub-bar>
+    <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+    <vg-mute></vg-mute>
+    <vg-fullscreen></vg-fullscreen>
+  </vg-controls>
+
+  <video [ngClass]="{'portrait-video': isPortrait === true }" [vgMedia]="videoElem" #videoElem preload="auto" autoplay>
+    <source [src]="src" type="video/mp4">
+  </video>
+
 </vg-player>
-

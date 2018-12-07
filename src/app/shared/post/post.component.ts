@@ -7,7 +7,7 @@ import { ProfileActions } from '../../actions/profile.action';
 import { CommunitiesActions } from '../../actions/communities.action';
 import { SharedActions } from '../../actions/shared.action';
 import { Store } from '@ngrx/store';
-import { GeneralUtilities } from 'app/helpers/general.utils';
+// import { GeneralUtilities } from 'app/helpers/general.utils';
 
 @Component({
   selector: 'app-post',
@@ -42,7 +42,7 @@ export class PostComponent implements OnInit {
 
   constructor(
     private store: Store<Media>,
-    public gUtils: GeneralUtilities
+    // public gUtils: GeneralUtilities
   ) {
     this.dotMenuState = false;
   }
@@ -135,7 +135,7 @@ export class PostComponent implements OnInit {
 
   onReachingInViewport(mediaId: any) {
     this.elemViewportStatus.emit({ mediaId: mediaId, status: 'reached' });
-    this.gUtils.filter({ component: 'VideplayerComponent', action: 'playVideo' });
+    // this.gUtils.filter({ component: 'VideplayerComponent', action: 'playVideo' });
   }
 
   onDepartedFromViewport(mediaId: any) {
