@@ -1,4 +1,4 @@
-<vg-player>
+<vg-player (onPlayerReady)="onPlayerReady($event)">
     <vg-overlay-play *ngIf="showControls"></vg-overlay-play>
     <vg-buffering *ngIf="showControls"></vg-buffering>
 
@@ -13,7 +13,7 @@
         <vg-fullscreen></vg-fullscreen>
     </vg-controls>
 
-    <video [ngClass]="{'portrait-video': isPortrait === true }" [vgMedia]="media" #media id="singleVideo" preload="auto" autoplay>
+    <video [ngClass]="{'portrait-video': isPortrait === true }" [vgMedia]="videoElem" #videoElem preload="auto">
         <source [src]="src" type="video/mp4">
     </video>
 </vg-player>
