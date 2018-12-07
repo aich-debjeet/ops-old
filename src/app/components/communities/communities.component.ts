@@ -31,8 +31,10 @@ export class CommunitiesComponent implements OnInit, AfterViewInit, OnDestroy {
   public communityForm: FormGroup;
   industryState$: Observable<any>;
   tagState$: Observable<any>;
-  private subscription: ISubscription;
-  private routescription: ISubscription;
+  private searchInputSub: ISubscription;
+  private commSub: ISubscription;
+  private routerSub: ISubscription;
+  private loginSub: ISubscription;
   selectedIndustry = '';
   status: string;
   query: string;
@@ -53,14 +55,14 @@ export class CommunitiesComponent implements OnInit, AfterViewInit, OnDestroy {
     this.query = '';
 
     this.industryState$ = store.select('loginTags');
-    this.industryState$.subscribe((state) => {
+    this.loginSub = this.industryState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
         this.industries = state.industries;
       }
     });
 
     this.tagState$ = this.store.select('communitiesTags');
-    this.subscription = this.tagState$.subscribe((state) => {
+    this.commSub = this.tagState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
         if (state['communityList']) {
           this.list = state['communityList'];
@@ -74,7 +76,7 @@ export class CommunitiesComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
 
-    this.routescription = this.route
+    this.routerSub = this.route
       .queryParams
       .subscribe(params => {
         // Defaults to 0 if no query param provided.
@@ -95,8 +97,10 @@ export class CommunitiesComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
-    this.routescription.unsubscribe();
+    this.searchInputSub.unsubscribe();
+    this.commSub.unsubscribe();
+    this.loginSub.unsubscribe();
+    this.routerSub.unsubscribe();
   }
 
   createForm() {
@@ -137,17 +141,17 @@ export class CommunitiesComponent implements OnInit, AfterViewInit, OnDestroy {
       this.store.dispatch({ type: CommunitiesActions.COMMUNITY_CREATE, payload: data });
 
       this.store.select('communitiesTags')
-      .first(channel => channel['community_create_success'] === true)
-      .subscribe( datas => {
-          if (datas['completed']) {
-            const id = datas['completed']['SUCCESS'].id;
-            this.toastr.success('successfully created', 'Success!', {
-              timeOut: 3000
-            });
-            this.router.navigateByUrl('/communities/' + id);
-            return
-          }
-      });
+        .first(channel => channel['community_create_success'] === true)
+        .subscribe( datas => {
+            if (datas['completed']) {
+              const id = datas['completed']['SUCCESS'].id;
+              this.toastr.success('successfully created', 'Success!', {
+                timeOut: 3000
+              });
+              this.router.navigateByUrl('/communities/' + id);
+              return;
+            }
+        });
     } else {
       this.toastr.warning('Please fill all required fields', '', {
         timeOut: 3000
@@ -169,11 +173,11 @@ export class CommunitiesComponent implements OnInit, AfterViewInit, OnDestroy {
     /**
      * Observing the search input change
      */
-    this.searchInput.valueChanges
-    .debounceTime(500)
-    .subscribe(() => {
-      this.loadCommunity(null);
-    });
+    this.searchInputSub = this.searchInput.valueChanges
+      .debounceTime(500)
+      .subscribe(() => {
+        this.loadCommunity(null);
+      });
 
   }
 }

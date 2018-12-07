@@ -5,7 +5,6 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
-
 import { SharedModule } from '../../shared/shared.module';
 import { SharedPipesModule } from '../../pipes/shared-pipes.module';
 import { ProfileComponent } from './profile.component';
@@ -20,19 +19,10 @@ import { AboutAwardsComponent } from './about-awards/about-awards.component';
 import { AboutEducationComponent } from './about-education/about-education.component';
 import { AboutContactComponent } from './about-contact/about-contact.component';
 import { ProfileNetworkComponent } from './profile-network/profile-network.component'
-
 import { AboutImageComponent } from './about-image/about-image.component';
 import { AboutCoverComponent } from './about-cover/about-cover.component';
-
-import { ProfileHelper } from '../../helpers/profile.helper';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-
 import { NguCarouselModule } from '@ngu/carousel';
-// import 'hammerjs';
-
-
-
-// Guard
 import { AuthGuard } from './../../guard/auth.guard';
 import { ProfileSpotfeedComponent } from './profile-spotfeed/profile-spotfeed.component';
 import { ProfileNetworkRequestsComponent } from './profile-network-requests/profile-network-requests.component';
@@ -51,7 +41,7 @@ const childRoutes = [
     path: 'user',
     component: ProfileBlockComponent,
     children: [
-      { path: '',  redirectTo: 'post'},
+      { path: '', redirectTo: 'post' },
       { path: 'channel', component: ProfileChannelComponent },
       { path: 'post', component: ProfilePostComponent },
       { path: 'spotfeed', component: ProfileSpotfeedComponent }

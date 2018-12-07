@@ -18,6 +18,26 @@ export class GeneralUtilities {
 
     constructor() { }
 
+    messangerListRemoveClearedRecords(messangerList, removedUsers) {
+        for (let i = 0 ; i < removedUsers.length; i++) {
+            _remove(messangerList, { handle: removedUsers[i] });
+        }
+        return messangerList;
+    }
+
+    preparePortUser(portUser) {
+        const user = {
+            profileImage: portUser.profileImage,
+            profileType: portUser.profileType,
+            summary: portUser.summary,
+            handle: portUser.handle,
+            extra: portUser.extra,
+            name: portUser.name
+        };
+        console.log('user', user);
+        return user;
+    }
+
     removeRecordFromState(reqParams: any, bookmarks: any) {
         if (reqParams['type'] === 'image' || reqParams['type'] === 'video' || reqParams['type'] === 'audio') {
             return _remove(bookmarks, (b) => !(b.postType === reqParams['type'] && b.postId === reqParams['id']));
@@ -45,6 +65,10 @@ export class GeneralUtilities {
                 if (data[i] && data[i]['bookmarkedJobs'] && data[i]['bookmarkedJobs'][0]) {
                     data[i]['bookmarkedJobs'][0]['type'] = 'opportunity';
                     bookmarks.push(data[i]['bookmarkedJobs'][0]);
+                }
+                if (data[i] && data[i]['bookmarkedProfiles'] && data[i]['bookmarkedProfiles'][0]) {
+                    data[i]['bookmarkedProfiles'][0]['type'] = 'profile';
+                    bookmarks.push(data[i]['bookmarkedProfiles'][0]);
                 }
                 if (i >= (data.length - 1)) {
                     return bookmarks;

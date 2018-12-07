@@ -1,54 +1,46 @@
 <main class="container-fulid outer_container">
   <section class="o-opportunities-form">
-     <div class="container">
-        <div class="o-opportunities-form-container m-t-32">
-           <div class="o-opportunities-form-block p-t-32">
-              <h4 class="c-h4 with_border_bottom p-b-8">Edit Opportunity</h4>
-              <div class="c-ops__tabs">
-                 
-                 <div class="tab-content">
-
-                    <!-- audition -->
-                    <div *ngIf="activeTab == 'audition'" id="tab-audition" >
-                        <app-opportunity-audition (formSubmitted)="submitFormData($event);" [oppDetails]="formData"></app-opportunity-audition>
-                    </div>
-                    <!-- audition -->
-                    
-                    <!-- projects -->
-                    <div *ngIf="activeTab == 'project'" id="tab-projects" >
-                        <app-opportunity-project (formSubmitted)="submitFormData($event);" [oppDetails]="formData"></app-opportunity-project>
-                    </div>
-                    <!-- projects -->
-                    
-                    <!-- jobs -->
-                    <div *ngIf="activeTab == 'job'" id="tab-jobs" >
-                        <app-opportunity-job (formSubmitted)="submitFormData($event);" [oppDetails]="formData"></app-opportunity-job>
-                    </div>
-                    <!-- jobs -->
-
-                    <!-- internships -->
-                    <div *ngIf="activeTab == 'internship'" id="tab-internships" >
-                        <app-opportunity-internship (formSubmitted)="submitFormData($event);" [oppDetails]="formData"></app-opportunity-internship>
-                    </div>
-                    <!-- internships -->
-                    
-                    <!-- freelance -->
-                    <div *ngIf="activeTab == 'freelance'" id="tab-freelance">
-                        <app-opportunity-freelance (formSubmitted)="submitFormData($event);" [oppDetails]="formData"></app-opportunity-freelance>
-                    </div>
-                    <!-- freelance -->
-                    
-                    <!-- volunteer -->
-                    <div *ngIf="activeTab == 'volunteer'" id="tab-volunteer">
-                        <app-opportunity-volunteer (formSubmitted)="submitFormData($event);" [oppDetails]="formData"></app-opportunity-volunteer>
-                    </div>
-                    <!-- volunteer -->
-                    
-                 </div>
+    <div class="container">
+      <div class="o-opportunities-form-container m-t-32">
+        <div class="o-opportunities-form-block p-t-32">
+          <h4 class="c-h4 with_border_bottom p-b-8">Edit Opportunity</h4>
+          <div class="c-ops__tabs">
+            <div class="tab-content">
+              <!-- audition -->
+              <div *ngIf="activeTab == 'audition'" id="tab-audition">
+                <app-opportunity-audition (formSubmitted)="submitFormData($event);" [oppDetails]="formData"></app-opportunity-audition>
               </div>
-           </div>
-           <!-- form block end -->
+              <!-- audition -->
+              <!-- projects -->
+              <div *ngIf="activeTab == 'project'" id="tab-projects">
+                <app-opportunity-project (formSubmitted)="submitFormData($event);" [oppDetails]="formData"></app-opportunity-project>
+              </div>
+              <!-- projects -->
+              <!-- jobs -->
+              <div *ngIf="activeTab == 'job'" id="tab-jobs">
+                <app-opportunity-job (formSubmitted)="submitFormData($event);" [oppDetails]="formData"></app-opportunity-job>
+              </div>
+              <!-- jobs -->
+              <!-- internships -->
+              <div *ngIf="activeTab == 'internship'" id="tab-internships">
+                <app-opportunity-internship (formSubmitted)="submitFormData($event);" [oppDetails]="formData"></app-opportunity-internship>
+              </div>
+              <!-- internships -->
+              <!-- freelance -->
+              <div *ngIf="activeTab == 'freelance'" id="tab-freelance">
+                <app-opportunity-freelance (formSubmitted)="submitFormData($event);" [oppDetails]="formData"></app-opportunity-freelance>
+              </div>
+              <!-- freelance -->
+              <!-- volunteer -->
+              <div *ngIf="activeTab == 'volunteer'" id="tab-volunteer">
+                <app-opportunity-volunteer (formSubmitted)="submitFormData($event);" [oppDetails]="formData"></app-opportunity-volunteer>
+              </div>
+              <!-- volunteer -->
+            </div>
+          </div>
         </div>
-     </div>
+        <!-- form block end -->
+      </div>
+    </div>
   </section>
 </main>

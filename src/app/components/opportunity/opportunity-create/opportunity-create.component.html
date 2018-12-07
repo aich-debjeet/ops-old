@@ -1,120 +1,111 @@
 <main class="container-fulid outer_container">
-    <section class="o-opportunities-form">
-       <div class="container">
-          <div class="o-opportunities-form-container m-t-32">
-             <div class="o-opportunities-form-block p-t-32">
-                <h4 class="c-h4 with_border_bottom p-b-8">Create Opportunity</h4>
-                <h6 class="c-text_md m-t-32 m-b-16">Choose opportunity type</h6>
-                <div class="c-ops__tabs">
-                   
-                    <!-- opportunity type selection -->
-                   <ul class="nav o-oppo-form__tab">
-                      <li [ngClass]="{'active': activeTab == 'audition'}" class="o-oppo-form-tab__item m-0">
-                         <a class="o-oppo-tab-link p-0" (click)="switchTabTo('audition')" aria-expanded="false">
-                            <div class="o-oppo-form-tab-block">
-                               <span class="o-oppo-tab__icon">
-                               <img [src]="baseUrl + 'v2/opportunities/audition.png'" alt="">
-                               </span>
-                               <span class="o-oppo-tab__title c-text_md">Auditions</span>
-                            </div>
-                         </a>
-                      </li>
-                      <li [ngClass]="{'active': activeTab == 'project'}" class="o-oppo-form-tab__item">
-                         <a class="o-oppo-tab-link p-0" (click)="switchTabTo('project')" aria-expanded="false">
-                            <div class="o-oppo-form-tab-block">
-                               <span class="o-oppo-tab__icon">
-                               <img [src]="baseUrl + 'v2/opportunities/projects.png'" alt="">
-                               </span>
-                               <span class="o-oppo-tab__title c-text_md">Project</span>
-                            </div>
-                         </a>
-                      </li>
-                      <li [ngClass]="{'active': activeTab == 'job'}" class="o-oppo-form-tab__item">
-                         <a class="o-oppo-tab-link p-0" (click)="switchTabTo('job')" aria-expanded="false">
-                            <div class="o-oppo-form-tab-block">
-                               <span class="o-oppo-tab__icon">
-                               <img [src]="baseUrl + 'v2/opportunities/job.png'" alt="">
-                               </span>
-                               <span class="o-oppo-tab__title c-text_md">Job</span>
-                            </div>
-                         </a>
-                      </li>
-                      <li [ngClass]="{'active': activeTab == 'internship'}" class="o-oppo-form-tab__item">
-                         <a class="o-oppo-tab-link p-0" (click)="switchTabTo('internship')" aria-expanded="false">
-                            <div class="o-oppo-form-tab-block">
-                               <span class="o-oppo-tab__icon">
-                               <img [src]="baseUrl + 'v2/opportunities/internship.png'" alt="">
-                               </span>
-                               <span class="o-oppo-tab__title c-text_md">Internships</span>
-                            </div>
-                         </a>
-                      </li>
-                      <li [ngClass]="{'active': activeTab == 'freelance'}" class="o-oppo-form-tab__item">
-                         <a class="o-oppo-tab-link p-0" (click)="switchTabTo('freelance')" aria-expanded="false">
-                            <div class="o-oppo-form-tab-block">
-                               <span class="o-oppo-tab__icon">
-                               <img [src]="baseUrl + 'v2/opportunities/freelance.png'" alt="">
-                               </span>
-                               <span class="o-oppo-tab__title c-text_md">Freelance</span>
-                            </div>
-                         </a>
-                      </li>
-                      <li [ngClass]="{'active': activeTab == 'volunteer'}" class="o-oppo-form-tab__item">
-                         <a class="o-oppo-tab-link p-0" (click)="switchTabTo('volunteer')" aria-expanded="true">
-                            <div class="o-oppo-form-tab-block">
-                               <span class="o-oppo-tab__icon">
-                               <img [src]="baseUrl + 'v2/opportunities/volunteer.png'" alt="">
-                               </span>
-                               <span class="o-oppo-tab__title c-text_md">Volunteer</span>
-                            </div>
-                         </a>
-                      </li>
-                   </ul>
-                   <!-- opportunity type selection -->
-                   
-                   <div class="tab-content">
-                      
-                      <!-- audition -->
-                      <div *ngIf="activeTab == 'audition'" id="tab-audition" >
-                        <app-opportunity-audition (formSubmitted)="submitFormData($event);" [oppDetails]="formData"></app-opportunity-audition>
-                      </div>
-                      <!-- audition -->
-                      
-                      <!-- project -->
-                      <div *ngIf="activeTab == 'project'" id="tab-projects" >
-                        <app-opportunity-project (formSubmitted)="submitFormData($event);" [oppDetails]="formData"></app-opportunity-project>
-                      </div>
-                      <!-- project -->
-                      
-                      <!-- jobs -->
-                      <div *ngIf="activeTab == 'job'" id="tab-jobs" >
-                        <app-opportunity-job (formSubmitted)="submitFormData($event);" [oppDetails]="formData"></app-opportunity-job>
-                      </div>
-                      <!-- jobs -->
-
-                      <!-- internships -->
-                      <div *ngIf="activeTab == 'internship'" id="tab-internships" >
-                        <app-opportunity-internship (formSubmitted)="submitFormData($event);" [oppDetails]="formData"></app-opportunity-internship>
-                      </div>
-                      <!-- internships -->
-                      
-                      <!-- freelance -->
-                      <div *ngIf="activeTab == 'freelance'" id="tab-freelance">
-                        <app-opportunity-freelance (formSubmitted)="submitFormData($event);" [oppDetails]="formData"></app-opportunity-freelance>
-                      </div>
-                      <!-- freelance -->
-                      
-                      <!-- volunteer -->
-                      <div *ngIf="activeTab == 'volunteer'" id="tab-volunteer">
-                        <app-opportunity-volunteer (formSubmitted)="submitFormData($event);" [oppDetails]="formData"></app-opportunity-volunteer>
-                      </div>
-                      <!-- volunteer -->
-                      
-                   </div>
-                </div>
-             </div>
-             <!-- form block end -->
+  <section class="o-opportunities-form">
+    <div class="container">
+      <div class="o-opportunities-form-container m-t-32">
+        <div class="o-opportunities-form-block p-t-32">
+          <h4 class="c-h4 with_border_bottom p-b-8">Create Opportunity</h4>
+          <h6 class="c-text_md m-t-32 m-b-16">Choose opportunity type</h6>
+          <div class="c-ops__tabs">
+            <!-- opportunity type selection -->
+            <ul class="nav o-oppo-form__tab">
+              <li [ngClass]="{'active': activeTab == 'audition'}" class="o-oppo-form-tab__item m-0">
+                <a class="o-oppo-tab-link p-0" (click)="switchTabTo('audition')" aria-expanded="false">
+                  <div class="o-oppo-form-tab-block">
+                    <span class="o-oppo-tab__icon">
+                      <img [src]="baseUrl + 'v2/opportunities/audition.png'" alt="">
+                    </span>
+                    <span class="o-oppo-tab__title c-text_md">Auditions</span>
+                  </div>
+                </a>
+              </li>
+              <li [ngClass]="{'active': activeTab == 'project'}" class="o-oppo-form-tab__item">
+                <a class="o-oppo-tab-link p-0" (click)="switchTabTo('project')" aria-expanded="false">
+                  <div class="o-oppo-form-tab-block">
+                    <span class="o-oppo-tab__icon">
+                      <img [src]="baseUrl + 'v2/opportunities/projects.png'" alt="">
+                    </span>
+                    <span class="o-oppo-tab__title c-text_md">Project</span>
+                  </div>
+                </a>
+              </li>
+              <li [ngClass]="{'active': activeTab == 'job'}" class="o-oppo-form-tab__item">
+                <a class="o-oppo-tab-link p-0" (click)="switchTabTo('job')" aria-expanded="false">
+                  <div class="o-oppo-form-tab-block">
+                    <span class="o-oppo-tab__icon">
+                      <img [src]="baseUrl + 'v2/opportunities/job.png'" alt="">
+                    </span>
+                    <span class="o-oppo-tab__title c-text_md">Job</span>
+                  </div>
+                </a>
+              </li>
+              <li [ngClass]="{'active': activeTab == 'internship'}" class="o-oppo-form-tab__item">
+                <a class="o-oppo-tab-link p-0" (click)="switchTabTo('internship')" aria-expanded="false">
+                  <div class="o-oppo-form-tab-block">
+                    <span class="o-oppo-tab__icon">
+                      <img [src]="baseUrl + 'v2/opportunities/internship.png'" alt="">
+                    </span>
+                    <span class="o-oppo-tab__title c-text_md">Internships</span>
+                  </div>
+                </a>
+              </li>
+              <li [ngClass]="{'active': activeTab == 'freelance'}" class="o-oppo-form-tab__item">
+                <a class="o-oppo-tab-link p-0" (click)="switchTabTo('freelance')" aria-expanded="false">
+                  <div class="o-oppo-form-tab-block">
+                    <span class="o-oppo-tab__icon">
+                      <img [src]="baseUrl + 'v2/opportunities/freelance.png'" alt="">
+                    </span>
+                    <span class="o-oppo-tab__title c-text_md">Freelance</span>
+                  </div>
+                </a>
+              </li>
+              <li [ngClass]="{'active': activeTab == 'volunteer'}" class="o-oppo-form-tab__item">
+                <a class="o-oppo-tab-link p-0" (click)="switchTabTo('volunteer')" aria-expanded="true">
+                  <div class="o-oppo-form-tab-block">
+                    <span class="o-oppo-tab__icon">
+                      <img [src]="baseUrl + 'v2/opportunities/volunteer.png'" alt="">
+                    </span>
+                    <span class="o-oppo-tab__title c-text_md">Volunteer</span>
+                  </div>
+                </a>
+              </li>
+            </ul>
+            <!-- opportunity type selection -->
+            <div class="tab-content">
+              <!-- audition -->
+              <div *ngIf="activeTab == 'audition'" id="tab-audition">
+                <app-opportunity-audition (formSubmitted)="submitFormData($event);" [oppDetails]="formData"></app-opportunity-audition>
+              </div>
+              <!-- audition -->
+              <!-- project -->
+              <div *ngIf="activeTab == 'project'" id="tab-projects">
+                <app-opportunity-project (formSubmitted)="submitFormData($event);" [oppDetails]="formData"></app-opportunity-project>
+              </div>
+              <!-- project -->
+              <!-- jobs -->
+              <div *ngIf="activeTab == 'job'" id="tab-jobs">
+                <app-opportunity-job (formSubmitted)="submitFormData($event);" [oppDetails]="formData"></app-opportunity-job>
+              </div>
+              <!-- jobs -->
+              <!-- internships -->
+              <div *ngIf="activeTab == 'internship'" id="tab-internships">
+                <app-opportunity-internship (formSubmitted)="submitFormData($event);" [oppDetails]="formData"></app-opportunity-internship>
+              </div>
+              <!-- internships -->
+              <!-- freelance -->
+              <div *ngIf="activeTab == 'freelance'" id="tab-freelance">
+                <app-opportunity-freelance (formSubmitted)="submitFormData($event);" [oppDetails]="formData"></app-opportunity-freelance>
+              </div>
+              <!-- freelance -->
+              <!-- volunteer -->
+              <div *ngIf="activeTab == 'volunteer'" id="tab-volunteer">
+                <app-opportunity-volunteer (formSubmitted)="submitFormData($event);" [oppDetails]="formData"></app-opportunity-volunteer>
+              </div>
+              <!-- volunteer -->
+            </div>
           </div>
-       </div>
-    </section>
- </main>
+        </div>
+        <!-- form block end -->
+      </div>
+    </div>
+  </section>
+</main>

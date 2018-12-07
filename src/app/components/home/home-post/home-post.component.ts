@@ -17,9 +17,9 @@ import { findIndex as _findIndex } from 'lodash';
 })
 export class HomePostComponent implements OnInit, OnDestroy {
 
-  private subscription: ISubscription;
+  private profSub: ISubscription;
   tagState$: Observable<ProfileModal>;
-  userProfile = initialTag ;
+  userProfile = initialTag;
   trendingPost: any;
   isOwner: boolean;
   posts: any;
@@ -42,7 +42,7 @@ export class HomePostComponent implements OnInit, OnDestroy {
   ) {
     this.tagState$ = this.store.select('profileTags');
     this.posts = [];
-    this.subscription = this.tagState$.subscribe((state) => {
+    this.profSub = this.tagState$.subscribe((state) => {
       this.userProfile = state;
       this.userData = state['profile_navigation_details']
 
@@ -60,22 +60,13 @@ export class HomePostComponent implements OnInit, OnDestroy {
 
       if (state['profile_navigation_details'].handle) {
         this.handle = this.userProfile.profile_navigation_details.handle;
-         this.isOwner = true;
+        this.isOwner = true;
         if (this.handle && !this.postsLoaded) {
           this.postsLoaded = true;
           this.postLoad();
         }
       }
     });
-  }
-
-  setMediaViewportKey() {
-    for (let i = 0; i < this.posts.length; i++) {
-      if (this.posts[i] && typeof this.posts[i].inViewport) {
-        this.posts[i]['inViewport'] = false;
-      }
-    }
-    // console.log('this.posts', this.posts);
   }
 
   ngOnInit() {
@@ -94,7 +85,7 @@ export class HomePostComponent implements OnInit, OnDestroy {
     if (index !== -1) {
       this.posts.splice(index, 1);
       const id = post.id;
-      this.store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id});
+      this.store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id });
     }
   }
   onScroll(e) {
@@ -122,15 +113,29 @@ export class HomePostComponent implements OnInit, OnDestroy {
     }
   }
 
+  setMediaViewportKey() {
+    for (let i = 0; i < this.posts.length; i++) {
+      if (this.posts[i]) {
+        this.posts[i]['inViewport'] = false;
+        this.posts[i]['hasPlayed'] = false;
+      }
+    }
+  }
+
   elemInViewportStatus(data: any) {
     if (data && data.status && data.mediaId) {
       const medIndx = _findIndex(this.posts, { id: data.mediaId });
       if (medIndx) {
         if (data.status === 'reached') {
-          if (this.posts[medIndx].inViewport !== true && this.posts[medIndx].id !== this.playingVideoId) {
-            this.setMediaViewportKey();
-            this.posts[medIndx].inViewport = true;
-            this.playingVideoId = this.posts[medIndx].id;
+          if (this.posts[medIndx].inViewport === true && this.posts[medIndx].id === this.playingVideoId) { } else {
+            if (this.posts[medIndx].hasPlayed === false) {
+              for (let i = 0; i < this.posts.length; i++) {
+                this.posts[i]['inViewport'] = false;
+              }
+              this.posts[medIndx].inViewport = true;
+              this.posts[medIndx].hasPlayed = true;
+              this.playingVideoId = this.posts[medIndx].id;
+            }
           }
         } else if (data.status === 'departed') {
           this.posts[medIndx].inViewport = false;
@@ -140,7 +145,7 @@ export class HomePostComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.profSub.unsubscribe();
   }
 
 }

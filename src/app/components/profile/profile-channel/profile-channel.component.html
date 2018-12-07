@@ -3,7 +3,7 @@
     <app-channel [currentUser]="isOwner" [channelData]="channel" (onFollow)="followChannel($event)" (onDelete)="deleteChannel($event)"></app-channel>
   </div>
   <div *ngIf="profileChannel?.other_channels_loading">
-    <div class="col-md-3 col-sm-4 col-xs-12 p-r-16 p-l-0 m-t-b-8" *ngFor="let number of [0,1,2,3];">
+    <div *ngFor="let number of [0,1,2,3];" class="col-xs-12 col-sm-6 col-md-3 desktop-css">
       <app-channel [loader]="true"></app-channel>
     </div>
   </div>

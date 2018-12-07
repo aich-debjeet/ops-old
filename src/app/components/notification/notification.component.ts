@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild, HostListener, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Router } from '@angular/router';
+import { Router} from '@angular/router';
+import { Location } from '@angular/common';
 
-// rx
+// rx,
 import { Observable } from 'rxjs/Observable';
 import { Subscription, ISubscription } from 'rxjs/Subscription';
 
@@ -22,6 +23,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   notificationsState$: Observable<Notification>;
   private subscription: ISubscription;
+  private routerSub: ISubscription;
   formattedNotifications: any[];
   notificationIds: any[];
   notifications: any[];
@@ -31,12 +33,23 @@ export class NotificationComponent implements OnInit, OnDestroy {
   lastScrollTop = 0;
   showPreloader: boolean;
   scrolling = 0;
+  scrollAct = 0;
   scrollingLoad = 251;
+  scrollingLoadAct = 180;
   page = 0;
+  pageAct = 0;
+  notificationType: string;
+  isSelected = false;
+  notificationsList = [];
+  activities:any[];
+  notificationCount: string;
+  route: string;
+  triggerApi: boolean = true;
 
   constructor(
     private store: Store<Notification>,
-    private router: Router
+    private router: Router,
+    location: Location
   ) {
 
     // image path
@@ -49,31 +62,90 @@ export class NotificationComponent implements OnInit, OnDestroy {
     this.subscription = this.notificationsState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
         if (typeof state['recieved_notifications'] !== 'undefined') {
+          // console.log('state', state);
           this.notifications = state['recieved_notifications'];
+          this.notificationCount = state['notification_count']
           // check is unread notification exits else mark all notifications as read
           this.processNotifications();
+        }
+        if(state['activity_list']){
+          this.activities= state['activity_list'];
+          this.processActivities();
         }
         if (state && state['requesting_notifications'] === true) {
           this.showPreloader = false;
         }
-      } else {
-        // if notifications state undefined init with initial list of notifications
-        const reqBody = {
-          limit: 10,
-          page: 0
+      } 
+      // else {
+      //   // if notifications state undefined init with initial list of notifications
+      //   const reqBody = {
+      //     notificationType: 'all',
+      //     limit: 10,
+      //     offset: 0
+      //   }
+      //   // this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS, payload: reqBody });
+      //   this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS_BY_TYPE, payload: reqBody });
+      //   this.store.dispatch({type:NotificationActions.GET_ACTIVITIES_FOR_THE_USER,payload: { offset:0,
+      //     limit:10
+      //   }});
+      // }
+    });
+    this.routerSub = router.events.subscribe((val) => {
+      if(this.triggerApi){
+        if(location.path() != ''){
+          this.route = location.path();
+          if(this.route === '/notification'){
+            const reqBodyNotification = {
+              notificationType: 'all',
+              limit: 10,
+              offset: 0
+            }
+          // this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS, payload: reqBody });
+          this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS_BY_TYPE, payload: reqBodyNotification });
+          this.store.dispatch({type:NotificationActions.GET_ACTIVITIES_FOR_THE_USER,payload: { offset:0,limit:10}});
+          }
+          this.triggerApi = false;
         }
-        this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS, payload: reqBody });
       }
     });
   }
 
+  processActivities(){
+    if(this.activities.length > 0){
+      for(let i = 0; i < this.activities.length; i++){
+        switch(this.activities[i].activityType){
+          case 'Following':
+            this.activities[i].message = 'has started following ' + this.activities[i].notificationResponse.name;
+            break;
+          case 'Media_Spot':
+            this.activities[i].message = 'has spotted a post of ' + this.activities[i].notificationResponse.name;
+            break;
+          case 'Media_Comments':
+            this.activities[i].message = 'has commented on a post of ' + this.activities[i].notificationResponse.name ;
+            break;
+          case 'Network_Sent':
+            this.activities[i].message = 'has sent a network request to ' + this.activities[i].notificationResponse.name;
+            break;
+          case 'Network_Accepted':
+            this.activities[i].message = 'has accepted a network request sent by ' + this.activities[i].notificationResponse.name;
+            break;
+          case 'Status_Spot':
+            this.activities[i].message = 'has spotted a post of ' + this.activities[i].notificationResponse.name;
+            break;
+          case 'Status_Comments':
+            this.activities[i].message = 'has commented on a post of ' + this.activities[i].notificationResponse.name;
+            break;
+        }
+      }
+    }
+  }
   // message maker
   processNotifications() {
     if (this.notifications.length > 0) {
       for (let i = 0; i < this.notifications.length; i++) {
         switch (this.notifications[i].notificationType) {
           case 'Following':
-            this.notifications[i].message = '@' + this.notifications[i].username + ' has started following you';
+            this.notifications[i].message = ' has started following you';
             break;
           case 'Media_Spot':
             this.notifications[i].message = ' has spotted your post';
@@ -103,6 +175,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
    * Open respective link
    */
   openLink(notification: any) {
+    // console.log(notification)
     switch (notification.notificationType) {
       case 'Media_Spot':
         this.router.navigate([{ outlets: { media : ['media', notification.media.mediaId] } } ]);
@@ -126,23 +199,38 @@ export class NotificationComponent implements OnInit, OnDestroy {
    * Marking notification as read
    * @Param: notification id
    */
-  markAsRead(notificationId: string) {
-    this.notificationIds = [notificationId];
-    this.dispatchReadNotifications();
+  markAsRead() {
+    // console.log(this.notificationsList)
+    this.store.dispatch({
+      type: NotificationActions.MARK_AS_READ,
+      payload: {
+        notificationList: this.notificationsList
+      }
+    });
+  }
+
+  markAsDelete(){
+    // console.log(this.notificationsList)
+    this.store.dispatch({
+      type: NotificationActions.MARK_AS_DELETE,
+      payload: {
+        notificationList: this.notificationsList
+      }
+    });
   }
 
   /**
    * Dispatch read notification
    * @Parmas: list of notification ids
    */
-  dispatchReadNotifications() {
-    this.store.dispatch({
-      type: NotificationActions.MARK_AS_READ,
-      payload: {
-        notificationList: this.notificationIds
-      }
-    });
-  }
+  // dispatchReadNotifications() {
+  //   this.store.dispatch({
+  //     type: NotificationActions.MARK_AS_READ,
+  //     payload: {
+  //       notificationList: this.notificationIds
+  //     }
+  //   });
+  // }
 
 
   /**
@@ -165,10 +253,13 @@ export class NotificationComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.notificationType = 'all';
+   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.routerSub.unsubscribe();
   }
 
   onScroll(e) {
@@ -177,10 +268,58 @@ export class NotificationComponent implements OnInit, OnDestroy {
       this.scrollingLoad += 500
       this.page += 10
       const data = {
+        notificationType: this.notificationType,
         limit: 10,
-        page: this.page
+        offset: this.page
       }
-      this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS, payload: data });
+      this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS_BY_TYPE, payload: data });
+    }
+  }
+
+  onScrollAct(e){
+    this.scrollAct = e.currentScrollPosition;
+    if (this.scrollingLoadAct <= this.scrollAct) {
+      this.scrollingLoadAct += 500
+      this.pageAct += 10
+      const data = {
+        limit: 10,
+        offset: this.pageAct
+      }
+      this.store.dispatch({type:NotificationActions.GET_ACTIVITIES_FOR_THE_USER, payload: data});
+    }
+  }
+
+  switchtabs(tab: string){
+    this.notificationType = tab;
+    this.scrollingLoad = 251;
+    this.page = 0;
+    const reqBody = {
+      notificationType: this.notificationType,
+      limit: 10,
+      offset: 0
+    }
+    this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS_BY_TYPE, payload: reqBody });
+  }
+
+  onChange(notificationId:string, isChecked: boolean) {
+    if(isChecked && !_.includes(this.notificationsList, notificationId)){
+        this.notificationsList.push(notificationId);
+    }
+    else {
+        _.remove(this.notificationsList, item => item === notificationId);
+    }
+  }
+  selectAll(event){
+    if(!this.isSelected){
+      let i =0;
+      this.isSelected =true;
+      this.notifications.forEach( (element) => {
+          this.notificationsList[i] = element.notificationId;
+          i=i+1;
+      });
+    } else {
+      this.isSelected =false;
+      this.notificationsList = [];
     }
   }
 

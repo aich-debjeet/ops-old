@@ -23,8 +23,7 @@ import { remove as _remove } from 'lodash';
 export class ProfileChannelComponent implements OnInit, OnDestroy {
   @Input() userName: string;
   tagState$: Observable<ProfileModal>;
-  private subscription: ISubscription;
-  private channelSubscription: ISubscription;
+  private profSub: ISubscription;
   profileChannel = initialTag ;
   channelList: any;
   handle: any;
@@ -48,7 +47,7 @@ export class ProfileChannelComponent implements OnInit, OnDestroy {
     this.counter = 0;
     this.isOwner = false;
     this.tagState$ = this._store.select('profileTags');
-    this.channelSubscription = this.tagState$.subscribe((state) => {
+    this.profSub = this.tagState$.subscribe((state) => {
       this.profileChannel = state;
       this.channels = this.profileChannel.other_channel;
       if (state.profile_scrolling_channel) {
@@ -62,8 +61,7 @@ export class ProfileChannelComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // this.subscription.unsubscribe();
-    this.channelSubscription.unsubscribe();
+    this.profSub.unsubscribe();
   }
 
   checkUserType() {
@@ -124,7 +122,7 @@ export class ProfileChannelComponent implements OnInit, OnDestroy {
    * Check Profile state
    */
   checkProfile() {
-    this.subscription = this.sub = this.route.parent.parent.params.subscribe(params => {
+    this.route.parent.parent.params.subscribe(params => {
       if (params['id'] && params['id'] !== null && this.handle !== null) {
         this.userName = params['id'];
         this.isOwner = false;

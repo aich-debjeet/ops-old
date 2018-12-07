@@ -11,13 +11,13 @@
                     </div>
                 </div>
             </a>
-            <span *ngIf="checkFileType(mediaData?.repopath, 'Audio')">
+            <span *ngIf="mediaData?.mtype === 'audio'">
                 <img [src]="imageLink + 'img/svg/ico_audio.svg'" class="c-card__icon">
             </span>
-            <span *ngIf="checkFileType(mediaData?.repopath, 'Video')">
+            <span *ngIf="mediaData?.mtype === 'video'">
                 <img [src]="imageLink + 'img/svg/ico_video.svg'" class="c-card__icon">
             </span>
-            <span *ngIf="checkFileType(mediaData?.repopath, 'Image')">
+            <span *ngIf="mediaData?.mtype === 'image'">
                 <img [src]="imageLink + 'img/svg/ico_image.svg'" class="c-card__icon">
             </span>
             <div class="c-media--hover">
@@ -76,21 +76,21 @@
     <!-- card footer links -->
     <div class="c-card__links p-t-0">
         <div class="c-links">
-            <div class="c-links__spots" (click)="spotMedia(mediaData)">
-                <img *ngIf="following === false" [src]="imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
-                <img *ngIf="following === true" [src]="imageLink + 'img/svg/spot_icon.svg'" class="c-links__image">
-                <span class="c-links__count">{{ spotCount }}</span>
+            <div class="c-links__spots" (click)="spotMediaAction(mediaData)">
+                <img *ngIf="isSpotted === false" [src]="imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
+                <img *ngIf="isSpotted === true" [src]="imageLink + 'img/svg/spot_icon.svg'" class="c-links__image">
+                <span class="c-links__count">{{ spotsCount }}</span>
             </div>
             <div class="c-links__comments">
                 <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
-                <span class="c-links__count">{{ mediaData?.commentsCount }}</span>
+                <span class="c-links__count">{{ mediaData?.counts?.commentsCount }}</span>
             </div>
             <div class="c-links__actions">
-                <span class="c-links__add">
+                <!-- <span class="c-links__add">
                     <a href="javascript:void(0);">
                         <img [src]="imageLink + 'img/svg/ico_addtochannel.svg'" class="c-action__image">
                     </a>
-                </span>
+                </span> -->
                 <span class="c-links__share dropup c-dropup" appDropdown>
                     <a appDropdownOpen>
                         <img [src]="imageLink + 'img/svg/ico_share-02.svg'" class="c-action__image">

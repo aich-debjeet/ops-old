@@ -7,7 +7,8 @@
   </div>
   <!-- prelaoder -->
   <ng-container *ngIf="oppApplications && oppApplications.length > 0">
-    <app-opportunity-application-card *ngFor="let application of oppApplications" [applicationDetails]="application" (applicationAction)="submitApplicationAction($event)"></app-opportunity-application-card>
+    <app-opportunity-application-card *ngFor="let application of oppApplications" [applicationDetails]="application"
+      (applicationAction)="submitApplicationAction($event)"></app-opportunity-application-card>
   </ng-container>
   <h4 *ngIf="oppApplications && oppApplications.length === 0" class="o-apps-empty-text">No applications found!</h4>
 </div>

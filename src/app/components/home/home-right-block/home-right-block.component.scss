@@ -4,200 +4,202 @@
 @import '~sass-mq/_mq.scss';
 
 .xs-m-b-20 {
-    @include mq($from: $mobile_sm, $until: $mobile_lg){
-        margin-bottom: 20px;
-    }
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    margin-bottom: 20px;
+  }
 }
 
 .color-theme {
-    color: $color-theme !important;
+  color: $color-theme !important;
 }
 
 .user-list__li {
-    border-bottom: 1px solid #f3f3f3;
-    padding: 8px 0px;
-    a {
-        display: block;
-    }
+  border-bottom: 1px solid #f3f3f3;
+  padding: 8px 0px;
+
+  a {
+    display: block;
+  }
 }
 
 .c-text_md {
-    font-size: 13px;
-    line-height: 20px;
+  font-size: 13px;
+  line-height: 20px;
 }
 
 .c-follow__sec {
-    max-height: 350px;
-    padding-right: 8px;
-    margin: 0 8px 16px 16px;
-    overflow: auto;
+  max-height: 350px;
+  padding-right: 8px;
+  margin: 0 8px 16px 16px;
+  overflow: auto;
 }
 
 .c-invite__block {
-    margin-bottom: 16px;
-    margin-top: 8px;
+  margin-bottom: 16px;
+  margin-top: 8px;
 }
 
 .c-user__avatar {
-    display: inline-block;
-    vertical-align: middle;
-    overflow: hidden;
-    position: relative;
-    box-sizing: border-box;
-    background: #f8f8f8;
-    cursor: pointer;
-    border-radius: 50px;
-    float: left;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  background: #f8f8f8;
+  cursor: pointer;
+  border-radius: 50px;
+  float: left;
 }
 
 .c-avatar--status {
-    width: 34px;
-    height: 34px;
+  width: 34px;
+  height: 34px;
 }
 
 .c-invite--user {
-    line-height: 34px;
-    padding: 8px;
+  line-height: 34px;
+  padding: 8px;
 }
 
 .c-invite--btn {
-    float: right;
-    line-height: 30px;
+  float: right;
+  line-height: 30px;
 }
 
 .btn-default {
-    color: $color-theme;
-    background: #ffffff;
-    border-color: $color-theme;
-    text-shadow: 0 1px rgba(0, 0, 0, 0.25);
-    box-shadow: 0 1px rgba(0, 0, 0, 0.25);
+  color: $color-theme;
+  background: #ffffff;
+  border-color: $color-theme;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px rgba(0, 0, 0, 0.25);
 }
 
 .btn-sm {
-    padding: 3px 7px;
-    font-size: 11px;
-    line-height: 15px;
-    border-radius: 2px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 500;
+  padding: 3px 7px;
+  font-size: 11px;
+  line-height: 15px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
 }
 
 .c-card {
-    width: 100%;
-    height: auto;
-    float: left;
-    border-radius: 3px;
-    box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.15);
-    background-color: #ffffff;
+  width: 100%;
+  height: auto;
+  float: left;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.15);
+  background-color: #ffffff;
 }
 
 .m-t-8 {
-    margin-top: 6px !important;
-    margin-bottom: 16px;
-    margin-left: 0px;
+  margin-top: 6px !important;
+  margin-bottom: 16px;
+  margin-left: 0px;
 }
 
 .color-grey-dark {
-    color: #929292 !important;
+  color: #929292 !important;
 }
 
 .f-w_600 {
-    font-weight: 600 !important;
+  font-weight: 600 !important;
 }
 
 .ltr-space {
-    letter-spacing: 1px;
+  letter-spacing: 1px;
 }
 
 .p-16 {
-    padding: 16px !important;
+  padding: 16px !important;
 }
 
 .c-user__image {
-    width: 100%;
+  width: 100%;
 }
 
 .c-follow__seeall {
-    color: $color-theme;
-    font-size: 11px;
-    letter-spacing: 1px;
-    line-height: 15px;
-    text-align: center;
-    text-transform: uppercase;
+  color: $color-theme;
+  font-size: 11px;
+  letter-spacing: 1px;
+  line-height: 15px;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .col-md-3 {
-    float: right;
+  float: right;
 }
 
 .c-card__project {
-    font-size: 11px;
-    letter-spacing: 1px;
-    font-weight: 600;
-    line-height: 24px;
-    color: #929292;
-    text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 1px;
+  font-weight: 600;
+  line-height: 24px;
+  color: #929292;
+  text-transform: uppercase;
 }
 
 .c-card__project--icon {
-    height: 24px;
-    float: left;
+  height: 24px;
+  float: left;
 }
 
 .c-card__project--des {
-    font-size: 20px;
-    line-height: 30px;
-    color: #333333;
+  font-size: 20px;
+  line-height: 30px;
+  color: #333333;
 }
 
 .m-t-16 {
-    margin-top: 16px !important;
+  margin-top: 16px !important;
 }
 
 .padding_16 {
-    padding: 16px;
+  padding: 16px;
 }
 
 .p-l-r-16 {
-    padding-left: 16px !important;
-    padding-right: 16px !important;
+  padding-left: 16px !important;
+  padding-right: 16px !important;
 }
 
 .o-home-org-list__title {
-    width: 100%;
-    float: left;
-    padding: 16px;
-    overflow: hidden;
+  width: 100%;
+  float: left;
+  padding: 16px;
+  overflow: hidden;
 }
 
 .p-t-b-8 {
-    padding-top: 8px !important;
-    padding-bottom: 8px !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
 }
 
 .c-card__location {
-    clear: both;
-    margin: 0 16px;
-    position: relative;
+  clear: both;
+  margin: 0 16px;
+  position: relative;
 }
 
 .with_border_bottom {
-    border-bottom: solid 1px #F3F5F7;
+  border-bottom: solid 1px #F3F5F7;
 }
 
 .m-b-16 {
-    margin-bottom: 16px !important;
+  margin-bottom: 16px !important;
 }
 
 .p-b-16 {
-    padding-bottom: 16px !important;
+  padding-bottom: 16px !important;
 }
-.opp_center{
-    text-align: center;
-    padding: 10px;
+
+.opp_center {
+  text-align: center;
+  padding: 10px;
 }
 
 .wb-all {
-    word-break: break-all;
+  word-break: break-all;
 }

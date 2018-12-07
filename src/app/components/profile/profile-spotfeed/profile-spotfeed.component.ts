@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { UserSpotfeeds } from '../../../models/user-spotfeed.model';
 
@@ -15,10 +14,10 @@ import { Subscription } from 'rxjs/Subscription';
   templateUrl: './profile-spotfeed.component.html',
   styleUrls: ['./profile-spotfeed.component.scss']
 })
-export class ProfileSpotfeedComponent implements OnInit {
+export class ProfileSpotfeedComponent implements OnInit, OnDestroy {
 
   tagState$: Observable<UserSpotfeeds>;
-  private tagStateSubscription: Subscription;
+  private profSub: Subscription;
   userState;
   spotfeeds: any = [];
   baseUrl: String;
@@ -28,7 +27,7 @@ export class ProfileSpotfeedComponent implements OnInit {
   ) {
 
     this.tagState$ = this.store.select('profileTags');
-    this.tagState$.subscribe((state) => {
+    this.profSub = this.tagState$.subscribe((state) => {
       this.userState = state;
       if (this.userState.home_spotfeeds !== undefined && this.userState.home_spotfeeds.SUCCESS !== undefined) {
         this.spotfeeds = this.userState.home_spotfeeds.SUCCESS;
@@ -38,6 +37,10 @@ export class ProfileSpotfeedComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    this.profSub.unsubscribe();
   }
 
 }

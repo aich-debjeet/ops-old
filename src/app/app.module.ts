@@ -30,6 +30,7 @@ import { SearchNamePipe } from './pipes/name.pipe';
 import { SafeHtmlPipe } from './pipes/safehtml.pipe';
 // import { TruncatePipe } from './pipes/truncate.pipe';
 import { SharedPipesModule } from './pipes/shared-pipes.module';
+import { GroupByPipe } from './pipes/group-by.pipe';
 
 // Guard
 import { AuthGuard } from './guard/auth.guard';
@@ -136,6 +137,7 @@ import { BookmarkService } from './services/bookmark.service';
     NotFoundPageComponent,
     OrderByPipe,
     UniquePipe,
+    GroupByPipe,
     SearchNamePipe,
     StatusListComponent,
     PlannerComponent,

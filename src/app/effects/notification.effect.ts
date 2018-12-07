@@ -13,13 +13,21 @@ import { NotificationService } from '../services/notification.service';
 export class NotificationEffect {
 
   @Effect()
+  // notifications$ = this.actions$
+  //   .ofType(NotificationActions.GET_NOTIFICATIONS)
+  //   .map(toPayload)
+  //   .switchMap((payload) => this.apiService.getNotifications(payload)
+  //     .map(res => ({ type: NotificationActions.GET_NOTIFICATIONS_SUCCESS, payload: res }))
+  //     .catch((res) => Observable.of({ type: NotificationActions.GET_NOTIFICATIONS_FAILED, payload: res }))
+  //   );
+
   notifications$ = this.actions$
-    .ofType(NotificationActions.GET_NOTIFICATIONS)
-    .map(toPayload)
-    .switchMap((payload) => this.apiService.getNotifications(payload)
-      .map(res => ({ type: NotificationActions.GET_NOTIFICATIONS_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: NotificationActions.GET_NOTIFICATIONS_FAILED, payload: res }))
-    );
+  .ofType(NotificationActions.GET_NOTIFICATIONS_BY_TYPE)
+  .map(toPayload)
+  .switchMap((payload) => this.apiService.getNotifications(payload)
+    .map(res => ({ type: NotificationActions.GET_NOTIFICATIONS_BY_TYPE_SUCCESS, payload: res }))
+    .catch((res) => Observable.of({ type: NotificationActions.GET_NOTIFICATIONS_BY_TYPE_FAILED, payload: res }))
+  );
 
   @Effect()
   notificationRead$ = this.actions$
@@ -39,6 +47,23 @@ export class NotificationEffect {
       .catch((res) => Observable.of({ type: NotificationActions.MARK_AS_ALL_READ_FAILED, payload: res }))
     );
 
+    @Effect()
+    notificationDelete$ = this.actions$
+      .ofType(NotificationActions.MARK_AS_DELETE)
+      .map(toPayload)
+      .switchMap((payload) => this.apiService.notificationDelete(payload)
+        .map(res => ({ type: NotificationActions.MARK_AS_DELETE_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: NotificationActions.MARK_AS_DELETE_FAILED, payload: res }))
+      );
+
+    @Effect()
+    getActivities$ = this.actions$
+      .ofType(NotificationActions.GET_ACTIVITIES_FOR_THE_USER)
+      .map(toPayload)
+      .switchMap((payload) => this.apiService.getActivities(payload)
+        .map(res => ({ type: NotificationActions.GET_ACTIVITIES_FOR_THE_USER_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: NotificationActions.GET_ACTIVITIES_FOR_THE_USER_FAILED, payload: res }))
+      );
   constructor(
     private actions$: Actions,
     private apiService: NotificationService

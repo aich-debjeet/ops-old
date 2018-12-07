@@ -1,23 +1,13 @@
 import { Component, OnInit, AfterViewChecked, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { IDatePickerConfig } from 'ng2-date-picker';
-
-// toastr service
 import { ToastrService } from 'ngx-toastr';
-
-// store
 import { Store } from '@ngrx/store';
-
-// rxjs
 import { Observable } from 'rxjs/Observable';
-import { ISubscription } from 'rxjs/Subscription';
-
+import { Subscription } from 'rxjs/Subscription';
 import { environment } from '../../../../environments/environment';
 import { ScrollHelper } from '../../../helpers/scroll.helper';
 import { GeneralUtilities } from '../../../helpers/general.utils';
-
-// opportunity imports
 import { OpportunityActions } from 'app/actions/opportunity.action';
 import { OpportunityModel } from 'app/models/opportunity.model';
 
@@ -31,8 +21,8 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
   baseUrl = environment.API_IMAGE;
   userHandle: any;
   public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
-  private oppSub: ISubscription;
-  private loginSub: ISubscription;
+  private oppSub: Subscription;
+  private loginSub: Subscription;
   oppState: Observable<OpportunityModel>;
   loginState: Observable<any>;
   oppSaved = false;
@@ -77,7 +67,6 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
     private oppStore: Store<OpportunityModel>,
     private router: Router
   ) {
-
     this.oppState = this.oppStore.select('opportunityTags');
     this.oppSub = this.oppState.subscribe((state) => {
       if (state) {
