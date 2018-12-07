@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { ExploreActions } from '../../../actions/explore.action';
 import { ExploreModel } from '../../../models/explore.model';
 import { ToastrService } from 'ngx-toastr';
+import { NgxMasonryOptions } from 'ngx-masonry';
 
 @Component({
   selector: 'app-explore-posts',
@@ -11,6 +12,9 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ExplorePostsComponent implements OnInit {
   @Input() posts: any;
+  masonryOptions: NgxMasonryOptions = {
+    transitionDuration: '0s',
+  };
 
   constructor(
     private exploreStore: Store<ExploreModel>,

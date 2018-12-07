@@ -51,7 +51,7 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
   scrollId: string;
   @ViewChild('deleteModal') deleteModal: Modal;
 
-  myOptions: NgxMasonryOptions = {
+  masonryOptions: NgxMasonryOptions = {
     transitionDuration: '0s',
   };
 

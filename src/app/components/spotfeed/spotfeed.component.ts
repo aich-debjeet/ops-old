@@ -1,17 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-
 import { ProfileActions } from './../../actions/profile.action';
 import { Spotfeed } from './../../models/profile.model';
-
-// rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-
 import * as _ from 'lodash';
-
 import { environment } from './../../../environments/environment'
+import { NgxMasonryOptions } from 'ngx-masonry';
 
 @Component({
   selector: 'app-spotfeed',
@@ -29,6 +24,9 @@ export class SpotfeedComponent {
   page_end = 20;
   scrolling = 0;
   scrollingLoad = 2000;
+  masonryOptions: NgxMasonryOptions = {
+    transitionDuration: '0s',
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -50,8 +48,8 @@ export class SpotfeedComponent {
           // remove loggedn in user profile
           // filtering artists duplicate profiles
           const currentUserHandle = this.userState.profile_navigation_details.handle;
-          this.spotfeedDetails.spotfeedProfiles = _.remove(this.spotfeedDetails.spotfeedProfiles, function(currentObject) {
-              return currentObject.handle !== currentUserHandle;
+          this.spotfeedDetails.spotfeedProfiles = _.remove(this.spotfeedDetails.spotfeedProfiles, function (currentObject) {
+            return currentObject.handle !== currentUserHandle;
           });
           // filtering artists duplicate profiles
           this.spotfeedDetails.spotfeedProfiles = _.uniqBy(this.spotfeedDetails.spotfeedProfiles, 'handle');
@@ -92,14 +90,6 @@ export class SpotfeedComponent {
       page_end: this.page_end
     }
     this._store.dispatch({ type: ProfileActions.GET_SPOTFEED_DETAILS, payload: data });
-  }
-
-  /**
-   * Follow a user
-   * @param userObject
-   */
-  followUser(userObject: any) {
-    //
   }
 
   onScroll(e) {
