@@ -133,13 +133,28 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
       });
 
     case NotificationActions.GET_ACTIVITIES_FOR_THE_USER:
+    console.log(payload);
+    if(payload.offset === 0){
+      return Object.assign({}, state, {
+        recived_activities: false,
+        activity_list:[]
+      });
+    } else {
       return Object.assign({}, state, {
         recived_activities: false
       });
+    }
 
     case NotificationActions.GET_ACTIVITIES_FOR_THE_USER_SUCCESS:
+    console.log(payload);
+    let list =[]
+    if(state['activity_list'].length > 0){
+      list = [...state['activity_list'], ...payload];
+    } else {
+      list = payload;
+    }
       return Object.assign({}, state, {
-        activity_list: payload,
+        activity_list: list,
         recived_activities: true
       });
 

@@ -3,6 +3,22 @@
 @import '~sass-mq/_mq.scss';
 /* ------------------------- Notification css --------------------------- */
 
+#ops_scrollbar1::-webkit-scrollbar-track, #ops_scrollbar2::-webkit-scrollbar-track {
+    background-color: #e5e5e5;
+    border-radius: 5px;
+}
+
+#ops_scrollbar1::-webkit-scrollbar, #ops_scrollbar2::-webkit-scrollbar {
+    width: 8px;
+    border-radius: 50px;
+    background-color: #F3F5F7;
+}
+
+#ops_scrollbar1::-webkit-scrollbar-thumb, #ops_scrollbar2::-webkit-scrollbar-thumb {
+    background-color: #c1c1c1;
+    border-radius: 50px;
+}
+
 .not_block {
     width: 100%;
     float: left;
@@ -253,6 +269,7 @@
     height: 540px;
 }
 
-// .text-underline{
-//     text-decoration: underline!important;
-// }
+.act_scroll{
+    overflow-y: scroll;
+    height: 608px;
+}

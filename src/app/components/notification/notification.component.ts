@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, HostListener, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
-// rx
+// rx,
 import { Observable } from 'rxjs/Observable';
 import { Subscription, ISubscription } from 'rxjs/Subscription';
 
@@ -22,6 +22,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   notificationsState$: Observable<Notification>;
   private subscription: ISubscription;
+  private routerSub: ISubscription;
   formattedNotifications: any[];
   notificationIds: any[];
   notifications: any[];
@@ -31,8 +32,11 @@ export class NotificationComponent implements OnInit, OnDestroy {
   lastScrollTop = 0;
   showPreloader: boolean;
   scrolling = 0;
+  scrollAct = 0;
   scrollingLoad = 251;
+  scrollingLoadAct = 180;
   page = 0;
+  pageAct = 0;
   notificationType: string;
   isSelected = false;
   notificationsList = [];
@@ -41,7 +45,8 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<Notification>,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
   ) {
 
     // image path
@@ -61,7 +66,8 @@ export class NotificationComponent implements OnInit, OnDestroy {
           this.processNotifications();
         }
         if(state['activity_list']){
-          this.activities= state['activity_list']
+          this.activities= state['activity_list'];
+          this.processActivities();
         }
         if (state && state['requesting_notifications'] === true) {
           this.showPreloader = false;
@@ -80,8 +86,43 @@ export class NotificationComponent implements OnInit, OnDestroy {
         }});
       }
     });
+    this.routerSub = this.route
+      .queryParams
+      .subscribe(params => {
+        // Defaults to 0 if no query param provided.
+    console.log(params)
+      });
   }
 
+  processActivities(){
+    if(this.activities.length > 0){
+      for(let i = 0; i < this.activities.length; i++){
+        switch(this.activities[i].activityType){
+          case 'Following':
+            this.activities[i].message = 'has started following ' + this.activities[i].notificationResponse.name;
+            break;
+          case 'Media_Spot':
+            this.activities[i].message = 'has spotted a post of ' + this.activities[i].notificationResponse.name;
+            break;
+          case 'Media_Comments':
+            this.activities[i].message = 'has commented on a post of ' + this.activities[i].notificationResponse.name ;
+            break;
+          case 'Network_Sent':
+            this.activities[i].message = 'has sent a network request to ' + this.activities[i].notificationResponse.name;
+            break;
+          case 'Network_Accepted':
+            this.activities[i].message = 'has accepted a network request sent by ' + this.activities[i].notificationResponse.name;
+            break;
+          case 'Status_Spot':
+            this.activities[i].message = 'has spotted a post of ' + this.activities[i].notificationResponse.name;
+            break;
+          case 'Status_Comments':
+            this.activities[i].message = 'has commented on a post of ' + this.activities[i].notificationResponse.name;
+            break;
+        }
+      }
+    }
+  }
   // message maker
   processNotifications() {
     if (this.notifications.length > 0) {
@@ -216,6 +257,20 @@ export class NotificationComponent implements OnInit, OnDestroy {
         offset: this.page
       }
       this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS_BY_TYPE, payload: data });
+    }
+  }
+
+  onScrollAct(e){
+    console.log('e', e);
+    this.scrollAct = e.currentScrollPosition;
+    if (this.scrollingLoadAct <= this.scrollAct) {
+      this.scrollingLoadAct += 500
+      this.pageAct += 10
+      const data = {
+        limit: 10,
+        offset: this.pageAct
+      }
+      this.store.dispatch({type:NotificationActions.GET_ACTIVITIES_FOR_THE_USER, payload: data});
     }
   }
 
