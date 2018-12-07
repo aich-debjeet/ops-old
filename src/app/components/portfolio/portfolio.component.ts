@@ -14,6 +14,7 @@ import { filter as _filter } from 'lodash';
 import { findIndex as _findIndex } from 'lodash';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { NgxMasonryOptions } from 'ngx-masonry';
 
 @Component({
   selector: 'app-portfolio',
@@ -67,6 +68,9 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   catNameIsRequired = false;
   portfolioUserProfileLoaded = false;
   portfolioMediaLoaded = false;
+  masonryOptions: NgxMasonryOptions = {
+    transitionDuration: '0s',
+  };
 
   constructor(
     private fb: FormBuilder,

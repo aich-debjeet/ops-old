@@ -10,7 +10,9 @@
         <div class="col-md-12">
             <div class="row" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="10" (scrolled)="onScroll($event)">
                 <!-- image column -->
-                <ngx-masonry [useImagesLoaded]="true">
+                <ngx-masonry
+                    [options]="masonryOptions"
+                    [useImagesLoaded]="true">
                     <ngx-masonry-item class="col-md-3 p-l-r-8" *ngFor="let media of mediaList; let i = index">
                         <app-post-card (postDelete)="deletePost(media)" (onClick)="mediaOpenPopup(media.id)" [mediaData]="media"></app-post-card>
                     </ngx-masonry-item>

@@ -14,6 +14,7 @@ import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
+import { NgxMasonryOptions } from 'ngx-masonry';
 
 @Component({
   selector: 'app-search-post',
@@ -26,6 +27,9 @@ export class SearchPostComponent implements OnInit, OnDestroy {
   searchState: any;
   baseUrl: string;
   showPreloader = true;
+  masonryOptions: NgxMasonryOptions = {
+    transitionDuration: '0s',
+  };
 
   posts: any[];
 

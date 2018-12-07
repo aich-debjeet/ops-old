@@ -13,6 +13,7 @@ import { SharedActions } from '../../../actions/shared.action';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { ToastrService } from 'ngx-toastr';
+import { NgxMasonryOptions } from 'ngx-masonry';
 
 @Component({
   selector: 'app-popular-list',
@@ -35,6 +36,9 @@ export class PopularListComponent implements OnInit {
   imageBaseUrl = environment.API_IMAGE;
   deleteMsg = true;
   mediaList: any;
+  masonryOptions: NgxMasonryOptions = {
+    transitionDuration: '0s',
+  };
 
   constructor(
     private _store: Store<Media>,

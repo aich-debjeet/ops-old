@@ -1,74 +1,71 @@
 <app-navigation></app-navigation>
 <section>
-    <div class="container spotfeed_inner">
-        <!---  section  -->
-        <div class="row">
-            <div class="col-md-3">
-                <img [src]="baseUrl + spotfeedDetails?.spotfeedImage" class="img-responsive img-rounded img-thumbnail">
-            </div>
-            <div class="col-md-6">
-                <div class="ops_h1">{{ spotfeedDetails?.spotfeedName }}</div>
-                <div class="ops_heading2 spot_in_toptext">
-                    {{ spotfeedDetails?.spotfeedDescription }}
-                </div>
-                <a (click)="loadSpotfeed(tag)" class="btn btn-tag btn-sm" *ngFor="let tag of spotfeedDetails?.spotfeedTags" >{{ tag }}</a>
-            </div>
-            <div class="col-md-3"></div>
+  <div class="container spotfeed_inner">
+    <!---  section  -->
+    <div class="row">
+      <div class="col-md-3">
+        <img [src]="baseUrl + spotfeedDetails?.spotfeedImage" class="img-responsive img-rounded img-thumbnail">
+      </div>
+      <div class="col-md-6">
+        <div class="ops_h1">{{ spotfeedDetails?.spotfeedName }}</div>
+        <div class="ops_heading2 spot_in_toptext">
+          {{ spotfeedDetails?.spotfeedDescription }}
         </div>
-        <!-- artist to follow -->
-        <div class="row">
-          <ul class="list-inline spot_in_head">
-              <li class="list-inline-item ops_heading text_uppercase">artists to follow</li>
-          </ul>
-          <div class="col-md-12 ops_artist_follow myBlock">
-            <!-- ---------- card ---------- -->
-            <div *ngIf="spotfeedDetails?.spotfeedProfiles && spotfeedDetails?.spotfeedProfiles.length > 0" >
-              <div class="row">
-                <div class="col-md-2 " *ngFor="let artist of spotfeedDetails?.spotfeedProfiles" >
-                  <app-user-card [artist]="artist"></app-user-card>
-                </div>
-              </div>
-            </div>
-            <!-- ---------- //card ---------- -->
-            <div class="emptyState" *ngIf="spotfeedDetails?.spotfeedProfiles && spotfeedDetails?.spotfeedProfiles.length === 0" >
-                <h4 class="emptyState__heading empty-fields">There are no profiles in the Spotfeed</h4>
+        <a (click)="loadSpotfeed(tag)" class="btn btn-tag btn-sm" *ngFor="let tag of spotfeedDetails?.spotfeedTags">{{
+          tag }}</a>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+    <!-- artist to follow -->
+    <div class="row">
+      <ul class="list-inline spot_in_head">
+        <li class="list-inline-item ops_heading text_uppercase">artists to follow</li>
+      </ul>
+      <div class="col-md-12 ops_artist_follow myBlock">
+        <!-- ---------- card ---------- -->
+        <div *ngIf="spotfeedDetails?.spotfeedProfiles && spotfeedDetails?.spotfeedProfiles.length > 0">
+          <div class="row">
+            <div class="col-md-2 " *ngFor="let artist of spotfeedDetails?.spotfeedProfiles">
+              <app-user-card [artist]="artist"></app-user-card>
             </div>
           </div>
         </div>
-        <!-- // -->
-        <!-- follow channels -->
-        <div class="row">
-            <ul class="list-inline spot_in_head">
-                <li class="list-inline-item ops_heading text_uppercase">Post</li>
-                <li class="list-inline-item float_right hide">
-                  <a href="#"><span class="post-icons"><img [src]="baseUrl + 'img/svg/ico-image-black.svg'" alt=""></span></a>
-                  <a href="#"><span class="post-icons"><img [src]="baseUrl + 'img/svg/ico-play-gray.svg'" alt=""></span></a>
-                  <a href="#"><span class="post-icons"><img [src]="baseUrl + 'img/svg/ico-audio-black.svg'" alt=""></span></a>
-                  <a href="#"><span class="post-icons"><img [src]="baseUrl + 'img/svg/ico-blog-black.svg'" alt=""></span></a>
-                </li>
-            </ul>
-            <div class="col-md-12">
-                <div class="row">
-                    <div
-                    infiniteScroll
-                    [infiniteScrollDistance]="2"
-                    [infiniteScrollThrottle]="10"
-                    (scrolled)="onScroll($event)"
-                    *ngIf="spotfeedDetails?.spotfeedMedia && (spotfeedDetails?.spotfeedMedia)?.length > 0" >
-                        <ngx-masonry [useImagesLoaded]="true">
-                            <ngx-masonry-item class="col-md-3" *ngFor="let post of spotfeedDetails?.spotfeedMedia; let i = index">
-                                <app-post-card  (postDelete)="deletePost(media)" (onClick)="mediaOpenPopup(media.id)" [mediaData]="post"></app-post-card>
-                            </ngx-masonry-item>
-                        </ngx-masonry>
-                    </div>
-
-                    <div class="col-md-12" *ngIf="(spotfeedDetails?.spotfeedMedia)?.length == 0">
-                        <div class="emptyState" >
-                            <h4 class="emptyState__heading empty-fields">There are no feed in the Spotfeed</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- ---------- //card ---------- -->
+        <div class="emptyState" *ngIf="spotfeedDetails?.spotfeedProfiles && spotfeedDetails?.spotfeedProfiles.length === 0">
+          <h4 class="emptyState__heading empty-fields">There are no profiles in the Spotfeed</h4>
         </div>
+      </div>
     </div>
+    <!-- // -->
+    <!-- follow channels -->
+    <div class="row">
+      <ul class="list-inline spot_in_head">
+        <li class="list-inline-item ops_heading text_uppercase">Post</li>
+        <li class="list-inline-item float_right hide">
+          <a href="#"><span class="post-icons"><img [src]="baseUrl + 'img/svg/ico-image-black.svg'" alt=""></span></a>
+          <a href="#"><span class="post-icons"><img [src]="baseUrl + 'img/svg/ico-play-gray.svg'" alt=""></span></a>
+          <a href="#"><span class="post-icons"><img [src]="baseUrl + 'img/svg/ico-audio-black.svg'" alt=""></span></a>
+          <a href="#"><span class="post-icons"><img [src]="baseUrl + 'img/svg/ico-blog-black.svg'" alt=""></span></a>
+        </li>
+      </ul>
+      <div class="col-md-12">
+        <div class="row">
+          <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="10" (scrolled)="onScroll($event)"
+            *ngIf="spotfeedDetails?.spotfeedMedia && (spotfeedDetails?.spotfeedMedia)?.length > 0">
+            <ngx-masonry [options]="masonryOptions" [useImagesLoaded]="true">
+              <ngx-masonry-item class="col-md-3" *ngFor="let post of spotfeedDetails?.spotfeedMedia; let i = index">
+                <app-post-card (postDelete)="deletePost(media)" (onClick)="mediaOpenPopup(media.id)" [mediaData]="post"></app-post-card>
+              </ngx-masonry-item>
+            </ngx-masonry>
+          </div>
+
+          <div class="col-md-12" *ngIf="(spotfeedDetails?.spotfeedMedia)?.length == 0">
+            <div class="emptyState">
+              <h4 class="emptyState__heading empty-fields">There are no feed in the Spotfeed</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
