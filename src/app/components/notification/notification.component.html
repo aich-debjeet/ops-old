@@ -13,8 +13,8 @@
                     <li class="o-noti-tab" [ngClass]="{'active':notificationType === 'comments'}">
                         <a data-toggle="tab" (click)="switchtabs('comments')" aria-expanded="false">Comments</a>
                     </li>
-                    <li class="o-noti-tab" [ngClass]="{'active':notificationType === 'others'}">
-                        <a data-toggle="tab" (click)="switchtabs('others')" aria-expanded="false">Others</a>
+                    <li class="o-noti-tab" [ngClass]="{'active':notificationType === 'other'}">
+                        <a data-toggle="tab" (click)="switchtabs('other')" aria-expanded="false">Other</a>
                     </li>
                     <div class="c-text_md color-theme pull-right m-t-16">{{notificationCount}} Notifications</div>
                 </ul>
@@ -174,7 +174,7 @@
                             </div>
                         </ng-container>
                     </div>
-                    <div id="04" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'others'">
+                    <div id="04" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'other'">
                         <div class="row p-l-24 p-l-16 p-t-b-8">
                             <div class="col-md-10 c-text_md c-checkbox__md2 p-l-0">
                                 <label class="checkbox-inline p-l-0 m-t-8">

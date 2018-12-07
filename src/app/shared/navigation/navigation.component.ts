@@ -310,10 +310,11 @@ export class NavigationComponent implements OnInit, OnDestroy {
   loadNotifsInitialSet() {
     console.log('loadNotifsInitialSet');
     const data = {
+      notificationType: 'all',
       limit: 10,
-      page: 0
+      offset: 0
     }
-    this.notificationStore.dispatch({ type: NotificationActions.GET_NOTIFICATIONS, payload: data });
+    this.notificationStore.dispatch({ type: NotificationActions.GET_NOTIFICATIONS_BY_TYPE, payload: data });
   }
 
   /**

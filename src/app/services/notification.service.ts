@@ -36,7 +36,6 @@ export class NotificationService {
    * @param req
    */
   getNotifications(data: any) {
-    console.log(data)
     return this.api.put('/portal/network/notification/getNotificationByCategory', data);
   }
 

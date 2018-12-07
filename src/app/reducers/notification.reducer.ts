@@ -35,7 +35,6 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
     //   });
 
       case NotificationActions.GET_NOTIFICATIONS_BY_TYPE:
-      console.log(payload)
       if(payload.offset === 0){
         return Object.assign({}, state, {
           requesting_notifications: true,
@@ -52,7 +51,6 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
       }
 
     case NotificationActions.GET_NOTIFICATIONS_BY_TYPE_SUCCESS:
-    console.log(payload)
       let updated_notifications;
       if (state['recieved_notifications'] && state['recieved_notifications'].length > 0) {
         updated_notifications = [...state.recieved_notifications, ...payload.SUCCESS];
@@ -101,13 +99,11 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
       });
 
     case NotificationActions.MARK_AS_DELETE:
-    console.log(payload);
       return Object.assign({}, state, {
         noti_delete: false,
         noti_delete_id: payload
       });
     case NotificationActions.MARK_AS_DELETE_SUCCESS:
-    console.log(payload)
       return Object.assign({}, state, {
         noti_delete: true,
         recieved_notifications: state.recieved_notifications.filter(function(el){
@@ -133,7 +129,6 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
       });
 
     case NotificationActions.GET_ACTIVITIES_FOR_THE_USER:
-      console.log(payload);
       if(payload.offset === 0){
         return Object.assign({}, state, {
           recived_activities: false,
@@ -146,7 +141,6 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
       }
 
     case NotificationActions.GET_ACTIVITIES_FOR_THE_USER_SUCCESS:
-      console.log(payload);
       let list =[]
       if(state['activity_list'].length > 0){
         list = [...state['activity_list'], ...payload];

@@ -62,7 +62,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
     this.subscription = this.notificationsState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
         if (typeof state['recieved_notifications'] !== 'undefined') {
-          console.log('state', state);
+          // console.log('state', state);
           this.notifications = state['recieved_notifications'];
           this.notificationCount = state['notification_count']
           // check is unread notification exits else mark all notifications as read
@@ -104,7 +104,6 @@ export class NotificationComponent implements OnInit, OnDestroy {
           this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS_BY_TYPE, payload: reqBodyNotification });
           this.store.dispatch({type:NotificationActions.GET_ACTIVITIES_FOR_THE_USER,payload: { offset:0,limit:10}});
           }
-          console.log(this.route);
           this.triggerApi = false;
         }
       }
@@ -176,7 +175,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
    * Open respective link
    */
   openLink(notification: any) {
-    console.log(notification)
+    // console.log(notification)
     switch (notification.notificationType) {
       case 'Media_Spot':
         this.router.navigate([{ outlets: { media : ['media', notification.media.mediaId] } } ]);
@@ -201,7 +200,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
    * @Param: notification id
    */
   markAsRead() {
-    console.log(this.notificationsList)
+    // console.log(this.notificationsList)
     this.store.dispatch({
       type: NotificationActions.MARK_AS_READ,
       payload: {
@@ -211,7 +210,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
   }
 
   markAsDelete(){
-    console.log(this.notificationsList)
+    // console.log(this.notificationsList)
     this.store.dispatch({
       type: NotificationActions.MARK_AS_DELETE,
       payload: {
@@ -224,14 +223,14 @@ export class NotificationComponent implements OnInit, OnDestroy {
    * Dispatch read notification
    * @Parmas: list of notification ids
    */
-  dispatchReadNotifications() {
-    this.store.dispatch({
-      type: NotificationActions.MARK_AS_READ,
-      payload: {
-        notificationList: this.notificationIds
-      }
-    });
-  }
+  // dispatchReadNotifications() {
+  //   this.store.dispatch({
+  //     type: NotificationActions.MARK_AS_READ,
+  //     payload: {
+  //       notificationList: this.notificationIds
+  //     }
+  //   });
+  // }
 
 
   /**
@@ -260,10 +259,10 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.routerSub.unsubscribe();
   }
 
   onScroll(e) {
-    console.log(e)
     this.scrolling = e.currentScrollPosition;
     if (this.scrollingLoad <= this.scrolling) {
       this.scrollingLoad += 500
@@ -278,7 +277,6 @@ export class NotificationComponent implements OnInit, OnDestroy {
   }
 
   onScrollAct(e){
-    console.log('e', e);
     this.scrollAct = e.currentScrollPosition;
     if (this.scrollingLoadAct <= this.scrollAct) {
       this.scrollingLoadAct += 500
@@ -304,7 +302,6 @@ export class NotificationComponent implements OnInit, OnDestroy {
   }
 
   onChange(notificationId:string, isChecked: boolean) {
-    console.log(notificationId,isChecked)
     if(isChecked && !_.includes(this.notificationsList, notificationId)){
         this.notificationsList.push(notificationId);
     }
@@ -313,12 +310,10 @@ export class NotificationComponent implements OnInit, OnDestroy {
     }
   }
   selectAll(event){
-    console.log(event)
     if(!this.isSelected){
       let i =0;
       this.isSelected =true;
       this.notifications.forEach( (element) => {
-        console.log(element)
           this.notificationsList[i] = element.notificationId;
           i=i+1;
       });
