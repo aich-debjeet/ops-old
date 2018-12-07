@@ -1,194 +1,243 @@
 <app-navigation></app-navigation>
-
-<main class="container-fulid outer_container">
-  <section class="notification_block">
-    <div class="container">
-      <!-- registraion middle container -->
-      <div class="row notification_block_container">
-        <!-- left section -->
-        <div class="col-md-12 noti_block">
-          <div class="noti_left" id="ops_scrollbar" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="1000" [infiniteScrollContainer]="'#ops_scrollbar'"
-            (scrolled)="onScroll($event)">
-            <ul class="noti_details">
-              <li class="with_border_bottom">
-                <ul class="list-inline">
-                  <li class="list-inline-item header_ym">
-                    <a>Notifications</a>
-                  </li>
-                  <li class="list-inline-item pull-right header_compose">
-                    <a *ngIf="notifications?.length > 0" (click)="markAllAsRead()">Mark all as read</a>
-                  </li>
+<section class="container container-fulid outer_container">
+    <div class="col-xs-12 col-md-9 p-0">
+        <div class="not_block">
+            <div class="c-ops__tabs3">
+                <ul class="nav nav-tabs p-t-b-16 p-l-r-24">
+                    <li class="o-noti-tab" [ngClass]="{'active':notificationType === 'all'}">
+                        <a data-toggle="tab" (click)="switchtabs('all')" aria-expanded="true" class="p-l-0">All</a>
+                    </li>
+                    <li class="o-noti-tab" [ngClass]="{'active':notificationType === 'spots'}">
+                        <a data-toggle="tab" (click)="switchtabs('spots')" aria-expanded="false">Spots</a>
+                    </li>
+                    <li class="o-noti-tab" [ngClass]="{'active':notificationType === 'comments'}">
+                        <a data-toggle="tab" (click)="switchtabs('comments')" aria-expanded="false">Comments</a>
+                    </li>
+                    <li class="o-noti-tab" [ngClass]="{'active':notificationType === 'other'}">
+                        <a data-toggle="tab" (click)="switchtabs('other')" aria-expanded="false">Other</a>
+                    </li>
+                    <div class="c-text_md color-theme pull-right m-t-16">{{notificationCount}} Notifications</div>
                 </ul>
-              </li>
-              <ng-container *ngIf="notifications?.length > 0; else loadingNotifs">
-                <li class="with_border_bottom cursor-pointer" *ngFor="let notification of notifications; let notifIndex = index;" [ngClass]="{'fill_grey': !notification.isRead}"
-                  (click)="openLink(notification)">
-                  <ul class="list-inline">
-                    <li class="list-inline-item float_left noti_avatar" [routerLink]="['', 'profile', 'u', notification.username, 'user']">
-                      <img *ngIf="!notification.profileImage" [src]="baseUrl + 'img/avatar.png'" class="img-responsive">
-                      <img *ngIf="notification.profileImage" [src]="baseUrl + notification.profileImage" class="img-responsive">
-                    </li>
-                    <!-- <li class="list-inline-item noti_cont cursor-pointer" (click)="openLink(notifIndex, notification.notificationId)" > -->
-                    <li class="list-inline-item noti_cont cursor-pointer">
-                      <div class="head_msg_name">
-                        <a [routerLink]="['', 'profile', 'u', notification.username, 'user']">
-                          {{ notification.name }}
-                        </a>
-                      </div>
-                      <div class="head_msg_short">{{ notification.message }}</div>
-                      <div class="noti_cont_footer">
-                        <img *ngIf="notification?.notificationType == 'Status_Comments' || notification?.notificationType == 'Media_Comments'" [src]="baseUrl + 'img/svg/ico_comment.svg'"
-                          class="noti_cont_footer_img">
-                        <img *ngIf="notification?.notificationType == 'Media_Spot'" [src]="baseUrl + 'img/svg/ico_spot.svg'" class="noti_cont_footer_img">
-                        <span>{{ notification.createdDate | utcDate | date:'d MMM hh:mm a' }}</span>
-                      </div>
-                    </li>
-                    <!-- <li class="list-inline-item noti_cont_time">
-                      <div class="msg_time">
-                        <img [src]="baseUrl + 'img/svg/ico_lik.svg'" class="img-responsive">
-                      </div>
-                    </li> -->
-                  </ul>
-                </li>
-              </ng-container>
-              <ng-template #loadingNotifs>
-                <div *ngFor="let n of [0,1,2,3]" class="not_block2">
-                  <div class=" pl_avatar40">
-                  </div>
-                  <div class="not_block2_details">
-                    <div class="not_block2_comm float_left">
-                      <div class="pl_username"></div>
+                <div class="tab-content">
+                    <div class="noti_left" id="ops_scrollbar1" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="1000" [infiniteScrollContainer]="'#ops_scrollbar1'"
+                    (scrolled)="onScroll($event)">
+                    <div id="01" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'all'">
+                        <div class="row p-l-24 p-l-16 p-t-b-8">
+                            <div class="col-xs-6 col-md-9 c-text_md c-checkbox__md2 p-l-0">
+                                <label class="checkbox-inline p-l-0 m-t-8">
+                                    <input type="checkbox" value="all" name="all" class="c-form__bar2" (change)="selectAll($event)"> Select all
+                                </label>
+                            </div>
+                            <div class="col-xs-6 col-md-3">
+                                <div class="dropdown c-dropdown text-right" appDropdown>
+                                    <a class="noti-action dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" appDropdownOpen>Actions
+                                    <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                    <li><a (click)="markAsRead()">Mark as read</a></li>
+                                    <li><a (click)="markAsDelete()">Delete</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <ng-container *ngFor="let notification of notifications | groupBy:'date'">
+                            <div class="row">
+                                <div class="not_date">{{ notification.key | date}}</div>
+                            </div>
+                            <div class="row not_block_main" *ngFor="let noti of notification.value" [ngClass]="{'fill_grey': !noti.isRead}">           
+                                
+                                    <div class="not_block1 c-checkbox__md2">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" value="1" [checked]="isSelected" (change)="onChange(noti.notificationId, $event.target.checked)">
+                                        </label>
+                                    </div>
+                                    <div class="not_block2 p-t-b-16">
+                                        <div class="not_avatar_img" [routerLink]="['', 'profile', 'u', noti.username, 'user']">
+                                            <img *ngIf="!noti.profileImage" class="navdrop__img" [src]="baseUrl + 'img/avatar2.png'">
+                                            <img *ngIf="noti.profileImage" [src]="baseUrl + noti.profileImage" class="navdrop__img">
+                                        </div>
+                                        <div class="not_block2_details">
+                                            <div class="not_block2_comm"><span class="color-grey-darker">{{noti.name }}</span><a class="text_undrline" (click)="openLink(noti)">{{ noti.message }}</a></div>
+                                            <div class="not_block2_tim">
+                                                <img *ngIf="noti?.notificationType == 'Status_Comments' || noti?.notificationType == 'Media_Comments'" [src]="baseUrl + 'img/svg/ico_comment.svg'">
+                                                <img *ngIf="noti?.notificationType == 'Media_Spot' || noti?.notificationType == 'Status_Spot'" [src]="baseUrl + 'img/svg/spot_icon.svg'">
+                                                {{ noti.createdDate | utcDate | date:'d MMM hh:mm a' }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="not_block3 p-t-b-16" *ngIf="(noti.media | json) != '{}' && noti.media.mType !== 'status'">
+                                        <a class="not_block3_img" (click)="openLink(noti)">
+                                            <img [src]="baseUrl + noti.media.thumbNails.mediumSmall">
+                                        </a>
+                                    </div>
+                            </div>
+                        </ng-container>
                     </div>
-                    <div class="not_block2_tim float_left">
-                      <div class="pl_block_height12"></div>
+                    <div id="02" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'spots'">
+                        <div class="row p-l-24 p-l-16 p-t-b-8">
+                            <div class="col-md-10 c-text_md c-checkbox__md2 p-l-0">
+                                <label class="checkbox-inline p-l-0 m-t-8">
+                                    <input type="checkbox" value="1" class="c-form__bar2"> Select all
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="c-form__group m-0 c-dropdown_icon m-l-24">
+                                    <div class="dropdown c-dropdown text-right" appDropdown>
+                                        <a class="noti-action dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" appDropdownOpen>Actions
+                                        <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                        <li><a (click)="markAsRead()">Mark as read</a></li>
+                                        <li><a (click)="markAsDelete()">Delete</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ng-container *ngFor="let notification of notifications | groupBy:'date'">
+                            <div class="row">
+                                <div class="not_date">{{ notification.key | date}}</div>
+                            </div>
+                            <div class="row not_block_main" *ngFor="let noti of notification.value" [ngClass]="{'fill_grey': !noti.isRead}">
+                                <div class="not_block1 c-checkbox__md2">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" value="1" [checked]="isSelected" (change)="onChange(noti.notificationId, $event.target.checked)">
+                                    </label>
+                                </div>
+                                <div class="not_block2 p-t-b-16">
+                                    <div class="not_avatar_img" [routerLink]="['', 'profile', 'u', noti.username, 'user']">
+                                        <img *ngIf="!noti.profileImage" class="navdrop__img" [src]="baseUrl + 'img/avatar2.png'">
+                                        <img *ngIf="noti.profileImage" [src]="baseUrl + noti.profileImage" class="navdrop__img">
+                                    </div>
+                                    <div class="not_block2_details">
+                                        <div class="not_block2_comm"><span class="color-grey-darker">{{ noti.name }}</span><a class="text_undrline" (click)="openLink(noti)">{{ noti.message }}</a></div>
+                                        <div class="not_block2_tim">
+                                            <img *ngIf="noti?.notificationType == 'Media_Spot'" [src]="baseUrl + 'img/svg/spot_icon.svg'">
+                                            {{ noti.createdDate | utcDate | date:'d MMM hh:mm a' }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="not_block3 p-t-b-16" *ngIf="(noti.media | json) != '{}' && noti.media.mType !== 'status'">
+                                    <a class="not_block3_img" (click)="openLink(noti)">
+                                        <img [src]="baseUrl + noti.media.thumbNails.mediumSmall">
+                                    </a>
+                                </div>
+                            </div>
+                        </ng-container>
                     </div>
-                  </div>
+                    <div id="03" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'comments'">
+                        <div class="row p-l-24 p-l-16 p-t-b-8">
+                            <div class="col-md-10 c-text_md c-checkbox__md2 p-l-0">
+                                <label class="checkbox-inline p-l-0 m-t-8">
+                                    <input type="checkbox" value="1" class="c-form__bar2"> Select all
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="c-form__group m-0 c-dropdown_icon m-l-24">
+                                    <div class="dropdown c-dropdown text-right" appDropdown>
+                                        <a class="noti-action dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" appDropdownOpen>Actions
+                                        <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                        <li><a (click)="markAsRead()">Mark as read</a></li>
+                                        <li><a (click)="markAsDelete()">Delete</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ng-container *ngFor="let notification of notifications | groupBy:'date'">
+                            <div class="row">
+                                <div class="not_date">{{ notification.key | date}}</div>
+                            </div>
+                            <div class="row not_block_main" *ngFor="let noti of notification.value"  [ngClass]="{'fill_grey': !noti.isRead}">
+                                <div class="not_block1 c-checkbox__md2">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" value="1" [checked]="isSelected" (change)="onChange(noti.notificationId, $event.target.checked)">
+                                    </label>
+                                </div>
+                                <div class="not_block2 p-t-b-16">
+                                    <div class="not_avatar_img" [routerLink]="['', 'profile', 'u', noti.username, 'user']">
+                                        <img *ngIf="!noti.profileImage" class="navdrop__img" [src]="baseUrl + 'img/avatar2.png'">
+                                        <img *ngIf="noti.profileImage" [src]="baseUrl + noti.profileImage" class="navdrop__img">
+                                    </div>
+                                    <div class="not_block2_details">
+                                        <div class="not_block2_comm"><span class="color-grey-darker">{{ noti.name }}</span><a class="text_undrline" (click)="openLink(noti)">{{ noti.message }}</a></div>
+                                        <div class="not_block2_tim">
+                                                <img *ngIf="noti?.notificationType == 'Status_Comments' || noti?.notificationType == 'Media_Comments'" [src]="baseUrl + 'img/svg/ico_comment.svg'">
+                                            {{ noti.createdDate | utcDate | date:'d MMM hh:mm a' }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="not_block3 p-t-b-16" *ngIf="(noti.media | json) != '{}' && noti.media.mType !== 'status'">
+                                    <a class="not_block3_img" (click)="openLink(noti)">
+                                        <img [src]="baseUrl + noti.media.thumbNails.mediumSmall">
+                                    </a>
+                                </div>                                
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div id="04" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'other'">
+                        <div class="row p-l-24 p-l-16 p-t-b-8">
+                            <div class="col-md-10 c-text_md c-checkbox__md2 p-l-0">
+                                <label class="checkbox-inline p-l-0 m-t-8">
+                                    <input type="checkbox" value="1" class="c-form__bar2"> Select all
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="c-form__group m-0 c-dropdown_icon m-l-24">
+                                    <div class="dropdown c-dropdown text-right" appDropdown>
+                                        <a class="noti-action dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" appDropdownOpen>Actions
+                                        <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                        <li><a (click)="markAsRead()">Mark as read</a></li>
+                                        <li><a (click)="markAsDelete()">Delete</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ng-container *ngFor="let notification of notifications | groupBy:'date'">
+                            <div class="row">
+                                <div class="not_date">{{ notification.key | date}}</div>
+                            </div>
+                            <div class="row not_block_main" *ngFor="let noti of notification.value" [ngClass]="{'fill_grey': !noti.isRead}">
+                                <div class="not_block1 c-checkbox__md2">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" value="1" [checked]="isSelected" (change)="onChange(noti.notificationId, $event.target.checked)">
+                                    </label>
+                                </div>
+                                <div class="not_block2 p-t-b-16">
+                                    <div class="not_avatar_img" [routerLink]="['', 'profile', 'u', noti.username, 'user']">
+                                        <img *ngIf="!noti.profileImage" class="navdrop__img" [src]="baseUrl + 'img/avatar2.png'">
+                                        <img *ngIf="noti.profileImage" [src]="baseUrl + noti.profileImage" class="navdrop__img">
+                                    </div>
+                                    <div class="not_block2_details">
+                                        <div class="not_block2_comm"><span class="color-grey-darker">{{ noti.name }}</span>{{ noti.message }}</div>
+                                        <div class="not_block2_tim">{{ noti.createdDate | utcDate | date:'d MMM hh:mm a' }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                    </div>
                 </div>
-              </ng-template>
-            </ul>
-          </div>
+            </div>
         </div>
-        <!-- right section -->
-        <!-- <div class="col-md-4 noti_right noti_block" id="ops_scrollbar">
-          <div class="noti_left" id="ops_scrollbar">
-            <ul class="noti_details">
-              <li class="with_border_bottom">
-                <ul class="list-inline">
-                  <li class="list-inline-item header_ym">
-                    <a href="javascript:void(0)">ACTIVITIES</a>
-                  </li>
-                </ul>
-              </li>
-              <li class="with_border_bottom">
-                <ul class="list-inline activities_pad">
-                  <li class="list-inline-item float_left noti_avatar">
-                    <img src="https://ops-v2.netlify.com/assets/demo/avatar.jpg" class="img-responsive">
-                  </li>
-                  <li class="list-inline-item noti_cont">
-                    <div class="head_msg_name">Estern Richardson</div>
-                    <div class="head_msg_short">spotted </div>
-                    <div class="head_msg_name">3 Posts</div>
-                    <div class="noti_cont_footer">
-                      <span>10:08 PM</span>
-                    </div>
-                  </li>
-                </ul>
-              </li>
-              <li class="with_border_bottom">
-                <ul class="list-inline activities_pad">
-                  <li class="list-inline-item float_left noti_avatar">
-                    <img src="https://ops-v2.netlify.com/assets/demo/avatar.jpg" class="img-responsive">
-                  </li>
-                  <li class="list-inline-item noti_cont">
-                    <div class="head_msg_name">Estern Richardson</div>
-                    <div class="head_msg_short">commented on a </div>
-                    <div class="head_msg_name">Post</div>
-                    <div class="noti_cont_footer">
-                      <span>10:08 PM</span>
-                    </div>
-                  </li>
-                </ul>
-              </li>
-              <li class="with_border_bottom">
-                <ul class="list-inline activities_pad">
-                  <li class="list-inline-item float_left noti_avatar">
-                    <img src="https://ops-v2.netlify.com/assets/demo/avatar.jpg" class="img-responsive">
-                  </li>
-                  <li class="list-inline-item noti_cont">
-                    <div class="head_msg_name">Estern Richardson</div>
-                    <div class="head_msg_short">created a </div>
-                    <div class="head_msg_name">Channel</div>
-                    <div class="noti_cont_footer">
-                      <span>10:08 PM</span>
-                    </div>
-                  </li>
-                </ul>
-              </li>
-              <li class="with_border_bottom">
-                <ul class="list-inline activities_pad">
-                  <li class="list-inline-item float_left noti_avatar">
-                    <img src="https://ops-v2.netlify.com/assets/demo/avatar.jpg" class="img-responsive">
-                  </li>
-                  <li class="list-inline-item noti_cont">
-                    <div class="head_msg_name">Estern Richardson</div>
-                    <div class="head_msg_short">created an </div>
-                    <div class="head_msg_name">Event</div>
-                    <div class="noti_cont_footer">
-                      <span>10:08 PM</span>
-                    </div>
-                  </li>
-                </ul>
-              </li>
-              <li class="with_border_bottom">
-                <ul class="list-inline activities_pad">
-                  <li class="list-inline-item float_left noti_avatar">
-                    <img src="https://ops-v2.netlify.com/assets/demo/avatar.jpg" class="img-responsive">
-                  </li>
-                  <li class="list-inline-item noti_cont">
-                    <div class="head_msg_name">Estern Richardson</div>
-                    <div class="head_msg_short">spotted </div>
-                    <div class="head_msg_name">3 Posts</div>
-                    <div class="noti_cont_footer">
-                      <span>10:08 PM</span>
-                    </div>
-                  </li>
-                </ul>
-              </li>
-              <li class="with_border_bottom">
-                <ul class="list-inline activities_pad">
-                  <li class="list-inline-item float_left noti_avatar">
-                    <img src="https://ops-v2.netlify.com/assets/demo/avatar.jpg" class="img-responsive">
-                  </li>
-                  <li class="list-inline-item noti_cont">
-                    <div class="head_msg_name">Estern Richardson</div>
-                    <div class="head_msg_short">commented on a </div>
-                    <div class="head_msg_name">Post</div>
-                    <div class="noti_cont_footer">
-                      <span>10:08 PM</span>
-                    </div>
-                  </li>
-                </ul>
-              </li>
-              <li class="with_border_bottom">
-                <ul class="list-inline activities_pad">
-                  <li class="list-inline-item float_left noti_avatar">
-                    <img src="https://ops-v2.netlify.com/assets/demo/avatar.jpg" class="img-responsive">
-                  </li>
-                  <li class="list-inline-item noti_cont">
-                    <div class="head_msg_name">Estern Richardson</div>
-                    <div class="head_msg_short">spotted </div>
-                    <div class="head_msg_name">3 Posts</div>
-                    <div class="noti_cont_footer">
-                      <span>10:08 PM</span>
-                    </div>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div> -->
-      </div>
-      <!-- //registraion middle container -->
     </div>
-  </section>
-</main>
+    <div class="col-xs-12 col-md-3 p-r-0 p-l-0_mob">
+        <div class="not_block act_scroll" id="ops_scrollbar2" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="1000" [infiniteScrollContainer]="'#ops_scrollbar2'" (scrolled)="onScrollAct($event)">
+            <div class="c-text_lg p-t-b-16 p-l-r-24">Activities</div>
+            <div class="not_activite_row" *ngFor="let list of activities">
+                <div class="col-md-2 p-0">
+                    <div class="not_userimg">
+                        <img *ngIf="!list.profileImage"src="assets/demo/new/avatar3.png">
+                        <img *ngIf="list.profileImage"[src]="baseUrl + list.profileImage">
+                    </div>
+                </div>
+                <div class="col-md-10 p-l-8 p-r-0">
+                    <div class="not_usercomment">
+                        <a [routerLink]="['', 'profile', 'u', list.username, 'user']">{{list.name}}</a> {{list.message}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

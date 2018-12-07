@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 
 import { Store } from '@ngrx/store';
@@ -6,39 +6,45 @@ import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { Observable } from 'rxjs/Observable';
 
 import { ProfileActions } from '../../../actions/profile.action';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-profile-accepted-requests',
   templateUrl: './profile-accepted-requests.component.html',
   styleUrls: ['./profile-accepted-requests.component.scss']
 })
-export class ProfileAcceptedRequestsComponent implements OnInit {
+export class ProfileAcceptedRequestsComponent implements OnInit, OnDestroy {
   userProfile = initialTag ;
   tagState$: Observable<ProfileModal>;
   imageBaseUrl = environment.API_IMAGE;
   userHandle: String;
   connectionList: any[];
+  private porfSub: Subscription;
 
   constructor(
     private profileStore: Store<ProfileModal>,
   ) {
     this.tagState$ = this.profileStore.select('profileTags');
-    this.tagState$.subscribe((state) => {
+    this.porfSub = this.tagState$.subscribe((state) => {
       this.userProfile = state;
       this.connectionList = this.userProfile.active_connection_list;
     })
     this.profileStore.select('profileTags')
-    .first(profile => profile['profile_user_info'] && profile['profile_navigation_details'].handle)
-    .subscribe( data => {
-      if (data['profile_user_info'].isCurrentUser === true) {
-        this.userHandle = this.userProfile.profile_navigation_details.handle;
-        // console.log(this.userHandle)
-        this.profileStore.dispatch({ type: ProfileActions.GET_ACTIVE_CONNECTIONS_LIST, payload: this.userHandle });
-      }
-    });
+      .first(profile => profile['profile_user_info'] && profile['profile_navigation_details'].handle)
+      .subscribe( data => {
+        if (data['profile_user_info'].isCurrentUser === true) {
+          this.userHandle = this.userProfile.profile_navigation_details.handle;
+          // console.log(this.userHandle)
+          this.profileStore.dispatch({ type: ProfileActions.GET_ACTIVE_CONNECTIONS_LIST, payload: this.userHandle });
+        }
+      });
    }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    this.porfSub.unsubscribe();
   }
 
 }

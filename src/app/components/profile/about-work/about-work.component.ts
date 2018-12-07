@@ -37,8 +37,8 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
   hide = true;
   imageBaseUrl = environment.API_IMAGE;
   jobId: any;
-  activateCreateForm: boolean = false;
-  activateEditForm: boolean = false;
+  activateCreateForm =  false;
+  activateEditForm =  false;
   formData: any = {
     formType: '',
     data: {}

@@ -22,7 +22,7 @@
             </div>
             <div class="bookmark-info__discription">
                 <div class="c-text_lg">
-                    {{ mediaDetails?.postDescription }}
+                    {{ mediaDetails?.postDescription | truncate: [150, '...'] }}
                 </div>
             </div>
             <div class="bookmark-info__post-detail">

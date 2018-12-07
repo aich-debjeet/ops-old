@@ -55,7 +55,7 @@
                 <ul class="list-inline">
                     <li class="list-inline-item pull-right">
                         <div class="spot_in_follow c-text_sm text_uppercase ltr-space color-grey-dark"><span class="c-h3 c-h3--weight">{{ channel?.channel_detail?.followersCount }}</span><br>Followers</div>
-                        <div class="spot_in_follow c-text_sm text_uppercase ltr-space color-grey-dark"><span class="c-h3 c-h3--weight">{{ channel?.channel_detail?.spotCount }}</span><br>Posts</div>
+                        <div class="spot_in_follow c-text_sm text_uppercase ltr-space color-grey-dark"><span class="c-h3 c-h3--weight">{{ channel?.postCount }}</span><br>Posts</div>
                     </li>
                 </ul>
             </div>
@@ -89,7 +89,7 @@
           </div>-->
           <ngx-masonry [useImagesLoaded]="true" 
           infiniteScroll
-          [options]="myOptions"
+          [options]="masonryOptions"
           [infiniteScrollDistance]="2"
           [infiniteScrollThrottle]="10"
           (scrolled)="onScroll($event)">

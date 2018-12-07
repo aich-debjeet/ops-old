@@ -18,8 +18,7 @@ import { ISubscription } from 'rxjs/Subscription';
 
 export class HomeChannelComponent implements OnInit, OnDestroy {
 
-  private subscription: ISubscription;
-  private subscriptionOne: ISubscription;
+  private profSub: ISubscription;
   tagState$: Observable<ProfileModal>;
   userState;
   channelList;
@@ -45,7 +44,7 @@ export class HomeChannelComponent implements OnInit, OnDestroy {
     this.channelList = [];
 
     this.tagState$ = store.select('profileTags');
-    this.subscriptionOne = this.tagState$.subscribe((state) => {
+    this.profSub = this.tagState$.subscribe((state) => {
       this.userState = state;
       if (state.user_following_channels_loaded) {
         this.channelList = state.user_following_channel;
@@ -96,6 +95,6 @@ export class HomeChannelComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscriptionOne.unsubscribe();
+    this.profSub.unsubscribe();
   }
 }

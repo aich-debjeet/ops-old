@@ -6,354 +6,374 @@
 // ---------------  Media modal style ---------------------- //
 // post with comments block style -----------------------------------
 
-.c-mediamodal__r-arrow img{
-    transform: rotate(180deg);
+.c-mediamodal__r-arrow img {
+  transform: rotate(180deg);
 }
+
 .c-avatar--status {
-    width: 34px;
-    height: 34px;
+  width: 34px;
+  height: 34px;
 }
 
 .c-avatar--status2 {
-    width: 24px;
-    height: 24px;
+  width: 24px;
+  height: 24px;
 }
 
 .c-avatar--status3 {
-    width: 40px;
-    height: 40px;
+  width: 40px;
+  height: 40px;
 }
 
 .c-avatar--artist {
-    width: 90px;
-    height: 90px;
+  width: 90px;
+  height: 90px;
 }
 
 .c-user--align {
-    margin-left: 16px; // margin-top: 8px;
+  margin-left: 16px; // margin-top: 8px;
 }
 
 .c-user__channel-align {
-    margin-top: 24px;
-    position: absolute;
-    margin-left: 50px;
+  margin-top: 24px;
+  position: absolute;
+  margin-left: 50px;
 }
 
 .c-status--block {
-    width: 100%;
-    float: left;
-    clear: both;
-    padding: 16px 24px;
-    position: relative;
+  width: 100%;
+  float: left;
+  clear: both;
+  padding: 16px 24px;
+  position: relative;
 }
 
 .c-post__time {
-    float: left;
-    color: #b4b4b4;
-    font-size: 11px;
-    line-height: 18px; // margin-right: 8px;
-    margin-top: 8px;
+  float: left;
+  color: #b4b4b4;
+  font-size: 11px;
+  line-height: 18px; // margin-right: 8px;
+  margin-top: 8px;
 }
 
 .c-status__options {
-    width: 14px;
-    height: 14px;
-    float: left;
-    margin-top: 9px;
-    margin-left: 8px;
+  width: 14px;
+  height: 14px;
+  float: left;
+  margin-top: 9px;
+  margin-left: 8px;
 }
 
 .c-modal {
-    .modal-body {
-        padding: 0px;
-        margin: 0px;
-        border-radius: 5px;
-        -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-        background: white;
-        display: flex;
-        position: relative;
-        @include mq($from: $mobile_sm, $until: $mobile_lg) {
-            justify-content:center;
-            flex-direction:column;
-        }
+  .modal-body {
+    padding: 0px;
+    margin: 0px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    background: white;
+    display: flex;
+    position: relative;
+
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+      justify-content: center;
+      flex-direction: column;
     }
+  }
 }
 
 .c-modal--size1 {
-    width: 1170px;
-    margin-top: 47px;
-    @include mq($from: $mobile_lg, $until: $tablet) {
-        width: 95%;
-    }
-    @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        width: 90%;
-    }
+  width: 1170px;
+  margin-top: 47px;
+
+  @include mq($from: $mobile_lg, $until: $tablet) {
+    width: 95%;
+  }
+
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    width: 90%;
+  }
 }
 
 .c-modal__close {
-    margin: 10px;
-    width: 20px;
-    position: absolute;
-    right: 0px;
-    top: -40px;
-    z-index: 1;
+  margin: 10px;
+  width: 20px;
+  position: absolute;
+  right: 0px;
+  top: -40px;
+  z-index: 1;
 }
 
 //left block
 .c-mediamodal__left {
-    width: 730px;
-    height: 600px;
-    overflow: hidden;
-    // border-right: solid 1px rgba(0, 0, 0, 0.1);
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    float: left;
-    @include mq($from: $mobile_sm, $until: $mobile_lg){
-        width: 100%;
-        height: auto;
-    }
+  width: 730px;
+  height: 600px;
+  overflow: hidden;
+  // border-right: solid 1px rgba(0, 0, 0, 0.1);
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  float: left;
+
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    width: 100%;
+    height: auto;
+  }
 }
 
 .c-mediamodal__left__block {
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  display: table;
+  position: relative;
+
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
     width: 100%;
-    height: 100%;
-    background-color: #000000;
-    display: table;
-    position: relative;
-    @include mq($from: $mobile_sm, $until: $mobile_lg){
-        width: 100%;
-        height: auto;
-    }
+    height: auto;
+  }
 }
 
 .c-mediamodal--img {
-    width: 100%; // max-height: 575px;
-    display: inline-block;
-    vertical-align: middle;
-    overflow: hidden;
-    position: relative;
-    box-sizing: border-box;
-    display: table-cell;
-    vertical-align: middle;
-    text-align: center;
-    img {
-        max-width: 100%;
-        max-height: 600px;
-        margin: auto;
-    }
-    video {
-        width: 100%;
-    }
+  width: 100%; // max-height: 575px;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+
+  img {
+    max-width: 100%;
+    max-height: 600px;
+    margin: auto;
+  }
+
+  video {
+    width: 100%;
+  }
 }
 
 .c-mediamodal__arrow--icon {
-    width: 18px;
-    height: 34px;
+  width: 18px;
+  height: 34px;
 }
 
 .c-mediamodal__l-arrow {
-    position: absolute;
-    left: 8px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    z-index: 10000;
-    transition: .25s;
-    vertical-align: middle!important;
-    // height: 600px;
-    height: auto;
-    top: 283px;
-    img {
-        filter: drop-shadow(0 0 3px #222);
-    }
+  position: absolute;
+  left: 8px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 10000;
+  transition: .25s;
+  vertical-align: middle !important;
+  // height: 600px;
+  height: auto;
+  top: 283px;
+
+  img {
+    filter: drop-shadow(0 0 3px #222);
+  }
 }
 
 .c-mediamodal__r-arrow {
-    @extend .c-mediamodal__l-arrow;
-    right: 8px;
-    left: auto;
-    z-index: 1000;
-    img {
-        filter: drop-shadow(0 0 3px #222);
-    }
+  @extend .c-mediamodal__l-arrow;
+  right: 8px;
+  left: auto;
+  z-index: 1000;
+
+  img {
+    filter: drop-shadow(0 0 3px #222);
+  }
 }
 
 // right block
 .c-mediamodal__right {
-    width: 406px;
-    height: 584px;
-    overflow-y: scroll;
-    position: relative;
-    background: #F3F5F7;
-    @include mq($from: $mobile_sm, $until: $mobile_lg){
-        width: 100%;
-    }
+  width: 406px;
+  height: 584px;
+  overflow-y: scroll;
+  position: relative;
+  background: #F3F5F7;
+
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    width: 100%;
+  }
 }
 
 .c-media__right--feed {
-    // height: 540px;
-    // overflow-y: scroll;
-    background: #F3F5F7;
-    padding-bottom: 62px;
+  // height: 540px;
+  // overflow-y: scroll;
+  background: #F3F5F7;
+  padding-bottom: 62px;
 }
 
 .c-mediamodal__user {
-    width: 100%;
-    float: left;
-    position: relative;
+  width: 100%;
+  float: left;
+  position: relative;
 }
 
 .c-mediamodal__subhead {
-    position: absolute;
-    left: 64px;
-    top: 40px;
-    float: left;
-    color: #333333;
-    font-size: 11px;
-    line-height: 18px;
-    white-space: nowrap; 
-    overflow: hidden;
-    text-overflow: ellipsis; 
-    width: 75%;
+  position: absolute;
+  left: 64px;
+  top: 40px;
+  float: left;
+  color: #333333;
+  font-size: 11px;
+  line-height: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 75%;
 }
 
 .c-mediamodal__time {
-    color: #979797;
-    font-size: 10px;
-    line-height: 14px;
-    margin-left: 8px;
+  color: #979797;
+  font-size: 10px;
+  line-height: 14px;
+  margin-left: 8px;
 }
 
 .c-float--none {
-    float: none !important;
+  float: none !important;
 }
 
 .c-mediamodal__opt {
-    float: right;
-    position: relative;
-    img {
-        width: 13px;
-    }
+  float: right;
+  position: relative;
+
+  img {
+    width: 13px;
+  }
 }
 
 .c-mediamodal__comment {
-    bottom: 0;
-    position: absolute;
-    width: 100%;
+  bottom: 0;
+  position: absolute;
+  width: 100%;
 }
 
 .c-mediamodal__input {
-    padding: 4px 0 0 16px;
-    @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        margin-left: 5px;
-    }
+  padding: 4px 0 0 16px;
+
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    margin-left: 5px;
+  }
 }
 
 .c-mediamodal__inputfixed {
-    position: fixed;
-    bottom: 0;
-    background: white;
-    width: 397px;
-    padding: 0 16px;
-    @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        width: 100%;
-    }
+  position: fixed;
+  bottom: 0;
+  background: white;
+  width: 397px;
+  padding: 0 16px;
+
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    width: 100%;
+  }
 }
 
 // for contenteditable
 .c-contenteditable {
-    -webkit-user-modify: read-write;
-    -moz-user-modify: read-write;
-    user-modify: read-write;
-    border-bottom: 1px solid #c1c1c1;
-    color: #000000;
+  -webkit-user-modify: read-write;
+  -moz-user-modify: read-write;
+  user-modify: read-write;
+  border-bottom: 1px solid #c1c1c1;
+  color: #000000;
 }
 
 .c-options--img {
-    width: 10px;
-    cursor: pointer;
+  width: 10px;
+  cursor: pointer;
 }
 
 .c-options--dropdown {
-    position: absolute;
-    right: 8px;
-    top: 0;
-    .c-opsdropdown--size {
-        min-width: 74px;
-        left: -72px;
-        top: 24px;
-    }
-    .c-opsdropdown--text {
-        padding: 0px;
-    }
-    .dropdown-menu>li>a {
-        padding: 2px 20px;
-    }
+  position: absolute;
+  right: 8px;
+  top: 0;
+
+  .c-opsdropdown--size {
+    min-width: 74px;
+    left: -72px;
+    top: 24px;
+  }
+
+  .c-opsdropdown--text {
+    padding: 0px;
+  }
+
+  .dropdown-menu>li>a {
+    padding: 2px 20px;
+  }
 }
 
 // article -------------
 .c-mediamodal__center {
-    width: 570px;
-    margin: 0 auto;
-    clear: both;
+  width: 570px;
+  margin: 0 auto;
+  clear: both;
 }
 
 .c-links__actions {
-    text-align: right;
-    float: right;
+  text-align: right;
+  float: right;
 }
 
-.c-block__inline{
-    display: inline-block;
+.c-block__inline {
+  display: inline-block;
 }
+
 .o-share__social {
-    border-top: 1px solid #F3F5F7;
-    padding-top: 16px;
+  border-top: 1px solid #F3F5F7;
+  padding-top: 16px;
 }
+
 .o-share__social-icon {
-    display: inline;
-    padding: 0 21px;
+  display: inline;
+  padding: 0 21px;
 }
 
 .o-share__profile2 {
-    width: 260px;
-    border: none;
-    color: #808080;
-    font-size: 13px;
-    line-height: 20px;
-    border-radius: 3px;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.26);
-    right: 0px;
+  width: 260px;
+  border: none;
+  color: #808080;
+  font-size: 13px;
+  line-height: 20px;
+  border-radius: 3px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.26);
+  right: 0px;
 }
 
 button.close {
-    padding: 0;
-    cursor: pointer;
-    background: transparent;
-    border: 0;
-    -webkit-appearance: none;
-    color: #fff;
-    opacity: 0.5;
-    font-weight: 300;
-    font-size: 30px;
-    margin-top: -30px;
-    position: absolute;
-    right: 20px;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  color: #fff;
+  opacity: 0.5;
+  font-weight: 300;
+  font-size: 30px;
+  margin-top: -30px;
+  position: absolute;
+  right: 20px;
 }
-.cursor_pointer{
-    cursor: pointer;
+
+.cursor_pointer {
+  cursor: pointer;
 }
 
 .c-links__view-count {
-    margin-left: 6px;
-    color: #929292;
-    font-size: 13px;
-    font-weight: 500;
-    top: -7px;
-    position: relative;
+  margin-left: 6px;
+  color: #929292;
+  font-size: 13px;
+  font-weight: 500;
+  top: -7px;
+  position: relative;
 }
 
 .color-grey-darker {
-    color: #333333 !important;
+  color: #333333 !important;
 }

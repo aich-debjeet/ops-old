@@ -31,7 +31,11 @@ export class AboutBioComponent implements OnInit, OnDestroy {
   private dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   public bioForm: FormGroup;
   tagState$: Observable<ProfileModal>;
-  subscription: Subscription;
+
+  profSub: Subscription;
+  skillsSub: Subscription;
+  txtQuerySub: Subscription;
+
   stateProfile = initialTag;
   userProfile: any;
   ownProfile: boolean;
@@ -71,9 +75,6 @@ export class AboutBioComponent implements OnInit, OnDestroy {
 
   constructor(
     private _modalService: ModalService,
-    private _fb: FormBuilder,
-    private _utils: ProfileHelper,
-    private profileUpdateValidator: ProfileUpdateValidator,
     private _store: Store<ProfileModal>,
     public datepipe: DatePipe,
     private toastr: ToastrService,
@@ -82,7 +83,7 @@ export class AboutBioComponent implements OnInit, OnDestroy {
     this.tagState$ = this._store.select('profileTags');
     this.skillState$ = this._store.select('loginTags');
 
-    this.subscription = this.tagState$.subscribe((state) => {
+    this.profSub = this.tagState$.subscribe((state) => {
       // this.stateProfile = state;
       if (state) {
         // console.log(state)
@@ -177,10 +178,10 @@ export class AboutBioComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.skillState$.subscribe((state) => {
+    this.skillsSub = this.skillState$.subscribe((state) => {
       this.findSkill = state;
     });
-    this.txtQueryChanged
+    this.txtQuerySub = this.txtQueryChanged
       .debounceTime(1000) // wait 1 sec after the last event before emitting last event
       .subscribe(model => {
         this._store.dispatch({ type: AuthActions.SEARCH_SKILL, payload: model });
@@ -192,7 +193,9 @@ export class AboutBioComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.skillsSub.unsubscribe();
+    this.profSub.unsubscribe();
+    this.txtQuerySub.unsubscribe();
   }
 
   isClosed(event) {
@@ -209,7 +212,6 @@ export class AboutBioComponent implements OnInit, OnDestroy {
 
   openPopup() {
     this._modalService.open('bioEdit');
-    // this.bioFormUpdate();
   }
 
   /**

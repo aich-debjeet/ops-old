@@ -28,7 +28,6 @@ import { OpportunityFreelanceComponent } from './forms/opportunity-freelance/opp
 import { OpportunityVolunteerComponent } from './forms/opportunity-volunteer/opportunity-volunteer.component';
 import { OpportunityApplicationsComponent } from './opportunity-applications/opportunity-applications.component';
 import { QuillModule } from 'ngx-quill';
-import { OpportunitySimilarCardComponent } from './opportunity-similar-card/opportunity-similar-card.component';
 import { TagInputModule } from 'ngx-chips';
 
 // opportunity module routes
@@ -86,8 +85,7 @@ const opportunityRoutes: Routes = [
     OpportunityInternshipComponent,
     OpportunityFreelanceComponent,
     OpportunityVolunteerComponent,
-    OpportunityApplicationsComponent,
-    OpportunitySimilarCardComponent
+    OpportunityApplicationsComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

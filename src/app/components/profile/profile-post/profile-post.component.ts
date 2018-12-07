@@ -32,7 +32,6 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
   userMedia = initialTag;
   mediaDetails = initialMedia;
   userData: any;
-  sub: any;
   userName: any;
   handle: string;
   counter: number;
@@ -144,7 +143,7 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
    * Check Profile state
    */
   checkProfile() {
-    this.sub = this.route.parent.parent.params.subscribe(params => {
+    this.route.parent.parent.params.subscribe(params => {
       if (params['id'] && params['id'] !== null && this.handle !== null) {
         this.userName = params['id'];
       }
@@ -216,8 +215,9 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
 
   setMediaViewportKey() {
     for (let i = 0; i < this.posts.length; i++) {
-      if (this.posts[i] && typeof this.posts[i].inViewport) {
+      if (this.posts[i]) {
         this.posts[i]['inViewport'] = false;
+        this.posts[i]['hasPlayed'] = false;
       }
     }
   }
@@ -227,10 +227,15 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
       const medIndx = _findIndex(this.posts, { id: data.mediaId });
       if (medIndx) {
         if (data.status === 'reached') {
-          if (this.posts[medIndx].inViewport !== true && this.posts[medIndx].id !== this.playingVideoId) {
-            this.setMediaViewportKey();
-            this.posts[medIndx].inViewport = true;
-            this.playingVideoId = this.posts[medIndx].id;
+          if (this.posts[medIndx].inViewport === true && this.posts[medIndx].id === this.playingVideoId) { } else {
+            if (this.posts[medIndx].hasPlayed === false) {
+              for (let i = 0; i < this.posts.length; i++) {
+                this.posts[i]['inViewport'] = false;
+              }
+              this.posts[medIndx].inViewport = true;
+              this.posts[medIndx].hasPlayed = true;
+              this.playingVideoId = this.posts[medIndx].id;
+            }
           }
         } else if (data.status === 'departed') {
           this.posts[medIndx].inViewport = false;

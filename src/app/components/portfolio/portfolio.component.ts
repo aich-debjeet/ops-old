@@ -14,6 +14,7 @@ import { filter as _filter } from 'lodash';
 import { findIndex as _findIndex } from 'lodash';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { NgxMasonryOptions } from 'ngx-masonry';
 
 @Component({
   selector: 'app-portfolio',
@@ -29,7 +30,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   profileState$: Observable<ProfileModal>;
   profileSub: ISubscription;
   profileState: any;
-  userProfile: any;
+  portfolioUserProfile: any;
   channels = [];
   filteredChannels = [];
   // portfolioEmpty = true;
@@ -65,6 +66,11 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   tabMediaScrollingLoad = 251;
   tabMediaPage = 0;
   catNameIsRequired = false;
+  portfolioUserProfileLoaded = false;
+  portfolioMediaLoaded = false;
+  masonryOptions: NgxMasonryOptions = {
+    transitionDuration: '0s',
+  };
 
   constructor(
     private fb: FormBuilder,
@@ -79,6 +85,10 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     this.profileSub = this.profileState$.subscribe((state) => {
       this.profileState = state;
       if (state) {
+        if (!this.portfolioUserProfileLoaded && this.generalUtils.checkNestedKey(state, ['portfolio_user_profile', 'handle'])) {
+          this.portfolioUserProfile = state['portfolio_user_profile'];
+          this.portfolioUserProfileLoaded = true;
+        }
         if (state['get_port_display_media'] === false && state['get_port_display_media_success'] === true
           && state['get_port_display_media_result'] && state['get_port_display_media_result'].length === 0
         ) {
@@ -94,77 +104,98 @@ export class PortfolioComponent implements OnInit, OnDestroy {
             this.isEmptyCategory = false;
           }
         }
-        if (this.generalUtils.checkNestedKey(state, ['portfolio_user_profile'])) {
-          this.userProfile = state['portfolio_user_profile'];
-          const loggedInProfileHandle = localStorage.getItem('loggedInProfileHandle');
-          // if (typeof this.ownProfile === 'undefined' && loggedInProfileHandle) {
-          if (loggedInProfileHandle) {
-            if (state['portfolio_user_profile']['handle'] === loggedInProfileHandle) {
-              this.ownProfile = true;
-            } else {
-              this.ownProfile = false;
-            }
-          }
-          // console.log('this.ownProfile', this.ownProfile);
-        }
-        if (this.generalUtils.checkNestedKey(state, ['get_users_channels_result'])) {
-          this.channels = state['get_users_channels_result'];
-          this.channelAssignCopy();
-        }
-        if (this.generalUtils.checkNestedKey(state, ['get_users_channels_result'])) {
-          this.userMedia = state['get_users_media_result'];
-          if (this.userMedia) {
-            for (let i = 0; i < this.userMedia.length; i++) {
-              // check if media id exists in selected medias
-              if (this.selectedMedia.indexOf(this.userMedia[i].mediaId) > -1) {
-                this.userMedia[i].isSelected = true;
-              } else {
-                this.userMedia[i].isSelected = false;
-              }
-            }
-            // console.log('this.userMedia', this.userMedia);
-          }
-        }
-        if (this.generalUtils.checkNestedKey(state, ['get_portfolio_categories_result'])) {
-          this.portCategories = state['get_portfolio_categories_result'];
-          for (let i = 0; i < this.portCategories.length; i++) {
-            this.portCategories[i].isEditable = false;
-          }
-        }
-        if (this.generalUtils.checkNestedKey(state, ['get_port_display_media_result'])) {
-          this.displayMedia = state['get_port_display_media_result'];
-        }
-        if (state['create_portfolio_category'] === false && state['create_portfolio_category_success'] === true) {
-          // this.portAddCategoryForm.controls['categoryName'].setValue('');
-          // this.portAddCategoryForm.reset();
-        }
-        if (state['add_media_to_category'] ===  false && state['add_media_to_category_success'] ===  true) {
-          // close add media modal
-          this.portMediaModal.close();
-          // swithc to the tab
-          const catIndx = _findIndex(this.portCategories, (c) => c.categoryId === this.selectedCategoryId);
-          this.selectTab(this.portCategories[catIndx]);
-          // reset add media
-          this.resetAddMedia();
-          this.toastr.success('Media added to the category successfully!', '', {
-            timeOut: 3000
-          });
+      }
+      if (this.generalUtils.checkNestedKey(state, ['profile_navigation_details', 'handle']) && this.generalUtils.checkNestedKey(state, ['portfolio_user_profile', 'handle']) ) {
+        if (state['profile_navigation_details']['handle'] === state['portfolio_user_profile']['handle']) {
+          this.ownProfile = true;
+        } else {
+          this.ownProfile = false;
         }
       }
-    });
-
-    // this.profileStore.dispatch({ type: ProfileActions.GET_PORTFOLIO_CATEGORIES, payload: '' });
-    this.profileStore.dispatch({
-      type: ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA,
-      payload: {
-        categoryType: 'all',
-        offset: 0,
-        limit: this.mediaPerPage
+      if (!this.portfolioMediaLoaded && this.generalUtils.checkNestedKey(state, ['portfolio_user_profile', 'handle'])) {
+        console.log('get media for', state['portfolio_user_profile']);
+        this.loadPortMedia(state['portfolio_user_profile']['handle']);
+        this.portfolioMediaLoaded = true;
+      }
+      if (this.generalUtils.checkNestedKey(state, ['get_users_channels_result'])) {
+        this.channels = state['get_users_channels_result'];
+        this.channelAssignCopy();
+      }
+      if (this.generalUtils.checkNestedKey(state, ['get_users_channels_result'])) {
+        this.userMedia = state['get_users_media_result'];
+        if (this.userMedia) {
+          for (let i = 0; i < this.userMedia.length; i++) {
+            // check if media id exists in selected medias
+            if (this.selectedMedia.indexOf(this.userMedia[i].mediaId) > -1) {
+              this.userMedia[i].isSelected = true;
+            } else {
+              this.userMedia[i].isSelected = false;
+            }
+          }
+        }
+      }
+      if (this.generalUtils.checkNestedKey(state, ['get_portfolio_categories_result'])) {
+        this.portCategories = state['get_portfolio_categories_result'];
+        for (let i = 0; i < this.portCategories.length; i++) {
+          this.portCategories[i].isEditable = false;
+        }
+      }
+      if (this.generalUtils.checkNestedKey(state, ['get_port_display_media_result'])) {
+        this.displayMedia = state['get_port_display_media_result'];
+      }
+      if (state['create_portfolio_category'] === false && state['create_portfolio_category_success'] === true) {
+        // this.portAddCategoryForm.controls['categoryName'].setValue('');
+        // this.portAddCategoryForm.reset();
+      }
+      if (state['add_media_to_category'] ===  false && state['add_media_to_category_success'] ===  true) {
+        // close add media modal
+        this.portMediaModal.close();
+        // swithc to the tab
+        const catIndx = _findIndex(this.portCategories, (c) => c.categoryId === this.selectedCategoryId);
+        this.selectTab(this.portCategories[catIndx]);
+        // reset add media
+        this.resetAddMedia();
+        this.toastr.success('Media added to the category successfully!', '', {
+          timeOut: 3000
+        });
       }
     });
 
     this.portAddCategoryForm = this.fb.group({
       categoryName: ['']
+    });
+  }
+
+  ngOnInit() {
+    this.routerSub = this.route.params.subscribe((params) => {
+      // load user profile by username
+      if (this.generalUtils.checkNestedKey(params, ['username'])) {
+        this.portfolioUserProfileLoaded = false;
+        this.portfolioMediaLoaded = false;
+        this.profileStore.dispatch({ type: ProfileActions.PORTFOLIO_PROFILE_LOAD, payload: params['username'] });
+      } else {
+        this.router.navigateByUrl('/');
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.routerSub.unsubscribe();
+    this.profileSub.unsubscribe();
+  }
+
+  loadPortMedia(handle: string) {
+    const data = {
+      userHandle: handle,
+      reqBody: {
+        categoryType: 'all',
+        offset: 0,
+        limit: this.mediaPerPage
+      }
+    };
+    this.profileStore.dispatch({
+      type: ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA,
+      payload: data
     });
   }
 
@@ -258,22 +289,6 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnInit() {
-    this.routerSub = this.route.params.subscribe((params) => {
-      // load user profile by username
-      if (this.generalUtils.checkNestedKey(params, ['username'])) {
-        this.profileStore.dispatch({ type: ProfileActions.PORTFOLIO_PROFILE_LOAD, payload: params['username'] });
-      } else {
-        this.router.navigateByUrl('/');
-      }
-    });
-  }
-
-  ngOnDestroy() {
-    this.routerSub.unsubscribe();
-    this.profileSub.unsubscribe();
-  }
-
   /**
    * show modal and popuplate the media
    */
@@ -327,7 +342,11 @@ export class PortfolioComponent implements OnInit, OnDestroy {
    * tab media get
    */
   getTabMedia(reqBody: any) {
-    this.profileStore.dispatch({ type: ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA, payload: reqBody });
+    const payload = {
+      userHandle: this.profileState['portfolio_user_profile']['handle'],
+      reqBody: reqBody
+    }
+    this.profileStore.dispatch({ type: ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA, payload: payload });
   }
 
   /**

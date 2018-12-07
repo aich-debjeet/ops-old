@@ -1,6 +1,47 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+### [0.9.13] - 27 Nov, 2018
+### Added
+- Add: Bookmark module and default component
+- Shared redux for report modal
+- Invite for signup
+- Redux: For removing cover and profile images
+- Profile image remove option
+- Cover image remove option
+- Add: Bookmark tab containers
+- Add: All bookmarks with routing config
+- Bookmark cards development Profile, Opportunity, event, Image, Audio, Video etc
+- Add: Bookmark media modal
+- Add: Bookmark profile tab Follow/Unfollow
+
+### Updated/Improved
+- Settings: Field valiation improvements, code clean ups, otp for number under progress
+- Settings: Otp modal update
+- Update: Deployment scripts
+- HTML, SCSS, TypeScript formatting
+- Report modal improved
+- Cleanup: Unused code
+- Community report modal
+- Update: SCSS linked to parent
+- Profile set check changed to Handle from Name 
+- Add/Delete my story improved
+- UI improvements
+
+### Fixed
+- Fix: Footer spacing
+- Fix: OPS-2004
+- Media spot counts
+- Media comment count
+- Fix: OPS-2167
+- Fix: OPS-2168
+
+### removed
+- Username edit option
+- Network tab from profile
+
+
+
 ### [0.9.13] - 07 Nov, 2018
 ### Added
 - OPS-2085 Audio files in the feeds should be autoplay

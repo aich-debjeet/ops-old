@@ -4,10 +4,36 @@ import { MessageActions } from '../actions/message.action';
 import { findIndex as _findIndex } from 'lodash';
 import { remove as _remove } from 'lodash';
 import { uniqBy as _uniqBy } from 'lodash';
+import { GeneralUtilities } from 'app/helpers/general.utils';
 
-export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Action) =>  {
+const gUtils = new GeneralUtilities;
+
+export const MessageReducer: ActionReducer<any> = (state, { payload, type }: Action) => {
 
   switch (type) {
+
+    /** delete conversation */
+    case MessageActions.DELETE_CONVERSATION:
+      return Object.assign({}, state, {
+        deletingConversation: true,
+        deletedConversation: false,
+        deleteConversationReqBody: payload
+      });
+
+    case MessageActions.DELETE_CONVERSATION_SUCCESS:
+      return Object.assign({}, state, {
+        deletingConversation: false,
+        deletedConversation: true,
+        deleteConversationResBody: payload,
+        messanger_list_data: gUtils.messangerListRemoveClearedRecords(state.messanger_list_data, state.deleteConversationReqBody.otherHandle)
+      });
+
+    case MessageActions.DELETE_CONVERSATION_FAILED:
+      return Object.assign({}, state, {
+        deletingConversation: false,
+        deletedConversation: false
+      });
+    /** delete conversation */
 
     /* reachout opportunity applicant */
     case MessageActions.ADD_TO_MESSANGER_LIST:
@@ -247,7 +273,8 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
         const new_conv_data = [payload];
         messanger_list_updated = new_conv_data.concat(state.messanger_list_data);
       } else {
-        messanger_list_updated = state.messanger_list_data;
+        // messanger_list_updated = state.messanger_list_data;
+        messanger_list_updated = [payload];
       }
       return Object.assign({}, state, {
         messanger_list_data: messanger_list_updated
@@ -306,9 +333,9 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
 
     case MessageActions.GET_RECEIPIENT:
       return Object.assign({}, state, {
-      receipients: [],
-      receipients_loaded: false
-    });
+        receipients: [],
+        receipients_loaded: false
+      });
     case MessageActions.GET_RECEIPIENT_SUCCESS:
       return Object.assign({}, state, {
         receipients: payload,
@@ -321,6 +348,6 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       });
 
     default:
-    return state;
+      return state;
   }
 }

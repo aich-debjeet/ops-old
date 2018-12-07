@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
@@ -10,6 +10,7 @@ import { environment } from '../../../../environments/environment.prod';
 
 import { Observable } from 'rxjs/Observable';
 import { GeneralUtilities } from '../../../helpers/general.utils';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-about-cover',
@@ -18,11 +19,12 @@ import { GeneralUtilities } from '../../../helpers/general.utils';
   styleUrls: ['./about-cover.component.scss']
 })
 
-export class AboutCoverComponent implements OnInit {
+export class AboutCoverComponent implements OnInit, OnDestroy {
   tagState$: Observable<ProfileModal>;
   stateProfile = initialTag;
   changingImage: boolean;
   baseUrl: string;
+  profSub: Subscription;
 
   imageChangedEvent = '';
   croppedImage = '';
@@ -38,7 +40,7 @@ export class AboutCoverComponent implements OnInit {
     this.baseUrl = environment.API_IMAGE;
 
     this.tagState$ = this._store.select('profileTags');
-    this.tagState$.subscribe((state) => {
+    this.profSub = this.tagState$.subscribe((state) => {
       this.stateProfile = state;
     });
   }
@@ -49,6 +51,10 @@ export class AboutCoverComponent implements OnInit {
       .subscribe(data => {
         this.loadCoverImage();
       });
+  }
+
+  ngOnDestroy() {
+    this.profSub.unsubscribe();
   }
 
   /**

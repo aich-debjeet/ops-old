@@ -432,7 +432,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   // Media Popup
   mediaOpenPopup(id) {
     this.mediaStore.dispatch({ type: MediaActions.MEDIA_DETAILS, payload: id });
-    this.mediaStore.dispatch({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: id });
+    // this.mediaStore.dispatch({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: id });
   }
 
   // see all results with the selected type

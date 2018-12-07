@@ -310,10 +310,11 @@ export class NavigationComponent implements OnInit, OnDestroy {
   loadNotifsInitialSet() {
     console.log('loadNotifsInitialSet');
     const data = {
+      notificationType: 'all',
       limit: 10,
-      page: 0
+      offset: 0
     }
-    this.notificationStore.dispatch({ type: NotificationActions.GET_NOTIFICATIONS, payload: data });
+    this.notificationStore.dispatch({ type: NotificationActions.GET_NOTIFICATIONS_BY_TYPE, payload: data });
   }
 
   /**
@@ -349,7 +350,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
       for (let i = 0; i < this.notifications.length; i++) {
         switch (this.notifications[i].notificationType) {
           case 'Following':
-            this.notifications[i].message = '@' + this.notifications[i].username + ' has started following you';
+            this.notifications[i].message =  ' has started following you';
             break;
           case 'Media_Spot':
             this.notifications[i].message = ' has spotted your post';

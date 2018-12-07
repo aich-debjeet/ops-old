@@ -1,26 +1,17 @@
 import { Component, EventEmitter, Input, Output, OnInit, ViewChild } from '@angular/core';
 import { environment } from './../../../environments/environment';
-import { Router } from '@angular/router';
-import { DatePipe } from '@angular/common';
-// import { ISubscription } from 'rxjs/Subscription';
 import { Modal } from '../../shared/modal-new/Modal';
-
-// import FilesHelper from '../../helpers/fileUtils';
 import { initialMedia, Media } from '../../models/media.model';
 import { MediaActions } from '../../actions/media.action';
 import { ProfileActions } from '../../actions/profile.action';
 import { CommunitiesActions } from '../../actions/communities.action';
-
 import { SharedActions } from '../../actions/shared.action';
-// rx
 import { Store } from '@ngrx/store';
-
-import { ModalService } from '../../shared/modal/modal.component.service';
+// import { GeneralUtilities } from 'app/helpers/general.utils';
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
-  providers: [ ModalService, DatePipe ],
   styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements OnInit {
@@ -50,9 +41,8 @@ export class PostComponent implements OnInit {
   messageEdit: string;
 
   constructor(
-    private router: Router,
     private store: Store<Media>,
-    public modalService: ModalService,
+    // public gUtils: GeneralUtilities
   ) {
     this.dotMenuState = false;
   }
@@ -72,10 +62,6 @@ export class PostComponent implements OnInit {
 
   onContentEdit() {
     this.isEdit = true;
-  }
-
-  handleClick(id) {
-    this.router.navigateByUrl('/media/' + id);
   }
 
   dotMenuOpen() {
@@ -148,17 +134,13 @@ export class PostComponent implements OnInit {
   }
 
   onReachingInViewport(mediaId: any) {
-    this.elemViewportStatus.emit({
-      mediaId: mediaId,
-      status: 'reached'
-    });
+    this.elemViewportStatus.emit({ mediaId: mediaId, status: 'reached' });
+    // this.gUtils.filter({ component: 'VideplayerComponent', action: 'playVideo' });
   }
 
   onDepartedFromViewport(mediaId: any) {
-    this.elemViewportStatus.emit({
-      mediaId: mediaId,
-      status: 'departed'
-    });
+    this.elemViewportStatus.emit({ mediaId: mediaId, status: 'departed' });
+    // this.gUtils.filter({ component: 'VideplayerComponent', action: 'stopVideo' });
   }
 
 }

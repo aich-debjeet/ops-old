@@ -36,14 +36,14 @@ export class NotificationService {
    * @param req
    */
   getNotifications(data: any) {
-    return this.api.get('/portal/network/notification/getAllNotification/' + data.page + '/' + data.limit);
+    return this.api.put('/portal/network/notification/getNotificationByCategory', data);
   }
 
   /**
    * Mark notification as read
    */
   notificationMarkAsRead(reqBody: any) {
-    return this.api.put( '/portal/network/notification/mark/read', reqBody);
+    return this.api.put( '/portal/network/notification/mark/readBySelection ', reqBody);
   }
 
   /**
@@ -52,6 +52,14 @@ export class NotificationService {
   notificationAllMarkAsRead(reqBody: any) {
     return this.api.get( '/portal/network/notification/mark/read');
   }
+
+  notificationDelete(reqBody: any){
+    return this.api.delete2('/portal/network/notification/delete', reqBody);
+  }
+
+  getActivities(reqBody: any) {
+    return this.api.get( '/portal/network/activity/'+ reqBody.offset + '/' + reqBody.limit);
+  }   
 
   /**
    * Pagination
