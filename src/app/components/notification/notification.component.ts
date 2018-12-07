@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, HostListener, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router} from '@angular/router';
+import { Location } from '@angular/common';
 
 // rx,
 import { Observable } from 'rxjs/Observable';
@@ -42,11 +43,13 @@ export class NotificationComponent implements OnInit, OnDestroy {
   notificationsList = [];
   activities:any[];
   notificationCount: string;
+  route: string;
+  triggerApi: boolean = true;
 
   constructor(
     private store: Store<Notification>,
     private router: Router,
-    private route: ActivatedRoute,
+    location: Location
   ) {
 
     // image path
@@ -72,26 +75,40 @@ export class NotificationComponent implements OnInit, OnDestroy {
         if (state && state['requesting_notifications'] === true) {
           this.showPreloader = false;
         }
-      } else {
-        // if notifications state undefined init with initial list of notifications
-        const reqBody = {
-          notificationType: 'all',
-          limit: 10,
-          offset: 0
+      } 
+      // else {
+      //   // if notifications state undefined init with initial list of notifications
+      //   const reqBody = {
+      //     notificationType: 'all',
+      //     limit: 10,
+      //     offset: 0
+      //   }
+      //   // this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS, payload: reqBody });
+      //   this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS_BY_TYPE, payload: reqBody });
+      //   this.store.dispatch({type:NotificationActions.GET_ACTIVITIES_FOR_THE_USER,payload: { offset:0,
+      //     limit:10
+      //   }});
+      // }
+    });
+    this.routerSub = router.events.subscribe((val) => {
+      if(this.triggerApi){
+        if(location.path() != ''){
+          this.route = location.path();
+          if(this.route === '/notification'){
+            const reqBodyNotification = {
+              notificationType: 'all',
+              limit: 10,
+              offset: 0
+            }
+          // this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS, payload: reqBody });
+          this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS_BY_TYPE, payload: reqBodyNotification });
+          this.store.dispatch({type:NotificationActions.GET_ACTIVITIES_FOR_THE_USER,payload: { offset:0,limit:10}});
+          }
+          console.log(this.route);
+          this.triggerApi = false;
         }
-        // this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS, payload: reqBody });
-        this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS_BY_TYPE, payload: reqBody });
-        this.store.dispatch({type:NotificationActions.GET_ACTIVITIES_FOR_THE_USER,payload: { offset:0,
-          limit:10
-        }});
       }
     });
-    this.routerSub = this.route
-      .queryParams
-      .subscribe(params => {
-        // Defaults to 0 if no query param provided.
-    console.log(params)
-      });
   }
 
   processActivities(){
