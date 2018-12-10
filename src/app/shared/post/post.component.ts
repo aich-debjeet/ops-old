@@ -35,6 +35,7 @@ export class PostComponent implements OnInit {
   desText: string;
   isEdit: boolean;
   userImage: string;
+  isMediaOwner: boolean;
 
   imageLink: string = environment.API_IMAGE;
   domainLink: string = environment.API_DOMAIN;
@@ -52,6 +53,14 @@ export class PostComponent implements OnInit {
       this.userImage = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
     } else {
       this.userImage = this.imageLink + this.mediaData.ownerImage;
+    }
+    if (this.mediaData.ownerHandle && typeof this.isMediaOwner === 'undefined') {
+      const handle = localStorage.getItem('loggedInProfileHandle');
+      if (handle === this.mediaData.ownerHandle) {
+        this.isMediaOwner = true;
+      } else {
+        this.isMediaOwner = false;
+      }
     }
     this.following = this.mediaData.isSpotted;
     this.mediaId = this.mediaData.id;
@@ -144,11 +153,13 @@ export class PostComponent implements OnInit {
   }
 
   markVideoAsViewed(mediaId: string) {
-    const data = {
-      contentType: 'media',
-      contentId: mediaId
+    if (!this.isMediaOwner) {
+      const data = {
+        contentType: 'media',
+        contentId: mediaId
+      }
+      this.store.dispatch({ type: MediaActions.MEDIA_ADD_VIEW_COUNT, payload: data });
     }
-    this.store.dispatch({ type: MediaActions.MEDIA_ADD_VIEW_COUNT, payload: data });
   }
 
 }
