@@ -143,4 +143,12 @@ export class PostComponent implements OnInit {
     // this.gUtils.filter({ component: 'VideplayerComponent', action: 'stopVideo' });
   }
 
+  markVideoAsViewed(mediaId: string) {
+    const data = {
+      contentType: 'media',
+      contentId: mediaId
+    }
+    this.store.dispatch({ type: MediaActions.MEDIA_ADD_VIEW_COUNT, payload: data });
+  }
+
 }
