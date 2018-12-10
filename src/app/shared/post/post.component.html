@@ -104,7 +104,7 @@
     <a [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
       <img [src]="imageLink + mediaData?.thumbNails?.large" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';"
         class="img-responsive audio-image" [class.c-feed__adult-blur]="mediaData?.isNsfw && mediaData?.isOwner === false">
-      <app-audioplayer *ngIf="mediaData?.inViewport" [size]="'small'" [src]="imageLink + mediaData?.repopath"></app-audioplayer>
+      <app-audioplayer *ngIf="mediaData?.inViewport === true" [mediaId]="mediaData?.id" (audioPlayed)="markMediaAsViewed($event)" [size]="'small'" [src]="imageLink + mediaData?.repopath"></app-audioplayer>
       <div *ngIf="!mediaData?.inViewport" class="audio-placeholder"></div>
     </a>
   </div>
@@ -114,7 +114,7 @@
   <div class="c-feed__img2" appAppear (reached)="onReachingInViewport(mediaData?.id)" (departed)="onDepartedFromViewport(mediaData?.id)"
     *ngIf="mediaData?.mtype === 'video'">
     <app-videoplayer [mediaId]="mediaData?.id" [showControls]="'true'" *ngIf="mediaData?.inViewport === true" class="{{ imageLink + mediaData?.repopath }}"
-      src="{{ imageLink +  mediaData?.repopath }}" (videoPlayed)="markVideoAsViewed($event)"></app-videoplayer>
+      src="{{ imageLink +  mediaData?.repopath }}" (videoPlayed)="markMediaAsViewed($event)"></app-videoplayer>
     <a *ngIf="mediaData?.inViewport === false" [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
       <img [src]="imageLink + mediaData?.thumbNails?.large" [ngClass]="{'audio-image': mediaData?.mtype === 'audio'}"
         onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="img-responsive"
