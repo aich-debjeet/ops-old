@@ -24,18 +24,18 @@ export class AboutContactComponent implements OnInit, OnDestroy {
     private profileStore: Store<ProfileModal>
   ) {
     this.tagState$ = this.profileStore.select('profileTags');
-    this.profSub = this.tagState$.subscribe((state) => {
-      this.stateProfile = state;
-      if (state.profile_user_info) {
-        if (this.stateProfile.profile_user_info.isCurrentUser === false && this.stateProfile.profile_other_loaded === true) {
-          this.ownProfile = false;
-          this.userProfile = this.stateProfile.profile_other;
-        } else {
-          this.ownProfile = true;
-          this.userProfile = this.stateProfile.profile_details;
-        }
-      }
-    });
+    // this.profSub = this.tagState$.subscribe((state) => {
+    //   this.stateProfile = state;
+    //   if (state.profile_user_info) {
+    //     if (this.stateProfile.profile_user_info.isCurrentUser === false && this.stateProfile.profile_other_loaded === true) {
+    //       this.ownProfile = false;
+    //       this.userProfile = this.stateProfile.profile_other;
+    //     } else {
+    //       this.ownProfile = true;
+    //       this.userProfile = this.stateProfile.profile_details;
+    //     }
+    //   }
+    // });
   }
 
   ngOnInit() {

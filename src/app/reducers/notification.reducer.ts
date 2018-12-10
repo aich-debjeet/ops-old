@@ -72,6 +72,9 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
       });
 
     case NotificationActions.MARK_AS_READ:
+    console.log(payload)
+    let found =(state['recieved_notifications']).some(r=> payload.notificationList.indexOf(r.notificationId) >= 0)
+    console.log(found)
       return Object.assign({}, state, {
         mark_as_read_success: false
       });

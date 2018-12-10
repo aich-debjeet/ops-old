@@ -200,7 +200,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
    * @Param: notification id
    */
   markAsRead() {
-    // console.log(this.notificationsList)
+    console.log(this.notificationsList)
     this.store.dispatch({
       type: NotificationActions.MARK_AS_READ,
       payload: {
