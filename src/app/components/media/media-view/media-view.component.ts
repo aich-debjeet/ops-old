@@ -48,6 +48,7 @@ export class MediaViewComponent implements OnDestroy {
   viewCounted = false;
   commentsLoading: boolean;
   commentsLoaded: boolean;
+  isMediaOwner: boolean;
 
   constructor(
     private router: Router,
@@ -61,6 +62,14 @@ export class MediaViewComponent implements OnDestroy {
       this.mediaStore = state;
       this.channelId = this.mediaStore.channel_detail['channelId']
       this.data = this.mediaStore.media_detail;
+      if (this.gUtils.checkNestedKey(state, ['media_detail', 'ownerHandle']) && typeof this.isMediaOwner === 'undefined') {
+        const handle = localStorage.getItem('loggedInProfileHandle');
+        if (handle === this.mediaStore.media_detail.ownerHandle) {
+          this.isMediaOwner = true;
+        } else {
+          this.isMediaOwner = false;
+        }
+      }
       this.mediaType = this.mediaStore.media_detail.mtype;
       this.mediaId = this.mediaStore.media_detail.id;
       if (state.media_comments_loading === true && state.media_comments_loaded === false) {
@@ -71,7 +80,7 @@ export class MediaViewComponent implements OnDestroy {
         this.commentsLoading = false;
         this.commentsLoaded = true;
       }
-      if (!this.viewCounted && this.mediaId) {
+      if (!this.viewCounted && this.mediaId && typeof this.isMediaOwner !== 'undefined' && this.isMediaOwner === false) {
         const data = {
           contentType: 'media',
           contentId: this.mediaId

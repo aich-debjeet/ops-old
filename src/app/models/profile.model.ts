@@ -11,7 +11,7 @@ export class ProfileModal {
   profile_details?: any;
   user_details: any;
   profileUpdateSuccess: boolean;
-  isUpdating?:boolean;
+  isUpdating?: boolean;
   userUpdateSuccess: boolean;
   editWorksuccess?: boolean;
   channelEntity?: any;
@@ -110,7 +110,7 @@ export const initialTag: ProfileModal = {
   profileUpdateSuccess: false,
   userUpdateSuccess: false,
   completed: [],
-  loading:  false,
+  loading: false,
   success: true,
   profile_details: [],
   user_details: [],
