@@ -10,7 +10,7 @@
             </div>
             <div class="bookmark-info__discription">
                 <div class="c-text_lg f-w_600">
-                    {{ oppDetails?.opportunityTitle }}
+                    {{ oppDetails?.opportunityTitle | truncate: [150, '...'] }}
                 </div>
             </div>
             <div class="bookmark-info__post-detail">

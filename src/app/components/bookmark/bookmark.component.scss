@@ -334,6 +334,10 @@
     text-align: center;
     color: $color-black;
     margin-top: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 90%;
 }
 .bookmark-profile__username{
     font-size: 13px;	
@@ -341,6 +345,10 @@
     line-height: 26px;
     color: $color-grey-dark;
     text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 90%;
 }
 .bookmark-info__posts{
     width: 100%;
