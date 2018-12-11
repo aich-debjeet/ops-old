@@ -152,8 +152,8 @@ export class PostComponent implements OnInit {
     // this.gUtils.filter({ component: 'VideplayerComponent', action: 'stopVideo' });
   }
 
-  markVideoAsViewed(mediaId: string) {
-    if (!this.isMediaOwner) {
+  markMediaAsViewed(mediaId: string) {
+    if (mediaId && !this.isMediaOwner) {
       const data = {
         contentType: 'media',
         contentId: mediaId
