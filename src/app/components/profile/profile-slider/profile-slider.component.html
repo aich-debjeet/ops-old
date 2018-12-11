@@ -106,10 +106,10 @@
             </li>
             <li class="list-line-item" *ngIf="!this.isOwner">
               <a *ngIf="profileObject?.userDetails?.physical?.isBookmarked === true" (click)="bookmarkAction('remove', profileObject?.userDetails?.handle)">
-                <img src="https://ops-v2-2.netlify.com/assets/svg/bookmarked.svg" class="c-action__image">
+                <img src="https://ops-v2-2.netlify.com/assets/svg/bookmarked.svg" class="o-profile__nav--img c-action__image">
               </a>
               <a *ngIf="profileObject?.userDetails?.physical?.isBookmarked === false" (click)="bookmarkAction('add', profileObject?.userDetails?.handle)">
-                <img src="https://ops-v2-2.netlify.com/assets/svg/bookmark.svg" class="c-action__image">
+                <img src="https://ops-v2-2.netlify.com/assets/svg/bookmark.svg" class="o-profile__nav--img c-action__image">
               </a>
             </li>
             <li class="list-line-item" *ngIf="!this.isOwner">
