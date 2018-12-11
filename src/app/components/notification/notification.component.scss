@@ -324,3 +324,17 @@
     background: #F3F5F7;
   background-size: 200% 100px;
 }
+.o-noti__empty{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 120px 0px;
+}
+.o-noti__empty-txt{
+    font-size: 15px;	
+    font-weight: 600;	
+    line-height: 24px;	
+    text-align: center;
+}

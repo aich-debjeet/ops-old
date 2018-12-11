@@ -90,7 +90,10 @@
                             </div>
                         </ng-container>
                         <div *ngIf="notifications?.length === 0 && !notifState?.requesting_notifications" class="o-alert_scroll o-alert__empty" id="ops_scrollbar">
-                            <div class="c-text_lg color-grey-dark">You have no notifications</div>
+                            <div class="o-noti__empty">
+                                <img src="assets/svg/noti.svg" width="71" alt="">
+                                <span class="o-noti__empty-txt color-grey-dark">You have no notfication</span>
+                            </div>
                         </div>
                     </div>
                     <div id="02" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'spots'">
@@ -162,7 +165,10 @@
                             </div>
                         </ng-container>
                         <div *ngIf="notifications?.length === 0 && !notifState?.requesting_notifications" class="o-alert_scroll o-alert__empty" id="ops_scrollbar">
-                            <div class="c-text_lg color-grey-dark">You have no notifications</div>
+                            <div class="o-noti__empty">
+                                <img src="assets/svg/noti.svg" width="71" alt="">
+                                <span class="o-noti__empty-txt color-grey-dark">You have no notfication</span>
+                            </div>
                         </div>
                     </div>
                     <div id="03" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'comments'">
@@ -234,7 +240,10 @@
                             </div>
                         </ng-container>
                         <div *ngIf="notifications?.length === 0 && !notifState?.requesting_notifications" class="o-alert_scroll o-alert__empty" id="ops_scrollbar">
-                            <div class="c-text_lg color-grey-dark">You have no notifications</div>
+                            <div class="o-noti__empty">
+                                <img src="assets/svg/noti.svg" width="71" alt="">
+                                <span class="o-noti__empty-txt color-grey-dark">You have no notfication</span>
+                            </div>
                         </div>
                     </div>
                     <div id="04" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'other'">
@@ -298,7 +307,10 @@
                             </div>
                         </ng-container>
                         <div *ngIf="notifications?.length === 0 && !notifState?.requesting_notifications" class="o-alert_scroll o-alert__empty" id="ops_scrollbar">
-                            <div class="c-text_lg color-grey-dark">You have no notifications</div>
+                            <div class="o-noti__empty">
+                                <img src="assets/svg/noti.svg" width="71" alt="">
+                                <span class="o-noti__empty-txt color-grey-dark">You have no notfication</span>
+                            </div>
                         </div>
                     </div>
                     </div>
