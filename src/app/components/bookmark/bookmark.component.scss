@@ -497,3 +497,27 @@
     left: initial;
     width: 90%;
 }
+
+.bookmark-info__posts{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: row;
+    margin-top: 8px;
+}
+.bookmark-info__post-item{
+    width: 87px;
+    height: 87px;
+    float: left;
+    position: relative;
+    background: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 9px;
+    @include mq($from: $tablet, $until: $desktop_sm) {
+        width: 75px;
+        height: 80px;
+    }
+}
