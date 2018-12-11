@@ -14,7 +14,7 @@
       <vg-mute></vg-mute>
     </div>
   </vg-controls>
-  <audio #media [vgMedia]="media" preload="auto" autoplay>
+  <audio #audioElem [vgMedia]="audioElem" preload="auto" autoplay>
     <source [src]="src" type="audio/mp3">
   </audio>
 </vg-player>

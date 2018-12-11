@@ -6,7 +6,7 @@
         </ng-template>
     </a>
 </div>
-<div class="o-people-result__name" routerLink="{{ '/profile/u/' + artist?.extra?.username }}">
+<div class="o-people-result__name" routerLink="{{ '/profile/u/' + artist?.extra?.username + ( artist?.extra?.isImported === true ? '/about' : '' ) }}">
     <span class="c-text_lg">{{ artist?.name | truncate:[12, '...'] }}</span>
     <span class="c-text_sm color-grey-dark">@{{ artist?.extra?.username }}</span>
 </div>

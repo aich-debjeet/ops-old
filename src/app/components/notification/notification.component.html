@@ -71,6 +71,30 @@
                                     </div>
                             </div>
                         </ng-container>
+                        <ng-container *ngIf="notifState?.requesting_notifications === true">
+                            <div class="row not_block_main" *ngFor="let n of [0,1,2]">
+                                <a href="javascript:void(0)">
+                                    <div class="not_block2 p-t-b-16">
+                                        <div class=" pl_avatar40">
+                                        </div>
+                                        <div class="not_block2_details">
+                                            <div class="not_block2_comm float_left">
+                                                <div class="pl_username"></div>
+                                            </div>
+                                            <div class="not_block2_tim float_left">
+                                                <div class="pl_block_height12"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </ng-container>
+                        <div *ngIf="notifications?.length === 0 && !notifState?.requesting_notifications" class="o-alert_scroll o-alert__empty" id="ops_scrollbar">
+                            <div class="o-noti__empty">
+                                <img src="assets/svg/noti.svg" width="71" alt="">
+                                <span class="o-noti__empty-txt color-grey-dark">You have no notfication</span>
+                            </div>
+                        </div>
                     </div>
                     <div id="02" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'spots'">
                         <div class="row p-l-24 p-l-16 p-t-b-8">
@@ -122,6 +146,30 @@
                                 </div>
                             </div>
                         </ng-container>
+                        <ng-container *ngIf="notifState?.requesting_notifications === true">
+                            <div class="row not_block_main" *ngFor="let n of [0,1,2]">
+                                <a href="javascript:void(0)">
+                                    <div class="not_block2 p-t-b-16">
+                                        <div class=" pl_avatar40">
+                                        </div>
+                                        <div class="not_block2_details">
+                                            <div class="not_block2_comm float_left">
+                                                <div class="pl_username"></div>
+                                            </div>
+                                            <div class="not_block2_tim float_left">
+                                                <div class="pl_block_height12"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </ng-container>
+                        <div *ngIf="notifications?.length === 0 && !notifState?.requesting_notifications" class="o-alert_scroll o-alert__empty" id="ops_scrollbar">
+                            <div class="o-noti__empty">
+                                <img src="assets/svg/noti.svg" width="71" alt="">
+                                <span class="o-noti__empty-txt color-grey-dark">You have no notfication</span>
+                            </div>
+                        </div>
                     </div>
                     <div id="03" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'comments'">
                         <div class="row p-l-24 p-l-16 p-t-b-8">
@@ -173,6 +221,30 @@
                                 </div>                                
                             </div>
                         </ng-container>
+                        <ng-container *ngIf="notifState?.requesting_notifications === true">
+                            <div class="row not_block_main" *ngFor="let n of [0,1,2]">
+                                <a href="javascript:void(0)">
+                                    <div class="not_block2 p-t-b-16">
+                                        <div class=" pl_avatar40">
+                                        </div>
+                                        <div class="not_block2_details">
+                                            <div class="not_block2_comm float_left">
+                                                <div class="pl_username"></div>
+                                            </div>
+                                            <div class="not_block2_tim float_left">
+                                                <div class="pl_block_height12"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </ng-container>
+                        <div *ngIf="notifications?.length === 0 && !notifState?.requesting_notifications" class="o-alert_scroll o-alert__empty" id="ops_scrollbar">
+                            <div class="o-noti__empty">
+                                <img src="assets/svg/noti.svg" width="71" alt="">
+                                <span class="o-noti__empty-txt color-grey-dark">You have no notfication</span>
+                            </div>
+                        </div>
                     </div>
                     <div id="04" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'other'">
                         <div class="row p-l-24 p-l-16 p-t-b-8">
@@ -216,6 +288,30 @@
                                 </div>
                             </div>
                         </ng-container>
+                        <ng-container *ngIf="notifState?.requesting_notifications === true">
+                            <div class="row not_block_main" *ngFor="let n of [0,1,2]">
+                                <a href="javascript:void(0)">
+                                    <div class="not_block2 p-t-b-16">
+                                        <div class=" pl_avatar40">
+                                        </div>
+                                        <div class="not_block2_details">
+                                            <div class="not_block2_comm float_left">
+                                                <div class="pl_username"></div>
+                                            </div>
+                                            <div class="not_block2_tim float_left">
+                                                <div class="pl_block_height12"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </ng-container>
+                        <div *ngIf="notifications?.length === 0 && !notifState?.requesting_notifications" class="o-alert_scroll o-alert__empty" id="ops_scrollbar">
+                            <div class="o-noti__empty">
+                                <img src="assets/svg/noti.svg" width="71" alt="">
+                                <span class="o-noti__empty-txt color-grey-dark">You have no notfication</span>
+                            </div>
+                        </div>
                     </div>
                     </div>
                 </div>
@@ -237,6 +333,20 @@
                         <a [routerLink]="['', 'profile', 'u', list.username, 'user']">{{list.name}}</a> {{list.message}}
                     </div>
                 </div>
+            </div>
+            <ng-container *ngIf="notifState?.requesting_activities === true">
+                <div class="not_activite_row" *ngFor="let n of [0,1,2]">
+                    <div class="col-md-2 p-0">
+                        <div class="pl_avatar">
+                        </div>
+                    </div>
+                    <div class="col-md-10 p-l-8 p-r-0">
+                        <div class="not_usercomment"><div class="pl_block100-12"></div></div>
+                    </div>
+                </div>
+            </ng-container>
+            <div *ngIf="activities?.length === 0 && !notifState?.requesting_activities" class="o-alert_scroll o-alert__empty" id="ops_scrollbar">
+                <div class="c-text_lg color-grey-dark">You have no activities</div>
             </div>
         </div>
     </div>

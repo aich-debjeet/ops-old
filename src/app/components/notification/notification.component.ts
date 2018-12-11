@@ -45,6 +45,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
   notificationCount: string;
   route: string;
   triggerApi: boolean = true;
+  notifState: any;
 
   constructor(
     private store: Store<Notification>,
@@ -61,6 +62,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
     // observe the store value
     this.subscription = this.notificationsState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
+        this.notifState = state;
         if (typeof state['recieved_notifications'] !== 'undefined') {
           // console.log('state', state);
           this.notifications = state['recieved_notifications'];
@@ -200,7 +202,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
    * @Param: notification id
    */
   markAsRead() {
-    // console.log(this.notificationsList)
+    console.log(this.notificationsList)
     this.store.dispatch({
       type: NotificationActions.MARK_AS_READ,
       payload: {

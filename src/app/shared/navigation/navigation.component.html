@@ -239,7 +239,7 @@
                   <app-placeholder-notification *ngFor="let n of [0,1,2]"></app-placeholder-notification>
                 </ng-container>
               </div>
-              <div *ngIf="notifications?.length === 0" class="o-alert_scroll o-alert__empty" id="ops_scrollbar">
+              <div *ngIf="notifications?.length === 0 && !notifState?.requesting_notifications" class="o-alert_scroll o-alert__empty" id="ops_scrollbar">
                 <div class="c-text_lg color-grey-dark">You have no notifications</div>
               </div>
               <div *ngIf="notifications?.length > 0;" class="dropdown__item p-16 msg__read">
