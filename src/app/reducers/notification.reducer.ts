@@ -135,11 +135,13 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
       if(payload.offset === 0){
         return Object.assign({}, state, {
           recived_activities: false,
+          requesting_activities:true,
           activity_list:[]
         });
       } else {
         return Object.assign({}, state, {
-          recived_activities: false
+          recived_activities: false,
+          requesting_activities:true,
         });
       }
 
@@ -152,12 +154,14 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
       }
       return Object.assign({}, state, {
         activity_list: list,
-        recived_activities: true
+        recived_activities: true,
+        requesting_activities:false,
       });
 
     case NotificationActions.GET_ACTIVITIES_FOR_THE_USER_FAILED:
       return Object.assign({}, state, {
-        recived_activities: false
+        recived_activities: false,
+        requesting_activities:false,
       });
 
     default:
