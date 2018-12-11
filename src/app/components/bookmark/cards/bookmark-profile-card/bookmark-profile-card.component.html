@@ -1,7 +1,7 @@
 <div class="bookmark">
     <div class="bookmark__profile">
         <div class="bookmark-profile__image">
-            <img [src]="imageBaseUrl + profileDetails?.profileImage" alt="">
+            <img [src]="(profileDetails?.isImported) ? profileDetails?.profileImage : imageBaseUrl + profileDetails?.profileImage" alt="">
         </div>
         <a *ngIf="profileDetails?.name" routerLink="{{ '/profile/u/' + profileDetails?.username }}" class="bookmark-profile__name">
             {{ profileDetails?.name }}
