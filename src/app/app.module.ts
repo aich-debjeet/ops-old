@@ -1,15 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TextMaskModule } from 'angular2-text-mask';
 import { NgxMyDatePickerModule } from 'ngx-mydatepicker';
-// import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
 // External Service
 import { ImageCropperModule } from 'ngx-image-cropper';
@@ -22,15 +20,11 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { AgmCoreModule } from '@agm/core';
 import { QuillModule } from 'ngx-quill';
 
-
 // Pipes
 import { OrderByPipe } from './pipes/order.pipe';
 import { UniquePipe } from './pipes/unique.pipe';
 import { SearchNamePipe } from './pipes/name.pipe';
-import { SafeHtmlPipe } from './pipes/safehtml.pipe';
-// import { TruncatePipe } from './pipes/truncate.pipe';
 import { SharedPipesModule } from './pipes/shared-pipes.module';
-import { GroupByPipe } from './pipes/group-by.pipe';
 
 // Guard
 import { AuthGuard } from './guard/auth.guard';
@@ -84,8 +78,6 @@ import { SharedService } from './services/shared.service';
 // Component module
 import { SharedModule } from './shared/shared.module';
 import { MediaModule } from './components/media/media.module';
-import { ProfileModule } from './components/profile/profile.module';
-import { TabComponents  } from './shared/tabs/tabset';
 
 // components
 import { AppComponent } from './app.component';
@@ -105,12 +97,9 @@ import { ProjectComponent } from './components/project/project.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { SpotfeedComponent } from './components/spotfeed/spotfeed.component';
 import { SpotfeedPremiumComponent } from './components/spotfeed-premium/spotfeed-premium.component';
-import { NotificationComponent } from './components/notification/notification.component';
-// import { SearchComponent } from './components/search/search.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { LogoutHomeComponent } from './components/logout-home/logout-home.component';
 import { LogoutComponent } from './components/logout/logout.component';
-import { MediaComponent } from './components/media/media.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { TermsComponent } from './components/terms/terms.component';
 import { AboutComponent } from './components/about/about.component';
@@ -121,7 +110,6 @@ import { BookmarkEffect } from './effects/bookmark.effect';
 import { BookmarkService } from './services/bookmark.service';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -129,7 +117,6 @@ import { BookmarkService } from './services/bookmark.service';
     ResetPasswordComponent,
     SpotfeedComponent,
     SpotfeedPremiumComponent,
-    NotificationComponent,
     SettingsComponent,
     LogoutHomeComponent,
     LogoutComponent,
@@ -139,7 +126,6 @@ import { BookmarkService } from './services/bookmark.service';
     NotFoundPageComponent,
     OrderByPipe,
     UniquePipe,
-    GroupByPipe,
     SearchNamePipe,
     StatusListComponent,
     PlannerComponent,
@@ -150,7 +136,7 @@ import { BookmarkService } from './services/bookmark.service';
     AboutComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({appId: 'ops-app'}),
+    BrowserModule.withServerTransition({ appId: 'ops-app' }),
     SharedPipesModule,
     SharedModule,
     MediaModule,
@@ -170,7 +156,6 @@ import { BookmarkService } from './services/bookmark.service';
       preventDuplicates: true,
     }),
     ShareButtonsModule.forRoot(),
-    // StoreRouterConnectingModule,
     EffectsModule.run(AuthEffect),
     EffectsModule.run(HomeEffect),
     EffectsModule.run(SharedEffect),
@@ -187,7 +172,6 @@ import { BookmarkService } from './services/bookmark.service';
     EffectsModule.run(CommunitiesEffect),
     EffectsModule.run(DirectoryEffect),
     EffectsModule.run(BookmarkEffect),
-    // Video
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     VgCoreModule,
     VgControlsModule,
