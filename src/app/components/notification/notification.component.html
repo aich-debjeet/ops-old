@@ -1,353 +1,373 @@
 <app-navigation></app-navigation>
 <section class="container container-fulid outer_container">
-    <div class="col-xs-12 col-md-9 p-0">
-        <div class="not_block">
-            <div class="c-ops__tabs3">
-                <ul class="nav nav-tabs p-t-b-16 p-l-r-24">
-                    <li class="o-noti-tab" [ngClass]="{'active':notificationType === 'all'}">
-                        <a data-toggle="tab" (click)="switchtabs('all')" aria-expanded="true" class="p-l-0">All</a>
-                    </li>
-                    <li class="o-noti-tab" [ngClass]="{'active':notificationType === 'spots'}">
-                        <a data-toggle="tab" (click)="switchtabs('spots')" aria-expanded="false">Spots</a>
-                    </li>
-                    <li class="o-noti-tab" [ngClass]="{'active':notificationType === 'comments'}">
-                        <a data-toggle="tab" (click)="switchtabs('comments')" aria-expanded="false">Comments</a>
-                    </li>
-                    <li class="o-noti-tab" [ngClass]="{'active':notificationType === 'other'}">
-                        <a data-toggle="tab" (click)="switchtabs('other')" aria-expanded="false">Other</a>
-                    </li>
-                    <div class="c-text_md color-theme pull-right m-t-16">{{notificationCount}} Notifications</div>
-                </ul>
-                <div class="tab-content">
-                    <div class="noti_left" id="ops_scrollbar1" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="1000" [infiniteScrollContainer]="'#ops_scrollbar1'"
-                    (scrolled)="onScroll($event)">
-                    <div id="01" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'all'">
-                        <div class="row p-l-24 p-l-16 p-t-b-8">
-                            <div class="col-xs-6 col-md-9 c-text_md c-checkbox__md2 p-l-0">
-                                <label class="checkbox-inline p-l-0 m-t-8">
-                                    <input type="checkbox" value="all" name="all" class="c-form__bar2" (change)="selectAll($event)"> Select all
-                                </label>
-                            </div>
-                            <div class="col-xs-6 col-md-3">
-                                <div class="dropdown c-dropdown text-right" appDropdown>
-                                    <a class="noti-action dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" appDropdownOpen>Actions
-                                    <span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                    <li><a (click)="markAsRead()">Mark as read</a></li>
-                                    <li><a (click)="markAsDelete()">Delete</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <ng-container *ngFor="let notification of notifications | groupBy:'date'">
-                            <div class="row">
-                                <div class="not_date">{{ notification.key | date}}</div>
-                            </div>
-                            <div class="row not_block_main" *ngFor="let noti of notification.value" [ngClass]="{'fill_grey': !noti.isRead}">           
-                                
-                                    <div class="not_block1 c-checkbox__md2">
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="1" [checked]="isSelected" (change)="onChange(noti.notificationId, $event.target.checked)">
-                                        </label>
-                                    </div>
-                                    <div class="not_block2 p-t-b-16">
-                                        <div class="not_avatar_img" [routerLink]="['', 'profile', 'u', noti.username, 'user']">
-                                            <img *ngIf="!noti.profileImage" class="navdrop__img" [src]="baseUrl + 'img/avatar2.png'">
-                                            <img *ngIf="noti.profileImage" [src]="baseUrl + noti.profileImage" class="navdrop__img">
-                                        </div>
-                                        <div class="not_block2_details">
-                                            <div class="not_block2_comm"><span class="color-grey-darker">{{noti.name }}</span><a class="text_undrline" (click)="openLink(noti)">{{ noti.message }}</a></div>
-                                            <div class="not_block2_tim">
-                                                <img *ngIf="noti?.notificationType == 'Status_Comments' || noti?.notificationType == 'Media_Comments'" [src]="baseUrl + 'img/svg/ico_comment.svg'">
-                                                <img *ngIf="noti?.notificationType == 'Media_Spot' || noti?.notificationType == 'Status_Spot'" [src]="baseUrl + 'img/svg/spot_icon.svg'">
-                                                {{ noti.createdDate | utcDate | date:'d MMM hh:mm a' }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="not_block3 p-t-b-16" *ngIf="(noti.media | json) != '{}' && noti.media.mType !== 'status'">
-                                        <a class="not_block3_img" (click)="openLink(noti)">
-                                            <img [src]="baseUrl + noti.media.thumbNails.mediumSmall">
-                                        </a>
-                                    </div>
-                            </div>
-                        </ng-container>
-                        <ng-container *ngIf="notifState?.requesting_notifications === true">
-                            <div class="row not_block_main" *ngFor="let n of [0,1,2]">
-                                <a href="javascript:void(0)">
-                                    <div class="not_block2 p-t-b-16">
-                                        <div class=" pl_avatar40">
-                                        </div>
-                                        <div class="not_block2_details">
-                                            <div class="not_block2_comm float_left">
-                                                <div class="pl_username"></div>
-                                            </div>
-                                            <div class="not_block2_tim float_left">
-                                                <div class="pl_block_height12"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </ng-container>
-                        <div *ngIf="notifications?.length === 0 && !notifState?.requesting_notifications" class="o-alert_scroll o-alert__empty" id="ops_scrollbar">
-                            <div class="o-noti__empty">
-                                <img src="assets/svg/noti.svg" width="71" alt="">
-                                <span class="o-noti__empty-txt color-grey-dark">You have no notfication</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="02" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'spots'">
-                        <div class="row p-l-24 p-l-16 p-t-b-8">
-                            <div class="col-md-10 c-text_md c-checkbox__md2 p-l-0">
-                                <label class="checkbox-inline p-l-0 m-t-8">
-                                    <input type="checkbox" value="1" class="c-form__bar2"> Select all
-                                </label>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="c-form__group m-0 c-dropdown_icon m-l-24">
-                                    <div class="dropdown c-dropdown text-right" appDropdown>
-                                        <a class="noti-action dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" appDropdownOpen>Actions
-                                        <span class="caret"></span></a>
-                                        <ul class="dropdown-menu">
-                                        <li><a (click)="markAsRead()">Mark as read</a></li>
-                                        <li><a (click)="markAsDelete()">Delete</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <ng-container *ngFor="let notification of notifications | groupBy:'date'">
-                            <div class="row">
-                                <div class="not_date">{{ notification.key | date}}</div>
-                            </div>
-                            <div class="row not_block_main" *ngFor="let noti of notification.value" [ngClass]="{'fill_grey': !noti.isRead}">
-                                <div class="not_block1 c-checkbox__md2">
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" value="1" [checked]="isSelected" (change)="onChange(noti.notificationId, $event.target.checked)">
-                                    </label>
-                                </div>
-                                <div class="not_block2 p-t-b-16">
-                                    <div class="not_avatar_img" [routerLink]="['', 'profile', 'u', noti.username, 'user']">
-                                        <img *ngIf="!noti.profileImage" class="navdrop__img" [src]="baseUrl + 'img/avatar2.png'">
-                                        <img *ngIf="noti.profileImage" [src]="baseUrl + noti.profileImage" class="navdrop__img">
-                                    </div>
-                                    <div class="not_block2_details">
-                                        <div class="not_block2_comm"><span class="color-grey-darker">{{ noti.name }}</span><a class="text_undrline" (click)="openLink(noti)">{{ noti.message }}</a></div>
-                                        <div class="not_block2_tim">
-                                            <img *ngIf="noti?.notificationType == 'Media_Spot'" [src]="baseUrl + 'img/svg/spot_icon.svg'">
-                                            {{ noti.createdDate | utcDate | date:'d MMM hh:mm a' }}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="not_block3 p-t-b-16" *ngIf="(noti.media | json) != '{}' && noti.media.mType !== 'status'">
-                                    <a class="not_block3_img" (click)="openLink(noti)">
-                                        <img [src]="baseUrl + noti.media.thumbNails.mediumSmall">
-                                    </a>
-                                </div>
-                            </div>
-                        </ng-container>
-                        <ng-container *ngIf="notifState?.requesting_notifications === true">
-                            <div class="row not_block_main" *ngFor="let n of [0,1,2]">
-                                <a href="javascript:void(0)">
-                                    <div class="not_block2 p-t-b-16">
-                                        <div class=" pl_avatar40">
-                                        </div>
-                                        <div class="not_block2_details">
-                                            <div class="not_block2_comm float_left">
-                                                <div class="pl_username"></div>
-                                            </div>
-                                            <div class="not_block2_tim float_left">
-                                                <div class="pl_block_height12"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </ng-container>
-                        <div *ngIf="notifications?.length === 0 && !notifState?.requesting_notifications" class="o-alert_scroll o-alert__empty" id="ops_scrollbar">
-                            <div class="o-noti__empty">
-                                <img src="assets/svg/noti.svg" width="71" alt="">
-                                <span class="o-noti__empty-txt color-grey-dark">You have no notfication</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="03" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'comments'">
-                        <div class="row p-l-24 p-l-16 p-t-b-8">
-                            <div class="col-md-10 c-text_md c-checkbox__md2 p-l-0">
-                                <label class="checkbox-inline p-l-0 m-t-8">
-                                    <input type="checkbox" value="1" class="c-form__bar2"> Select all
-                                </label>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="c-form__group m-0 c-dropdown_icon m-l-24">
-                                    <div class="dropdown c-dropdown text-right" appDropdown>
-                                        <a class="noti-action dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" appDropdownOpen>Actions
-                                        <span class="caret"></span></a>
-                                        <ul class="dropdown-menu">
-                                        <li><a (click)="markAsRead()">Mark as read</a></li>
-                                        <li><a (click)="markAsDelete()">Delete</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <ng-container *ngFor="let notification of notifications | groupBy:'date'">
-                            <div class="row">
-                                <div class="not_date">{{ notification.key | date}}</div>
-                            </div>
-                            <div class="row not_block_main" *ngFor="let noti of notification.value"  [ngClass]="{'fill_grey': !noti.isRead}">
-                                <div class="not_block1 c-checkbox__md2">
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" value="1" [checked]="isSelected" (change)="onChange(noti.notificationId, $event.target.checked)">
-                                    </label>
-                                </div>
-                                <div class="not_block2 p-t-b-16">
-                                    <div class="not_avatar_img" [routerLink]="['', 'profile', 'u', noti.username, 'user']">
-                                        <img *ngIf="!noti.profileImage" class="navdrop__img" [src]="baseUrl + 'img/avatar2.png'">
-                                        <img *ngIf="noti.profileImage" [src]="baseUrl + noti.profileImage" class="navdrop__img">
-                                    </div>
-                                    <div class="not_block2_details">
-                                        <div class="not_block2_comm"><span class="color-grey-darker">{{ noti.name }}</span><a class="text_undrline" (click)="openLink(noti)">{{ noti.message }}</a></div>
-                                        <div class="not_block2_tim">
-                                                <img *ngIf="noti?.notificationType == 'Status_Comments' || noti?.notificationType == 'Media_Comments'" [src]="baseUrl + 'img/svg/ico_comment.svg'">
-                                            {{ noti.createdDate | utcDate | date:'d MMM hh:mm a' }}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="not_block3 p-t-b-16" *ngIf="(noti.media | json) != '{}' && noti.media.mType !== 'status'">
-                                    <a class="not_block3_img" (click)="openLink(noti)">
-                                        <img [src]="baseUrl + noti.media.thumbNails.mediumSmall">
-                                    </a>
-                                </div>                                
-                            </div>
-                        </ng-container>
-                        <ng-container *ngIf="notifState?.requesting_notifications === true">
-                            <div class="row not_block_main" *ngFor="let n of [0,1,2]">
-                                <a href="javascript:void(0)">
-                                    <div class="not_block2 p-t-b-16">
-                                        <div class=" pl_avatar40">
-                                        </div>
-                                        <div class="not_block2_details">
-                                            <div class="not_block2_comm float_left">
-                                                <div class="pl_username"></div>
-                                            </div>
-                                            <div class="not_block2_tim float_left">
-                                                <div class="pl_block_height12"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </ng-container>
-                        <div *ngIf="notifications?.length === 0 && !notifState?.requesting_notifications" class="o-alert_scroll o-alert__empty" id="ops_scrollbar">
-                            <div class="o-noti__empty">
-                                <img src="assets/svg/noti.svg" width="71" alt="">
-                                <span class="o-noti__empty-txt color-grey-dark">You have no notfication</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="04" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'other'">
-                        <div class="row p-l-24 p-l-16 p-t-b-8">
-                            <div class="col-md-10 c-text_md c-checkbox__md2 p-l-0">
-                                <label class="checkbox-inline p-l-0 m-t-8">
-                                    <input type="checkbox" value="1" class="c-form__bar2"> Select all
-                                </label>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="c-form__group m-0 c-dropdown_icon m-l-24">
-                                    <div class="dropdown c-dropdown text-right" appDropdown>
-                                        <a class="noti-action dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" appDropdownOpen>Actions
-                                        <span class="caret"></span></a>
-                                        <ul class="dropdown-menu">
-                                        <li><a (click)="markAsRead()">Mark as read</a></li>
-                                        <li><a (click)="markAsDelete()">Delete</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <ng-container *ngFor="let notification of notifications | groupBy:'date'">
-                            <div class="row">
-                                <div class="not_date">{{ notification.key | date}}</div>
-                            </div>
-                            <div class="row not_block_main" *ngFor="let noti of notification.value" [ngClass]="{'fill_grey': !noti.isRead}">
-                                <div class="not_block1 c-checkbox__md2">
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" value="1" [checked]="isSelected" (change)="onChange(noti.notificationId, $event.target.checked)">
-                                    </label>
-                                </div>
-                                <div class="not_block2 p-t-b-16">
-                                    <div class="not_avatar_img" [routerLink]="['', 'profile', 'u', noti.username, 'user']">
-                                        <img *ngIf="!noti.profileImage" class="navdrop__img" [src]="baseUrl + 'img/avatar2.png'">
-                                        <img *ngIf="noti.profileImage" [src]="baseUrl + noti.profileImage" class="navdrop__img">
-                                    </div>
-                                    <div class="not_block2_details">
-                                        <div class="not_block2_comm"><span class="color-grey-darker">{{ noti.name }}</span>{{ noti.message }}</div>
-                                        <div class="not_block2_tim">{{ noti.createdDate | utcDate | date:'d MMM hh:mm a' }}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </ng-container>
-                        <ng-container *ngIf="notifState?.requesting_notifications === true">
-                            <div class="row not_block_main" *ngFor="let n of [0,1,2]">
-                                <a href="javascript:void(0)">
-                                    <div class="not_block2 p-t-b-16">
-                                        <div class=" pl_avatar40">
-                                        </div>
-                                        <div class="not_block2_details">
-                                            <div class="not_block2_comm float_left">
-                                                <div class="pl_username"></div>
-                                            </div>
-                                            <div class="not_block2_tim float_left">
-                                                <div class="pl_block_height12"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </ng-container>
-                        <div *ngIf="notifications?.length === 0 && !notifState?.requesting_notifications" class="o-alert_scroll o-alert__empty" id="ops_scrollbar">
-                            <div class="o-noti__empty">
-                                <img src="assets/svg/noti.svg" width="71" alt="">
-                                <span class="o-noti__empty-txt color-grey-dark">You have no notfication</span>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
+  <div class="col-xs-12 col-md-9 p-0">
+    <div class="not_block">
+      <div class="c-ops__tabs3">
+        <ul class="nav nav-tabs p-t-b-16 p-l-r-24">
+          <li class="o-noti-tab" [ngClass]="{'active':notificationType === 'all'}">
+            <a data-toggle="tab" (click)="switchtabs('all')" aria-expanded="true" class="p-l-0">All</a>
+          </li>
+          <li class="o-noti-tab" [ngClass]="{'active':notificationType === 'spots'}">
+            <a data-toggle="tab" (click)="switchtabs('spots')" aria-expanded="false">Spots</a>
+          </li>
+          <li class="o-noti-tab" [ngClass]="{'active':notificationType === 'comments'}">
+            <a data-toggle="tab" (click)="switchtabs('comments')" aria-expanded="false">Comments</a>
+          </li>
+          <li class="o-noti-tab" [ngClass]="{'active':notificationType === 'other'}">
+            <a data-toggle="tab" (click)="switchtabs('other')" aria-expanded="false">Other</a>
+          </li>
+          <div class="c-text_md color-theme pull-right m-t-16">{{notificationCount}} Notifications</div>
+        </ul>
+        <div class="tab-content">
+          <div class="noti_left" id="ops_scrollbar1" infinite-scroll [infiniteScrollDistance]="2"
+            [infiniteScrollThrottle]="1000" [infiniteScrollContainer]="'#ops_scrollbar1'" (scrolled)="onScroll($event)">
+            <div id="01" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'all'">
+              <div class="row p-l-24 p-l-16 p-t-b-8">
+                <div class="col-xs-6 col-md-9 c-text_md c-checkbox__md2 p-l-0">
+                  <label class="checkbox-inline p-l-0 m-t-8">
+                    <input type="checkbox" value="all" name="all" class="c-form__bar2" (change)="selectAll($event)">
+                    Select all
+                  </label>
                 </div>
+                <div class="col-xs-6 col-md-3">
+                  <div class="dropdown c-dropdown text-right" appDropdown>
+                    <a class="noti-action dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"
+                      appDropdownOpen>Actions
+                      <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a (click)="markAsRead()">Mark as read</a></li>
+                      <li><a (click)="markAsDelete()">Delete</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <ng-container *ngFor="let notification of notifications | groupBy:'date'">
+                <div class="row">
+                  <div class="not_date">{{ notification.key | date}}</div>
+                </div>
+                <div class="row not_block_main" *ngFor="let noti of notification.value" [ngClass]="{'fill_grey': !noti.isRead}">
+
+                  <div class="not_block1 c-checkbox__md2">
+                    <label class="checkbox-inline">
+                      <input type="checkbox" value="1" [checked]="isSelected" (change)="onChange(noti.notificationId, $event.target.checked)">
+                    </label>
+                  </div>
+                  <div class="not_block2 p-t-b-16">
+                    <div class="not_avatar_img" [routerLink]="['', 'profile', 'u', noti.username, 'user']">
+                      <img *ngIf="!noti.profileImage" class="navdrop__img" [src]="baseUrl + 'img/avatar2.png'">
+                      <img *ngIf="noti.profileImage" [src]="baseUrl + noti.profileImage" class="navdrop__img">
+                    </div>
+                    <div class="not_block2_details">
+                      <div class="not_block2_comm"><span class="color-grey-darker">{{noti.name }}</span><a class="text_undrline"
+                          (click)="openLink(noti)">{{ noti.message }}</a></div>
+                      <div class="not_block2_tim">
+                        <img *ngIf="noti?.notificationType == 'Status_Comments' || noti?.notificationType == 'Media_Comments'"
+                          [src]="baseUrl + 'img/svg/ico_comment.svg'">
+                        <img *ngIf="noti?.notificationType == 'Media_Spot' || noti?.notificationType == 'Status_Spot'"
+                          [src]="baseUrl + 'img/svg/spot_icon.svg'">
+                        {{ noti.createdDate | utcDate | date:'d MMM hh:mm a' }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="not_block3 p-t-b-16" *ngIf="(noti.media | json) != '{}' && noti.media.mType !== 'status'">
+                    <a class="not_block3_img" (click)="openLink(noti)">
+                      <img [src]="baseUrl + noti.media.thumbNails.mediumSmall">
+                    </a>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="notifState?.requesting_notifications === true">
+                <div class="row not_block_main" *ngFor="let n of [0,1,2]">
+                  <a href="javascript:void(0)">
+                    <div class="not_block2 p-t-b-16">
+                      <div class=" pl_avatar40">
+                      </div>
+                      <div class="not_block2_details">
+                        <div class="not_block2_comm float_left">
+                          <div class="pl_username"></div>
+                        </div>
+                        <div class="not_block2_tim float_left">
+                          <div class="pl_block_height12"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </ng-container>
+              <div *ngIf="notifications?.length === 0 && !notifState?.requesting_notifications" class="o-alert_scroll o-alert__empty"
+                id="ops_scrollbar">
+                <div class="o-noti__empty">
+                  <img src="assets/svg/noti.svg" width="71" alt="">
+                  <span class="o-noti__empty-txt color-grey-dark">You have no notfication</span>
+                </div>
+              </div>
             </div>
+            <div id="02" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'spots'">
+              <div class="row p-l-24 p-l-16 p-t-b-8">
+                <div class="col-md-10 c-text_md c-checkbox__md2 p-l-0">
+                  <label class="checkbox-inline p-l-0 m-t-8">
+                    <input type="checkbox" value="1" class="c-form__bar2"> Select all
+                  </label>
+                </div>
+                <div class="col-md-2">
+                  <div class="c-form__group m-0 c-dropdown_icon m-l-24">
+                    <div class="dropdown c-dropdown text-right" appDropdown>
+                      <a class="noti-action dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"
+                        appDropdownOpen>Actions
+                        <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li><a (click)="markAsRead()">Mark as read</a></li>
+                        <li><a (click)="markAsDelete()">Delete</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <ng-container *ngFor="let notification of notifications | groupBy:'date'">
+                <div class="row">
+                  <div class="not_date">{{ notification.key | date}}</div>
+                </div>
+                <div class="row not_block_main" *ngFor="let noti of notification.value" [ngClass]="{'fill_grey': !noti.isRead}">
+                  <div class="not_block1 c-checkbox__md2">
+                    <label class="checkbox-inline">
+                      <input type="checkbox" value="1" [checked]="isSelected" (change)="onChange(noti.notificationId, $event.target.checked)">
+                    </label>
+                  </div>
+                  <div class="not_block2 p-t-b-16">
+                    <div class="not_avatar_img" [routerLink]="['', 'profile', 'u', noti.username, 'user']">
+                      <img *ngIf="!noti.profileImage" class="navdrop__img" [src]="baseUrl + 'img/avatar2.png'">
+                      <img *ngIf="noti.profileImage" [src]="baseUrl + noti.profileImage" class="navdrop__img">
+                    </div>
+                    <div class="not_block2_details">
+                      <div class="not_block2_comm"><span class="color-grey-darker">{{ noti.name }}</span><a class="text_undrline"
+                          (click)="openLink(noti)">{{ noti.message }}</a></div>
+                      <div class="not_block2_tim">
+                        <img *ngIf="noti?.notificationType == 'Media_Spot'" [src]="baseUrl + 'img/svg/spot_icon.svg'">
+                        {{ noti.createdDate | utcDate | date:'d MMM hh:mm a' }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="not_block3 p-t-b-16" *ngIf="(noti.media | json) != '{}' && noti.media.mType !== 'status'">
+                    <a class="not_block3_img" (click)="openLink(noti)">
+                      <img [src]="baseUrl + noti.media.thumbNails.mediumSmall">
+                    </a>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="notifState?.requesting_notifications === true">
+                <div class="row not_block_main" *ngFor="let n of [0,1,2]">
+                  <a href="javascript:void(0)">
+                    <div class="not_block2 p-t-b-16">
+                      <div class=" pl_avatar40">
+                      </div>
+                      <div class="not_block2_details">
+                        <div class="not_block2_comm float_left">
+                          <div class="pl_username"></div>
+                        </div>
+                        <div class="not_block2_tim float_left">
+                          <div class="pl_block_height12"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </ng-container>
+              <div *ngIf="notifications?.length === 0 && !notifState?.requesting_notifications" class="o-alert_scroll o-alert__empty"
+                id="ops_scrollbar">
+                <div class="o-noti__empty">
+                  <img src="assets/svg/noti.svg" width="71" alt="">
+                  <span class="o-noti__empty-txt color-grey-dark">You have no notfication</span>
+                </div>
+              </div>
+            </div>
+            <div id="03" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'comments'">
+              <div class="row p-l-24 p-l-16 p-t-b-8">
+                <div class="col-md-10 c-text_md c-checkbox__md2 p-l-0">
+                  <label class="checkbox-inline p-l-0 m-t-8">
+                    <input type="checkbox" value="1" class="c-form__bar2"> Select all
+                  </label>
+                </div>
+                <div class="col-md-2">
+                  <div class="c-form__group m-0 c-dropdown_icon m-l-24">
+                    <div class="dropdown c-dropdown text-right" appDropdown>
+                      <a class="noti-action dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"
+                        appDropdownOpen>Actions
+                        <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li><a (click)="markAsRead()">Mark as read</a></li>
+                        <li><a (click)="markAsDelete()">Delete</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <ng-container *ngFor="let notification of notifications | groupBy:'date'">
+                <div class="row">
+                  <div class="not_date">{{ notification.key | date}}</div>
+                </div>
+                <div class="row not_block_main" *ngFor="let noti of notification.value" [ngClass]="{'fill_grey': !noti.isRead}">
+                  <div class="not_block1 c-checkbox__md2">
+                    <label class="checkbox-inline">
+                      <input type="checkbox" value="1" [checked]="isSelected" (change)="onChange(noti.notificationId, $event.target.checked)">
+                    </label>
+                  </div>
+                  <div class="not_block2 p-t-b-16">
+                    <div class="not_avatar_img" [routerLink]="['', 'profile', 'u', noti.username, 'user']">
+                      <img *ngIf="!noti.profileImage" class="navdrop__img" [src]="baseUrl + 'img/avatar2.png'">
+                      <img *ngIf="noti.profileImage" [src]="baseUrl + noti.profileImage" class="navdrop__img">
+                    </div>
+                    <div class="not_block2_details">
+                      <div class="not_block2_comm"><span class="color-grey-darker">{{ noti.name }}</span><a class="text_undrline"
+                          (click)="openLink(noti)">{{ noti.message }}</a></div>
+                      <div class="not_block2_tim">
+                        <img *ngIf="noti?.notificationType == 'Status_Comments' || noti?.notificationType == 'Media_Comments'"
+                          [src]="baseUrl + 'img/svg/ico_comment.svg'">
+                        {{ noti.createdDate | utcDate | date:'d MMM hh:mm a' }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="not_block3 p-t-b-16" *ngIf="(noti.media | json) != '{}' && noti.media.mType !== 'status'">
+                    <a class="not_block3_img" (click)="openLink(noti)">
+                      <img [src]="baseUrl + noti.media.thumbNails.mediumSmall">
+                    </a>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="notifState?.requesting_notifications === true">
+                <div class="row not_block_main" *ngFor="let n of [0,1,2]">
+                  <a href="javascript:void(0)">
+                    <div class="not_block2 p-t-b-16">
+                      <div class=" pl_avatar40">
+                      </div>
+                      <div class="not_block2_details">
+                        <div class="not_block2_comm float_left">
+                          <div class="pl_username"></div>
+                        </div>
+                        <div class="not_block2_tim float_left">
+                          <div class="pl_block_height12"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </ng-container>
+              <div *ngIf="notifications?.length === 0 && !notifState?.requesting_notifications" class="o-alert_scroll o-alert__empty"
+                id="ops_scrollbar">
+                <div class="o-noti__empty">
+                  <img src="assets/svg/noti.svg" width="71" alt="">
+                  <span class="o-noti__empty-txt color-grey-dark">You have no notfication</span>
+                </div>
+              </div>
+            </div>
+            <div id="04" class="tab-pane fade active in m-l-r-16" *ngIf="this.notificationType === 'other'">
+              <div class="row p-l-24 p-l-16 p-t-b-8">
+                <div class="col-md-10 c-text_md c-checkbox__md2 p-l-0">
+                  <label class="checkbox-inline p-l-0 m-t-8">
+                    <input type="checkbox" value="1" class="c-form__bar2"> Select all
+                  </label>
+                </div>
+                <div class="col-md-2">
+                  <div class="c-form__group m-0 c-dropdown_icon m-l-24">
+                    <div class="dropdown c-dropdown text-right" appDropdown>
+                      <a class="noti-action dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"
+                        appDropdownOpen>Actions
+                        <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li><a (click)="markAsRead()">Mark as read</a></li>
+                        <li><a (click)="markAsDelete()">Delete</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <ng-container *ngFor="let notification of notifications | groupBy:'date'">
+                <div class="row">
+                  <div class="not_date">{{ notification.key | date}}</div>
+                </div>
+                <div class="row not_block_main" *ngFor="let noti of notification.value" [ngClass]="{'fill_grey': !noti.isRead}">
+                  <div class="not_block1 c-checkbox__md2">
+                    <label class="checkbox-inline">
+                      <input type="checkbox" value="1" [checked]="isSelected" (change)="onChange(noti.notificationId, $event.target.checked)">
+                    </label>
+                  </div>
+                  <div class="not_block2 p-t-b-16">
+                    <div class="not_avatar_img" [routerLink]="['', 'profile', 'u', noti.username, 'user']">
+                      <img *ngIf="!noti.profileImage" class="navdrop__img" [src]="baseUrl + 'img/avatar2.png'">
+                      <img *ngIf="noti.profileImage" [src]="baseUrl + noti.profileImage" class="navdrop__img">
+                    </div>
+                    <div class="not_block2_details">
+                      <div class="not_block2_comm"><span class="color-grey-darker">{{ noti.name }}</span>{{
+                        noti.message }}</div>
+                      <div class="not_block2_tim">{{ noti.createdDate | utcDate | date:'d MMM hh:mm a' }}</div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="notifState?.requesting_notifications === true">
+                <div class="row not_block_main" *ngFor="let n of [0,1,2]">
+                  <a href="javascript:void(0)">
+                    <div class="not_block2 p-t-b-16">
+                      <div class=" pl_avatar40">
+                      </div>
+                      <div class="not_block2_details">
+                        <div class="not_block2_comm float_left">
+                          <div class="pl_username"></div>
+                        </div>
+                        <div class="not_block2_tim float_left">
+                          <div class="pl_block_height12"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </ng-container>
+              <div *ngIf="notifications?.length === 0 && !notifState?.requesting_notifications" class="o-alert_scroll o-alert__empty"
+                id="ops_scrollbar">
+                <div class="o-noti__empty">
+                  <img src="assets/svg/noti.svg" width="71" alt="">
+                  <span class="o-noti__empty-txt color-grey-dark">You have no notfication</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-    <div class="col-xs-12 col-md-3 p-r-0 p-l-0_mob">
-        <div class="not_block act_scroll" id="ops_scrollbar2" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="1000" [infiniteScrollContainer]="'#ops_scrollbar2'" (scrolled)="onScrollAct($event)">
-            <div class="c-text_lg p-t-b-16 p-l-r-24">Activities</div>
-            <div class="not_activite_row" *ngFor="let list of activities">
-                <div class="col-md-2 p-0">
-                    <div class="not_userimg">
-                        <img *ngIf="!list.profileImage"src="assets/demo/new/avatar3.png">
-                        <img *ngIf="list.profileImage"[src]="baseUrl + list.profileImage">
-                    </div>
-                </div>
-                <div class="col-md-10 p-l-8 p-r-0">
-                    <div class="not_usercomment">
-                        <a [routerLink]="['', 'profile', 'u', list.username, 'user']">{{list.name}}</a> {{list.message}}
-                    </div>
-                </div>
-            </div>
-            <ng-container *ngIf="notifState?.requesting_activities === true">
-                <div class="not_activite_row" *ngFor="let n of [0,1,2]">
-                    <div class="col-md-2 p-0">
-                        <div class="pl_avatar">
-                        </div>
-                    </div>
-                    <div class="col-md-10 p-l-8 p-r-0">
-                        <div class="not_usercomment"><div class="pl_block100-12"></div></div>
-                    </div>
-                </div>
-            </ng-container>
-            <div *ngIf="activities?.length === 0 && !notifState?.requesting_activities" class="o-alert_scroll o-alert__empty" id="ops_scrollbar">
-                <div class="c-text_lg color-grey-dark">You have no activities</div>
-            </div>
+  </div>
+  <div class="col-xs-12 col-md-3 p-r-0 p-l-0_mob">
+    <div class="not_block act_scroll" id="ops_scrollbar2" infinite-scroll [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="1000" [infiniteScrollContainer]="'#ops_scrollbar2'" (scrolled)="onScrollAct($event)">
+      <div class="c-text_lg p-t-b-16 p-l-r-24">Activities</div>
+      <div class="not_activite_row" *ngFor="let list of activities">
+        <div class="col-md-2 p-0">
+          <div class="not_userimg">
+            <img *ngIf="!list.profileImage" src="assets/demo/new/avatar3.png">
+            <img *ngIf="list.profileImage" [src]="baseUrl + list.profileImage">
+          </div>
         </div>
+        <div class="col-md-10 p-l-8 p-r-0">
+          <div class="not_usercomment">
+            <a [routerLink]="['', 'profile', 'u', list.username, 'user']">{{list.name}}</a> {{list.message}}
+          </div>
+        </div>
+      </div>
+      <ng-container *ngIf="notifState?.requesting_activities === true">
+        <div class="not_activite_row" *ngFor="let n of [0,1,2]">
+          <div class="col-md-2 p-0">
+            <div class="pl_avatar">
+            </div>
+          </div>
+          <div class="col-md-10 p-l-8 p-r-0">
+            <div class="not_usercomment">
+              <div class="pl_block100-12"></div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <div *ngIf="activities?.length === 0 && !notifState?.requesting_activities" class="o-alert_scroll o-alert__empty"
+        id="ops_scrollbar">
+        <div class="c-text_lg color-grey-dark">You have no activities</div>
+      </div>
     </div>
+  </div>
 </section>
