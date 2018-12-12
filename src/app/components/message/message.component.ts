@@ -139,6 +139,7 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
             this.noRecordsFound = false;
           } else {
             this.noRecordsFound = true;
+            this.enableMsgInput = true;
           }
         }
       }
