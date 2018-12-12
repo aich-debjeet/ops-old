@@ -273,3 +273,68 @@
     overflow-y: scroll;
     height: 608px;
 }
+.pl_avatar40 {
+    width: 40px;
+    height: 40px;
+    float: left;
+    border-radius: 50%;
+    background-size: 200% 100px;
+}
+.pl_username {
+    width: 60%;
+    float: left;
+    height: 16px;
+    border-radius: 3px;
+}
+.pl_block_height12 {
+    width: 80%;
+    height: 12px;
+    border-radius: 3px;
+    margin-top: 8px;
+    background-size: 200% 100px;
+}
+
+.pl_username, .pl_avatar40, .pl_block_height12, .pl_avatar {
+    background-color: #F3F5F7;
+}
+.o-alert__empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.o-alert_scroll {
+    width: 100%;
+    float: left;
+    height: 218px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.pl_avatar {
+    width: 34px;
+    height: 34px;
+    float: left;
+    border-radius: 50%;
+}
+.pl_block100-12 {
+    width: 100%;
+    height: 12px;
+    border-radius: 3px;
+    margin-top: 8px;
+    background: #F3F5F7;
+  background-size: 200% 100px;
+}
+.o-noti__empty{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 120px 0px;
+}
+.o-noti__empty-txt{
+    font-size: 15px;	
+    font-weight: 600;	
+    line-height: 24px;	
+    text-align: center;
+}

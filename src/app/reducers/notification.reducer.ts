@@ -2,6 +2,8 @@ import { ActionReducer, Action } from '@ngrx/store';
 import { Notification } from '../models/notification.model';
 import { NotificationActions } from '../actions/notification.action';
 import { uniqBy as _uniqBy } from 'lodash';
+import {forEach as _forEach} from 'lodash';
+import * as _ from 'lodash';
 
 export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: Action) =>  {
 
@@ -72,6 +74,19 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
       });
 
     case NotificationActions.MARK_AS_READ:
+    // console.log(payload)
+    // let found =(state['recieved_notifications']).some(r=> payload.notificationList.indexOf(r.notificationId) >= 0)
+    // console.log(found)
+    // if(payload){
+    //   state['recieved_notifications'].forEach((element) => {
+    //     console.log(element);
+    //     if(_.includes(payload.notificationList, element.notificationId)){
+    //       console.log('true it dere')
+    //       element.isRead = true;
+    //       console.log(element)
+    //     }
+    //   });
+    // }
       return Object.assign({}, state, {
         mark_as_read_success: false
       });
@@ -132,11 +147,13 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
       if(payload.offset === 0){
         return Object.assign({}, state, {
           recived_activities: false,
+          requesting_activities:true,
           activity_list:[]
         });
       } else {
         return Object.assign({}, state, {
-          recived_activities: false
+          recived_activities: false,
+          requesting_activities:true,
         });
       }
 
@@ -149,12 +166,14 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
       }
       return Object.assign({}, state, {
         activity_list: list,
-        recived_activities: true
+        recived_activities: true,
+        requesting_activities:false,
       });
 
     case NotificationActions.GET_ACTIVITIES_FOR_THE_USER_FAILED:
       return Object.assign({}, state, {
-        recived_activities: false
+        recived_activities: false,
+        requesting_activities:false,
       });
 
     default:
