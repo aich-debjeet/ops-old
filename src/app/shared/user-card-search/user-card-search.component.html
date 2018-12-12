@@ -1,18 +1,23 @@
 <div class="c-scard">
   <div class="c-scard__img">
-      <img *ngIf="artist?.profileImage" onError="this.src='https://cdn.onepagespotlight.com/img/avatar.png';" [src]="artist?.extra?.isExternallySourced ? artist?.physical?.profileImages?.profileImage_medium :baseUrl + artist?.physical?.profileImages?.profileImage_medium" class="c-scard__img2">
-      <span class="c-scard__active">
-          <img *ngIf="artist?.extra?.isImported === true" src="https://ops-v2.netlify.com/assets/directory/inactive.svg">
-          <img *ngIf="artist?.extra?.isImported === false" src="https://ops-v2.netlify.com/assets/directory/active.svg">
-      </span>
+    <img *ngIf="artist?.profileImage" onError="this.src='https://cdn.onepagespotlight.com/img/avatar.png';" [src]="artist?.extra?.isExternallySourced ? artist?.physical?.profileImages?.profileImage_medium :baseUrl + artist?.physical?.profileImages?.profileImage_medium" class="c-scard__img2">
+    <span class="c-scard__active">
+      <img *ngIf="artist?.extra?.isImported === true" src="https://ops-v2.netlify.com/assets/directory/inactive.svg">
+      <img *ngIf="artist?.extra?.isImported === false" src="https://ops-v2.netlify.com/assets/directory/active.svg">
+    </span>
   </div>
-  <a routerLink="{{ '/profile/u/' + artist?.extra?.username }}" class="c-scard_name">{{ artist?.name | truncate:[12, '...'] }}</a>
-  <div *ngIf="artist?.extra?.isImported === false" class="c-scard_folllow"><span>{{ artist?.followersCount }}</span> followers</div>
+  <a routerLink="{{ '/profile/u/' + artist?.extra?.username + ( artist?.extra?.isImported === true ? '/about' : '' ) }}" class="c-scard_name">{{ artist?.name | truncate:[12, '...'] }}</a>
+  <div *ngIf="artist?.extra?.isImported === false" class="c-scard_folllow">
+    <span>{{ artist?.followersCount }}</span>followers
+  </div>
   <div *ngIf="artist?.extra?.isImported === false && artist?.handle !== ownerHandle" class="c-scard_btn">
-      <a (click)="unfollowUser(artist)" *ngIf="artist?.extra?.isFollowing" type="button" class="btn btn-primary btn-sm ">Unfollow</a>
-      <a (click)="followUser(artist)" *ngIf="!artist?.extra?.isFollowing" type="button" class="btn btn-primary btn-sm ">Follow</a>
+    <a (click)="unfollowUser(artist)" *ngIf="artist?.extra?.isFollowing" type="button" class="btn btn-primary btn-sm ">Unfollow</a>
+    <a (click)="followUser(artist)" *ngIf="!artist?.extra?.isFollowing" type="button" class="btn btn-primary btn-sm ">Follow</a>
   </div>
-  <div *ngIf="artist?.extra?.isImported === true" class="c-scard_btn">
-      <a type="button" class="btn btn-primary btn-sm" disabled>Message</a>
+  <!-- <div *ngIf="artist?.extra?.isImported === true" class="c-scard_btn">
+    <a type="button" class="btn btn-primary btn-sm" disabled>Message</a>
+  </div> -->
+  <div class="c-scard_btn">
+    <a routerLink="{{ '/profile/u/' + artist?.extra?.username + ( artist?.extra?.isImported === true ? '/about' : '' ) }}" type="button" class="btn btn-primary btn-sm ">View Profile</a>
   </div>
 </div>

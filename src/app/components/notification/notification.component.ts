@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild, HostListener, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 // rx,
 import { Observable } from 'rxjs/Observable';
-import { Subscription, ISubscription } from 'rxjs/Subscription';
+import { ISubscription } from 'rxjs/Subscription';
 
 // action
 import { NotificationActions } from './../../actions/notification.action';
@@ -41,10 +41,11 @@ export class NotificationComponent implements OnInit, OnDestroy {
   notificationType: string;
   isSelected = false;
   notificationsList = [];
-  activities:any[];
+  activities: any[];
   notificationCount: string;
   route: string;
-  triggerApi: boolean = true;
+  triggerApi = true;
+  notifState: any;
 
   constructor(
     private store: Store<Notification>,
@@ -61,6 +62,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
     // observe the store value
     this.subscription = this.notificationsState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
+        this.notifState = state;
         if (typeof state['recieved_notifications'] !== 'undefined') {
           // console.log('state', state);
           this.notifications = state['recieved_notifications'];
@@ -68,14 +70,14 @@ export class NotificationComponent implements OnInit, OnDestroy {
           // check is unread notification exits else mark all notifications as read
           this.processNotifications();
         }
-        if(state['activity_list']){
-          this.activities= state['activity_list'];
+        if (state['activity_list']) {
+          this.activities = state['activity_list'];
           this.processActivities();
         }
         if (state && state['requesting_notifications'] === true) {
           this.showPreloader = false;
         }
-      } 
+      }
       // else {
       //   // if notifications state undefined init with initial list of notifications
       //   const reqBody = {
@@ -91,18 +93,18 @@ export class NotificationComponent implements OnInit, OnDestroy {
       // }
     });
     this.routerSub = router.events.subscribe((val) => {
-      if(this.triggerApi){
-        if(location.path() != ''){
+      if (this.triggerApi) {
+        if (location.path() !== '') {
           this.route = location.path();
-          if(this.route === '/notification'){
+          if (this.route === '/notification') {
             const reqBodyNotification = {
               notificationType: 'all',
               limit: 10,
               offset: 0
             }
-          // this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS, payload: reqBody });
-          this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS_BY_TYPE, payload: reqBodyNotification });
-          this.store.dispatch({type:NotificationActions.GET_ACTIVITIES_FOR_THE_USER,payload: { offset:0,limit:10}});
+            // this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS, payload: reqBody });
+            this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS_BY_TYPE, payload: reqBodyNotification });
+            this.store.dispatch({ type: NotificationActions.GET_ACTIVITIES_FOR_THE_USER, payload: { offset: 0, limit: 10 } });
           }
           this.triggerApi = false;
         }
@@ -110,10 +112,10 @@ export class NotificationComponent implements OnInit, OnDestroy {
     });
   }
 
-  processActivities(){
-    if(this.activities.length > 0){
-      for(let i = 0; i < this.activities.length; i++){
-        switch(this.activities[i].activityType){
+  processActivities() {
+    if (this.activities.length > 0) {
+      for (let i = 0; i < this.activities.length; i++) {
+        switch (this.activities[i].activityType) {
           case 'Following':
             this.activities[i].message = 'has started following ' + this.activities[i].notificationResponse.name;
             break;
@@ -121,7 +123,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
             this.activities[i].message = 'has spotted a post of ' + this.activities[i].notificationResponse.name;
             break;
           case 'Media_Comments':
-            this.activities[i].message = 'has commented on a post of ' + this.activities[i].notificationResponse.name ;
+            this.activities[i].message = 'has commented on a post of ' + this.activities[i].notificationResponse.name;
             break;
           case 'Network_Sent':
             this.activities[i].message = 'has sent a network request to ' + this.activities[i].notificationResponse.name;
@@ -178,10 +180,10 @@ export class NotificationComponent implements OnInit, OnDestroy {
     // console.log(notification)
     switch (notification.notificationType) {
       case 'Media_Spot':
-        this.router.navigate([{ outlets: { media : ['media', notification.media.mediaId] } } ]);
+        this.router.navigate([{ outlets: { media: ['media', notification.media.mediaId] } }]);
         break;
       case 'Media_Comments':
-        this.router.navigate([{ outlets: { media : ['media', notification.media.mediaId] } } ]);
+        this.router.navigate([{ outlets: { media: ['media', notification.media.mediaId] } }]);
         break;
       case 'Status_Spot':
         this.router.navigate(['/user/status/list']);
@@ -200,7 +202,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
    * @Param: notification id
    */
   markAsRead() {
-    // console.log(this.notificationsList)
+    console.log(this.notificationsList)
     this.store.dispatch({
       type: NotificationActions.MARK_AS_READ,
       payload: {
@@ -209,7 +211,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
     });
   }
 
-  markAsDelete(){
+  markAsDelete() {
     // console.log(this.notificationsList)
     this.store.dispatch({
       type: NotificationActions.MARK_AS_DELETE,
@@ -240,22 +242,22 @@ export class NotificationComponent implements OnInit, OnDestroy {
     this.store.dispatch({ type: NotificationActions.MARK_AS_ALL_READ });
 
     this.store.select('notificationTags')
-    .first(notification => notification['mark_as_all_read_success'] === true )
-    .subscribe( data => {
-      this.scrolling = 0;
-      this.scrollingLoad = 251;
-      this.page = 0;
-      const pagination = {
-        limit: 10,
-        page: 0
-      }
-      this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS, payload: pagination });
-    });
+      .first(notification => notification['mark_as_all_read_success'] === true)
+      .subscribe(data => {
+        this.scrolling = 0;
+        this.scrollingLoad = 251;
+        this.page = 0;
+        const pagination = {
+          limit: 10,
+          page: 0
+        }
+        this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS, payload: pagination });
+      });
   }
 
   ngOnInit() {
     this.notificationType = 'all';
-   }
+  }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
@@ -276,7 +278,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
     }
   }
 
-  onScrollAct(e){
+  onScrollAct(e) {
     this.scrollAct = e.currentScrollPosition;
     if (this.scrollingLoadAct <= this.scrollAct) {
       this.scrollingLoadAct += 500
@@ -285,11 +287,11 @@ export class NotificationComponent implements OnInit, OnDestroy {
         limit: 10,
         offset: this.pageAct
       }
-      this.store.dispatch({type:NotificationActions.GET_ACTIVITIES_FOR_THE_USER, payload: data});
+      this.store.dispatch({ type: NotificationActions.GET_ACTIVITIES_FOR_THE_USER, payload: data });
     }
   }
 
-  switchtabs(tab: string){
+  switchtabs(tab: string) {
     this.notificationType = tab;
     this.scrollingLoad = 251;
     this.page = 0;
@@ -301,24 +303,23 @@ export class NotificationComponent implements OnInit, OnDestroy {
     this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS_BY_TYPE, payload: reqBody });
   }
 
-  onChange(notificationId:string, isChecked: boolean) {
-    if(isChecked && !_.includes(this.notificationsList, notificationId)){
-        this.notificationsList.push(notificationId);
-    }
-    else {
-        _.remove(this.notificationsList, item => item === notificationId);
+  onChange(notificationId: string, isChecked: boolean) {
+    if (isChecked && !_.includes(this.notificationsList, notificationId)) {
+      this.notificationsList.push(notificationId);
+    } else {
+      _.remove(this.notificationsList, item => item === notificationId);
     }
   }
-  selectAll(event){
-    if(!this.isSelected){
-      let i =0;
-      this.isSelected =true;
-      this.notifications.forEach( (element) => {
-          this.notificationsList[i] = element.notificationId;
-          i=i+1;
+  selectAll(event) {
+    if (!this.isSelected) {
+      let i = 0;
+      this.isSelected = true;
+      this.notifications.forEach((element) => {
+        this.notificationsList[i] = element.notificationId;
+        i = i + 1;
       });
     } else {
-      this.isSelected =false;
+      this.isSelected = false;
       this.notificationsList = [];
     }
   }
