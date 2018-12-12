@@ -31,7 +31,7 @@
 <div class="c-post__comment  fill-grey-light p-l-r-24" *ngIf="commentsListType !== 'media-popup'">
     <div class="c-post__comment--left">
         <a class="c-user__avatar c-avatar--status5">
-            <img class="c-user__image" [src]="imageLink + commentData?.ownerImage">
+            <img class="c-user__image" [src]="(commentData?.ownerImage !== '') ? imageLink + commentData?.ownerImage : imageLink + 'avatars/user-avatar-male.png'">
         </a>
     </div>
     <div class="c-post__comment--right p-l-0">
