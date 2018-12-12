@@ -171,7 +171,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.searchFieldSub.unsubscribe();
     this.memberSearchSub.unsubscribe();
-    this.mediaUploadSub.unsubscribe();
+    // this.mediaUploadSub.unsubscribe();
     this.commSub.unsubscribe();
     this.routerSub.unsubscribe();
     this.profileSub.unsubscribe();
