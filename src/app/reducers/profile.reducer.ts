@@ -92,48 +92,60 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
     case ProfileActions.REMOVE_COVER_IMAGE:
       return Object.assign({}, state, {
         removingCoverImage: true,
-        removedCoverImage: false,
+        removedCoverImage: false
       });
 
     case ProfileActions.REMOVE_COVER_IMAGE_SUCCESS:
       return Object.assign({}, state, {
-        profile_details: Object.assign({}, state.profile_details, {
-          coverImage: ''
-        }),
         removingCoverImage: false,
         removedCoverImage: true,
+        profile_details: {
+          ...state.profile_details,
+          coverImage: ''
+        },
+        profile_navigation_details: {
+          ...state.profile_navigation_details,
+          coverImage: ''
+        }
       });
 
     case ProfileActions.REMOVE_COVER_IMAGE_FAILED:
       return Object.assign({}, state, {
         removingCoverImage: false,
-        removedCoverImage: false,
+        removedCoverImage: false
       });
 
     case ProfileActions.REMOVE_PROFILE_IMAGE:
       return Object.assign({}, state, {
         removingProfileImage: true,
-        removedProfileImage: false,
+        removedProfileImage: false
       });
 
     case ProfileActions.REMOVE_PROFILE_IMAGE_SUCCESS:
       return Object.assign({}, state, {
-        profile_details: Object.assign({}, state.profile_details, {
-          profileImage: ''
-        }),
-        profile_cards: Object.assign({}, state.profile_cards, {
-          active: Object.assign({}, state.profile_cards.active, {
-            image: ''
-          })
-        }),
         removingProfileImage: false,
         removedProfileImage: true,
+        profile_details: {
+          ...state.profile_details,
+          profileImage: ''
+        },
+        profile_navigation_details: {
+          ...state.profile_navigation_details,
+          profileImage: ''
+        },
+        profile_cards: {
+          ...state.profile_cards,
+          active: {
+            ...state.profile_cards.active,
+            image: ''
+          }
+        }
       });
 
     case ProfileActions.REMOVE_PROFILE_IMAGE_FAILED:
       return Object.assign({}, state, {
         removingProfileImage: false,
-        removedProfileImage: false,
+        removedProfileImage: false
       });
 
     case ProfileActions.MEDIA_VIEW_COUNT_UPDATE:
@@ -514,6 +526,14 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
         cover_img_upload_success: true,
         cover_upload_loading: false,
         cover_updated: true,
+        profile_details: {
+          ...state.profile_details,
+          coverImage: payload['SUCCESS']['repoPath']
+        },
+        profile_navigation_details: {
+          ...state.profile_navigation_details,
+          coverImage: payload['SUCCESS']['repoPath']
+        },
       });
 
     case ProfileActions.PROFILE_COVER_UPDATE_FAILED:
@@ -602,25 +622,35 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
     case ProfileActions.LOAD_PROFILE_IMAGE:
       return Object.assign({}, state, {
         profile_img_upload_loading: true,
-        profile_img_upload_loaded: false,
-        success: true
+        profile_img_upload_loaded: false
       });
 
     case ProfileActions.LOAD_PROFILE_IMAGE_SUCCESS:
-      console.log(payload)
       return Object.assign({}, state, {
         profile_img_upload_loading: false,
         profile_img_upload_loaded: true,
-        profileImage: payload,
         image_upload_success: true,
-        success: true
+        profile_details: {
+          ...state.profile_details,
+          profileImage: payload['SUCCESS']['repoPath']
+        },
+        profile_navigation_details: {
+          ...state.profile_navigation_details,
+          profileImage: payload['SUCCESS']['repoPath']
+        },
+        profile_cards: {
+          ...state.profile_cards,
+          active: {
+            ...state.profile_cards.active,
+            image: payload['SUCCESS']['repoPath']
+          }
+        }
       });
 
     case ProfileActions.LOAD_PROFILE_IMAGE_FAILED:
       return Object.assign({}, state, {
         profile_img_upload_loading: false,
-        profile_img_upload_loaded: false,
-        success: false
+        profile_img_upload_loaded: false
       });
 
     /**

@@ -45,6 +45,9 @@ export class GeneralUtilities {
         if (reqParams['type'] === 'opportunity' || reqParams['type'] === 'event') {
             return _remove(bookmarks, (b) => !(b.id === reqParams['id']));
         }
+        if (reqParams['type'] === 'profile') {
+            return _remove(bookmarks, (b) => !(b.handle === reqParams['id']));
+        }
         return bookmarks;
     }
 

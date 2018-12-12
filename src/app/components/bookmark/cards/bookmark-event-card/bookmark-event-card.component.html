@@ -17,11 +17,11 @@
             </div>
             <div class="bookmark-info__discription">
                 <div class="c-text_lg f-w_600">
-                    {{ eventDetails?.title }}
+                    {{ eventDetails?.title | truncate: [150, '...'] }}
                     <div class="o-bookmarkevent__detail">
                         <div class="o-bookmarkevent__date">
                             <img src="https://ops-v2-2.netlify.com/assets/svg/calendar.svg" class="o-bookmarkevent__detail--img"> 
-                            {{ eventDetails?.startDate  | utcDate | date: 'hh:mm a dd MMM, yy' }}
+                            {{ eventDetails?.startDate | utcDate | date: 'hh:mm a dd MMM, yy' }}
                         </div>
                         <div class="o-bookmarkevent__address">
                             <img src="https://ops-v2-2.netlify.com/assets/svg/ico_location2.svg" class="o-bookmarkevent__detail--img"> 
