@@ -533,17 +533,6 @@ export class ProfileEffect {
     );
 
   /**
-   *  Save image to ProfileUI
-   */
-  @Effect()
-  saveCoverImageSuccess$ = this.actions$
-    .ofType(ProfileActions.PROFILE_COVER_UPDATE_SUCCESS)
-    .map(toPayload)
-    .switchMap((payload) => this.profileService.attachCoverImage(payload)
-      .map(res => ({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS }))
-      .catch((res) => Observable.of({ type: ProfileActions.PROFILE_COVER_URL_UPDATE_FAILED, payload: res }))
-    );
-  /**
    *  Load image to database
    */
   @Effect()

@@ -526,6 +526,14 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
         cover_img_upload_success: true,
         cover_upload_loading: false,
         cover_updated: true,
+        profile_details: {
+          ...state.profile_details,
+          coverImage: payload['SUCCESS']['repoPath']
+        },
+        profile_navigation_details: {
+          ...state.profile_navigation_details,
+          coverImage: payload['SUCCESS']['repoPath']
+        },
       });
 
     case ProfileActions.PROFILE_COVER_UPDATE_FAILED:
