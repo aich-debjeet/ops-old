@@ -153,13 +153,13 @@ export class PostComponent implements OnInit {
   }
 
   markMediaAsViewed(mediaId: string) {
-    if (mediaId && !this.isMediaOwner) {
-      const data = {
-        contentType: 'media',
-        contentId: mediaId
-      }
-      this.store.dispatch({ type: MediaActions.MEDIA_ADD_VIEW_COUNT, payload: data });
-    }
+    // if (mediaId && !this.isMediaOwner) {
+    //   const data = {
+    //     contentType: 'media',
+    //     contentId: mediaId
+    //   }
+    //   this.store.dispatch({ type: MediaActions.MEDIA_ADD_VIEW_COUNT, payload: data });
+    // }
   }
 
 }
