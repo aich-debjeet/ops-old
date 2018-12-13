@@ -751,11 +751,11 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
       const followingPosts = payload.mediaResponse;
       const following_new_post = state.user_following_posts.concat(followingPosts)
       return Object.assign({}, state, {
-        // mediaEntity: payload,
         user_following_posts_loaded: true,
         user_following_posts_loading: false,
         user_following_posts: following_new_post,
-        user_following_post_scroll_id: payload.scrollId
+        user_following_post_scroll_id: payload.scrollId,
+        sponsoredList: gUtils.getSponsoredPostsIds(following_new_post, state.sponsoredList)
       });
 
     case ProfileActions.LOAD_USER_FOLLOWING_POSTS_FAILED:

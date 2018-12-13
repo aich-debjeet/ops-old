@@ -35,6 +35,7 @@ export class HomePostComponent implements OnInit, OnDestroy {
   imageLink: string = environment.API_IMAGE;
   userData: any;
   playingVideoId = '';
+  sponsoredList = [];
 
   constructor(
     public route: ActivatedRoute,
@@ -45,6 +46,10 @@ export class HomePostComponent implements OnInit, OnDestroy {
     this.profSub = this.tagState$.subscribe((state) => {
       this.userProfile = state;
       this.userData = state['profile_navigation_details']
+
+      if (state && state.sponsoredList) {
+        this.sponsoredList = state.sponsoredList;
+      }
 
       // User folling posts
       if (state.user_following_posts_loaded) {
@@ -76,7 +81,8 @@ export class HomePostComponent implements OnInit, OnDestroy {
   postLoad() {
     const data = {
       limit: 10,
-      scrollId: null
+      scrollId: null,
+      sponsoredList: this.sponsoredList
     }
     this.store.dispatch({ type: ProfileActions.LOAD_USER_FOLLOWING_POSTS, payload: data });
   }
@@ -94,6 +100,7 @@ export class HomePostComponent implements OnInit, OnDestroy {
       this.scrollingLoad += 5000
       const data = {
         scrollId: this.post_scroll_id,
+        sponsoredList: this.sponsoredList
       }
       this.store.dispatch({ type: ProfileActions.LOAD_USER_FOLLOWING_POSTS, payload: data });
     }
