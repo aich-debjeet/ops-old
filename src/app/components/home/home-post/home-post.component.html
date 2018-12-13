@@ -75,7 +75,7 @@
             <!-- card footer links -->
             <div class="c-card__links p-t-0">
               <div class="c-links">
-                <div class="c-links__spots" (click)="isSpoted(trending)">
+                <div class="c-links__spots" (click)="spotAction(trending)">
                   <img [src]="trending?.isSpotted ? imageLink + 'img/svg/spot_icon.svg' : imageLink + 'img/svg/spot_icon_default.svg'"
                     class="c-links__image">
                   <span class="c-links__count">{{ trending?.counts?.spotsCount }}</span>
@@ -146,7 +146,7 @@
             <!-- card footer links -->
             <div class="c-card__links p-t-0">
               <div class="c-links">
-                <div class="c-links__spots" (click)="isSpoted(trending)">
+                <div class="c-links__spots" (click)="spotAction(trending)">
                   <img [src]="trending?.isSpotted ? imageLink + 'img/svg/spot_icon.svg' : imageLink + 'img/svg/spot_icon_default.svg'"
                     class="c-links__image">
                   <span class="c-links__count">{{ trending?.counts?.spotsCount }}</span>

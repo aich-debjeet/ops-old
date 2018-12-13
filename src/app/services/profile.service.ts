@@ -1,24 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response, RequestOptions } from '@angular/http';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Http, Response } from '@angular/http';
 import { environment } from './../../environments/environment';
 import { TokenService } from '../helpers/token.service';
 import { ApiService } from '../helpers/api.service';
 
 @Injectable()
 export class ProfileService {
-  private handle: string;
-  private headers: any;
   private apiLink: string = environment.API_ENDPOINT;
 
   constructor(
     private api: ApiService,
     private http: Http,
     private tokenService: TokenService
-  ) {
-    this.handle = this.api.getHandle();
-    this.headers = this.api.getHeaders();
-  }
+  ) { }
 
   removeCoverImage(reqBody: any) {
     return this.api.delete('/portal/cdn/media/remove/coverImage', reqBody);
@@ -164,7 +158,7 @@ export class ProfileService {
    * Get home page spotfeeds
    */
   getHomePageSpotfeeds() {
-      return this.api.get('/portal/cdn/spotfeed', '');
+    return this.api.get('/portal/cdn/spotfeed', '');
   }
 
   /**
@@ -189,7 +183,7 @@ export class ProfileService {
    * Get loggedin users channels.
    */
   getFollowingChannel(userHandle: string) {
-    return this.api.get('/portal/network/spotfeed/following/profile/spotfeeds/' + userHandle , '');
+    return this.api.get('/portal/network/spotfeed/following/profile/spotfeeds/' + userHandle, '');
   }
 
   /**
@@ -218,11 +212,11 @@ export class ProfileService {
 
     // Write the bytes of the string to a typed array
     const ia = new Uint8Array(byteString.length);
-    for (let i = 0; i < byteString.length; i ++) {
-        ia[i] = byteString.charCodeAt(i);
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
     }
 
-    return new Blob([ia], {type: mimeString});
+    return new Blob([ia], { type: mimeString });
   }
 
   /**
@@ -239,13 +233,13 @@ export class ProfileService {
       // Create random file name
       const randm = Math.random().toString(36).slice(2);
       const fileName = 'prof_' + randm + '.' + imageType;
-      data.append('file', this.dataURItoBlob(imageData), fileName );
+      data.append('file', this.dataURItoBlob(imageData), fileName);
       return data;
     }
   }
-   /**
-   * Upload Image to CDN
-   */
+  /**
+  * Upload Image to CDN
+  */
   uploadImage(value: any, handle: string = '') {
     return this.api.postFile('/portal/cdn/media/auth/upload?handle=' + handle, value);
   }
@@ -293,7 +287,7 @@ export class ProfileService {
    */
   saveProfileImage(imagePath: any) {
     const profileImage = {
-     'profileImage' : imagePath['SUCCESS'].repoPath
+      'profileImage': imagePath['SUCCESS'].repoPath
     }
     return this.userProfileUpdate(profileImage);
   }
@@ -303,7 +297,7 @@ export class ProfileService {
   userProfileUpdate(body: any) {
     return this.api.put('/portal/profile/updateProfile', body);
   }
-  
+
   /**
    * update user details
    */
@@ -357,7 +351,7 @@ export class ProfileService {
    * Delete User Work
    */
   deleteUserWork(id: string) {
-    return this.api.delete('/portal/profile/delete/workandAwards/' , id);
+    return this.api.delete('/portal/profile/delete/workandAwards/', id);
   }
 
   /**
@@ -388,8 +382,8 @@ export class ProfileService {
     let profileImage = {};
     if (this.checkForSucces(imageResp)) {
       profileImage = {
-        'extras' : {
-          'coverImage' : imageResp['SUCCESS'].repoPath
+        'extras': {
+          'coverImage': imageResp['SUCCESS'].repoPath
         }
       }
     }
@@ -415,8 +409,8 @@ export class ProfileService {
    * Load a user profile
    */
   followUser(handle: string) {
-    const req  = {
-      followedHandle : handle
+    const req = {
+      followedHandle: handle
     }
     return this.api.put('/portal/network/following/start', req);
   }
@@ -425,8 +419,8 @@ export class ProfileService {
    * Load a user profile
    */
   unfollowUser(handle: string) {
-    const req  = {
-      followedHandle : handle
+    const req = {
+      followedHandle: handle
     }
     return this.api.put('/portal/network/following/stop', req);
   }
@@ -549,11 +543,11 @@ export class ProfileService {
   loadDirectory(body: any) {
     return this.api.put('/portal/directory', body);
   }
- /**
-   * Get Blocked Users
-   */
+  /**
+    * Get Blocked Users
+    */
   getBlockedUsers(handle: any) {
-    return this.api.get('/portal/network/block/list/' , handle);
+    return this.api.get('/portal/network/block/list/', handle);
   }
 
   unBlockUser(body: any) {
@@ -568,7 +562,7 @@ export class ProfileService {
   }
 
   getdefaultNotifications() {
-    return this.api.get('/portal/profile/profileSettings/default/settings', '' );
+    return this.api.get('/portal/profile/profileSettings/default/settings', '');
   }
 
   /**
@@ -583,7 +577,7 @@ export class ProfileService {
    */
   getNetworkRequestList(handle: string) {
     // console.log('handle', handle)
-    return this.api.get('/portal/network/sent_requests/'+ handle + '/0/10')  
+    return this.api.get('/portal/network/sent_requests/' + handle + '/0/10')
   }
   /**
    * sent request for networks
@@ -598,12 +592,12 @@ export class ProfileService {
     return this.api.put(`/portal/community/add/update/mediaCommunity/${communityId}`, req);
   }
 
-  storyPost(payload: any){
+  storyPost(payload: any) {
     return this.api.post('/portal/myStory', payload);
   }
 
-  storyGet(payload: any){
-    return this.api.get('/portal/myStoryDetails?handle='+ payload.handle);   
+  storyGet(payload: any) {
+    return this.api.get('/portal/myStoryDetails?handle=' + payload.handle);
   }
 
   /**

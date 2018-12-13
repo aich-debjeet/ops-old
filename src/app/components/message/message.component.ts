@@ -31,7 +31,7 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
   conversation = [];
   messageText = '';
   messageState$: Observable<MessageModal>;
-  // messageState: any;
+  messageState: any;
   showPreloader = false;
   profileState$: Observable<ProfileModal>;
   profileState: any;
@@ -81,7 +81,7 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
 
     this.messageState$ = this.messageStore.select('messageTags');
     this.msgSub = this.messageState$.subscribe((state) => {
-      // this.messageState = state;
+      this.messageState = state;
       if (state) {
         if (state['messanger_list_data']) {
           this.messangerList = state['messanger_list_data'];
@@ -139,6 +139,7 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
             this.noRecordsFound = false;
           } else {
             this.noRecordsFound = true;
+            this.enableMsgInput = true;
           }
         }
       }
