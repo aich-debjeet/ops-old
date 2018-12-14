@@ -23,7 +23,7 @@
             </span>
           </div>
         </div>
-        <div class="row p-l-r-24 p-t-b-8">
+        <div *ngIf="messageState?.getting_messanger_list_success === true && messangerList?.length > 0" class="row p-l-r-24 p-t-b-8">
           <div class="col-md-7 c-text_md c-checkbox__md2 p-l-0">
             <label class="checkbox-inline p-l-0 m-t-8">
               <input type="checkbox" (change)="markAll($event)"> Select all
@@ -68,7 +68,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 mess_right xs-chat-box">
+      <div *ngIf="messageState?.getting_messanger_list_success === true && messangerList?.length > 0" class="col-lg-8 col-md-8 col-sm-8 col-xs-12 mess_right xs-chat-box">
         <div class="c-text_lg p-t-b-24">
           Message with
           <a routerLink="/profile/u/{{ selectedUser?.username }}">
@@ -188,6 +188,9 @@
           <!-- //message input block -->
         </ng-container>
 
+      </div>
+      <div *ngIf="messageState?.getting_messanger_list_success === true && messangerList?.length === 0" class="col-lg-8 col-md-8 col-sm-8 col-xs-12 mess_right xs-chat-box">
+        <p class="result-not-found">No records found!</p>
       </div>
     </div>
     <!-- //registraion middle container -->

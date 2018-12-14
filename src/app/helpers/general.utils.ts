@@ -18,6 +18,25 @@ export class GeneralUtilities {
 
     constructor() { }
 
+    getSponsoredPostsIds(allPosts: any[], sponsoredList: any[], sponsoredPostsCount: any) {
+        // loop through all posts
+        for (let i = 0; i < allPosts.length; i++) {
+            // check if posted through the OPS account
+            if (allPosts[i].ownerUserName && allPosts[i].ownerUserName === 'ops') {
+                // check if the post id has already been added to the sponsoredList
+                const postId = allPosts[i].id;
+                if (postId && sponsoredList.indexOf(postId) === -1) {
+                    // add if does not exist
+                    sponsoredList.push(postId);
+                }
+            }
+        }
+        if (sponsoredPostsCount && sponsoredList && sponsoredPostsCount === sponsoredList.length) {
+            sponsoredList = [];
+        }
+        return sponsoredList;
+    }
+
     messangerListRemoveClearedRecords(messangerList, removedUsers) {
         for (let i = 0 ; i < removedUsers.length; i++) {
             _remove(messangerList, { handle: removedUsers[i] });

@@ -9,9 +9,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MessageComponent } from './message.component';
 
 const routes: Routes = [
-  { path: '',
-    component:  MessageComponent
-  }
+  { path: '', component: MessageComponent }
 ];
 
 @NgModule({

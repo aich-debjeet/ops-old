@@ -238,9 +238,7 @@
                 <ng-container *ngIf="notifState?.requesting_notifications === true">
                   <app-placeholder-notification *ngFor="let n of [0,1,2]"></app-placeholder-notification>
                 </ng-container>
-              </div>
-              <div *ngIf="notifState?.requesting_notifications === false && notifState?.requesting_notifications_success === true && notifications?.length === 0" class="o-alert_scroll o-alert__empty" id="ops_scrollbar">
-                <div class="c-text_lg color-grey-dark">You have no notifications</div>
+                <div *ngIf="notifState?.requesting_notifications_success === true && notifications?.length === 0" class="c-text_lg color-grey-dark o-alert__empty">You have no notifications</div>
               </div>
               <div *ngIf="notifications?.length > 0;" class="dropdown__item p-16 msg__read">
                 <a routerLink="/notification">
@@ -285,9 +283,7 @@
                 <ng-container *ngIf="msgState?.getting_messanger_list === true">
                   <app-placeholder-notification *ngFor="let n of [0,1,2]"></app-placeholder-notification>
                 </ng-container>
-              </div>
-              <div *ngIf="messages?.length === 0" class="o-alert_scroll o-alert__empty" id="ops_scrollbar">
-                <div class="c-text_lg color-grey-dark">You have no messages</div>
+                <div *ngIf="msgState?.getting_messanger_list_success === true && messages?.length === 0" class="c-text_lg color-grey-dark o-alert__empty">You have no messages</div>
               </div>
               <div *ngIf="messages?.length > 0;" class="dropdown__item p-16 msg__read">
                 <a routerLink="/message">

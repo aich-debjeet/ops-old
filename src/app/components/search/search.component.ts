@@ -48,7 +48,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   lastScrollTop = 0;
   canScroll = true;
 
-  recordsPerPage = 12;
+  recordsPerPage = 20;
   showPreloader = false;
 
   resultCount = 0;
@@ -366,9 +366,9 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
                 this.store.dispatch({ type: SearchActions.SEARCH_OPPORTUNITY, payload: searchOppsParams });
               } else if (this.searchType === 'event') {
                 const searchEventParams = {
+                  limit: this.recordsPerPage,
                   scrollId: '',
-                  /* TODO: need to remove searchType once API gets updated */
-                  searchType: '',
+                  searchType: 'event',
                   searchText: this.searchString,
                   filtersMap: []
                 }

@@ -1,5 +1,6 @@
 
 export class ProfileModal {
+  sponsoredList: any[];
   isBlocked: boolean;
   isUnBlocked: boolean;
   completed: string[];
@@ -105,6 +106,7 @@ export class ProfileForm {
 }
 
 export const initialTag: ProfileModal = {
+  sponsoredList: [],
   isBlocked: false,
   isUnBlocked: false,
   profileUpdateSuccess: false,

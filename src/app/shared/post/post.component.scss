@@ -4,6 +4,13 @@
 @import './src/assets/scss/components/_cards.scss';
 @import './src/assets/scss/components/_common-style.scss';
 
+.c-post_sponsored {
+  padding: 8px;
+  font-size: 11px;
+  line-height: 14px;
+  float: left;
+}
+
 .o-share__social {
   border-top: 1px solid #F3F5F7;
   padding-top: 16px;
