@@ -6,8 +6,8 @@
           <a class="c-user__avatar c-avatar--status" [routerLink]="'/profile/u/' + mediaData?.ownerUserName">
             <img class="c-user__image" [src]="userImage">
           </a>
-          <a [routerLink]="'/profile/u/' + mediaData?.ownerUserName" class="c-user__name c-user--align">{{
-            mediaData?.ownerName | truncate:[40, '...'] }}</a>
+          <a [routerLink]="'/profile/u/' + mediaData?.ownerUserName" class="c-user__name c-user--align">{{ mediaData?.ownerName | truncate:[40, '...'] }}</a>
+          <a *ngIf="mediaData?.ownerUserName === 'ops'" class="c-post_sponsored">Featured</a>
           <a [routerLink]="'/channel/' + mediaData?.channelId" class="c-user__channel2 c-user__channel-align" *ngIf="postType !== 'community'">{{
             mediaData?.channelName }}</a>
         </a>
@@ -16,6 +16,7 @@
             <img class="c-user__image" [src]="userImage">
           </a>
           <a routerLink="/profile" class="c-user__name c-user--align">{{ mediaData?.ownerName | truncate:[40, '...'] }}</a>
+          <a *ngIf="mediaData?.ownerUserName === 'ops'" class="c-post_sponsored">Featured</a>
           <a [routerLink]="'/channel/' + mediaData?.channelId" class="c-user__channel2 c-user__channel-align" *ngIf="postType !== 'community'">{{
             mediaData?.channelName }}</a>
         </a>

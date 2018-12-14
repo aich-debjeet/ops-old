@@ -133,7 +133,6 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
     this.profileStore.select('profileTags')
       .first(profile => profile['profile_user_info'])
       .subscribe(datas => {
-        console.log('datas', datas)
         if (datas['profile_user_info'].isCurrentUser) {
           this._store.dispatch({ type: ProfileActions.GET_MY_STORY, payload:{
             handle: datas['profile_navigation_details'].handle
