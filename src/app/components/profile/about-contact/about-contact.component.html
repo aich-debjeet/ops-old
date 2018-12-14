@@ -2,7 +2,7 @@
   <div class="row m-0">
     <div class="col-md-6 p-0">
       <div class="o-bio-info-block o-bio-active--block m-b-8">
-        <span class="o-bio-info__edit-ico" (click)="editField('website')">
+        <span *ngIf="ownProfile" class="o-bio-info__edit-ico" (click)="editField('website')">
           <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
         </span>
         <div id="o-bio-info__web" class="o-bio-info__value c-text_sm color-grey-dark" *ngIf="editingField != 'website'">
@@ -63,7 +63,7 @@
       </div>
       <!-- website end -->
       <div class="o-bio-info-block o-bio-active--block m-b-8">
-        <span class="o-bio-info__edit-ico" (click)="editField('number')">
+        <span *ngIf="ownProfile" class="o-bio-info__edit-ico" (click)="editField('number')">
           <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
         </span>
         <div id="o-bio-info__location" class="o-bio-info__value c-text_sm color-grey-dark" *ngIf="editingField != 'number'">
@@ -124,7 +124,7 @@
       </div>
       <!-- phone end -->
       <div class="o-bio-info-block o-bio-active--block m-b-8">
-        <span class="o-bio-info__edit-ico" (click)="editField('email')">
+        <span *ngIf="ownProfile" class="o-bio-info__edit-ico" (click)="editField('email')">
           <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
         </span>
         <div id="o-bio-info__mail" class="o-bio-info__value c-text_sm color-grey-dark" *ngIf="editingField != 'email'">
