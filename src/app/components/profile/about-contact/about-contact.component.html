@@ -1,223 +1,189 @@
-<!-- contact -->
-<!-- <div id="about_contact">
-  <div class="row">
-    <div class="col-md-12 col-sm-12 contact_section">
-      <div class="contact_info_block" *ngIf="userProfile?.extra?.address?.city !== ''">
-        <div class="contact_ico">
-          <img [src]="imageBaseUrl + 'img/svg/ico_location.svg'" alt="">
-        </div>
-        <div class="contact_info">
-          <p>Lives in <span>{{ userProfile?.extra?.address?.city }}, {{ userProfile?.extra?.address?.country }}</span></p>
-        </div>
-      </div>
-      <div class="contact_info_block" *ngIf="userProfile?.contact?.website?.website !== ''">
-        <div class="contact_ico">
-          <img [src]="imageBaseUrl + 'img/svg/ico_web.svg'" alt="">
-        </div>
-        <div class="contact_info">
-          <p><span>{{ userProfile?.contact?.website?.website }}</span></p>
-        </div>
-      </div>
-      <div class="contact_info_block" *ngIf="userProfile?.contact?.mobile?.mobile">
-        <div class="contact_ico">
-          <img [src]="imageBaseUrl + 'img/svg/ico_phone.svg'" alt="">
-        </div>
-        <div class="contact_info">
-          <p><span>{{ userProfile?.contact?.mobile?.mobile }}</span></p>
-        </div>
-      </div>
-      <div class="contact_info_block" *ngIf="userProfile?.email !== ''">
-        <div class="contact_ico">
-          <img [src]="imageBaseUrl + 'img/svg/ico_mail.svg'" alt="">
-        </div>
-        <div class="contact_info">
-          <p><span>{{ userProfile?.email }}</span></p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
-
 <div id="contact" class="tab-pane m-8">
   <div class="row m-0">
-      <div class="col-md-6 p-0">
-          <div class="o-bio-info-block o-bio-active--block m-b-8">
-            <span class="o-bio-info__edit-ico" (click)="editField('website')">
-                <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
+    <div class="col-md-6 p-0">
+      <div class="o-bio-info-block o-bio-active--block m-b-8">
+        <span class="o-bio-info__edit-ico" (click)="editField('website')">
+          <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
+        </span>
+        <div id="o-bio-info__web" class="o-bio-info__value c-text_sm color-grey-dark" *ngIf="editingField != 'website'">
+          <div class="contact_ico float_left">
+            <img [src]="imageBaseUrl + 'img/svg/ico_web.svg'" alt="">
+          </div>
+          <div class="c-text_md float_left m-l-8">
+            {{ userProfile?.contact?.website?.website }}
+          </div>
+        </div>
+        <div id="o-bio-info__web-edit" class="o-bio-info__edit" *ngIf="editingField == 'website'">
+          <div class="c-form__group c-form--sm c-form--noeffect">
+            <input class="c-form__input fpadding_l32" required="" type="text" [(ngModel)]="website">
+            <span>
+              <img [src]="imageBaseUrl + 'img/svg/globe.svg'" class="c-form__input--lefticon">
             </span>
-            <div id="o-bio-info__web" class="o-bio-info__value c-text_sm color-grey-dark" *ngIf="editingField != 'website'">
-                <div class="contact_ico float_left">
-                    <img [src]="imageBaseUrl + 'img/svg/ico_web.svg'" alt="">
+          </div>
+          <div class="o-bio-info__edit-actions m-t-24">
+            <button type="button" class="btn btn-primary btn-sm float-right" (click)="updateAbout('website')">Save</button>
+            <button type="button" class="btn btn-default btn-sm float-right m-l-r-8" (click)="cancelEdit()">Cancel</button>
+            <div class="dropdown float-right m-r-8" appDropdown>
+              <span class="com-head" data-toggle="dropdown" aria-expanded="false" appDropdownOpen>
+                <div class="o-bio-edit__ico">
+                  <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" alt="" *ngIf="websitePrivacy === 0">
+                  <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" alt="" *ngIf="websitePrivacy === 1">
                 </div>
-                <div class="c-text_md float_left m-l-8">
-                {{ userProfile?.contact?.website?.website }}
+                <div class="o-bio-edit__ico-arrow">
+                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px"
+                    height="16px" viewBox="0 0 16 10" version="1.1">
+                    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+                    <title>Path 2 Copy</title>
+                    <desc>Created with Sketch.</desc>
+                    <defs></defs>
+                    <g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <polyline id="Path-2-Copy" stroke="#333" stroke-width="1" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) "
+                        points="1 1 8 8 15 1"></polyline>
+                    </g>
+                  </svg>
                 </div>
-            </div>
-            <div id="o-bio-info__web-edit" class="o-bio-info__edit" *ngIf="editingField == 'website'">
-                <div class="c-form__group c-form--sm c-form--noeffect">
-                    <input class="c-form__input fpadding_l32" required="" type="text" [(ngModel)]="website">
-                    <span>
-                        <img [src]="imageBaseUrl + 'img/svg/globe.svg'" class="c-form__input--lefticon">
-                    </span>
-                </div>
-                <div class="o-bio-info__edit-actions m-t-24">
-                    <button type="button" class="btn btn-primary btn-sm float-right" (click)="updateAbout('website')">Save</button>
-                    <button type="button" class="btn btn-default btn-sm float-right m-l-r-8" (click)="cancelEdit()">Cancel</button>
-                    <div class="dropdown float-right m-r-8" appDropdown>
-                        <span class="com-head" data-toggle="dropdown" aria-expanded="false" appDropdownOpen>
-                            <div class="o-bio-edit__ico">
-                                <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" alt="" *ngIf="websitePrivacy === 0">
-                                <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" alt="" *ngIf="websitePrivacy === 1">
-                            </div>
-                            <div class="o-bio-edit__ico-arrow">
-                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
-                                    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
-                                    <title>Path 2 Copy</title>
-                                    <desc>Created with Sketch.</desc>
-                                    <defs></defs>
-                                    <g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                        <polyline id="Path-2-Copy" stroke="#333" stroke-width="1" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) " points="1 1 8 8 15 1"></polyline>
-                                    </g>
-                                </svg>
-                            </div>
-                        </span>
-                        <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
-                            <li>
-                                <a (click)="choosePrivacy(0,'website')" class="c-opsdropdown__list">
-                                    <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
-                                    <span class="c-opsdropdown--text">Public</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a (click)="choosePrivacy(1,'website')" class="c-opsdropdown__list">
-                                    <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
-                                    <span class="c-opsdropdown--text">Private</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+              </span>
+              <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
+                <li>
+                  <a (click)="choosePrivacy(0,'website')" class="c-opsdropdown__list">
+                    <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
+                    <span class="c-opsdropdown--text">Public</span>
+                  </a>
+                </li>
+                <li>
+                  <a (click)="choosePrivacy(1,'website')" class="c-opsdropdown__list">
+                    <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
+                    <span class="c-opsdropdown--text">Private</span>
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
-          <!-- website end -->
-          <div class="o-bio-info-block o-bio-active--block m-b-8">
-                <span class="o-bio-info__edit-ico" (click)="editField('number')">
-                    <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
-                </span>
-                <div id="o-bio-info__location" class="o-bio-info__value c-text_sm color-grey-dark" *ngIf="editingField != 'number'">
-                    <div class="contact_ico float_left">
-                        <img [src]="imageBaseUrl + 'img/svg/ico_phone.svg'" alt="">
-                    </div>
-                    <div class="c-text_md float_left m-l-8">
-                    {{ userProfile?.contact?.mobile?.mobile }}
-                    </div>
-                </div>
-                <div id="o-bio-info__location-edit" class="o-bio-info__edit" *ngIf="editingField == 'number'">
-                    <div class="c-form__group c-form--sm c-form--noeffect">
-                    <input class="c-form__input fpadding_l32" required="" type="text" [(ngModel)]="number">
-                    <span>
-                        <img [src]="imageBaseUrl + 'img/svg/globe.svg'" class="c-form__input--lefticon">
-                    </span>
-                    </div>
-                    <div class="o-bio-info__edit-actions m-t-24">
-                        <button type="button" class="btn btn-primary btn-sm float-right" (click)="updateAbout('number')">Save</button>
-                        <button type="button" class="btn btn-default btn-sm float-right m-l-r-8" (click)="cancelEdit()">Cancel</button>
-                        <div class="dropdown float-right m-r-8" appDropdown>
-                            <span class="com-head" data-toggle="dropdown" aria-expanded="false" appDropdownOpen>
-                                <div class="o-bio-edit__ico">
-                                    <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" alt="" *ngIf="mobilePrivacy === 0">
-                                    <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" alt="" *ngIf="mobilePrivacy === 1">
-                                </div>
-                                <div class="o-bio-edit__ico-arrow">
-                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
-                                    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
-                                    <title>Path 2 Copy</title>
-                                    <desc>Created with Sketch.</desc>
-                                    <defs></defs>
-                                    <g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                        <polyline id="Path-2-Copy" stroke="#333" stroke-width="1" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) " points="1 1 8 8 15 1"></polyline>
-                                    </g>
-                                </svg>
-                                </div>
-                            </span>
-                            <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
-                                <li>
-                                    <a (click)="choosePrivacy(0,'number')" class="c-opsdropdown__list">
-                                        <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
-                                        <span class="c-opsdropdown--text">Public</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a (click)="choosePrivacy(1,'number')" class="c-opsdropdown__list">
-                                        <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
-                                        <span class="c-opsdropdown--text">Private</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-          </div>
-          <!-- phone end -->
-          <div class="o-bio-info-block o-bio-active--block m-b-8">
-                <span class="o-bio-info__edit-ico" (click)="editField('email')">
-                    <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
-                </span>
-                <div id="o-bio-info__mail" class="o-bio-info__value c-text_sm color-grey-dark" *ngIf="editingField != 'email'">
-                    <div class="contact_ico float_left">
-                        <img [src]="imageBaseUrl + 'img/svg/ico_mail.svg'" alt="">
-                    </div>
-                    <div class="c-text_md float_left m-l-8">
-                        {{ userProfile?.contact?.email?.email }}
-                    </div>
-                </div>
-                <div id="o-bio-info__mail-edit" class="o-bio-info__edit" *ngIf="editingField == 'email'">
-                    <div class="c-form__group c-form--sm c-form--noeffect">
-                        <input class="c-form__input fpadding_l32" required="" type="text" [(ngModel)]="email">
-                        <span>
-                            <img [src]="imageBaseUrl + 'img/svg/globe.svg'" class="c-form__input--lefticon">
-                        </span>
-                    </div>
-                    <div class="o-bio-info__edit-actions m-t-24">
-                        <button type="button" class="btn btn-primary btn-sm float-right" (click)="updateAbout('email')">Save</button>
-                        <button type="button" class="btn btn-default btn-sm float-right m-l-r-8" (click)="cancelEdit()">Cancel</button>
-                        <div class="dropdown float-right m-r-8" appDropdown>
-                            <span class="com-head" data-toggle="dropdown" aria-expanded="false" appDropdownOpen>
-                                <div class="o-bio-edit__ico">
-                                    <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" alt="" *ngIf="emailPrivacy === 0">
-                                    <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" alt="" *ngIf="emailPrivacy === 1">
-                                </div>
-                                <div class="o-bio-edit__ico-arrow">
-                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
-                                        <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
-                                        <title>Path 2 Copy</title>
-                                        <desc>Created with Sketch.</desc>
-                                        <defs></defs>
-                                        <g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                            <polyline id="Path-2-Copy" stroke="#333" stroke-width="1" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) " points="1 1 8 8 15 1"></polyline>
-                                        </g>
-                                    </svg>
-                                </div>
-                            </span>
-                            <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
-                                <li>
-                                    <a (click)="choosePrivacy(0,'email')" class="c-opsdropdown__list">
-                                        <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
-                                        <span class="c-opsdropdown--text">Public</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a (click)="choosePrivacy(1,'email')" class="c-opsdropdown__list">
-                                        <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
-                                        <span class="c-opsdropdown--text">Private</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-          </div>
-          <!-- mail end -->
+        </div>
       </div>
+      <!-- website end -->
+      <div class="o-bio-info-block o-bio-active--block m-b-8">
+        <span class="o-bio-info__edit-ico" (click)="editField('number')">
+          <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
+        </span>
+        <div id="o-bio-info__location" class="o-bio-info__value c-text_sm color-grey-dark" *ngIf="editingField != 'number'">
+          <div class="contact_ico float_left">
+            <img [src]="imageBaseUrl + 'img/svg/ico_phone.svg'" alt="">
+          </div>
+          <div class="c-text_md float_left m-l-8">
+            {{ userProfile?.contact?.mobile?.mobile }}
+          </div>
+        </div>
+        <div id="o-bio-info__location-edit" class="o-bio-info__edit" *ngIf="editingField == 'number'">
+          <div class="c-form__group c-form--sm c-form--noeffect">
+            <input class="c-form__input fpadding_l32" required="" type="text" [(ngModel)]="number">
+            <span>
+              <img [src]="imageBaseUrl + 'img/svg/globe.svg'" class="c-form__input--lefticon">
+            </span>
+          </div>
+          <div class="o-bio-info__edit-actions m-t-24">
+            <button type="button" class="btn btn-primary btn-sm float-right" (click)="updateAbout('number')">Save</button>
+            <button type="button" class="btn btn-default btn-sm float-right m-l-r-8" (click)="cancelEdit()">Cancel</button>
+            <div class="dropdown float-right m-r-8" appDropdown>
+              <span class="com-head" data-toggle="dropdown" aria-expanded="false" appDropdownOpen>
+                <div class="o-bio-edit__ico">
+                  <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" alt="" *ngIf="mobilePrivacy === 0">
+                  <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" alt="" *ngIf="mobilePrivacy === 1">
+                </div>
+                <div class="o-bio-edit__ico-arrow">
+                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px"
+                    height="16px" viewBox="0 0 16 10" version="1.1">
+                    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+                    <title>Path 2 Copy</title>
+                    <desc>Created with Sketch.</desc>
+                    <defs></defs>
+                    <g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <polyline id="Path-2-Copy" stroke="#333" stroke-width="1" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) "
+                        points="1 1 8 8 15 1"></polyline>
+                    </g>
+                  </svg>
+                </div>
+              </span>
+              <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
+                <li>
+                  <a (click)="choosePrivacy(0,'number')" class="c-opsdropdown__list">
+                    <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
+                    <span class="c-opsdropdown--text">Public</span>
+                  </a>
+                </li>
+                <li>
+                  <a (click)="choosePrivacy(1,'number')" class="c-opsdropdown__list">
+                    <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
+                    <span class="c-opsdropdown--text">Private</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- phone end -->
+      <div class="o-bio-info-block o-bio-active--block m-b-8">
+        <span class="o-bio-info__edit-ico" (click)="editField('email')">
+          <img [src]="imageBaseUrl + 'img/svg/editpencil.svg'" alt="">
+        </span>
+        <div id="o-bio-info__mail" class="o-bio-info__value c-text_sm color-grey-dark" *ngIf="editingField != 'email'">
+          <div class="contact_ico float_left">
+            <img [src]="imageBaseUrl + 'img/svg/ico_mail.svg'" alt="">
+          </div>
+          <div class="c-text_md float_left m-l-8">
+            {{ userProfile?.contact?.email?.email }}
+          </div>
+        </div>
+        <div id="o-bio-info__mail-edit" class="o-bio-info__edit" *ngIf="editingField == 'email'">
+          <div class="c-form__group c-form--sm c-form--noeffect">
+            <input class="c-form__input fpadding_l32" required="" type="text" [(ngModel)]="email">
+            <span>
+              <img [src]="imageBaseUrl + 'img/svg/globe.svg'" class="c-form__input--lefticon">
+            </span>
+          </div>
+          <div class="o-bio-info__edit-actions m-t-24">
+            <button type="button" class="btn btn-primary btn-sm float-right" (click)="updateAbout('email')">Save</button>
+            <button type="button" class="btn btn-default btn-sm float-right m-l-r-8" (click)="cancelEdit()">Cancel</button>
+            <div class="dropdown float-right m-r-8" appDropdown>
+              <span class="com-head" data-toggle="dropdown" aria-expanded="false" appDropdownOpen>
+                <div class="o-bio-edit__ico">
+                  <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" alt="" *ngIf="emailPrivacy === 0">
+                  <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" alt="" *ngIf="emailPrivacy === 1">
+                </div>
+                <div class="o-bio-edit__ico-arrow">
+                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px"
+                    height="16px" viewBox="0 0 16 10" version="1.1">
+                    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+                    <title>Path 2 Copy</title>
+                    <desc>Created with Sketch.</desc>
+                    <defs></defs>
+                    <g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <polyline id="Path-2-Copy" stroke="#333" stroke-width="1" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) "
+                        points="1 1 8 8 15 1"></polyline>
+                    </g>
+                  </svg>
+                </div>
+              </span>
+              <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
+                <li>
+                  <a (click)="choosePrivacy(0,'email')" class="c-opsdropdown__list">
+                    <img [src]="imageBaseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
+                    <span class="c-opsdropdown--text">Public</span>
+                  </a>
+                </li>
+                <li>
+                  <a (click)="choosePrivacy(1,'email')" class="c-opsdropdown__list">
+                    <img [src]="imageBaseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
+                    <span class="c-opsdropdown--text">Private</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- mail end -->
+    </div>
   </div>
 </div>
