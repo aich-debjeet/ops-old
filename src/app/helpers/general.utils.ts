@@ -18,7 +18,7 @@ export class GeneralUtilities {
 
     constructor() { }
 
-    getSponsoredPostsIds(allPosts: any[], sponsoredList: any[]) {
+    getSponsoredPostsIds(allPosts: any[], sponsoredList: any[], sponsoredPostsCount: any) {
         // loop through all posts
         for (let i = 0; i < allPosts.length; i++) {
             // check if posted through the OPS account
@@ -34,6 +34,11 @@ export class GeneralUtilities {
                     // console.log('already exist: ', postId);
                 }
             }
+        }
+        // console.log('sponsoredPostsCount', sponsoredPostsCount);
+        // console.log('sponsoredList', sponsoredList);
+        if (sponsoredPostsCount && sponsoredList && sponsoredPostsCount === sponsoredList.length) {
+            sponsoredList = [];
         }
         return sponsoredList;
     }
