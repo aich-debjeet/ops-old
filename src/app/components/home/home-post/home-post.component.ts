@@ -80,7 +80,7 @@ export class HomePostComponent implements OnInit, OnDestroy {
 
   postLoad() {
     const data = {
-      limit: 10,
+      limit: 12,
       scrollId: null,
       sponsoredList: this.sponsoredList
     }
