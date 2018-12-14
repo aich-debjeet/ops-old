@@ -23,11 +23,11 @@ export class AboutContactComponent implements OnInit, OnDestroy {
   ownProfile: boolean;
   editingField: string;
   privacy: number;
-  website:any;
-  email:any;
-  number:any;
-  websitePrivacy:any;
-  mobilePrivacy:any;
+  website: any;
+  email: any;
+  number: any;
+  websitePrivacy: any;
+  mobilePrivacy: any;
   emailPrivacy: any;
 
   constructor(
@@ -36,7 +36,6 @@ export class AboutContactComponent implements OnInit, OnDestroy {
   ) {
     this.tagState$ = this.profileStore.select('profileTags');
     this.profSub = this.tagState$.subscribe((state) => {
-      console.log(state)
       this.stateProfile = state;
       if (state.profile_user_info) {
         if (this.stateProfile.profile_user_info.isCurrentUser === false && this.stateProfile.profile_other_loaded === true) {
@@ -77,28 +76,30 @@ export class AboutContactComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.profSub.unsubscribe();
   }
+
   editField(fieldName: string) {
     this.editingField = fieldName;
   }
 
-  choosePrivacy(val: number,fieldName: string){
-    if(fieldName === 'website'){
+  choosePrivacy(val: number, fieldName: string) {
+    if (fieldName === 'website') {
       this.websitePrivacy = val;
     }
-    if(fieldName === 'number'){
+    if (fieldName === 'number') {
       this.mobilePrivacy = val;
     }
-    if(fieldName === 'email'){
+    if (fieldName === 'email') {
       this.emailPrivacy = val;
     }
   }
+
   updateAbout(fieldName: string) {
     let reqBody;
     if (fieldName === 'website') {
       reqBody = {
         extras: {
           contact: {
-            website:{
+            website: {
               access: Number(this.websitePrivacy),
               website: this.website
             }
@@ -110,7 +111,7 @@ export class AboutContactComponent implements OnInit, OnDestroy {
       reqBody = {
         extras: {
           contact: {
-            mobile:{
+            mobile: {
               access: Number(this.mobilePrivacy),
               mobile: this.number
             }
@@ -122,7 +123,7 @@ export class AboutContactComponent implements OnInit, OnDestroy {
       reqBody = {
         extras: {
           contact: {
-            email:{
+            email: {
               access: Number(this.emailPrivacy),
               email: this.email
             }
@@ -133,6 +134,7 @@ export class AboutContactComponent implements OnInit, OnDestroy {
     this.profileStore.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: reqBody });
     this.cancelEdit();
   }
+
   cancelEdit() {
     this.editingField = '';
   }
