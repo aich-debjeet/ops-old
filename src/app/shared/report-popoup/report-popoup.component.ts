@@ -5,11 +5,12 @@ import { SharedActions } from '../../actions/shared.action';
 import { Store } from '@ngrx/store';
 import { environment } from '../../../environments/environment';
 import { Subscription } from 'rxjs/Subscription';
-import {SharedModal, initialSharedTags} from '../../models/shared.model';
+import { SharedModal, initialSharedTags } from '../../models/shared.model';
 import { ToastrService } from 'ngx-toastr';
 
 // rx
 import { Observable } from 'rxjs/Observable';
+import { ProfileActions } from 'app/actions/profile.action';
 
 
 @Component({
@@ -27,12 +28,12 @@ export class ReportPopoupComponent implements OnInit, OnDestroy {
   secondSubscription: Subscription;
   public repPop: FormGroup;
   profileThankYou: boolean;
-  describe: boolean = false;
+  describe = false;
   imageLink: string = environment.API_IMAGE;
   mediaState$: Observable<any>;
   sharedStates$: Observable<SharedModal>;
   sharedStore = initialSharedTags;
-  openThankYou: boolean = false;
+  openThankYou = false;
 
   constructor(
     private fb: FormBuilder,
@@ -40,35 +41,35 @@ export class ReportPopoupComponent implements OnInit, OnDestroy {
     private _store: Store<any>,
     private toastr: ToastrService,
   ) {
-      this.profileThankYou = false;
-      this.mediaState$ = _store.select('mediaStore');
-      this.thirdSubscription = this.mediaState$.subscribe((state) => {
-        if (state['reports']) {
-          this.reportQues = state['reports'];
+    this.profileThankYou = false;
+    this.mediaState$ = _store.select('mediaStore');
+    this.thirdSubscription = this.mediaState$.subscribe((state) => {
+      if (state['reports']) {
+        this.reportQues = state['reports'];
+      }
+    });
+    /**
+     * observing state changes for shared model
+     */
+    this.sharedStates$ = _store.select('sharedTags');
+    this.secondSubscription = this.sharedStates$.subscribe((state) => {
+      this.sharedStore = state;
+      if (typeof state !== 'undefined') {
+        if (state['report']) {
+          this.reportQues = state['report'];
         }
-      });
-      /**
-       * observing state changes for shared model
-       */
-      this.sharedStates$ = _store.select('sharedTags');
-      this.secondSubscription = this.sharedStates$.subscribe((state)=> {
-        this.sharedStore = state;
-        if(typeof state !== 'undefined'){
-          if(state['report']){
-            this.reportQues = state['report'];
-          }
-          if(state['report_failed'] && state['report_failed'].length > 0){
-            this.toastr.error('You have already reported');
-          }
-          if(state['rep_success'] === true && state['report_success'].Success){
-            if(this.openThankYou){
-              this.profileThankYou = true;
-              this.openThankYou = false;
-            }
+        if (state['report_failed'] && state['report_failed'].length > 0) {
+          this.toastr.error('You have already reported');
+        }
+        if (state['rep_success'] === true && state['report_success'].Success) {
+          if (this.openThankYou) {
+            this.profileThankYou = true;
+            this.openThankYou = false;
           }
         }
-      })
-   }
+      }
+    })
+  }
 
   ngOnInit() {
     this.buildForm();
@@ -84,8 +85,8 @@ export class ReportPopoupComponent implements OnInit, OnDestroy {
       desc: ''
     });
   }
+
   /**
-   * 
    * @param value Method invoked after submiting selected option for reporting
    */
   submitForm(value) {
@@ -97,6 +98,7 @@ export class ReportPopoupComponent implements OnInit, OnDestroy {
       description: value.desc || '',
     }
     this._store.dispatch({ type: SharedActions.POST_SELECTED_OPTION, payload: data });
+    this._store.dispatch({ type: ProfileActions.REMOVE_MEDIA, payload: this.reportContentId });
   }
 
   /**
