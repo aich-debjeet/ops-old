@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 
 // rx
 import { Observable } from 'rxjs/Observable';
+import { ProfileActions } from 'app/actions/profile.action';
 
 
 @Component({
@@ -97,6 +98,7 @@ export class ReportPopoupComponent implements OnInit, OnDestroy {
       description: value.desc || '',
     }
     this._store.dispatch({ type: SharedActions.POST_SELECTED_OPTION, payload: data });
+    this._store.dispatch({ type: ProfileActions.REMOVE_MEDIA, payload: this.reportContentId });
   }
 
   /**

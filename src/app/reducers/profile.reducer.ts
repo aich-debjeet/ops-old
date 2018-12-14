@@ -78,6 +78,12 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
 
   switch (type) {
 
+    case ProfileActions.REMOVE_MEDIA:
+      return {
+        ...state,
+        user_following_posts: state.user_following_posts.filter(post => post.id !== payload)
+      };
+
     case ProfileActions.RPOFILE_BOOKAMRK_FLAG_UPDATE:
       return Object.assign({}, state, {
         profile_other: {

@@ -1,5 +1,6 @@
 export class ProfileActions {
 
+  static REMOVE_MEDIA = 'REMOVE_MEDIA';
   static RPOFILE_BOOKAMRK_FLAG_UPDATE = 'RPOFILE_BOOKAMRK_FLAG_UPDATE';
 
   static REMOVE_COVER_IMAGE = 'REMOVE_COVER_IMAGE';
@@ -19,10 +20,10 @@ export class ProfileActions {
   /**
    * for: post story
    */
-  static POST_STORY= 'POST_STORY';
-  static POST_STORY_SUCCESS= 'POST_STORY_SUCCESS';
-  static POST_STORY_FAILED= 'POST_STORY_FAILED';
-  
+  static POST_STORY = 'POST_STORY';
+  static POST_STORY_SUCCESS = 'POST_STORY_SUCCESS';
+  static POST_STORY_FAILED = 'POST_STORY_FAILED';
+
   /**
    * for: Get My Story
    */
