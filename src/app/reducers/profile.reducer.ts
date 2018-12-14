@@ -756,7 +756,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
         user_following_posts: following_new_post,
         user_following_post_scroll_id: payload.scrollId,
         sponsoredPostsCount: payload['sponsoredPostsCount'],
-        sponsoredList: gUtils.getSponsoredPostsIds(following_new_post, state.sponsoredList, payload['sponsoredPostsCount'])
+        sponsoredList: gUtils.getSponsoredPostsIds(followingPosts, state.sponsoredList, payload['sponsoredPostsCount'])
       });
 
     case ProfileActions.LOAD_USER_FOLLOWING_POSTS_FAILED:

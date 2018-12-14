@@ -26,17 +26,11 @@ export class GeneralUtilities {
                 // check if the post id has already been added to the sponsoredList
                 const postId = allPosts[i].id;
                 if (postId && sponsoredList.indexOf(postId) === -1) {
-                    // console.log('add: ', postId);
                     // add if does not exist
                     sponsoredList.push(postId);
-                } else {
-                    // skip if exist
-                    // console.log('already exist: ', postId);
                 }
             }
         }
-        // console.log('sponsoredPostsCount', sponsoredPostsCount);
-        // console.log('sponsoredList', sponsoredList);
         if (sponsoredPostsCount && sponsoredList && sponsoredPostsCount === sponsoredList.length) {
             sponsoredList = [];
         }
