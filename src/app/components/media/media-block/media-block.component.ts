@@ -223,7 +223,7 @@ export class MediaBlockComponent implements OnInit {
     this.isEdit = true;
   }
 
-  onCommentEdit(message) {
+  saveContentUpdate(message) {
     this.isEdit = false;
     this.editMsg = true;
 
@@ -233,7 +233,5 @@ export class MediaBlockComponent implements OnInit {
     }
     this.store.dispatch({ type: MediaActions.MEDIA_EDIT, payload: data});
   }
-
-  
 
 }
