@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, Input, ElementRef, OnChanges} from '@angular/core';
+import { Component, EventEmitter, Output, Input, OnChanges } from '@angular/core';
 
 @Component({
     selector: 'read-more',
@@ -36,20 +36,20 @@ export class ReadMoreComponent implements OnChanges {
     @Input() text: string;
     @Input() class: string;
     @Input() isEdit: boolean;
-    @Input() maxLength: number = 100;
+    @Input() maxLength = 100;
     @Output() commentEdited = new EventEmitter();
     currentText: string;
-    hideToggle: boolean = true;
+    hideToggle = true;
+    public isCollapsed = true;
 
-    public isCollapsed: boolean = true;
+    // constructor(private elementRef: ElementRef) {}
+    constructor() { }
 
-    constructor(private elementRef: ElementRef) {
-
-    }
     toggleView() {
         this.isCollapsed = !this.isCollapsed;
         this.determineView();
     }
+
     determineView() {
         if (this.text) {
             if (this.text.length <= this.maxLength) {
@@ -61,16 +61,18 @@ export class ReadMoreComponent implements OnChanges {
             this.hideToggle = false;
             if (this.isCollapsed === true) {
                 this.currentText = this.text.substring(0, this.maxLength) + '...';
-            } else if (this.isCollapsed === false)  {
+            } else if (this.isCollapsed === false) {
                 this.currentText = this.text;
             }
         }
 
     }
+
     onContentSaved(content) {
         this.isEdit = false;
         this.commentEdited.next(this.text);
-      }
+    }
+
     ngOnChanges() {
         this.determineView();
     }
