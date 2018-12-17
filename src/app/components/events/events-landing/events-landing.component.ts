@@ -111,21 +111,11 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
         // Defaults to 0 if no query param provided.
         if (params['status']) {
           this.filterStatus = params['status'];
-          // this.filterEventType = '';
-          // this.filterStartDate = '';
-          // this.filterLocation = '';
-          // this.filterEndDate = '';
-          // this.dayStatus = '';
           window.scrollTo(0,0);
           this.scrollingLoad = 800;
         }
         if (!params['status']) {
           this.filterStatus = 'recommended';
-          // this.filterEventType = '';
-          // this.filterLocation = '';
-          // this.filterStartDate = '';
-          // this.filterEndDate = '';
-          // this.dayStatus = '';
         }
         this.filterEventType = '';
         this.filterStartDate = '';
@@ -140,55 +130,46 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
     this.day =  moment().format();
     this.tomorrow = moment().add('days', 1).format();
     this.weekend = moment().weekday(6).format();
-
-    // this.myQueryParms = {
-    //   startDate:  this.filterStartDate || '',
-    //   endDate: this.filterEndDate || '',
-    //   location: this.filterLocation || '',
-    //   status: this.filterStatus || '',
-    //   searchText: this.filterSearchText || '',
-    //   eventType: this.filterEventType || '',
-    // }
   }
 
   ngOnInit() {
     this.store.dispatch({ type: EventActions.BANNER_SEARCH});
     this.dayStatus = '';
     this.carouselOne = {
-      grid: {xs: 1, sm: 1, md: 2, lg: 2, all: 0},
-      slide: 1,
+      grid: {xs: 1, sm: 1, md: 2, lg: 3, all: 0},
+      slide: 2,
       speed: 4000,
       interval: 400000,
       custom: 'banner',
       point: {
         visible: false,
-        pointStyles: `
-          .ngucarouselPoint {
-            list-style-type: none;
-            text-align: center;
-            padding: 12px;
-            margin: 0;
-            white-space: nowrap;
-            overflow: auto;
-            position: absolute;
-            width: 100%;
-            bottom: 20px;
-            left: 0;
-            box-sizing: border-box;
-          }
-          .ngucarouselPoint li {
-            display: inline-block;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.55);
-            padding: 5px;
-            margin: 0 3px;
-            transition: .4s ease all;
-          }
-          .ngucarouselPoint li.active {
-              background: white;
-              width: 10px;
-          }
-        `
+        // pointStyles: `
+        //   .ngucarouselPoint {
+        //     list-style-type: none;
+        //     text-align: center;
+        //     padding: 12px;
+        //     margin: 0;
+        //     white-space: nowrap;
+        //     overflow: auto;
+        //     position: absolute;
+        //     width: 100%;
+        //     bottom: 20px;
+        //     left: 0;
+        //     box-sizing: border-box;
+        //   }
+        //   .ngucarouselPoint li {
+        //     display: inline-block;
+        //     border-radius: 999px;
+        //     background: rgba(255, 255, 255, 0.55);
+        //     padding: 5px;
+        //     margin: 0 3px;
+        //     transition: .4s ease all;
+        //   }
+        //   .ngucarouselPoint li.active {
+        //       background: white;
+        //       width: 10px;
+        //   }
+        // `
       },
       load: 2,
       loop: false,
@@ -226,16 +207,6 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   }
 
   serachApi() {
-    // const data = {
-    //   startDate: this.filterStartDate || '',
-    //   endDate: this.filterEndDate || '',
-    //   location: this.filterLocation || '',
-    //   status: this.filterStatus || '',
-    //   searchText: '',
-    //   eventType: this.filterEventType || '',
-    //   offset: 0,
-    //   limit: 50,
-    // }
     let data;
     if (this.filterEventType === '' && (this.filterStartDate === '' && this.filterEndDate === '')) {
        data = {
