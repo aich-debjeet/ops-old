@@ -142,6 +142,15 @@ export class PostComponent implements OnInit {
     this.isEdit = false;
   }
 
+  onCommentEdit(text: string) {
+    this.isEdit = false;
+    const data = {
+      id: this.mediaId,
+      description: text
+    }
+    this.store.dispatch({ type: MediaActions.MEDIA_EDIT, payload: data });
+  }
+
   onReachingInViewport(mediaId: any) {
     this.elemViewportStatus.emit({ mediaId: mediaId, status: 'reached' });
     // this.gUtils.filter({ component: 'VideplayerComponent', action: 'playVideo' });
