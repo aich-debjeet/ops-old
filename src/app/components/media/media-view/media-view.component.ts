@@ -202,15 +202,13 @@ export class MediaViewComponent implements OnDestroy {
     this.isEdit = true;
   }
 
-  onCommentEdit(message) {
+  saveContentUpdate(message) {
     this.isEdit = false;
     this.editMsg = true;
-    // console.log('comment', '+ message', message)
     const data = {
       'id': this.data.id,
       'description': message
     }
-    // console.log(data)
     this.store.dispatch({ type: MediaActions.MEDIA_EDIT, payload: data });
   }
 
