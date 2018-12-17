@@ -7,27 +7,30 @@ import { Component, EventEmitter, Output, Input, OnChanges } from '@angular/core
             <p *ngIf="!isEdit" [innerHTML]="currentText" [class]="class"></p>
             <p contenteditable="true" *ngIf="isEdit" [textContent]="text" [(ngModel)]="text" [class]="class" ngDefaultControl (keyup.enter)="onContentSaved()" (input)="text=$event.target.textContent" [ngClass]="{'fill_grey': isEdit}"></p>
         </div>
-        <a [class.hidden]="hideToggle" (click)="toggleView()">Read {{isCollapsed? 'more':'less'}}</a>
+        <a class="text-label" [class.hidden]="hideToggle" (click)="toggleView()">Read {{isCollapsed? 'more':'less'}}</a>
     `,
     styles: [`
-        a{
+        .text-label {
+            font-size: 11px;
+        }
+        a {
             cursor: pointer;
             color: #FF7B84;
         }
-        .media-popup__text{
+        .media-popup__text {
             margin: 10px 0;
             color: #333;
             font-weight: normal;
             line-height: 21px;
             font-size: 11px;
         }
-        .media_channel--text{
+        .media_channel--text {
             font-size: 12px;
         }
         .fill_grey {
-                color: #979797;
-                font-weight: 600;
-                display: inline;
+            color: #979797;
+            font-weight: 600;
+            display: inline;
         }
     `],
 })
