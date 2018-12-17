@@ -32,6 +32,11 @@ import { Component, EventEmitter, Output, Input, OnChanges } from '@angular/core
             font-weight: 600;
             display: inline;
         }
+        .c-user__status {
+            color: #333;
+            font-size: 15px;
+            line-height: 24px;
+        }
     `],
 })
 
