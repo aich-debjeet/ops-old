@@ -36,6 +36,7 @@ import { Component, EventEmitter, Output, Input, OnChanges } from '@angular/core
             color: #333;
             font-size: 15px;
             line-height: 24px;
+            word-wrap: break-word;
         }
         .c-feed__img-status {
             color: #333333;
@@ -79,7 +80,6 @@ export class ReadMoreComponent implements OnChanges {
                 this.currentText = this.text;
             }
         }
-
     }
 
     onContentSaved(content) {
