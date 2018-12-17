@@ -52,7 +52,7 @@ export class ReadMoreComponent implements OnChanges {
     @Input() class: string;
     @Input() isEdit: boolean;
     @Input() maxLength = 100;
-    @Output() commentEdited = new EventEmitter();
+    @Output() contentEdited = new EventEmitter();
     currentText: string;
     hideToggle = true;
     public isCollapsed = true;
@@ -84,7 +84,7 @@ export class ReadMoreComponent implements OnChanges {
 
     onContentSaved(content) {
         this.isEdit = false;
-        this.commentEdited.next(this.text);
+        this.contentEdited.next(this.text);
     }
 
     ngOnChanges() {

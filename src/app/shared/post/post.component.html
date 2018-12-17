@@ -48,10 +48,10 @@
 
   <!-- media description -->
   <div class="c-status--block" *ngIf="mediaData?.description && mediaData?.mtype === 'status'">
-    <read-more [isEdit]="isEdit" (commentEdited)="onCommentEdit($event)" [class]="'c-user__status'" [text]="mediaData?.description" [maxLength]=200></read-more>
+    <read-more [isEdit]="isEdit" (contentEdited)="onCommentEdit($event)" [class]="'c-user__status'" [text]="mediaData?.description" [maxLength]=200></read-more>
   </div>
   <div class="c-feed__img-status" *ngIf="mediaData?.mtype === 'video' || mediaData?.mtype === 'audio' || mediaData?.mtype === 'image' || mediaData?.mtype === 'collection'">
-    <read-more [isEdit]="isEdit" (commentEdited)="onCommentEdit($event)" [class]="'c-user__status'" [text]="mediaData?.description" [maxLength]=200></read-more>
+    <read-more [isEdit]="isEdit" (contentEdited)="onCommentEdit($event)" [class]="'c-user__status'" [text]="mediaData?.description" [maxLength]=200></read-more>
   </div>
   <!-- media description -->
 
