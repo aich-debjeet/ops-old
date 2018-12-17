@@ -48,14 +48,14 @@
   <div class="c-status--block" *ngIf="mediaData?.description && mediaData?.mtype === 'status' ">
     <read-more [class]="'c-user__status'" [text]="mediaData?.description" [maxLength]=200></read-more>
   </div>
-  <div *ngIf="mediaData?.mtype === 'video' || mediaData?.mtype === 'audio' || mediaData?.mtype === 'image' || mediaData?.mtype === 'collection'">
-    <div class="c-feed__img-status" *ngIf="!isEdit">
+  <div class="c-feed__img-status" *ngIf="mediaData?.mtype === 'video' || mediaData?.mtype === 'audio' || mediaData?.mtype === 'image' || mediaData?.mtype === 'collection'">
+    <!-- <div class="c-feed__img-status" *ngIf="!isEdit">
       {{ mediaData?.description | truncate:[200, '...']}}
     </div>
     <div class="c-feed__img-status" *ngIf="isEdit">
-      <div class="content_editable" contentEditable="true" (keyup.enter)="onContentSaved()" [textContent]="desText"
-        name="desText" (input)="desText=$event.target.textContent"></div>
-    </div>
+      <div class="content_editable" contentEditable="true" (keyup.enter)="onContentSaved()" [textContent]="desText" name="desText" (input)="desText=$event.target.textContent"></div>
+    </div> -->
+    <read-more [class]="'c-user__status'" [text]="mediaData?.description" [maxLength]=200></read-more>
   </div>
 
   <!-- collection -->

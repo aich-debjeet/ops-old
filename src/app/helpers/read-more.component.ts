@@ -37,6 +37,12 @@ import { Component, EventEmitter, Output, Input, OnChanges } from '@angular/core
             font-size: 15px;
             line-height: 24px;
         }
+        .c-feed__img-status {
+            color: #333333;
+            font-size: 16px;
+            line-height: 23px;
+            padding: 0 24px 16px 24px;
+        }
     `],
 })
 
