@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, NgZone, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone, ViewChild, ElementRef,HostListener } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { NguCarousel } from '@ngu/carousel';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,6 +10,10 @@ import { EventModal  } from '../../../models/event.model';
 import { EventActions } from '../../../actions/event.action';
 import { Observable } from 'rxjs/Observable';
 import { ISubscription } from 'rxjs/Subscription';
+
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/delay';
+import 'rxjs/add/operator/do';
 
 import { MapsAPILoader } from '@agm/core';
 import {} from '@types/googlemaps';
@@ -74,8 +78,14 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
     locale: 'en'
   };
 
+  private listening:boolean;
+  private globalClick:Observable<MouseEvent>;
+
   @ViewChild('search')
   public searchElementRef: ElementRef;
+
+  @ViewChild('calenda')
+  public calendarElementRef: ElementRef;
 
   constructor(
     private route: ActivatedRoute,
@@ -85,6 +95,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
     private ngZone: NgZone,
     private fb: FormBuilder,
   ) {
+    this.listening = false;
     this.tagState$ = this.store.select('eventTags');
     this.subscription = this.tagState$.subscribe((state) => {
       if (state['event_list'] && state.event_loaded === true) {
@@ -130,6 +141,19 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
     this.day =  moment().format();
     this.tomorrow = moment().add('days', 1).format();
     this.weekend = moment().weekday(6).format();
+  }
+
+  @HostListener('document:click', ['$event'])
+  public onDocumentClick(event: MouseEvent): void {
+    const targetElement = event.target as HTMLElement;
+      // Check if the click was outside the element
+      if (targetElement && !this.calendarElementRef.nativeElement.contains(targetElement)) {
+        if(this.calendar){
+          this.calendar = false;
+        }
+      } else {
+        this.calendarPop()
+      }
   }
 
   ngOnInit() {
@@ -198,7 +222,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
 
 
   calendarPop() {
-    // console.log('calendar')
+    console.log('calendar')
     if (!this.calendar) {
       this.calendar = true;
     } else {
