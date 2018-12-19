@@ -27,7 +27,7 @@
       <a>
         <img *ngIf="mediaData?.access === 1" [src]="imageLink + 'img/svg/ico_private.svg'" class="c-status__options">
       </a>
-      <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
+      <span *ngIf="mediaData?.ownerUserName !== 'ops'" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
         <img [src]="imageLink + 'img/svg/ico_options.svg'" class="c-status__options">
       </span>
       <ul class="dropdown-menu dropdown-menu-right" *ngIf="mediaData?.isOwner">
