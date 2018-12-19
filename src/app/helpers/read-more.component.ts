@@ -91,6 +91,7 @@ export class ReadMoreComponent implements OnChanges {
     currentText: string;
     hideToggle = true;
     public isCollapsed = true;
+    textCache: string;
 
     // constructor(private elementRef: ElementRef) {}
     constructor() { }
@@ -122,10 +123,12 @@ export class ReadMoreComponent implements OnChanges {
     }
 
     ngOnChanges() {
+        this.textCache = this.text;
         this.determineView();
     }
 
     onCancel() {
+        this.text = this.textCache;
         this.cancelEdit.emit();
     }
 }
