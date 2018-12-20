@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, NgZone, ViewChild, ElementRef,HostListener } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { NguCarousel } from '@ngu/carousel';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { environment } from '../../../../environments/environment';
@@ -69,7 +69,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   sum = 10;
   total_pages = 10;
   scrolling = 0;
-  scrollingLoad = 800;
+  scrollingLoad = 955;
 
   dayStatus: string;
   calendar = false;
@@ -123,7 +123,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
         if (params['status']) {
           this.filterStatus = params['status'];
           window.scrollTo(0,0);
-          this.scrollingLoad = 800;
+          this.scrollingLoad = 955;
         }
         if (!params['status']) {
           this.filterStatus = 'recommended';
@@ -222,7 +222,6 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
 
 
   calendarPop() {
-    console.log('calendar')
     if (!this.calendar) {
       this.calendar = true;
     } else {
@@ -442,11 +441,10 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
     this.serachApi();
   }
   onScroll(e) {
-     console.log(e)
     this.scrolling = e.currentScrollPosition;
     // console.log(this.scrolling)
     if (this.scrollingLoad <= this.scrolling) {
-      this.scrollingLoad += 800
+      this.scrollingLoad += 900
       const data = {
         searchType: this.filterStatus,
         scrollId: this.scrollId,
