@@ -41,7 +41,7 @@
         </div>
         <div class="o-eventinner__detail">
             <div class="o-eventinner__date">
-                <img [src]="baseUrl + 'img/svg/calendar.svg'" class="o-eventinner__detail--img"> {{ eventDetail?.eventTiming?.startDate | utcDate | date: 'dd, LLLL'}}
+                <img [src]="baseUrl + 'img/svg/calendar.svg'" class="o-eventinner__detail--img"> {{ eventDetail?.eventTiming?.startDate | utcDate | date: 'dd LLLL yyyy'}}
             </div>
             <div class="o-eventinner__address">
               <img [src]="baseUrl + 'img/svg/ico_location2.svg'" class="o-eventinner__detail--img"> {{ eventDetail?.venue?.location }}
