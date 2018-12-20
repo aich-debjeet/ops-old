@@ -1,32 +1,36 @@
 <div id="posts" class="tab-pane fade active in" infinite-scroll (scrolled)="onScroll($event)">
-  <div class="col-md-4 m-t-8 p-0 hidden-xs">
+  <div class="col-md-4 m-t-8 p-0 hidden-xs red-brd">
     <div class="o-hf_usercard">
-      <div class="o-hf_usertimeline">
-        <img [src]="userData?.coverImage ? imageLink + userData?.coverImage : 'https://cdn.onepagespotlight.com/img/profile-cover.png'">
+      <div class="o-hf_usertimeline bg-img"
+        [ngStyle]="{'background-image': 'url(' + (userData?.coverImage ? imageLink + userData?.coverImage : 'https://cdn.onepagespotlight.com/img/profile-cover.png') + ')'}">
       </div>
-      <div class="o-hf_usercont">
+      <div class="o-hf_usercont has-flex align-base">
         <div class="o-hf_userimg">
-          <img [src]="imageLink + userData?.profileImage">
+          <img [src]="imageLink + userData?.profileImage" alt="User Photo" />
         </div>
-        <div class="o-hf_username">
-          <div class="c-text_lg cursor_pointer" routerLink="/profile/user">{{ userData?.name | truncate:[20, '...']}}</div>
-          <div class="c-text_sm color-grey-dark">@ {{ userData?.username }}</div>
-        </div>
-      </div>
-      <div class="width100 float_left m-t-b-24">
-        <div class="col-md-4 c-text_sm">Following
-          <div class="c-text_md-bold color-grey-dark">{{ userData?.followingCount }}</div>
-        </div>
-        <div class="col-md-4 c-text_sm">Followers
-          <div class="c-text_md-bold color-grey-dark">{{ userData?.followersCount }}</div>
-        </div>
-        <div class="col-md-4 c-text_sm">Spots
-          <div class="c-text_md-bold color-grey-dark">{{ userData?.spotsCount }}</div>
+        <div class="o-hf_username f0">
+          <p class="c-text_lg cursor_pointer" routerLink="/profile/user">{{ userData?.name | truncate:[20, '...']}}
+          </p>
+          <span class="c-text_sm color-grey-dark">@ {{ userData?.username }}</span>
         </div>
       </div>
+      <ul class="fans-activity-counts has-flex space-around text-center">
+        <li>
+          <p class="c-text_sm">Following</p>
+          <span class="color-grey-dark">{{ userData?.followingCount }}</span>
+        </li>
+        <li>
+          <p class="c-text_sm">Followers</p>
+          <span class="color-grey-dark">{{ userData?.followersCount }}</span>
+        </li>
+        <li>
+          <p class="c-text_sm">Spots</p>
+          <span class="color-grey-dark">{{ userData?.spotsCount }}</span>
+        </li>
+      </ul>
     </div>
 
-    <div class="o-hf_usercard m-t-16">
+    <div class="o-hf_usercard m-t-16 green-brd">
       <div class="o-trending-block">
         <div class="o-trending-heading m-t-b-8">Trending Post</div>
         <div class="col-md-12 float_left p-0" *ngFor="let trending of trendingPost | slice:0:1">

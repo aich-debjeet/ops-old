@@ -457,21 +457,15 @@ label {
 
 // user card -----
 .o-hf_usercard {
-  width: 100%;
-  float: left;
-  background-color: #FFFFFF;
   border-radius: 3px;
+  background-color: $color-white;
   box-shadow: 0 2px 4px 0 rgba(102, 45, 145, 0.15);
 }
 
 .o-hf_usertimeline {
-  width: 100%;
   height: 79px;
-  float: left;
   border-radius: 4px 4px 0 0;
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.08);
-  overflow: hidden;
-  background-color: #e0e0e0;
 
   img {
     width: 100%;
@@ -479,27 +473,30 @@ label {
 }
 
 .o-hf_usercont {
-  width: 96%;
-  float: left;
-  margin: -26px 0 0 12px;
+  padding: 0px 12px;
 }
 
 .o-hf_userimg {
-  height: 74px;
   width: 74px;
-  border: 2px solid #FFFFFF;
-  border-radius: 50%;
-  float: left;
-  overflow: hidden;
-
+  height: 74px;
+  margin-top: -30px;
+  
   img {
     width: 100%;
+    border-radius: 50%;
+    border: 2px solid $color-white;
   }
 }
 
 .o-hf_username {
-  width: 70%;
-  float: left;
-  margin-top: 30px;
   margin-left: 8px;
+}
+
+.fans-activity-counts {
+  margin: 0;
+  padding: 24px 12px;
+  & > li {
+    list-style-type: none;
+    display: inline-block;
+  }
 }
