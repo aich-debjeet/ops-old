@@ -624,7 +624,6 @@ button.sb-wrapper.sb-facebook {
 	margin: auto;
 	max-width: 200px !important;
 	display: inline-block;
-	float: inherit;
 	margin-top: 15px;
 	a {
 		background-color: $color-theme !important;
@@ -692,6 +691,25 @@ button.sb-wrapper.sb-facebook {
 .green-brd {
 	border: 1px solid green;
 }
+
+// element specific styles
+ul {
+  margin: 0;
+  padding: 0;
+}
+ul > li {
+  list-style-type: none;
+}
+// display types
+.block {display: block;}
+.inb, .inblock {display: inline-block;}
+.table {display: table;}
+
+// positioning styles
+.relative {position: relative;}
+.absolute {position: absolute;}
+.sticky {position: sticky;}
+.fixed {position: fixed;}
 
 // background-image styles
 .bg-img {

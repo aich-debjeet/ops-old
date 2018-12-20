@@ -1,8 +1,8 @@
 <div id="posts" class="tab-pane fade active in" infinite-scroll (scrolled)="onScroll($event)">
-  <div class="col-md-4 m-t-8 p-0 hidden-xs red-brd">
-    <div class="o-hf_usercard">
-      <div class="o-hf_usertimeline bg-img"
-        [ngStyle]="{'background-image': 'url(' + (userData?.coverImage ? imageLink + userData?.coverImage : 'https://cdn.onepagespotlight.com/img/profile-cover.png') + ')'}">
+  <div class="col-md-4 m-t-8 p-0 hidden-xs">
+  <div class="relative">
+    <div class="c-card">
+      <div class="o-hf_usertimeline bg-img" [ngStyle]="{'background-image': 'url(' + (userData?.coverImage ? imageLink + userData?.coverImage : 'https://cdn.onepagespotlight.com/img/profile-cover.png') + ')'}">
       </div>
       <div class="o-hf_usercont has-flex align-base">
         <div class="o-hf_userimg">
@@ -30,93 +30,78 @@
       </ul>
     </div>
 
-    <div class="o-hf_usercard m-t-16 green-brd">
+    <div class="c-card m-t-16">
       <div class="o-trending-block">
-        <div class="o-trending-heading m-t-b-8">Trending Post</div>
-        <div class="col-md-12 float_left p-0" *ngFor="let trending of trendingPost | slice:0:1">
-          <div class="c-card o-trending-post">
-            <!-- card media (img, video & audio) -->
-            <div class="c-card__media">
-              <a [routerLink]="['', { outlets: { media : ['media', trending?.id]}}]">
-                <img [src]="imageLink + trending?.thumbNails?.mediumLarge" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';"
-                  class="c-card__image">
-              </a>
+        <p class="o-trending-heading text-uppercase">Trending Post</p>
+        <div class="c-card o-trending-post pb15" *ngFor="let trending of trendingPost | slice:0:1">
+          <!-- card media (img, video & audio) -->
+          <div class="c-card__media">
+            <a class="block relative" [routerLink]="['', { outlets: { media : ['media', trending?.id]}}]">
+              <img [src]="imageLink + trending?.thumbNails?.mediumLarge" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';"
+                class="c-card__image">
               <span>
                 <img [src]="imageLink + 'img/svg/ico_video.svg'" *ngIf="trending?.mtype === 'video'" class="c-card__icon">
                 <img [src]="imageLink + 'img/svg/ico_image.svg'" *ngIf="trending?.mtype === 'image'" class="c-card__icon">
                 <img [src]="imageLink + 'img/svg/ico_volume3.svg'" *ngIf="trending?.mtype === 'audio'" class="c-card__icon">
               </span>
-              <div class="c-media--hover">
-                <div class="c-user">
-                  <a href="javascript:void(0);" class="c-user__avatar c-avatar--feed2">
-                    <img class="c-user__image" [src]="imageLink + 'img/avatar.jpg'">
-                  </a>
-                  <a class="c-user__name2">Tobias Van1</a>
-                </div>
-                <div class="dropup c-dropdown c-dropdown__options">
-                  <span class="dropdown-toggle" data-toggle="dropdown">
-                    <img [src]="imageLink + 'img/svg/ico_option_white.svg'" class="c-status__options m-r-16">
-                  </span>
-                  <ul class="dropdown-menu dropdown-menu-right m-r-16">
-                    <li>
-                      <a href="javascript:void(0)">Edit</a>
-                    </li>
-                    <li>
-                      <a href="javascript:void(0)">Delete</a>
-                    </li>
-                  </ul>
-                </div>
+            </a>
+            <div class="c-media--hover">
+              <div class="c-user">
+                <a href="javascript:void(0);" class="c-user__avatar c-avatar--feed2">
+                  <img class="c-user__image" [src]="imageLink + 'img/avatar.jpg'">
+                </a>
+                <a class="c-user__name2">Tobias Van1</a>
+              </div>
+              <div class="dropup c-dropdown c-dropdown__options">
+                <span class="dropdown-toggle" data-toggle="dropdown">
+                  <img [src]="imageLink + 'img/svg/ico_option_white.svg'" class="c-status__options m-r-16">
+                </span>
+                <ul class="dropdown-menu dropdown-menu-right m-r-16">
+                  <li>
+                    <a href="javascript:void(0)">Edit</a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0)">Delete</a>
+                  </li>
+                </ul>
               </div>
             </div>
-            <!-- //card media (img, video & audio) -->
-            <!-- card body -->
-            <div class="c-card__body">
-              <div class="c-text_sm">
-                {{ trending?.title}}
-              </div>
-            </div>
-            <!-- //card body -->
-            <!-- card footer links -->
-            <div class="c-card__links p-t-0">
-              <div class="c-links">
-                <div class="c-links__spots" (click)="spotAction(trending)">
-                  <img [src]="trending?.isSpotted ? imageLink + 'img/svg/spot_icon.svg' : imageLink + 'img/svg/spot_icon_default.svg'"
-                    class="c-links__image">
-                  <span class="c-links__count">{{ trending?.counts?.spotsCount }}</span>
-                </div>
-                <div class="c-links__comments">
-                  <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
-                  <span class="c-links__count">{{ trending?.counts?.commentsCount }}</span>
-                </div>
-                <!-- <div class="c-links__actions">
-                        <span class="c-links__add">
-                          <a href="javascript:void(0)">
-                            <img [src]="imageLink + 'img/svg/ico_addtochannel.svg'" class="c-action__image">
-                          </a>
-                        </span>
-                    </div> -->
-              </div>
-            </div>
-            <!-- //card footer links -->
           </div>
+          <!-- //card media (img, video & audio) -->
+          <!-- card body -->
+            <p class="p-vertical-16 c-text_sm">
+              {{ trending?.title }}
+            </p>
+          <!-- //card body -->
+          <!-- card footer links -->
+          <div class="c-links has-flex">
+            <a class="c-links__spots has-flex" (click)="spotAction(trending)">
+              <img [src]="trending?.isSpotted ? imageLink + 'img/svg/spot_icon.svg' : imageLink + 'img/svg/spot_icon_default.svg'"
+                class="c-links__image">
+              <span class="c-links__count">{{ trending?.counts?.spotsCount }}</span>
+            </a>
+            <a class="c-links__comments has-flex">
+              <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
+              <span class="c-links__count">{{ trending?.counts?.commentsCount }}</span>
+            </a>
+          </div>
+          <!-- //card footer links -->
         </div>
 
-        <div class="o-trending-heading m-t-b-8">Sponsored Post</div>
-        <div class="col-md-12 float_left p-0" *ngFor="let trending of trendingPost | slice:1:2">
-          <div class="c-card o-trending-post">
+        <p class="o-trending-heading text-uppercase">Sponsored Post</p>
+        <div class="c-card o-trending-post" *ngFor="let trending of trendingPost | slice:1:2">
             <!-- card media (img, video & audio) -->
             <div class="c-card__media">
-              <a [routerLink]="['', { outlets: { media : ['media', trending?.id]}}]">
+              <a class="block relative" [routerLink]="['', { outlets: { media : ['media', trending?.id]}}]">
                 <img [src]="imageLink + trending?.thumbNails?.mediumLarge" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';"
                   class="c-card__image">
+                <span>
+                  <img [src]="imageLink + 'img/svg/ico_video.svg'" *ngIf="trending?.mtype === 'video'" class="c-card__icon">
+                  <img [src]="imageLink + 'img/svg/ico_image.svg'" *ngIf="trending?.mtype === 'image'" class="c-card__icon">
+                  <img [src]="imageLink + 'img/svg/ico_volume3.svg'" *ngIf="trending?.mtype === 'audio'" class="c-card__icon">
+                </span>
               </a>
-              <span>
-                <img [src]="imageLink + 'img/svg/ico_video.svg'" *ngIf="trending?.mtype === 'video'" class="c-card__icon">
-                <img [src]="imageLink + 'img/svg/ico_image.svg'" *ngIf="trending?.mtype === 'image'" class="c-card__icon">
-                <img [src]="imageLink + 'img/svg/ico_volume3.svg'" *ngIf="trending?.mtype === 'audio'" class="c-card__icon">
-              </span>
               <div class="c-media--hover">
-                <div class="">
                   <div class="c-user">
                     <a href="javascript:void(0);" class="c-user__avatar c-avatar--feed2">
                       <img class="c-user__image" [src]="imageLink + 'img/avatar.jpg'">
@@ -136,54 +121,37 @@
                       </li>
                     </ul>
                   </div>
-                </div>
+               
               </div>
             </div>
             <!-- //card media (img, video & audio) -->
             <!-- card body -->
-            <div class="c-card__body">
-              <div class="c-text_sm">
+            <p class="p-vertical-16 c-text_sm">
                 {{ trending?.title}}
-              </div>
-            </div>
+            </p>
             <!-- //card body -->
             <!-- card footer links -->
-            <div class="c-card__links p-t-0">
-              <div class="c-links">
-                <div class="c-links__spots" (click)="spotAction(trending)">
-                  <img [src]="trending?.isSpotted ? imageLink + 'img/svg/spot_icon.svg' : imageLink + 'img/svg/spot_icon_default.svg'"
-                    class="c-links__image">
-                  <span class="c-links__count">{{ trending?.counts?.spotsCount }}</span>
-                </div>
-                <div class="c-links__comments">
-                  <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
-                  <span class="c-links__count">{{ trending?.counts?.commentsCount }}</span>
-                </div>
-                <!-- <div class="c-links__actions">
-                  <span class="c-links__add">
-                    <a href="javascript:void(0)">
-                      <img [src]="imageLink + 'img/svg/ico_addtochannel.svg'" class="c-action__image">
-                    </a>
-                  </span>
-                </div> -->
-              </div>
+            <div class="c-links has-flex">
+              <a class="c-links__spots has-flex" (click)="spotAction(trending)">
+                <img [src]="trending?.isSpotted ? imageLink + 'img/svg/spot_icon.svg' : imageLink + 'img/svg/spot_icon_default.svg'"
+                  class="c-links__image">
+                <span class="c-links__count">{{ trending?.counts?.spotsCount }}</span>
+              </a>
+              <a class="c-links__comments has-flex">
+                <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
+                <span class="c-links__count">{{ trending?.counts?.commentsCount }}</span>
+              </a>
             </div>
             <!-- //card footer links -->
-          </div>
         </div>
       </div>
     </div>
   </div>
-
+</div>
 
   <div class="col-md-8 o-homefeed-posts">
-    <app-post
-      (elemViewportStatus)="elemInViewportStatus($event)"
-      *ngFor="let userMedia of posts; let i = index"
-      [className]="'c-card m-t-8'"
-      (postDelete)="postDelete(userMedia)"
-      [mediaData]="userMedia"
-      [userData]="userData"></app-post>
+    <app-post (elemViewportStatus)="elemInViewportStatus($event)" *ngFor="let userMedia of posts; let i = index"
+      [className]="'c-card m-t-8'" (postDelete)="postDelete(userMedia)" [mediaData]="userMedia" [userData]="userData"></app-post>
     <div *ngIf="userProfile.user_following_posts_loading">
       <app-post-card [className]="'c-card m-t-8'" [loader]=true *ngFor="let number of [0,1]"></app-post-card>
     </div>
