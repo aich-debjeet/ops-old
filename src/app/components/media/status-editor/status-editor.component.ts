@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { NgxfUploaderService, UploadEvent, UploadStatus, FileError } from 'ngxf-uploader';
 import { Store } from '@ngrx/store';
-import { ProfileModal, UserCard } from '../../../models/profile.model';
+import { ProfileModal, initialTag, UserCard } from '../../../models/profile.model';
 import FilesHelper from '../../.../../../helpers/fileUtils';
 import { TokenService } from '../../../helpers/token.service';
 import { ToastrService } from 'ngx-toastr';
@@ -234,7 +234,6 @@ export class StatusEditorComponent implements OnInit {
       };
     }
 
-    this.postSubmiting = true;
     this._store.dispatch({ type: ProfileActions.POST_STATUS, payload: reqBody });
     this._store.select('profileTags')
       .first(media => media['postedStatus'] === true)
