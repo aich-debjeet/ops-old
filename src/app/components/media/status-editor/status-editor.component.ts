@@ -1,9 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { NgxfUploaderService, UploadEvent, UploadStatus, FileError } from 'ngxf-uploader';
 import { Store } from '@ngrx/store';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ProfileModal, initialTag, UserCard } from '../../../models/profile.model';
+import { ProfileModal, UserCard } from '../../../models/profile.model';
 import FilesHelper from '../../.../../../helpers/fileUtils';
 import { TokenService } from '../../../helpers/token.service';
 import { ToastrService } from 'ngx-toastr';
@@ -30,19 +29,9 @@ const mediaUploadApiEndpoint = environment.API_ENDPOINT + '/portal/cdn/media/upl
 })
 
 export class StatusEditorComponent implements OnInit {
-  @Input() userChannels;
-  process: number[] = [];
-  fileData: File;
-  uploaded: any[];
   uploadedFiles: UploadItem[] = [];
   editingFile: UploadItem;
-  channels: any[];
-  channelForm: FormGroup;
-  mediaForm: FormGroup;
-  addChannel: boolean;
   status: number;
-  queue: any;
-  hasFiles: boolean;
   files: any;
   // temp
   handle: string;
@@ -51,52 +40,28 @@ export class StatusEditorComponent implements OnInit {
   tags: any;
   baseUrl = environment.API_IMAGE;
   desc: string;
-  addFileData: boolean;
   industries: any[];
 
-  //
-  postSuccess: boolean;
-  postSuccessActive: boolean;
-  submitEnabled: number;
-  formMessages: string[];
-
   profileState$: Observable<ProfileModal>;
-  profileChannel = initialTag;
-  channeList: any;
-
-  myChannels$: Observable<any>;
   myProfile$: Observable<any>;
   loginTagState$: Observable<any>;
   myProfileData: any;
   fileFormData: any;
-  chooseChannelToggleState: boolean;
   activeUser: UserCard;
-
-  explandshowChannelsList: boolean;
   cards = [];
 
   // Form Values
   mediaPrivacy: number;
-  channelPrivacy: number;
   license: string;
   isNSFW: boolean;
-  channelName: String;
-  channelCreatebtn = false;
-  channelDesc: string;
-  channelSaved: boolean;
   eventName: string;
   previewUrl: any[];
   external_post_active = false;
-  ct_id: any;
-  user_channel_scroll_id: any;
-  nameActive: boolean;
-  ct_name: any;
   postSubmiting = false;
 
   constructor(
     private Upload: NgxfUploaderService,
     private router: Router,
-    private fb: FormBuilder,
     private api: TokenService,
     private toastr: ToastrService,
     private gUtils: GeneralUtilities,
@@ -104,37 +69,15 @@ export class StatusEditorComponent implements OnInit {
   ) {
     this.cards = [];
 
-    this.hasFiles = false;
     this.editingFile = new UploadItem;
-    this.uploaded = [];
     this.uploadedFiles = [];
-    this.formMessages = [];
-
-    this.chooseChannelToggleState = false;
-    this.explandshowChannelsList = false;
-    this.channelSaved = false;
-
-    // If there's input assign, other wise, reload channel list
-    if (this.userChannels) {
-      this.channeList = this.userChannels;
-    }
 
     // Default Form Values
     this.license = 'none';
     this.mediaPrivacy = 0;
-    this.channelPrivacy = 0;
     this.isNSFW = false;
-    this.channelCreatebtn = false;
-    this.channelDesc = 'No Description';
-
-    // X
-    this.postSuccess = false;
-    this.postSuccessActive = false;
-
-    this.createChannelForm();
 
     this.uploadStatus = 0;
-    this.submitEnabled = 0;
     this.token = this.api.getToken();
     this.handle = '';
 
@@ -171,38 +114,6 @@ export class StatusEditorComponent implements OnInit {
         }
       }
     });
-
-    /**
-     * Watch out for changes in store
-     */
-
-    this.profileState$.subscribe((state) => {
-      this.profileChannel = state;
-      // Post states
-      this.postSuccess = this.profileChannel.media_channel_posted;
-      this.postSuccessActive = this.profileChannel.media_channel_posting;
-      this.postSubmiting = this.profileChannel.media_channel_posting;
-
-
-      if (state['profile_cards'].active && (this.activeUser.handle !== state['profile_cards'].active.handle)) {
-        // nothing
-      }
-
-      if (state && state['user_channel_scroll_id']) {
-        this.user_channel_scroll_id = state['user_channel_scroll_id']
-      }
-
-      if (this.postSuccessActive === true) {
-        this.postSuccessActive = false; // job done
-      }
-
-      if (this.profileChannel.user_channels_loaded) {
-        this.channeList = this.profileChannel.user_channel;
-      }
-    });
-
-    this.createChannelForm();
-
   }
 
 
@@ -220,7 +131,6 @@ export class StatusEditorComponent implements OnInit {
     const userHandle = this.handle;
 
     if (files.length > 0) {
-      this.hasFiles = true
       this.files = files;
     }
 
@@ -279,12 +189,7 @@ export class StatusEditorComponent implements OnInit {
           }
         }
       },
-      (err) => {
-        //
-      },
-      () => {
-        //
-      });
+      (err) => { }, () => { });
   }
 
   updateProgress(files, percentage) {
@@ -295,32 +200,6 @@ export class StatusEditorComponent implements OnInit {
   fileUploadDone(files, percentage) {
     const index = _findIndex(this.cards, files);
     this.cards[index]['repoPath'] = percentage;
-  }
-
-  /**
-   * Status Form
-   */
-  createChannelForm() {
-    this.channelForm = this.fb.group({
-      title: ['', Validators.required],
-      desc: ['', Validators.required],
-      privacy: [0, Validators.required],
-      type: [0, Validators.required]
-    })
-  }
-
-  /**
-   * Status Form
-   */
-  createMediaForm() {
-    this.mediaForm = this.fb.group({
-      title: ['', Validators.required],
-      desc: ['', Validators.required],
-      privacy: [0, Validators.required],
-      copyright: [0, Validators.required],
-      isAdult: [0],
-      type: [0, Validators.required]
-    })
   }
 
   publishPost() {
@@ -355,12 +234,12 @@ export class StatusEditorComponent implements OnInit {
       };
     }
 
-    console.log('reqBody: ', reqBody);
+    this.postSubmiting = true;
     this._store.dispatch({ type: ProfileActions.POST_STATUS, payload: reqBody });
-
     this._store.select('profileTags')
       .first(media => media['postedStatus'] === true)
       .subscribe(data => {
+        setTimeout(() => { this.postSubmiting = false; }, 2000);
         this.toastr.success('Your media has been successfully posted to your activity feed', 'Upload', {
           timeOut: 3000
         });
@@ -398,8 +277,6 @@ export class StatusEditorComponent implements OnInit {
 
   fileDetails(file) {
     this.editingFile = this.formatFile(file);
-    // console.log(this.editingFile);
-    this.addFileData = true;
   }
 
   /**

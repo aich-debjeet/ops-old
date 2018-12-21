@@ -14,7 +14,7 @@ import { ProfileActions } from '../../../actions/profile.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { ISubscription, Subscription } from 'rxjs/Subscription';
+import { ISubscription } from 'rxjs/Subscription';
 
 import { ProfileHelper } from '../../../helpers/profile.helper';
 
@@ -61,7 +61,7 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
   eventsLoading = true;
   storyList: any;
   storyDetails: any;
-  getSto: boolean = true;
+  getSto = true;
 
   @ViewChild('deleteModal') deleteModal: Modal;
 
@@ -83,7 +83,7 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
     this.eventStore$ = this._store.select('eventTags');
 
     this.profSub = this.tagState$.subscribe((state) => {
-      console.log('state', state);
+      // console.log('state', state);
       this.userQuickAccess = state;
       if (state && state['my_story']) {
         this.storyList = state['my_story']['media'];
@@ -134,10 +134,11 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
       .first(profile => profile['profile_user_info'])
       .subscribe(datas => {
         if (datas['profile_user_info'].isCurrentUser) {
-          this._store.dispatch({ type: ProfileActions.GET_MY_STORY, payload:{
-            handle: datas['profile_navigation_details'].handle
-          }
-        });
+          this._store.dispatch({
+            type: ProfileActions.GET_MY_STORY, payload: {
+              handle: datas['profile_navigation_details'].handle
+            }
+          });
           this._store.dispatch({
             type: EventActions.EVENT_SEARCH, payload: {
               scrollId: '',
@@ -147,14 +148,15 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
           return
         }
         this.profileStore.select('profileTags')
-            .first(profile => profile['profile_other'].handle)
-            .subscribe(data => {
-              console.log('data', data)
-              this._store.dispatch({ type: ProfileActions.GET_MY_STORY, payload:{
-              handle: data['profile_other'].handle
-            }
+          .first(profile => profile['profile_other'].handle)
+          .subscribe(data => {
+            console.log('data', data)
+            this._store.dispatch({
+              type: ProfileActions.GET_MY_STORY, payload: {
+                handle: data['profile_other'].handle
+              }
+            });
           });
-        });
         this._store.dispatch({
           type: EventActions.EVENT_SEARCH, payload: {
             scrollId: '',
