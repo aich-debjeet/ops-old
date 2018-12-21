@@ -234,7 +234,7 @@ export class StatusEditorComponent implements OnInit {
       };
     }
 
-    this.postSubmiting = false;
+    this.postSubmiting = true;
     this._store.dispatch({ type: ProfileActions.POST_STATUS, payload: reqBody });
     this._store.select('profileTags')
       .first(media => media['postedStatus'] === true)
