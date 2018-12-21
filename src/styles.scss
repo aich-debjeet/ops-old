@@ -466,8 +466,13 @@ app-events-create dp-date-picker{
 
 app-events-create quill-editor p {
     color: #333333!important;
+    font-size: 15px;
 }
 
+app-events-edit quill-editor p {
+    color: #333333!important;
+    font-size: 15px;
+}
 .dp-material .dp-calendar-wrapper {
     padding: 1rem;
 }
