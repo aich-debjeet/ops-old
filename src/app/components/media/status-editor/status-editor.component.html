@@ -12,8 +12,6 @@
                   <img class="c-user__image" [src]="baseUrl + activeUser?.image">
                 </a>
                 <a class="c-user__name c-user__name--addpost">{{ activeUser?.name }}</a>
-                <img [src]="baseUrl + 'img/svg/arrow2.svg'" class="o-addpost__arrow" *ngIf="nameActive">
-                <span class="c-text_md color-grey-dark o-addpost__commtxt" *ngIf="nameActive">{{ct_name}}</span>
               </div>
             </div>
             <div class="o-add-status__txt">
