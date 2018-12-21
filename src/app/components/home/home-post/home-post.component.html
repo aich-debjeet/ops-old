@@ -1,6 +1,5 @@
-<div id="posts" class="tab-pane fade active in" infinite-scroll (scrolled)="onScroll($event)">
-  <div class="col-md-4 m-t-8 p-0 hidden-xs">
-  <div class="relative">
+<div id="posts" class="tab-pane fade active in column-container" infinite-scroll (scrolled)="onScroll($event)">
+  <div class="left-columns p-0 hidden-xs">
     <div class="c-card">
       <div class="o-hf_usertimeline bg-img" [ngStyle]="{'background-image': 'url(' + (userData?.coverImage ? imageLink + userData?.coverImage : 'https://cdn.onepagespotlight.com/img/profile-cover.png') + ')'}">
       </div>
@@ -30,7 +29,7 @@
       </ul>
     </div>
 
-    <div class="c-card m-t-16">
+    <div class="c-card m-t-16 top-stick">
       <div class="o-trending-block">
         <p class="o-trending-heading text-uppercase">Trending Post</p>
         <div class="c-card o-trending-post pb15" *ngFor="let trending of trendingPost | slice:0:1">
@@ -146,10 +145,9 @@
         </div>
       </div>
     </div>
-  </div>
 </div>
 
-  <div class="col-md-8 o-homefeed-posts">
+  <div class="columns o-homefeed-posts">
     <app-post (elemViewportStatus)="elemInViewportStatus($event)" *ngFor="let userMedia of posts; let i = index"
       [className]="'c-card m-t-8'" (postDelete)="postDelete(userMedia)" [mediaData]="userMedia" [userData]="userData"></app-post>
     <div *ngIf="userProfile.user_following_posts_loading">
