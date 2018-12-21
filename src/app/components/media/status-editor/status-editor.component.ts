@@ -234,10 +234,12 @@ export class StatusEditorComponent implements OnInit {
       };
     }
 
+    this.postSubmiting = true;
     this._store.dispatch({ type: ProfileActions.POST_STATUS, payload: reqBody });
     this._store.select('profileTags')
       .first(media => media['postedStatus'] === true)
       .subscribe(data => {
+        setTimeout(() => { this.postSubmiting = false; }, 2000);
         this.toastr.success('Your media has been successfully posted to your activity feed', 'Upload', {
           timeOut: 3000
         });
