@@ -14,6 +14,10 @@ export class ProfileService {
     private tokenService: TokenService
   ) { }
 
+  postStatus(reqBody) {
+    return this.api.post('/portal/myPost', reqBody);
+  }
+
   removeCoverImage(reqBody: any) {
     return this.api.delete('/portal/cdn/media/remove/coverImage', reqBody);
   }
