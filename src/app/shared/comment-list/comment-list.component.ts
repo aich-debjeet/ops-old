@@ -52,4 +52,17 @@ export class CommentListComponent implements OnInit {
    }
   }
 
+  onCancelEdit() {
+    this.isEdit = false;
+  }
+
+  saveContentUpdate(text: string) {
+    this.isEdit = false;
+    // const data = {
+    //   id: this.mediaId,
+    //   description: text
+    // }
+    // this.store.dispatch({ type: MediaActions.MEDIA_EDIT, payload: data });
+  }
+
 }

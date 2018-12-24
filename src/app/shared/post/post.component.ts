@@ -142,6 +142,10 @@ export class PostComponent implements OnInit {
     this.isEdit = false;
   }
 
+  onCancelEdit() {
+    this.isEdit = false;
+  }
+
   saveContentUpdate(text: string) {
     this.isEdit = false;
     const data = {

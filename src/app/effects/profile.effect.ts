@@ -15,6 +15,18 @@ import { ProfileActions } from '../actions/profile.action';
 @Injectable()
 export class ProfileEffect {
 
+  /**
+  * post status
+  */
+  @Effect()
+  userStatusLoad$ = this.actions$
+    .ofType(ProfileActions.POST_STATUS)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.postStatus(payload)
+      .map(res => ({ type: ProfileActions.POST_STATUS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.POST_STATUS_FAILED, payload: res }))
+    );
+
   @Effect()
   removeCoverImage$ = this.actions$
     .ofType(ProfileActions.REMOVE_COVER_IMAGE)
@@ -717,7 +729,7 @@ export class ProfileEffect {
   * Current User status load
   */
   @Effect()
-  userStatusLoad$ = this.actions$
+  currentUserStatus$ = this.actions$
     .ofType(ProfileActions.LOAD_USER_STATUS)
     .map(toPayload)
     .switchMap((payload) => this.profileService.currentUserStatus(payload)

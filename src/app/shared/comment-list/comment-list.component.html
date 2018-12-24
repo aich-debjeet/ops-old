@@ -7,8 +7,13 @@
   <div class="c-post__comment--right p-l-8">
     <div class="c-post__comment_text-mpop">
         <a class="c-post__commenter">{{ commentData?.ownerName }}</a>
-        <div id="contentEdit" contentEditable="true" *ngIf="isEdit" (keyup.enter)="onContentSaved($event.target.textContent)">{{ messageText }}</div>
-        <read-more class="c-post__comment_text-inline" [text]="messageText" [maxLength]=150 *ngIf="!isEdit"> </read-more>
+        <read-more
+            [maxLength]=150
+            [isEdit]="isEdit"
+            [text]="messageText"
+            (cancelEdit)="onCancelEdit()"
+            class="c-post__comment_text-inline"
+            (contentEdited)="saveContentUpdate($event)"></read-more>
     </div>
     <div class="c-post__comment--time">{{ (commentData?.updatedDate ? commentData?.updatedDate : commentData?.createdDate) | utcDate | date: 'hh:mm:ss a' }}</div>
   </div>
@@ -37,9 +42,13 @@
     <div class="c-post__comment--right p-l-0">
         <div class="c-post__comment_text">
             <a class="c-post__commenter">{{ commentData?.ownerName }}</a>
-            <div id="contentEdit" contentEditable="true" *ngIf="isEdit" (keyup.enter)="onContentSaved($event.target.textContent)">{{ messageText }}</div>
-            <read-more class="c-post__comment_text-inline" [text]="messageText" [maxLength]=150 *ngIf="!isEdit" > </read-more>
-            <!-- <div contenteditable="true" *ngIf="isEdit" [textContent]="messageText" [(ngModel)]="messageText" name="messageText" class="c-post__comment_text c-contenteditable" ngDefaultControl (keyup.enter)="onContentSaved()" (input)="messageText=$event.target.textContent"></div> -->
+            <read-more
+                [maxLength]=150
+                [isEdit]="isEdit"
+                [text]="messageText"
+                (cancelEdit)="onCancelEdit()"
+                class="c-post__comment_text-inline"
+                (contentEdited)="saveContentUpdate($event)"></read-more>
         </div>
         <div class="c-post__comment--time">{{ (commentData?.updatedDate ? commentData?.updatedDate : commentData?.createdDate)  | utcDate | date:'d MMM h:m a' }}</div>
     </div>

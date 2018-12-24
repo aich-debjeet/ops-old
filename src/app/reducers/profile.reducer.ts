@@ -78,6 +78,26 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
 
   switch (type) {
 
+    case ProfileActions.POST_STATUS:
+      return Object.assign({}, state, {
+        postingStatus: true,
+        postedStatus: false,
+        postStatusParams: payload
+      });
+
+    case ProfileActions.POST_STATUS_SUCCESS:
+      return Object.assign({}, state, {
+        postingStatus: false,
+        postedStatus: true,
+        postStatusResp: payload
+      });
+
+    case ProfileActions.POST_STATUS_FAILED:
+      return Object.assign({}, state, {
+        postingStatus: false,
+        postedStatus: false
+      });
+
     case ProfileActions.REMOVE_MEDIA:
       return {
         ...state,

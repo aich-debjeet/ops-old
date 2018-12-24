@@ -1,169 +1,119 @@
-<section class="o-add-status" *ngIf="uploadState === 1" >
-    <div class="container">
-        <div class="o-add-media__main-block">
-            <!-- add status  -->
-            <div class="o-add-status__block">
-                <div class="c-card__user">
-                    <div class="c-user">
-                        <a class="c-user__avatar c-avatar--feed">
-                            <img class="c-user__image" [src]="baseUrl + activeUser?.image">
-                        </a>
-                        <a class="c-user__name c-user__name--addpost">{{ activeUser?.name }}</a>
-                        <img [src]="baseUrl + 'img/svg/arrow2.svg'" class="o-addpost__arrow" *ngIf="nameActive">
-                        <span class="c-text_md color-grey-dark o-addpost__commtxt"  *ngIf="nameActive">{{ct_name}}</span>
-                    </div>
-                </div>
-                <div class="o-add-status__txt">
-                    <textarea id="txtarea" maxlength="220" [(ngModel)]="statusMessage" class="o-add-status--textarea c-text_lg-light" rows='1' data-min-rows='0' placeholder="Tell something…"></textarea>
-                </div>
-                <div class="o-add-status_actions">
-                    <ul class="o-status-action">
-                        <li class="o-action-list">
-                            <div class="dropdown" appDropdown>
-                                <span class="com-head" appDropdownOpen>
-                                <div class="o-action__ico">
-                                <img src="{{ (privacy == 0) ? baseUrl + 'img/svg/ico_web.svg': baseUrl + 'img/svg/Ico-private.svg' }}">
-                                </div>
-                                <div class="o-action__ico-arrow">
-                                <img [src]="baseUrl + 'img/svg/ico-arrow-down.svg'">
-                                </div>
-                            </span>
-                                <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
-                                    <li>
-                                        <a class="c-opsdropdown__list" (click)="choosePrivacy(0)">
-                                            <img [src]="baseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
-                                            <span class="c-opsdropdown--text">Public</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="c-opsdropdown__list" (click)="choosePrivacy(1)">
-                                            <img [src]="baseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
-                                            <span class="c-opsdropdown--text">Private</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
 
-                        <li class="o-action-list float-right">
-                            <button type="button" *ngIf="!external_post_active" (click)="submitStatusForm()" class="btn btn-primary btn-md" [disabled]="statusMessage.length === 0">NEXT</button>
-                            <button type="button" *ngIf="external_post_active" (click)="publishToChannel()" class="btn btn-primary btn-md" [disabled]="statusMessage.length === 0">PUBLISH</button>
-                        </li>
-                        <li class="o-action-list float-right">
-                            <span class="o-status-action__count">
-                            {{ (220) - (statusMessage?.length) }}
-                            </span>
-
-                        </li>
-                    </ul>
-                </div>
+<section class="o-add-media">
+  <div class="container">
+    <div class="o-add-media__main-block">
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-7 col-sm-7 col-xs-12 p-0">
+          <div class="o-add-media__block">
+            <div class="">
+              <div class="c-user">
+                <a class="c-user__avatar c-avatar--feed">
+                  <img class="c-user__image" [src]="baseUrl + activeUser?.image">
+                </a>
+                <a class="c-user__name c-user__name--addpost">{{ activeUser?.name }}</a>
+              </div>
             </div>
+            <div class="o-add-status__txt">
+              <textarea [(ngModel)]="desc" class="o-add-post--textarea c-text_lg-light with_border_bottom" rows="1" data-min-rows="0" rows='3' data-min-rows='0' placeholder="Tell us about this media. Don't forget to add tags"></textarea>
+            </div>
+          </div>
         </div>
-        <!-- add status end -->
-    </div>
-</section>
-
-<section class="Select__channel" *ngIf="uploadState === 2">
-    <div class="container">
-        <div class="o-add-media">
-            <app-channel-list [userChannels]="channelList" (onSearch)="searchChannel($event)" (onScrolled)="scrolled($event)" (onSelection)="postStatusToChannel($event)" (onChangeContext)="changeState($event)"></app-channel-list>
-        </div>
-    </div>
-</section>
-
-<section class="Select__channel" *ngIf="uploadState === 3">
-    <div class="container">
-        <div class="o-add-media">
-            <div class="o-add-media-channel-main">
-                <div class="o-create-channel desktop-css">
-                <div id="create-channel" class="o-create-channel-container ">
-                    <div class="col-md-12 p-0">
-                        <div class="o-add-media-channel__head m-b-16">
-                        <div class="col-md-4 col-xs-3 p-0">
-                            <a class="c-text_lg o-add-media-channel__link" (click)="changeState(2)">
-                                <div class="o-back-arrow"><img [src]="baseUrl + 'img/svg/back_arrow.svg'"></div>
-                            </a>
-                        </div>
-                        <div class="col-md-4 col-xs-6">
-                            <div class="o-add-media-channel__head text-center">
-                            <span class="c-text_lg o-add-media-channel__link"> Create Channel</span>
-                            </div><!-- add media channel head sec end -->
-                        </div>
-                        <div class="col-md-4 col-xs-3 p-0 text-right">
-                            <!-- <p class="c-text_sm color-grey-dark">12 Megit dia selected</p> -->
-                        </div>
-                        </div><!-- add media channel head sec end -->
-                    </div>
-                    <div class="o-create-channel__form">
-                        <form [formGroup]="channelForm" novalidate #myform="ngForm">
-                            <div class="col-md-12 p-0 m-b-16" >
-                                <div class="c-form__group ">
-                                    <input class="c-form__input" required="" formControlName="title" type="text">
-                                    <span class="c-form__highlight"></span>
-                                    <span class="c-form__bar"></span>
-                                    <label>Name of channel</label>
-                                </div>
-                            </div>
-                            <div class="col-md-12 p-0 m-b-16">
-                                <div class="c-form__group">
-                                <input class="c-form__input" required="" formControlName="desc" type="text">
-                                <span class="c-form__highlight"></span>
-                                <span class="c-form__bar"></span>
-                                <label>Description</label>
-                                </div>
-                            </div>
-                            <div class="col-md-12 p-0 m-b-16">
-                                <div class="c-form__group o-create-channel__input">
-                                    <select formControlName="type" class="c-form-control p-l-0"  [(ngModel)]="selectedIndustry">
-                                        <option value="" disabled="true" [selected]="!selectedIndustry">Select Industry</option>
-                                        <option *ngFor="let industry of industries" [value]="industry.code" >{{ industry.name }}</option>
-                                    </select>
-                                </div>
-            
-                                <div class="o-create-channel__action">
-                                <div class="dropdown" appDropdown>   
-                                    <span class="com-head" appDropdownOpen>
-                                    <div class="o-action__ico">
-                                        <img [src]="(channelPrivacy == 0) ? baseUrl + 'img/svg/ico-public.svg' : baseUrl + 'img/svg/Ico-private.svg'">
-                                    </div>
-                                    <div class="o-action__ico-arrow">
-                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
-                                            <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
-                                            <title>Path 2 Copy</title>
-                                            <desc>Created with Sketch.</desc>
-                                            <defs/>
-                                            <g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                <polyline id="Path-2-Copy" stroke="#333" stroke-width="1" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) " points="1 1 8 8 15 1"/>
-                                            </g>
-                                        </svg>
-                                    </div>
-                                    </span>
-                                    <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
-                                    <li>
-                                        <a (click)="channelPrivacyToggle(0)" class="c-opsdropdown__list">
-                                        <img [src]="baseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
-                                        <span class="c-opsdropdown--text">Public</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a (click)="channelPrivacyToggle(1)" class="c-opsdropdown__list">
-                                        <img [src]="baseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
-                                        <span class="c-opsdropdown--text">Private</span>
-                                        </a>
-                                    </li>
-                                    </ul>
-                                </div>
-                                </div>
-                            </div>
-                            <div class="o-create-channel__btn">
-                                <button type="button" class="btn btn-default btn-md m-r-8 float_left" (click)="changeState(2)">Cancel</button>
-                                <button class="btn btn-primary btn-md float_right" (click)="createChannel(channelForm.value)">Save</button>
-                            </div>
-                        </form>
-                    </div>
+        <div class="col-md-3 col-sm-5 col-xs-12 p-0">
+          <div class="o-add-post-rightbar">
+            <div class="o-rightbar-footer with_border_top">
+              <div class="c-form__group">
+                <select [(ngModel)]="license" class="c-form-control c-form-control--color">
+                  <option value="none">Copyright and License type</option>
+                  <option value="by">CC: Attribution Share Alike</option>
+                  <option value="by-sa">CC: Attribution Non-Derivative</option>
+                  <option value="by-nd">CC: Attribution-NonCommercial</option>
+                  <option value="by-nc">CC: Attribution-NonCommercial-ShareAlike</option>
+                  <option value="by-nc-sa">CC: Attribution-NonCommercial-NoDerivs No License</option>
+                </select>
+              </div>
+              <div class="o-add-post-right__actions">
+                <div class="o-add-post__switch_btn">
+                  <label class="o-add-post__switch">
+                    <input type="checkbox" value="0" [(ngModel)]="isNSFW">
+                    <span class="o-add-post__slider o-add-post__round"></span>
+                  </label>
                 </div>
+                <ul class="o-status-action ">
+                  <li class="o-action-list">
+                    <a class="o-action-help" href="javascript:void(0)" title="Contains nudity, Not Suitable For Work">NSFW
+                      <span class="help_ico">?</span></a>
+                  </li>
+                  <li class="o-action-list float-right">
+                    <button type="button" [disabled]="uploadedFiles?.length !== cards?.length || postSubmiting === true"
+                      class="btn btn-primary btn-md btn-inverse" (click)="publishPost()">Post</button>
+                  </li>
+                </ul>
+              </div>
             </div>
-            </div>
+          </div>
         </div>
+        <div class="col-md-1"></div>
+      </div>
+
+      <!-- add media for community and channels -->
+      <div class="col-md-12 padding_none">
+        <div class="o-add-media__upload text-center" *ngIf="cards?.length === 0">
+          <div class="o-add-media-upload__icon">
+            <img width="95" [src]="baseUrl + 'img/svg/upload.svg'" alt="">
+          </div>
+          <h3 class="c-h3 o-upload__head">Upload images, videos and audios</h3>
+          <p class="c-text_sm o-add-media-upload__type">You can upload jpg, png, gif, mp3, ogg, mp4, avi, mov</p>
+          <div class="o-add-media-btn">
+            <input type="file" class="o-add-media_upload" (ngxf-select)="uploadFileList($event)" multiple accept=".jpg,.jpeg,.png,.gif,.mp3,.ogg,.mp4,.avi,.mov,image/*,audio/mp3,audio/ogg,video/mp4,video/x-m4v,video/avi,video/mov"
+              name="photo" id="upload-photo">
+            <div class="btn btn-primary btn-lg o-add-media__upload-btn">
+              <span class="o-media-upload-btn m-r-5"></span> Upload
+            </div>
+          </div>
+        </div>
+
+        <div class="o-add-media__upload text-center" *ngIf="cards?.length > 0">
+          <ul class="o-file-list">
+            <li class="o-file_item">
+              <div class="o-media-more">
+                <input type="file" class="o-media_upload" name="photo" id="upload-photo" (ngxf-select)="uploadFileList($event)"
+                  multiple accept=".jpg,.jpeg,.png,.gif,.mp3,.ogg,.mp4,.avi,.mov,image/*,audio/mp3,audio/ogg,video/mp4,video/x-m4v,video/avi,video/mov">
+                <div class="o-media_add-icon">
+                  <img width="42" [src]="baseUrl + 'img/svg/upload.svg'">
+                </div>
+                <div class="o-media_add-txt">
+                  <p>Upload More</p>
+                </div>
+              </div>
+            </li>
+            <li class="o-file_item selected" [ngClass]="{ 'selected': isSelectedFile(file) }" *ngFor="let file of cards">
+              <div class="o-media-block">
+                <figure class="o-media_img">
+                  <img class="obj-fit-fill" [src]="file?.preview">
+                  <!-- <img  *ngIf="file.fileType === 'image' || file.fileType === 'audio'" class="obj-fit-fill" [src]="file?.preview"> -->
+                  <!-- <video *ngIf="file.fileType === 'video'"  class="obj-fit-fill" [src]="file?.preview" ></video> -->
+                </figure>
+                <div class="o-media__info">
+                  <div class="o-media_type">
+                    <img *ngIf="file.fileType === 'image'" width="14" [src]="baseUrl + 'img/svg/ico_media_img.svg'">
+                    <img *ngIf="file.fileType === 'audio'" width="14" [src]="baseUrl + 'img/svg/volume-white.svg'">
+                    <img *ngIf="file.fileType === 'video'" width="14" [src]="baseUrl + 'img/svg/ico_video.svg'">
+                  </div>
+                  <div class="o-media_delet">
+                    <img (click)="removeFile(file)" [src]="baseUrl + 'v2/svg/ico_create-close.svg'">
+                  </div>
+                </div>
+                <div class="o-media-progress-main" *ngIf="file?.pre > 0 && file?.pre < 100">
+                  <div class="o-media-progress__bar">
+                    <span class="o-media-progress__value" [style.width.%]="file?.pre"></span>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
