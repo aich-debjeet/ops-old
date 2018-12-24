@@ -1,25 +1,12 @@
 <div class="container" *ngIf="!profileObject?.extra?.isImported">
-  <div class="row m-t-b-24 m-l-r-0">
+  <div class="column-container m-t-b-24 m-l-r-0">
     <!-- left feed -->
-    <div class="col-md-3 col-sm-3 hidden-sm hidden-xs">
+    <div class="left-columns hidden-sm hidden-xs">
       <!--MY story widget start-->
-      <div class="row">
+      <div class="m-b-16">
         <div class="o-mystory">
           <div class="o-mystory__title">
             <span class="c-text_md text_uppercase color-grey-dark f-w_600">My story</span>
-            <!-- <div class="pull-right dropdown c-dropdown" *ngIf="storyList?.length > 0" appDropdown>
-              <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
-                <img src="{{imageBaseUrl}}img/svg/ico_options.svg" class="c-status__options m-0">
-              </span>
-              <ul class="dropdown-menu dropdown-menu-right">
-                <li>
-                    <a href="javascript:void(0)">Edit</a>
-                </li>
-                <li>
-                  <a (click)="deleteModal.open()">Delete</a>
-                </li>
-              </ul>
-            </div> -->
           </div>
           <div class="o-mystory__media">
             <ng-container *ngFor="let list of storyList | slice:0:4; let i=index">
@@ -58,59 +45,56 @@
         </div>
       </div>
       <!--MY story widget end-->
-
       <!-- attend event -->
-      <div class="row m-t-16">
-        <div class="c-card">
-          <div class="c-card__project p-l-r-16 p-t-16">
-            <div class="c-text_md color-grey-dark c-text-semibold" *ngIf="isCurrentUser">
-              EVENTS CREATED
-            </div>
-            <div class="c-text_md color-grey-dark c-text-semibold" *ngIf="!isCurrentUser">
-              EVENTS RECOMMENDED
-            </div>
+      <div class="c-card top-stick">
+        <div class="c-card__project p-l-r-16 p-t-16">
+          <div class="c-text_md color-grey-dark c-text-semibold" *ngIf="isCurrentUser">
+            EVENTS CREATED
           </div>
-          <div *ngIf="eventsLoading" class="preloader">
-            <div class="sticky">
-              <div class="loader">Loading...</div>
-            </div>
+          <div class="c-text_md color-grey-dark c-text-semibold" *ngIf="!isCurrentUser">
+            EVENTS RECOMMENDED
           </div>
-          <ng-container *ngIf="eventState?.event_loaded">
-            <div class="empty_message" *ngIf="eventList?.length === 0">
-              <p>There is no event</p>
-              <!-- <a [routerLink]="['/event/create']">Create Event</a> -->
-            </div>
-            <div class="p-16 event__block" *ngFor="let event of eventList.slice(0, 2)">
-              <!-- card media (img, video & audio) -->
-              <div class="c-card__event2 float_left">
-                <a [routerLink]="'/event/inner/' + event?.id">
-                  <img [src]="imageBaseUrl + event?.imagePath[0]" alt="" class="c-card__image">
-                </a>
-              </div>
-              <!-- //card media (img, video & audio) -->
-              <div class="c-card__project p-t-8">{{event?.eventType }}</div>
-              <!-- card body -->
-              <div class="c-card__body p-0">
-                <div class="c-text_lg">
-                  {{event?.title | truncate:[40, '...']}}
-                </div>
-                <div class="c-text_md color-grey-dark m-t-8 m-b-24">{{ event?.startDate | utcDate | date: 'dd, MMM'}} -
-                  {{ event?.endDate | utcDate | date: 'dd, MMM'}}</div>
-              </div>
-              <!-- //card body -->
-            </div>
-          </ng-container>
-          <p class="text-center p-t-b-16" *ngIf="eventList && eventList.length > 2">
-            <a [routerLink]="['/event']" class="c-text_md color-theme" *ngIf="!isCurrentUser">See All</a>
-            <a [routerLink]="['/event']" [queryParams]="{ status: 'created' }" class="c-text_md color-theme" *ngIf="isCurrentUser">See
-              All</a>
-          </p>
         </div>
+        <div *ngIf="eventsLoading" class="preloader">
+          <div class="sticky">
+            <div class="loader">Loading...</div>
+          </div>
+        </div>
+        <ng-container *ngIf="eventState?.event_loaded">
+          <div class="empty_message" *ngIf="eventList?.length === 0">
+            <p>There is no event</p>
+            <!-- <a [routerLink]="['/event/create']">Create Event</a> -->
+          </div>
+          <div class="p-16 event__block" *ngFor="let event of eventList.slice(0, 2)">
+            <!-- card media (img, video & audio) -->
+            <div class="c-card__event2 float_left">
+              <a [routerLink]="'/event/inner/' + event?.id">
+                <img [src]="imageBaseUrl + event?.imagePath[0]" alt="" class="c-card__image">
+              </a>
+            </div>
+            <!-- //card media (img, video & audio) -->
+            <div class="c-card__project p-t-8">{{event?.eventType }}</div>
+            <!-- card body -->
+            <div class="c-card__body p-0">
+              <div class="c-text_lg">
+                {{event?.title | truncate:[40, '...']}}
+              </div>
+              <div class="c-text_md color-grey-dark m-t-8 m-b-24">{{ event?.startDate | utcDate | date: 'dd, MMM'}} -
+                {{ event?.endDate | utcDate | date: 'dd, MMM'}}</div>
+            </div>
+            <!-- //card body -->
+          </div>
+        </ng-container>
+        <p class="text-center p-t-b-16" *ngIf="eventList && eventList.length > 2">
+          <a [routerLink]="['/event']" class="c-text_md color-theme" *ngIf="!isCurrentUser">See All</a>
+          <a [routerLink]="['/event']" [queryParams]="{ status: 'created' }" class="c-text_md color-theme" *ngIf="isCurrentUser">See
+            All</a>
+        </p>
       </div>
     </div>
     <!-- //left feed -->
     <!-- right feed -->
-    <div class="col-md-9 col-sm-12 desktop-css p-0">
+    <div class="columns desktop-css p-0">
       <div class="c-ops__tabs">
         <ul class="nav nav-tabs m-l-8">
           <li routerLinkActive="active">
@@ -119,7 +103,6 @@
           <li routerLinkActive="active">
             <a class="p-l-8" [routerLink]="['channel']">Channel</a>
           </li>
-          <!-- <li routerLinkActive="active" *ngIf="isCurrentUser===true"><a [routerLink]="['spotfeed']">spotfeed</a></li> -->
         </ul>
         <div id="home_channel" class="tab-content">
           <router-outlet></router-outlet>

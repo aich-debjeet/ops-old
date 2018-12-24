@@ -1,4 +1,5 @@
-<div class="col-md-8 col-sm-8 desktop-p-r-0">
+<div class="column-container">
+<div class="columns">
   <div class="search-results" infinite-scroll (scrolled)="onScroll($event)">
     <app-post *ngFor="let userMedia of posts; let i = index"
       (elemViewportStatus)="elemInViewportStatus($event)"
@@ -22,10 +23,9 @@
     <p>User does not have any posts!</p>
   </div>
 </div>
-<div class="col-md-4 m-t-8">
-  <div class="m-0">
-    <div class="c-card">
-      <div class="c-text_md p-16 color-grey-dark f-w_600 text_uppercase ltr-space">People to follow</div>
+<div class="right-column">
+    <div class="c-card top-stick">
+      <p class="c-text_md p-16 color-grey-dark f-w_600 text_uppercase ltr-space">People to follow</p>
       <div class="c-follow__sec" infinite-scroll (scrolled)="onScrol($event)" [scrollWindow]="false" id="ops_scrollbar">
         <div class="c-invite__block" *ngFor="let profileItem of profiles">
           <div *ngIf="!profileItem.extra.isFollowing">
@@ -45,5 +45,5 @@
         </div>
       </div>
     </div>
-  </div>
+</div>
 </div>
