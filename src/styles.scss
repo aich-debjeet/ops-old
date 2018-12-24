@@ -826,7 +826,9 @@ ul > li {
   max-width: 285px;
   margin-left: 15px;
 }
-
+.m-pad-v-15 {
+  padding: 0px 0px;
+}
 @include mq($from: $mobile_sm, $until: $tablet) {
   .column-container {
     flex-wrap: wrap;
@@ -848,12 +850,7 @@ ul > li {
     -ms-flex: auto;
     -webkit-flex: auto;
   }
-
+  .m-pad-v-15 {
+    padding: 0px 15px;
+  }
 }
-
-// @include mq($tablet) {
-//   .right-column {
-//     flex: 1;
-//     -ms-flex: 1;
-//     -webkit-flex: 1;
-//   }
