@@ -711,6 +711,34 @@ ul > li {
 .sticky {position: sticky;}
 .fixed {position: fixed;}
 
+.right-0 {
+  right: 0px;
+}
+.left-auto {
+  left: auto;
+}
+.left-0 {
+  left: 0px;
+}
+.top-left{top: 0; left: 0;}
+.top-right{top: 0; right: 0;}
+.btm-right{bottom: 0; right: 0;}
+.btm-left{bottom: 0; left: 0;}
+.center-middle, .centermiddle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.left-middle, .leftmiddle {
+  top: 50%;
+  left: 0px;
+  transform: translate(0%, -50%);
+}
+.right-middle {
+  top: 50%;
+  right: 0px;
+  transform: translate(0%, -50%);
+}
 // background-image styles
 .bg-img {
   background-size: cover;
@@ -772,6 +800,7 @@ ul > li {
 }
 .space-btw {
 	justify-content: space-between;
+	-webkit-box-pack: space-between;
 	-ms-justify-content: space-between;
 	-webkit-justify-content: space-between;
 }

@@ -50,7 +50,6 @@
 .dropnoti__avatar {
   width: 40px;
   height: 40px;
-  float: left;
   display: inline-block;
   border-radius: 50px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.26);
@@ -76,12 +75,9 @@
 }
 
 .msg__time2 {
-  color: #B4B4B4;
   font-size: 11px;
   line-height: 18px;
-  position: absolute;
-  top: 20px;
-  right: 12px;
+  color: $color-grey;
 }
 
 .navdrop__img {
@@ -102,7 +98,6 @@
   background: #f8f8f8;
   cursor: pointer;
   border-radius: 50px;
-  float: left;
 }
 
 .c-user__image {
@@ -159,11 +154,23 @@
 }
 
 .mess_list {
-  height: calc(100% - 118px);
   overflow-y: auto;
   overflow-x: hidden;
+  padding-bottom: 50px;
+  height: calc(100% - 118px);
 }
-
+.mess_list > li {
+  position: relative;
+  padding-left: 30px;
+  border-bottom: 1px solid $color-grey-light;
+}
+.mess_list > li:last-child {
+  border-bottom: 1px solid transparent;
+}
+.user-msg-wrap {
+  width: 100%;
+  padding: 8px 8px;
+}
 .mess_right {
   // padding: 0;
   height: 78vh;
@@ -308,6 +315,11 @@
   bottom: 0;
 }
 
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+  .mess_list {
+    height: calc(100% - 182px);
+  }
+}
 .xs-m-l-r-0 {
   @include mq($from: $mobile_sm, $until: $mobile_lg) {
     margin-right: 0;
