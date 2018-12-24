@@ -1,7 +1,6 @@
 <!-- right home feed -->
-<div class="col-md-3 col-xs-12 p-0">
   <!-- communities -->
-  <div class="c-card m-t-8">
+  <div class="c-card m-b-16">
     <div class="c-text_md p-16 color-grey-dark f-w_600 text_uppercase ltr-space">People to follow</div>
     <div class="c-follow__sec" infinite-scroll (scrolled)="onScrol($event)" [scrollWindow]="false" id="ops_scrollbar">
       <div class="c-invite__block" *ngFor="let profileItem of profiles">
@@ -22,8 +21,7 @@
       </div>
     </div>
   </div>
-  <br>
-  <div class="c-card xs-m-b-20">
+  <div class="c-card xs-m-b-20 top-stick">
     <div class="c-text_md padding_16 color-grey-dark f-w_600 text_uppercase ltr-space">Opportunities for you</div>
     <div class="opp_center" *ngIf="opportunities && opportunities.length === 0; else opportunities_found;">
       <p class="result-not-found">No records found!</p>
@@ -47,4 +45,3 @@
       </a>
     </ng-template>
   </div>
-</div>

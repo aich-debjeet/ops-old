@@ -98,7 +98,7 @@ export class MediaViewComponent implements OnDestroy {
         this.toastr.success('Post Edited', '', {
           timeOut: 2000
         });
-        this.doClose();
+        // this.doClose();
         this.editMsg = false;
       }
     });
@@ -210,6 +210,11 @@ export class MediaViewComponent implements OnDestroy {
       'description': message
     }
     this.store.dispatch({ type: MediaActions.MEDIA_EDIT, payload: data });
+  }
+
+
+  onCancelEdit() {
+    this.isEdit = false;
   }
 
   bookmarkAction(action: string, mediaDetails: any) {
