@@ -1,4 +1,4 @@
-<div class="container" *ngIf="!profileObject?.extra?.isImported">
+<div class="container m-pad-v-15" *ngIf="!profileObject?.extra?.isImported">
   <div class="column-container m-t-b-24 m-l-r-0">
     <!-- left feed -->
     <div class="left-columns hidden-sm hidden-xs">
@@ -96,7 +96,7 @@
     <!-- right feed -->
     <div class="columns desktop-css p-0">
       <div class="c-ops__tabs">
-        <ul class="nav nav-tabs m-l-8">
+        <ul class="nav nav-tabs">
           <li routerLinkActive="active">
             <a [routerLink]="['post']">Posts</a>
           </li>
