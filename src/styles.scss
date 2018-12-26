@@ -829,6 +829,11 @@ ul > li {
   position: sticky;
   position: -webkit-sticky;
 }
+.stick-to-viewport {
+	@media only screen and (max-height: 768px) {
+		top: calc(100vh - 125vh);
+	}
+}
 .column-container {
   display: flex;
   display: -webkit-flex;
