@@ -6,13 +6,11 @@
   </div>
   <div *ngIf="commentsLoaded === true && comments.length == 0" class="c-post__comment__blank">Be the first one to comment</div>
   <div *ngIf="commentsLoading === true" class="c-post__comment__blank">Loading....</div>
-  <div class="c-post__comment p-t-0 c-mediamodal__inputfixed c-post__bottom-fixed red-brd">
-    <div class="c-post__comment--left" style="margin-top:12px;">
+  <div class="has-flex space-btw c-post-comment">
       <a class="c-user__avatar c-avatar--status">
         <img class="c-user__image" [src]="(userData?.profileImage !== '') ? imageLink + userData?.profileImage : imageLink + 'avatars/user-avatar-male.png'">
       </a>
-    </div>
-    <div class="c-post__comment--right c-mediamodal__input">
+    <div class="is-flex m-l-8">
       <div class="c-form__group c-form--noeffect">
         <form class="card comment-form" #commentForm="ngForm" (ngSubmit)="postComment(commentForm)" autocomplete="off">
           <input class="c-form__input with_border_none c-post_extraspace" placeholder="Write a comment..." type="text"
