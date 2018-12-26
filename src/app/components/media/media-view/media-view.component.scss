@@ -110,7 +110,6 @@
   width: 730px;
   height: 600px;
   overflow: hidden;
-  // border-right: solid 1px rgba(0, 0, 0, 0.1);
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
   float: left;
@@ -118,6 +117,9 @@
   @include mq($from: $mobile_sm, $until: $mobile_lg) {
     width: 100%;
     height: auto;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 0px;
+
   }
 }
 
@@ -193,8 +195,8 @@
 // right block
 .c-mediamodal__right {
   width: 406px;
-  height: 584px;
-  overflow-y: scroll;
+  height: 600px;
+  overflow-y: auto;
   position: relative;
   background: #F3F5F7;
 
@@ -280,7 +282,6 @@
 .c-contenteditable {
   -webkit-user-modify: read-write;
   -moz-user-modify: read-write;
-  user-modify: read-write;
   border-bottom: 1px solid #c1c1c1;
   color: #000000;
 }

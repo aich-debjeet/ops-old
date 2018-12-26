@@ -6,537 +6,543 @@
 @import '~sass-mq/_mq.scss';
 
 .c-mediamodal__comment {
-    bottom: 0;
-    position: absolute;
-    width: 100%;
+	bottom: 0;
+	position: absolute;
+	width: 100%;
 }
-.c-post__bottom-fixed{
-    bottom:0px;
-    position: fixed!important;
+.c-post__bottom-fixed {
+	bottom: 0px;
+	position: fixed !important;
 }
 
 .c-mediamodal__input {
-    padding: 0px 0 0 20px;
+	padding: 0px 0 0 20px;
 }
 
 @mixin clearfix {
-    &:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
+	&:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
 }
 
 // post with comments block style -----------------------------------
 .c-avatar--status {
-    width: 34px;
-    height: 34px;
+	width: 34px;
+	height: 34px;
 }
 
 .c-avatar--artist {
-    width: 90px;
-    height: 90px;
+	width: 90px;
+	height: 90px;
 }
 
 .c-user--align {
-    margin-left: 16px; // margin-top: 8px;
+	margin-left: 16px; // margin-top: 8px;
 }
 
 .c-user__channel-align {
-    margin-top: 20px;
-    position: absolute;
-    margin-left: 50px;
+	margin-top: 20px;
+	position: absolute;
+	margin-left: 50px;
 }
 
 .c-status--block {
-    width: 100%;
-    float: left;
-    clear: both;
-    padding: 16px 24px;
-    position: relative;
+	width: 100%;
+	float: left;
+	clear: both;
+	padding: 16px 24px;
+	position: relative;
 }
 
 .c-post__time {
-    float: left;
-    color: #979797;
-    font-size: 12px;
-    line-height: 17px; // margin-right: 8px;
-    margin-top: 8px;
+	float: left;
+	color: #979797;
+	font-size: 12px;
+	line-height: 17px; // margin-right: 8px;
+	margin-top: 8px;
 }
 
 .c-status__options {
-    width: 14px;
-    float: left;
-    margin-top: 9px;
-    margin-left: 8px;
-    cursor: pointer;
+	width: 14px;
+	float: left;
+	margin-top: 9px;
+	margin-left: 8px;
+	cursor: pointer;
 }
 
 // card user block ------------------
 .c-card__user {
-    margin-top: 16px;
+	margin-top: 16px;
 }
 
 .c-user__avatar {
-    display: inline-block;
-    vertical-align: middle;
-    overflow: hidden;
-    position: relative;
-    box-sizing: border-box;
-    background: #f8f8f8;
-    cursor: pointer;
-    border-radius: 50px;
-    float: left;
+	display: inline-block;
+	vertical-align: middle;
+	overflow: hidden;
+	position: relative;
+	box-sizing: border-box;
+	background: #f8f8f8;
+	cursor: pointer;
+	border-radius: 50px;
 }
 
 .c-avatar--feed {
-    width: 24px;
-    height: 24px;
+	width: 24px;
+	height: 24px;
 }
 
 .c-user__image {
-    width: 100%
+	width: 100%;
 }
 
 .c-user__name {
-    font-size: 14px;
-    font-weight: 600;
-    text-align: left;
-    color: #000;
-    margin-left: 8px;
-    margin-top: 2px;
-    float: left;
-    cursor: pointer;
-    &:hover {
-        color: #000;
-    }
+	font-size: 14px;
+	font-weight: 600;
+	text-align: left;
+	color: #000;
+	margin-left: 8px;
+	margin-top: 2px;
+	float: left;
+	cursor: pointer;
+	&:hover {
+		color: #000;
+	}
 }
 
 .c-user__channel {
-    font-size: 12px;
-    font-weight: 600;
-    color: #979797;
-    display: block;
-    margin-left: 32px;
-    clear: both;
-    cursor: pointer;
-    &:hover {
-        color: #979797;
-    }
+	font-size: 12px;
+	font-weight: 600;
+	color: #979797;
+	display: block;
+	margin-left: 32px;
+	clear: both;
+	cursor: pointer;
+	&:hover {
+		color: #979797;
+	}
 }
 
 .media_comment_input {
-    width: 100%;
-    float: left;
-    .form_input {
-        border-bottom: 1px solid #c1c1c1 !important;
-        background: transparent;
-    }
-    .msg_to_list li>ul {
-        height: 56px;
-    }
-    .msg_to_list li img {
-        padding: 0;
-        width: 100%;
-    }
-    .msg_to_input {
-        .form_input {
-            padding: 0px;
-        }
-        label {
-            font-size: 12px;
-            top: 0px;
-        }
-        .form_input:focus~label,
-        .form_input:valid~label {
-            display: none;
-        }
-    }
+	width: 100%;
+	float: left;
+	.form_input {
+		border-bottom: 1px solid #c1c1c1 !important;
+		background: transparent;
+	}
+	.msg_to_list li > ul {
+		height: 56px;
+	}
+	.msg_to_list li img {
+		padding: 0;
+		width: 100%;
+	}
+	.msg_to_input {
+		.form_input {
+			padding: 0px;
+		}
+		label {
+			font-size: 12px;
+			top: 0px;
+		}
+		.form_input:focus ~ label,
+		.form_input:valid ~ label {
+			display: none;
+		}
+	}
 }
 
 .media_comments_section {
-    width: 100%;
-    float: left;
-    height: 218px;
-    overflow-y: scroll;
+	width: 100%;
+	float: left;
+	height: 218px;
+	overflow-y: scroll;
 }
 
 .media_img_comments {
-    width: 100%;
-    float: left;
-    padding: 16px 24px;
-    .head_name {
-        color: #333333;
-        font-size: 12px;
-        font-weight: bold;
-        line-height: 19px;
-        margin: 4px 0;
-    }
-    .comm_post_time {
-        margin-top: 6px;
-        color: #979797;
-        font-size: 10px;
-        line-height: 17px;
-        span {
-            img {
-                width: 10px;
-                margin-left: 8px;
-            }
-        }
-    }
-    .media_comments_block {
-        color: #333333;
-        font-size: 12px;
-        line-height: 21px;
-        float: left;
-        clear: both;
-    }
+	width: 100%;
+	float: left;
+	padding: 16px 24px;
+	.head_name {
+		color: #333333;
+		font-size: 12px;
+		font-weight: bold;
+		line-height: 19px;
+		margin: 4px 0;
+	}
+	.comm_post_time {
+		margin-top: 6px;
+		color: #979797;
+		font-size: 10px;
+		line-height: 17px;
+		span {
+			img {
+				width: 10px;
+				margin-left: 8px;
+			}
+		}
+	}
+	.media_comments_block {
+		color: #333333;
+		font-size: 12px;
+		line-height: 21px;
+		float: left;
+		clear: both;
+	}
 }
 
 //user name avatar
 .avatar_media_user {
-    width: 33px;
-    height: 33px;
-    display: inline-block;
-    vertical-align: middle;
-    overflow: hidden;
-    position: relative;
-    box-sizing: border-box;
-    text-align: center;
-    line-height: 2.5;
-    border-radius: 50%;
-    background-color: #f8f8f8;
-    img {
-        width: 100%;
-    }
+	width: 33px;
+	height: 33px;
+	display: inline-block;
+	vertical-align: middle;
+	overflow: hidden;
+	position: relative;
+	box-sizing: border-box;
+	text-align: center;
+	line-height: 2.5;
+	border-radius: 50%;
+	background-color: #f8f8f8;
+	img {
+		width: 100%;
+	}
 }
 
 //user name avatar
 .avatar_media_user2 {
-    width: 25px;
-    height: 25px;
-    display: inline-block;
-    vertical-align: middle;
-    overflow: hidden;
-    position: relative;
-    box-sizing: border-box;
-    text-align: center;
-    line-height: 2.5;
-    border-radius: 50%;
-    background-color: #f8f8f8;
-    img {
-        width: 100%;
-    }
+	width: 25px;
+	height: 25px;
+	display: inline-block;
+	vertical-align: middle;
+	overflow: hidden;
+	position: relative;
+	box-sizing: border-box;
+	text-align: center;
+	line-height: 2.5;
+	border-radius: 50%;
+	background-color: #f8f8f8;
+	img {
+		width: 100%;
+	}
 }
 
 // left big img
 .avatar_media_img {
-    width: 100%;
-    // max-height: 575px;
-    display: inline-block;
-    vertical-align: middle;
-    overflow: hidden;
-    position: relative;
-    box-sizing: border-box;
-    display: table-cell;
-    vertical-align: middle;
-    text-align: center;
-    img {
-        max-width: 100%;
-        max-height: 575px;
-    }
-    video {
-        width: 100%;
-    }
+	width: 100%;
+	// max-height: 575px;
+	display: inline-block;
+	vertical-align: middle;
+	overflow: hidden;
+	position: relative;
+	box-sizing: border-box;
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	img {
+		max-width: 100%;
+		max-height: 575px;
+	}
+	video {
+		width: 100%;
+	}
 }
 
 // left big article img
 .avatar_article_img {
-    width: 100%;
-    display: inline-block;
-    vertical-align: middle;
-    overflow: hidden;
-    position: relative;
-    box-sizing: border-box;
-    text-align: center;
-    height: 238px;
-    img {
-        max-width: 100%;
-    }
+	width: 100%;
+	display: inline-block;
+	vertical-align: middle;
+	overflow: hidden;
+	position: relative;
+	box-sizing: border-box;
+	text-align: center;
+	height: 238px;
+	img {
+		max-width: 100%;
+	}
 }
 
 .media-c__popup {
-    width: 100%;
-    float: left;
-    .list-inline {
-        padding: 16px 24px;
-        list-style: none;
-        margin-left: -5px;
-    }
-    .msg_to_input {
-        width: 84%;
-    }
+	width: 100%;
+	float: left;
+	.list-inline {
+		padding: 16px 24px;
+		list-style: none;
+		margin-left: -5px;
+	}
+	.msg_to_input {
+		width: 84%;
+	}
 }
 
 // post with comments block style -----------------------------------
 .c-avatar--status {
-    width: 34px;
-    height: 34px;
+	width: 34px;
+	height: 34px;
 }
 
 .c-avatar--status2 {
-    width: 24px;
-    height: 24px;
+	width: 24px;
+	height: 24px;
 }
 
 .c-avatar--status3 {
-    width: 40px;
-    height: 40px;
+	width: 40px;
+	height: 40px;
 }
 
 .c-avatar--artist {
-    width: 90px;
-    height: 90px;
+	width: 90px;
+	height: 90px;
 }
 
 .c-user--align {
-    margin-left: 16px; // margin-top: 8px;
+	margin-left: 16px; // margin-top: 8px;
 }
 
 .c-user__channel-align {
-    margin-top: 24px;
-    position: absolute;
-    margin-left: 50px;
+	margin-top: 24px;
+	position: absolute;
+	margin-left: 50px;
 }
 
 .c-status--block {
-    width: 100%;
-    float: left;
-    clear: both;
-    padding: 16px 24px;
-    position: relative;
+	width: 100%;
+	float: left;
+	clear: both;
+	padding: 16px 24px;
+	position: relative;
 }
 
 .c-post__time {
-    float: left;
-    color: #b4b4b4;
-    font-size: 11px;
-    line-height: 18px; // margin-right: 8px;
-    margin-top: 8px;
+	float: left;
+	color: #b4b4b4;
+	font-size: 11px;
+	line-height: 18px; // margin-right: 8px;
+	margin-top: 8px;
 }
 
 .c-status__options {
-    width: 14px;
-    height: 14px;
-    float: left;
-    margin-top: 9px;
-    margin-left: 8px;
-    cursor: pointer;
+	width: 14px;
+	height: 14px;
+	float: left;
+	margin-top: 9px;
+	margin-left: 8px;
+	cursor: pointer;
 }
 
 // comments block -----------------------------
 .c-post__comment--left {
-    width: 7%;
-    float: left;
-    @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        width: auto;
-    }
+	width: 7%;
+	float: left;
+	@include mq($from: $mobile_sm, $until: $mobile_lg) {
+		width: auto;
+	}
 }
 
 .c-post__comment--right {
-    width: 90%;
-    float: left;
+	width: 90%;
+	float: left;
 }
 
 .c-post__comment {
-    padding: 8px 16px;
-    @include clearfix;
-    position: relative;
-    clear: both;
+	padding: 8px 16px;
+	@include clearfix;
+	position: relative;
+	clear: both;
 }
 
 .c-post--unread {
-    background-color: #F5F5F5;
+	background-color: #f5f5f5;
 }
 
 .c-post__comment--time {
-    color: #c1c1c1;
-    font-size: 11px;
-    line-height: 18px;
-    margin-top: 3px;
-    padding-right: 8px;
+	color: #c1c1c1;
+	font-size: 11px;
+	line-height: 18px;
+	margin-top: 3px;
+	padding-right: 8px;
 }
 
 .c-post__commenter {
-    color: #333333;
-    font-size: 12px;
-    line-height: 17px;
-    cursor: pointer;
-    &:hover {
-        color: #333;
-    }
+	color: #333333;
+	font-size: 12px;
+	line-height: 17px;
+	cursor: pointer;
+	&:hover {
+		color: #333;
+	}
 }
 
 .c-post__comment_text {
-    color: #929292;
-    font-size: 11px;
-    line-height: 18px;
-    margin-left: 0;
-    display: block;
+	color: #929292;
+	font-size: 11px;
+	line-height: 18px;
+	margin-left: 0;
+	display: block;
 }
 
 .c-post__input {
-    width: 90%;
-    float: left;
-    margin-left: 8px;
+	width: 90%;
+	float: left;
+	margin-left: 8px;
 }
 
 .form__bottom--0 {
-    margin-bottom: 0px;
-    .form_input:focus~label,
-    .form_input:valid~label {
-        display: none;
-    }
+	margin-bottom: 0px;
+	.form_input:focus ~ label,
+	.form_input:valid ~ label {
+		display: none;
+	}
 }
 
 .c-mediamodal__inputfixed {
-    position: fixed;
-    bottom: 0;
-    background: white;
-    width: 406px;
-    padding: 0 16px;
-    @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        width: 92%;
-    }
+	position: fixed;
+	bottom: 0;
+	background: white;
+	width: 406px;
+	padding: 0 16px;
+	@include mq($from: $mobile_sm, $until: $mobile_lg) {
+		width: 92%;
+	}
 }
 
 .m-b-0 {
-    margin-top: 0px;
+	margin-top: 0px;
 }
-
 
 // comments block -----------------------------
 .c-post__comment--left {
-    // width: 7%;
-    float: left;
+	// width: 7%;
+	float: left;
 }
 
 .c-post__comment--right {
-    width: 88%;
-    float: left;
-    margin-left: 8px;
-    @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        width: 81%;
-        margin-top: 8px;
-    }
+	width: 88%;
+	float: left;
+	margin-left: 8px;
+	@include mq($from: $mobile_sm, $until: $mobile_lg) {
+		width: 81%;
+		margin-top: 8px;
+	}
 }
 
 .c-post__comment__blank {
-    height: 36vh;
-    vertical-align: middle;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 15px;
-    color: #808080;
-    font-weight: 300;
-    line-height: 24px;
+	height: 36vh;
+	vertical-align: middle;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 15px;
+	color: #808080;
+	font-weight: 300;
+	line-height: 24px;
 }
 
 .c-post__comment {
-    padding: 8px 24px;
-    @include clearfix;
-    position: relative;
-    clear: both;
+	padding: 8px 24px;
+	@include clearfix;
+	position: relative;
+	clear: both;
 }
 
 .c-post--unread {
-    background-color: #F5F5F5;
+	background-color: #f5f5f5;
 }
 
 .c-post__comment--time {
-    color: #c1c1c1;
-    font-size: 11px;
-    line-height: 18px;
-    margin-top: 3px;
-    padding-right: 8px;
+	color: #c1c1c1;
+	font-size: 11px;
+	line-height: 18px;
+	margin-top: 3px;
+	padding-right: 8px;
 }
 
 .c-post__commenter {
-    color: #333333;
-    font-size: 12px;
-    line-height: 17px;
-    cursor: pointer;
-    &:hover {
-        color: #333;
-    }
-    @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        margin-left: 8px;
-    }
+	color: #333333;
+	font-size: 12px;
+	line-height: 17px;
+	cursor: pointer;
+	&:hover {
+		color: #333;
+	}
+	@include mq($from: $mobile_sm, $until: $mobile_lg) {
+		margin-left: 8px;
+	}
 }
 
 .c-post__comment_text {
-    color: #929292;
-    font-size: 11px;
-    line-height: 18px;
-    margin-left: 0;
-    display: block;
+	color: #929292;
+	font-size: 11px;
+	line-height: 18px;
+	margin-left: 0;
+	display: block;
 }
 .c-post__comment_rm {
-    color: $color-theme;
-    font-size: 11px;
-    line-height: 18px;
-    &:hover {
-        color: $color-theme;
-    }
-    &:visited {
-        color: $color-theme;
-    }
+	color: $color-theme;
+	font-size: 11px;
+	line-height: 18px;
+	&:hover {
+		color: $color-theme;
+	}
+	&:visited {
+		color: $color-theme;
+	}
 }
 #c-comment_readMore {
-    display: hidden;
+	display: hidden;
 }
 .c-post__input {
-    width: 90%;
-    float: left;
-    margin-left: 8px;
+	width: 90%;
+	float: left;
+	margin-left: 8px;
 }
 
 .form__bottom--0 {
-    margin-bottom: 0px;
-    .form_input:focus~label,
-    .form_input:valid~label {
-        display: none;
-    }
+	margin-bottom: 0px;
+	.form_input:focus ~ label,
+	.form_input:valid ~ label {
+		display: none;
+	}
 }
 .c-post_extraspace {
-    padding-top: 2px !important;
-    @include mq($from: $mobile_sm, $until: $mobile_lg){
-      padding: 0 !important;
-    }
+	padding-top: 2px !important;
+	@include mq($from: $mobile_sm, $until: $mobile_lg) {
+		padding: 0 !important;
+	}
 }
 .c-post_viewmore2 {
-    width: 100%;
-    float: left;
-    background-color: #F3F5F7;
-    padding-left: 24px;
-    padding-bottom: 4px;
-    a {
-    font-size: 11px;
-    line-height: 18px;
-    color: #929292;
-    }
+	width: 100%;
+	float: left;
+	background-color: #f3f5f7;
+	padding-left: 24px;
+	padding-bottom: 4px;
+	a {
+		font-size: 11px;
+		line-height: 18px;
+		color: #929292;
+	}
 }
 
 .c-form__input {
-  @include mq($from: $mobile_sm, $until: $mobile_lg){
-    margin-top: 10px;
-    padding: 0 !important;
-  }
+	@include mq($from: $mobile_sm, $until: $mobile_lg) {
+		margin-top: 10px;
+		padding: 0 !important;
+	}
 }
 
 .c-form__group {
-  @include mq($from: $mobile_sm, $until: $mobile_lg){
-    margin-top: 10px;
-  } 
+	@include mq($from: $mobile_sm, $until: $mobile_lg) {
+		margin-top: 10px;
+	}
+}
+
+.c-post-comment {
+	bottom: 0px;
+	width: 100%;
+	padding: 0px 15px;
+	position: absolute;
+	background-color: $color-white;
 }

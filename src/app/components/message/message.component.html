@@ -32,41 +32,41 @@
           <div class="col-md-5">
             <div class="c-form__group m-0">
               <div class="dropdown c-form-control action-dropdown" appDropdown>
-                  <a appDropdownOpen>Action</a>
-                  <ul class="dropdown-menu">
-                      <li class="list-inline-item">
-                        <a (click)="actionMarkRead()">Mark as read</a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a (click)="actionDelete()">Delete</a>
-                      </li>
-                  </ul>
+                <a appDropdownOpen>Action</a>
+                <ul class="dropdown-menu">
+                  <li class="list-inline-item">
+                    <a (click)="actionMarkRead()">Mark as read</a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a (click)="actionDelete()">Delete</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
         </div>
-        <div *ngIf="messangerList && messangerList?.length > 0" class="mess_list row" id="ops_scrollbar">
-          <div *ngFor="let user of messangerList" class="row with_border_bottom with_border_top xs-m-l-r-0" [ngClass]="{'msg__unread': !user?.isRead }">
-            <div class="c-checkbox__md2 col-md-2">
-              <label class="checkbox-inline pull-right m-t-24">
+        <ul *ngIf="messangerList && messangerList?.length > 0" class="mess_list row" id="ops_scrollbar">
+          <li *ngFor="let user of messangerList" class="has-flex xs-m-l-r-0" [ngClass]="{'msg__unread': !user?.isRead }">
+            <div class="c-checkbox__md2 left-middle absolute p-l-16">
+              <label class="checkbox-inline p-l-0">
                 <input (change)="markUser($event, user?.handle)" type="checkbox" value="{{ user?.handle }}" [checked]="markedAll">
               </label>
             </div>
-            <div class="col-md-10 desktop-p-l-0">
-              <div class="dropdown__item p-t-b-16" (click)="selectUser(user)">
-                <div class="dropnoti__avatar">
-                  <img *ngIf="user?.profileImage === ''" class="navdrop__img" [src]="imageBaseUrl + 'avatars/user-avatar-male.png'">
-                  <img *ngIf="user?.profileImage !== ''" class="navdrop__img" [src]="imageBaseUrl + user?.profileImage">
-                </div>
-                <div class="dropnoti__detail">
+            <div class="has-flex user-msg-wrap" (click)="selectUser(user)">
+              <div class="dropnoti__avatar">
+                <img *ngIf="user?.profileImage === ''" class="navdrop__img" [src]="imageBaseUrl + 'avatars/user-avatar-male.png'">
+                <img *ngIf="user?.profileImage !== ''" class="navdrop__img" [src]="imageBaseUrl + user?.profileImage">
+              </div>
+              <div class="p-l-8 is-flex">
+                <div class="has-flex space-btw">
                   <p class="dropnoti__bold color-grey-darker">{{ user?.name | truncate:[25, '...'] }}</p>
-                  <p>{{ user?.latestMessage | truncate:[30, '...'] }}</p>
+                  <p class="msg__time2">{{ user?.time | utcDate | date:'d MMM hh:mm a' }}</p>
                 </div>
-                <p class="msg__time2">{{ user?.time | utcDate | date:'d MMM hh:mm a' }}</p>
+                <p class="block">{{ user?.latestMessage | truncate:[30, '...'] }}</p>
               </div>
             </div>
-          </div>
-        </div>
+          </li>
+        </ul>
       </div>
       <div *ngIf="messageState?.getting_messanger_list_success === true && messangerList?.length > 0" class="col-lg-8 col-md-8 col-sm-8 col-xs-12 mess_right xs-chat-box">
         <div class="c-text_lg p-t-b-24">
