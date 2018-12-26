@@ -1,5 +1,3 @@
-@import './src/assets/scss/helpers/_variables.scss';
-
 .c-card {
   width: 100%;
   height: auto;
@@ -99,7 +97,7 @@
 }
 
 .color-theme {
-  color: $color-theme !important;
+  color: #00badc !important;
 }
 
 .text_uppercase {

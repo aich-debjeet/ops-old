@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ProfileActions } from 'app/actions/profile.action';
 import { ProfileModal } from 'app/models/profile.model';
 import { Store } from '@ngrx/store';
@@ -11,6 +11,8 @@ import { environment } from 'environments/environment';
   styleUrls: ['./people-to-follow.component.scss']
 })
 export class PeopleToFollowComponent implements OnInit, OnDestroy {
+
+  @Input() page: string;
 
   baseUrl = environment.API_IMAGE;
   profileState$: any;
@@ -40,15 +42,6 @@ export class PeopleToFollowComponent implements OnInit, OnDestroy {
     });
   }
 
-  /**
-   * Unfollow an artist
-   * @param user obj
-   */
-  unfollowUser(user: any) {
-    this.store.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: user.handle });
-    user.extra.isFollowing = false;
-  }
-
   loadProfiles(value) {
     this.store.dispatch({
       type: ProfileActions.LOAD_ALL_PROFILES, payload: {
@@ -66,6 +59,53 @@ export class PeopleToFollowComponent implements OnInit, OnDestroy {
       this.scrollingLoad += 100;
       this.loadProfiles(this.people_follow_id);
     }
+  }
+
+  /**
+   * Follow an artist
+   * @param user obj
+   */
+  followUser(user: any) {
+    this.store.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: user.handle });
+    user.extra.isFollowing = true;
+    this.store.select('profileTags')
+      .first(state => state['profile_other_followed'] === true)
+      .subscribe(datas => {
+        if (this.page && this.page === 'home') {
+          this.postLoad();
+          // this.loadChannels();
+        }
+      });
+  }
+
+  /**
+   * Unfollow an artist
+   * @param user obj
+   */
+  unfollowUser(user: any) {
+    this.store.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: user.handle });
+    user.extra.isFollowing = false;
+  }
+
+  /**
+   * post user channel
+   */
+  postLoad() {
+    const data = {
+      limit: 10,
+      scrollId: null
+    }
+    this.store.dispatch({ type: ProfileActions.LOAD_USER_FOLLOWING_POSTS, payload: data });
+  }
+
+  /**
+   * following user channel
+   */
+  loadChannels() {
+    const body = {
+      limit: 9
+    }
+    this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL, payload: body });
   }
 
   ngOnDestroy() {
