@@ -71,6 +71,7 @@ import { TermsAndConditionsContentComponent } from './terms-and-conditions-conte
 import { WidgetCollaboratorsComponent } from './widget-collaborators/widget-collaborators.component';
 import { CollaboratorCardComponent } from './collaborator-card/collaborator-card.component';
 import { AppearDirective } from './appear/appear.directive';
+import { PeopleToFollowComponent } from './people-to-follow/people-to-follow.component';
 
 @NgModule({
   imports: [
@@ -139,7 +140,8 @@ import { AppearDirective } from './appear/appear.directive';
     TermsAndConditionsContentComponent,
     WidgetCollaboratorsComponent,
     CollaboratorCardComponent,
-    AppearDirective
+    AppearDirective,
+    PeopleToFollowComponent
   ],
   exports: [
     OpportunityCardComponent,
@@ -186,7 +188,8 @@ import { AppearDirective } from './appear/appear.directive';
     TermsAndConditionsContentComponent,
     WidgetCollaboratorsComponent,
     CollaboratorCardComponent,
-    AppearDirective
+    AppearDirective,
+    PeopleToFollowComponent
   ]
 })
 export class SharedModule { }
