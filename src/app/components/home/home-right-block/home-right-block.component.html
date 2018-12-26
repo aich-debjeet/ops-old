@@ -1,47 +1,26 @@
 <!-- right home feed -->
-  <!-- communities -->
-  <div class="c-card m-b-16">
-    <div class="c-text_md p-16 color-grey-dark f-w_600 text_uppercase ltr-space">People to follow</div>
-    <div class="c-follow__sec" infinite-scroll (scrolled)="onScrol($event)" [scrollWindow]="false" id="ops_scrollbar">
-      <div class="c-invite__block" *ngFor="let profileItem of profiles">
-        <div *ngIf="!profileItem.extra.isFollowing">
-          <a class="c-user__avatar c-avatar--status">
-            <img *ngIf="profileItem?.physical?.profileImages?.profileImage_medium" class="c-user__image" [src]="baseUrl + profileItem?.physical?.profileImages?.profileImage_medium"
-              width="24px" />
-          </a>
-          <a class="c-text_md c-invite--user" [routerLink]="'/profile/u/' + profileItem?.extra?.username">{{
-            profileItem?.name | truncate:[10, '...']}}</a>
-          <div class="c-invite--btn">
-            <!-- <button type="button" (click)="followUser(profileItem)" *ngIf="!profileItem.extra.isFollowing" class="btn btn-default btn-sm" [disabled]="disableFollowForSelf(profileItem?.extra?.username)">FOLLOW</button>
-                        <button type="button" (click)="unfollowUser(profileItem)" *ngIf="profileItem.extra.isFollowing" class="btn btn-default btn-sm" [disabled]="disableFollowForSelf(profileItem?.extra?.username)">UNFOLLOW</button> -->
-            <a (click)="followUser(profileItem)" *ngIf="!profileItem.extra.isFollowing" class="c-text_md color-theme f-w_600 text_uppercase">FOLLOW</a>
-            <!-- <a (click)="unfollowUser(profileItem)" *ngIf="profileItem.extra.isFollowing" class="c-text_md color-theme f-w_600 text_uppercase">UNFOLLOW</a> -->
-          </div>
+<app-people-to-follow [page]="'home'" class="c-card m-b-16"></app-people-to-follow>
+<div class="c-card xs-m-b-20 top-stick">
+  <div class="c-text_md padding_16 color-grey-dark f-w_600 text_uppercase ltr-space">Opportunities for you</div>
+  <div class="opp_center" *ngIf="opportunities && opportunities.length === 0; else opportunities_found;">
+    <p class="result-not-found">No records found!</p>
+  </div>
+  <ng-template #opportunities_found>
+    <a routerLink="/opportunity/view/{{ opportunityDetails?.opportunityId }}" *ngFor="let opportunityDetails of opportunities">
+      <div class="with_border_bottom m-b-16 wb-all">
+        <div class="c-card__project p-l-r-16">
+          <img [src]="imageBaseUrl + 'img/svg/audition.svg'" class="c-card__project--icon">
+          <span class="m-l-8">{{ opportunityDetails?.opportunityType | uppercase }}</span>
+        </div>
+        <div class="o-home-org-list__title">
+          <p class="c-text_lg">{{ opportunityDetails?.opportunityRole }}</p>
+        </div>
+        <div class="c-text_md p-l-r-16 p-t-b-8 color-grey-dark">{{ opportunityDetails?.organization }}</div>
+        <div class="c-card__location p-b-16 m-b-16">
+          <img [src]="imageBaseUrl + 'img/svg/ico_location2.svg'" class="float_left">
+          <p class="c-card__location--text float_left m-l-8">{{ opportunityDetails?.location }}</p>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="c-card xs-m-b-20 top-stick">
-    <div class="c-text_md padding_16 color-grey-dark f-w_600 text_uppercase ltr-space">Opportunities for you</div>
-    <div class="opp_center" *ngIf="opportunities && opportunities.length === 0; else opportunities_found;">
-      <p class="result-not-found">No records found!</p>
-    </div>
-    <ng-template #opportunities_found>
-      <a routerLink="/opportunity/view/{{ opportunityDetails?.opportunityId }}" *ngFor="let opportunityDetails of opportunities">
-        <div class="with_border_bottom m-b-16 wb-all">
-          <div class="c-card__project p-l-r-16">
-            <img [src]="imageBaseUrl + 'img/svg/audition.svg'" class="c-card__project--icon">
-            <span class="m-l-8">{{ opportunityDetails?.opportunityType | uppercase }}</span>
-          </div>
-          <div class="o-home-org-list__title">
-            <p class="c-text_lg">{{ opportunityDetails?.opportunityRole }}</p>
-          </div>
-          <div class="c-text_md p-l-r-16 p-t-b-8 color-grey-dark">{{ opportunityDetails?.organization }}</div>
-          <div class="c-card__location p-b-16 m-b-16">
-            <img [src]="imageBaseUrl + 'img/svg/ico_location2.svg'" class="float_left">
-            <p class="c-card__location--text float_left m-l-8">{{ opportunityDetails?.location }}</p>
-          </div>
-        </div>
-      </a>
-    </ng-template>
-  </div>
+    </a>
+  </ng-template>
+</div>
