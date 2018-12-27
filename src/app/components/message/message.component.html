@@ -8,9 +8,6 @@
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 mess_left with_border_right">
         <div class="row p-24">
           <div class="c-text_lg">Messages
-            <!-- <button type="button" class="btn btn-primary btn-md pull-right" (click)="composeNewMessage()" >
-                            <span class="btn-label-icon2 m-r-5"></span> compose
-                        </button> -->
           </div>
         </div>
         <div class="row p-l-r-24">
@@ -76,7 +73,6 @@
           </a>
           <div class="dropdown c-dropdown pull-right">
             <p class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-              <!-- <img [src]="imageBaseUrl + 'img/svg/ico_settings.svg'" class="mess_set_icon"> -->
             </p>
             <ul class="dropdown-menu">
               <li class="with_border_bottom">
@@ -106,8 +102,6 @@
         <!-- preloader -->
 
         <ng-container *ngIf="showPreloader === false">
-          <!-- message container -->
-          <!-- <div class="mess_chat_block" #chatWindow [scrollTop]="chatWindow.scrollHeight" -->
           <div class="mess_chat_block" id="ops_scrollbar" #chatWindow infiniteScroll [infiniteScrollDistance]="5"
             [infiniteScrollThrottle]="50" [scrollWindow]="false" (scrolled)="onScrollDown()" (scrolledUp)="onScrollUp()">
             <ng-container *ngIf="conversation?.length > 0">
@@ -127,12 +121,6 @@
                       <div *ngIf="message?.isDeleted === false" class="msg_sent_time2">{{ message?.time | utcDate |
                         date:'d MMM hh:mm a' }}</div>
                       <div *ngIf="message?.isDeleted === true" class="msg_sent_time2">&nbsp;</div>
-                      <!-- <ng-template #notSending>
-                                                <span title="Delete" class="del-msg" *ngIf="!message?.isNetworkRequest && !message?.isDeleted" (click)="deleteMessage(message)">x</span>
-                                            </ng-template> -->
-                      <!-- <span class="sending-msg" *ngIf="message?.isSending === true; else notSending">
-                                                <img [src]="imageBaseUrl + 'img/search-preloader.gif'" class="c-form__input--lefticon">
-                                            </span> -->
                     </li>
                   </ul>
                 </div>
@@ -168,21 +156,17 @@
           <!-- //message container -->
 
           <!-- message input block -->
-          <div *ngIf="enableMsgInput" class="row msg-input-block">
+          <div *ngIf="enableMsgInput" class="msg-input-block has-flex nowrap">
             <div class="col-md-12 typing">
               <p *ngIf="isTyping">{{ selectedUser?.name }} is typing...</p>
             </div>
-            <div class="col-md-1">
-              <div class="c-user__avatar c-avatar--feed3 m-t-16">
-                <img class="c-user__image" [src]="imageBaseUrl + profileState?.profile_cards?.active?.image">
-              </div>
+            <div class="c-user__avatar c-avatar--feed3 m-r-16">
+              <img class="c-user__image" [src]="imageBaseUrl + profileState?.profile_cards?.active?.image">
             </div>
-            <div class="col-md-11 p-l-0">
-              <div class="c-form__group c-form--md c-form--noeffect c-form__faded--md">
-                <input class="c-form__input xs-message-box" type="text" [(ngModel)]="messageText" (keyup)="userIsTyping($event)"
-                  placeholder="Message">
-                <label>Message</label>
-              </div>
+            <div class="is-flex c-form--md c-form--noeffect c-form__faded--md">
+              <input class="c-form__input" type="text" [(ngModel)]="messageText" (keyup)="userIsTyping($event)"
+                placeholder="Message">
+              <label>Message</label>
             </div>
           </div>
           <!-- //message input block -->

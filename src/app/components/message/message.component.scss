@@ -143,9 +143,11 @@
 }
 
 .msg-input-block {
-  position: absolute;
+  left: 0px;
+  bottom: 0px;
   width: 100%;
-  bottom: 0;
+  padding: 10px 15px;
+  position: absolute;
 }
 
 .mess_left {
@@ -161,7 +163,7 @@
 }
 .mess_list > li {
   position: relative;
-  padding-left: 30px;
+  padding-left: 35px;
   border-bottom: 1px solid $color-grey-light;
 }
 .mess_list > li:last-child {
@@ -333,12 +335,6 @@
   @include mq($from: $mobile_sm, $until: $mobile_lg) {
     padding-right: 15px;
     padding-left: 15px;
-  }
-}
-
-.xs-message-box {
-  @include mq($from: $mobile_sm, $until: $mobile_lg) {
-    width: 80%;
   }
 }
 
