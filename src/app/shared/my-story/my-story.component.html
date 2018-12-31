@@ -5,26 +5,38 @@
     </div>
     <div class="o-mystory__media">
       <ng-container *ngFor="let list of storyList | slice:0:4; let i=index">
-        <div class="o-mystory-media__one" *ngIf="i===0">
-          <a [routerLink]="['', { outlets: { media : ['media', list?.id]}}]">
+        <a class="o-mystory-media__one" *ngIf="i===0" [ngStyle]="{'background-image': 'url(' + baseUrl + list?.thumbNails?.mediumLarge + ')',
+        'background-size': 'cover',
+        'background-position': 'center',
+        'width': '100%'}" [routerLink]="['', { outlets: { media : ['media', list?.id]}}]">
+          <!-- <a [routerLink]="['', { outlets: { media : ['media', list?.id]}}]">
             <img [src]="baseUrl + list?.thumbNails?.mediumLarge" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';">
-          </a>
-        </div>
-        <div class="o-mystory-media__two" *ngIf="i===1">
-          <a [routerLink]="['', { outlets: { media : ['media', list?.id]}}]">
+          </a> -->
+        </a>
+        <a class="o-mystory-media__two" *ngIf="i===1" [ngStyle]="{'background-image': 'url(' + baseUrl + list?.thumbNails?.mediumLarge + ')',
+        'background-size': 'cover',
+        'background-position': 'center',
+        'width': '100%'}">
+          <!-- <a [routerLink]="['', { outlets: { media : ['media', list?.id]}}]">
             <img [src]="baseUrl + list?.thumbNails?.mediumLarge" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';">
-          </a>
-        </div>
-        <div class="o-mystory-media__three" *ngIf="i===2">
-          <a [routerLink]="['', { outlets: { media : ['media', list?.id]}}]">
+          </a> -->
+        </a>
+        <a class="o-mystory-media__three" *ngIf="i===2" [ngStyle]="{'background-image': 'url(' + baseUrl + list?.thumbNails?.mediumLarge + ')',
+        'background-size': 'cover',
+        'background-position': 'center',
+        'width': '100%'}" [routerLink]="['', { outlets: { media : ['media', list?.id]}}]">
+          <!-- <a [routerLink]="['', { outlets: { media : ['media', list?.id]}}]">
             <img [src]="baseUrl + list?.thumbNails?.mediumLarge" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';">
-          </a>
-        </div>
-        <div class="o-mystory-media__four" *ngIf="i===3">
-          <a [routerLink]="['', { outlets: { media : ['media', list?.id]}}]">
+          </a> -->
+        </a>
+        <a class="o-mystory-media__four" *ngIf="i===3" [ngStyle]="{'background-image': 'url(' + baseUrl + list?.thumbNails?.mediumLarge + ')',
+        'background-size': 'cover',
+        'background-position': 'center',
+        'width': '100%'}" [routerLink]="['', { outlets: { media : ['media', list?.id]}}]">
+          <!-- <a [routerLink]="['', { outlets: { media : ['media', list?.id]}}]">
             <img [src]="baseUrl + list?.thumbNails?.mediumLarge" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';">
-          </a>
-        </div>
+          </a> -->
+        </a>
       </ng-container>
     </div>
     <div class="o-mystory__add" *ngIf="currentUser">
