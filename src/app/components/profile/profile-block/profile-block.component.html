@@ -3,7 +3,7 @@
     <!-- left feed -->
     <div class="left-columns hidden-sm hidden-xs">
       <!--MY story widget start-->
-      <div class="m-b-16">
+      <!-- <div class="m-b-16">
         <div class="o-mystory">
           <div class="o-mystory__title">
             <span class="c-text_md text_uppercase color-grey-dark f-w_600">My story</span>
@@ -43,7 +43,8 @@
             </a>
           </div>
         </div>
-      </div>
+      </div> -->
+      <app-my-story [currentUser]="isCurrentUser" [handle]="userHandle"></app-my-story>
       <!--MY story widget end-->
       <!-- attend event -->
       <div class="c-card top-stick">

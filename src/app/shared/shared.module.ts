@@ -188,7 +188,8 @@ import { MyStoryComponent } from './my-story/my-story.component';
     TermsAndConditionsContentComponent,
     WidgetCollaboratorsComponent,
     CollaboratorCardComponent,
-    AppearDirective
+    AppearDirective,
+    MyStoryComponent
   ]
 })
 export class SharedModule { }
