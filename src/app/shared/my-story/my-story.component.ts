@@ -29,7 +29,6 @@ export class MyStoryComponent implements OnInit, OnChanges {
   ) {
     this.tagState$ = this._store.select('profileTags');
     this.profSub = this.tagState$.subscribe((state) => {
-      console.log(state)
       if (state && state['my_story']) {
         this.storyList = state['my_story']['media'];
         this.storyDetails = state['my_story'];
@@ -38,7 +37,6 @@ export class MyStoryComponent implements OnInit, OnChanges {
    }
   
    ngOnChanges(changes: SimpleChanges) {
-     console.log(changes);
      const handle: SimpleChange = changes.handle;
      if(handle.currentValue !== undefined){
       this._store.dispatch({
@@ -50,34 +48,6 @@ export class MyStoryComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    console.log('my story compo')
-    console.log(this.currentUser,this.handle)
-      // this._store.dispatch({
-      //   type: ProfileActions.GET_MY_STORY, payload: {
-      //     handle: this.handle
-      //   }
-      // });
-    // this._store.select('profileTags')
-    // .first(profile => profile['profile_user_info'])
-    // .subscribe(datas => {
-    //   if (datas['profile_user_info'].isCurrentUser) {
-    //     this._store.dispatch({
-    //       type: ProfileActions.GET_MY_STORY, payload: {
-    //         handle: datas['profile_navigation_details'].handle
-    //       }
-    //     });
-    //   }
-    //   this._store.select('profileTags')
-    //     .first(profile => profile['profile_other'].handle)
-    //     .subscribe(data => {
-    //       console.log('data', data)
-    //       this._store.dispatch({
-    //         type: ProfileActions.GET_MY_STORY, payload: {
-    //           handle: data['profile_other'].handle
-    //         }
-    //       });
-    //     });
-    // });
   }
 
 }

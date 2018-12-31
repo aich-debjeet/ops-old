@@ -85,10 +85,6 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
     this.profSub = this.tagState$.subscribe((state) => {
       console.log('state', state);
       this.userQuickAccess = state;
-      // if (state && state['my_story']) {
-      //   this.storyList = state['my_story']['media'];
-      //   this.storyDetails = state['my_story'];
-      // }
       if (state && state['other_channel']) {
         this.pinListEmpty = _every(state['other_channel'], ['isPinned', true]);
       }
@@ -96,7 +92,6 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
         if (state.profile_user_info.isCurrentUser) {
           this.profileObject = this.loadProfile(state, 'own');
           this.userHandle = this.profileObject.userDetails.handle;
-          console.log(this.profileObject)
         } else {
           if (state.profile_user_info.isClaimForGuest && state.profile_user_info.isClaimForGuest === true) {
             if (state.profile_other && state.profile_other.length !== 0) {
@@ -105,16 +100,9 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
             }
           } 
           else {
-            console.log('other');
             this.profileObject = this.loadProfile(state, 'other');
             this.userHandle = this.profileObject.userDetails.handle;
-            console.log(this.profileObject)
           }
-          // if(!state.profile_user_info.isCurrentUser){
-          //   this.profileObject = this.loadProfile(state, 'other');
-          //   this.userHandle = this.profileObject.userDetails.handle;
-          //   console.log(this.profileObject)
-          // }
         }
       }
       if (state.channel_pin_success && this.channelPinSuccess) {
@@ -136,7 +124,6 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
         this.eventsLoading = false;
       }
     });
-    // this._store.dispatch({ type: ProfileActions.GET_MY_STORY });
   }
 
   ngOnInit() {
@@ -146,12 +133,6 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
       .subscribe(datas => {
         console.log(datas)
         if (datas['profile_user_info'].isCurrentUser) {
-          // this.userHandle= datas['profile_navigation_details'].handle
-          // this._store.dispatch({
-          //   type: ProfileActions.GET_MY_STORY, payload: {
-          //     handle: datas['profile_navigation_details'].handle
-          //   }
-          // });
           this._store.dispatch({
             type: EventActions.EVENT_SEARCH, payload: {
               scrollId: '',
@@ -160,17 +141,6 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
           });
           return
         }
-        // this.profileStore.select('profileTags')
-        //   .first(profile => profile['profile_other'].handle)
-        //   .subscribe(data => {
-        //     console.log('data', data)
-        //     this.userHandle = data['profile_other'].handle;
-        //     // this._store.dispatch({
-        //     //   type: ProfileActions.GET_MY_STORY, payload: {
-        //     //     handle: data['profile_other'].handle
-        //     //   }
-        //     // });
-        //   });
         this._store.dispatch({
           type: EventActions.EVENT_SEARCH, payload: {
             scrollId: '',

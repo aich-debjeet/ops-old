@@ -3,47 +3,6 @@
     <!-- left feed -->
     <div class="left-columns hidden-sm hidden-xs">
       <!--MY story widget start-->
-      <!-- <div class="m-b-16">
-        <div class="o-mystory">
-          <div class="o-mystory__title">
-            <span class="c-text_md text_uppercase color-grey-dark f-w_600">My story</span>
-          </div>
-          <div class="o-mystory__media">
-            <ng-container *ngFor="let list of storyList | slice:0:4; let i=index">
-              <div class="o-mystory-media__one" *ngIf="i===0">
-                <a [routerLink]="['', { outlets: { media : ['media', list?.id]}}]">
-                  <img [src]="imageBaseUrl + list?.thumbNails?.mediumLarge" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';">
-                </a>
-              </div>
-              <div class="o-mystory-media__two" *ngIf="i===1">
-                <a [routerLink]="['', { outlets: { media : ['media', list?.id]}}]">
-                  <img [src]="imageBaseUrl + list?.thumbNails?.mediumLarge" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';">
-                </a>
-              </div>
-              <div class="o-mystory-media__three" *ngIf="i===2">
-                <a [routerLink]="['', { outlets: { media : ['media', list?.id]}}]">
-                  <img [src]="imageBaseUrl + list?.thumbNails?.mediumLarge" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';">
-                </a>
-              </div>
-              <div class="o-mystory-media__four" *ngIf="i===3">
-                <a [routerLink]="['', { outlets: { media : ['media', list?.id]}}]">
-                  <img [src]="imageBaseUrl + list?.thumbNails?.mediumLarge" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';">
-                </a>
-              </div>
-            </ng-container>
-          </div>
-          <div class="o-mystory__add" *ngIf="isCurrentUser">
-            <a [routerLink]="['/post/media']" [queryParams]="{post_to: 'my_story'}" class="o-mystory-add__link">
-              <div class="o-mystory-add__icon">
-                <img src="{{imageBaseUrl}}img/svg/ico_create-plus.svg" alt="">
-              </div>
-              <div class="o-mystory-add__txt">
-                Add My story
-              </div>
-            </a>
-          </div>
-        </div>
-      </div> -->
       <app-my-story [currentUser]="isCurrentUser" [handle]="userHandle"></app-my-story>
       <!--MY story widget end-->
       <!-- attend event -->
