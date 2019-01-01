@@ -677,6 +677,9 @@ button.sb-wrapper.sb-facebook {
 .f0 {
   font-size: 0px;
 }
+.pt50 {
+	padding-top: 50px;
+}
 .bg-red {
 	background-color: red;
 }
@@ -858,6 +861,7 @@ ul > li {
   width: 100%;
   -webkit-flex: 1;
   max-width: 285px;
+  min-width: 285px;
   margin-left: 15px;
 }
 .m-pad-v-15 {
@@ -875,6 +879,7 @@ ul > li {
     width: 100%;
     -ms-flex: auto;
     max-width: 100%;
+    min-width: auto;
     margin-left: 0px;
     -webkit-flex: auto;
   }

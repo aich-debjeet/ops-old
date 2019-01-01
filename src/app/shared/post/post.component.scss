@@ -86,7 +86,6 @@
   background: #f8f8f8;
   cursor: pointer;
   border-radius: 50px;
-  float: left;
 }
 
 .c-avatar--status {
@@ -186,7 +185,6 @@ a {
 
 .c-links__spots {
   display: inline;
-  float: left;
   margin-right: 16px;
   cursor: pointer;
   font-weight: 500;
@@ -200,7 +198,6 @@ a {
 
 .c-links__comments {
   display: inline;
-  float: left;
   margin-right: 24px;
   // cursor: pointer;
 }
@@ -528,3 +525,46 @@ label {
 }
 
 /* for media collection */
+
+// spotted people show on hover
+.show-on-hover .show-this {
+  display: none;
+}
+.show-on-hover:hover .show-this {
+  display: block;
+}
+.people-spots {
+  top: 25px;
+  left: 15px;
+  width: 100%;
+  z-index: 55;
+  min-width: 100px;
+  max-width: 145px;
+  border-radius: 3px;
+  position: absolute;
+  padding-bottom: 20px;
+  background-color: $color-white;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+}
+.people-spots > li {
+  display: block;
+  font-size: 13px;
+  padding: 4px 15px;
+  line-height: 20px;
+  color: $color-base;
+}
+.see-more-spotted {
+  left: 0px;
+  width: 100%;
+  bottom: 0px;
+  position: absolute;
+  button {
+    width: 100%;
+    border: none;
+    font-size: 11px;
+    text-align: left;
+    line-height: 18px;
+    padding-left: 15px;
+    background-color: transparent;
+  }
+}
