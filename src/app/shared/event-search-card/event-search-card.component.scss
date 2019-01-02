@@ -1,27 +1,30 @@
-.c-search__block {
-    width: 18%;
-    height: auto;
-    float: left;
-    border-radius: 3px;
-    overflow: hidden;
-    margin: 8px;
-}
+@import './src/assets/scss/helpers/_variables.scss';
+@import '~sass-mq/_mq.scss';
 
-.width100 {
-    width: 100% !important;
+.c-search__block {
+    width: 134px;
+    vertical-align: top;
+    display: inline-block;
+    margin-right: 8px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: auto;
+    }
 }
+.c-search__block:nth-child(even) {
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        margin-right: 0px;
+      }
+  }
 
 .p-8 {
     padding: 8px !important;
 }
 
 .c-searchspotfeed {
-    height: 134px;
-    width: 134px;
     overflow: hidden;
     border-radius: 3px;
     position: relative;
-    margin: 0 auto;
+    height: 134px;
 }
 
 .c-searchprofile__postimg {

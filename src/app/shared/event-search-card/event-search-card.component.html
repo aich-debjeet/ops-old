@@ -1,5 +1,4 @@
-<a class="db" [routerLink]="'/event/inner/' + eventDetails?.id">
-  <div class="c-search__block p-8 width100">
+<a class="db c-search__block" [routerLink]="'/event/inner/' + eventDetails?.id">
     <div class="c-searchspotfeed">
         <img [src]="baseUrl + eventDetails?.imagePath[0]" class="c-searchprofile__postimg">
         <span class="c-searchprofile__eventicon">
@@ -7,5 +6,4 @@
         </span>
     </div>
     <div class="c-searchevent__heading p-t-8 p-l-8">{{ (eventDetails?.title | firstCharCaps | truncate:[15, '...']) || "&nbsp;" }}</div>
-  </div>
 </a>
