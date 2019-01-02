@@ -72,6 +72,7 @@ import { WidgetCollaboratorsComponent } from './widget-collaborators/widget-coll
 import { CollaboratorCardComponent } from './collaborator-card/collaborator-card.component';
 import { AppearDirective } from './appear/appear.directive';
 import { MyStoryComponent } from './my-story/my-story.component';
+import { EventWidgetComponent } from './event-widget/event-widget.component';
 
 @NgModule({
   imports: [
@@ -141,7 +142,8 @@ import { MyStoryComponent } from './my-story/my-story.component';
     WidgetCollaboratorsComponent,
     CollaboratorCardComponent,
     AppearDirective,
-    MyStoryComponent
+    MyStoryComponent,
+    EventWidgetComponent
   ],
   exports: [
     OpportunityCardComponent,
@@ -189,7 +191,8 @@ import { MyStoryComponent } from './my-story/my-story.component';
     WidgetCollaboratorsComponent,
     CollaboratorCardComponent,
     AppearDirective,
-    MyStoryComponent
+    MyStoryComponent,
+    EventWidgetComponent
   ]
 })
 export class SharedModule { }
