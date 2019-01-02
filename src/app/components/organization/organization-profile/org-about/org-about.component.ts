@@ -137,7 +137,7 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
       if (this.orgProfile && this.orgProfile['profile_details'] && this.orgProfile['profile_details'].hasOwnProperty('handle')) {
         // console.log('not empty');
       } else {
-        this.router.navigateByUrl('/org/page/profile');
+        this.router.navigateByUrl('/org/page');
         return;
       }
       if (this.orgProfile && this.orgProfile['org_profile_update_success'] === true) {

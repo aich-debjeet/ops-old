@@ -98,7 +98,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
           if (state && state['org_registration_success'] && state['org_registration_success'] === true) {
             this.redirectedToCreatedOrg = true;
             this.changeProfile(this.userCards, null);
-            this.router.navigateByUrl('/org/page/profile');
+            this.router.navigateByUrl('/org/page');
             this.store.dispatch({ type: ProfileActions.ORG_REG_SUCCESS_RESET });
           }
         } else {
