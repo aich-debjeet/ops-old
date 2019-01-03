@@ -82,8 +82,8 @@
 // contentarea
 .o-org-content-block {
     background: #fff;
-    min-height: 800px;
     margin-top: -54px;
+    margin-bottom: 54px;
     padding: 56px 72px;
     @include mq($from: $mobile_sm, $until: $tablet) {
         width: 100%;
