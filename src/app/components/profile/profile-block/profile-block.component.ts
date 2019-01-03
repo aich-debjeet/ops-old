@@ -5,8 +5,6 @@ import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '../../../../environments/environment';
 import { OpportunityModel } from '../../../models/opportunity.model';
-import { EventActions } from '../../../actions/event.action';
-import { ToastrService } from 'ngx-toastr';
 import { Modal } from '../../../shared/modal-new/Modal';
 
 // action
@@ -20,9 +18,7 @@ import { ProfileHelper } from '../../../helpers/profile.helper';
 
 import { NguCarousel } from '@ngu/carousel';
 import { GeneralUtilities } from '../../../helpers/general.utils';
-import { EventModal } from '../../../models/event.model';
 import { OpportunityActions } from '../../../actions/opportunity.action';
-
 import { every as _every } from 'lodash';
 import { remove as _remove } from 'lodash';
 
@@ -35,10 +31,8 @@ import { remove as _remove } from 'lodash';
 export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
   opportunityState$: Observable<OpportunityModel>;
   tagState$: Observable<ProfileModal>;
-  eventStore$: Observable<EventModal>;
   private profSub: ISubscription;
   private oppSub: ISubscription;
-  private eveSub: ISubscription;
   userQuickAccess = initialTag;
   router: any;
   activeUser: string;
@@ -55,13 +49,7 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
   openChannel: boolean;
   pinListEmpty = true;
   opportunities: any[];
-  eventList: any;
   recordsPerPage = 2;
-  eventState: any;
-  eventsLoading = true;
-  storyList: any;
-  storyDetails: any;
-  getSto = true;
 
   @ViewChild('deleteModal') deleteModal: Modal;
 
@@ -72,7 +60,6 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
     private profileStore: Store<ProfileModal>,
     private _store: Store<any>,
     private generalUtils: GeneralUtilities,
-    private toastr: ToastrService,
   ) {
     this.router = _router;
     this.userId = '';
@@ -80,10 +67,8 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
 
     // Own Profile
     this.tagState$ = this.profileStore.select('profileTags');
-    this.eventStore$ = this._store.select('eventTags');
 
     this.profSub = this.tagState$.subscribe((state) => {
-      console.log('state', state);
       this.userQuickAccess = state;
       if (state && state['other_channel']) {
         this.pinListEmpty = _every(state['other_channel'], ['isPinned', true]);
@@ -117,38 +102,9 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
         this.opportunities = state['search_opportunities_result']['opportunityResponse'];
       }
     });
-    // this.eveSub = this.eventStore$.subscribe((state) => {
-    //   this.eventState = state;
-    //   if (state['event_list'] && state.event_loaded === true) {
-    //     this.eventList = state['event_list'];
-    //     this.eventsLoading = false;
-    //   }
-    // });
   }
 
   ngOnInit() {
-
-    // this.profileStore.select('profileTags')
-    //   .first(profile => profile['profile_user_info'])
-    //   .subscribe(datas => {
-    //     console.log(datas)
-    //     if (datas['profile_user_info'].isCurrentUser) {
-    //       this._store.dispatch({
-    //         type: EventActions.EVENT_SEARCH, payload: {
-    //           scrollId: '',
-    //           searchType: 'created',
-    //         }
-    //       });
-    //       return
-    //     }
-    //     this._store.dispatch({
-    //       type: EventActions.EVENT_SEARCH, payload: {
-    //         scrollId: '',
-    //         searchType: 'recommended',
-    //       }
-    //     });
-    //   });
-
     this.checkProfile();
     this.carouselOne = {
       grid: { xs: 3, sm: 3, md: 5, lg: 5, all: 0 },
@@ -201,7 +157,6 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy() {
     this.profSub.unsubscribe();
     this.oppSub.unsubscribe();
-    // this.eveSub.unsubscribe();
   }
 
   checkEmpty(obj: Object) {
@@ -255,14 +210,14 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
     this.openChannel = true;
   }
 
-  confirmation(eve) {
-    this.closeCancelApplicationModal();
-    if (eve === 'yes') {
-      this._store.dispatch({ type: ProfileActions.CHANNEL_DELETE, payload: this.storyDetails.channelId });
-      this.toastr.success('Your story has been deleted successfully!');
-    }
-  }
-  closeCancelApplicationModal() {
-    this.deleteModal.close();
-  }
+  // confirmation(eve) {
+  //   this.closeCancelApplicationModal();
+  //   if (eve === 'yes') {
+  //     this._store.dispatch({ type: ProfileActions.CHANNEL_DELETE, payload: this.storyDetails.channelId });
+  //     this.toastr.success('Your story has been deleted successfully!');
+  //   }
+  // }
+  // closeCancelApplicationModal() {
+  //   this.deleteModal.close();
+  // }
 }

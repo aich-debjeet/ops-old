@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges, SimpleChange } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, SimpleChange, OnDestroy } from '@angular/core';
 import { EventActions } from '../../actions/event.action';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../models/profile.model';
@@ -14,7 +14,7 @@ import { ISubscription } from 'rxjs/Subscription';
   templateUrl: './event-widget.component.html',
   styleUrls: ['./event-widget.component.scss']
 })
-export class EventWidgetComponent implements OnInit {
+export class EventWidgetComponent implements OnInit, OnDestroy {
 
   tagState$: Observable<ProfileModal>;
   eventStore$: Observable<EventModal>;
@@ -62,26 +62,9 @@ export class EventWidgetComponent implements OnInit {
  }
 
   ngOnInit() {
-    // this.profileStore.select('profileTags')
-    // .first(profile => profile['profile_user_info'])
-    // .subscribe(datas => {
-    //   console.log(datas)
-    //   if (datas['profile_user_info'].isCurrentUser) {
-    //     this._store.dispatch({
-    //       type: EventActions.EVENT_SEARCH, payload: {
-    //         scrollId: '',
-    //         searchType: 'created',
-    //       }
-    //     });
-    //     return
-    //   }
-    //   this._store.dispatch({
-    //     type: EventActions.EVENT_SEARCH, payload: {
-    //       scrollId: '',
-    //       searchType: 'recommended',
-    //     }
-    //   });
-    // });
+  }
+  ngOnDestroy() {
+    this.eveSub.unsubscribe();
   }
 
 }
