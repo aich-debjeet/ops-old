@@ -1,27 +1,19 @@
-import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
-import { AgmCoreModule, MapsAPILoader } from '@agm/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-import { Follow, Login } from '../../../models/auth.model';
-import { AuthActions } from '../../../actions/auth.action';
-import { ProfileActions } from '../../../actions/profile.action';
+import { Login } from '../../../models/auth.model';
 import { OrganizationActions } from '../../../actions/organization.action';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '../../../../environments/environment';
-import { ToastrService } from 'ngx-toastr';
-
-import { LocalStorageService } from '../../../services/local-storage.service';
-
 import { Store } from '@ngrx/store';
-import {} from '@types/googlemaps';
 import { UserCard } from 'app/models/profile.model';
+import { ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-organization-profile',
   templateUrl: './organization-profile.component.html',
   styleUrls: ['./organization-profile.component.scss']
 })
-export class OrganizationProfileComponent implements OnInit {
+export class OrganizationProfileComponent implements OnInit, OnDestroy {
 
   profileCard: UserCard;
   orgProfile: Observable<any>;
@@ -32,14 +24,10 @@ export class OrganizationProfileComponent implements OnInit {
   imageBaseLink: string = environment.API_IMAGE;
 
   // Org states
-  private sub: any;
-  private mode: string;
+  orgSub: ISubscription;
   isCurrentUser: boolean;
 
   constructor(
-    private mapsAPILoader: MapsAPILoader,
-    private toastr: ToastrService,
-    private ngZone: NgZone,
     private store: Store<Login>,
     public route: ActivatedRoute,
     private orgStore: Store<any>,
@@ -89,35 +77,30 @@ export class OrganizationProfileComponent implements OnInit {
     });
 
     // check for userhandles
-    this.sub = this.route.params
-    .subscribe(params => {
-      const orgParam = params['id'];
-      
-      // load org profile details if owned profile
-      if (this.router.url.includes('/org/')) {
-        // console.log('owned org profile');
-        // check if username available in local storage
-        const orgUsername = localStorage.getItem('profileUsername');
-        if (localStorage.getItem('profileType') !== undefined && localStorage.getItem('profileType') === 'organization' && orgUsername !== undefined && orgUsername.length > 0) {
-          // console.log('get org', orgUsername);
-          this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgUsername });
+    this.orgSub = this.route.params
+      .subscribe(params => {
+        const orgParam = params['id'];
+        console.log('orgParam', orgParam);
+        // load org profile details if owned profile
+        if (orgParam) {
+          this.isOtherProfile = true;
+          this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgParam });
+        } else {
+          this.isOtherProfile = false;
+          // check if username available in local storage
+          const orgUsername = localStorage.getItem('profileUsername');
+          if (localStorage.getItem('profileType') !== undefined && localStorage.getItem('profileType') === 'organization' && orgUsername !== undefined && orgUsername.length > 0) {
+            this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgUsername });
+          }
         }
-      }
+        console.log('this.isOtherProfile', this.isOtherProfile);
+      });
+  }
 
-      // if (orgParam !== undefined || orgParam !== 'undefined') {
-      //   this.isOtherProfile = false;
-      //   /**
-      //    * Load Organization Profile Details if handle present
-      //    */
-      //   if (this.profileCard && this.profileCard.username) {
-      //     this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: this.profileCard.username });
-      //   }
-      // }
-
-      // if (orgParam && orgParam.length > 0) {
-      //   this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgParam });
-      // }
-    });
+  ngOnDestroy() {
+    if (this.orgSub) {
+      this.orgSub.unsubscribe();
+    }
   }
 
 }

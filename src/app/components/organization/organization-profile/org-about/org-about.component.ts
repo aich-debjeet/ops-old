@@ -1,15 +1,13 @@
-import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { FormControl, AbstractControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 
 // maps
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 import {} from '@types/googlemaps';
 
 // action
-import { ProfileActions } from '../../../../actions/profile.action';
 import { OrganizationActions } from '../../../../actions/organization.action';
-import { SearchActions } from '../../../../actions/search.action';
 import { AuthActions } from '../../../../actions/auth.action';
 
 import { Observable } from 'rxjs/Observable';
@@ -20,17 +18,14 @@ import 'rxjs/add/operator/debounceTime';
 import { SearchModel } from 'app/models/search.model';
 import { environment } from './../../../../../environments/environment.prod';
 
-import { Organization, initialOrganization } from '../../../../models/organization.model';
+import { Organization } from '../../../../models/organization.model';
 import { UtcDatePipe } from './../../../../pipes/utcdate.pipe';
 import { DatePipe } from '@angular/common';
 
 import { LocalStorageService } from './../../../../services/local-storage.service';
 import { ToastrService } from 'ngx-toastr';
 
-import { initialTag, Follow } from '../../../../models/auth.model';
 import * as _ from 'lodash';
-
-import { Router, ActivatedRoute } from '@angular/router';
 import { GeneralUtilities } from '../../../../helpers/general.utils';
 
 @Component({
@@ -39,12 +34,11 @@ import { GeneralUtilities } from '../../../../helpers/general.utils';
   styleUrls: ['./org-about.component.scss'],
   providers: [ UtcDatePipe, DatePipe ]
 })
-export class OrgAboutComponent implements OnInit {
+export class OrgAboutComponent implements OnInit, OnDestroy {
 
   @ViewChild('searchInput') searchInput;
 
   orgState$: Observable<Organization>;
-  loginTagState$: Observable<any>;
   orgProfile;
   editingField: string;
   aboutIndustry: any;
@@ -61,15 +55,6 @@ export class OrgAboutComponent implements OnInit {
   // services: any[];
   profileUsername = '';
   profileHandle = '';
-
-  searchState$: Observable<SearchModel>;
-  searchState: any;
-  isSearching = false;
-  showPreloader = false;
-  searchString: string;
-  people = [];
-  inviteSent: boolean;
-
   baseUrl = environment.API_IMAGE;
 
   // map vars
@@ -84,7 +69,7 @@ export class OrgAboutComponent implements OnInit {
   state: string;
   postalCode: string;
   city: string;
-  // searchLocation: String;
+  orgSub: Subscription;
 
   @ViewChild('searchLocation') searchLocation;
 
@@ -95,8 +80,6 @@ export class OrgAboutComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private toastr: ToastrService,
     private datePipe: DatePipe,
-    private searchStore: Store<SearchModel>,
-    private router: Router,
     private gUtils: GeneralUtilities
   ) {
 
@@ -115,14 +98,8 @@ export class OrgAboutComponent implements OnInit {
 
     /* org state */
     this.orgState$ = this.store.select('profileTags');
-    this.orgState$.subscribe((state) => {
+    this.orgSub = this.orgState$.subscribe((state) => {
       this.orgProfile = state;
-      if (this.orgProfile && this.orgProfile['profile_details'] && this.orgProfile['profile_details'].hasOwnProperty('handle')) {
-        // console.log('not empty');
-      } else {
-        this.router.navigateByUrl('/org/page');
-        return;
-      }
       if (this.orgProfile && this.orgProfile['org_profile_update_success'] === true) {
         this.orgProfile.org_profile_update_success = false;
         if (this.orgProfile && this.orgProfile['profile_navigation_details']['isOrganization'] === true) {
@@ -168,26 +145,8 @@ export class OrgAboutComponent implements OnInit {
       if (this.gUtils.checkNestedKey(this.orgProfile, ['profile_details', 'extra', 'address', 'line1'])) {
         this.aboutAddress = this.orgProfile['profile_details']['extra']['address']['line1'];
       }
-      // check for invite status
-      if (this.gUtils.checkNestedKey(this.orgProfile, ['invite_sent']) && this.orgProfile['invite_sent'] === true && this.inviteSent === true) {
-        this.toastr.success('Invite sent successfully', '', {
-          timeOut: 3000
-        });
-        this.inviteSent = false;
-        const invitedUserHandle = this.orgProfile['org_invite_req_data'].userHandle;
-        // remove user from the list
-        this.people = _.filter(this.people, function(person) { return person.handle !== invitedUserHandle; });
-      }
     });
     /* org state */
-
-    this.loginTagState$ = store.select('loginTags');
-    this.loginTagState$.subscribe((state) => {
-      this.forIndustries = state;
-    });
-
-    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES});
-
   }
 
   ngOnInit() {
@@ -305,24 +264,6 @@ export class OrgAboutComponent implements OnInit {
   }
 
   /**
-   * Sending an invitation to the person
-   */
-  sendInvitation(person: any) {
-    // get org handle
-    const orgHandle = localStorage.getItem('profileHandle');
-
-    this.inviteSent = true;
-
-    this.store.dispatch({
-      type: OrganizationActions.INVITE_MEMBER,
-      payload: {
-        userHandle: person.handle,
-        orgHandle: orgHandle
-      }
-    });
-  }
-
-  /**
    * Location find from google
    */
   getLocationGoogle() {
@@ -398,6 +339,10 @@ export class OrgAboutComponent implements OnInit {
         this.zoom = 12;
       });
     }
+  }
+
+  ngOnDestroy() {
+    this.orgSub.unsubscribe();
   }
 
 }
