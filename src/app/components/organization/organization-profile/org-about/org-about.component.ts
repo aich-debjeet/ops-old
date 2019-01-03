@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FormControl, AbstractControl } from '@angular/forms';
 
@@ -39,7 +39,7 @@ import { GeneralUtilities } from '../../../../helpers/general.utils';
   styleUrls: ['./org-about.component.scss'],
   providers: [ UtcDatePipe, DatePipe ]
 })
-export class OrgAboutComponent implements OnInit, AfterViewInit {
+export class OrgAboutComponent implements OnInit {
 
   @ViewChild('searchInput') searchInput;
 
@@ -100,21 +100,6 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
     private gUtils: GeneralUtilities
   ) {
 
-    /* member search */
-    // this.searchState$ = this.searchStore.select('searchTags');
-    // // observe the store value
-    // this.searchState$.subscribe((state) => {
-    //   this.searchState = state;
-    //   if (state && state.searching_people === false) {
-    //     this.isSearching = false;
-    //     this.showPreloader = false;
-    //   }
-    //   if (state && state.search_people_data) {
-    //     this.people = state.search_people_data;
-    //   }
-    // });
-    /* member search */
-
     // check if creator is user or organization
     if (localStorage.getItem('active_profile') !== null) {
       const localStore = JSON.parse(this.localStorageService.theAccountStatus);
@@ -132,8 +117,6 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
     this.orgState$ = this.store.select('profileTags');
     this.orgState$.subscribe((state) => {
       this.orgProfile = state;
-      // console.log('this.orgProfile', this.orgProfile);
-      // redirect home if profile details are unavailable
       if (this.orgProfile && this.orgProfile['profile_details'] && this.orgProfile['profile_details'].hasOwnProperty('handle')) {
         // console.log('not empty');
       } else {
@@ -209,19 +192,6 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.getLocationGoogle();
-
-    // console.log('this.router.url', this.router.url);
-
-    // // load org profile details if owned profile
-    // if (this.router.url.includes('/org/')) {
-    //   console.log('owned org profile');
-    //   // check if username available in local storage
-    //   const orgUsername = localStorage.getItem('profileUsername');
-    //   if (localStorage.getItem('profileType') !== undefined && localStorage.getItem('profileType') === 'organization' && orgUsername !== undefined && orgUsername.length > 0) {
-    //     // console.log('get org', orgUsername);
-    //     this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgUsername });
-    //   }
-    // }
   }
 
   /**
@@ -332,34 +302,6 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
    */
   reverseDate(string) {
     return string.split('-').reverse().join('-');
-  }
-
-  ngAfterViewInit() {
-    /**
-     * Observing the search input change
-     */
-    this.searchInput.valueChanges
-    .debounceTime(500)
-    .subscribe(() => {
-
-      this.searchString = this.searchInput.value;
-
-      // search if string is available
-      if (this.searchString && this.searchString.length > 0) {
-        this.isSearching = true;
-
-        const searchParams = {
-          query: this.searchString,
-          offset: 0,
-          limit: 20
-        }
-
-        // search people
-        // this.searchStore.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchParams });
-      }
-
-    });
-
   }
 
   /**
