@@ -117,37 +117,37 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
         this.opportunities = state['search_opportunities_result']['opportunityResponse'];
       }
     });
-    this.eveSub = this.eventStore$.subscribe((state) => {
-      this.eventState = state;
-      if (state['event_list'] && state.event_loaded === true) {
-        this.eventList = state['event_list'];
-        this.eventsLoading = false;
-      }
-    });
+    // this.eveSub = this.eventStore$.subscribe((state) => {
+    //   this.eventState = state;
+    //   if (state['event_list'] && state.event_loaded === true) {
+    //     this.eventList = state['event_list'];
+    //     this.eventsLoading = false;
+    //   }
+    // });
   }
 
   ngOnInit() {
 
-    this.profileStore.select('profileTags')
-      .first(profile => profile['profile_user_info'])
-      .subscribe(datas => {
-        console.log(datas)
-        if (datas['profile_user_info'].isCurrentUser) {
-          this._store.dispatch({
-            type: EventActions.EVENT_SEARCH, payload: {
-              scrollId: '',
-              searchType: 'created',
-            }
-          });
-          return
-        }
-        this._store.dispatch({
-          type: EventActions.EVENT_SEARCH, payload: {
-            scrollId: '',
-            searchType: 'recommended',
-          }
-        });
-      });
+    // this.profileStore.select('profileTags')
+    //   .first(profile => profile['profile_user_info'])
+    //   .subscribe(datas => {
+    //     console.log(datas)
+    //     if (datas['profile_user_info'].isCurrentUser) {
+    //       this._store.dispatch({
+    //         type: EventActions.EVENT_SEARCH, payload: {
+    //           scrollId: '',
+    //           searchType: 'created',
+    //         }
+    //       });
+    //       return
+    //     }
+    //     this._store.dispatch({
+    //       type: EventActions.EVENT_SEARCH, payload: {
+    //         scrollId: '',
+    //         searchType: 'recommended',
+    //       }
+    //     });
+    //   });
 
     this.checkProfile();
     this.carouselOne = {
@@ -201,7 +201,7 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy() {
     this.profSub.unsubscribe();
     this.oppSub.unsubscribe();
-    this.eveSub.unsubscribe();
+    // this.eveSub.unsubscribe();
   }
 
   checkEmpty(obj: Object) {

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, SimpleChange } from '@angular/core';
 import { EventActions } from '../../actions/event.action';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../models/profile.model';
 import { EventModal } from '../../models/event.model';
+import { environment } from 'environments/environment';
 
 // rx
 import { Observable } from 'rxjs/Observable';
@@ -21,6 +22,9 @@ export class EventWidgetComponent implements OnInit {
   eventState: any;
   eventList: any;
   eventsLoading = true;
+  baseUrl = environment.API_IMAGE;
+
+  @Input() currentUser: boolean;
 
   constructor(
     private _store: Store<any>,
@@ -36,27 +40,48 @@ export class EventWidgetComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.profileStore.select('profileTags')
-    .first(profile => profile['profile_user_info'])
-    .subscribe(datas => {
-      console.log(datas)
-      if (datas['profile_user_info'].isCurrentUser) {
+  ngOnChanges(changes: SimpleChanges) {
+    const isUser: SimpleChange = changes.currentUser;
+    if(isUser.currentValue !== undefined){
+      if(!isUser.currentValue){
+        this._store.dispatch({
+          type: EventActions.EVENT_SEARCH, payload: {
+            scrollId: '',
+            searchType: 'recommended',
+          }
+         });
+      } else {
         this._store.dispatch({
           type: EventActions.EVENT_SEARCH, payload: {
             scrollId: '',
             searchType: 'created',
           }
-        });
-        return
+         });
       }
-      this._store.dispatch({
-        type: EventActions.EVENT_SEARCH, payload: {
-          scrollId: '',
-          searchType: 'recommended',
-        }
-      });
-    });
+    }
+ }
+
+  ngOnInit() {
+    // this.profileStore.select('profileTags')
+    // .first(profile => profile['profile_user_info'])
+    // .subscribe(datas => {
+    //   console.log(datas)
+    //   if (datas['profile_user_info'].isCurrentUser) {
+    //     this._store.dispatch({
+    //       type: EventActions.EVENT_SEARCH, payload: {
+    //         scrollId: '',
+    //         searchType: 'created',
+    //       }
+    //     });
+    //     return
+    //   }
+    //   this._store.dispatch({
+    //     type: EventActions.EVENT_SEARCH, payload: {
+    //       scrollId: '',
+    //       searchType: 'recommended',
+    //     }
+    //   });
+    // });
   }
 
 }
