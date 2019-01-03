@@ -33,23 +33,28 @@
         <div class="o-org-reg-block">
           <form [formGroup]="orgReg" novalidate (ngSubmit) = "submitForm(orgReg.value)"  #orgForm="ngForm">
             <div class="c-form__group">
-              <input class="c-form__input" required="" type="text" formControlName="org_name">
+              <input class="c-form__input" required="" type="text" formControlName="org_name" placeholder="Name of organisation">
               <span class="c-form__highlight"></span>
               <span class="c-form__bar"></span>
-              <label>Name of organisation</label>
+              <!-- <label>Name of organisation</label> -->
               <p class="c-form__validation" *ngIf="orgReg.controls['org_name'].errors?.required && orgForm.submitted">Name of organisation is required</p>
             </div>
             <div class="c-form__group">
-              <input class="c-form__input" required="" type="text" formControlName="org_username">
+              <input class="c-form__input" required="" type="text" formControlName="org_username" placeholder="Username">
               <span class="c-form__highlight"></span>
               <span class="c-form__bar"></span>
-              <label>Username</label>
+              <!-- <label>Username</label> -->
               <p class="c-form__validation" *ngIf="orgReg.controls['org_username'].errors?.whitespace || orgReg.controls['org_username'].errors?.capitalLetters || orgReg.controls['org_username'].errors?.specialChars">Capital letters, spaces and special characters are not allowed</p>
               <!-- <p class="c-form__validation" *ngIf="orgReg.controls['org_username'].errors?.whitespace">White spaces are not allowed</p>
               <p class="c-form__validation" *ngIf="orgReg.controls['org_username'].errors?.capitalLetters">Capital letters are not allowed</p> -->
               <p class="c-form__validation" *ngIf="orgReg.controls['org_username'].errors?.required && orgForm.submitted">Username is required</p>
-              <p class="c-form__validation" *ngIf="orgReg.controls['org_username'].errors?.isUsernameUnique">This username is already taken</p>
+              <p class="c-form__validation" *ngIf="orgReg.controls['org_username'].errors?.isUsernameUnique || orgState?.user_unique">This username is already taken</p>
               <p class="c-form__validation" *ngIf="orgReg.controls['org_username'].errors?.invalidLength">Username length limit is 3 to 15 characters</p>
+              <ul class="username_error" *ngIf="orgState?.user_unique">
+                <!-- <li *ngFor="let username of orgState?.user_exist; let isLast=last">
+                  <span title="{{username}}" class="suggestions" (click)="useThisUsername(username)">{{username}}{{isLast ? '' : ',&nbsp;'}}</span>
+                </li> -->
+              </ul>
             </div>
             <h6 class="c-text_md o-org--type">Choose organisation type</h6>
             <div class="o-org-reg__choose">
@@ -74,7 +79,7 @@
               <p class="c-form__validation" *ngIf="orgReg.controls['org_type'].errors?.required && orgForm.submitted">Type of organisation is required</p>
             </div>
             <h6 class="c-text_md o-org--type">Select organisation industry</h6>
-            <div class="c-form__group margin_b_32">
+            <div class="c-form__group margin_b_32 m-t-0">
               <select class="c-form-control p-0" formControlName="org_industry_type">
                   <option *ngFor="let industry of industries" [value]="industry.code" >{{ industry.name }}</option>
               </select>

@@ -1559,7 +1559,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
       });
     case OrganizationActions.ORGANIZATION_REGISTRATION_SUCCESS:
       return Object.assign({}, state, {
-        org_registration_success: true
+        org_registration_success: true,
+        org_registration_response: payload['SUCCESS']
       });
     case OrganizationActions.ORGANIZATION_REGISTRATION_FAILED:
       return Object.assign({}, state, {

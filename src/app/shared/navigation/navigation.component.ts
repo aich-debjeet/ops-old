@@ -84,27 +84,26 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.profSub = this.profileState$.subscribe((state) => {
       this.activeProfileState = state;
       this.userCards = this.activeProfileState['profile_cards'];
-      if (this.userCards
-        && this.userCards['other']
-        && this.userCards['other']['username']
-        && this.userCards['active']
-        && this.userCards['active']['username']
-        && this.userCards['other']['username'] === this.userCards['active']['username']
-      ) {
-        this.showCreateOrg = true;
-      } else {
-        // if org just cerated switch the profile and redirect to the org profile
-        if (!this.redirectedToCreatedOrg) {
-          if (state && state['org_registration_success'] && state['org_registration_success'] === true) {
-            this.redirectedToCreatedOrg = true;
-            this.changeProfile(this.userCards, null);
-            this.router.navigateByUrl('/org/page');
-            this.store.dispatch({ type: ProfileActions.ORG_REG_SUCCESS_RESET });
-          }
-        } else {
-          // console.log('not yet switching');
-        }
-      }
+      // if (this.userCards
+      //   && this.userCards['other']
+      //   && this.userCards['other']['username']
+      //   && this.userCards['active']
+      //   && this.userCards['active']['username']
+      //   && this.userCards['other']['username'] === this.userCards['active']['username']
+      // ) {
+      //   this.showCreateOrg = true;
+      // } else {
+      //   // if org just cerated switch the profile and redirect to the org profile
+      //   if (!this.redirectedToCreatedOrg) {
+      //     if (state && state['org_registration_success'] && state['org_registration_success'] === true) {
+      //       this.redirectedToCreatedOrg = true;
+      //       // this.changeProfile(this.userCards, null);
+      //       this.router.navigateByUrl('/org/p/' + state['org_registration_response']['extras']['username']);
+      //     }
+      //   } else {
+      //     // console.log('not yet switching');
+      //   }
+      // }
     });
 
     // if logged in user then get details

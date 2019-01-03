@@ -4,17 +4,18 @@ import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { Follow, Login } from '../../../models/auth.model';
+import { Login, BasicOrgTag } from '../../../models/auth.model';
 import { AuthActions } from '../../../actions/auth.action';
 import { ProfileActions } from '../../../actions/profile.action';
 import { OrganizationActions } from '../../../actions/organization.action';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../../environments/environment';
 
 import { Store } from '@ngrx/store';
 import {} from '@types/googlemaps';
 import * as _ from 'lodash';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
   selector: 'app-organization-reg',
@@ -30,8 +31,8 @@ export class OrganizationRegComponent implements OnInit {
   public longitude: number;
   public searchControl: FormControl;
   public zoom: number;
-  tagState$: Observable<Follow>;
-  skillSelectionPage: any;
+  tagState$: Observable<BasicOrgTag>;
+  orgState: any;
   imageBaseLink: string = environment.API_IMAGE;
   org_service: any;
 
@@ -52,7 +53,6 @@ export class OrganizationRegComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private databaseValidator: DatabaseValidator,
     private mapsAPILoader: MapsAPILoader,
     private toastr: ToastrService,
     private router: Router,
@@ -65,9 +65,11 @@ export class OrganizationRegComponent implements OnInit {
 
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
-      this.skillSelectionPage = state;
-      if (state && state.industries) {
-        this.industries = state.industries;
+      this.orgState = state;
+      if (state) {
+        if (state.industries) {
+          this.industries = state.industries;
+        }
       }
     });
 
@@ -100,15 +102,22 @@ export class OrganizationRegComponent implements OnInit {
         FormValidation.noWhitespaceValidator,
         FormValidation.usernameLengthValidator,
         FormValidation.noSpecialCharsValidator,
-        FormValidation.noCapitalLettersValidator
-      ],
-        this.databaseValidator.userNameValidation.bind(this.databaseValidator)
-      ],
+        FormValidation.noCapitalLettersValidator,
+        // this.userNameValidation.bind(this)
+        this.userExistCheck.bind(this)
+      ]],
       'org_type': ['', Validators.required],
       'org_industry_type': ['', Validators.required],
       'org_location': ['', Validators.required],
       'org_service': ['', Validators.required]
     })
+  }
+
+  // user user exists
+  userExistCheck(control: AbstractControl) {
+    if (control.value.length >= 3) {
+      this.store.dispatch({ type: AuthActions.USER_EXISTS_CHECK, payload: control.value });
+    }
   }
 
   private setCurrentPosition() {
