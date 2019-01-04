@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-profile-cover',
@@ -6,6 +7,7 @@ import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./profile-cover.component.scss']
 })
 export class ProfileCoverComponent implements OnInit {
+  baseUrl = environment.API_IMAGE;
 
   @Input() coverImage: string;
   @Input() showPreloader = false;

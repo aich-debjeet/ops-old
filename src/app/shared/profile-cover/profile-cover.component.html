@@ -1,10 +1,10 @@
-<app-modal [modalTitle]="'Change Cover Image'" [closeHidden]="true" (onClose)="isClosed($event)" [blocking]='false'
+<app-modal [modalTitle]="'Change Cover Image'" [closeHidden]="true" (onClose)="cancelUpdate()" [blocking]='false'
   [open]="true" modalId='ChangeCoverImage' class="media__modal">
   <div id="cover-upload">
     <div class="modal-content o-cover-upload">
       <div class="o-cover-upload__head">
         <h2 class="o-cover-head--heading">Cover Image</h2>
-        <span class="search_close" (click)="isClosed($event)">
+        <span class="search_close" (click)="cancelUpdate()">
           <img [src]="baseUrl + 'img/svg/ico_close-38.svg'" alt="">
         </span>
       </div>

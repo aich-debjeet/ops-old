@@ -21,7 +21,6 @@ import { Subscription } from 'rxjs/Subscription';
 export class AboutCoverComponent implements OnInit, OnDestroy {
   tagState$: Observable<ProfileModal>;
   stateProfile = initialTag;
-  changingImage: boolean;
   baseUrl: string;
   profSub: Subscription;
   coverImage: string;
@@ -63,7 +62,6 @@ export class AboutCoverComponent implements OnInit, OnDestroy {
         image: imgData.split((/,(.+)/)[1])
       };
       this._store.dispatch({ type: ProfileActions.PROFILE_COVER_UPDATE, payload: imageData });
-      this.changingImage = false;
       this._store.select('profileTags')
         .first(state => state['cover_img_upload_success'] === true)
         .subscribe(() => {
@@ -85,7 +83,7 @@ export class AboutCoverComponent implements OnInit, OnDestroy {
   }
 
   // go back to the page
-  isClosed(event: any) {
+  isClosed(event?: any) {
     this._location.back();
   }
 }

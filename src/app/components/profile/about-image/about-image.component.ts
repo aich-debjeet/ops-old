@@ -82,7 +82,7 @@ export class AboutImageComponent implements OnInit, OnDestroy {
   }
 
   // go back to the page
-  isClosed(e: any) {
+  isClosed(event?: any) {
     this._location.back();
   }
 

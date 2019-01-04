@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-profile-image',
@@ -6,6 +7,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./profile-image.component.scss']
 })
 export class ProfileImageComponent implements OnInit {
+  baseUrl = environment.API_IMAGE;
 
   @Input() profileImage: string;
   @Input() showPreloader = false;
