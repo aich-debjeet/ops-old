@@ -12,9 +12,9 @@
         </div>
       </div>
       <div class="o-hero__content-container">
-        <h2 class="c-h2 o-hero-content__title">Lorem ipsum dolor</h2>
+        <h2 class="c-h2 o-hero-content__title">Create an organisation</h2>
         <p class="c-text_md-light o-hero-content__det">
-          Internal motivation in performing a task occurs when the task in itself is experienced as rewarding and there is no need for any external reward before it is performed. Examples are love of the task, self-satisfaction, sense of achievement and relaxation.
+          Connect your organisation to the One Page Spotlight community. Highlight your brand. Exhibit your products and services. Reach out to a wide customer pool.
         </p>
       </div>
     </div>
@@ -29,32 +29,38 @@
 <section class="o-org-container">
   <div class="container">
       <div class="col-md-8 col-md-offset-2 o-org-content-block">
-        <h3 class="c-h3 o-org__create-head">Create Organisation</h3>
+        <h3 class="c-h3 o-org__create-head">Create an organisation</h3>
         <div class="o-org-reg-block">
           <form [formGroup]="orgReg" novalidate (ngSubmit) = "submitForm(orgReg.value)"  #orgForm="ngForm">
             <div class="c-form__group">
-              <input class="c-form__input" required="" type="text" formControlName="org_name">
+              <input class="c-form__input" required="" type="text" formControlName="org_name" placeholder="Name of the organisation">
               <span class="c-form__highlight"></span>
               <span class="c-form__bar"></span>
-              <label>Name of organisation</label>
-              <p class="c-form__validation" *ngIf="orgReg.controls['org_name'].errors?.required && orgForm.submitted">Name of organisation is required</p>
+              <!-- <label>Name of the organisation</label> -->
+              <p class="c-form__validation" *ngIf="orgReg.controls['org_name'].errors?.required && orgForm.submitted">Name of the organisation is required</p>
             </div>
             <div class="c-form__group">
-              <input class="c-form__input" required="" type="text" formControlName="org_username">
+              <input class="c-form__input" required="" type="text" formControlName="org_username" placeholder="Username">
               <span class="c-form__highlight"></span>
               <span class="c-form__bar"></span>
-              <label>Username</label>
+              <!-- <label>Username</label> -->
               <p class="c-form__validation" *ngIf="orgReg.controls['org_username'].errors?.whitespace || orgReg.controls['org_username'].errors?.capitalLetters || orgReg.controls['org_username'].errors?.specialChars">Capital letters, spaces and special characters are not allowed</p>
               <!-- <p class="c-form__validation" *ngIf="orgReg.controls['org_username'].errors?.whitespace">White spaces are not allowed</p>
               <p class="c-form__validation" *ngIf="orgReg.controls['org_username'].errors?.capitalLetters">Capital letters are not allowed</p> -->
               <p class="c-form__validation" *ngIf="orgReg.controls['org_username'].errors?.required && orgForm.submitted">Username is required</p>
-              <p class="c-form__validation" *ngIf="orgReg.controls['org_username'].errors?.isUsernameUnique">This username is already taken</p>
+              <p class="c-form__validation" *ngIf="orgReg.controls['org_username'].errors?.isUsernameUnique || orgState?.user_unique">This username is already taken</p>
               <p class="c-form__validation" *ngIf="orgReg.controls['org_username'].errors?.invalidLength">Username length limit is 3 to 15 characters</p>
+              <ul class="username_error" *ngIf="orgState?.user_unique">
+                <!-- <li *ngFor="let username of orgState?.user_exist; let isLast=last">
+                  <span title="{{username}}" class="suggestions" (click)="useThisUsername(username)">{{username}}{{isLast ? '' : ',&nbsp;'}}</span>
+                </li> -->
+              </ul>
             </div>
-            <h6 class="c-text_md o-org--type">Choose organisation type</h6>
+            <h6 class="c-text_md o-org--type">Select organisation type</h6>
             <div class="o-org-reg__choose">
               <select class="c-form-control p-0" formControlName="org_type">
-                <option [selected]="true" value="Education - University /  Academy /  School / College" >Education - University /  Academy /  School / College</option>
+                <option value="">Select</option>
+                <option value="Education - University /  Academy /  School / College" >Education - University /  Academy /  School / College</option>
                 <option value="Non Profit / Foundation">Non Profit / Foundation</option>
                 <option value="Museum / Gallery / Libraries">Museum / Gallery / Libraries</option>
                 <option value="Theatre / Venue / Stadium">Theatre / Venue / Stadium</option>
@@ -73,16 +79,17 @@
               </select>
               <p class="c-form__validation" *ngIf="orgReg.controls['org_type'].errors?.required && orgForm.submitted">Type of organisation is required</p>
             </div>
-            <h6 class="c-text_md o-org--type">Select organisation industry</h6>
-            <div class="c-form__group margin_b_32">
+            <h6 class="c-text_md o-org--type">Select organisation type</h6>
+            <div class="c-form__group margin_b_32 m-t-0">
               <select class="c-form-control p-0" formControlName="org_industry_type">
+                  <option value="">Select</option>
                   <option *ngFor="let industry of industries" [value]="industry.code" >{{ industry.name }}</option>
               </select>
               <!-- <label>Select organisation industry</label> -->
               <p class="c-form__validation" *ngIf="orgReg.controls['org_industry_type'].errors?.required && orgForm.submitted">Type of industry is required</p>
             </div>
             <div class="c-form__group margin_b_32">
-              <input class="c-form__input" required="" type="text" formControlName="org_service" [placeholder]="'Add Services'">
+              <input class="c-form__input" required="" type="text" formControlName="org_service" [placeholder]="'Add services'">
               <!-- <tag-input formControlName="org_service" [placeholder]="'Add Services'"></tag-input> -->
               <span class="c-form__highlight"></span>
               <span class="c-form__bar"></span>
@@ -91,10 +98,10 @@
               <p class="c-form__validation" *ngIf="orgReg.controls['org_service'].errors?.required && orgForm.submitted">Services are required</p>
             </div>
             <div class="c-form__group margin_b_32">
-              <input class="c-form__input" required="" placeholder="" type="text" autocorrect="off" autocapitalize="off" spellcheck="off" #search formControlName="org_location">
+              <input class="c-form__input" required="" placeholder="Location" type="text" autocorrect="off" autocapitalize="off" spellcheck="off" #search formControlName="org_location">
               <span class="c-form__highlight"></span>
               <span class="c-form__bar"></span>
-              <label>Location</label>
+              <!-- <label>Location</label> -->
               <p class="c-form__validation" *ngIf="orgReg.controls['org_location'].errors?.required && orgForm.submitted">Location is required</p>
             </div>
             <div class="create-btn">

@@ -14,6 +14,7 @@ import { GeneralUtilities } from '../../helpers/general.utils';
 import { PusherService } from '../../services/pusher.service';
 import { MessageActions } from '../../actions/message.action';
 import { MessageModal } from '../../models/message.model';
+import { OrganizationActions } from 'app/actions/organization.action';
 
 @Component({
   selector: 'app-navigation',
@@ -65,7 +66,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
     public modalService: ModalService,
     public generalHelper: GeneralUtilities,
     private router: Router,
-    private pusherService: PusherService
+    private pusherService: PusherService,
+    private gUtils: GeneralUtilities
   ) {
 
     this.topNav = {
@@ -84,11 +86,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.profSub = this.profileState$.subscribe((state) => {
       this.activeProfileState = state;
       this.userCards = this.activeProfileState['profile_cards'];
-      if (this.userCards
-        && this.userCards['other']
-        && this.userCards['other']['username']
-        && this.userCards['active']
-        && this.userCards['active']['username']
+      if (this.gUtils.checkNestedKey(this.userCards, ['other', 'username'])
+        && this.gUtils.checkNestedKey(this.userCards, ['active', 'username'])
         && this.userCards['other']['username'] === this.userCards['active']['username']
       ) {
         this.showCreateOrg = true;
@@ -97,9 +96,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
         if (!this.redirectedToCreatedOrg) {
           if (state && state['org_registration_success'] && state['org_registration_success'] === true) {
             this.redirectedToCreatedOrg = true;
-            this.changeProfile(this.userCards, null);
-            this.router.navigateByUrl('/org/page/profile');
-            this.store.dispatch({ type: ProfileActions.ORG_REG_SUCCESS_RESET });
+            // this.changeProfile(this.userCards, null);
+            this.router.navigateByUrl('/org/page');
           }
         } else {
           // console.log('not yet switching');
@@ -323,6 +321,14 @@ export class NavigationComponent implements OnInit, OnDestroy {
   changeProfile(user_cards: any, e: MouseEvent) {
     this.store.dispatch({ type: ProfileActions.CHANGE_PROFILE, payload: user_cards });
     return false;
+  }
+
+  /**
+   * Load org
+   */
+  loadOrg() {
+    this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: this.userCards.other.username });
+    this.router.navigateByUrl('/org/page');
   }
 
   /* =================================== notification =================================== */

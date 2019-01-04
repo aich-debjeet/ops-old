@@ -682,6 +682,9 @@ button.sb-wrapper.sb-facebook {
 .f0 {
   font-size: 0px;
 }
+.pt50 {
+	padding-top: 50px;
+}
 .bg-red {
 	background-color: red;
 }
@@ -716,6 +719,34 @@ ul > li {
 .sticky {position: sticky;}
 .fixed {position: fixed;}
 
+.right-0 {
+  right: 0px;
+}
+.left-auto {
+  left: auto;
+}
+.left-0 {
+  left: 0px;
+}
+.top-left{top: 0; left: 0;}
+.top-right{top: 0; right: 0;}
+.btm-right{bottom: 0; right: 0;}
+.btm-left{bottom: 0; left: 0;}
+.center-middle, .centermiddle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.left-middle, .leftmiddle {
+  top: 50%;
+  left: 0px;
+  transform: translate(0%, -50%);
+}
+.right-middle {
+  top: 50%;
+  right: 0px;
+  transform: translate(0%, -50%);
+}
 // background-image styles
 .bg-img {
   background-size: cover;
@@ -777,6 +808,7 @@ ul > li {
 }
 .space-btw {
 	justify-content: space-between;
+	-webkit-box-pack: space-between;
 	-ms-justify-content: space-between;
 	-webkit-justify-content: space-between;
 }
@@ -805,6 +837,11 @@ ul > li {
   position: sticky;
   position: -webkit-sticky;
 }
+.stick-to-viewport {
+	@media only screen and (max-height: 768px) {
+		top: calc(100vh - 125vh);
+	}
+}
 .column-container {
   display: flex;
   display: -webkit-flex;
@@ -829,6 +866,7 @@ ul > li {
   width: 100%;
   -webkit-flex: 1;
   max-width: 285px;
+  min-width: 285px;
   margin-left: 15px;
 }
 .m-pad-v-15 {
@@ -846,6 +884,7 @@ ul > li {
     width: 100%;
     -ms-flex: auto;
     max-width: 100%;
+    min-width: auto;
     margin-left: 0px;
     -webkit-flex: auto;
   }

@@ -3,7 +3,6 @@ import { Location } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { ModalService } from '../../../shared/modal/modal.component.service';
-import { TokenService } from '../../../helpers/token.service';
 
 import { ProfileActions } from '../../../actions/profile.action';
 import { environment } from '../../../../environments/environment';
@@ -13,74 +12,50 @@ import { GeneralUtilities } from '../../../helpers/general.utils';
 @Component({
   selector: 'app-about-image',
   templateUrl: './about-image.component.html',
-  providers: [ModalService],
-  styleUrls: ['./about-image.component.scss']
+  providers: [ModalService]
 })
 
 export class AboutImageComponent implements OnInit, OnDestroy {
   tagState$: Observable<ProfileModal>;
   stateProfile = initialTag;
-  data: any;
-  changingImage: boolean;
-  baseUrl: string;
+  baseUrl = environment.API_IMAGE;
 
-  imageChangedEvent = '';
-  croppedImage = '';
-  hidePreview = false;
-  disableSave = true;
   profSub: Subscription;
+  profileImage: string;
 
   constructor(
-    public tokenService: TokenService,
     private _location: Location,
     private _store: Store<ProfileModal>,
     private gUtils: GeneralUtilities
   ) {
-
     this.tagState$ = this._store.select('profileTags');
     this.profSub = this.tagState$.subscribe((state) => {
       this.stateProfile = state;
+      if (this.gUtils.checkNestedKey(this.stateProfile, ['profile_navigation_details', 'profileImage']) && this.stateProfile.profile_navigation_details.profileImage !== '') {
+        this.profileImage = this.baseUrl + this.stateProfile.profile_details.profileImage;
+      } else {
+        this.profileImage = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
+      }
     });
-
-    this.baseUrl = environment.API_IMAGE;
-    this.changingImage = false;
   }
 
-  ngOnInit() {
-    this.tagState$
-      .first(profile => this.stateProfile.profile_navigation_details.profileImage)
-      .subscribe(() => {
-        this.loadImage();
-      });
-  }
+  ngOnInit() { }
 
   ngOnDestroy() {
     this.profSub.unsubscribe();
   }
 
-  loadImage() {
-    let profileImageURL;
-    if (this.gUtils.checkNestedKey(this.stateProfile, ['profile_navigation_details', 'profileImage']) && this.stateProfile.profile_navigation_details.profileImage !== '') {
-      profileImageURL = this.baseUrl + this.stateProfile.profile_details.profileImage;
-    } else {
-      profileImageURL = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
-    }
-    this.croppedImage = profileImageURL;
-  }
-
   /**
    * Attach image url to Profile
    */
-  saveImageClick() {
+  saveImageClick(imgData) {
     const userHandle = this.stateProfile.profile_navigation_details.handle || '';
-    if (this.croppedImage && userHandle !== '') {
+    if (imgData && userHandle !== '') {
       const imageData = {
         handle: userHandle,
-        image: this.croppedImage.split((/,(.+)/)[1])
+        image: imgData.split((/,(.+)/)[1])
       };
-      this.disableSave = true;
       this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_IMAGE, payload: imageData });
-      this.changingImage = false;
       this._store.select('profileTags')
         .first(state => state['profile_img_upload_loaded'] === true)
         .subscribe(() => {
@@ -90,23 +65,8 @@ export class AboutImageComponent implements OnInit, OnDestroy {
   }
 
   // go back to the page
-  isClosed(event: any) {
+  isClosed(event?: any) {
     this._location.back();
   }
-
-  // event to check for file selection
-  fileChangeEvent(event: any): void {
-    this.disableSave = false;
-    this.imageChangedEvent = event;
-  }
-
-  // event for image crop
-  imageCropped(image: string) {
-    this.croppedImage = image;
-    this.hidePreview = true;
-  }
-
-  // image loaded
-  imageLoaded() { }
 
 }

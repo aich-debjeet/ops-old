@@ -27,7 +27,6 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
   componentDestroyed$: Subject<boolean> = new Subject();
   baseUrl = environment.API_IMAGE;
   tagState$: Observable<ProfileModal>;
-  mediaState$: Observable<Media>;
   private profSub: ISubscription;
   userMedia = initialTag;
   mediaDetails = initialMedia;
@@ -56,7 +55,6 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
     private _store: Store<Media>
   ) {
     this.tagState$ = this._store.select('profileTags');
-    // this.mediaState$ = this._store.select('mediaStore');
     this.counter = 0;
     this.posts = [];
     this.profSub = this.tagState$.subscribe((state) => {
@@ -65,12 +63,6 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
       this.posts = this.userMedia.user_posts;
       this.setMediaViewportKey();
       this.post_scroll_id = this.userMedia.user_post_scrollId
-      if (state['user_profiles_all'] !== 'undefined') {
-        this.profiles = state.user_profiles_all;
-      }
-      if (state.people_follow_scroll_id) {
-        this.people_follow_id = state.people_follow_scroll_id
-      }
     });
   }
 
@@ -78,7 +70,6 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
     this.page_start = 0;
     this.post_scroll_id = '';
     this.userType();
-    this.loadProfiles();
   }
 
   ngOnDestroy() {
@@ -156,61 +147,6 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
    */
   checkEmpty(obj: Object) {
     return Object.keys(obj).length === 0 && obj.constructor === Object;
-  }
-
-  /**
- * Follow an artist
- * @param user obj
- */
-  followUser(user: any) {
-    this._store.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: user.handle });
-    user.extra.isFollowing = true;
-    this._store.select('profileTags')
-      .first(state => state['profile_other_followed'] === true)
-      .subscribe(datas => {
-        this.followPostLoad();
-        this.loadChannels();
-      });
-  }
-
-  /**
-   * post user channel
-   */
-  followPostLoad() {
-    const data = {
-      limit: 10,
-      scrollId: null
-    }
-    this._store.dispatch({ type: ProfileActions.LOAD_USER_FOLLOWING_POSTS, payload: data });
-  }
-
-  /**
-   * following user channel
-   */
-  loadChannels() {
-    const body = {
-      limit: 9
-    }
-
-    this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL, payload: body });
-  }
-
-  loadProfiles(value = null) {
-    this._store.dispatch({
-      type: ProfileActions.LOAD_ALL_PROFILES, payload: {
-        isHuman: '1',
-        name: {
-          scrollId: value === null ? null : value
-        }
-      }
-    });
-  }
-  onScrol(e) {
-    this.scrolling = e.currentScrollPosition;
-    if (this.scrollingPeople <= this.scrolling) {
-      this.scrollingPeople += 100;
-      this.loadProfiles(this.people_follow_id);
-    }
   }
 
   setMediaViewportKey() {
