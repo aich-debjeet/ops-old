@@ -84,6 +84,10 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
           this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgUsername });
         } else {
           this.isOtherProfile = false;
+          const uName = localStorage.getItem('orgUsername');
+          if (uName) {
+            this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: uName });
+          }
         }
         // console.log('this.isOtherProfile', this.isOtherProfile);
         if (this.orgSub) {

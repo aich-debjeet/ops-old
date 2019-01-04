@@ -59,7 +59,8 @@
             <h6 class="c-text_md o-org--type">Select organisation type</h6>
             <div class="o-org-reg__choose">
               <select class="c-form-control p-0" formControlName="org_type">
-                <option [selected]="true" value="Education - University /  Academy /  School / College" >Education - University /  Academy /  School / College</option>
+                <option value="">Select</option>
+                <option value="Education - University /  Academy /  School / College" >Education - University /  Academy /  School / College</option>
                 <option value="Non Profit / Foundation">Non Profit / Foundation</option>
                 <option value="Museum / Gallery / Libraries">Museum / Gallery / Libraries</option>
                 <option value="Theatre / Venue / Stadium">Theatre / Venue / Stadium</option>
@@ -81,6 +82,7 @@
             <h6 class="c-text_md o-org--type">Select organisation type</h6>
             <div class="c-form__group margin_b_32 m-t-0">
               <select class="c-form-control p-0" formControlName="org_industry_type">
+                  <option value="">Select</option>
                   <option *ngFor="let industry of industries" [value]="industry.code" >{{ industry.name }}</option>
               </select>
               <!-- <label>Select organisation industry</label> -->
@@ -99,7 +101,7 @@
               <input class="c-form__input" required="" placeholder="Location" type="text" autocorrect="off" autocapitalize="off" spellcheck="off" #search formControlName="org_location">
               <span class="c-form__highlight"></span>
               <span class="c-form__bar"></span>
-              <label>Location</label>
+              <!-- <label>Location</label> -->
               <p class="c-form__validation" *ngIf="orgReg.controls['org_location'].errors?.required && orgForm.submitted">Location is required</p>
             </div>
             <div class="create-btn">

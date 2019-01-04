@@ -185,6 +185,7 @@ export class OrganizationRegComponent implements OnInit {
     this.uploadingData = true;
 
     this.store.dispatch({ type: OrganizationActions.ORGANIZATION_REGISTRATION, payload: data });
+    localStorage.setItem('orgUsername', value.org_username);
 
     // Org Registration successfully
     this.store.select('profileTags')
