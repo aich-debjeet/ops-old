@@ -207,7 +207,8 @@ export class MediaViewComponent implements OnDestroy {
     this.editMsg = true;
     const data = {
       'id': this.data.id,
-      'description': message
+      'description': message,
+      'mtype': this.data.mtype
     }
     this.store.dispatch({ type: MediaActions.MEDIA_EDIT, payload: data });
   }
