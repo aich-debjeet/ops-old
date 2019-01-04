@@ -10,6 +10,7 @@ import { AuthActions } from '../../../actions/auth.action'
 
 import { find as _find } from 'lodash';
 import { GeneralUtilities } from '../../../helpers/general.utils';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-registration-add-skill',
@@ -31,6 +32,7 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy, AfterVi
   skillSearchScrollId = '';
   searchType = 'industry';
   @ViewChild('searchInput') searchInput: ElementRef;
+  loginSub: Subscription;
 
   constructor(
     fb: FormBuilder,
@@ -39,7 +41,7 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy, AfterVi
     private generalUtils: GeneralUtilities
   ) {
     this.skillSelectionState$ = store.select('loginTags');
-    this.skillSelectionState$.subscribe((state) => {
+    this.loginSub = this.skillSelectionState$.subscribe((state) => {
       this.skillSelectionState = state;
       if (state) {
         if (state['industries']) {
@@ -75,7 +77,9 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy, AfterVi
     this.searchInput.nativeElement.focus();
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() {
+    this.loginSub.unsubscribe();
+  }
 
   /**
    * submit all selected skills

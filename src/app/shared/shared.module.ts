@@ -71,6 +71,10 @@ import { TermsAndConditionsContentComponent } from './terms-and-conditions-conte
 import { WidgetCollaboratorsComponent } from './widget-collaborators/widget-collaborators.component';
 import { CollaboratorCardComponent } from './collaborator-card/collaborator-card.component';
 import { AppearDirective } from './appear/appear.directive';
+import { PeopleToFollowComponent } from './people-to-follow/people-to-follow.component';
+import { ProfileImageComponent } from './profile-image/profile-image.component';
+import { ProfileCoverComponent } from './profile-cover/profile-cover.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
   imports: [
@@ -85,7 +89,8 @@ import { AppearDirective } from './appear/appear.directive';
     VgBufferingModule,
     SharedPipesModule,
     LazyLoadImageModule,
-    ShareButtonsModule
+    ShareButtonsModule,
+    ImageCropperModule
   ],
   declarations: [
     // TruncatePipe,
@@ -139,7 +144,10 @@ import { AppearDirective } from './appear/appear.directive';
     TermsAndConditionsContentComponent,
     WidgetCollaboratorsComponent,
     CollaboratorCardComponent,
-    AppearDirective
+    AppearDirective,
+    PeopleToFollowComponent,
+    ProfileImageComponent,
+    ProfileCoverComponent
   ],
   exports: [
     OpportunityCardComponent,
@@ -186,7 +194,10 @@ import { AppearDirective } from './appear/appear.directive';
     TermsAndConditionsContentComponent,
     WidgetCollaboratorsComponent,
     CollaboratorCardComponent,
-    AppearDirective
+    AppearDirective,
+    PeopleToFollowComponent,
+    ProfileImageComponent,
+    ProfileCoverComponent
   ]
 })
 export class SharedModule { }

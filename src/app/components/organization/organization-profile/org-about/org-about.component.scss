@@ -10,12 +10,11 @@
 }
 
 .o-org-about {
-    width: 98%;
     background: #fff;
     padding: 16px 16px 32px;
     border-radius: $border-radius3;
     float: left;
-    margin-bottom: 200px;
+    margin-bottom: 20px;
     @include mq($from: $mobile_sm, $until: $tablet) {
         margin-left: 0px!important;
     }
@@ -98,6 +97,9 @@
     border: 1px solid rgba(102, 45, 145, 0.1);
     border-radius: 3px;
     overflow: hidden;
+    iframe {
+        width: 100%;
+    }
 }
 
 .c-avatar--status {

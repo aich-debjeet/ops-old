@@ -1,0 +1,40 @@
+<app-modal [modalTitle]="'Change Cover Image'" [closeHidden]="true" (onClose)="cancelUpdate()" [blocking]='false'
+  [open]="true" modalId='ChangeCoverImage' class="media__modal">
+  <div id="cover-upload">
+    <div class="modal-content o-cover-upload">
+      <div class="o-cover-upload__head">
+        <h2 class="o-cover-head--heading">Cover Image</h2>
+        <span class="search_close" (click)="cancelUpdate()">
+          <img [src]="baseUrl + 'img/svg/ico_close-38.svg'" alt="">
+        </span>
+      </div>
+      <div class="o-cover-upload__media">
+        <image-cropper class="o-cover-media__image"
+          [imageChangedEvent]="imageChangedEvent"
+          [maintainAspectRatio]="true"
+          [aspectRatio]="3 / 1" format="png"
+          (imageCroppedBase64)="imageCropped($event)"
+          (imageLoaded)="imageLoaded()">
+        </image-cropper>
+        <img [src]="croppedImage" *ngIf="!hidePreview" class="preview-image" />
+        <div *ngIf="showPreloader">
+          <div class="sticky sticky__top">
+            <div class="loader">Loading...</div>
+          </div>
+        </div>
+      </div>
+      <div class="o-cover-media__browse">
+        <div class="upload-btn-wrapper">
+          <button class="btn btn-network">Browse</button>
+          <input type="file" accept="image/*" name="myfile" (change)="fileChangeEvent($event)" />
+        </div>
+      </div>
+      <div class="o-cover-upload-footer">
+        <div class="o-cover-footer__btn">
+          <button type="button" (click)="cancelUpdate()" class="btn btn-network btn-sm text_uppercase">Cancel</button>
+          <button type="button" (click)="saveImage()" class="btn btn-primary btn-sm o-cover-btn__mod" [disabled]="disableSave">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-modal>
