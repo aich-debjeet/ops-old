@@ -99,43 +99,43 @@ export class OrgAboutComponent implements OnInit, OnDestroy {
         }
       }
       // for mobile
-      if (this.gUtils.checkNestedKey(this.orgProfile, ['profile_details', 'contact', 'mobile', 'mobile'])) {
-        this.aboutMobile = this.orgProfile['profile_details']['contact']['mobile']['mobile'];
+      if (this.gUtils.checkNestedKey(this.orgProfile, ['organization_details', 'contact', 'mobile', 'mobile'])) {
+        this.aboutMobile = this.orgProfile['organization_details']['contact']['mobile']['mobile'];
       }
       // for website
-      if (this.gUtils.checkNestedKey(this.orgProfile, ['profile_details', 'contact', 'website', 'website'])) {
-        this.aboutWebsite = this.orgProfile['profile_details']['contact']['website']['website'];
+      if (this.gUtils.checkNestedKey(this.orgProfile, ['organization_details', 'contact', 'website', 'website'])) {
+        this.aboutWebsite = this.orgProfile['organization_details']['contact']['website']['website'];
       }
       // for email
-      if (this.gUtils.checkNestedKey(this.orgProfile, ['profile_details', 'email'])) {
-        this.aboutEmail = this.orgProfile['profile_details']['email'];
+      if (this.gUtils.checkNestedKey(this.orgProfile, ['organization_details', 'email'])) {
+        this.aboutEmail = this.orgProfile['organization_details']['email'];
       }
       // for description
-      if (this.gUtils.checkNestedKey(this.orgProfile, ['profile_details', 'description'])) {
-        this.aboutDescription = this.orgProfile['profile_details']['description'];
+      if (this.gUtils.checkNestedKey(this.orgProfile, ['organization_details', 'description'])) {
+        this.aboutDescription = this.orgProfile['organization_details']['description'];
       }
       // for services
-      if (this.gUtils.checkNestedKey(this.orgProfile, ['profile_details', 'languages'])) {
-        this.aboutServices = this.orgProfile['profile_details']['languages'];
-        this.aboutServicesStr = this.orgProfile['profile_details']['languages'].join(', ');
+      if (this.gUtils.checkNestedKey(this.orgProfile, ['organization_details', 'languages'])) {
+        this.aboutServices = this.orgProfile['organization_details']['languages'];
+        this.aboutServicesStr = this.orgProfile['organization_details']['languages'].join(', ');
       }
       // loading industries
-      if (this.gUtils.checkNestedKey(this.orgProfile, ['profile_details', 'extra', 'industryList']) && this.orgProfile['profile_details']['extra']['industryList'].length > 0) {
+      if (this.gUtils.checkNestedKey(this.orgProfile, ['organization_details', 'extra', 'industryList']) && this.orgProfile['organization_details']['extra']['industryList'].length > 0) {
         setTimeout(() => {
-          const industryArrLen = this.orgProfile['profile_details']['extra']['industryList'].length;
-          this.aboutIndustry = this.orgProfile['profile_details']['extra']['industryList'][industryArrLen - 1];
+          const industryArrLen = this.orgProfile['organization_details']['extra']['industryList'].length;
+          this.aboutIndustry = this.orgProfile['organization_details']['extra']['industryList'][industryArrLen - 1];
           if (this.aboutIndustry && this.aboutIndustry['code']) {
             this.aboutIndustryCode = this.aboutIndustry['code'];
           }
         }, 1000);
       }
       // for founded date
-      if (this.gUtils.checkNestedKey(this.orgProfile, ['profile_details', 'activeFrom'])) {
-        this.aboutFoundedDate = this.datePipe.transform(this.orgProfile['profile_details']['activeFrom'], 'dd-MM-yyyy');
+      if (this.gUtils.checkNestedKey(this.orgProfile, ['organization_details', 'activeFrom'])) {
+        this.aboutFoundedDate = this.datePipe.transform(this.orgProfile['organization_details']['activeFrom'], 'dd-MM-yyyy');
       }
       // for address
-      if (this.gUtils.checkNestedKey(this.orgProfile, ['profile_details', 'extra', 'address', 'line1'])) {
-        this.aboutAddress = this.orgProfile['profile_details']['extra']['address']['line1'];
+      if (this.gUtils.checkNestedKey(this.orgProfile, ['organization_details', 'extra', 'address', 'line1'])) {
+        this.aboutAddress = this.orgProfile['organization_details']['extra']['address']['line1'];
       }
     });
     /* org state */
@@ -241,7 +241,7 @@ export class OrgAboutComponent implements OnInit, OnDestroy {
 
   dispatchAboutUpdate(reqData: any) {
     const data = {
-      handle: this.orgProfile.profile_details.handle,
+      handle: this.orgProfile.organization_details.handle,
       body: reqData
     }
     this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_UPDATE, payload: data });
