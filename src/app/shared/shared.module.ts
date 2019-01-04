@@ -72,6 +72,9 @@ import { WidgetCollaboratorsComponent } from './widget-collaborators/widget-coll
 import { CollaboratorCardComponent } from './collaborator-card/collaborator-card.component';
 import { AppearDirective } from './appear/appear.directive';
 import { PeopleToFollowComponent } from './people-to-follow/people-to-follow.component';
+import { ProfileImageComponent } from './profile-image/profile-image.component';
+import { ProfileCoverComponent } from './profile-cover/profile-cover.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
   imports: [
@@ -86,7 +89,8 @@ import { PeopleToFollowComponent } from './people-to-follow/people-to-follow.com
     VgBufferingModule,
     SharedPipesModule,
     LazyLoadImageModule,
-    ShareButtonsModule
+    ShareButtonsModule,
+    ImageCropperModule
   ],
   declarations: [
     // TruncatePipe,
@@ -141,7 +145,9 @@ import { PeopleToFollowComponent } from './people-to-follow/people-to-follow.com
     WidgetCollaboratorsComponent,
     CollaboratorCardComponent,
     AppearDirective,
-    PeopleToFollowComponent
+    PeopleToFollowComponent,
+    ProfileImageComponent,
+    ProfileCoverComponent
   ],
   exports: [
     OpportunityCardComponent,
@@ -189,7 +195,9 @@ import { PeopleToFollowComponent } from './people-to-follow/people-to-follow.com
     WidgetCollaboratorsComponent,
     CollaboratorCardComponent,
     AppearDirective,
-    PeopleToFollowComponent
+    PeopleToFollowComponent,
+    ProfileImageComponent,
+    ProfileCoverComponent
   ]
 })
 export class SharedModule { }

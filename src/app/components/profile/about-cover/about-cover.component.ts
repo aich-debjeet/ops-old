@@ -15,8 +15,7 @@ import { Subscription } from 'rxjs/Subscription';
 @Component({
   selector: 'app-about-cover',
   templateUrl: './about-cover.component.html',
-  providers: [ModalService],
-  styleUrls: ['./about-cover.component.scss']
+  providers: [ModalService]
 })
 
 export class AboutCoverComponent implements OnInit, OnDestroy {
@@ -25,11 +24,7 @@ export class AboutCoverComponent implements OnInit, OnDestroy {
   changingImage: boolean;
   baseUrl: string;
   profSub: Subscription;
-
-  imageChangedEvent = '';
-  croppedImage = '';
-  hidePreview = false;
-  disableSave = true;
+  coverImage: string;
 
   constructor(
     public tokenService: TokenService,
@@ -60,14 +55,13 @@ export class AboutCoverComponent implements OnInit, OnDestroy {
   /**
    * Upload Cover image
    */
-  uploadCoverImage() {
+  uploadCoverImage(imgData) {
     const userHandle = this.stateProfile.profile_navigation_details.handle || '';
-    if (this.croppedImage && userHandle !== '') {
+    if (imgData && userHandle !== '') {
       const imageData = {
         handle: userHandle,
-        image: this.croppedImage.split((/,(.+)/)[1])
+        image: imgData.split((/,(.+)/)[1])
       };
-      this.disableSave = true;
       this._store.dispatch({ type: ProfileActions.PROFILE_COVER_UPDATE, payload: imageData });
       this.changingImage = false;
       this._store.select('profileTags')
@@ -87,26 +81,11 @@ export class AboutCoverComponent implements OnInit, OnDestroy {
     } else {
       coverImageURL = 'https://cdn.onepagespotlight.com/img/profile-cover.png';
     }
-    this.croppedImage = coverImageURL;
+    this.coverImage = coverImageURL;
   }
 
   // go back to the page
   isClosed(event: any) {
     this._location.back();
   }
-
-  // event to check for file selection
-  fileChangeEvent(event: any): void {
-    this.disableSave = false;
-    this.imageChangedEvent = event;
-  }
-
-  // event for image crop
-  imageCropped(image: string) {
-    this.croppedImage = image;
-    this.hidePreview = true;
-  }
-
-  // image loaded
-  imageLoaded() { }
 }
