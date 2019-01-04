@@ -4,7 +4,8 @@
     </div>
     <div class="o-org-cover__edit p-t-16">
         <div class="container p-0">
-            <button type="button" class="btn btn-primary btn-sm btn-inverse" routerLink="/org/page/about/cover-image">
+            <!-- <button type="button" class="btn btn-primary btn-sm btn-inverse" routerLink="/org/page/about/cover-image"> -->
+            <button type="button" class="btn btn-primary btn-sm btn-inverse" [routerLink]="'/org/p/' + eventDetails?.id">
                 <span class="o-org-prof-edit-ico m-r-5">
                 </span> CHANGE COVER
             </button>

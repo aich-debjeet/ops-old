@@ -10,6 +10,7 @@ import { environment } from '../../../../../environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Store } from '@ngrx/store';
+import { GeneralUtilities } from 'app/helpers/general.utils';
 
 @Component({
   selector: 'app-org-coverblock',
@@ -25,8 +26,7 @@ export class OrgCoverblockComponent implements OnInit {
   orgState$: any;
 
   constructor(
-    private toastr: ToastrService,
-    private ngZone: NgZone,
+    private gUtils: GeneralUtilities,
     private store: Store<Login>,
     private router: Router,
   ) {
@@ -35,6 +35,11 @@ export class OrgCoverblockComponent implements OnInit {
     this.orgState$ = this.store.select('profileTags');
     this.orgState$.subscribe((state) => {
       this.orgProfile = state;
+      if (state) {
+        if (this.gUtils.checkNestedKey(state, [''])) {
+
+        }
+      }
     });
     /* org state */
 
