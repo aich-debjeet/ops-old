@@ -13,22 +13,17 @@ import { GeneralUtilities } from '../../../helpers/general.utils';
 @Component({
   selector: 'app-about-image',
   templateUrl: './about-image.component.html',
-  providers: [ModalService],
-  styleUrls: ['./about-image.component.scss']
+  providers: [ModalService]
 })
 
 export class AboutImageComponent implements OnInit, OnDestroy {
   tagState$: Observable<ProfileModal>;
   stateProfile = initialTag;
   data: any;
-  changingImage: boolean;
   baseUrl: string;
 
-  imageChangedEvent = '';
-  croppedImage = '';
-  hidePreview = false;
-  disableSave = true;
   profSub: Subscription;
+  profileImage: string;
 
   constructor(
     public tokenService: TokenService,
@@ -43,7 +38,6 @@ export class AboutImageComponent implements OnInit, OnDestroy {
     });
 
     this.baseUrl = environment.API_IMAGE;
-    this.changingImage = false;
   }
 
   ngOnInit() {
@@ -65,22 +59,20 @@ export class AboutImageComponent implements OnInit, OnDestroy {
     } else {
       profileImageURL = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
     }
-    this.croppedImage = profileImageURL;
+    this.profileImage = profileImageURL;
   }
 
   /**
    * Attach image url to Profile
    */
-  saveImageClick() {
+  saveImageClick(imgData) {
     const userHandle = this.stateProfile.profile_navigation_details.handle || '';
-    if (this.croppedImage && userHandle !== '') {
+    if (imgData && userHandle !== '') {
       const imageData = {
         handle: userHandle,
-        image: this.croppedImage.split((/,(.+)/)[1])
+        image: imgData.split((/,(.+)/)[1])
       };
-      this.disableSave = true;
       this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_IMAGE, payload: imageData });
-      this.changingImage = false;
       this._store.select('profileTags')
         .first(state => state['profile_img_upload_loaded'] === true)
         .subscribe(() => {
@@ -90,23 +82,8 @@ export class AboutImageComponent implements OnInit, OnDestroy {
   }
 
   // go back to the page
-  isClosed(event: any) {
+  isClosed(event?: any) {
     this._location.back();
   }
-
-  // event to check for file selection
-  fileChangeEvent(event: any): void {
-    this.disableSave = false;
-    this.imageChangedEvent = event;
-  }
-
-  // event for image crop
-  imageCropped(image: string) {
-    this.croppedImage = image;
-    this.hidePreview = true;
-  }
-
-  // image loaded
-  imageLoaded() { }
 
 }
