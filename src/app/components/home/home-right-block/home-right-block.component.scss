@@ -187,6 +187,10 @@
   border-bottom: solid 1px #F3F5F7;
 }
 
+.with_border_bottom:last-child {
+  border: none;
+}
+
 .m-b-16 {
   margin-bottom: 16px !important;
 }

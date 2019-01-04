@@ -43,7 +43,7 @@ export class OrgCoverComponent implements OnInit, OnDestroy {
 
   saveImageClick(imgData) {
     const imageData = {
-      imageType: 'profile',
+      imageType: 'coverImage',
       handle: this.orgHandle,
       image: imgData.split((/,(.+)/)[1])
     };
