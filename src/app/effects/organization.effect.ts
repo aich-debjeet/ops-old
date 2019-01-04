@@ -23,6 +23,30 @@ export class OrganizationEffect {
             .catch((res) => Observable.of({ type: OrganizationActions.ORGANIZATION_REGISTRATION_FAILED, payload: res }))
         );
 
+    /**
+     * Cover image upload
+     */
+    @Effect()
+    loadCoverImage$ = this._actions$
+        .ofType(OrganizationActions.ORG_COVER_IMAGE_UPLOAD)
+        .map(toPayload)
+        .switchMap((payload) => this._orgService.uploadImageServer(payload)
+            .map(res => ({ type: OrganizationActions.ORG_COVER_IMAGE_UPLOAD_SUCCESS, payload: res }))
+            .catch((res) => Observable.of({ type: OrganizationActions.ORG_COVER_IMAGE_UPLOAD_FAILED, payload: res }))
+        );
+
+    /**
+     *  Profile image uplod
+     */
+    @Effect()
+    loadProfileImage$ = this._actions$
+        .ofType(OrganizationActions.ORG_PROFILE_IMAGE_UPLOAD)
+        .map(toPayload)
+        .switchMap((payload) => this._orgService.uploadImageServer(payload)
+            .map(res => ({ type: OrganizationActions.ORG_PROFILE_IMAGE_UPLOAD_SUCCESS, payload: res }))
+            .catch((res) => Observable.of({ type: OrganizationActions.ORG_PROFILE_IMAGE_UPLOAD_FAILED, payload: res }))
+        );
+
     @Effect()
     deleteOrganization$ = this._actions$
         .ofType(OrganizationActions.ORGANIZATION_DELETE)
@@ -65,18 +89,6 @@ export class OrganizationEffect {
         );
 
     /**
-     *  Load image to database
-     */
-    @Effect()
-    loadProfileImage$ = this._actions$
-        .ofType(OrganizationActions.ORG_PROFILE_IMAGE_UPLOAD)
-        .map(toPayload)
-        .switchMap((payload) => this._orgService.uploadImageServer(payload)
-            .map(res => ({ type: OrganizationActions.ORG_PROFILE_IMAGE_UPLOAD_SUCCESS, payload: res }))
-            .catch((res) => Observable.of({ type: OrganizationActions.ORG_PROFILE_IMAGE_UPLOAD_FAILED, payload: res }))
-        );
-
-    /**
      *  Update organization profile
      */
     @Effect()
@@ -97,7 +109,7 @@ export class OrganizationEffect {
         .map(toPayload)
         .switchMap((payload) => this._orgService.detailOrganization(payload)
             .map(res => ({ type: OrganizationActions.ORG_PROFILE_DETAILS_SUCCESS, payload: res }))
-            .catch((res) => Observable.of({ type: OrganizationActions.ORG_PROFILE_IMAGE_UPLOAD_FAILED, payload: res }))
+            .catch((res) => Observable.of({ type: OrganizationActions.ORG_PROFILE_DETAILS_FAILED, payload: res }))
         );
 
     /**

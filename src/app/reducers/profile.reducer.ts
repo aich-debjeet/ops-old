@@ -1585,14 +1585,12 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
       });
     /* Load Org */
 
-    /**
-     * Load image to database
-     */
     case OrganizationActions.ORG_PROFILE_IMAGE_UPLOAD:
       return Object.assign({}, state, {
         orgProfileImageUploading: true,
         orgProfileImageUploaded: false
       });
+
     case OrganizationActions.ORG_PROFILE_IMAGE_UPLOAD_SUCCESS:
       return Object.assign({}, state, {
         orgProfileImageUploading: false,
@@ -1602,10 +1600,31 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
           profileImage: payload['SUCCESS']['repoPath']
         }
       });
+
     case OrganizationActions.ORG_PROFILE_IMAGE_UPLOAD_FAILED:
       return Object.assign({}, state, {
         orgProfileImageUploading: false,
         orgProfileImageUploaded: false
+      });
+
+    case OrganizationActions.ORG_COVER_IMAGE_UPLOAD:
+      return Object.assign({}, state, {
+        orgCoverImageUploading: true,
+        orgCoverImageUploaded: false
+      });
+    case OrganizationActions.ORG_COVER_IMAGE_UPLOAD_SUCCESS:
+      return Object.assign({}, state, {
+        orgCoverImageUploading: false,
+        orgCoverImageUploaded: true,
+        organization_details: {
+          ...state.organization_details,
+          coverImage: payload['SUCCESS']['repoPath']
+        }
+      });
+    case OrganizationActions.ORG_COVER_IMAGE_UPLOAD_FAILED:
+      return Object.assign({}, state, {
+        orgCoverImageUploading: false,
+        orgCoverImageUploaded: false
       });
 
     /**
