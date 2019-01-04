@@ -8,22 +8,15 @@ import {} from '@types/googlemaps';
 
 // action
 import { OrganizationActions } from '../../../../actions/organization.action';
-import { AuthActions } from '../../../../actions/auth.action';
-
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
-
-import { SearchModel } from 'app/models/search.model';
 import { environment } from './../../../../../environments/environment.prod';
-
 import { Organization } from '../../../../models/organization.model';
 import { UtcDatePipe } from './../../../../pipes/utcdate.pipe';
 import { DatePipe } from '@angular/common';
-
 import { LocalStorageService } from './../../../../services/local-storage.service';
-import { ToastrService } from 'ngx-toastr';
 
 import * as _ from 'lodash';
 import { GeneralUtilities } from '../../../../helpers/general.utils';
@@ -78,7 +71,6 @@ export class OrgAboutComponent implements OnInit, OnDestroy {
     private ngZone: NgZone,
     private store: Store<Organization>,
     private localStorageService: LocalStorageService,
-    private toastr: ToastrService,
     private datePipe: DatePipe,
     private gUtils: GeneralUtilities
   ) {

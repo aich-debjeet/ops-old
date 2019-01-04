@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Login } from '../../../models/auth.model';
 import { OrganizationActions } from '../../../actions/organization.action';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../../../environments/environment';
 import { Store } from '@ngrx/store';
 import { UserCard } from 'app/models/profile.model';
@@ -30,8 +30,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<Login>,
     public route: ActivatedRoute,
-    private orgStore: Store<any>,
-    private router: Router,
+    private orgStore: Store<any>
   ) {
       //
       this.hasNoOrg = false;
@@ -59,21 +58,21 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
 
     // check organziation page already created
     this.store.select('profileTags')
-    .first(profile => profile['current_user_profile_loading'] === true)
-    .subscribe( data => {
-      /**
-       * @TODO
-       * What happens if the current user,
-       * without switching to org comes here?
-       */
-      this.activeProfile = data['profile_cards'].active;
-      this.profileCard = this.activeProfile;
+      .first(profile => profile['current_user_profile_loading'] === true)
+      .subscribe( data => {
+        /**
+         * @TODO
+         * What happens if the current user,
+         * without switching to org comes here?
+         */
+        this.activeProfile = data['profile_cards'].active;
+        this.profileCard = this.activeProfile;
 
-      // this.orgStore.dispatch({
-      //   type: OrganizationActions.LOAD_ORG_CHANNELS,
-      //   payload: this.activeProfile.handle
-      // });
-    });
+        // this.orgStore.dispatch({
+        //   type: OrganizationActions.LOAD_ORG_CHANNELS,
+        //   payload: this.activeProfile.handle
+        // });
+      });
 
     // check for userhandles
     this.orgSub = this.route.params
@@ -81,14 +80,12 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
         const orgUsername = params['id'];
         // load org profile details if owned profile
         if (orgUsername) {
-          console.log('load org: ' + orgUsername);
           this.isOtherProfile = true;
           this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgUsername });
         } else {
           this.isOtherProfile = false;
-          console.log('already triggered');
         }
-        console.log('this.isOtherProfile', this.isOtherProfile);
+        // console.log('this.isOtherProfile', this.isOtherProfile);
         if (this.orgSub) {
           this.orgSub.unsubscribe();
         }
