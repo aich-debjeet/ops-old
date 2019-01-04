@@ -146,12 +146,12 @@
         <img *ngIf="following" [src]="imageLink + 'img/svg/spot_icon.svg'" class="c-links__image">
         <img *ngIf="!following" [src]="imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
         <span class="c-links__count">{{ mediaData?.counts?.spotsCount || 0 }} Spots</span>
-        <ul class="people-spots show-this">
+        <!-- <ul class="people-spots show-this">
           <li *ngFor="let spotted of spottedPeople">{{ spotted }}</li>
           <li class="see-more-spotted">
             <button class="see-more-spotted">See more</button>
           </li>
-        </ul>
+        </ul> -->
       </div>
       <div *ngIf="mediaData?.description && mediaData?.mtype === 'status' " class="c-links__comments">
         <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">

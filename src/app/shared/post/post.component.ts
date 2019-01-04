@@ -40,14 +40,12 @@ export class PostComponent implements OnInit {
   imageLink: string = environment.API_IMAGE;
   domainLink: string = environment.API_DOMAIN;
   messageEdit: string;
-  spottedPeople = [];
 
   constructor(
     private store: Store<Media>,
     // public gUtils: GeneralUtilities
   ) {
     this.dotMenuState = false;
-    this.spottedPeople = ['Name1', 'Name2', 'Name3', 'Name4']; // dummy for HTML to show
   }
 
   ngOnInit() {
