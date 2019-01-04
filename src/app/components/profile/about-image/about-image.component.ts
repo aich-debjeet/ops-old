@@ -13,8 +13,7 @@ import { GeneralUtilities } from '../../../helpers/general.utils';
 @Component({
   selector: 'app-about-image',
   templateUrl: './about-image.component.html',
-  providers: [ModalService],
-  styleUrls: ['']
+  providers: [ModalService]
 })
 
 export class AboutImageComponent implements OnInit, OnDestroy {
