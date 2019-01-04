@@ -69,11 +69,11 @@ export class OrganizationEffect {
      */
     @Effect()
     loadProfileImage$ = this._actions$
-        .ofType(OrganizationActions.IMAGE_UPLOAD_SERVER)
+        .ofType(OrganizationActions.ORG_PROFILE_IMAGE_UPLOAD)
         .map(toPayload)
         .switchMap((payload) => this._orgService.uploadImageServer(payload)
-            .map(res => ({ type: OrganizationActions.IMAGE_UPLOAD_SERVER_SUCCESS, payload: res }))
-            .catch((res) => Observable.of({ type: OrganizationActions.IMAGE_UPLOAD_SERVER_FAILED, payload: res }))
+            .map(res => ({ type: OrganizationActions.ORG_PROFILE_IMAGE_UPLOAD_SUCCESS, payload: res }))
+            .catch((res) => Observable.of({ type: OrganizationActions.ORG_PROFILE_IMAGE_UPLOAD_FAILED, payload: res }))
         );
 
     /**
@@ -97,7 +97,7 @@ export class OrganizationEffect {
         .map(toPayload)
         .switchMap((payload) => this._orgService.detailOrganization(payload)
             .map(res => ({ type: OrganizationActions.ORG_PROFILE_DETAILS_SUCCESS, payload: res }))
-            .catch((res) => Observable.of({ type: OrganizationActions.IMAGE_UPLOAD_SERVER_FAILED, payload: res }))
+            .catch((res) => Observable.of({ type: OrganizationActions.ORG_PROFILE_IMAGE_UPLOAD_FAILED, payload: res }))
         );
 
     /**

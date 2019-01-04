@@ -1588,25 +1588,24 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
     /**
      * Load image to database
      */
-    case OrganizationActions.IMAGE_UPLOAD_SERVER:
+    case OrganizationActions.ORG_PROFILE_IMAGE_UPLOAD:
       return Object.assign({}, state, {
-        profile_img_upload_loading: true,
-        image_upload_starting: true,
-        image_upload_success: false,
-        success: true
+        orgProfileImageUploading: true,
+        orgProfileImageUploaded: false
       });
-    case OrganizationActions.IMAGE_UPLOAD_SERVER_SUCCESS:
+    case OrganizationActions.ORG_PROFILE_IMAGE_UPLOAD_SUCCESS:
       return Object.assign({}, state, {
-        profileImage: payload['SUCCESS'],
-        image_upload_success: true,
-        image_upload_starting: false,
-        profile_img_upload_loading: false,
-        success: true
+        orgProfileImageUploading: false,
+        orgProfileImageUploaded: true,
+        organization_details: {
+          ...state.organization_details,
+          profileImage: payload['SUCCESS']['repoPath']
+        }
       });
-    case OrganizationActions.IMAGE_UPLOAD_SERVER_FAILED:
+    case OrganizationActions.ORG_PROFILE_IMAGE_UPLOAD_FAILED:
       return Object.assign({}, state, {
-        image_upload_starting: false,
-        success: false
+        orgProfileImageUploading: false,
+        orgProfileImageUploaded: false
       });
 
     /**
@@ -1639,8 +1638,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
      */
     case OrganizationActions.ORG_PROFILE_DETAILS_SUCCESS:
       return Object.assign({}, state, {
-        profile_details: payload,
-        profile_organization: payload
+        // profile_details: payload,
+        organization_details: payload
       });
 
     case OrganizationActions.ORGANIZATION_DELETE:

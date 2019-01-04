@@ -27,7 +27,7 @@ const childRoutes = [
     path: 'about',
     component: OrgAboutComponent,
     children: [
-      { path: 'image-upload', component: OrgImageComponent },
+      { path: 'profile-image', component: OrgImageComponent },
       { path: 'cover-image', component: OrgCoverComponent }
     ]
   }
