@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy, Input, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
-import { ProfileActions } from 'app/actions/profile.action';
-import { ProfileModal } from 'app/models/profile.model';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs/Observable';
+import { MediaActions } from '../../actions/media.action';
+import { Media, initialMedia } from '../../models/media.model';
 
 @Component({
   selector: 'app-my-story',
@@ -18,8 +18,9 @@ export class MyStoryComponent implements OnInit, OnChanges {
 
  baseUrl = environment.API_IMAGE;
  profileState$: any;
- profSub: Subscription;
- tagState$: Observable<ProfileModal>;
+ private mediaSub: Subscription;
+ mediaState$: Observable<Media>;
+ mediaStore = initialMedia;
  storyList: any;
   storyDetails: any;
   getSto = true;
@@ -27,8 +28,9 @@ export class MyStoryComponent implements OnInit, OnChanges {
   constructor(
     private _store: Store<any>
   ) {
-    this.tagState$ = this._store.select('profileTags');
-    this.profSub = this.tagState$.subscribe((state) => {
+    this.mediaState$ = this._store.select('mediaStore');
+    this.mediaSub = this.mediaState$.subscribe((state) => {
+      this.mediaStore = state;
       if (state && state['my_story']) {
         this.storyList = state['my_story']['media'];
         this.storyDetails = state['my_story'];
@@ -40,7 +42,7 @@ export class MyStoryComponent implements OnInit, OnChanges {
      const handle: SimpleChange = changes.handle;
      if(handle.currentValue !== undefined){
       this._store.dispatch({
-        type: ProfileActions.GET_MY_STORY, payload: {
+        type: MediaActions.GET_MY_STORY, payload: {
           handle: handle.currentValue
         }
       });

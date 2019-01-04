@@ -358,6 +358,39 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
       media_carousel: payload
     });
 
+  /**
+   * For getting my stories
+   */
+  case MediaActions.GET_MY_STORY:
+    return Object.assign({}, state, {
+      my_story: [],
+      stories_loading: false
+    });
+
+  case MediaActions.GET_MY_STORY_SUCCESS:
+    return Object.assign({}, state, {
+      my_story: payload,
+      stories_loading: true
+    });
+
+  case MediaActions.GET_MY_STORY_FAILED:
+    return Object.assign({}, state, {
+      stories_loading: false
+    });
+
+  /**
+   * Reducer for post story
+   */
+  case MediaActions.POST_STORY:
+    return Object.assign({}, state, {
+      story_media_success: false
+    });
+
+  case MediaActions.POST_STORY_SUCCESS:
+    return Object.assign({}, state, {
+      story_media_success: true
+    });
+
     default:
       return state;
   }
