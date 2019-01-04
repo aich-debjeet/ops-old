@@ -337,6 +337,13 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
   /**
    * MEDIA_POST_DELETE
    */
+  case MediaActions.MEDIA_POST_DELETE:
+    return Object.assign({}, state,{
+      my_story:{
+          ...state.my_story,
+          media:state.my_story.media.filter(media => media.id != payload)},
+    });
+
     case MediaActions.MEDIA_POST_DELETE_SUCCESS:
       return Object.assign({}, state, {
         media_delete_msg: payload.SUCCESS,
