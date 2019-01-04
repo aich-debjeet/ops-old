@@ -436,6 +436,11 @@ label {
 
 .c-status-groupmedia__1 {
   grid-area: one;
+  height: 440px;
+  display: block;
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    height: 220px;
+  }
 }
 
 .c-status-groupmedia__2 {

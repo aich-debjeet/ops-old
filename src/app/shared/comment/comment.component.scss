@@ -540,9 +540,9 @@
 }
 
 .c-post-comment {
-	bottom: 0px;
-	width: 100%;
+	bottom: 16px;
+	width: 406px;
+	position: fixed;
 	padding: 0px 15px;
-	position: absolute;
 	background-color: $color-white;
 }
