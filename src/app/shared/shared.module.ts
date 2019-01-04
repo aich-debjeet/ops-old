@@ -71,15 +71,12 @@ import { TermsAndConditionsContentComponent } from './terms-and-conditions-conte
 import { WidgetCollaboratorsComponent } from './widget-collaborators/widget-collaborators.component';
 import { CollaboratorCardComponent } from './collaborator-card/collaborator-card.component';
 import { AppearDirective } from './appear/appear.directive';
-<<<<<<< HEAD
 import { MyStoryComponent } from './my-story/my-story.component';
 import { EventWidgetComponent } from './event-widget/event-widget.component';
-=======
 import { PeopleToFollowComponent } from './people-to-follow/people-to-follow.component';
 import { ProfileImageComponent } from './profile-image/profile-image.component';
 import { ProfileCoverComponent } from './profile-cover/profile-cover.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
->>>>>>> e31d6893fcc4bef7c23fa90b39a2b7dbb6becaac
 
 @NgModule({
   imports: [
@@ -150,14 +147,11 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     WidgetCollaboratorsComponent,
     CollaboratorCardComponent,
     AppearDirective,
-<<<<<<< HEAD
     MyStoryComponent,
-    EventWidgetComponent
-=======
+    EventWidgetComponent,
     PeopleToFollowComponent,
     ProfileImageComponent,
     ProfileCoverComponent
->>>>>>> e31d6893fcc4bef7c23fa90b39a2b7dbb6becaac
   ],
   exports: [
     OpportunityCardComponent,
@@ -205,14 +199,11 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     WidgetCollaboratorsComponent,
     CollaboratorCardComponent,
     AppearDirective,
-<<<<<<< HEAD
     MyStoryComponent,
-    EventWidgetComponent
-=======
+    EventWidgetComponent,
     PeopleToFollowComponent,
     ProfileImageComponent,
     ProfileCoverComponent
->>>>>>> e31d6893fcc4bef7c23fa90b39a2b7dbb6becaac
   ]
 })
 export class SharedModule { }
