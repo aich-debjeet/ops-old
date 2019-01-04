@@ -14,6 +14,7 @@ import { GeneralUtilities } from '../../helpers/general.utils';
 import { PusherService } from '../../services/pusher.service';
 import { MessageActions } from '../../actions/message.action';
 import { MessageModal } from '../../models/message.model';
+import { OrganizationActions } from 'app/actions/organization.action';
 
 @Component({
   selector: 'app-navigation',
@@ -322,6 +323,14 @@ export class NavigationComponent implements OnInit, OnDestroy {
   changeProfile(user_cards: any, e: MouseEvent) {
     this.store.dispatch({ type: ProfileActions.CHANGE_PROFILE, payload: user_cards });
     return false;
+  }
+
+  /**
+   * Load org
+   */
+  loadOrg() {
+    this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: this.userCards.other.username });
+    this.router.navigateByUrl('/org/page');
   }
 
   /* =================================== notification =================================== */

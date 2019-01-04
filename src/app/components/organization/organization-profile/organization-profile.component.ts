@@ -69,38 +69,33 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
       this.activeProfile = data['profile_cards'].active;
       this.profileCard = this.activeProfile;
 
-      //
-      this.orgStore.dispatch({
-        type: OrganizationActions.LOAD_ORG_CHANNELS,
-        payload: this.activeProfile.handle
-      });
+      // this.orgStore.dispatch({
+      //   type: OrganizationActions.LOAD_ORG_CHANNELS,
+      //   payload: this.activeProfile.handle
+      // });
     });
 
     // check for userhandles
     this.orgSub = this.route.params
       .subscribe(params => {
-        const orgParam = params['id'];
-        console.log('orgParam', orgParam);
+        const orgUsername = params['id'];
         // load org profile details if owned profile
-        if (orgParam) {
+        if (orgUsername) {
+          console.log('load org: ' + orgUsername);
           this.isOtherProfile = true;
-          this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgParam });
+          this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgUsername });
         } else {
           this.isOtherProfile = false;
-          // check if username available in local storage
-          const orgUsername = localStorage.getItem('profileUsername');
-          if (localStorage.getItem('profileType') !== undefined && localStorage.getItem('profileType') === 'organization' && orgUsername !== undefined && orgUsername.length > 0) {
-            this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgUsername });
-          }
+          console.log('already triggered');
         }
         console.log('this.isOtherProfile', this.isOtherProfile);
+        if (this.orgSub) {
+          this.orgSub.unsubscribe();
+        }
       });
   }
 
   ngOnDestroy() {
-    if (this.orgSub) {
-      this.orgSub.unsubscribe();
-    }
   }
 
 }

@@ -120,7 +120,7 @@
                     <img class="navdrop__img" [src]="imageBaseUrl + this.userCards.other.image">
                   </div>
                   <div class="navdrop__name2">
-                    <a [routerLink]="'/org/p/' + userCards?.other?.username">
+                    <a (click)="loadOrg()">
                       {{ this.userCards.other.name }}
                     </a>
                   </div>
@@ -313,7 +313,7 @@
                   <img class="navdrop__img" [src]="imageBaseUrl + this.userCards.other.image">
                 </div>
                 <div class="navdrop__name2">
-                  <a [routerLink]="'/org/p/' + userCards?.other?.username">
+                  <a (click)="loadOrg()">
                     {{ this.userCards.other.name }}
                   </a>
                 </div>

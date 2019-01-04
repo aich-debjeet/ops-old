@@ -28,7 +28,7 @@ function genUserCard(profile: any, isOrg: boolean = true) {
       username: org.organizationUserName,
       handle: org.organizationHandle,
       isOrg: true,
-      page_path: '/org/p/' + org.organizationUserName,
+      page_path: '/org/page',
     }
     return oCard;
   } else {
