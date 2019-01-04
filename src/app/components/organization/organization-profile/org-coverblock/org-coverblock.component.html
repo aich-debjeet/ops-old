@@ -1,10 +1,11 @@
 <section class="o-org-cover">
     <div class="o-org-cover__img">
-        <img width="100%" src="{{ baseUrl + orgProfile?.profile_details?.coverImage }}" alt="">
+        <img width="100%" src="{{ baseUrl + orgProfile?.organization_details?.coverImage }}" alt="">
     </div>
     <div class="o-org-cover__edit p-t-16">
         <div class="container p-0">
-            <button type="button" class="btn btn-primary btn-sm btn-inverse" routerLink="/org/page/profile/cover-image">
+            <!-- <button type="button" class="btn btn-primary btn-sm btn-inverse" routerLink="/org/page/about/cover-image"> -->
+            <button type="button" class="btn btn-primary btn-sm btn-inverse" routerLink="/org/page/about/cover-image">
                 <span class="o-org-prof-edit-ico m-r-5">
                 </span> CHANGE COVER
             </button>
@@ -17,35 +18,35 @@
         <div class="o-org-prof-det">
             <div class="o-org-prof__img">
                 <div class="o-org-prof__media">
-                    <img width="100%;" height="100%" src="{{ baseUrl + orgProfile?.profile_details?.profileImage }}" alt="">
+                    <img width="100%;" height="100%" src="{{ baseUrl + orgProfile?.organization_details?.profileImage }}" alt="">
                 </div>
                 <div class="o-org-prof__btn">
-                    <button type="button" class="btn btn-primary btn-sm btn-inverse" routerLink="/org/page/profile/image-upload">
+                    <button type="button" class="btn btn-primary btn-sm btn-inverse" routerLink="/org/page/about/profile-image">
                         <span class="o-org-prof-edit-ico m-r-5">
                         </span> Change Picture
                     </button>
                 </div>
             </div>
             <div class="o-org-prof__name c-profile__username">
-                <h3 class="c-h3 o-org-prof--white">{{ orgProfile?.profile_details?.name }}
+                <h3 class="c-h3 o-org-prof--white">{{ orgProfile?.organization_details?.name }}
                     <span class="org-label-ico"><img width="24" src="{{ baseUrl }}img/svg/Organization.svg" alt=""></span>
                 </h3>
-                <span class="c-text_md o-org-prof--white">@{{ orgProfile?.profile_details?.extra?.username }}</span>
-                <span class="c-text_md o-org-prof--white margin_l_16">{{ orgProfile?.profile_details?.accountType?.name }}</span>
+                <span class="c-text_md o-org-prof--white">@{{ orgProfile?.organization_details?.extra?.username }}</span>
+                <span class="c-text_md o-org-prof--white margin_l_16">{{ orgProfile?.organization_details?.accountType?.name }}</span>
             </div>
             <div class="o-org-prof__account-det">
                 <div class="col-md-6 padding_none">
                     <div class="o-org-account-stat">
                         <span class="c-text_lg-bold c-text-semibold">
-                            {{ orgProfile?.profile_details?.followersCount }}
+                            {{ orgProfile?.organization_details?.followersCount }}
                         </span>
                         <span class="c-text_sm color-grey-dark">
                             Followers
                         </span>
                     </div>
-                    <div class="o-org-account-stat">
+                    <!-- <div class="o-org-account-stat">
                         <span class="c-text_lg-bold c-text-semibold">
-                            {{ orgProfile?.profile_details?.followingCount }}
+                            {{ orgProfile?.organization_details?.followingCount }}
                         </span>
                         <span class="c-text_sm color-grey-dark">
                             Following
@@ -53,57 +54,12 @@
                     </div>
                     <div class="o-org-account-stat">
                         <span class="c-text_lg-bold c-text-semibold">
-                            {{ orgProfile?.profile_details?.extra?.spotsCount }}
+                            {{ orgProfile?.organization_details?.extra?.spotsCount }}
                         </span>
                         <span class="c-text_sm color-grey-dark">
                             Spots
                         </span>
-                    </div>
-                </div>
-                <div class="col-md-6 padding_none text-right">
-                    <a class="btn btn-default btn-md">
-                        <span class="btn-label-icon--message m-r-5">
-                    </span> Message
-                    </a>
-                </div>
-            </div>
-            <div class="o-org-navigation fill-white">
-                <div class="col-md-9 padding_none">
-                    <ul class="list-inline pro_nav_list">
-                        <li class="list-line-item">
-                            <a routerLinkActive="activein" [routerLink]="['profile']">Profile</a>
-                        </li>
-                        <li class="list-line-item">
-                            <a routerLinkActive="activein" [routerLink]="['about']">About</a>
-                        </li>
-                        <li class="list-line-item">
-                            <a>Network</a>
-                        </li>
-                        <!-- <li class="list-line-item">
-                            <a>Donate</a>
-                        </li>
-                        <li class="list-line-item">
-                            <a>Notification</a>
-                        </li> -->
-                        <li class="list-line-item">
-                            <a>Messages</a>
-                        </li>
-                        <!-- <li class="list-line-item">
-                            <a routerLinkActive="activein"  [routerLink]="['settings']">Settings</a>
-                        </li> -->
-                    </ul>
-                </div>
-                <div class="col-md-3 padding_none">
-                    <!-- <ul class="list-inline pro_nav_icon">
-                        <li class="list-line-item">
-                            <a href="#"><img src="{{ baseUrl }}img/svg/ico_share.svg"></a>
-                        </li>
-                        <li class="list-line-item">
-                            <a href="#" data-toggle="modal" data-target="#edit_profile_pop">
-                                <img src="{{ baseUrl }}img/svg/ico_edit.svg">
-                            </a>
-                        </li>
-                    </ul> -->
+                    </div> -->
                 </div>
             </div>
         </div>

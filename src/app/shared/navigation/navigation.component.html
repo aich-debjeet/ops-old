@@ -111,25 +111,16 @@
                 <div class="dropdown__item p-b-8 text-uppercase">
                   <a routerLink="/event">Event</a>
                 </div>
-                <!-- <div class="dropdown__item p-b-8 text-uppercase">
-                                    <a routerLink="/learn">Learn</a>
-                                </div>
-                                <div class="dropdown__item p-b-8 text-uppercase">
-                                    <a routerLink="/resources">Resource</a>
-                                </div> -->
                 <div class="dropdown__item p-b-8 text-uppercase with_border_bottom">
                   <a routerLink="/communities">Community</a>
                 </div>
-                <!-- <div class="dropdown__item p-b-8 text-uppercase with_border_bottom">
-                                    <a routerLink="/directory">Directory</a>
-                                </div> -->
                 <div *ngIf="!showCreateOrg" class="dropdown__item with_border_bottom p-t-b-8">
-                  <div class="navdrop__switchto">Switch to</div>
+                  <div class="navdrop__switchto">My Organization</div>
                   <div class="navdrop__imgblock2">
                     <img class="navdrop__img" [src]="imageBaseUrl + this.userCards.other.image">
                   </div>
                   <div class="navdrop__name2">
-                    <a (click)="changeProfile(this.userCards, $event)">
+                    <a (click)="loadOrg()">
                       {{ this.userCards.other.name }}
                     </a>
                   </div>
@@ -317,12 +308,12 @@
                 </a>
               </div>
               <div *ngIf="!showCreateOrg" class="dropdown__item with_border_bottom p-t-b-16">
-                <div class="navdrop__switchto">Switch to</div>
+                <div class="navdrop__switchto">My Organization</div>
                 <div class="navdrop__imgblock2">
                   <img class="navdrop__img" [src]="imageBaseUrl + this.userCards.other.image">
                 </div>
                 <div class="navdrop__name2">
-                  <a (click)="changeProfile(this.userCards, $event)">
+                  <a (click)="loadOrg()">
                     {{ this.userCards.other.name }}
                   </a>
                 </div>
