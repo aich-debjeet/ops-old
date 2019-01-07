@@ -41,7 +41,7 @@ export class HomePostComponent implements OnInit, OnDestroy {
   spottedUsersParams = {
     mediaId: '',
     mediaType: '',
-    offset: -10,
+    offset: 0,
     limit: 10
   };
   spotModalPreloader = true;
@@ -85,7 +85,6 @@ export class HomePostComponent implements OnInit, OnDestroy {
 
       if (state['loadingSpottedUsers'] === false && state['loadedSpottedUsers'] === true) {
         this.spottedUsers = state['spottedUsersResp'];
-        console.log('this.spottedUsers: ', this.spottedUsers);
       }
     });
   }
@@ -176,14 +175,18 @@ export class HomePostComponent implements OnInit, OnDestroy {
   loadSpottedUsers(data) {
     this.spottedUsersParams.mediaType = data['mediaType'];
     this.spottedUsersParams.mediaId = data['mediaId'];
-    this.spottedUsersParams.offset = -10;
+    this.spottedUsersParams.offset = 0;
     this.spottedUsersModal.open();
     this.fetchSpottedUsers();
   }
 
   fetchSpottedUsers() {
-    this.spottedUsersParams.offset += this.spottedUsersParams.limit;
     this.store.dispatch({ type: ProfileActions.GET_MEDIA_SPOTTED_USERS, payload: this.spottedUsersParams });
+  }
+
+  loadMoreSpottedUsers() {
+    this.spottedUsersParams.offset += this.spottedUsersParams.limit;
+    this.fetchSpottedUsers();
   }
 
 }

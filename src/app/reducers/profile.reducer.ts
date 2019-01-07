@@ -86,10 +86,16 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
       });
 
     case ProfileActions.GET_MEDIA_SPOTTED_USERS_SUCCESS:
+      let spottedUsers;
+      if (state['spottedUsersParams']['offset'] === 0) {
+        spottedUsers = payload;
+      } else {
+        spottedUsers = state.spottedUsersResp.concat(payload);
+      }
       return Object.assign({}, state, {
         loadingSpottedUsers: false,
         loadedSpottedUsers: true,
-        spottedUsersResp: payload
+        spottedUsersResp: spottedUsers
       });
 
     case ProfileActions.GET_MEDIA_SPOTTED_USERS_FAILED:

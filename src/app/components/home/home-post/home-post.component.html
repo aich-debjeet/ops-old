@@ -168,7 +168,11 @@
 
 <app-modal-new #spottedUsersModal modalClass="spotted-users-container">
   <modal-content>
-    <div class="">
+    <div
+      class="spotted-users-wrapper"
+      infiniteScroll
+      [scrollWindow]="false"
+      (scrolled)="loadMoreSpottedUsers($event)">
       <ng-container *ngIf="spottedUsers?.length > 0;">
         <div class="c-invite__block" *ngFor="let profileItem of spottedUsers">
           <div *ngIf="!profileItem.extra.isFollowing">
