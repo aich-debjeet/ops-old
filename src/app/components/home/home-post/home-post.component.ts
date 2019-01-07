@@ -42,9 +42,9 @@ export class HomePostComponent implements OnInit, OnDestroy {
     mediaId: '',
     mediaType: '',
     offset: 0,
-    limit: 10
+    limit: 20
   };
-  spotModalPreloader = true;
+  isLoadingSpottedUsers = true;
 
   @ViewChild('spottedUsersModal') spottedUsersModal: Modal;
 
@@ -84,7 +84,15 @@ export class HomePostComponent implements OnInit, OnDestroy {
       }
 
       if (state['loadingSpottedUsers'] === false && state['loadedSpottedUsers'] === true) {
-        this.spottedUsers = state['spottedUsersResp'];
+        if (this.spottedUsersParams.offset === 0) {
+          this.isLoadingSpottedUsers = false;
+        }
+        this.spottedUsers = state['spottedUsersList'];
+      }
+      if (state['loadingSpottedUsers'] === true && state['loadedSpottedUsers'] === false) {
+        if (this.spottedUsersParams.offset === 0) {
+          this.isLoadingSpottedUsers = true;
+        }
       }
     });
   }
@@ -187,6 +195,16 @@ export class HomePostComponent implements OnInit, OnDestroy {
   loadMoreSpottedUsers() {
     this.spottedUsersParams.offset += this.spottedUsersParams.limit;
     this.fetchSpottedUsers();
+  }
+
+  followActionListen(data: any) {
+    if (data) {
+      if (data.action === 'follow') {
+
+      } else {
+
+      }
+    }
   }
 
 }

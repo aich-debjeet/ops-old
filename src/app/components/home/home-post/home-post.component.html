@@ -179,24 +179,16 @@
       (scrolled)="loadMoreSpottedUsers($event)">
       <ng-container *ngIf="spottedUsers?.length > 0;">
         <li class="c-invite__block" *ngFor="let profileItem of spottedUsers">
-          <div *ngIf="!profileItem.extra.isFollowing" class="has-flex space-btw">
-            <div>
-              <a class="c-user__avatar c-avatar--status">
-                <img *ngIf="profileItem?.physical?.profileImages?.profileImage_medium" class="c-user__image" [src]="baseUrl + profileItem?.physical?.profileImages?.profileImage_medium"
-                  width="24px" />
-              </a>
-              <a class="c-text_md c-invite--user" [routerLink]="'/profile/u/' + profileItem?.extra?.username">
-                {{ profileItem?.name | truncate:[10, '...']}}
-              </a>
-            </div>
-            <div class="c-invite--btn">
-              <a (click)="followUser(profileItem)" *ngIf="!profileItem.extra.isFollowing" class="c-text_md color-theme f-w_600 text_uppercase">FOLLOW</a>
-              <a (click)="unfollowUser(profileItem)" *ngIf="profileItem.extra.isFollowing" class="c-text_md color-theme f-w_600 text_uppercase">UNFOLLOW</a>
-            </div>
-          </div>
+          <app-user-card-horizontal
+            [hideButtons]="'true'"
+            [profileName]="profileItem?.name"
+            [username]="profileItem?.extra?.username"
+            [profileImage]="profileItem?.profileImage"
+            (followAction)="followActionListen($event)"
+            [isFollowing]="profileItem.extra?.isFollowing"></app-user-card-horizontal>
         </li>
       </ng-container>
-      <div *ngIf="showModalPreloader">
+      <div *ngIf="isLoadingSpottedUsers">
         <div class="sticky">
           <div class="loader">Loading...</div>
         </div>

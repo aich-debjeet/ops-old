@@ -86,16 +86,20 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
       });
 
     case ProfileActions.GET_MEDIA_SPOTTED_USERS_SUCCESS:
-      let spottedUsers;
-      if (state['spottedUsersParams']['offset'] === 0) {
-        spottedUsers = payload;
-      } else {
-        spottedUsers = state.spottedUsersResp.concat(payload);
+      let spottedUsersList = state.spottedUsersList;
+      const spottedUsersCount = payload['SUCCESS']['totalCount'] || 0;
+      if (payload['SUCCESS'] && payload['SUCCESS']['spottedProfileList']) {
+        if (state['spottedUsersParams']['offset'] === 0) {
+          spottedUsersList = payload['SUCCESS']['spottedProfileList'];
+        } else {
+          spottedUsersList = state.spottedUsersList.concat(payload['SUCCESS']['spottedProfileList']);
+        }
       }
       return Object.assign({}, state, {
-        loadingSpottedUsers: false,
         loadedSpottedUsers: true,
-        spottedUsersResp: spottedUsers
+        loadingSpottedUsers: false,
+        spottedUsersList: spottedUsersList,
+        spottedUsersCount: spottedUsersCount
       });
 
     case ProfileActions.GET_MEDIA_SPOTTED_USERS_FAILED:
