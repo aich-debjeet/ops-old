@@ -3,11 +3,26 @@
 @import './src/assets/scss/helpers/_mixins.scss';
 @import '~sass-mq/_mq.scss';
 
-.spotted-users-container {
-  width: 200px;
-  margin: auto;
-}
 
+.num-of-people-spotted {
+  border-bottom: 1px solid $color-grey-light;
+}
+ul.spotted-people-list {
+  height: 100%;
+  overflow-y: auto;
+  max-height: 386px;
+  padding-top: 20px;
+  padding-bottom: 60px;
+  & > li {
+    display: block;
+  }
+}
+.pop-close {
+  top: -2px;
+  right: 0px;
+  width: 14px;
+  position: absolute;
+}
 .cursor_pointer {
   cursor: pointer;
 }
