@@ -142,16 +142,20 @@
 
   <div class="c-status--block">
     <div class="c-links">
-      <div class="c-links__spots relative show-on-hover" (click)="spotMedia(mediaData)">
-        <img *ngIf="following" [src]="imageLink + 'img/svg/spot_icon.svg'" class="c-links__image">
-        <img *ngIf="!following" [src]="imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
-        <span class="c-links__count">{{ mediaData?.counts?.spotsCount || 0 }} Spots</span>
-        <ul class="people-spots show-this">
+      <div class="c-links__spots relative show-on-hover">
+        <a (click)="spotMedia(mediaData)">
+          <img *ngIf="following" [src]="imageLink + 'img/svg/spot_icon.svg'" class="c-links__image">
+          <img *ngIf="!following" [src]="imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
+        </a>
+        <a (click)="spottedUsers(mediaData?.id)">
+          <span class="c-links__count">{{ mediaData?.counts?.spotsCount || 0 }} Spots</span>
+        </a>
+        <!-- <ul class="people-spots show-this">
           <li *ngFor="let spotted of spottedPeople">{{ spotted }}</li>
           <li class="see-more-spotted">
             <button class="see-more-spotted">See more</button>
           </li>
-        </ul>
+        </ul> -->
       </div>
       <div *ngIf="mediaData?.description && mediaData?.mtype === 'status' " class="c-links__comments">
         <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">

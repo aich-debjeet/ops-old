@@ -148,8 +148,14 @@
 </div>
 
   <div class="columns o-homefeed-posts">
-    <app-post (elemViewportStatus)="elemInViewportStatus($event)" *ngFor="let userMedia of posts; let i = index"
-      [className]="'c-card m-t-8'" (postDelete)="postDelete(userMedia)" [mediaData]="userMedia" [userData]="userData"></app-post>
+    <app-post
+      (loadSpottedUsers)="loadSpottedUsers($event)"
+      (elemViewportStatus)="elemInViewportStatus($event)"
+      *ngFor="let userMedia of posts; let i = index"
+      [className]="'c-card m-t-8'"
+      (postDelete)="postDelete(userMedia)"
+      [mediaData]="userMedia"
+      [userData]="userData"></app-post>
     <div *ngIf="userProfile.user_following_posts_loading">
       <app-post-card [className]="'c-card m-t-8'" [loader]=true *ngFor="let number of [0,1]"></app-post-card>
     </div>
@@ -159,3 +165,32 @@
     </div>
   </div>
 </div>
+
+<app-modal-new #spottedUsersModal modalClass="spotted-users-container">
+  <modal-content>
+    <div class="">
+      <ng-container *ngIf="spottedUsers?.length > 0;">
+        <div class="c-invite__block" *ngFor="let profileItem of spottedUsers">
+          <div *ngIf="!profileItem.extra.isFollowing">
+            <a class="c-user__avatar c-avatar--status">
+              <img *ngIf="profileItem?.physical?.profileImages?.profileImage_medium" class="c-user__image" [src]="baseUrl + profileItem?.physical?.profileImages?.profileImage_medium"
+                width="24px" />
+            </a>
+            <a class="c-text_md c-invite--user" [routerLink]="'/profile/u/' + profileItem?.extra?.username">
+              {{ profileItem?.name | truncate:[10, '...']}}
+            </a>
+            <div class="c-invite--btn">
+              <a (click)="followUser(profileItem)" *ngIf="!profileItem.extra.isFollowing" class="c-text_md color-theme f-w_600 text_uppercase">FOLLOW</a>
+              <a (click)="unfollowUser(profileItem)" *ngIf="profileItem.extra.isFollowing" class="c-text_md color-theme f-w_600 text_uppercase">UNFOLLOW</a>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <div *ngIf="showModalPreloader">
+        <div class="sticky">
+          <div class="loader">Loading...</div>
+        </div>
+      </div>
+    </div>
+  </modal-content>
+</app-modal-new>

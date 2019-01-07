@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { Observable } from 'rxjs/Observable';
 import { ISubscription } from 'rxjs/Subscription';
@@ -9,6 +9,7 @@ import { Store } from '@ngrx/store';
 import { ProfileActions } from '../../../actions/profile.action';
 import { MediaActions } from '../../../actions/media.action';
 import { findIndex as _findIndex } from 'lodash';
+import { Modal } from 'app/shared/modal-new/Modal';
 
 @Component({
   selector: 'app-home-post',
@@ -36,6 +37,16 @@ export class HomePostComponent implements OnInit, OnDestroy {
   userData: any;
   playingVideoId = '';
   sponsoredList = [];
+  spottedUsers: any[];
+  spottedUsersParams = {
+    mediaId: '',
+    mediaType: '',
+    offset: -10,
+    limit: 10
+  };
+  spotModalPreloader = true;
+
+  @ViewChild('spottedUsersModal') spottedUsersModal: Modal;
 
   constructor(
     public route: ActivatedRoute,
@@ -70,6 +81,11 @@ export class HomePostComponent implements OnInit, OnDestroy {
           this.postsLoaded = true;
           this.postLoad();
         }
+      }
+
+      if (state['loadingSpottedUsers'] === false && state['loadedSpottedUsers'] === true) {
+        this.spottedUsers = state['spottedUsersResp'];
+        console.log('this.spottedUsers: ', this.spottedUsers);
       }
     });
   }
@@ -155,6 +171,19 @@ export class HomePostComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.profSub.unsubscribe();
+  }
+
+  loadSpottedUsers(data) {
+    this.spottedUsersParams.mediaType = data['mediaType'];
+    this.spottedUsersParams.mediaId = data['mediaId'];
+    this.spottedUsersParams.offset = -10;
+    this.spottedUsersModal.open();
+    this.fetchSpottedUsers();
+  }
+
+  fetchSpottedUsers() {
+    this.spottedUsersParams.offset += this.spottedUsersParams.limit;
+    this.store.dispatch({ type: ProfileActions.GET_MEDIA_SPOTTED_USERS, payload: this.spottedUsersParams });
   }
 
 }

@@ -21,6 +21,7 @@ export class PostComponent implements OnInit {
   @Input() postType: string;
   @Input() type: string;
   @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
+  @Output() loadSpottedUsers: EventEmitter<any> = new EventEmitter<any>();
   @Output() postDelete = new EventEmitter();
   @Output() elemViewportStatus = new EventEmitter();
   @ViewChild('reportModal') reportModal: Modal;
@@ -40,14 +41,19 @@ export class PostComponent implements OnInit {
   imageLink: string = environment.API_IMAGE;
   domainLink: string = environment.API_DOMAIN;
   messageEdit: string;
-  spottedPeople = [];
 
   constructor(
     private store: Store<Media>,
     // public gUtils: GeneralUtilities
   ) {
     this.dotMenuState = false;
-    this.spottedPeople = ['Name1', 'Name2', 'Name3', 'Name4']; // dummy for HTML to show
+  }
+
+  spottedUsers(mediaId) {
+    this.loadSpottedUsers.emit({
+      mediaType: this.mediaType,
+      mediaId: mediaId
+    });
   }
 
   ngOnInit() {
