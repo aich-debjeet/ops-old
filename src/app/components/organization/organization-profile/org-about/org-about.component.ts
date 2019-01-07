@@ -48,6 +48,7 @@ export class OrgAboutComponent implements OnInit, OnDestroy {
   // services: any[];
   profileUsername = '';
   profileHandle = '';
+  isUpdating: boolean;
   baseUrl = environment.API_IMAGE;
 
   // map vars
@@ -91,11 +92,12 @@ export class OrgAboutComponent implements OnInit, OnDestroy {
     /* org state */
     this.orgState$ = this.store.select('profileTags');
     this.orgSub = this.orgState$.subscribe((state) => {
+      console.log('state', state)
       this.orgProfile = state;
       if (this.orgProfile && this.orgProfile['org_profile_update_success'] === true) {
         this.orgProfile.org_profile_update_success = false;
         if (this.orgProfile && this.orgProfile['profile_navigation_details']['isOrganization'] === true) {
-          this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: this.orgProfile['profile_organization']['extra']['username'] });
+          this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: this.orgProfile['profile_navigation_details']['organization']['organizationUserName'] });
         }
       }
       // for mobile
