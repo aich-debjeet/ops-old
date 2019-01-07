@@ -78,6 +78,26 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
 
   switch (type) {
 
+    case ProfileActions.GET_MEDIA_SPOTTED_USERS:
+      return Object.assign({}, state, {
+        loadingSpottedUsers: true,
+        loadedSpottedUsers: false,
+        spottedUsersParams: payload
+      });
+
+    case ProfileActions.GET_MEDIA_SPOTTED_USERS_SUCCESS:
+      return Object.assign({}, state, {
+        loadingSpottedUsers: false,
+        loadedSpottedUsers: true,
+        spottedUsersResp: payload
+      });
+
+    case ProfileActions.GET_MEDIA_SPOTTED_USERS_FAILED:
+      return Object.assign({}, state, {
+        loadingSpottedUsers: false,
+        loadedSpottedUsers: false
+      });
+
     case ProfileActions.POST_STATUS:
       return Object.assign({}, state, {
         postingStatus: true,

@@ -16,6 +16,18 @@ import { ProfileActions } from '../actions/profile.action';
 export class ProfileEffect {
 
   /**
+  * spotted users
+  */
+  @Effect()
+  loadSpottedUsers$ = this.actions$
+    .ofType(ProfileActions.GET_MEDIA_SPOTTED_USERS)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.loadSpottedUsers(payload)
+      .map(res => ({ type: ProfileActions.GET_MEDIA_SPOTTED_USERS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.GET_MEDIA_SPOTTED_USERS_FAILED, payload: res }))
+    );
+
+  /**
   * post status
   */
   @Effect()
