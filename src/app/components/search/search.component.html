@@ -42,7 +42,7 @@
     <div *ngIf="searchString?.length > 0 && !isSearching">
 
       <!-- search filters -->
-      <div *ngIf="searchType === 'all'" class="col-md-3 col-sm-4 col-xs-12 p-l-0 m-t--32">
+      <div *ngIf="searchType === 'all'" class="col-md-3 col-sm-4 col-xs-12 p-l-0 m-t--32 m-b-16">
         <div class="o-search-left-block p-24 hidden-xs">
 
           <div *ngIf="(searchFilters | json) == '{}'">
@@ -77,7 +77,7 @@
             <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16 float_left">Posts</h6>
             <div class="o-search-filter-block p-l-8">
               <div *ngFor="let postElems of searchFilters?.post">
-                <ng-container *ngIf="postElems?.filters?.length > 0">
+                <ng-container *ngIf="postElems?.filters?.length > 0 && postElems?.title !== 'TAGS'">
                   <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">{{ postElems?.title }}</h6>
                   <div *ngFor="let filter of postElems?.filters">
                     <ng-container *ngIf="filter?.name !== ''">
@@ -100,7 +100,7 @@
             <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16 float_left">Channels</h6>
             <div class="o-search-filter-block p-l-8">
               <div *ngFor="let channelElems of searchFilters?.channel">
-                <ng-container *ngIf="channelElems?.filters?.length > 0">
+                <ng-container *ngIf="channelElems?.filters?.length > 0 && channelElems?.title !== 'TAGS'">
                   <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">{{ channelElems?.title }}</h6>
                   <div *ngFor="let filter of channelElems?.filters">
                     <ng-container *ngIf="filter?.name !== ''">

@@ -3,7 +3,6 @@
 @import './src/assets/scss/helpers/_mixins.scss';
 @import '~sass-mq/_mq.scss';
 
-
 .num-of-people-spotted {
   border-bottom: 1px solid $color-grey-light;
 }
@@ -11,8 +10,6 @@ ul.spotted-people-list {
   height: 100%;
   overflow-y: auto;
   max-height: 386px;
-  padding-top: 20px;
-  padding-bottom: 60px;
   & > li {
     display: block;
   }

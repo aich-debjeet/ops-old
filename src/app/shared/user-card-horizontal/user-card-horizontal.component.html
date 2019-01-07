@@ -1,0 +1,12 @@
+<div class="c-invite__block">
+  <a class="c-user__avatar c-avatar--status">
+    <img *ngIf="profileImage" class="c-user__image" [src]="imgBaseUrl + profileImage" width="24px"/>
+  </a>
+  <a class="c-text_md c-invite--user" [routerLink]="'/profile/u/' + username">
+    {{ profileName | truncate:[20, '...'] }}
+  </a>
+  <div *ngIf="!hideButtons" class="c-invite--btn">
+    <a (click)="followUserAction('follow')" *ngIf="!isFollowing" class="c-text_md color-theme f-w_600 text_uppercase">FOLLOW</a>
+    <a (click)="followUserAction('unfollow')" *ngIf="isFollowing" class="c-text_md color-theme f-w_600 text_uppercase">UNFOLLOW</a>
+  </div>
+</div>
