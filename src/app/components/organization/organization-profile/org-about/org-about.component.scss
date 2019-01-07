@@ -31,6 +31,7 @@
     transition: 0.25s;
     float: left;
     width: 100%;
+    position: relative;
 }
 
 .o-org-form__item:hover {
@@ -42,11 +43,13 @@
 }
 
 .o-org-form__edit-ico {
+    right: 8px;
     width: 13px;
     height: 13px;
-    float: right;
     display: none;
     transition: .25s;
+    position: absolute;
+    top: calc(50% - 10px);
 }
 
 // form
