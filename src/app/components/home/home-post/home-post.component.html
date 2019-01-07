@@ -168,32 +168,39 @@
 
 <app-modal-new #spottedUsersModal modalClass="spotted-users-container">
   <modal-content>
-    <div class="spotted-users-wrapper"
+    <p class="c-text_lg f-w_600 relative num-of-people-spotted">Spots
+      <a class="pop-close" (click)="spottedUsersModal.close()">
+        <img src="https://cdn.onepagespotlight.com/img/svg/ico_close-38.svg" />
+      </a>
+    </p>
+    <ul id="ops_scrollbar" class="spotted-people-list"
       infiniteScroll
       [scrollWindow]="false"
       (scrolled)="loadMoreSpottedUsers($event)">
       <ng-container *ngIf="spottedUsers?.length > 0;">
-        <div class="c-invite__block" *ngFor="let profileItem of spottedUsers">
-          <div *ngIf="!profileItem.extra.isFollowing">
-            <a class="c-user__avatar c-avatar--status">
-              <img *ngIf="profileItem?.physical?.profileImages?.profileImage_medium" class="c-user__image" [src]="baseUrl + profileItem?.physical?.profileImages?.profileImage_medium"
-                width="24px" />
-            </a>
-            <a class="c-text_md c-invite--user" [routerLink]="'/profile/u/' + profileItem?.extra?.username">
-              {{ profileItem?.name | truncate:[10, '...']}}
-            </a>
+        <li class="c-invite__block" *ngFor="let profileItem of spottedUsers">
+          <div *ngIf="!profileItem.extra.isFollowing" class="has-flex space-btw">
+            <div>
+              <a class="c-user__avatar c-avatar--status">
+                <img *ngIf="profileItem?.physical?.profileImages?.profileImage_medium" class="c-user__image" [src]="baseUrl + profileItem?.physical?.profileImages?.profileImage_medium"
+                  width="24px" />
+              </a>
+              <a class="c-text_md c-invite--user" [routerLink]="'/profile/u/' + profileItem?.extra?.username">
+                {{ profileItem?.name | truncate:[10, '...']}}
+              </a>
+            </div>
             <div class="c-invite--btn">
               <a (click)="followUser(profileItem)" *ngIf="!profileItem.extra.isFollowing" class="c-text_md color-theme f-w_600 text_uppercase">FOLLOW</a>
               <a (click)="unfollowUser(profileItem)" *ngIf="profileItem.extra.isFollowing" class="c-text_md color-theme f-w_600 text_uppercase">UNFOLLOW</a>
             </div>
           </div>
-        </div>
+        </li>
       </ng-container>
       <div *ngIf="showModalPreloader">
         <div class="sticky">
           <div class="loader">Loading...</div>
         </div>
       </div>
-    </div>
+    </ul>
   </modal-content>
 </app-modal-new>

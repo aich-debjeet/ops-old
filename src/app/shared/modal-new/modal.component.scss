@@ -239,11 +239,13 @@
 }
 
 .spotted-users-container {
-    width: 300px;
-    position: relative;
+    width: 100%;
+    padding: 16px;
+    display: block;
+    max-width: 340px;
     margin: 30px auto;
-    background: #fff;
     border-radius: 3px;
-    display: inline-block;
-    height: 200px;
+    position: relative;
+    background: $color-white;
 }
+
