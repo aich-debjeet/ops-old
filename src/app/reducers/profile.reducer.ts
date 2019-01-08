@@ -213,22 +213,14 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
     case ProfileActions.MEDIA_VIEW_COUNT_UPDATE:
       return Object.assign({}, state, {
         user_following_posts: state.user_following_posts.map(post => {
-          if (post.id === payload['contentId']) {
-            if (payload['totalViews']) {
-              post.viewcount = payload['totalViews'];
-            } else {
-              post.viewcount++;
-            }
+          if (post.counts.viewcount && post.id === payload) {
+            post.counts.viewcount++;
           }
           return post;
         }),
         user_posts: state.user_posts.map(post => {
-          if (post.id === payload['contentId']) {
-            if (payload['totalViews']) {
-              post.viewcount = payload['totalViews'];
-            } else {
-              post.viewcount++;
-            }
+          if (post.counts.viewcount && post.id === payload) {
+            post.counts.viewcount++;
           }
           return post;
         })
