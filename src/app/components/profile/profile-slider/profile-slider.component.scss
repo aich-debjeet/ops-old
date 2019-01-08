@@ -14,7 +14,7 @@
 }
 
 .o-following-pop {
-  padding: 24px 16px 24px 32px;
+  padding: 24px 16px;
 }
 
 .pop-container-md {
@@ -67,7 +67,8 @@
 
 .o-follow-people {
   width: 100%;
-  list-style: none;
+  display: block;
+  text-align: center;
 }
 
 .o-profile__cont {
@@ -723,12 +724,8 @@
 }
 
 .o-profile__others-follow-btn {
-  float: right;
   width: 100%;
-  margin-left: 8px;
-
   @include mq($from: $mobile_sm, $until: $mobile_lg) {
-    width: 100%;
     margin: 8px 0px;
   }
 
@@ -743,20 +740,14 @@
 .o-following-pop,
 .o-follow-people {
   .o-follow-people__list {
-    list-style-type: none;
-    float: left;
+    float: none;
     width: 110px;
-    margin-right: 14px;
-    margin-top: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
     height: 150px;
+    margin: 8px 8px;
+    text-align: center;
+    display: inline-block;
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
-      float: none;
-      display: inline-block;
-      margin-right: 0px;
+      margin: 8px 0px;
     }
   }
 }
@@ -1353,10 +1344,6 @@
   }
 }
 
-.o-following-pop {
-  padding: 24px 16px 24px 32px;
-}
-
 .o-following__search {
   width: 98%;
   float: left;
@@ -1386,13 +1373,9 @@
 .o-follow-people__avatar {
   width: 72px;
   height: 72px;
-  background: #c1c1c1;
-  border-radius: 50%;
+  margin: 0 auto;
   overflow: hidden;
-  @include mq($from: $mobile_sm, $until: $mobile_lg) {
-    margin: 0  auto;
-  }
-
+  border-radius: 50%;
   img {
     width: 72px;
   }
