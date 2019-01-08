@@ -20,6 +20,8 @@ import { LocalStorageService } from './../../../../services/local-storage.servic
 
 import * as _ from 'lodash';
 import { GeneralUtilities } from '../../../../helpers/general.utils';
+import { AuthActions } from 'app/actions/auth.action';
+import { Login, BasicOrgTag } from '../../../../models/auth.model';
 
 @Component({
   selector: 'app-org-about',
@@ -32,6 +34,7 @@ export class OrgAboutComponent implements OnInit, OnDestroy {
   @ViewChild('searchInput') searchInput;
 
   orgState$: Observable<Organization>;
+  tagState$: Observable<BasicOrgTag>;
   orgProfile;
   editingField: string;
   editedField: string;
@@ -87,6 +90,15 @@ export class OrgAboutComponent implements OnInit, OnDestroy {
         this.profileUsername = localStore.username;
       }
     }
+
+    this.tagState$ = store.select('loginTags');
+    this.tagState$.subscribe((state) => {
+      if (state) {
+        if (state.industries) {
+          this.forIndustries = state.industries;
+        }
+      }
+    });
 
     // this.services = ['UI design', 'Web Application Development', 'Social Media'];
 
@@ -151,6 +163,7 @@ export class OrgAboutComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getLocationGoogle();
+    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES});
   }
 
   /**
@@ -230,7 +243,7 @@ export class OrgAboutComponent implements OnInit, OnDestroy {
 
     // for indusrty update
     if (fieldName === 'industries' && this.aboutIndustryCode.length > 0) {
-      const newIndustry = _.find(this.forIndustries.industries, { 'code': this.aboutIndustryCode });
+      const newIndustry = _.find(this.forIndustries, { 'code': this.aboutIndustryCode });
       reqBody = {
         industryList: []
       };
