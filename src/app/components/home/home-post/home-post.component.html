@@ -166,7 +166,7 @@
   </div>
 </div>
 
-<app-modal-new #spottedUsersModal modalClass="spotted-users-container">
+<app-modal-new #spottedUsersModal modalClass="spotted-users-container" (onClose)="spottedUsersModalClosed()">
   <modal-content>
     <p class="c-text_lg f-w_600 relative num-of-people-spotted">Spots
       <a class="pop-close" (click)="spottedUsersModal.close()">
