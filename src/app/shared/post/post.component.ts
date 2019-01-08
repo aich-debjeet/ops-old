@@ -153,7 +153,7 @@ export class PostComponent implements OnInit {
     const data = {
       id: this.mediaId,
       description: text,
-      mtype: this.mediaType
+      mType: this.mediaType
     }
     console.log(data)
     this.store.dispatch({ type: MediaActions.MEDIA_EDIT, payload: data });
