@@ -580,6 +580,7 @@
   margin-right: 16px;
   cursor: pointer;
   color: #929292;
+  float: left;
 }
 .c-links__image {
   width: 24px;
@@ -598,6 +599,7 @@
   display: inline;
   margin-right: 24px;
   cursor: pointer;
+  float: left;
 }
 .c-links__actions {
   text-align: right;
@@ -625,6 +627,7 @@
   box-sizing: border-box;
   cursor: pointer;
   border-radius: 50px;
+  float: left;
 }
 .c-avatar--feed {
   width: 24px;
