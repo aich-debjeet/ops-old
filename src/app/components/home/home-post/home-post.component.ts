@@ -198,13 +198,17 @@ export class HomePostComponent implements OnInit, OnDestroy {
   }
 
   followActionListen(data: any) {
-    if (data) {
+    if (data && data.action) {
       if (data.action === 'follow') {
-
+        this.store.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: data.handle });
       } else {
-
+        this.store.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: data.handle });
       }
     }
+  }
+
+  spottedUsersModalClosed() {
+    this.store.dispatch({ type: ProfileActions.CLEAR_SPOTTED_USERS });
   }
 
 }
