@@ -577,7 +577,6 @@
 }
 .c-links__spots {
   display: inline;
-  float: left;
   margin-right: 16px;
   cursor: pointer;
   color: #929292;
@@ -597,7 +596,6 @@
 }
 .c-links__comments {
   display: inline;
-  float: left;
   margin-right: 24px;
   cursor: pointer;
 }
@@ -626,7 +624,6 @@
   box-sizing: border-box;
   cursor: pointer;
   border-radius: 50px;
-  float: left;
 }
 .c-avatar--feed {
   width: 24px;
