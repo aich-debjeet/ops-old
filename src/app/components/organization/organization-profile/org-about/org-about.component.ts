@@ -34,6 +34,7 @@ export class OrgAboutComponent implements OnInit, OnDestroy {
   orgState$: Observable<Organization>;
   orgProfile;
   editingField: string;
+  editedField: string;
   aboutIndustry: any;
   aboutIndustryCode: any;
   forIndustries: any;
@@ -100,6 +101,11 @@ export class OrgAboutComponent implements OnInit, OnDestroy {
           this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: this.orgProfile['profile_navigation_details']['organization']['organizationUserName'] });
         }
       }
+      if(typeof this.orgProfile['org_update']=== 'boolean'){
+        if(this.orgProfile['org_update']){
+          this.isUpdating = true;
+        } else this.isUpdating = false;
+      }
       // for mobile
       if (this.gUtils.checkNestedKey(this.orgProfile, ['organization_details', 'contact', 'mobile', 'mobile'])) {
         this.aboutMobile = this.orgProfile['organization_details']['contact']['mobile']['mobile'];
@@ -152,6 +158,7 @@ export class OrgAboutComponent implements OnInit, OnDestroy {
    */
   editField(fieldName: string) {
     this.editingField = fieldName;
+    this.editedField = fieldName;
   }
 
   /**

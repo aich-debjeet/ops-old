@@ -1633,7 +1633,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
     case OrganizationActions.ORG_PROFILE_UPDATE:
       return Object.assign({}, state, {
         org_profile_update_success: false,
-        org_profile_update_req_body: payload
+        org_profile_update_req_body: payload,
+        org_update: true
       });
     case OrganizationActions.ORG_PROFILE_UPDATE_SUCCESS:
       return Object.assign({}, state, {
@@ -1658,7 +1659,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
     case OrganizationActions.ORG_PROFILE_DETAILS_SUCCESS:
       return Object.assign({}, state, {
         // profile_details: payload,
-        organization_details: payload
+        organization_details: payload,
+        org_update: false
       });
 
     case OrganizationActions.ORGANIZATION_DELETE:

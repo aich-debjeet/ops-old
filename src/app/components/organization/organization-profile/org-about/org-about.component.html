@@ -12,10 +12,10 @@
               <p *ngIf="editingField != 'description'" id="brief" class="c-text_sm color-grey-dark m-t-8">
                 {{ aboutDescription }}
               </p>
+              <img *ngIf="isUpdating && editedField == 'description'" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '22px','right': '70px'}"
+                  [src]="baseUrl + 'img/search-preloader.gif'">
               <div *ngIf="editingField == 'description'" id="brief-edit" class="o-org-form__edit-sec">
                 <textarea class="o-org-about__breif c-text_sm m-t-8" [(ngModel)]="aboutDescription" [ngModelOptions]="{standalone: true}">{{ aboutDescription }}</textarea>
-                <img *ngIf="isUpdating" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '15px','right': '0'}"
-                  [src]="baseUrl + 'img/search-preloader.gif'">
                 <div class="o-org-form__actions">
                   <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()">Cancel</button>
                   <button type="button" class="btn btn-primary btn-sm" (click)="updateAbout('description')">Save</button>
@@ -29,14 +29,14 @@
               <p *ngIf="editingField != 'services'" id="o-org-about-serv" class="c-text_sm color-grey-dark m-t-8">
                 {{ aboutServicesStr }}
               </p>
+              <img *ngIf="isUpdating && editedField == 'services'" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '22px','right': '70px'}"
+              [src]="baseUrl + 'img/search-preloader.gif'">
               <div *ngIf="editingField == 'services'" id="o-org-about-serv_edit" class="o-org-form__edit-sec">
                 <div class="c-form__group c-form--sm c-form--noeffect">
                   <!-- <input class="c-form__input" type="text" [(ngModel)]="aboutServices" [ngModelOptions]="{standalone: true}"> -->
                   <tag-input [(ngModel)]='aboutServices' [placeholder]="'Add Services'" [theme]="'ops-theme'"
                     [ngModelOptions]="{standalone: true}" ngDefaultControl>
                   </tag-input>
-                  <img *ngIf="isUpdating" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '15px','right': '0'}"
-                  [src]="baseUrl + 'img/search-preloader.gif'">
                 </div>
                 <div class="o-org-form__actions">
                   <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()">Cancel</button>
@@ -54,6 +54,8 @@
                                 </ng-container> -->
                 {{ aboutIndustryCode }}
               </p>
+              <img *ngIf="isUpdating && editedField == 'industries'" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '22px','right': '70px'}"
+              [src]="baseUrl + 'img/search-preloader.gif'">
               <div *ngIf="editingField == 'industries'" id="o-org-about-ind_edit" class="o-org-form__edit-sec">
                 <div class="c-form__group c-form--sm c-form--noeffect">
                   <select class="form-control" id="sel1" [(ngModel)]="aboutIndustryCode" [ngModelOptions]="{standalone: true}">
@@ -62,8 +64,6 @@
                       industry.name }}</option>
                   </select>
                 </div>
-                <img *ngIf="isUpdating" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '15px','right': '0'}"
-                  [src]="baseUrl + 'img/search-preloader.gif'">
                 <div class="o-org-form__actions">
                   <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()">Cancel</button>
                   <button type="button" class="btn btn-primary btn-sm" (click)="updateAbout('industries')">Save</button>
@@ -77,14 +77,14 @@
               <p *ngIf="editingField != 'activeFrom'" id="o-org-about-foundyr" class="c-text_sm color-grey-dark m-t-8">
                 {{ orgProfile?.organization_details?.activeFrom | utcDate | date: 'dd MMM, yyyy' }}
               </p>
+              <img *ngIf="isUpdating && editedField =='activeFrom'" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '22px','right': '70px'}"
+              [src]="baseUrl + 'img/search-preloader.gif'">
               <div *ngIf="editingField == 'activeFrom'" id="o-org-about-foundyr_edit" class="o-org-form__edit-sec">
                 <div class="c-form__group ">
                   <!-- <input [dpDayPicker]="datePickerConfig" #aboutActiveFrom class="c-form__input" type="text" value="{{ orgProfile?.organization_details?.activeFrom }}"> -->
                   <dp-date-picker [(ngModel)]="aboutFoundedDate" [ngModelOptions]="{standalone: true}" [config]="datePickerConfig"
                     theme="dp-material"></dp-date-picker>
                 </div>
-                <img *ngIf="isUpdating" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '15px','right': '0'}"
-                  [src]="baseUrl + 'img/search-preloader.gif'">
                 <div class="o-org-form__actions">
                   <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()">Cancel</button>
                   <button type="button" class="btn btn-primary btn-sm" (click)="updateAbout('activeFrom')">Save</button>
@@ -106,13 +106,13 @@
                 </span>
                 <a class="o-org-form__edit-ico" (click)="editField('mobile')"><img [src]="baseUrl + 'img/svg/ico_edit.svg'"></a>
               </div>
+              <img *ngIf="isUpdating && editedField =='mobile'" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '22px','right': '70px'}"
+              [src]="baseUrl + 'img/search-preloader.gif'">
               <div *ngIf="editingField == 'mobile'" id="o-org-about-contact-ph-edit" class="o-org-about__contact-ph-edit ">
                 <div class="c-form__group c-form--sm c-form--noeffect">
                   <input class="c-form__input fpadding_l32" type="text" [(ngModel)]="aboutMobile" [ngModelOptions]="{standalone: true}"
                     value="{{ orgProfile?.organization_details?.mobile }}">
                   <span><img [src]="baseUrl + 'img/svg/ico_receiver.svg'" class="c-form__input--lefticon"></span>
-                  <img *ngIf="isUpdating" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '15px','right': '0'}"
-                  [src]="baseUrl + 'img/search-preloader.gif'">
                 </div>
                 <div class="o-org-form__actions">
                   <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()">Cancel</button>
@@ -130,13 +130,13 @@
                 </span>
                 <a class="o-org-form__edit-ico" (click)="editField('email')"><img [src]="baseUrl + 'img/svg/ico_edit.svg'"></a>
               </div>
+              <img *ngIf="isUpdating && editedField =='email'" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '22px','right': '70px'}"
+              [src]="baseUrl + 'img/search-preloader.gif'">
               <div *ngIf="editingField == 'email'" id="o-org-about-contact-mail-edit" class="o-org-about__contact-ph-edit ">
                 <div class="c-form__group c-form--sm c-form--noeffect">
                   <input class="c-form__input fpadding_l32" type="text" [(ngModel)]="aboutEmail" [ngModelOptions]="{standalone: true}"
                     value="{{ orgProfile?.organization_details?.email }}">
                   <span><img [src]="baseUrl + 'v2/svg/ico_envelope.svg'" class="c-form__input--lefticon"></span>
-                  <img *ngIf="isUpdating" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '15px','right': '0'}"
-                  [src]="baseUrl + 'img/search-preloader.gif'">
                 </div>
                 <div class="o-org-form__actions">
                   <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()">Cancel</button>
@@ -154,13 +154,13 @@
                 </span>
                 <a class="o-org-form__edit-ico" (click)="editField('website')"><img [src]="baseUrl + 'img/svg/ico_edit.svg'"></a>
               </div>
+              <img *ngIf="isUpdating && editedField =='website'" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '22px','right': '70px'}"
+              [src]="baseUrl + 'img/search-preloader.gif'">
               <div *ngIf="editingField == 'website'" id="o-org-about-contact-web-edit" class="o-org-about__contact-ph-edit ">
                 <div class="c-form__group c-form--sm c-form--noeffect">
                   <input class="c-form__input fpadding_l32" type="text" [(ngModel)]="aboutWebsite" [ngModelOptions]="{standalone: true}"
                     value="{{ orgProfile?.organization_details?.contact?.website.website }}">
                   <span><img [src]="baseUrl + 'img/svg/ico_public_grey.svg'" class="c-form__input--lefticon"></span>
-                  <img *ngIf="isUpdating" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '15px','right': '0'}"
-                  [src]="baseUrl + 'img/search-preloader.gif'">
                 </div>
                 <div class="o-org-form__actions">
                   <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()">Cancel</button>
@@ -179,14 +179,14 @@
               <p id="o-org-about-address" class="c-text_sm color-grey-dark m-t-8">
                 {{ orgProfile?.organization_details?.extra?.address?.line1 }}
               </p>
+              <img *ngIf="isUpdating  && editedField =='address'" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '22px','right': '70px'}"
+              [src]="baseUrl + 'img/search-preloader.gif'">
               <!-- <div *ngIf="editingField == 'address'" id="o-org-about-address_edit" class="o-org-form__edit-sec"> -->
               <div [ngClass]="{'show': editingField == 'address'}" id="o-org-about-address_edit" class="o-org-form__edit-sec hide">
                 <div class="c-form__group c-form--sm c-form--noeffect">
                   <input #searchLocation class="c-form__input" type="text" autocorrect="off" autocapitalize="off"
                     spellcheck="off">
                 </div>
-                <img *ngIf="isUpdating" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '15px','right': '0'}"
-                  [src]="baseUrl + 'img/search-preloader.gif'">
               </div>
               <div *ngIf="editingField == 'address'" class="o-org-form__actions">
                 <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()">Cancel</button>
