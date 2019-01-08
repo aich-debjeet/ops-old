@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd, RouteConfigLoadStart, RouteConfigLoadEnd } from '@angular/router';
 import { NgProgress } from 'ngx-progressbar';
 import { ISubscription } from 'rxjs/Subscription';
+import { environment } from 'environments/environment';
 
 declare let ga;
 @Component({
@@ -23,7 +24,8 @@ export class AppComponent implements OnInit, OnDestroy {
     this.routerSub = this.router.events
       .subscribe(event => {
         // for google analytics
-        if (event instanceof NavigationEnd) {
+        if (environment.production && event instanceof NavigationEnd) {
+          // console.log('GA enabled for routes');
           ga('set', 'page', event.urlAfterRedirects);
           ga('send', 'pageview');
         }
