@@ -108,8 +108,8 @@
 
 .modal-cus-body{
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        margin: 10px;
-        width: calc(100% - 20px);
+        margin: 10px auto;
+        width: calc(100% - 30px);
     }
 }
 
@@ -142,6 +142,9 @@
     width: 600px;
     margin: 30px auto;
     position: relative;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        max-width: 100%;
+    }
 }
 
 .modal-test-claim{

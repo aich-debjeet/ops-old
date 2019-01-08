@@ -50,6 +50,9 @@
   max-height: 500px;
   float: left;
   overflow-y: auto;
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    text-align: center;
+  }
 }
 
 .fill-grey-light {
@@ -750,6 +753,11 @@
     align-items: center;
     flex-direction: column;
     height: 150px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+      float: none;
+      display: inline-block;
+      margin-right: 0px;
+    }
   }
 }
 
@@ -1052,8 +1060,6 @@
           .profile_add_title {
             display: inline-block;
             padding: 16px;
-            float: left;
-
             h3 {
               color: #979797;
               font-size: 16px;
@@ -1167,7 +1173,6 @@
               border: 2px solid #c1c1c1;
               border-radius: 50px;
               display: inline-block;
-              float: left;
               margin-right: 7px;
               position: relative;
               -webkit-appearance: none;
@@ -1384,6 +1389,9 @@
   background: #c1c1c1;
   border-radius: 50%;
   overflow: hidden;
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    margin: 0  auto;
+  }
 
   img {
     width: 72px;
@@ -1405,7 +1413,7 @@
   display: inline-block;
 
   @include mq($from: $mobile_sm, $until: $tablet) {
-    width: 95%;
+    width: 100%;
     padding: 23px 0px 24px 0px;
   }
 
