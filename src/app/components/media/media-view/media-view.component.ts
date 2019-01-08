@@ -251,4 +251,8 @@ export class MediaViewComponent implements OnDestroy {
         });
     }
   }
+
+  mediaModalClosed() {
+    this.store.dispatch({ type: MediaActions.CLEAR_VIEW_MEDIA });
+  }
 }
