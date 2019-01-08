@@ -82,6 +82,7 @@ a {
     background: #f8f8f8;
     cursor: pointer;
     border-radius: 50px;
+    float: left;
 }
 .c-user__name {
     font-size: 14px;
@@ -122,6 +123,7 @@ a {
 }
 .c-links__spots {
     display: inline;
+    float: left;
     margin-right: 24px;
     cursor: pointer;
 }
@@ -136,6 +138,7 @@ a {
 }
 .c-links__comments {
     display: inline;
+    float: left;
     margin-right: 24px;
     // cursor: pointer;
 }
