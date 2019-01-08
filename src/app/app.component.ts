@@ -17,18 +17,17 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     public ngProgress: NgProgress,
     public router: Router
-  ) {
-    // this.router.events.subscribe(event => {
-    //   if (event instanceof NavigationEnd) {
-    //     ga('set', 'page', event.urlAfterRedirects);
-    //     ga('send', 'pageview');
-    //   }
-    // });
-  }
+  ) { }
 
   ngOnInit() {
     this.routerSub = this.router.events
       .subscribe(event => {
+        // for google analytics
+        if (event instanceof NavigationEnd) {
+          ga('set', 'page', event.urlAfterRedirects);
+          ga('send', 'pageview');
+        }
+        // for page preloader
         if (event instanceof RouteConfigLoadStart) {
           if (this.loadingModule === false) {
             this.loadingModule = true;
