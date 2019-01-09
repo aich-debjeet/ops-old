@@ -192,7 +192,7 @@ export class HomePostComponent implements OnInit, OnDestroy {
     this.store.dispatch({ type: ProfileActions.GET_MEDIA_SPOTTED_USERS, payload: this.spottedUsersParams });
   }
 
-  loadMoreSpottedUsers() {
+  loadMoreSpottedUsers(e?: any) {
     this.spottedUsersParams.offset += this.spottedUsersParams.limit;
     this.fetchSpottedUsers();
   }
