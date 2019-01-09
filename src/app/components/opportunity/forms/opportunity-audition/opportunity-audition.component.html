@@ -11,7 +11,7 @@
           </div>
           <div class="col-md-9 p-0">
               <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                  <input formControlName="auditionTitle" class="c-form__input" type="text" placeholder="Eg: Actor, Singer, etc.">
+                  <input formControlName="auditionTitle" class="c-form__input" type="text" placeholder="Name of the role (E.g., actor, singer, etc.)">
                   <span class="c-form__highlight"></span>
                   <span class="c-form__bar"></span>
                   <!-- <label>Eg: Actor, Singer, etc.</label> -->
@@ -27,7 +27,7 @@
           <div class="col-md-9 p-0">
               <div class="c-form__group m-t-0 c-form--sm">
                   <!-- <textarea formControlName="auditionDescription" class="c-textarea__block c-textarea--style" placeholder="Describe about opportunity"></textarea> -->
-                  <quill-editor [modules]="quillModules" [style]="{height: '250px'}" class="quill-editor" [placeholder]="'Describe about opportunity'" formControlName="auditionDescription"></quill-editor>
+                  <quill-editor [modules]="quillModules" [style]="{height: '250px'}" class="quill-editor" [placeholder]="''" formControlName="auditionDescription"></quill-editor>
               </div>
               <p *ngIf="auditionFrm.controls['auditionDescription'].errors?.required && createAudFrm.submitted" class="c-form__validation error">Description is required!</p>
           </div>
