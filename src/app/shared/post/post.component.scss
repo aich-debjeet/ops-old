@@ -395,6 +395,9 @@ label {
 
 .c-feed__img-status {
   overflow: hidden;
+  @media only screen and (max-width: 375px) {
+		padding: 0px 16px 16px 16px;
+	}
 }
 
 .audio-placeholder {
@@ -607,5 +610,8 @@ label {
   .c-links__view-count {
     margin: 0;
     padding-left: 4px;
+  }
+  .c-status--block {
+    padding: 16px 16px;
   }
 }
