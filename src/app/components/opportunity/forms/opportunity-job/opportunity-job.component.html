@@ -27,7 +27,7 @@
           <div class="col-md-9 p-0">
               <div class="c-form__group m-t-0 c-form--sm">
                   <!-- <textarea formControlName="jobDescription" class="c-textarea__block c-textarea--style" placeholder="Describe about opportunity"></textarea> -->
-                  <quill-editor [modules]="quillModules" [style]="{height: '250px'}" class="quill-editor" [placeholder]="'Describe about opportunity'" formControlName="jobDescription"></quill-editor>
+                  <quill-editor [modules]="quillModules" [style]="{height: '250px'}" class="quill-editor" [placeholder]="''" formControlName="jobDescription"></quill-editor>
               </div>
               <p *ngIf="jobFrm.controls['jobDescription'].errors?.required && createJobFrm.submitted" class="c-form__validation error">Description is required!</p>
           </div>
