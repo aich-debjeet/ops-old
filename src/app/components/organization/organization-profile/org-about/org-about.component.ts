@@ -105,7 +105,6 @@ export class OrgAboutComponent implements OnInit, OnDestroy {
     /* org state */
     this.orgState$ = this.store.select('profileTags');
     this.orgSub = this.orgState$.subscribe((state) => {
-      console.log('state', state)
       this.orgProfile = state;
       if (this.orgProfile && this.orgProfile['org_profile_update_success'] === true) {
         this.orgProfile.org_profile_update_success = false;
@@ -256,6 +255,26 @@ export class OrgAboutComponent implements OnInit, OnDestroy {
           foundedYear: this.reverseDate(this.aboutFoundedDate) + 'T05:00:00'
         }
       };
+    }
+
+    if (fieldName === 'address') {
+      reqBody = {
+        address: {
+          city: '',
+          country: '',
+          line1: '',
+          line2: '',
+          postalCode: '',
+          state:''
+        }
+      };
+      reqBody.address.city = this.city ? this.city.charAt(0).toUpperCase().trim() + this.city.slice(1).trim() : '';
+      reqBody.address.country = this.country ? this.country.trim() : '';
+      reqBody.address.line1 = this.address ? this.address.trim() : '';
+      // reqBody.address.line2 = this.addressTwo.trim() || '';
+      reqBody.address.state = this.state? this.state.trim() : '';
+      reqBody.address.postalCode = this.postalCode ? this.postalCode.trim() : '';
+
     }
 
     this.dispatchAboutUpdate(reqBody);
