@@ -14,6 +14,10 @@ export class ProfileService {
     private tokenService: TokenService
   ) { }
 
+  loadSpottedUsers(reqBody) {
+    return this.api.post('/portal/cdn/media/getSpottedProfileList', reqBody);
+  }
+
   postStatus(reqBody) {
     return this.api.post('/portal/myPost', reqBody);
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { Observable } from 'rxjs/Observable';
 import { ISubscription } from 'rxjs/Subscription';
@@ -9,6 +9,7 @@ import { Store } from '@ngrx/store';
 import { ProfileActions } from '../../../actions/profile.action';
 import { MediaActions } from '../../../actions/media.action';
 import { findIndex as _findIndex } from 'lodash';
+import { Modal } from 'app/shared/modal-new/Modal';
 
 @Component({
   selector: 'app-home-post',
@@ -36,6 +37,16 @@ export class HomePostComponent implements OnInit, OnDestroy {
   userData: any;
   playingVideoId = '';
   sponsoredList = [];
+  spottedUsers: any[];
+  spottedUsersParams = {
+    mediaId: '',
+    mediaType: '',
+    offset: 0,
+    limit: 20
+  };
+  isLoadingSpottedUsers = true;
+
+  @ViewChild('spottedUsersModal') spottedUsersModal: Modal;
 
   constructor(
     public route: ActivatedRoute,
@@ -69,6 +80,18 @@ export class HomePostComponent implements OnInit, OnDestroy {
         if (this.handle && !this.postsLoaded) {
           this.postsLoaded = true;
           this.postLoad();
+        }
+      }
+
+      if (state['loadingSpottedUsers'] === false && state['loadedSpottedUsers'] === true) {
+        if (this.spottedUsersParams.offset === 0) {
+          this.isLoadingSpottedUsers = false;
+        }
+        this.spottedUsers = state['spottedUsersList'];
+      }
+      if (state['loadingSpottedUsers'] === true && state['loadedSpottedUsers'] === false) {
+        if (this.spottedUsersParams.offset === 0) {
+          this.isLoadingSpottedUsers = true;
         }
       }
     });
@@ -155,6 +178,37 @@ export class HomePostComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.profSub.unsubscribe();
+  }
+
+  loadSpottedUsers(data) {
+    this.spottedUsersParams.mediaType = data['mediaType'];
+    this.spottedUsersParams.mediaId = data['mediaId'];
+    this.spottedUsersParams.offset = 0;
+    this.spottedUsersModal.open();
+    this.fetchSpottedUsers();
+  }
+
+  fetchSpottedUsers() {
+    this.store.dispatch({ type: ProfileActions.GET_MEDIA_SPOTTED_USERS, payload: this.spottedUsersParams });
+  }
+
+  loadMoreSpottedUsers() {
+    this.spottedUsersParams.offset += this.spottedUsersParams.limit;
+    this.fetchSpottedUsers();
+  }
+
+  followActionListen(data: any) {
+    if (data && data.action) {
+      if (data.action === 'follow') {
+        this.store.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: data.handle });
+      } else {
+        this.store.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: data.handle });
+      }
+    }
+  }
+
+  spottedUsersModalClosed() {
+    this.store.dispatch({ type: ProfileActions.CLEAR_SPOTTED_USERS });
   }
 
 }

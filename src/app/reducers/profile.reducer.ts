@@ -78,6 +78,42 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
 
   switch (type) {
 
+    case ProfileActions.CLEAR_SPOTTED_USERS:
+      return Object.assign({}, state, {
+        spottedUsersParams: null,
+        spottedUsersList: null
+      });
+
+    case ProfileActions.GET_MEDIA_SPOTTED_USERS:
+      return Object.assign({}, state, {
+        loadingSpottedUsers: true,
+        loadedSpottedUsers: false,
+        spottedUsersParams: payload
+      });
+
+    case ProfileActions.GET_MEDIA_SPOTTED_USERS_SUCCESS:
+      let spottedUsersList = state.spottedUsersList;
+      const spottedUsersCount = payload['SUCCESS']['totalCount'] || 0;
+      if (payload['SUCCESS'] && payload['SUCCESS']['spottedProfileList']) {
+        if (state['spottedUsersParams']['offset'] === 0) {
+          spottedUsersList = payload['SUCCESS']['spottedProfileList'];
+        } else {
+          spottedUsersList = state.spottedUsersList.concat(payload['SUCCESS']['spottedProfileList']);
+        }
+      }
+      return Object.assign({}, state, {
+        loadedSpottedUsers: true,
+        loadingSpottedUsers: false,
+        spottedUsersList: spottedUsersList,
+        spottedUsersCount: spottedUsersCount
+      });
+
+    case ProfileActions.GET_MEDIA_SPOTTED_USERS_FAILED:
+      return Object.assign({}, state, {
+        loadingSpottedUsers: false,
+        loadedSpottedUsers: false
+      });
+
     case ProfileActions.POST_STATUS:
       return Object.assign({}, state, {
         postingStatus: true,

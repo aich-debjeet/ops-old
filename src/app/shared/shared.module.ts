@@ -77,6 +77,7 @@ import { PeopleToFollowComponent } from './people-to-follow/people-to-follow.com
 import { ProfileImageComponent } from './profile-image/profile-image.component';
 import { ProfileCoverComponent } from './profile-cover/profile-cover.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { UserCardHorizontalComponent } from './user-card-horizontal/user-card-horizontal.component';
 
 @NgModule({
   imports: [
@@ -151,7 +152,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     EventWidgetComponent,
     PeopleToFollowComponent,
     ProfileImageComponent,
-    ProfileCoverComponent
+    ProfileCoverComponent,
+    UserCardHorizontalComponent
   ],
   exports: [
     OpportunityCardComponent,
@@ -203,7 +205,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     EventWidgetComponent,
     PeopleToFollowComponent,
     ProfileImageComponent,
-    ProfileCoverComponent
+    ProfileCoverComponent,
+    UserCardHorizontalComponent
   ]
 })
 export class SharedModule { }

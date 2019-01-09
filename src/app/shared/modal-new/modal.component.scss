@@ -32,6 +32,10 @@
     @include mq($from: $mobile_sm, $until: $mobile_lg){
         width: 100%;
     }
+    .modal-body {
+        padding: 0;
+        margin-top: 30px;
+    }
 }
 
 // Leave popup
@@ -108,8 +112,8 @@
 
 .modal-cus-body{
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        margin: 10px;
-        width: calc(100% - 20px);
+        margin: 10px auto;
+        width: calc(100% - 30px);
     }
 }
 
@@ -142,6 +146,9 @@
     width: 600px;
     margin: 30px auto;
     position: relative;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        max-width: 100%;
+    }
 }
 
 .modal-test-claim{
@@ -237,3 +244,15 @@
         width: 96%;
     }
 }
+
+.spotted-users-container {
+    width: 100%;
+    padding: 16px;
+    display: block;
+    max-width: 340px;
+    margin: 30px auto;
+    border-radius: 3px;
+    position: relative;
+    background: $color-white;
+}
+

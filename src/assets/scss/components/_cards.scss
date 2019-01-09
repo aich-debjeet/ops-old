@@ -577,10 +577,10 @@
 }
 .c-links__spots {
   display: inline;
-  float: left;
   margin-right: 16px;
   cursor: pointer;
   color: #929292;
+  float: left;
 }
 .c-links__image {
   width: 24px;
@@ -597,9 +597,9 @@
 }
 .c-links__comments {
   display: inline;
-  float: left;
   margin-right: 24px;
   cursor: pointer;
+  float: left;
 }
 .c-links__actions {
   text-align: right;
@@ -613,6 +613,7 @@
   color: #333;
   font-size: 15px;
   line-height: 24px;
+  word-break: break-all;
 }
 // card user block ------------------
 .c-card__user {
