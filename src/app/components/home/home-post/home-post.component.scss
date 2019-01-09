@@ -3,10 +3,29 @@
 @import './src/assets/scss/helpers/_mixins.scss';
 @import '~sass-mq/_mq.scss';
 
+.num-of-people-spotted {
+  border-bottom: 1px solid $color-grey-light;
+}
+ul.spotted-people-list {
+  height: 100%;
+  overflow-y: auto;
+  max-height: 386px;
+  & > li {
+    display: block;
+  }
+}
+.pop-close {
+  top: -2px;
+  right: 0px;
+  width: 14px;
+  position: absolute;
+}
 .cursor_pointer {
   cursor: pointer;
 }
-
+.pb15 {
+  padding-bottom: 15px;
+}
 .tab-content>.active {
   display: block;
 }
@@ -115,14 +134,7 @@ a {
   float: left;
   margin-top: 9px;
   margin-left: 8px;
-}
-
-.c-status__options {
-  width: 14px;
-  height: 14px;
-  float: left;
-  margin-top: 9px;
-  margin-left: 8px;
+  cursor: pointer;
 }
 
 .c-dropdown .dropdown-menu {
@@ -149,63 +161,44 @@ a {
 }
 
 .c-card {
-  width: 100%;
-  height: auto;
-  float: left;
   border-radius: 3px;
+  background-color: $color-white;
   box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.15);
-  background-color: #ffffff;
 }
 
 .c-user__status {
   color: #333;
   font-size: 15px;
   line-height: 24px;
+  word-break: break-all;
 }
 
 .c-links {
   font-size: 12px;
   font-weight: 600;
-  text-align: left;
-  color: #333333;
   line-height: 17px;
+  color: $color-grey-darker;
 }
 
 .c-links__spots {
-  display: inline;
-  float: left;
-  margin-right: 16px;
-  cursor: pointer;
   font-weight: 500;
-  color: #929292;
+  color: $color-grey-dark;
 }
 
 .c-links__image {
   width: 24px;
-  float: left;
 }
 
 .c-links__count {
-  float: left;
-  margin-left: 6px;
-  font-weight: 500;
-  color: #929292;
   font-size: 11px;
+  font-weight: 500;
+  padding-left: 6px;
   line-height: 18px;
-  top: 4px;
-  position: relative;
+  color: $color-grey-dark;
 }
 
 .c-links__comments {
-  display: inline;
-  float: left;
-  margin-right: 24px;
-  // cursor: pointer;
-}
-
-.c-links__image {
-  width: 24px;
-  float: left;
+  padding-left: 20px;
 }
 
 .c-links__actions {
@@ -358,14 +351,12 @@ label {
 }
 
 .o-trending-heading {
-  width: 100%;
-  float: left;
   font-size: 13px;
+  padding: 8px 0px;
   font-weight: 600;
-  color: $color-grey-dark;
   line-height: 18px;
-  text-transform: uppercase;
   letter-spacing: 1px;
+  color: $color-grey-dark;
 }
 
 .o-trending-list {
@@ -438,18 +429,8 @@ label {
   cursor: pointer;
 }
 
-.c-card__body {
-  width: 100%;
-  float: left;
-  clear: both;
-  padding: 16px;
-  position: relative;
-}
-
-.c-card__links {
-  width: 100%;
-  float: left;
-  padding: 16px;
+.p-vertical-16 {
+  padding: 16px 0px;
 }
 
 .c-card__icon {
@@ -463,22 +444,11 @@ label {
 }
 
 // user card -----
-.o-hf_usercard {
-  width: 100%;
-  float: left;
-  background-color: #FFFFFF;
-  border-radius: 3px;
-  box-shadow: 0 2px 4px 0 rgba(102, 45, 145, 0.15);
-}
 
 .o-hf_usertimeline {
-  width: 100%;
   height: 79px;
-  float: left;
   border-radius: 4px 4px 0 0;
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.08);
-  overflow: hidden;
-  background-color: #e0e0e0;
 
   img {
     width: 100%;
@@ -486,27 +456,31 @@ label {
 }
 
 .o-hf_usercont {
-  width: 96%;
-  float: left;
-  margin: -26px 0 0 12px;
+  padding: 0px 12px;
 }
 
 .o-hf_userimg {
-  height: 74px;
   width: 74px;
-  border: 2px solid #FFFFFF;
-  border-radius: 50%;
-  float: left;
-  overflow: hidden;
-
+  height: 74px;
+  margin-top: -30px;
+  
   img {
     width: 100%;
+    border-radius: 50%;
+    border: 2px solid $color-white;
   }
 }
 
 .o-hf_username {
-  width: 70%;
-  float: left;
-  margin-top: 30px;
   margin-left: 8px;
+}
+
+.fans-activity-counts {
+  margin: 0;
+  padding: 24px 12px;
+  & > li {
+    text-align: left;
+    list-style-type: none;
+    display: inline-block;
+  }
 }

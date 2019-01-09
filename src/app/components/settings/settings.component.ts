@@ -292,7 +292,7 @@ export class SettingsComponent implements OnInit {
   updateContactNumber() {
       if(!this.invalidPhoneField){
       const contactDetails = {
-          contactNumber: this.phone.trim(),
+          contactNumber: this.phone.replace(/\s/g, ""),
           countryCode: this.country.callingCodes[0],
           otp:''
       };

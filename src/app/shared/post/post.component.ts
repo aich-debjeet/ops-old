@@ -21,6 +21,7 @@ export class PostComponent implements OnInit {
   @Input() postType: string;
   @Input() type: string;
   @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
+  @Output() loadSpottedUsers: EventEmitter<any> = new EventEmitter<any>();
   @Output() postDelete = new EventEmitter();
   @Output() elemViewportStatus = new EventEmitter();
   @ViewChild('reportModal') reportModal: Modal;
@@ -46,6 +47,13 @@ export class PostComponent implements OnInit {
     // public gUtils: GeneralUtilities
   ) {
     this.dotMenuState = false;
+  }
+
+  spottedUsers(mediaId) {
+    this.loadSpottedUsers.emit({
+      mediaType: this.mediaType,
+      mediaId: mediaId
+    });
   }
 
   ngOnInit() {
@@ -142,12 +150,18 @@ export class PostComponent implements OnInit {
     this.isEdit = false;
   }
 
+  onCancelEdit() {
+    this.isEdit = false;
+  }
+
   saveContentUpdate(text: string) {
     this.isEdit = false;
     const data = {
       id: this.mediaId,
-      description: text
+      description: text,
+      mType: this.mediaType
     }
+    console.log(data)
     this.store.dispatch({ type: MediaActions.MEDIA_EDIT, payload: data });
   }
 
@@ -172,3 +186,6 @@ export class PostComponent implements OnInit {
   }
 
 }
+
+
+

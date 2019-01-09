@@ -14,7 +14,7 @@
 }
 
 .o-following-pop {
-  padding: 24px 16px 24px 32px;
+  padding: 24px 16px;
 }
 
 .pop-container-md {
@@ -50,6 +50,9 @@
   max-height: 500px;
   float: left;
   overflow-y: auto;
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    text-align: center;
+  }
 }
 
 .fill-grey-light {
@@ -64,7 +67,8 @@
 
 .o-follow-people {
   width: 100%;
-  list-style: none;
+  display: block;
+  text-align: center;
 }
 
 .o-profile__cont {
@@ -720,12 +724,8 @@
 }
 
 .o-profile__others-follow-btn {
-  float: right;
   width: 100%;
-  margin-left: 8px;
-
   @include mq($from: $mobile_sm, $until: $mobile_lg) {
-    width: 100%;
     margin: 8px 0px;
   }
 
@@ -740,16 +740,15 @@
 .o-following-pop,
 .o-follow-people {
   .o-follow-people__list {
-    list-style-type: none;
-    float: left;
+    float: none;
     width: 110px;
-    margin-right: 14px;
-    margin-top: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
     height: 150px;
+    margin: 8px 8px;
+    text-align: center;
+    display: inline-block;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+      margin: 8px 0px;
+    }
   }
 }
 
@@ -1053,12 +1052,12 @@
             display: inline-block;
             padding: 16px;
             float: left;
-
             h3 {
               color: #979797;
               font-size: 16px;
               font-weight: 700;
               line-height: 22px;
+              float: left;
             }
           }
         }
@@ -1167,7 +1166,6 @@
               border: 2px solid #c1c1c1;
               border-radius: 50px;
               display: inline-block;
-              float: left;
               margin-right: 7px;
               position: relative;
               -webkit-appearance: none;
@@ -1348,10 +1346,6 @@
   }
 }
 
-.o-following-pop {
-  padding: 24px 16px 24px 32px;
-}
-
 .o-following__search {
   width: 98%;
   float: left;
@@ -1381,10 +1375,9 @@
 .o-follow-people__avatar {
   width: 72px;
   height: 72px;
-  background: #c1c1c1;
-  border-radius: 50%;
+  margin: 0 auto;
   overflow: hidden;
-
+  border-radius: 50%;
   img {
     width: 72px;
   }
@@ -1397,7 +1390,7 @@
 }
 
 .pop-container-md {
-  width: 564px;
+  width: 100%;
   margin: 0px auto;
   background: #fff;
   border-radius: 3px;
@@ -1405,7 +1398,7 @@
   display: inline-block;
 
   @include mq($from: $mobile_sm, $until: $tablet) {
-    width: 95%;
+    width: 100%;
     padding: 23px 0px 24px 0px;
   }
 

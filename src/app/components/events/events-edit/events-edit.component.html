@@ -299,9 +299,8 @@
                                     <span class="c-form__bar"></span>
                                     <label>End date</label>
                                 </div>
-                                <p class="c-form__validation" *ngIf="eventForm.controls['ts_endTime'].errors?.old_even_end_date">Please choose upcoming date</p>
+                                <p class="c-form__validation" *ngIf="eventForm.controls['ts_endTime'].errors?.old_even_end_date || eventForm.controls['ts_endTime'].errors?.ticketendDateLess">Ticket sales end date should be a valid date and ticket sales end date should be greater than ticket sales start date.</p>
                                 <p class="c-form__validation" *ngIf="eventForm.controls['ts_endTime'].errors?.ticketsClosed">Please select a date prior to D-day</p>
-                                <p class="c-form__validation" *ngIf="eventForm.controls['ts_endTime'].errors?.ticketendDateLess">Please choose upcoming date</p>
                             </div>
                             <div class="col-md-3 p-0">
                             </div>

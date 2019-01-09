@@ -71,6 +71,13 @@ import { TermsAndConditionsContentComponent } from './terms-and-conditions-conte
 import { WidgetCollaboratorsComponent } from './widget-collaborators/widget-collaborators.component';
 import { CollaboratorCardComponent } from './collaborator-card/collaborator-card.component';
 import { AppearDirective } from './appear/appear.directive';
+import { MyStoryComponent } from './my-story/my-story.component';
+import { EventWidgetComponent } from './event-widget/event-widget.component';
+import { PeopleToFollowComponent } from './people-to-follow/people-to-follow.component';
+import { ProfileImageComponent } from './profile-image/profile-image.component';
+import { ProfileCoverComponent } from './profile-cover/profile-cover.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { UserCardHorizontalComponent } from './user-card-horizontal/user-card-horizontal.component';
 
 @NgModule({
   imports: [
@@ -85,7 +92,8 @@ import { AppearDirective } from './appear/appear.directive';
     VgBufferingModule,
     SharedPipesModule,
     LazyLoadImageModule,
-    ShareButtonsModule
+    ShareButtonsModule,
+    ImageCropperModule
   ],
   declarations: [
     // TruncatePipe,
@@ -139,7 +147,13 @@ import { AppearDirective } from './appear/appear.directive';
     TermsAndConditionsContentComponent,
     WidgetCollaboratorsComponent,
     CollaboratorCardComponent,
-    AppearDirective
+    AppearDirective,
+    MyStoryComponent,
+    EventWidgetComponent,
+    PeopleToFollowComponent,
+    ProfileImageComponent,
+    ProfileCoverComponent,
+    UserCardHorizontalComponent
   ],
   exports: [
     OpportunityCardComponent,
@@ -186,7 +200,13 @@ import { AppearDirective } from './appear/appear.directive';
     TermsAndConditionsContentComponent,
     WidgetCollaboratorsComponent,
     CollaboratorCardComponent,
-    AppearDirective
+    AppearDirective,
+    MyStoryComponent,
+    EventWidgetComponent,
+    PeopleToFollowComponent,
+    ProfileImageComponent,
+    ProfileCoverComponent,
+    UserCardHorizontalComponent
   ]
 })
 export class SharedModule { }

@@ -88,4 +88,18 @@ export class MediaActions {
   static MEDIA_EDIT_SUCCESS = 'MEDIA_EDIT_SUCCESS';
   static MEDIA_EDIT_FAILED = 'MEDIA_EDIT_FAILED';
 
+    /**
+   * for: Get My Story
+   */
+  static GET_MY_STORY = 'GET_MY_STORY';
+  static GET_MY_STORY_SUCCESS = 'GET_MY_STORY_SUCCESS';
+  static GET_MY_STORY_FAILED = 'GET_MY_STORY_FAILED';
+
+    /**
+   * for: post story
+   */
+  static POST_STORY = 'POST_STORY';
+  static POST_STORY_SUCCESS = 'POST_STORY_SUCCESS';
+  static POST_STORY_FAILED = 'POST_STORY_FAILED';
+
 }

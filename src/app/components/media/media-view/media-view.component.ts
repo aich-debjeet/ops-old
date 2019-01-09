@@ -98,7 +98,7 @@ export class MediaViewComponent implements OnDestroy {
         this.toastr.success('Post Edited', '', {
           timeOut: 2000
         });
-        this.doClose();
+        // this.doClose();
         this.editMsg = false;
       }
     });
@@ -207,9 +207,15 @@ export class MediaViewComponent implements OnDestroy {
     this.editMsg = true;
     const data = {
       'id': this.data.id,
-      'description': message
+      'description': message,
+      'mType': this.data.mtype
     }
     this.store.dispatch({ type: MediaActions.MEDIA_EDIT, payload: data });
+  }
+
+
+  onCancelEdit() {
+    this.isEdit = false;
   }
 
   bookmarkAction(action: string, mediaDetails: any) {

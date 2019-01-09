@@ -151,23 +151,6 @@ a {
   cursor: pointer;
 }
 
-.c-status__options {
-  width: 14px;
-  height: 14px;
-  float: left;
-  margin-top: 9px;
-  margin-left: 8px;
-}
-
-.c-status__options {
-  width: 14px;
-  height: 14px;
-  float: left;
-  margin-top: 9px;
-  margin-left: 8px;
-}
-
-
 .pull-right>.dropdown-menu {
   right: 0;
   left: auto;
@@ -191,6 +174,7 @@ a {
   color: #333;
   font-size: 15px;
   line-height: 24px;
+  word-break: break-all;
 }
 
 .c-links {
@@ -203,7 +187,6 @@ a {
 
 .c-links__spots {
   display: inline;
-  float: left;
   margin-right: 16px;
   cursor: pointer;
   font-weight: 500;
@@ -217,7 +200,6 @@ a {
 
 .c-links__comments {
   display: inline;
-  float: left;
   margin-right: 24px;
   // cursor: pointer;
 }
@@ -400,6 +382,7 @@ label {
   float: left;
   margin-top: 9px;
   margin-left: 8px;
+  cursor: pointer;
 }
 
 .c-feed__img-status .content_editable {
@@ -455,6 +438,11 @@ label {
 
 .c-status-groupmedia__1 {
   grid-area: one;
+  height: 440px;
+  display: block;
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    height: 220px;
+  }
 }
 
 .c-status-groupmedia__2 {
@@ -544,3 +532,46 @@ label {
 }
 
 /* for media collection */
+
+// spotted people show on hover
+.show-on-hover .show-this {
+  display: none;
+}
+.show-on-hover:hover .show-this {
+  display: block;
+}
+.people-spots {
+  top: 25px;
+  left: 15px;
+  width: 100%;
+  z-index: 55;
+  min-width: 100px;
+  max-width: 145px;
+  border-radius: 3px;
+  position: absolute;
+  padding-bottom: 20px;
+  background-color: $color-white;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+}
+.people-spots > li {
+  display: block;
+  font-size: 13px;
+  padding: 4px 15px;
+  line-height: 20px;
+  color: $color-base;
+}
+.see-more-spotted {
+  left: 0px;
+  width: 100%;
+  bottom: 0px;
+  position: absolute;
+  button {
+    width: 100%;
+    border: none;
+    font-size: 11px;
+    text-align: left;
+    line-height: 18px;
+    padding-left: 15px;
+    background-color: transparent;
+  }
+}

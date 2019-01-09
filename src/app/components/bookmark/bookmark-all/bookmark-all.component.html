@@ -4,7 +4,13 @@
     <app-bookmark-audio-card (removeBookmark)="deleteBookmark($event)" *ngIf="bookmark?.postType === 'audio'" [mediaDetails]="bookmark"></app-bookmark-audio-card>
     <app-bookmark-opportunity-card (removeBookmark)="deleteBookmark($event)" *ngIf="bookmark?.type === 'opportunity'" [oppDetails]="bookmark"></app-bookmark-opportunity-card>
     <app-bookmark-event-card (removeBookmark)="deleteBookmark($event)" *ngIf="bookmark?.type === 'event'" [eventDetails]="bookmark"></app-bookmark-event-card>
-    <app-bookmark-profile-card (removeBookmark)="deleteBookmark($event)" *ngIf="bookmark?.type === 'profile'" [profileDetails]="bookmark"></app-bookmark-profile-card>
+    <app-bookmark-profile-card
+      (removeBookmark)="deleteBookmark($event)"
+      *ngIf="bookmark?.type === 'profile'"
+      (follow)="followAction('follow', $event)"
+      (unfollow)="followAction('unfollow', $event)"
+      [profileDetails]="bookmark">
+    </app-bookmark-profile-card>
 </ng-container>
 <div *ngIf="showPreloader">
   <div class="sticky">

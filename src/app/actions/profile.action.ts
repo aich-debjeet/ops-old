@@ -1,5 +1,15 @@
 export class ProfileActions {
 
+  static CLEAR_SPOTTED_USERS = 'CLEAR_SPOTTED_USERS';
+
+  static GET_MEDIA_SPOTTED_USERS = 'GET_MEDIA_SPOTTED_USERS';
+  static GET_MEDIA_SPOTTED_USERS_SUCCESS = 'GET_MEDIA_SPOTTED_USERS_SUCCESS';
+  static GET_MEDIA_SPOTTED_USERS_FAILED = 'GET_MEDIA_SPOTTED_USERS_FAILED';
+
+  static POST_STATUS = 'POST_STATUS';
+  static POST_STATUS_SUCCESS = 'POST_STATUS_SUCCESS';
+  static POST_STATUS_FAILED = 'POST_STATUS_FAILED';
+
   static REMOVE_MEDIA = 'REMOVE_MEDIA';
   static RPOFILE_BOOKAMRK_FLAG_UPDATE = 'RPOFILE_BOOKAMRK_FLAG_UPDATE';
 
@@ -17,19 +27,19 @@ export class ProfileActions {
   static POST_CHANNEL_STATUS_SUCCESS = 'POST_CHANNEL_STATUS_SUCCESS';
   static POST_CHANNEL_STATUS_FAILED = 'POST_CHANNEL_STATUS_FAILED';
 
-  /**
-   * for: post story
-   */
-  static POST_STORY = 'POST_STORY';
-  static POST_STORY_SUCCESS = 'POST_STORY_SUCCESS';
-  static POST_STORY_FAILED = 'POST_STORY_FAILED';
+  // /**
+  //  * for: post story
+  //  */
+  // static POST_STORY = 'POST_STORY';
+  // static POST_STORY_SUCCESS = 'POST_STORY_SUCCESS';
+  // static POST_STORY_FAILED = 'POST_STORY_FAILED';
 
-  /**
-   * for: Get My Story
-   */
-  static GET_MY_STORY = 'GET_MY_STORY';
-  static GET_MY_STORY_SUCCESS = 'GET_MY_STORY_SUCCESS';
-  static GET_MY_STORY_FAILED = 'GET_MY_STORY_FAILED';
+  // /**
+  //  * for: Get My Story
+  //  */
+  // static GET_MY_STORY = 'GET_MY_STORY';
+  // static GET_MY_STORY_SUCCESS = 'GET_MY_STORY_SUCCESS';
+  // static GET_MY_STORY_FAILED = 'GET_MY_STORY_FAILED';
 
   /**
    * for: portfolio

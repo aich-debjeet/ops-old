@@ -14,6 +14,14 @@ export class ProfileService {
     private tokenService: TokenService
   ) { }
 
+  loadSpottedUsers(reqBody) {
+    return this.api.post('/portal/cdn/media/getSpottedProfileList', reqBody);
+  }
+
+  postStatus(reqBody) {
+    return this.api.post('/portal/myPost', reqBody);
+  }
+
   removeCoverImage(reqBody: any) {
     return this.api.delete('/portal/cdn/media/remove/coverImage', reqBody);
   }
@@ -592,13 +600,13 @@ export class ProfileService {
     return this.api.put(`/portal/community/add/update/mediaCommunity/${communityId}`, req);
   }
 
-  storyPost(payload: any) {
-    return this.api.post('/portal/myStory', payload);
-  }
+  // storyPost(payload: any) {
+  //   return this.api.post('/portal/myStory', payload);
+  // }
 
-  storyGet(payload: any) {
-    return this.api.get('/portal/myStoryDetails?handle=' + payload.handle);
-  }
+  // storyGet(payload: any) {
+  //   return this.api.get('/portal/myStoryDetails?handle=' + payload.handle);
+  // }
 
   /**
    * get pending requets list

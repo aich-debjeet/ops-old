@@ -15,6 +15,30 @@ import { ProfileActions } from '../actions/profile.action';
 @Injectable()
 export class ProfileEffect {
 
+  /**
+  * spotted users
+  */
+  @Effect()
+  loadSpottedUsers$ = this.actions$
+    .ofType(ProfileActions.GET_MEDIA_SPOTTED_USERS)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.loadSpottedUsers(payload)
+      .map(res => ({ type: ProfileActions.GET_MEDIA_SPOTTED_USERS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.GET_MEDIA_SPOTTED_USERS_FAILED, payload: res }))
+    );
+
+  /**
+  * post status
+  */
+  @Effect()
+  userStatusLoad$ = this.actions$
+    .ofType(ProfileActions.POST_STATUS)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.postStatus(payload)
+      .map(res => ({ type: ProfileActions.POST_STATUS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.POST_STATUS_FAILED, payload: res }))
+    );
+
   @Effect()
   removeCoverImage$ = this.actions$
     .ofType(ProfileActions.REMOVE_COVER_IMAGE)
@@ -717,7 +741,7 @@ export class ProfileEffect {
   * Current User status load
   */
   @Effect()
-  userStatusLoad$ = this.actions$
+  currentUserStatus$ = this.actions$
     .ofType(ProfileActions.LOAD_USER_STATUS)
     .map(toPayload)
     .switchMap((payload) => this.profileService.currentUserStatus(payload)
@@ -917,29 +941,29 @@ export class ProfileEffect {
       .catch((res) => Observable.of({ type: ProfileActions.COMMUNITY_MEDIA_POST_FAILED, payload: res }))
     );
 
-    /**
-     * effects: post story
-     */
-    @Effect()
-    storyPost$ = this.actions$
-    .ofType(ProfileActions.POST_STORY)
-    .map(toPayload)
-    .switchMap((payload) => this.profileService.storyPost(payload)
-    .map(res => ({ type: ProfileActions.POST_STORY_SUCCESS, payload: res }))
-    .catch((res) => Observable.of({ type: ProfileActions.POST_STORY_FAILED, payload: res }))
-    );
+    // /**
+    //  * effects: post story
+    //  */
+    // @Effect()
+    // storyPost$ = this.actions$
+    // .ofType(ProfileActions.POST_STORY)
+    // .map(toPayload)
+    // .switchMap((payload) => this.profileService.storyPost(payload)
+    // .map(res => ({ type: ProfileActions.POST_STORY_SUCCESS, payload: res }))
+    // .catch((res) => Observable.of({ type: ProfileActions.POST_STORY_FAILED, payload: res }))
+    // );
 
-    /**
-     * Get users story
-     */
-    @Effect()
-    storyGet$ = this.actions$
-    .ofType(ProfileActions.GET_MY_STORY)
-    .map(toPayload)
-    .switchMap((payload) => this.profileService.storyGet(payload)
-    .map(res => ({ type: ProfileActions.GET_MY_STORY_SUCCESS, payload: res }))
-    .catch((res) => Observable.of({ type: ProfileActions.GET_MY_STORY_FAILED, payload: res }))
-    );
+    // /**
+    //  * Get users story
+    //  */
+    // @Effect()
+    // storyGet$ = this.actions$
+    // .ofType(ProfileActions.GET_MY_STORY)
+    // .map(toPayload)
+    // .switchMap((payload) => this.profileService.storyGet(payload)
+    // .map(res => ({ type: ProfileActions.GET_MY_STORY_SUCCESS, payload: res }))
+    // .catch((res) => Observable.of({ type: ProfileActions.GET_MY_STORY_FAILED, payload: res }))
+    // );
 
   /**
    * GET PENDING REQUEST LIST
