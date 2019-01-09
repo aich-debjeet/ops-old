@@ -142,34 +142,36 @@
 
   <div class="c-status--block">
     <div class="c-links">
-      <div class="c-links__spots relative show-on-hover">
-        <a (click)="spotMedia(mediaData)">
-          <img *ngIf="following" [src]="imageLink + 'img/svg/spot_icon.svg'" class="c-links__image">
-          <img *ngIf="!following" [src]="imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
-        </a>
-        <a *ngIf="mediaData?.counts?.spotsCount > 0; else noSpots" (click)="spottedUsers(mediaData?.id)">
-          <span class="c-links__count">{{ mediaData?.counts?.spotsCount || 0 }} Spots</span>
-        </a>
-        <ng-template #noSpots>
-          <a><span class="c-links__count">0 Spots</span></a>
-        </ng-template>
-        <!-- <ul class="people-spots show-this">
-          <li *ngFor="let spotted of spottedPeople">{{ spotted }}</li>
-          <li class="see-more-spotted">
-            <button class="see-more-spotted">See more</button>
-          </li>
-        </ul> -->
+      <div class="small-device-375-flex">
+          <div class="c-links__spots relative show-on-hover">
+            <a (click)="spotMedia(mediaData)">
+              <img *ngIf="following" [src]="imageLink + 'img/svg/spot_icon.svg'" class="c-links__image">
+              <img *ngIf="!following" [src]="imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
+            </a>
+            <a *ngIf="mediaData?.counts?.spotsCount > 0; else noSpots" (click)="spottedUsers(mediaData?.id)">
+              <span class="c-links__count">{{ mediaData?.counts?.spotsCount || 0 }} Spots</span>
+            </a>
+            <ng-template #noSpots>
+              <a><span class="c-links__count">0 Spots</span></a>
+            </ng-template>
+            <!-- <ul class="people-spots show-this">
+              <li *ngFor="let spotted of spottedPeople">{{ spotted }}</li>
+              <li class="see-more-spotted">
+                <button class="see-more-spotted">See more</button>
+              </li>
+            </ul> -->
+          </div>
+          <div *ngIf="mediaData?.description && mediaData?.mtype === 'status' " class="c-links__comments">
+            <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
+            <span class="c-links__count">{{ mediaData?.counts?.commentsCount || 0 }} Comments</span>
+          </div>
+          <div *ngIf="mediaData?.mtype === 'video' || mediaData?.mtype === 'audio' || mediaData?.mtype === 'image' || mediaData?.mtype === 'collection'" class="c-links__comments"
+          [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
+            <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
+            <span class="c-links__count">{{ mediaData?.counts?.commentsCount || 0 }} Comments</span>
+          </div>
       </div>
-      <div *ngIf="mediaData?.description && mediaData?.mtype === 'status' " class="c-links__comments">
-        <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
-        <span class="c-links__count">{{ mediaData?.counts?.commentsCount || 0 }} Comments</span>
-      </div>
-      <div *ngIf="mediaData?.mtype === 'video' || mediaData?.mtype === 'audio' || mediaData?.mtype === 'image' || mediaData?.mtype === 'collection'" class="c-links__comments"
-        [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
-        <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
-        <span class="c-links__count">{{ mediaData?.counts?.commentsCount || 0 }} Comments</span>
-      </div>
-      <div class="c-links__actions">
+      <div class="c-links__actions small-device-375-left-align">
         <span class="c-links__view-count">
           <span class="color-grey-darker">{{ mediaData?.counts?.viewcount || 0 }}</span> Views
         </span>
