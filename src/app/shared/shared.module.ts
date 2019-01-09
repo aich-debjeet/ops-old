@@ -71,6 +71,8 @@ import { TermsAndConditionsContentComponent } from './terms-and-conditions-conte
 import { WidgetCollaboratorsComponent } from './widget-collaborators/widget-collaborators.component';
 import { CollaboratorCardComponent } from './collaborator-card/collaborator-card.component';
 import { AppearDirective } from './appear/appear.directive';
+import { MyStoryComponent } from './my-story/my-story.component';
+import { EventWidgetComponent } from './event-widget/event-widget.component';
 import { PeopleToFollowComponent } from './people-to-follow/people-to-follow.component';
 import { ProfileImageComponent } from './profile-image/profile-image.component';
 import { ProfileCoverComponent } from './profile-cover/profile-cover.component';
@@ -146,6 +148,8 @@ import { UserCardHorizontalComponent } from './user-card-horizontal/user-card-ho
     WidgetCollaboratorsComponent,
     CollaboratorCardComponent,
     AppearDirective,
+    MyStoryComponent,
+    EventWidgetComponent,
     PeopleToFollowComponent,
     ProfileImageComponent,
     ProfileCoverComponent,
@@ -197,6 +201,8 @@ import { UserCardHorizontalComponent } from './user-card-horizontal/user-card-ho
     WidgetCollaboratorsComponent,
     CollaboratorCardComponent,
     AppearDirective,
+    MyStoryComponent,
+    EventWidgetComponent,
     PeopleToFollowComponent,
     ProfileImageComponent,
     ProfileCoverComponent,

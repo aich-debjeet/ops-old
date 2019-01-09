@@ -141,7 +141,7 @@ export class EventsEditComponent implements OnInit {
       'event_agenda' : this.fb.array([this.agendaItem()]),
       'event_brief' :['', [Validators.required]],
       'ts_startTime': ['',[Validators.required, FormValidation.datevalidation]],
-      'ts_endTime': ['',[Validators.required, FormValidation.oldEndDatevalidation]],
+      'ts_endTime': ['',[Validators.required, FormValidation.oldEndDatevalidation,this.ticketSellDateComparision.bind(this)]],
       'ts_quantity': ['', [Validators.required]]
     })
     this.tagState$ = this.store.select('eventTags');
@@ -287,7 +287,7 @@ export class EventsEditComponent implements OnInit {
       'event_agenda' : this.fb.array(this.eventAgenda(data['event_detail'])),
       'event_brief' :[data['event_detail']['brief'], [Validators.required]],
       'ts_startTime': [this.removeTime(data['event_detail']['extras']['ticket'][0]['startDate']),[Validators.required, FormValidation.datevalidation]],
-      'ts_endTime': [this.removeTime(data['event_detail']['extras']['ticket'][0]['endDate']),[Validators.required, FormValidation.oldEndDatevalidation]],
+      'ts_endTime': [this.removeTime(data['event_detail']['extras']['ticket'][0]['endDate']),[Validators.required, FormValidation.oldEndDatevalidation,this.ticketSellDateComparision.bind(this)]],
       'ts_quantity': [data['event_detail']['extras']['ticket'][0]['maximum'], [Validators.required]]
     }, {
       // validators: [FormValidation.endateValidation]

@@ -271,6 +271,30 @@ export class MediaEffect {
       }))
     );
 
+        /**
+     * Get users story
+     */
+    @Effect()
+    storyGet$ = this.actions$
+    .ofType(MediaActions.GET_MY_STORY)
+    .map(toPayload)
+    .switchMap((payload) => this.mediaService.storyGet(payload)
+    .map(res => ({ type: MediaActions.GET_MY_STORY_SUCCESS, payload: res }))
+    .catch((res) => Observable.of({ type: MediaActions.GET_MY_STORY_FAILED, payload: res }))
+    );
+
+    /**
+     * effects: post story
+     */
+    @Effect()
+    storyPost$ = this.actions$
+    .ofType(MediaActions.POST_STORY)
+    .map(toPayload)
+    .switchMap((payload) => this.mediaService.storyPost(payload)
+    .map(res => ({ type: MediaActions.POST_STORY_SUCCESS, payload: res }))
+    .catch((res) => Observable.of({ type: MediaActions.POST_STORY_FAILED, payload: res }))
+    );
+
 
   constructor(
     private actions$: Actions,

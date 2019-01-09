@@ -941,29 +941,29 @@ export class ProfileEffect {
       .catch((res) => Observable.of({ type: ProfileActions.COMMUNITY_MEDIA_POST_FAILED, payload: res }))
     );
 
-    /**
-     * effects: post story
-     */
-    @Effect()
-    storyPost$ = this.actions$
-    .ofType(ProfileActions.POST_STORY)
-    .map(toPayload)
-    .switchMap((payload) => this.profileService.storyPost(payload)
-    .map(res => ({ type: ProfileActions.POST_STORY_SUCCESS, payload: res }))
-    .catch((res) => Observable.of({ type: ProfileActions.POST_STORY_FAILED, payload: res }))
-    );
+    // /**
+    //  * effects: post story
+    //  */
+    // @Effect()
+    // storyPost$ = this.actions$
+    // .ofType(ProfileActions.POST_STORY)
+    // .map(toPayload)
+    // .switchMap((payload) => this.profileService.storyPost(payload)
+    // .map(res => ({ type: ProfileActions.POST_STORY_SUCCESS, payload: res }))
+    // .catch((res) => Observable.of({ type: ProfileActions.POST_STORY_FAILED, payload: res }))
+    // );
 
-    /**
-     * Get users story
-     */
-    @Effect()
-    storyGet$ = this.actions$
-    .ofType(ProfileActions.GET_MY_STORY)
-    .map(toPayload)
-    .switchMap((payload) => this.profileService.storyGet(payload)
-    .map(res => ({ type: ProfileActions.GET_MY_STORY_SUCCESS, payload: res }))
-    .catch((res) => Observable.of({ type: ProfileActions.GET_MY_STORY_FAILED, payload: res }))
-    );
+    // /**
+    //  * Get users story
+    //  */
+    // @Effect()
+    // storyGet$ = this.actions$
+    // .ofType(ProfileActions.GET_MY_STORY)
+    // .map(toPayload)
+    // .switchMap((payload) => this.profileService.storyGet(payload)
+    // .map(res => ({ type: ProfileActions.GET_MY_STORY_SUCCESS, payload: res }))
+    // .catch((res) => Observable.of({ type: ProfileActions.GET_MY_STORY_FAILED, payload: res }))
+    // );
 
   /**
    * GET PENDING REQUEST LIST

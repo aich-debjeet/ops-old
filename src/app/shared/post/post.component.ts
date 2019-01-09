@@ -158,8 +158,10 @@ export class PostComponent implements OnInit {
     this.isEdit = false;
     const data = {
       id: this.mediaId,
-      description: text
+      description: text,
+      mType: this.mediaType
     }
+    console.log(data)
     this.store.dispatch({ type: MediaActions.MEDIA_EDIT, payload: data });
   }
 

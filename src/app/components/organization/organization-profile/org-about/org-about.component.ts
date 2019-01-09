@@ -20,6 +20,8 @@ import { LocalStorageService } from './../../../../services/local-storage.servic
 
 import * as _ from 'lodash';
 import { GeneralUtilities } from '../../../../helpers/general.utils';
+import { AuthActions } from 'app/actions/auth.action';
+import { Login, BasicOrgTag } from '../../../../models/auth.model';
 
 @Component({
   selector: 'app-org-about',
@@ -32,8 +34,10 @@ export class OrgAboutComponent implements OnInit, OnDestroy {
   @ViewChild('searchInput') searchInput;
 
   orgState$: Observable<Organization>;
+  tagState$: Observable<BasicOrgTag>;
   orgProfile;
   editingField: string;
+  editedField: string;
   aboutIndustry: any;
   aboutIndustryCode: any;
   forIndustries: any;
@@ -48,6 +52,7 @@ export class OrgAboutComponent implements OnInit, OnDestroy {
   // services: any[];
   profileUsername = '';
   profileHandle = '';
+  isUpdating: boolean;
   baseUrl = environment.API_IMAGE;
 
   // map vars
@@ -86,6 +91,15 @@ export class OrgAboutComponent implements OnInit, OnDestroy {
       }
     }
 
+    this.tagState$ = store.select('loginTags');
+    this.tagState$.subscribe((state) => {
+      if (state) {
+        if (state.industries) {
+          this.forIndustries = state.industries;
+        }
+      }
+    });
+
     // this.services = ['UI design', 'Web Application Development', 'Social Media'];
 
     /* org state */
@@ -95,8 +109,13 @@ export class OrgAboutComponent implements OnInit, OnDestroy {
       if (this.orgProfile && this.orgProfile['org_profile_update_success'] === true) {
         this.orgProfile.org_profile_update_success = false;
         if (this.orgProfile && this.orgProfile['profile_navigation_details']['isOrganization'] === true) {
-          this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: this.orgProfile['profile_organization']['extra']['username'] });
+          this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: this.orgProfile['profile_navigation_details']['organization']['organizationUserName'] });
         }
+      }
+      if(typeof this.orgProfile['org_update']=== 'boolean'){
+        if(this.orgProfile['org_update']){
+          this.isUpdating = true;
+        } else this.isUpdating = false;
       }
       // for mobile
       if (this.gUtils.checkNestedKey(this.orgProfile, ['organization_details', 'contact', 'mobile', 'mobile'])) {
@@ -143,6 +162,7 @@ export class OrgAboutComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getLocationGoogle();
+    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES});
   }
 
   /**
@@ -150,6 +170,7 @@ export class OrgAboutComponent implements OnInit, OnDestroy {
    */
   editField(fieldName: string) {
     this.editingField = fieldName;
+    this.editedField = fieldName;
   }
 
   /**
@@ -221,7 +242,7 @@ export class OrgAboutComponent implements OnInit, OnDestroy {
 
     // for indusrty update
     if (fieldName === 'industries' && this.aboutIndustryCode.length > 0) {
-      const newIndustry = _.find(this.forIndustries.industries, { 'code': this.aboutIndustryCode });
+      const newIndustry = _.find(this.forIndustries, { 'code': this.aboutIndustryCode });
       reqBody = {
         industryList: []
       };
@@ -234,6 +255,26 @@ export class OrgAboutComponent implements OnInit, OnDestroy {
           foundedYear: this.reverseDate(this.aboutFoundedDate) + 'T05:00:00'
         }
       };
+    }
+
+    if (fieldName === 'address') {
+      reqBody = {
+        address: {
+          city: '',
+          country: '',
+          line1: '',
+          line2: '',
+          postalCode: '',
+          state:''
+        }
+      };
+      reqBody.address.city = this.city ? this.city.charAt(0).toUpperCase().trim() + this.city.slice(1).trim() : '';
+      reqBody.address.country = this.country ? this.country.trim() : '';
+      reqBody.address.line1 = this.address ? this.address.trim() : '';
+      // reqBody.address.line2 = this.addressTwo.trim() || '';
+      reqBody.address.state = this.state? this.state.trim() : '';
+      reqBody.address.postalCode = this.postalCode ? this.postalCode.trim() : '';
+
     }
 
     this.dispatchAboutUpdate(reqBody);

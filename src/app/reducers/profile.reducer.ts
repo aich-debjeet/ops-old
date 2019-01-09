@@ -1661,7 +1661,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
     case OrganizationActions.ORG_PROFILE_UPDATE:
       return Object.assign({}, state, {
         org_profile_update_success: false,
-        org_profile_update_req_body: payload
+        org_profile_update_req_body: payload,
+        org_update: true
       });
     case OrganizationActions.ORG_PROFILE_UPDATE_SUCCESS:
       return Object.assign({}, state, {
@@ -1686,7 +1687,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
     case OrganizationActions.ORG_PROFILE_DETAILS_SUCCESS:
       return Object.assign({}, state, {
         // profile_details: payload,
-        organization_details: payload
+        organization_details: payload,
+        org_update: false
       });
 
     case OrganizationActions.ORGANIZATION_DELETE:
@@ -2001,38 +2003,38 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
       return Object.assign({}, state, {
         community_media_success: true
       });
-      /**
-       * Reducer for post story
-       */
-      case ProfileActions.POST_STORY:
-      return Object.assign({}, state, {
-        story_media_success: false
-      });
+    //   /**
+    //    * Reducer for post story
+    //    */
+    //   case ProfileActions.POST_STORY:
+    //   return Object.assign({}, state, {
+    //     story_media_success: false
+    //   });
 
-    case ProfileActions.POST_STORY_SUCCESS:
-      return Object.assign({}, state, {
-        story_media_success: true
-      });
+    // case ProfileActions.POST_STORY_SUCCESS:
+    //   return Object.assign({}, state, {
+    //     story_media_success: true
+    //   });
 
-      /**
-       * For getting my stories
-       */
-      case ProfileActions.GET_MY_STORY:
-      return Object.assign({}, state, {
-        my_story: [],
-        stories_loading: false
-      });
+      // /**
+      //  * For getting my stories
+      //  */
+      // case ProfileActions.GET_MY_STORY:
+      // return Object.assign({}, state, {
+      //   my_story: [],
+      //   stories_loading: false
+      // });
 
-      case ProfileActions.GET_MY_STORY_SUCCESS:
-      return Object.assign({}, state, {
-        my_story: payload,
-        stories_loading: true
-      });
+      // case ProfileActions.GET_MY_STORY_SUCCESS:
+      // return Object.assign({}, state, {
+      //   my_story: payload,
+      //   stories_loading: true
+      // });
 
-      case ProfileActions.GET_MY_STORY_FAILED:
-      return Object.assign({}, state, {
-        stories_loading: false
-      });
+      // case ProfileActions.GET_MY_STORY_FAILED:
+      // return Object.assign({}, state, {
+      //   stories_loading: false
+      // });
 
 
 

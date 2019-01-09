@@ -1,0 +1,45 @@
+<div class="c-card top-stick">
+  <div class="c-card__project p-l-r-16 p-t-16">
+    <div class="c-text_md color-grey-dark c-text-semibold" *ngIf="currentUser">
+      EVENTS CREATED
+    </div>
+    <div class="c-text_md color-grey-dark c-text-semibold" *ngIf="!currentUser">
+      EVENTS RECOMMENDED
+    </div>
+  </div>
+  <div *ngIf="eventsLoading" class="preloader">
+    <div class="sticky">
+      <div class="loader">Loading...</div>
+    </div>
+  </div>
+  <ng-container *ngIf="eventState?.event_loaded">
+    <div class="empty_message" *ngIf="eventList?.length === 0">
+      <p>There is no event</p>
+      <!-- <a [routerLink]="['/event/create']">Create Event</a> -->
+    </div>
+    <div class="p-16 event__block" *ngFor="let event of eventList.slice(0, 2)">
+      <!-- card media (img, video & audio) -->
+      <div class="c-card__event2 float_left">
+        <a [routerLink]="'/event/inner/' + event?.id">
+          <img [src]="baseUrl + event?.imagePath[0]" alt="" class="c-card__image">
+        </a>
+      </div>
+      <!-- //card media (img, video & audio) -->
+      <div class="c-card__project p-t-8">{{event?.eventType }}</div>
+      <!-- card body -->
+      <div class="c-card__body p-0">
+        <div class="c-text_lg">
+          {{event?.title | truncate:[40, '...']}}
+        </div>
+        <div class="c-text_md color-grey-dark m-t-8 m-b-24">{{ event?.startDate | utcDate | date: 'dd, MMM'}} -
+          {{ event?.endDate | utcDate | date: 'dd, MMM'}}</div>
+      </div>
+      <!-- //card body -->
+    </div>
+  </ng-container>
+  <p class="text-center p-t-b-16" *ngIf="eventList && eventList.length > 2">
+    <a [routerLink]="['/event']" class="c-text_md color-theme" *ngIf="!currentUser">See All</a>
+    <a [routerLink]="['/event']" [queryParams]="{ status: 'created' }" class="c-text_md color-theme" *ngIf="currentUser">See
+      All</a>
+  </p>
+</div>

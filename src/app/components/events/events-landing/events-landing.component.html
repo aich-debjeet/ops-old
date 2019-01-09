@@ -2,8 +2,7 @@
 <div class="o-event-top-slider">
     <div class="eventslider">
         <ngu-carousel [inputs]="carouselOne">
-
-            <ngu-item NguCarouselItem class="bannerStyle" *ngFor="let banner of bannerList">
+            <ngu-item NguCarouselItem class="" *ngFor="let banner of bannerList">
                 <div class="o-event-slider__media">
                     <a [routerLink]="'/event/inner/' + banner?.id">
                         <img [src]="baseUrl + banner?.coverImage">
@@ -20,55 +19,6 @@
                     </a>
                 </div>
             </ngu-item>
-
-            <!-- <ngu-item NguCarouselItem class="bannerStyle">
-                <div class="o-event-slider__media">
-                    <img src="{{ baseUrl }}img/e1.jpg">
-                    <div class="o-event-slider_info-txt">
-                        <div class="o-event-slider__date">
-                            <div class="c-h2 color-theme">30</div>
-                            <p class="c-text_sm color-theme text_uppercase ltr-space">Dec</p>
-                        </div>
-                        <div class="o-event-slider__det-text">
-                            <h3 class="c-h3 color-white f-w_500">Ola Sunburn Festival 2017</h3>
-                            <p class="c-text_md color-grey-dark">1st Floor, Gopala Krishna, Complex, 45/3 Residency Road, bengaluru, karnataka</p>
-                        </div>
-                    </div>
-                </div>
-            </ngu-item>
-
-            <ngu-item NguCarouselItem class="bannerStyle">
-                <div class="o-event-slider__media">
-                    <img src="{{ baseUrl }}img/e3.jpg">
-                    <div class="o-event-slider_info-txt">
-                        <div class="o-event-slider__date">
-                            <div class="c-h2 color-theme">30</div>
-                            <p class="c-text_sm color-theme text_uppercase ltr-space">Dec</p>
-                        </div>
-                        <div class="o-event-slider__det-text">
-                            <h3 class="c-h3 color-white f-w_500">Ola Sunburn Festival 2017</h3>
-                            <p class="c-text_md color-grey-dark">1st Floor, Gopala Krishna, Complex, 45/3 Residency Road, bengaluru, karnataka</p>
-                        </div>
-                    </div>
-                </div>
-            </ngu-item>
-
-            <ngu-item NguCarouselItem class="bannerStyle">
-                <div class="o-event-slider__media">
-                    <img src="{{ baseUrl }}img/e3.jpg">
-                    <div class="o-event-slider_info-txt">
-                        <div class="o-event-slider__date">
-                            <div class="c-h2 color-theme">30</div>
-                            <p class="c-text_sm color-theme text_uppercase ltr-space">Dec</p>
-                        </div>
-                        <div class="o-event-slider__det-text">
-                            <h3 class="c-h3 color-white f-w_500">Ola Sunburn Festival 2017</h3>
-                            <p class="c-text_md color-grey-dark">1st Floor, Gopala Krishna, Complex, 45/3 Residency Road, bengaluru, karnataka</p>
-                        </div>
-                    </div>
-                </div>
-            </ngu-item> -->
-
             <button NguCarouselPrev class='leftRs'>&lt;</button>
             <button NguCarouselNext class='rightRs'>&gt;</button>
         </ngu-carousel>
@@ -116,9 +66,9 @@
                         </a>
                     </li> -->
 
-                    <li class="o-calendar__list--icon ">
+                    <li class="o-calendar__list--icon" #calenda>
                         <div class=" c-dropdown">
-                            <a (click)="calendarPop()" class="o-calendar__icon dropdown-toggle p-l-0" data-toggle="dropdown" aria-expanded="true">
+                            <a class="o-calendar__icon dropdown-toggle p-l-0" data-toggle="dropdown" aria-expanded="true">
                                 <img [src]="baseUrl + 'img/svg/calendar_gray.svg'" alt="">
                             </a>
                         </div>
@@ -157,7 +107,7 @@
                     <a routerLinkActive="active" class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a" *ngFor="let type of eventTypeList[0]?.filters" (click)="filter(type)">{{ type.name }}</a> 
                 </ng-container> -->
             <ngu-carousel [inputs]="eventTypeSlider" *ngIf="eventTypeList?.length > 0">
-                <ngu-item NguCarouselItem class="" *ngFor="let type of eventTypeList[0]?.filters">
+                <ngu-item NguCarouselItem class="bannerStyle" *ngFor="let type of eventTypeList[0]?.filters">
                     <a routerLinkActive="active" class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a" (click)="filter(type)">{{ type.name }}</a> 
                 </ngu-item>
                 <button NguCarouselPrev class='previous'></button>
@@ -194,7 +144,7 @@
 
         <div class="col-md-12 col-sm-12 col-xs-12 p-0" infiniteScroll
         [infiniteScrollDistance]="2"
-        [infiniteScrollThrottle]="10"
+        [infiniteScrollThrottle]="1000"
         (scrolled)="onScroll($event)">
             <div class="tab-content">
                 <div id="recommended" class="tab-pane fade  active in">
