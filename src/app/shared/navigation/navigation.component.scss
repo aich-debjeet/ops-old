@@ -689,9 +689,11 @@
         margin-top: 12px;
     }
     .nav__dropdown3 {
-        width: 310px;
-        right: -72px;
-        top: 32px;
+        width: 100vw;
+        right: 0;
+        left: 0;
+        top: 48px;
+        position: fixed;
         .dropnoti__detail {
             font-size: 11px;
             font-size: 11px;
