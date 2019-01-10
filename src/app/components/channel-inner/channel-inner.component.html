@@ -1,122 +1,130 @@
 <app-navigation></app-navigation>
 <section>
-  <div class="container channel_inner outer_header" *ngIf="channel?.channel_detail?.channelName && !pageLoading">
-    <!---  section  -->
-    <div class="row">
-            <div class="col-md-6">
-                <p *ngIf="!channel?.channel_detail?.accessSeetings.access" class="c-text_sm text_uppercase ltr-space color-grey-dark">{{ channel?.channel_detail?.accessSeetings.access ? 'Private Channel' : 'Public Channel' }}</p>
-                <ul class="list-inline">
-                    <li class="list-inline-item">
-                        <div class="c-h3 c-h3--weight">{{channel?.channel_detail?.channelName}}</div>
-                    </li>
-                    <li class="list-inline-item" *ngIf="channel?.channel_detail?.isOwner">
-                        <button type="button" class="btn btn-default btn-sm" [routerLink]="['/post/media']" [queryParams]="{post_to: 'channel', ct_id: channel?.channel_detail?.channelId, ct_name: channel?.channel_detail?.channelName}">
-                            Add Post
-                        </button>
-                    </li>
-                    <li class="list-inline-item" *ngIf="!channel?.channel_detail?.isOwner">
-                        <button type="button" (click)="followChannel(isFollowing, channel?.channel_detail?.channelId )" class="btn btn-primary btn-sm">{{ isFollowing ? 'Unfollow' : 'Follow' }}</button>
-                    </li>
-                    
-                    <li class="list-inline-item" *ngIf="channel?.channel_detail?.isOwner">
-                        <div class="dropdown" appDropdown>
-                            <span class="com-head" appDropdownOpen>
-                                <a (click)="pinEditFormPopup()"  >
-                                    <img class="opt-dot" [src]="imageLink + 'img/svg/ico_options.svg'">
-                                </a>
-                            </span>
-                            <ul class="dropdown-menu c-opsdropdown--size1">
-                                <!--<li class="list-inline-item">
+	<div class="container channel_inner" *ngIf="channel?.channel_detail?.channelName && !pageLoading">
+		<!---  section  -->
+		<div class="row">
+			<div class="col-md-6">
+				<p *ngIf="!channel?.channel_detail?.accessSeetings.access" class="c-text_sm text_uppercase ltr-space color-grey-dark">{{
+					channel?.channel_detail?.accessSeetings.access ? 'Private Channel' : 'Public Channel' }}</p>
+				<ul class="list-inline">
+					<li class="list-inline-item">
+						<div class="c-h3 c-h3--weight">{{channel?.channel_detail?.channelName}}</div>
+					</li>
+					<li class="list-inline-item" *ngIf="channel?.channel_detail?.isOwner">
+						<button type="button" class="btn btn-default btn-sm" [routerLink]="['/post/media']" [queryParams]="{post_to: 'channel', ct_id: channel?.channel_detail?.channelId, ct_name: channel?.channel_detail?.channelName}">
+							Add Post
+						</button>
+					</li>
+					<li class="list-inline-item" *ngIf="!channel?.channel_detail?.isOwner">
+						<button type="button" (click)="followChannel(isFollowing, channel?.channel_detail?.channelId )" class="btn btn-primary btn-sm">{{
+							isFollowing ? 'Unfollow' : 'Follow' }}</button>
+					</li>
+
+					<li class="list-inline-item" *ngIf="channel?.channel_detail?.isOwner">
+						<div class="dropdown" appDropdown>
+							<span class="com-head" appDropdownOpen>
+								<a (click)="pinEditFormPopup()">
+									<img class="opt-dot" [src]="imageLink + 'img/svg/ico_options.svg'">
+								</a>
+							</span>
+							<ul class="dropdown-menu c-opsdropdown--size1">
+								<!--<li class="list-inline-item">
                                     <a href="#">Pin to Quick Access</a>
                                 </li>-->
-                                <li class="list-inline-item">
-                                    <a  [routerLink]="['', { outlets: { media : ['channel', channel?.channel_detail?.channelId, 'edit' ] } } ]"  >Edit</a>
-                                    <a  (click)="deleteModal.open()">Delete</a>
-                                </li>
-                            </ul>
-                        </div>
+								<li class="list-inline-item">
+									<a [routerLink]="['', { outlets: { media : ['channel', channel?.channel_detail?.channelId, 'edit' ] } } ]">Edit</a>
+									<a (click)="deleteModal.open()">Delete</a>
+								</li>
+							</ul>
+						</div>
 
-                    </li>
-                </ul>
-                <div class=" spot_in_toptext c-text_md color-grey-dark m-t-16">
-                    <!--{{ channel?.channel_detail?.description }}-->
-                    <read-more [class]="'media_channel--text'" [text]="channel?.channel_detail?.description" [maxLength]=300 ></read-more>
-                </div>
-            </div>
-            <div class="col-md-6">
-                
-                <div class="col-sm-12 spot_in_icons">
-                    <div class="overlap_thumb">
-                        <span class="over1_thumb" *ngFor="let contributor of channel?.channel_detail?.contributorProfile | slice:0:3">
-                            <img *ngIf="contributor.profileImage" [src]="imageLink + contributor.profileImage" [routerLink]="'/profile/u/' + contributor.userName">
-                        </span>
-                    </div>
-                </div>
-                <ul class="list-inline">
-                    <li class="list-inline-item pull-right">
-                        <div class="spot_in_follow c-text_sm text_uppercase ltr-space color-grey-dark"><span class="c-h3 c-h3--weight">{{ channel?.channel_detail?.followersCount }}</span><br>Followers</div>
-                        <div class="spot_in_follow c-text_sm text_uppercase ltr-space color-grey-dark"><span class="c-h3 c-h3--weight">{{ channel?.postCount }}</span><br>Posts</div>
-                    </li>
-                </ul>
-            </div>
-        </div>
+					</li>
+				</ul>
+				<div class=" spot_in_toptext c-text_md color-grey-dark m-t-16">
+					<!--{{ channel?.channel_detail?.description }}-->
+					<read-more [class]="'media_channel--text'" [text]="channel?.channel_detail?.description" [maxLength]=300></read-more>
+				</div>
+			</div>
+			<div class="col-md-6">
+
+				<div class="col-sm-12 spot_in_icons">
+					<div class="overlap_thumb">
+						<span class="over1_thumb" *ngFor="let contributor of channel?.channel_detail?.contributorProfile | slice:0:3">
+							<img *ngIf="contributor.profileImage" [src]="imageLink + contributor.profileImage" [routerLink]="'/profile/u/' + contributor.userName">
+						</span>
+					</div>
+				</div>
+				<ul class="list-inline">
+					<li class="list-inline-item pull-right">
+						<div class="spot_in_follow c-text_sm text_uppercase ltr-space color-grey-dark"><span class="c-h3 c-h3--weight">{{
+								channel?.channel_detail?.followersCount }}</span><br>Followers</div>
+						<div class="spot_in_follow c-text_sm text_uppercase ltr-space color-grey-dark"><span class="c-h3 c-h3--weight">{{
+								channel?.postCount }}</span><br>Posts</div>
+					</li>
+				</ul>
+			</div>
+		</div>
 
 
-    <!-- follow channels -->
-    <div class="row channel_inner_block">
-      <div class="col-md-12 col-sm-12 channel-tabs p-0">
-        <div class="home_tabs">
-                <div class="row p-0 m-0">
-                    <div class="col-md-6 col-sm-6 col-xs-6 p-0">
-                        <ul class="nav nav-tabs">
-                            <li [class.active]="filterPost == 'spots'" ><a (click)="postFilter('spots')">Popular</a></li>
-                            <li [class.active]="filterPost == 'create_date'"><a (click)="postFilter('create_date')">Recent</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-xs-6 p-0">
-                        <div class="channel-filter">
-                            <a (click)="type('image')" class="channel-filter__ico" [class.active]="filterType == 'image'" ><img class="channel-filter__svg" [src]="imageLink + 'img/svg/ico-image-black.svg'"></a>
-                            <a (click)="type('video')" class="channel-filter__ico" [class.active]="filterType == 'video'"><img class="channel-filter__svg" [src]="imageLink + 'img/svg/ico-play-gray.svg'" ></a>
-                            <a (click)="type('audio')" class="channel-filter__ico" [class.active]="filterType == 'audio'"><img class="channel-filter__svg" [src]="imageLink + 'img/svg/ico-audio-black.svg'" ></a>
-                            <a (click)="type('status')" class="channel-filter__ico"[class.active]="filterType == 'status'"><img class="channel-filter__svg" [src]="imageLink + 'img/svg/ico-blog-black.svg'"></a>
-                        </div>
-                    </div>
-                </div>
-          <!--<div *ngIf="userMedia.user_posts_loading">
+		<!-- follow channels -->
+		<div class="row channel_inner_block">
+			<div class="col-md-12 col-sm-12 channel-tabs p-0">
+				<div class="home_tabs">
+					<div class="row p-0 m-0">
+						<div class="col-md-6 col-sm-6 col-xs-6 p-0">
+							<ul class="nav nav-tabs">
+								<li [class.active]="filterPost == 'spots'"><a (click)="postFilter('spots')">Popular</a></li>
+								<li [class.active]="filterPost == 'create_date'"><a (click)="postFilter('create_date')">Recent</a></li>
+							</ul>
+						</div>
+						<div class="col-md-6 col-sm-6 col-xs-6 p-0">
+							<div class="channel-filter">
+								<a (click)="type('image')" class="channel-filter__ico" [class.active]="filterType == 'image'"><img class="channel-filter__svg"
+									 [src]="imageLink + 'img/svg/ico-image-black.svg'"></a>
+								<a (click)="type('video')" class="channel-filter__ico" [class.active]="filterType == 'video'"><img class="channel-filter__svg"
+									 [src]="imageLink + 'img/svg/ico-play-gray.svg'"></a>
+								<a (click)="type('audio')" class="channel-filter__ico" [class.active]="filterType == 'audio'"><img class="channel-filter__svg"
+									 [src]="imageLink + 'img/svg/ico-audio-black.svg'"></a>
+								<a (click)="type('status')" class="channel-filter__ico" [class.active]="filterType == 'status'"><img class="channel-filter__svg"
+									 [src]="imageLink + 'img/svg/ico-blog-black.svg'"></a>
+							</div>
+						</div>
+					</div>
+					<!--<div *ngIf="userMedia.user_posts_loading">
             <div class="msg__loading">
               <div class="loader">Loading...</div>
             </div>
           </div>-->
-          <ngx-masonry [useImagesLoaded]="true" 
-          infiniteScroll
-          [options]="masonryOptions"
-          [infiniteScrollDistance]="2"
-          [infiniteScrollThrottle]="10"
-          (scrolled)="onScroll($event)">
-            <ngx-masonry-item class="col-md-3 col-sm-4 col-xs-12 p-8" *ngFor="let media of (tagState$ | async)?.channel_post; let i = index">
-                <app-post-card  (postDelete)="deletePost(media)" (onClick)="mediaOpenPopup(media.id)" [mediaData]="media"></app-post-card>
-            </ngx-masonry-item>
-          </ngx-masonry>
-          
-          <!-- class="col-md-3 col-sm-4 col-xs-12 p-8" -->
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--<div *ngIf="channel?.channel_detail" class="outer_header not_found" [ngClass]="!channel_loading ? '  not_found__add' : ''">
+					<ngx-masonry [useImagesLoaded]="true" infiniteScroll [options]="masonryOptions" [infiniteScrollDistance]="2"
+					 [infiniteScrollThrottle]="10" (scrolled)="onScroll($event)">
+						<ngx-masonry-item class="col-md-3 col-sm-4 col-xs-12 p-8" *ngFor="let media of (tagState$ | async)?.channel_post; let i = index">
+							<app-post-card (postDelete)="deletePost(media)" (onClick)="mediaOpenPopup(media.id)" [mediaData]="media"></app-post-card>
+						</ngx-masonry-item>
+					</ngx-masonry>
+
+					<!-- class="col-md-3 col-sm-4 col-xs-12 p-8" -->
+				</div>
+			</div>
+		</div>
+		<div class="inner-channel-empty">
+			<img src="https://ops-v2-2.netlify.com/assets/svg/media_empty.svg" alt="image" width="60" />
+			<p class="c-h3 m-t-24 color-grey">There is no media post</p>
+		</div>
+	</div>
+	<!--<div *ngIf="channel?.channel_detail" class="outer_header not_found" [ngClass]="!channel_loading ? '  not_found__add' : ''">
     <h2>Channel Not Found</h2>
   </div>-->
 </section>
 
 <div *ngIf="pageLoading === true">
-  <div class="sticky">
-    <div class="loader">Loading...</div>
-  </div>
+	<div class="sticky">
+		<div class="loader">Loading...</div>
+	</div>
 </div>
 
 <app-modal-new #deleteModal modalClass="o-comodal_main in">
-    <modal-content>
-        <app-confirm-box [message]="'Are you sure you want to permanently Delete?'" [heading]="'Delete'" (confirmAction)="confirmation($event)"
-        (closeModal)="closeCancelApplicationModal()"></app-confirm-box>
-    </modal-content>
+	<modal-content>
+		<app-confirm-box [message]="'Are you sure you want to permanently Delete?'" [heading]="'Delete'" (confirmAction)="confirmation($event)"
+		 (closeModal)="closeCancelApplicationModal()"></app-confirm-box>
+	</modal-content>
 </app-modal-new>
