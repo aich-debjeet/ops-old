@@ -25,8 +25,10 @@ export class AudioPlayerComponent implements OnInit {
 
   onPlayerReady(api: VgAPI) {
     this.api = api;
-    this.api.play();
-    this.audioPlayed.emit(this.mediaId);
+    if (this.api.play && typeof this.api.play === 'function') {
+      this.api.play();
+      this.audioPlayed.emit(this.mediaId);
+    }
   }
 
 }

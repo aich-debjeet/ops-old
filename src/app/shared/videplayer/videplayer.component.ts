@@ -57,8 +57,10 @@ export class VideplayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onPlayerReady(api: VgAPI) {
     this.api = api;
-    this.api.play();
-    // this.videoPlayer = api.getDefaultMedia();
-    this.videoPlayed.emit(this.mediaId);
+    if (this.api.play && typeof this.api.play === 'function') {
+      this.api.play();
+      // this.videoPlayer = api.getDefaultMedia();
+      this.videoPlayed.emit(this.mediaId);
+    }
   }
 }
