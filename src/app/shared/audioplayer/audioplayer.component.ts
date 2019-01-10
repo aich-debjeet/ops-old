@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { VgAPI } from 'videogular2/core';
 
 @Component({
   selector: 'app-audioplayer',
@@ -12,13 +13,20 @@ export class AudioPlayerComponent implements OnInit {
   @Input() size: string;
   @Input() mediaId: string;
   @Output() audioPlayed: EventEmitter<any> = new EventEmitter<any>();
+  api: VgAPI;
 
   constructor() {}
 
   ngOnInit() {
-    setTimeout(() => {
-      this.audioPlayed.emit(this.mediaId);
-    }, 1000);
+    // setTimeout(() => {
+    //   this.audioPlayed.emit(this.mediaId);
+    // }, 1000);
+  }
+
+  onPlayerReady(api: VgAPI) {
+    this.api = api;
+    this.api.play();
+    this.audioPlayed.emit(this.mediaId);
   }
 
 }
