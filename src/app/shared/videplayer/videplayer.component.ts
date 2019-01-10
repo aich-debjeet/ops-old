@@ -17,6 +17,7 @@ export class VideplayerComponent implements OnInit, AfterViewInit, OnDestroy {
   isPortrait = false; // assuming video is landscape by default
   // gUtilsSub: Subscription;
   // videoPlayer: IPlayable;
+  api: VgAPI;
 
   constructor(
     // private gUtils: GeneralUtilities
@@ -55,6 +56,8 @@ export class VideplayerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onPlayerReady(api: VgAPI) {
+    this.api = api;
+    this.api.play();
     // this.videoPlayer = api.getDefaultMedia();
     this.videoPlayed.emit(this.mediaId);
   }
