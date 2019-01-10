@@ -338,7 +338,8 @@
     <div class="not_block act_scroll" id="ops_scrollbar2" infinite-scroll [infiniteScrollDistance]="2"
       [infiniteScrollThrottle]="1000" [infiniteScrollContainer]="'#ops_scrollbar2'" (scrolled)="onScrollAct($event)">
       <div class="c-text_lg p-t-b-16 p-l-r-24">Activities</div>
-      <div class="not_activite_row" *ngFor="let list of activities">
+      <ul>
+      <li class="has-flex not_activite_row nowrap" *ngFor="let list of activities">
         <div class="col-md-2 p-0">
           <div class="not_userimg">
             <img *ngIf="!list.profileImage" src="assets/demo/new/avatar3.png">
@@ -350,7 +351,8 @@
             <a [routerLink]="['', 'profile', 'u', list.username, 'user']">{{list.name}}</a> {{list.message}}
           </div>
         </div>
-      </div>
+      </li>
+    </ul>
       <ng-container *ngIf="notifState?.requesting_activities === true">
         <div class="not_activite_row" *ngFor="let n of [0,1,2]">
           <div class="col-md-2 p-0">
