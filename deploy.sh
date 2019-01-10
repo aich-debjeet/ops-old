@@ -23,19 +23,19 @@ read DISTR
 case $DISTR in
      1)
           echo "🚧   ---  Building Project  [ dev ]"
-          ng build --aot --output-path=build/dev/
+          ng build --prod --env=dev --output-path=build/dev/
           echo "🚧   ---  Deploying Files   [ dev ]"
           scp -i  $pem_path -r build/dev/* ec2-user@54.241.168.25:/var/www/dev.onepagespotlight.com/public_html
           ;;
      2)
           echo "🚧   ---  Building Project  [ staging ]"
-          ng build --environment=staging --aot --output-path=build/staging/
+          ng build --prod --env=staging --aot --output-path=build/staging/
           echo "🚧   ---  Deploying Files   [ staging ]"
           scp -i  $pem_path -r build/staging/* ec2-user@54.241.168.25:/var/www/stg.onepagespotlight.com/public_html
           ;;
      3)
           echo "🚧   ---  Building Project  [ production ]"
-          ng build --prod --aot --output-path=build/prod/
+          ng build --prod --env=prod --output-path=build/prod/
           echo "🚧   ---  Deploying Files   [ production ]"
           scp -i  $pem_path -r build/prod/* ec2-user@54.241.168.25:/var/www/onepagespotlight.com/public_html
           ;;

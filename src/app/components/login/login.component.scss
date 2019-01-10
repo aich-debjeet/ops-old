@@ -24,19 +24,16 @@
 }
 
 .ops_signup {
-    background-color: #ffffff;
-    // padding-top: 64px;
-    height: calc(100vh - 125px);
+    background-color: $color-white;
+    height: calc(100vh - 123px);
     display: flex;
     justify-content: center;
     flex-direction: column;
     @include mq($from: $mobile_sm, $until: $desktop_sm) {
-        background: #fff;
         height: 100%;
         display: block;
     }
     @include mq($from: $tablet, $until: $desktop_sm) {
-        background: #fff;
         height: 82vh;
         display: block;
     }
@@ -47,7 +44,7 @@
 }
 
 .ops_heading {
-    margin: 16px 0;
+    margin-bottom: 16px;
 }
 
 .signup_privacy {
@@ -163,4 +160,10 @@ input[type=number]::-webkit-outer-spin-button {
 
 .ops_signup .ops_signup_left {
     padding: 0 48px;
+}
+.login-img {
+    width: 100%;
+    @media only screen and (max-height: 768px){
+        max-width: 400px;
+    }
 }

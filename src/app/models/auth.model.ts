@@ -128,6 +128,11 @@ export class RegCode {
   Code: number;
 }
 
+export class BasicOrgTag {
+  industries: string[];
+  user_unique: boolean;
+}
+
 export class BasicRegTag {
   completed: RegCode[];
   loading = false;

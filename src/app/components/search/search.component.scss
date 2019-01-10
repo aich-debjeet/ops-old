@@ -671,7 +671,6 @@ a {
   background: #f8f8f8;
   cursor: pointer;
   border-radius: 50px;
-  float: left;
 }
 .c-user__name {
   font-size: 14px;
@@ -712,7 +711,6 @@ a {
 }
 .c-links__spots {
   display: inline;
-  float: left;
   margin-right: 24px;
   cursor: pointer;
 }
@@ -727,7 +725,6 @@ a {
 }
 .c-links__comments {
   display: inline;
-  float: left;
   margin-right: 24px;
   cursor: pointer;
 }
@@ -757,6 +754,7 @@ a {
   line-height: 31px;
   clear: both;
   padding-top: 10px;
+  word-break: break-all;
 }
 
 .pad-bot-25 {
@@ -799,20 +797,16 @@ a {
   font-weight: 500;
 }
 
-.sm-p-8 {
-  padding: 8px;
+.opportunity-cards .cards {
+  margin: 0px 10px 0px 0px;
   @include mq($from: $mobile_sm, $until: $mobile_lg) {
-    padding: 8px 0;
-  }
-}
-
-.sm-row {
-  margin-left: -15px;
-  margin-right: -15px;
-  @include mq($from: $mobile_sm, $until: $mobile_lg) {
-    margin-left: 0;
-    margin-right: 0;
-  }
+    flex: auto;
+    width: 100%;
+    margin: 0px 0px 10px 0px;
+   }
+   &:last-child {
+      margin-right: 0px;
+   }
 }
 
 .sm-p-0 {

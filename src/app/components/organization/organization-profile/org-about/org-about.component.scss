@@ -10,12 +10,11 @@
 }
 
 .o-org-about {
-    width: 98%;
     background: #fff;
     padding: 16px 16px 32px;
     border-radius: $border-radius3;
     float: left;
-    margin-bottom: 200px;
+    margin-bottom: 20px;
     @include mq($from: $mobile_sm, $until: $tablet) {
         margin-left: 0px!important;
     }
@@ -32,6 +31,7 @@
     transition: 0.25s;
     float: left;
     width: 100%;
+    position: relative;
 }
 
 .o-org-form__item:hover {
@@ -43,11 +43,13 @@
 }
 
 .o-org-form__edit-ico {
+    right: 8px;
     width: 13px;
     height: 13px;
-    float: right;
     display: none;
     transition: .25s;
+    position: absolute;
+    top: calc(50% - 10px);
 }
 
 // form
@@ -98,6 +100,9 @@
     border: 1px solid rgba(102, 45, 145, 0.1);
     border-radius: 3px;
     overflow: hidden;
+    iframe {
+        width: 100%;
+    }
 }
 
 .c-avatar--status {

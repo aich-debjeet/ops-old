@@ -7,6 +7,7 @@ import { ProfileActions } from '../../actions/profile.action';
 import { CommunitiesActions } from '../../actions/communities.action';
 import { SharedActions } from '../../actions/shared.action';
 import { Store } from '@ngrx/store';
+import { GeneralUtilities } from 'app/helpers/general.utils';
 // import { GeneralUtilities } from 'app/helpers/general.utils';
 
 @Component({
@@ -21,8 +22,10 @@ export class PostComponent implements OnInit {
   @Input() postType: string;
   @Input() type: string;
   @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
+  @Output() loadSpottedUsers: EventEmitter<any> = new EventEmitter<any>();
   @Output() postDelete = new EventEmitter();
   @Output() elemViewportStatus = new EventEmitter();
+  @Output() markAsViewedForVA = new EventEmitter();
   @ViewChild('reportModal') reportModal: Modal;
   dotMenuState: boolean;
   comments: any;
@@ -43,9 +46,16 @@ export class PostComponent implements OnInit {
 
   constructor(
     private store: Store<Media>,
-    // public gUtils: GeneralUtilities
+    public gUtils: GeneralUtilities
   ) {
     this.dotMenuState = false;
+  }
+
+  spottedUsers(mediaId) {
+    this.loadSpottedUsers.emit({
+      mediaType: this.mediaType,
+      mediaId: mediaId
+    });
   }
 
   ngOnInit() {
@@ -150,8 +160,10 @@ export class PostComponent implements OnInit {
     this.isEdit = false;
     const data = {
       id: this.mediaId,
-      description: text
+      description: text,
+      mType: this.mediaType
     }
+    console.log(data)
     this.store.dispatch({ type: MediaActions.MEDIA_EDIT, payload: data });
   }
 
@@ -165,14 +177,17 @@ export class PostComponent implements OnInit {
     // this.gUtils.filter({ component: 'VideplayerComponent', action: 'stopVideo' });
   }
 
-  markMediaAsViewed(mediaId: string) {
-    // if (mediaId && !this.isMediaOwner) {
-    //   const data = {
-    //     contentType: 'media',
-    //     contentId: mediaId
-    //   }
-    //   this.store.dispatch({ type: MediaActions.MEDIA_ADD_VIEW_COUNT, payload: data });
-    // }
+  markMediaAsViewed(mediaId: string, mType: string) {
+    if (mediaId && !this.isMediaOwner) {
+      const data = {
+        contentType: mType,
+        contentId: mediaId
+      }
+      this.markAsViewedForVA.emit(data);
+      this.mediaData['counts']['viewcount']++;
+      // this.store.dispatch({ type: MediaActions.MEDIA_ADD_VIEW_COUNT, payload: data });
+      // this.store.dispatch({ type: ProfileActions.MEDIA_VIEW_COUNT_UPDATE, payload: mediaId });
+    }
   }
 
 }

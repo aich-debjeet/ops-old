@@ -6,6 +6,8 @@ import { Store } from '@ngrx/store';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProfileModal, initialTag, UserCard } from '../../../models/profile.model';
 import { ProfileActions } from '../../../actions/profile.action';
+import { MediaActions } from '../../../actions/media.action';
+import { initialMedia, Media } from '../../../models/media.model';
 import { AuthActions } from '../../../actions/auth.action';
 import FilesHelper from '../../.../../../helpers/fileUtils';
 import { TokenService } from '../../../helpers/token.service';
@@ -501,8 +503,8 @@ export class MediaSelectorComponent implements OnInit {
       const data = {
         media : multipleMedias
       }
-      this._store.dispatch({ type: ProfileActions.POST_STORY, payload: data });
-      this._store.select('profileTags')
+      this._store.dispatch({ type: MediaActions.POST_STORY, payload: data });
+      this._store.select('mediaStore')
       .first(media => media['story_media_success'] === true)
       .subscribe(data => {
         this.toastr.success('Your media has been successfully posted to your story', 'Upload', {

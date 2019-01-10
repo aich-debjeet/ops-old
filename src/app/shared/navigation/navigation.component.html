@@ -40,44 +40,89 @@
                 <!-- <img src="assets/svg/ico_notification.svg"> -->
                 <img [src]="imageBaseUrl + 'img/svg/ico_notification.svg'">
               </a>
-              <div class="dropdown-menu dropdown-menu-right nav__dropdown3">
+              <div class="dropdown-menu dropdown-menu-right nav__dropdown3" id="ops_scrollbar">
                 <div class="dropdown__item dropnoti__head msg__read">
                   <a routerLink="/notification">Your Notifications</a>
                   <a (click)="markAllAsRead()" class="pull-right">Mark all as read</a>
                   <div class="dropdown__arrow"><img [src]="imageBaseUrl + 'img/arrow.png'"></div>
                 </div>
-                <div class="dropdown__item p-16 msg__unread" *ngFor="let notification of notifications | slice:0:7"
-                  [ngClass]="{'fill_grey': !notification.isRead}">
-                  <div class="dropnoti__avatar" [routerLink]="['', 'profile', 'u', notification?.username, 'user']">
-                    <!-- <img class="navdrop__img" [src]="imageBaseUrl + 'img/new/avatar2.png'"> -->
-                    <img *ngIf="!notification?.profileImage" [src]="imageBaseUrl + '/img/avatar.png'" class="navdrop__img">
-                    <img *ngIf="notification?.profileImage" [src]="imageBaseUrl + notification.profileImage" class="navdrop__img">
+                <div class="o-alert_scroll" id="ops_scrollbar">
+                  <div class="dropdown__item p-16 msg__unread cursor_pointer" *ngFor="let notification of notifications"
+                    (click)="openLink(notification)" [ngClass]="{'msg__read': notification?.isRead, 'msg__unread': !notification?.isRead}">
+                    <div class="dropnoti__avatar" [routerLink]="['', 'profile', 'u', notification.username, 'user']">
+                      <img *ngIf="!notification.profileImage" [src]="'imageBaseUrl + /img/avatar.png'" class="navdrop__img">
+                      <img *ngIf="notification.profileImage" [src]="imageBaseUrl + notification.profileImage" class="navdrop__img">
+                    </div>
+                    <div class="dropnoti__detail">
+                      <span><a [routerLink]="['', 'profile', 'u', notification.username, 'user']">
+                          <span class="dropnoti__bold"> {{ notification?.name }}</span>
+                        </a>{{ notification?.message }}
+                      </span>
+                    </div>
+                    <div class="dropnoti__icon">
+                      <img *ngIf="notification?.notificationType == 'Status_Comments' || notification?.notificationType == 'Media_Comments'"
+                        [src]="imageBaseUrl + 'img/svg/ico_comment.svg'" class="noti_cont_footer_img">
+                      <img *ngIf="notification?.notificationType == 'Media_Spot'" class="cursor_pointer" [routerLink]="['', { outlets: { media : ['media', notification?.media?.mediaId] } } ]"
+                        [src]="imageBaseUrl + 'img/svg/spot_icon.svg'">
+                    </div>
+                    <p class="msg__time">{{ notification?.createdDate | utcDate | date:'d MMM hh:mm a' }}</p>
                   </div>
-                  <div class="dropnoti__detail">
-                    <span><a [routerLink]="['', 'profile', 'u', notification?.username, 'user']">
-                        <span class="dropnoti__bold"> {{ notification?.name }}</span>
-                      </a>{{ notification?.message }}
-                    </span>
-                  </div>
-                  <div class="dropnoti__icon">
-                    <img *ngIf="notification?.notificationType == 'Status_Comments' || notification?.notificationType == 'Media_Comments'"
-                      [src]="imageBaseUrl + 'img/svg/ico_comment.svg'" class="noti_cont_footer_img">
-                    <img *ngIf="notification?.notificationType == 'Media_Spot'" [src]="imageBaseUrl + 'img/svg/spot_icon.svg'">
-                  </div>
-                  <p class="msg__time">--</p>
+                  <ng-container *ngIf="notifState?.requesting_notifications === true">
+                    <app-placeholder-notification *ngFor="let n of [0,1,2]"></app-placeholder-notification>
+                  </ng-container>
+                  <div *ngIf="notifState?.requesting_notifications_success === true && notifications?.length === 0" class="c-text_lg color-grey-dark o-alert__empty">You have no notifications</div>
                 </div>
-                <div class="dropdown__item p-16 msg__read">
+                <div *ngIf="notifications?.length > 0;" class="dropdown__item p-16 msg__read">
                   <a routerLink="/notification">
                     <p class="dropnoti__viewall">View All</p>
                   </a>
                 </div>
               </div>
             </div>
-            <div class="m-nav__dropdown dropdown">
-              <a class="m-nav__icons dropdown-toggle" data-toggle="dropdown" aria-expanded="true" routerLink="/message"
-                routerLinkActive="active">
+            <div class="m-nav__dropdown dropdown" appDropdown>
+              <a class="m-nav__icons dropdown-toggle" appDropdownOpen (click)="messagePopup()">
                 <img [src]="imageBaseUrl + 'img/svg/ico_message.svg'">
+                <div class="o-not__alert" *ngIf="notifyMsg"></div>
               </a>
+              <div class="dropdown-menu dropdown-menu-right nav__dropdown3" id="ops_scrollbar">
+                <div class="dropdown__item dropnoti__head msg__read">
+                  <a routerLink="/message">Your Messages</a>
+                  <div class="dropdown__arrow"><img [src]="imageBaseUrl + 'img/arrow.png'"></div>
+                </div>
+                <div class="o-alert_scroll" id="ops_scrollbar">
+                  <div class="dropdown__item p-16 msg__unread cursor_pointer" *ngFor="let message of messages"
+                    (click)="openConversation(message)" [ngClass]="{'msg__read': message?.isRead, 'msg__unread': !message?.isRead}">
+                    <div class="dropnoti__avatar" [routerLink]="['', 'profile', 'u', message?.username, 'user']">
+                      <img *ngIf="!message?.profileImage" [src]="'imageBaseUrl + /img/avatar.png'" class="navdrop__img">
+                      <img *ngIf="message?.profileImage" [src]="imageBaseUrl + message?.profileImage" class="navdrop__img">
+                    </div>
+                    <div class="dropnoti__detail">
+                      <span>
+                        <a [routerLink]="['', 'profile', 'u', message?.username, 'user']">
+                          <span class="dropnoti__bold"> {{ message?.name }}</span>
+                        </a>
+                        <p>{{ message?.latestMessage }}</p>
+                      </span>
+                    </div>
+                    <div class="dropnoti__icon">
+                      <img *ngIf="message?.messageType == 'Status_Comments' || message?.messageType == 'Media_Comments'"
+                        [src]="imageBaseUrl + 'img/svg/ico_comment.svg'" class="noti_cont_footer_img">
+                      <img *ngIf="message?.messageType == 'Media_Spot'" class="cursor_pointer" [routerLink]="['', { outlets: { media : ['media', message?.media?.mediaId] } } ]"
+                        [src]="imageBaseUrl + 'img/svg/spot_icon.svg'">
+                    </div>
+                    <p class="msg__time">{{ message?.time | utcDate | date:'d MMM hh:mm a' }}</p>
+                  </div>
+                  <ng-container *ngIf="msgState?.getting_messanger_list === true">
+                    <app-placeholder-notification *ngFor="let n of [0,1,2]"></app-placeholder-notification>
+                  </ng-container>
+                  <div *ngIf="msgState?.getting_messanger_list_success === true && messages?.length === 0" class="c-text_lg color-grey-dark o-alert__empty">You have no messages</div>
+                </div>
+                <div *ngIf="messages?.length > 0;" class="dropdown__item p-16 msg__read">
+                  <a routerLink="/message">
+                    <p class="dropnoti__viewall">View All</p>
+                  </a>
+                </div>
+              </div>
             </div>
             <div class="m-nav__dropdown dropdown" appDropdown>
               <a class="m-nav__icons dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
@@ -111,25 +156,16 @@
                 <div class="dropdown__item p-b-8 text-uppercase">
                   <a routerLink="/event">Event</a>
                 </div>
-                <!-- <div class="dropdown__item p-b-8 text-uppercase">
-                                    <a routerLink="/learn">Learn</a>
-                                </div>
-                                <div class="dropdown__item p-b-8 text-uppercase">
-                                    <a routerLink="/resources">Resource</a>
-                                </div> -->
                 <div class="dropdown__item p-b-8 text-uppercase with_border_bottom">
                   <a routerLink="/communities">Community</a>
                 </div>
-                <!-- <div class="dropdown__item p-b-8 text-uppercase with_border_bottom">
-                                    <a routerLink="/directory">Directory</a>
-                                </div> -->
                 <div *ngIf="!showCreateOrg" class="dropdown__item with_border_bottom p-t-b-8">
-                  <div class="navdrop__switchto">Switch to</div>
+                  <div class="navdrop__switchto">My Organization</div>
                   <div class="navdrop__imgblock2">
                     <img class="navdrop__img" [src]="imageBaseUrl + this.userCards.other.image">
                   </div>
                   <div class="navdrop__name2">
-                    <a (click)="changeProfile(this.userCards, $event)">
+                    <a (click)="loadOrg()">
                       {{ this.userCards.other.name }}
                     </a>
                   </div>
@@ -317,12 +353,12 @@
                 </a>
               </div>
               <div *ngIf="!showCreateOrg" class="dropdown__item with_border_bottom p-t-b-16">
-                <div class="navdrop__switchto">Switch to</div>
+                <div class="navdrop__switchto">My Organization</div>
                 <div class="navdrop__imgblock2">
                   <img class="navdrop__img" [src]="imageBaseUrl + this.userCards.other.image">
                 </div>
                 <div class="navdrop__name2">
-                  <a (click)="changeProfile(this.userCards, $event)">
+                  <a (click)="loadOrg()">
                     {{ this.userCards.other.name }}
                   </a>
                 </div>

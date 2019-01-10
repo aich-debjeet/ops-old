@@ -270,8 +270,8 @@
 }
 
 .act_scroll{
-    overflow-y: scroll;
     height: 608px;
+    overflow-y: auto;
 }
 .pl_avatar40 {
     width: 40px;
@@ -337,4 +337,25 @@
     font-weight: 600;	
     line-height: 24px;	
     text-align: center;
+}
+.float-right-m-handle {
+    float: right;
+    margin-bottom: 0;
+    padding-top: 10px;
+}
+@media only screen and (max-width: 568px) {
+    .p-l-0_mob {
+        padding-left: 0px;
+    }
+    .act_scroll{
+        height: auto;
+        overflow-y: auto;
+        min-height: 125px;
+        margin-bottom: 20px;
+    }
+    .float-right-m-handle {
+        float: none;
+        text-align: left;
+        display: inline-block;
+    }
 }

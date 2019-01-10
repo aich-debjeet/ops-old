@@ -1,0 +1,21 @@
+@import '~sass-mq/_mq.scss';
+@import './src/assets/scss/helpers/_variables.scss';
+@import './src/assets/scss/helpers/_helpers.scss';
+@import './src/assets/scss/components/_cards.scss';
+@import './src/assets/scss/base/_typography.scss';
+
+.empty_message {
+    text-align: center;
+    padding: 57px 0px;
+    display: inline-block;
+    width: 100%;
+  
+    p {
+      font-size: 14px;
+    }
+  }
+
+  .event__block {
+    display: block;
+    overflow: hidden;
+  }

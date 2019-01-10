@@ -53,7 +53,7 @@
   width: 100%;
   float: left;
   clear: both;
-  padding: 16px 24px;
+  padding: 16px 24px 0 24px;
   position: relative;
 }
 
@@ -174,6 +174,7 @@ a {
   color: #333;
   font-size: 15px;
   line-height: 24px;
+  word-break: break-all;
 }
 
 .c-links {
@@ -186,7 +187,6 @@ a {
 
 .c-links__spots {
   display: inline;
-  float: left;
   margin-right: 16px;
   cursor: pointer;
   font-weight: 500;
@@ -200,7 +200,6 @@ a {
 
 .c-links__comments {
   display: inline;
-  float: left;
   margin-right: 24px;
   // cursor: pointer;
 }
@@ -396,6 +395,9 @@ label {
 
 .c-feed__img-status {
   overflow: hidden;
+  @media only screen and (max-width: 375px) {
+		padding: 0px 16px 16px 16px;
+	}
 }
 
 .audio-placeholder {
@@ -439,6 +441,11 @@ label {
 
 .c-status-groupmedia__1 {
   grid-area: one;
+  // height: 440px;
+  display: block;
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    // height: 220px;
+  }
 }
 
 .c-status-groupmedia__2 {
@@ -451,6 +458,7 @@ label {
 
 .c-status-groupmedia__4 {
   grid-area: four;
+  
 }
 
 .c-status-groupmedia__5 {
@@ -505,7 +513,6 @@ label {
   grid-template-rows: 220px 220px;
   background-color: #fff;
   padding: 1px;
-
   @include mq($from: $mobile_sm, $until: $mobile_lg) {
     grid-template-rows: 220px 220px;
   }
@@ -528,3 +535,83 @@ label {
 }
 
 /* for media collection */
+
+// spotted people show on hover
+.show-on-hover .show-this {
+  display: none;
+}
+.show-on-hover:hover .show-this {
+  display: block;
+}
+.people-spots {
+  top: 25px;
+  left: 15px;
+  width: 100%;
+  z-index: 55;
+  min-width: 100px;
+  max-width: 145px;
+  border-radius: 3px;
+  position: absolute;
+  padding-bottom: 20px;
+  background-color: $color-white;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+}
+.people-spots > li {
+  display: block;
+  font-size: 13px;
+  padding: 4px 15px;
+  line-height: 20px;
+  color: $color-base;
+}
+.see-more-spotted {
+  left: 0px;
+  width: 100%;
+  bottom: 0px;
+  position: absolute;
+  button {
+    width: 100%;
+    border: none;
+    font-size: 11px;
+    text-align: left;
+    line-height: 18px;
+    padding-left: 15px;
+    background-color: transparent;
+  }
+}
+@media only screen and (max-width: 568px) {
+  .c-feed__img2 {
+    padding: 0;
+    margin: 0 auto;
+    width: calc(100% - 2px);
+  }
+}
+@media only screen and (max-width: 375px) {
+  .small-device-375-left-align {
+    width: 100%;
+    display: flex;
+    padding-top: 10px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .small-device-375-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .c-links__comments {
+    margin-right: 0;
+  }
+  .c-links__spots {
+    margin-right: 0;
+  }
+  .c-status-groupmedia-5 {
+    padding: 0;
+  }
+  .c-links__view-count {
+    margin: 0;
+    padding-left: 4px;
+  }
+  .c-status--block {
+    padding: 16px 16px;
+  }
+}

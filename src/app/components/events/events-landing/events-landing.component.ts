@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy, NgZone, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone, ViewChild, ElementRef,HostListener } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { NguCarousel } from '@ngu/carousel';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { environment } from '../../../../environments/environment';
@@ -10,6 +10,10 @@ import { EventModal  } from '../../../models/event.model';
 import { EventActions } from '../../../actions/event.action';
 import { Observable } from 'rxjs/Observable';
 import { ISubscription } from 'rxjs/Subscription';
+
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/delay';
+import 'rxjs/add/operator/do';
 
 import { MapsAPILoader } from '@agm/core';
 import {} from '@types/googlemaps';
@@ -65,7 +69,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   sum = 10;
   total_pages = 10;
   scrolling = 0;
-  scrollingLoad = 800;
+  scrollingLoad = 955;
 
   dayStatus: string;
   calendar = false;
@@ -74,8 +78,14 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
     locale: 'en'
   };
 
+  private listening:boolean;
+  private globalClick:Observable<MouseEvent>;
+
   @ViewChild('search')
   public searchElementRef: ElementRef;
+
+  @ViewChild('calenda')
+  public calendarElementRef: ElementRef;
 
   constructor(
     private route: ActivatedRoute,
@@ -85,6 +95,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
     private ngZone: NgZone,
     private fb: FormBuilder,
   ) {
+    this.listening = false;
     this.tagState$ = this.store.select('eventTags');
     this.subscription = this.tagState$.subscribe((state) => {
       if (state['event_list'] && state.event_loaded === true) {
@@ -111,21 +122,11 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
         // Defaults to 0 if no query param provided.
         if (params['status']) {
           this.filterStatus = params['status'];
-          // this.filterEventType = '';
-          // this.filterStartDate = '';
-          // this.filterLocation = '';
-          // this.filterEndDate = '';
-          // this.dayStatus = '';
           window.scrollTo(0,0);
-          this.scrollingLoad = 800;
+          this.scrollingLoad = 955;
         }
         if (!params['status']) {
           this.filterStatus = 'recommended';
-          // this.filterEventType = '';
-          // this.filterLocation = '';
-          // this.filterStartDate = '';
-          // this.filterEndDate = '';
-          // this.dayStatus = '';
         }
         this.filterEventType = '';
         this.filterStartDate = '';
@@ -140,55 +141,59 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
     this.day =  moment().format();
     this.tomorrow = moment().add('days', 1).format();
     this.weekend = moment().weekday(6).format();
+  }
 
-    // this.myQueryParms = {
-    //   startDate:  this.filterStartDate || '',
-    //   endDate: this.filterEndDate || '',
-    //   location: this.filterLocation || '',
-    //   status: this.filterStatus || '',
-    //   searchText: this.filterSearchText || '',
-    //   eventType: this.filterEventType || '',
-    // }
+  @HostListener('document:click', ['$event'])
+  public onDocumentClick(event: MouseEvent): void {
+    const targetElement = event.target as HTMLElement;
+      // Check if the click was outside the element
+      if (targetElement && !this.calendarElementRef.nativeElement.contains(targetElement)) {
+        if(this.calendar){
+          this.calendar = false;
+        }
+      } else {
+        this.calendarPop()
+      }
   }
 
   ngOnInit() {
     this.store.dispatch({ type: EventActions.BANNER_SEARCH});
     this.dayStatus = '';
     this.carouselOne = {
-      grid: {xs: 1, sm: 1, md: 2, lg: 2, all: 0},
-      slide: 1,
+      grid: {xs: 1, sm: 1, md: 2, lg: 3, all: 0},
+      slide: 2,
       speed: 4000,
       interval: 400000,
       custom: 'banner',
       point: {
         visible: false,
-        pointStyles: `
-          .ngucarouselPoint {
-            list-style-type: none;
-            text-align: center;
-            padding: 12px;
-            margin: 0;
-            white-space: nowrap;
-            overflow: auto;
-            position: absolute;
-            width: 100%;
-            bottom: 20px;
-            left: 0;
-            box-sizing: border-box;
-          }
-          .ngucarouselPoint li {
-            display: inline-block;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.55);
-            padding: 5px;
-            margin: 0 3px;
-            transition: .4s ease all;
-          }
-          .ngucarouselPoint li.active {
-              background: white;
-              width: 10px;
-          }
-        `
+        // pointStyles: `
+        //   .ngucarouselPoint {
+        //     list-style-type: none;
+        //     text-align: center;
+        //     padding: 12px;
+        //     margin: 0;
+        //     white-space: nowrap;
+        //     overflow: auto;
+        //     position: absolute;
+        //     width: 100%;
+        //     bottom: 20px;
+        //     left: 0;
+        //     box-sizing: border-box;
+        //   }
+        //   .ngucarouselPoint li {
+        //     display: inline-block;
+        //     border-radius: 999px;
+        //     background: rgba(255, 255, 255, 0.55);
+        //     padding: 5px;
+        //     margin: 0 3px;
+        //     transition: .4s ease all;
+        //   }
+        //   .ngucarouselPoint li.active {
+        //       background: white;
+        //       width: 10px;
+        //   }
+        // `
       },
       load: 2,
       loop: false,
@@ -217,7 +222,6 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
 
 
   calendarPop() {
-    // console.log('calendar')
     if (!this.calendar) {
       this.calendar = true;
     } else {
@@ -226,16 +230,6 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   }
 
   serachApi() {
-    // const data = {
-    //   startDate: this.filterStartDate || '',
-    //   endDate: this.filterEndDate || '',
-    //   location: this.filterLocation || '',
-    //   status: this.filterStatus || '',
-    //   searchText: '',
-    //   eventType: this.filterEventType || '',
-    //   offset: 0,
-    //   limit: 50,
-    // }
     let data;
     if (this.filterEventType === '' && (this.filterStartDate === '' && this.filterEndDate === '')) {
        data = {
@@ -447,11 +441,10 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
     this.serachApi();
   }
   onScroll(e) {
-     console.log(e)
     this.scrolling = e.currentScrollPosition;
     // console.log(this.scrolling)
     if (this.scrollingLoad <= this.scrolling) {
-      this.scrollingLoad += 800
+      this.scrollingLoad += 900
       const data = {
         searchType: this.filterStatus,
         scrollId: this.scrollId,

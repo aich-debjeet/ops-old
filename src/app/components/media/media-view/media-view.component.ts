@@ -80,13 +80,14 @@ export class MediaViewComponent implements OnDestroy {
         this.commentsLoading = false;
         this.commentsLoaded = true;
       }
-      if (!this.viewCounted && this.mediaId && typeof this.isMediaOwner !== 'undefined' && this.isMediaOwner === false) {
+      if (this.viewCounted === false && this.mediaId && typeof this.isMediaOwner !== 'undefined' && this.isMediaOwner === false) {
+        this.viewCounted = true;
         const data = {
           contentType: 'media',
           contentId: this.mediaId
         }
         this.store.dispatch({ type: MediaActions.MEDIA_ADD_VIEW_COUNT, payload: data });
-        this.viewCounted = true;
+        this.store.dispatch({ type: ProfileActions.MEDIA_VIEW_COUNT_UPDATE, payload: this.mediaId });
       }
       this.comments = this.mediaStore.media_comment;
       if (state['media_carousel']) {
@@ -207,7 +208,8 @@ export class MediaViewComponent implements OnDestroy {
     this.editMsg = true;
     const data = {
       'id': this.data.id,
-      'description': message
+      'description': message,
+      'mType': this.data.mtype
     }
     this.store.dispatch({ type: MediaActions.MEDIA_EDIT, payload: data });
   }
@@ -249,5 +251,9 @@ export class MediaViewComponent implements OnDestroy {
           }
         });
     }
+  }
+
+  mediaModalClosed() {
+    this.store.dispatch({ type: MediaActions.CLEAR_VIEW_MEDIA });
   }
 }

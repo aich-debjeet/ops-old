@@ -1,7 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { ImageCropperModule } from 'ngx-image-cropper';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
@@ -96,7 +95,6 @@ const routes: Routes = [
     ReactiveFormsModule,
     FormsModule,
     TextMaskModule,
-    ImageCropperModule,
     NguCarouselModule,
     InfiniteScrollModule
   ],

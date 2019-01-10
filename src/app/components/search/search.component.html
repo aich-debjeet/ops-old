@@ -1,266 +1,247 @@
 <app-navigation></app-navigation>
 <section class="o-search-top-sec">
-    <div class="container">
-      <div class="o-search m-t-32">
-        <form action="">
-          <input #searchInput2 placeholder="What are you looking for?" #searchQueryElement #searchInput="ngModel" class="o-search__input" type="text" [ngModel]="searchString" [ngModelOptions]="{standalone: true}" >
-          <div class="o-search__icon">
-            <img *ngIf="!isSearching" [src]="baseUrl  + 'img/svg/ico_search.svg'">
-            <img *ngIf="isSearching" [src]="baseUrl + 'img/search-preloader.gif'">
-          </div>
-        </form>
-      </div><!-- search end -->
-    </div>
-  </section><!-- top section end -->
-  
-  <section class="o-search-result-container">
-      <div class="container">
-
-        <!-- preloader -->
-        <div *ngIf="isSearching && isSearching === true">
-            <div class="sticky">
-                <div class="loader">Loading...</div>
-            </div>
+  <div class="container">
+    <div class="o-search m-t-32">
+      <form action="">
+        <input #searchInput2 placeholder="What are you looking for?" #searchQueryElement #searchInput="ngModel" class="o-search__input"
+          type="text" [ngModel]="searchString" [ngModelOptions]="{standalone: true}">
+        <div class="o-search__icon">
+          <img *ngIf="!isSearching" [src]="baseUrl  + 'img/svg/ico_search.svg'">
+          <img *ngIf="isSearching" [src]="baseUrl + 'img/search-preloader.gif'">
         </div>
-        <!-- preloader -->
-          
-          <!-- search message -->
-          <div class="o-search-empty" *ngIf="searchString?.length === 0 && !isSearching">
-              <div class="o-search-empty__icon"><img [src]="baseUrl + 'img/svg/ico_search.svg'"></div>
-              <div class="o-search-empty__txt p-t-32">
-                  <h3 class="c-h3 m-b-16 f-w_500">Search One Page Spotlight </h3>
-                  <p class="c-text_md color-grey-dark">
-                      Find your favourite People, Post, Channel, Spotfeed,
-                      Opportunity, Event and Community
-                  </p>
+      </form>
+    </div><!-- search end -->
+  </div>
+</section><!-- top section end -->
+
+<section class="o-search-result-container">
+  <div class="container">
+
+    <!-- preloader -->
+    <div *ngIf="isSearching && isSearching === true">
+      <div class="sticky">
+        <div class="loader">Loading...</div>
+      </div>
+    </div>
+    <!-- preloader -->
+
+    <!-- search message -->
+    <div class="o-search-empty" *ngIf="searchString?.length === 0 && !isSearching">
+      <div class="o-search-empty__icon"><img [src]="baseUrl + 'img/svg/ico_search.svg'"></div>
+      <div class="o-search-empty__txt p-t-32">
+        <h3 class="c-h3 m-b-16 f-w_500">Search One Page Spotlight </h3>
+        <p class="c-text_md color-grey-dark">
+          Find your favourite People, Post, Channel, Spotfeed,
+          Opportunity, Event and Community
+        </p>
+      </div>
+    </div>
+    <!-- search message -->
+
+    <!-- search wrapper -->
+    <div *ngIf="searchString?.length > 0 && !isSearching">
+
+      <!-- search filters -->
+      <div *ngIf="searchType === 'all'" class="col-md-3 col-sm-4 col-xs-12 p-l-0 m-t--32 m-b-16">
+        <div class="o-search-left-block p-24 hidden-xs">
+
+          <div *ngIf="(searchFilters | json) == '{}'">
+            <p class="result-not-found">No filter available!</p>
+          </div>
+          <p *ngIf="searchState?.searching_all && searchState?.searching_all === false && searchState?.searching_all_data && searchState?.searching_all_data?.channels && searchState?.searching_all_data?.channels.legth === 0 && searchState?.searching_all_data?.posts && searchState?.searching_all_data?.posts.legth === 0">No
+            filter applicable!</p>
+
+          <!-- Profiles -->
+          <ng-container *ngIf="searchFilters?.profile">
+            <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16 profiles-wrapper">Profiles</h6>
+            <div class="o-search-filter-block">
+              <div class="c-form__group m-t-0" *ngFor="let profileElems of searchFilters?.profile">
+                <ng-container *ngIf="profileElems?.filters?.length > 0">
+                  <select class="c-form-control" (change)="profileFilterSelection($event.target.value, profileElems?.title)"
+                    [(ngModel)]="selectedProfileFilters['profile'][profileElems?.title]">
+                    <option *ngIf="!selectedProfileFilters['profile'][profileElems?.title]" value="">Select {{
+                      profileElems?.title | firstCharCaps }}</option>
+                    <ng-container *ngFor="let filter of profileElems?.filters">
+                      <option *ngIf="filter?.name !== ''" [value]="filter?.name">{{ filter?.name | truncate:[20, '...']
+                        }} ({{ filter?.count }})</option>
+                    </ng-container>
+                  </select>
+                </ng-container>
               </div>
-          </div>
-          <!-- search message -->
-
-          <!-- search wrapper -->
-          <div *ngIf="searchString?.length > 0 && !isSearching">
-            
-            <!-- search filters -->
-            <div *ngIf="searchType === 'all'" class="col-md-3 col-sm-4 col-xs-12 p-l-0 m-t--32">
-                <div class="o-search-left-block p-24 hidden-xs">
-
-                    <div *ngIf="(searchFilters | json) == '{}'">
-                        <p class="result-not-found">No filter available!</p>
-                    </div>
-                    <p *ngIf="searchState?.searching_all && searchState?.searching_all === false && searchState?.searching_all_data && searchState?.searching_all_data?.channels && searchState?.searching_all_data?.channels.legth === 0 && searchState?.searching_all_data?.posts && searchState?.searching_all_data?.posts.legth === 0" >No filter applicable!</p>
-                    
-                    <!-- Profiles -->
-                    <ng-container *ngIf="searchFilters?.profile">
-                        <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16 profiles-wrapper">Profiles</h6>
-                        <div class="o-search-filter-block">
-                            <div class="c-form__group m-t-0" *ngFor="let profileElems of searchFilters?.profile">
-                                <ng-container *ngIf="profileElems?.filters?.length > 0">
-                                    <select class="c-form-control" (change)="profileFilterSelection($event.target.value, profileElems?.title)" [(ngModel)]="selectedProfileFilters['profile'][profileElems?.title]">
-                                        <option *ngIf="!selectedProfileFilters['profile'][profileElems?.title]" value="">Select {{ profileElems?.title | firstCharCaps }}</option>
-                                        <ng-container *ngFor="let filter of profileElems?.filters">
-                                            <option *ngIf="filter?.name !== ''" [value]="filter?.name">{{ filter?.name | truncate:[20, '...'] }} ({{ filter?.count }})</option>
-                                        </ng-container>
-                                    </select>
-                                </ng-container>
-                            </div>
-                        </div>
-                    </ng-container>
-                    <!-- Profiles -->
-
-                    <!-- Posts -->
-                    <ng-container *ngIf="searchFilters?.post">
-                        <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16 float_left">Posts</h6>
-                        <div class="o-search-filter-block p-l-8">
-                            <div *ngFor="let postElems of searchFilters?.post" >
-                                <ng-container *ngIf="postElems?.filters?.length > 0">
-                                    <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">{{ postElems?.title }}</h6>
-                                    <div *ngFor="let filter of postElems?.filters" >
-                                        <ng-container *ngIf="filter?.name !== ''">
-                                            <div class="form-check">
-                                                <label for="{{ postElems?.title + filter?.name | strReplace:[' ', '_'] }}">{{ filter?.name }} 
-                                                    <input [checked]="checkIfSelected(filter?.name, 'post')" (change)="postFilterAction($event, postElems?.title)" id="{{ postElems?.title + filter?.name | strReplace:[' ', '_'] }}" type="checkbox" value="{{ filter?.name }}">
-                                                </label>
-                                            </div>
-                                        </ng-container>
-                                    </div>
-                                </ng-container>
-                            </div>
-                        </div>
-                    </ng-container>
-                    <!-- Posts -->
-
-                    <!-- Channels -->
-                    <ng-container *ngIf="searchFilters?.channel">
-                        <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16 float_left">Channels</h6>
-                        <div class="o-search-filter-block p-l-8">
-                            <div *ngFor="let channelElems of searchFilters?.channel" >
-                                <ng-container *ngIf="channelElems?.filters?.length > 0">
-                                    <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">{{ channelElems?.title }}</h6>
-                                    <div *ngFor="let filter of channelElems?.filters" >
-                                        <ng-container *ngIf="filter?.name !== ''">
-                                            <div class="form-check">
-                                                <label for="{{ channelElems?.title + filter?.name | strReplace:[' ', '_'] }}">{{ filter?.name }} 
-                                                    <input [checked]="checkIfSelected(filter?.name, 'channel')" (change)="channelFilterAction($event, channelElems?.title)" id="{{ channelElems?.title + filter?.name | strReplace:[' ', '_'] }}" type="checkbox" value="{{ filter?.name }}">
-                                                </label>
-                                            </div>
-                                        </ng-container>
-                                    </div>
-                                </ng-container>
-                            </div>
-                        </div>
-                    </ng-container>
-                    <!-- Channels -->
-
-                </div>
             </div>
-            <!-- search filters -->
-            
-            <!-- search result -->
-            <div class="col-md-9 col-sm-8 col-xs-12 sm-p-0 m-t--32" [ngClass]="{'col-md-12 col-sm-12': searchType !== 'all'}">
+          </ng-container>
+          <!-- Profiles -->
 
-                <div class="o-search-result-block">
-                    <div class="o-search-info-top">
-                        <span *ngIf="resultCount" class="o-search-info_txt">Showing results for “<span class="c-text_md">{{ searchString }}</span>”</span>
-                        <span class="o-search-result_count">{{ resultCount }} Results Found</span>
-                    </div><!-- search info top -->
-                    <div class="o-top-result-block">
-                        <!-- <h6 class="c-text_lg p-t-b-16">Top result</h6>
-                        <div class="o-search-top-result__container">
-                            <div class="c-search__block p-l-r-8">
-                                <div class="c-searchprofile__imgblock m-t-b-8"><img class="c-searchprofile__img" src="{{ baseUrl }}assets/new/avatar.png"></div><a class="c-searchprofile__name" href="">John Mayer1</a> <a class="c-searchprofile__prof" href="">Profile</a>
-                            </div>
-                            <div class="c-search__block p-l-r-8">
-                                <div class="c-searchprofile__postblock m-t-b-8">
-                                    <img class="c-searchprofile__postblock" src="{{ baseUrl }}assets/new/l05.jpg"> <span><img alt="" class="c-card__icon" src="assets/svg/ico_video.svg"></span>
-                                </div><a class="c-searchprofile__name2 m-l-8" href="">John M</a> <a class="c-searchprofile__post m-l-8" href="">Public Post</a>
-                            </div>
-                            <div class="c-search__block p-l-r-8">
-                                <div class="c-searchprofile__postblock m-t-b-8">
-                                    <div class="c-searchchannel_left"><img src="{{ baseUrl }}assets/new/l08.jpg"></div>
-                                    <div class="c-searchchannel_right">
-                                        <div class="c-searchchannel_r-t"><img class="c-searchprofile__postimg" src="{{ baseUrl }}assets/new/l09.jpg"></div>
-                                        <div class="c-searchchannel_r-b"><img class="c-searchprofile__postimg" src="{{ baseUrl }}assets/new/l07.jpg"></div>
-                                    </div>
-                                </div><a class="c-searchprofile__name2 m-l-8" href="">John Mayer Coll...</a> <a class="c-searchprofile__post m-l-8" href="">Channel</a>
-                            </div>
-                            <div class="c-search__block p-l-r-8">
-                                <div class="c-searchprofile__postblock m-t-b-8"><img class="c-searchprofile__postimg" src="{{ baseUrl }}assets/new/l06.jpg"></div><a class="c-searchprofile__name2 m-l-8" href="">A list: John M</a> <a class="c-searchprofile__post m-l-8" href="">Spotfeed</a>
-                            </div>
-                            <div class="c-search__block p-l-r-8">
-                                <div class="c-searchprofile__postblock m-t-b-8">
-                                    <img class="c-searchprofile__postimg" src="{{ baseUrl }}assets/new/l05.jpg"> <span class="c-searchprofile__eventicon">30, Dec</span>
-                                </div><a class="c-searchprofile__name2 m-l-8" href="">John Mayer Live...</a> <a class="c-searchprofile__post m-l-8" href="">Event</a>
-                            </div>
-                        </div> -->
-                    </div>
-                    <!-- top result block end -->
-                </div>
-                
-                <!-- search all -->
-                <div *ngIf="searchType === 'all'">
-                    <div class="o-search-result-block m-t-16 p-b-24">
-                        <!-- people -->
-                        <div class="col-md-6 p-l-0">
-                            <h6 class="c-text_lg p-b-16 with_border_bottom">People
-                                <a *ngIf="all_artists && all_artists.length > 0;" (click)="seeAll('people')" class="color-theme float_right">See all</a>
-                            </h6>
-                            <div *ngIf="all_artists && all_artists.length === 0; else artists_found;">
-                                <p class="result-not-found">Artists not found!</p>
-                            </div>
-                            <ng-template #artists_found>
-                                <div class="o-people-result-block2" id="ops_scrollbar">
-                                    <div *ngFor="let artist of all_artists" class="o-people-result-block">
-                                        <app-user-card-new [artist]="artist" [ownerHandle]="ownerHandle" class="width-100"></app-user-card-new>
-                                    </div>
-                                </div>
-                            </ng-template>
-                        </div><!-- people -->
-    
-                        <!-- posts -->
-                        <div class="col-md-6">
-                            <h6 class="c-text_lg p-b-16 with_border_bottom">Posts
-                                <a *ngIf="all_posts && all_posts.length > 0;" (click)="seeAll('post')" class="color-theme float_right">See all</a>
-                            </h6>
-                            <div *ngIf="all_posts && all_posts.length === 0; else posts_found;">
-                                <p class="result-not-found">Posts not found!</p>
-                            </div>
-                            <ng-template #posts_found>
-                                <div class="o-post-result-block2" id="ops_scrollbar">
-                                    <div *ngFor="let post of all_posts" class="o-post-result-block">
-                                        <app-post-card-search [post]="post"></app-post-card-search>
-                                    </div>
-                                </div>
-                            </ng-template>
-                        </div><!-- posts -->
-                    </div>
-                    <div *ngIf="all_channels && all_channels.length > 0;" class="o-search-result-single-block">
-                        <div class="o-search-result-single-block">
-                            <h6 class="c-text_lg m-t-24">Channel
-                                <a (click)="seeAll('channel')" class="color-theme float_right">See all</a>
-                            </h6>
-                            <div class="row m-0">
-                                <div *ngFor="let channel of all_channels | slice:0:4" class="col-md-3 p-0 p-r-10 p-b-10">
-                                    <app-channel [channelData]="channel" (onFollow)="followChannel($event)"></app-channel>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div *ngIf="all_opps && all_opps.length > 0;" class="o-search-result-single-block">
-                        <h6 class="c-text_lg m-t-24">Opportunity 
-                            <a (click)="seeAll('opportunity')" class="color-theme float_right">See all</a>
-                        </h6>
-                        <div class="sm-row">
-                            <div *ngFor="let opportunity of all_opps | slice:0:3" class="col-md-4 col-sm-4 col-xs-12 sm-p-8">
-                                <app-opporunity-search-card [opportunityDetails]="opportunity"></app-opporunity-search-card>
-                            </div>
-                        </div>
-                    </div>
-                    <div *ngIf="all_events && all_events.length > 0;" class="o-search-result-single-block">
-                        <h6 class="c-text_lg m-t-24">Events 
-                            <a (click)="seeAll('event')" class="color-theme float_right">See all</a>
-                        </h6>
-                        <div class="row">
-                            <div *ngFor="let event of all_events | slice:0:6" class="col-md-2 col-sm-3 col-xs-6 p-0">
-                                <app-event-search-card [eventDetails]="event"></app-event-search-card>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- search all -->
-                
-                <!-- search people result -->
-                <app-search-people *ngIf="searchString?.length > 0 && !isSearching && searchType === 'people'" [profileType]="profileTypeSearch" (onProfileTypeSwitch)="profileTypeSwitch($event)" ></app-search-people>
-                <!-- search people result -->
-
-                <!-- search channels result -->
-                <app-search-channel *ngIf="searchString?.length > 0 && !isSearching && searchType === 'channel'"></app-search-channel>
-                <!-- search channels result -->
-
-                <!-- search posts result -->
-                <app-search-post *ngIf="searchString?.length > 0 && !isSearching && searchType === 'post'"></app-search-post>
-                <!-- search posts result -->
-
-                <!-- search opportunity result -->
-                <app-search-opportunity *ngIf="searchString?.length > 0 && !isSearching && searchType === 'opportunity'"></app-search-opportunity>
-                <!-- search opportunity result -->
-
-                <!-- search event result -->
-                <app-search-event *ngIf="searchString?.length > 0 && !isSearching && searchType === 'event'"></app-search-event>
-                <!-- search event result -->
-
+          <!-- Posts -->
+          <ng-container *ngIf="searchFilters?.post">
+            <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16 float_left">Posts</h6>
+            <div class="o-search-filter-block p-l-8">
+              <div *ngFor="let postElems of searchFilters?.post">
+                <ng-container *ngIf="postElems?.filters?.length > 0 && postElems?.title !== 'TAGS'">
+                  <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">{{ postElems?.title }}</h6>
+                  <div *ngFor="let filter of postElems?.filters">
+                    <ng-container *ngIf="filter?.name !== ''">
+                      <div class="form-check">
+                        <label for="{{ postElems?.title + filter?.name | strReplace:[' ', '_'] }}">{{ filter?.name }}
+                          <input [checked]="checkIfSelected(filter?.name, 'post')" (change)="postFilterAction($event, postElems?.title)"
+                            id="{{ postElems?.title + filter?.name | strReplace:[' ', '_'] }}" type="checkbox" value="{{ filter?.name }}">
+                        </label>
+                      </div>
+                    </ng-container>
+                  </div>
+                </ng-container>
+              </div>
             </div>
-            <!-- search result -->
-            
-          </div>
-          <!-- search wrapper -->
+          </ng-container>
+          <!-- Posts -->
 
-          <!-- search prelaoder -->
-          <div *ngIf="showPreloader">
-            <div class="sticky">
-                <div class="loader">Loading...</div>
+          <!-- Channels -->
+          <ng-container *ngIf="searchFilters?.channel">
+            <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16 float_left">Channels</h6>
+            <div class="o-search-filter-block p-l-8">
+              <div *ngFor="let channelElems of searchFilters?.channel">
+                <ng-container *ngIf="channelElems?.filters?.length > 0 && channelElems?.title !== 'TAGS'">
+                  <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">{{ channelElems?.title }}</h6>
+                  <div *ngFor="let filter of channelElems?.filters">
+                    <ng-container *ngIf="filter?.name !== ''">
+                      <div class="form-check">
+                        <label for="{{ channelElems?.title + filter?.name | strReplace:[' ', '_'] }}">{{ filter?.name
+                          }}
+                          <input [checked]="checkIfSelected(filter?.name, 'channel')" (change)="channelFilterAction($event, channelElems?.title)"
+                            id="{{ channelElems?.title + filter?.name | strReplace:[' ', '_'] }}" type="checkbox" value="{{ filter?.name }}">
+                        </label>
+                      </div>
+                    </ng-container>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </ng-container>
+          <!-- Channels -->
+
+        </div>
+      </div>
+      <!-- search filters -->
+
+      <!-- search result -->
+      <div class="col-md-9 col-sm-8 col-xs-12 sm-p-0 m-t--32" [ngClass]="{'col-md-12 col-sm-12': searchType !== 'all'}">
+
+        <div class="o-search-result-block">
+          <div class="o-search-info-top">
+            <span *ngIf="resultCount" class="o-search-info_txt">Showing results for “<span class="c-text_md">{{
+                searchString }}</span>”</span>
+            <span class="o-search-result_count">{{ resultCount }} Results Found</span>
+          </div><!-- search info top -->
+        </div>
+
+        <!-- search all -->
+        <div *ngIf="searchType === 'all'">
+          <div class="o-search-result-block m-t-16 p-b-24">
+            <!-- people -->
+            <div class="col-md-6 p-l-0">
+              <h6 class="c-text_lg p-b-16 with_border_bottom">People
+                <a *ngIf="all_artists && all_artists.length > 0;" (click)="seeAll('people')" class="color-theme float_right">See
+                  all</a>
+              </h6>
+              <div *ngIf="all_artists && all_artists.length === 0; else artists_found;">
+                <p class="result-not-found">Artists not found!</p>
+              </div>
+              <ng-template #artists_found>
+                <div class="o-people-result-block2" id="ops_scrollbar">
+                  <div *ngFor="let artist of all_artists" class="o-people-result-block">
+                    <app-user-card-new [artist]="artist" [ownerHandle]="ownerHandle" class="width-100"></app-user-card-new>
+                  </div>
+                </div>
+              </ng-template>
+            </div><!-- people -->
+
+            <!-- posts -->
+            <div class="col-md-6">
+              <h6 class="c-text_lg p-b-16 with_border_bottom">Posts
+                <a *ngIf="all_posts && all_posts.length > 0;" (click)="seeAll('post')" class="color-theme float_right">See
+                  all</a>
+              </h6>
+              <div *ngIf="all_posts && all_posts.length === 0; else posts_found;">
+                <p class="result-not-found">Posts not found!</p>
+              </div>
+              <ng-template #posts_found>
+                <div class="o-post-result-block2" id="ops_scrollbar">
+                  <div *ngFor="let post of all_posts" class="o-post-result-block">
+                    <app-post-card-search [post]="post"></app-post-card-search>
+                  </div>
+                </div>
+              </ng-template>
+            </div><!-- posts -->
+          </div>
+          <div *ngIf="all_channels && all_channels.length > 0;" class="o-search-result-single-block">
+            <div class="o-search-result-single-block">
+              <h6 class="c-text_lg m-t-24 m-b-8">Channel
+                <a (click)="seeAll('channel')" class="color-theme float_right">See all</a>
+              </h6>
+              <div class="row m-0">
+                <div *ngFor="let channel of all_channels | slice:0:4" class="col-md-3 p-0 p-r-10 p-b-10">
+                  <app-channel [channelData]="channel" (onFollow)="followChannel($event)"></app-channel>
+                </div>
+              </div>
             </div>
           </div>
-          <!-- search prelaoder -->
+          <div *ngIf="all_opps && all_opps.length > 0;" class="o-search-result-single-block">
+            <h6 class="c-text_lg m-t-24 m-b-8">Opportunity
+              <a (click)="seeAll('opportunity')" class="color-theme float_right">See all</a>
+            </h6>
+            <div class="opportunity-cards has-flex">
+              <div *ngFor="let opportunity of all_opps | slice:0:3" class="is-flex cards">
+                <app-opporunity-search-card [opportunityDetails]="opportunity"></app-opporunity-search-card>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="all_events && all_events.length > 0;" class="o-search-result-single-block">
+            <h6 class="c-text_lg m-t-24">Events
+              <a (click)="seeAll('event')" class="color-theme float_right">See all</a>
+            </h6>
+            <div class="">
+              <div *ngFor="let event of all_events | slice:0:6" class="col-md-2 col-sm-3 col-xs-6 p-0">
+                <app-event-search-card [eventDetails]="event"></app-event-search-card>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- search all -->
+
+        <!-- search people result -->
+        <app-search-people *ngIf="searchString?.length > 0 && !isSearching && searchType === 'people'" [profileType]="profileTypeSearch"
+          (onProfileTypeSwitch)="profileTypeSwitch($event)"></app-search-people>
+        <!-- search people result -->
+
+        <!-- search channels result -->
+        <app-search-channel *ngIf="searchString?.length > 0 && !isSearching && searchType === 'channel'"></app-search-channel>
+        <!-- search channels result -->
+
+        <!-- search posts result -->
+        <app-search-post *ngIf="searchString?.length > 0 && !isSearching && searchType === 'post'"></app-search-post>
+        <!-- search posts result -->
+
+        <!-- search opportunity result -->
+        <app-search-opportunity *ngIf="searchString?.length > 0 && !isSearching && searchType === 'opportunity'"></app-search-opportunity>
+        <!-- search opportunity result -->
+
+        <!-- search event result -->
+        <app-search-event *ngIf="searchString?.length > 0 && !isSearching && searchType === 'event'"></app-search-event>
+        <!-- search event result -->
 
       </div>
-  </section>
+      <!-- search result -->
+
+    </div>
+    <!-- search wrapper -->
+
+    <!-- search prelaoder -->
+    <div *ngIf="showPreloader">
+      <div class="sticky">
+        <div class="loader">Loading...</div>
+      </div>
+    </div>
+    <!-- search prelaoder -->
+
+  </div>
+</section>

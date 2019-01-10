@@ -155,5 +155,13 @@ export class MediaService {
   getReports(type: string) {
     return this.api.get('/portal/report/questions/getByType/' + type)
   }
+  
+  storyPost(payload: any) {
+    return this.api.post('/portal/myStory', payload);
+  }
+
+  storyGet(payload: any) {
+    return this.api.get('/portal/myStoryDetails?handle=' + payload.handle);
+  }
 
 }

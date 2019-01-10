@@ -29,7 +29,7 @@
                                 <li>
                                     <a (click)="communityEdit()">Edit</a>
                                 </li>
-                                <li>
+                                <li *ngIf="details?.isMember">
                                     <a (click)="communityLeave()">Leave</a>
                                 </li>
                                 <li>
@@ -37,7 +37,7 @@
                                 </li>
                             </ul>
                             <ul class="dropdown-menu dropdown-menu-right" *ngIf="!details?.isOwner">
-                                <li>
+                                <li *ngIf="details?.isMember">
                                     <a (click)="communityLeave()">Leave</a>
                                 </li>
                                 <li>

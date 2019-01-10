@@ -41,7 +41,7 @@
         </div>
         <div class="o-eventinner__detail">
             <div class="o-eventinner__date">
-                <img [src]="baseUrl + 'img/svg/calendar.svg'" class="o-eventinner__detail--img"> {{ eventDetail?.eventTiming?.startDate | utcDate | date: 'dd, LLLL'}}
+                <img [src]="baseUrl + 'img/svg/calendar.svg'" class="o-eventinner__detail--img"> {{ eventDetail?.eventTiming?.startDate | utcDate | date: 'dd LLLL yyyy'}}
             </div>
             <div class="o-eventinner__address">
               <img [src]="baseUrl + 'img/svg/ico_location2.svg'" class="o-eventinner__detail--img"> {{ eventDetail?.venue?.location }}
@@ -54,7 +54,7 @@
         <div *ngIf="eventDetail?.event_agenda?.length > 0">
           <div class="c-text_lg m-t-b-16 p-l-r-14">Event Agenda</div>
           <ul class="list-group o-eventinner__agenda p-l-r-14 m-b-8">
-              <li class="list-group-item" *ngFor="let agenda of eventDetail?.event_agenda">{{ agenda?.startTime | date:'medium' }} <span class="m-l-16"></span> <span class="m-l-16">{{ agenda?.description | truncate:[25, '...'] }}</span> </li> 
+              <li class="list-group-item" *ngFor="let agenda of eventDetail?.event_agenda">{{ agenda?.startTime | date:'shortDate' }} <span class="m-l-16">{{ agenda?.startTime | date:'shortTime' }}</span> <span class="m-l-16">{{ agenda?.description | truncate:[25, '...'] }}</span> </li> 
           </ul>
         </div>
       </div>

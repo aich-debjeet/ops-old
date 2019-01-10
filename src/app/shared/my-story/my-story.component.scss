@@ -1,0 +1,113 @@
+@import './src/assets/scss/helpers/_variables.scss';
+@import './src/assets/scss/components/_app.scss';
+@import './src/assets/scss/components/_dropdowns.scss';
+@import './src/assets/scss/helpers/_helpers.scss';
+@import './src/assets/scss/components/_form.scss';
+@import './src/assets/scss/components/_cards.scss';
+@import './src/assets/scss/base/_typography.scss';
+@import '~sass-mq/_mq.scss';
+
+.o-mystory {
+    width: 100%;
+    padding: 16px 16px 24px 16px;
+    background: #fff;
+    border-radius: 3px;
+  }
+  
+  .o-mystory__title {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+  
+  .o-mystory__media {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 100px;
+
+    a{
+      margin: 1px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    // div {
+    //   margin: 1px;
+    //   overflow: hidden;
+  
+    //   img {
+    //     width: 100%;
+    //   }
+    // }
+  }
+  
+  .o-mystory-media__one {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    background-size: cover
+  }
+  
+  .o-mystory-media__two {
+    grid-column-start: 1;
+    grid-row-start: 3;
+    grid-row-end: 3;
+    background-size: cover
+  }
+  
+  .o-mystory-media__three {
+    grid-column-start: 2;
+    grid-row-start: 3;
+    grid-row-end: 3;
+    background-size: cover
+  }
+  
+  .o-mystory-media__four {
+    grid-column-start: 3;
+    grid-column-end: 3;
+    grid-row-start: 3;
+    grid-row-end: 3;
+    background-size: cover
+  }
+  
+  .o-mystory__add {
+    width: 100%;
+    margin-top: 16px;
+  }
+  
+  .o-mystory-add__link {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  
+  .o-mystory-add__icon {
+    width: 25px;
+    height: 25px;
+    float: left;
+  
+    img {
+      width: 25px;
+    }
+  }
+  
+  .o-mystory-add__txt {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.85px;
+    line-height: 15px;
+    color: $color-theme;
+    text-transform: uppercase;
+    float: left;
+    margin-left: 8px;
+  }
+  
+  .c-status__options {
+    width: 14px;
+    height: 14px;
+    float: left;
+    cursor: pointer;
+  }
+  

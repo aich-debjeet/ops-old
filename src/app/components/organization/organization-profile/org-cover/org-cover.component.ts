@@ -1,238 +1,66 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ProfileModal, initialTag } from '../../../../models/profile.model';
+import { ProfileModal } from '../../../../models/profile.model';
 import { ModalService } from '../../../../shared/modal/modal.component.service';
-import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
 import { Location } from '@angular/common';
 
-// action
-import { ProfileActions } from '../../../../actions/profile.action';
 import { OrganizationActions } from '../../../../actions/organization.action';
-import { ToastrService } from 'ngx-toastr';
-
-import { ActivatedRoute, Router, Params } from '@angular/router';
 import { environment } from '../../../../../environments/environment';
-
-// rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { ISubscription } from 'rxjs/Subscription';
+import { GeneralUtilities } from 'app/helpers/general.utils';
 
 @Component({
   selector: 'app-org-cover',
   templateUrl: './org-cover.component.html',
-  providers: [ ModalService ],
-  styleUrls: ['./org-cover.component.scss']
+  providers: [ ModalService ]
 })
-export class OrgCoverComponent implements OnInit {
+export class OrgCoverComponent implements OnInit, OnDestroy {
 
   tagState$: Observable<ProfileModal>;
-  private tagStateSubscription: Subscription;
-  stateProfile = initialTag;
-  userProfile: any;
-  ownProfile: boolean;
-  data: any;
-  changingImage: boolean;
-  cropperSettings: CropperSettings;
-  baseUrl: string;
+  baseUrl = environment.API_IMAGE;
+  coverImage: string;
   orgHandle: string;
-  stateOrg: any;
-  coverImageChosen = false;
+  profSub: ISubscription;
 
-  @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
   constructor(
-    private _modalService: ModalService,
-    private router: Router,
-    private route: ActivatedRoute,
     private _location: Location,
-    private toastr: ToastrService,
-    private _store: Store<ProfileModal>
+    private profStore: Store<ProfileModal>,
+    private gUtils: GeneralUtilities
   ) {
-
-    this.baseUrl = environment.API_IMAGE;
-
-    this.tagState$ = this._store.select('profileTags');
-    this.tagState$.subscribe((state) => {
-      this.stateProfile = state;
+    this.tagState$ = this.profStore.select('profileTags');
+    this.profSub = this.tagState$.subscribe((state) => {
+      if (this.gUtils.checkNestedKey(state, ['organization_details', 'coverImage']) && state['organization_details']['coverImage'] !== '') {
+        this.coverImage = this.baseUrl + state['organization_details']['coverImage'];
+        this.orgHandle = state['organization_details'].handle;
+      } else {
+        this.coverImage = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
+      }
     });
+  }
 
-    this._store.select('profileTags').subscribe((state) => {
-      this.stateOrg = state;
-    });
+  ngOnInit() { }
 
-
-    // Get own user handle
-    this._store.select('profileTags')
-      .first(profile => profile['profile_navigation_details'].organization )
+  saveImageClick(imgData) {
+    const imageData = {
+      imageType: 'coverImage',
+      handle: this.orgHandle,
+      image: imgData.split((/,(.+)/)[1])
+    };
+    this.profStore.dispatch({ type: OrganizationActions.ORG_COVER_IMAGE_UPLOAD, payload: imageData });
+    this.profStore.select('profileTags')
+      .first(org => org['orgCoverImageUploaded'] === true)
       .subscribe( data => {
-        if (data['profile_navigation_details'].organization) {
-          this.orgHandle = data['profile_navigation_details'].organization.organizationHandle;
-        }
+        this.isClosed(null);
       });
-
-    // Image Cropper Settings
-    this.cropperSettings = new CropperSettings();
-    this.cropperSettings.width = 1000;
-    this.cropperSettings.height = 359;
-    this.cropperSettings.croppedWidth = 1000;
-    this.cropperSettings.croppedHeight = 359;
-    this.cropperSettings.canvasWidth = 880;
-    this.cropperSettings.canvasHeight = 300;
-    this.cropperSettings.rounded = false;
-    this.cropperSettings.fileType = 'image/png';
-    this.cropperSettings.noFileInput = true;
-    this.data = {};
   }
 
-  ngOnInit() {
-    this.tagState$
-    .first(profile => this.stateProfile.profile_navigation_details.organization)
-    .subscribe( data => {
-      this.loadCoverImage();
-      this.stateProfile.cover_img_upload_success = false;
-    });
-  }
-
-  isClosed(event: any) {
+  isClosed(event?: any) {
     this._location.back();
   }
 
-  fileChangeListener($event) {
-      const image: any = new Image();
-      const file: File = $event.target.files[0];
-      const myReader: FileReader = new FileReader();
-      const that = this;
-      myReader.onloadend = function (loadEvent: any) {
-        image.src = loadEvent.target.result;
-        that.cropper.setImage(image);
-        that.coverImageChosen = true;
-      };
-      myReader.readAsDataURL(file);
-  }
-
-   /**
-   * Upload Cover image
-   */
-  uploadCoverImage() {
-    const userHandle = this.orgHandle;
-    if (this.data && this.data.image && userHandle !== '') {
-      const imageData = {
-        imageType: 'coverImage',
-        handle: userHandle,
-        image: this.data.image.split((/,(.+)/)[1])
-      };
-
-      this._store.dispatch({ type: OrganizationActions.IMAGE_UPLOAD_SERVER, payload: imageData });
-      this.changingImage = false;
-    }
-
-    // Get own user handle
-    this._store.select('profileTags')
-      .first(org => org['image_upload_success'] === true)
-      .subscribe( data => {
-        const image = data['profileImage'].repoPath;
-        this.updateCoverImage(image);
-      });
-  }
-
-  loadCoverImage() {
-    const self = this;
-    // loading profile image
-    const ctx = document.getElementsByTagName('canvas')[0].getContext('2d');
-    const img = new Image();
-    img.onload = function() {
-      const imgHeight = 880;
-      const imgWidth = 300;
-      self.drawImageProp(ctx, this, 0, 0, self.cropperSettings.canvasWidth, self.cropperSettings.canvasHeight, 0.1, 0.5);
-    };
-
-    let coverImageURL;
-    if (typeof this.stateProfile.profile_navigation_details.organization.organizationCoverImage !== 'undefined') {
-      coverImageURL = this.baseUrl + this.stateProfile.profile_navigation_details.organization.organizationCoverImage;
-    } else {
-      coverImageURL = 'https://www.dropbox.com/s/kskr4b3c0afc59i/default_coverImage__opt.jpg?raw=1';
-    }
-    img.src = coverImageURL;
-  }
-
-  /**
-   * Profile Image Upload
-   * @param image
-   */
-  updateCoverImage(image) {
-
-    const data = {
-      handle: this.orgHandle,
-      body: {
-        extras: {
-          coverImage: [image]
-        }
-      }
-    }
-    this._store.dispatch({ type: OrganizationActions.ORG_PROFILE_UPDATE, payload: data });
-
-    // profile update sucess
-    this._store.select('profileTags')
-      .first(org => org['org_profile_update_success'] === true)
-      .subscribe( orgUpdate => {
-        this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
-        this.uploadCompeleted();
-      });
-  }
-
-  uploadCompeleted() {
-    // Get own user handle
-    this._store.select('profileTags')
-      .first(profile => profile['current_user_profile_loading'] === true )
-      .subscribe( data => {
-        this._location.back();
-        this.toastr.success('Organization cover image updated', '', {
-          timeOut: 3000
-        });
-      });
-  }
-
-
-  /**
-   * Fitting the profile image to the canvas
-   */
-  drawImageProp(ctx, img, x, y, w, h, offsetX, offsetY) {
-    if (arguments.length === 2) {
-        x = y = 0;
-        w = ctx.canvas.width;
-        h = ctx.canvas.height;
-    }
-    /// default offset is center
-    offsetX = typeof offsetX === 'number' ? offsetX : 0.5;
-    offsetY = typeof offsetY === 'number' ? offsetY : 0.5;
-    /// keep bounds [0.0, 1.0]
-    if (offsetX < 0) { offsetX = 0 };
-    if (offsetY < 0) { offsetY = 0 };
-    if (offsetX > 1) { offsetX = 1 };
-    if (offsetY > 1) { offsetY = 1 };
-    const iw = img.width;
-    const ih = img.height;
-    const r = Math.min(w / iw, h / ih);
-    let nw = iw * r;   /// new prop. width
-    let nh = ih * r;   /// new prop. height
-    let cx = 1, cy = 1, cw = 1, ch = 1;
-    let ar = 1;
-    /// decide which gap to fill
-    if (nw < w) { ar = w / nw };
-    if (nh < h) { ar = h / nh };
-    nw *= ar;
-    nh *= ar;
-    /// calc source rectangle
-    cw = iw / (nw / w);
-    ch = ih / (nh / h);
-    cx = (iw - cw) * offsetX;
-    cy = (ih - ch) * offsetY;
-    /// make sure source rectangle is valid
-    if (cx < 0) { cx = 0 };
-    if (cy < 0) { cy = 0 };
-    if (cw > iw) { cw = iw };
-    if (ch > ih) { ch = ih };
-    /// fill image in dest. rectangle
-    ctx.drawImage(img, cx, cy, cw, ch,  x, y, w, h);
+  ngOnDestroy() {
+    this.profSub.unsubscribe();
   }
 
 }

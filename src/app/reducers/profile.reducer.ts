@@ -78,6 +78,42 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
 
   switch (type) {
 
+    case ProfileActions.CLEAR_SPOTTED_USERS:
+      return Object.assign({}, state, {
+        spottedUsersParams: null,
+        spottedUsersList: null
+      });
+
+    case ProfileActions.GET_MEDIA_SPOTTED_USERS:
+      return Object.assign({}, state, {
+        loadingSpottedUsers: true,
+        loadedSpottedUsers: false,
+        spottedUsersParams: payload
+      });
+
+    case ProfileActions.GET_MEDIA_SPOTTED_USERS_SUCCESS:
+      let spottedUsersList = state.spottedUsersList;
+      const spottedUsersCount = payload['SUCCESS']['totalCount'] || 0;
+      if (payload['SUCCESS'] && payload['SUCCESS']['spottedProfileList']) {
+        if (state['spottedUsersParams']['offset'] === 0) {
+          spottedUsersList = payload['SUCCESS']['spottedProfileList'];
+        } else {
+          spottedUsersList = state.spottedUsersList.concat(payload['SUCCESS']['spottedProfileList']);
+        }
+      }
+      return Object.assign({}, state, {
+        loadedSpottedUsers: true,
+        loadingSpottedUsers: false,
+        spottedUsersList: spottedUsersList,
+        spottedUsersCount: spottedUsersCount
+      });
+
+    case ProfileActions.GET_MEDIA_SPOTTED_USERS_FAILED:
+      return Object.assign({}, state, {
+        loadingSpottedUsers: false,
+        loadedSpottedUsers: false
+      });
+
     case ProfileActions.POST_STATUS:
       return Object.assign({}, state, {
         postingStatus: true,
@@ -177,22 +213,14 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
     case ProfileActions.MEDIA_VIEW_COUNT_UPDATE:
       return Object.assign({}, state, {
         user_following_posts: state.user_following_posts.map(post => {
-          if (post.id === payload['contentId']) {
-            if (payload['totalViews']) {
-              post.viewcount = payload['totalViews'];
-            } else {
-              post.viewcount++;
-            }
+          if (post.counts.viewcount && post.id === payload) {
+            post.counts.viewcount++;
           }
           return post;
         }),
         user_posts: state.user_posts.map(post => {
-          if (post.id === payload['contentId']) {
-            if (payload['totalViews']) {
-              post.viewcount = payload['totalViews'];
-            } else {
-              post.viewcount++;
-            }
+          if (post.counts.viewcount && post.id === payload) {
+            post.counts.viewcount++;
           }
           return post;
         })
@@ -1559,7 +1587,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
       });
     case OrganizationActions.ORGANIZATION_REGISTRATION_SUCCESS:
       return Object.assign({}, state, {
-        org_registration_success: true
+        org_registration_success: true,
+        org_registration_response: payload['SUCCESS']
       });
     case OrganizationActions.ORGANIZATION_REGISTRATION_FAILED:
       return Object.assign({}, state, {
@@ -1584,28 +1613,46 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
       });
     /* Load Org */
 
-    /**
-     * Load image to database
-     */
-    case OrganizationActions.IMAGE_UPLOAD_SERVER:
+    case OrganizationActions.ORG_PROFILE_IMAGE_UPLOAD:
       return Object.assign({}, state, {
-        profile_img_upload_loading: true,
-        image_upload_starting: true,
-        image_upload_success: false,
-        success: true
+        orgProfileImageUploading: true,
+        orgProfileImageUploaded: false
       });
-    case OrganizationActions.IMAGE_UPLOAD_SERVER_SUCCESS:
+
+    case OrganizationActions.ORG_PROFILE_IMAGE_UPLOAD_SUCCESS:
       return Object.assign({}, state, {
-        profileImage: payload['SUCCESS'],
-        image_upload_success: true,
-        image_upload_starting: false,
-        profile_img_upload_loading: false,
-        success: true
+        orgProfileImageUploading: false,
+        orgProfileImageUploaded: true,
+        organization_details: {
+          ...state.organization_details,
+          profileImage: payload['SUCCESS']['repoPath']
+        }
       });
-    case OrganizationActions.IMAGE_UPLOAD_SERVER_FAILED:
+
+    case OrganizationActions.ORG_PROFILE_IMAGE_UPLOAD_FAILED:
       return Object.assign({}, state, {
-        image_upload_starting: false,
-        success: false
+        orgProfileImageUploading: false,
+        orgProfileImageUploaded: false
+      });
+
+    case OrganizationActions.ORG_COVER_IMAGE_UPLOAD:
+      return Object.assign({}, state, {
+        orgCoverImageUploading: true,
+        orgCoverImageUploaded: false
+      });
+    case OrganizationActions.ORG_COVER_IMAGE_UPLOAD_SUCCESS:
+      return Object.assign({}, state, {
+        orgCoverImageUploading: false,
+        orgCoverImageUploaded: true,
+        organization_details: {
+          ...state.organization_details,
+          coverImage: payload['SUCCESS']['repoPath']
+        }
+      });
+    case OrganizationActions.ORG_COVER_IMAGE_UPLOAD_FAILED:
+      return Object.assign({}, state, {
+        orgCoverImageUploading: false,
+        orgCoverImageUploaded: false
       });
 
     /**
@@ -1614,7 +1661,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
     case OrganizationActions.ORG_PROFILE_UPDATE:
       return Object.assign({}, state, {
         org_profile_update_success: false,
-        org_profile_update_req_body: payload
+        org_profile_update_req_body: payload,
+        org_update: true
       });
     case OrganizationActions.ORG_PROFILE_UPDATE_SUCCESS:
       return Object.assign({}, state, {
@@ -1638,8 +1686,9 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
      */
     case OrganizationActions.ORG_PROFILE_DETAILS_SUCCESS:
       return Object.assign({}, state, {
-        profile_details: payload,
-        profile_organization: payload
+        // profile_details: payload,
+        organization_details: payload,
+        org_update: false
       });
 
     case OrganizationActions.ORGANIZATION_DELETE:
@@ -1954,38 +2003,38 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
       return Object.assign({}, state, {
         community_media_success: true
       });
-      /**
-       * Reducer for post story
-       */
-      case ProfileActions.POST_STORY:
-      return Object.assign({}, state, {
-        story_media_success: false
-      });
+    //   /**
+    //    * Reducer for post story
+    //    */
+    //   case ProfileActions.POST_STORY:
+    //   return Object.assign({}, state, {
+    //     story_media_success: false
+    //   });
 
-    case ProfileActions.POST_STORY_SUCCESS:
-      return Object.assign({}, state, {
-        story_media_success: true
-      });
+    // case ProfileActions.POST_STORY_SUCCESS:
+    //   return Object.assign({}, state, {
+    //     story_media_success: true
+    //   });
 
-      /**
-       * For getting my stories
-       */
-      case ProfileActions.GET_MY_STORY:
-      return Object.assign({}, state, {
-        my_story: [],
-        stories_loading: false
-      });
+      // /**
+      //  * For getting my stories
+      //  */
+      // case ProfileActions.GET_MY_STORY:
+      // return Object.assign({}, state, {
+      //   my_story: [],
+      //   stories_loading: false
+      // });
 
-      case ProfileActions.GET_MY_STORY_SUCCESS:
-      return Object.assign({}, state, {
-        my_story: payload,
-        stories_loading: true
-      });
+      // case ProfileActions.GET_MY_STORY_SUCCESS:
+      // return Object.assign({}, state, {
+      //   my_story: payload,
+      //   stories_loading: true
+      // });
 
-      case ProfileActions.GET_MY_STORY_FAILED:
-      return Object.assign({}, state, {
-        stories_loading: false
-      });
+      // case ProfileActions.GET_MY_STORY_FAILED:
+      // return Object.assign({}, state, {
+      //   stories_loading: false
+      // });
 
 
 

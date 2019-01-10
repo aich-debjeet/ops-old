@@ -1,52 +1,44 @@
-import { Component, OnInit, NgZone, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { FormControl, AbstractControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 
 // maps
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
-import {} from '@types/googlemaps';
+import { } from '@types/googlemaps';
 
 // action
-import { ProfileActions } from '../../../../actions/profile.action';
 import { OrganizationActions } from '../../../../actions/organization.action';
-import { SearchActions } from '../../../../actions/search.action';
-import { AuthActions } from '../../../../actions/auth.action';
-
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
-
-import { SearchModel } from 'app/models/search.model';
 import { environment } from './../../../../../environments/environment.prod';
-
-import { Organization, initialOrganization } from '../../../../models/organization.model';
+import { Organization } from '../../../../models/organization.model';
 import { UtcDatePipe } from './../../../../pipes/utcdate.pipe';
 import { DatePipe } from '@angular/common';
-
 import { LocalStorageService } from './../../../../services/local-storage.service';
-import { ToastrService } from 'ngx-toastr';
 
-import { initialTag, Follow } from '../../../../models/auth.model';
 import * as _ from 'lodash';
-
-import { Router, ActivatedRoute } from '@angular/router';
 import { GeneralUtilities } from '../../../../helpers/general.utils';
+import { AuthActions } from 'app/actions/auth.action';
+import { Login, BasicOrgTag } from '../../../../models/auth.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-org-about',
   templateUrl: './org-about.component.html',
   styleUrls: ['./org-about.component.scss'],
-  providers: [ UtcDatePipe, DatePipe ]
+  providers: [UtcDatePipe, DatePipe]
 })
-export class OrgAboutComponent implements OnInit, AfterViewInit {
+export class OrgAboutComponent implements OnInit, OnDestroy {
 
   @ViewChild('searchInput') searchInput;
 
   orgState$: Observable<Organization>;
-  loginTagState$: Observable<any>;
+  tagState$: Observable<BasicOrgTag>;
   orgProfile;
   editingField: string;
+  editedField: string;
   aboutIndustry: any;
   aboutIndustryCode: any;
   forIndustries: any;
@@ -61,15 +53,7 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
   // services: any[];
   profileUsername = '';
   profileHandle = '';
-
-  searchState$: Observable<SearchModel>;
-  searchState: any;
-  isSearching = false;
-  showPreloader = false;
-  searchString: string;
-  people = [];
-  inviteSent: boolean;
-
+  isUpdating: boolean;
   baseUrl = environment.API_IMAGE;
 
   // map vars
@@ -77,6 +61,7 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
   public longitude: number;
   public searchControl: FormControl;
   public zoom: number;
+  orgLoaded = false;
 
   // address
   address: string;
@@ -84,7 +69,7 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
   state: string;
   postalCode: string;
   city: string;
-  // searchLocation: String;
+  orgSub: Subscription;
 
   @ViewChild('searchLocation') searchLocation;
 
@@ -93,27 +78,10 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
     private ngZone: NgZone,
     private store: Store<Organization>,
     private localStorageService: LocalStorageService,
-    private toastr: ToastrService,
     private datePipe: DatePipe,
-    private searchStore: Store<SearchModel>,
-    private router: Router,
-    private gUtils: GeneralUtilities
+    private gUtils: GeneralUtilities,
+    private router: Router
   ) {
-
-    /* member search */
-    // this.searchState$ = this.searchStore.select('searchTags');
-    // // observe the store value
-    // this.searchState$.subscribe((state) => {
-    //   this.searchState = state;
-    //   if (state && state.searching_people === false) {
-    //     this.isSearching = false;
-    //     this.showPreloader = false;
-    //   }
-    //   if (state && state.search_people_data) {
-    //     this.people = state.search_people_data;
-    //   }
-    // });
-    /* member search */
 
     // check if creator is user or organization
     if (localStorage.getItem('active_profile') !== null) {
@@ -126,102 +94,89 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
       }
     }
 
+    this.tagState$ = store.select('loginTags');
+    this.tagState$.subscribe((state) => {
+      if (state) {
+        if (state.industries) {
+          this.forIndustries = state.industries;
+        }
+      }
+    });
+
     // this.services = ['UI design', 'Web Application Development', 'Social Media'];
 
     /* org state */
     this.orgState$ = this.store.select('profileTags');
-    this.orgState$.subscribe((state) => {
+    this.orgSub = this.orgState$.subscribe((state) => {
       this.orgProfile = state;
-      // console.log('this.orgProfile', this.orgProfile);
-      // redirect home if profile details are unavailable
-      if (this.orgProfile && this.orgProfile['profile_details'] && this.orgProfile['profile_details'].hasOwnProperty('handle')) {
-        // console.log('not empty');
-      } else {
-        this.router.navigateByUrl('/org/page/profile');
-        return;
+      if (!this.orgProfile['organization_details'] && !this.orgLoaded && this.router.url === '/org/page/about') {
+        this.orgLoaded = true;
+        const orgUsername = localStorage.getItem('orgUsername');
+        this.loadOrgDetails(orgUsername);
       }
       if (this.orgProfile && this.orgProfile['org_profile_update_success'] === true) {
         this.orgProfile.org_profile_update_success = false;
         if (this.orgProfile && this.orgProfile['profile_navigation_details']['isOrganization'] === true) {
-          this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: this.orgProfile['profile_organization']['extra']['username'] });
+          this.loadOrgDetails(this.orgProfile['profile_navigation_details']['organization']['organizationUserName']);
+        }
+      }
+      if (typeof this.orgProfile['org_update'] === 'boolean') {
+        if (this.orgProfile['org_update']) {
+          this.isUpdating = true;
+        } else {
+          this.isUpdating = false;
         }
       }
       // for mobile
-      if (this.gUtils.checkNestedKey(this.orgProfile, ['profile_details', 'contact', 'mobile', 'mobile'])) {
-        this.aboutMobile = this.orgProfile['profile_details']['contact']['mobile']['mobile'];
+      if (this.gUtils.checkNestedKey(this.orgProfile, ['organization_details', 'contact', 'mobile', 'mobile'])) {
+        this.aboutMobile = this.orgProfile['organization_details']['contact']['mobile']['mobile'];
       }
       // for website
-      if (this.gUtils.checkNestedKey(this.orgProfile, ['profile_details', 'contact', 'website', 'website'])) {
-        this.aboutWebsite = this.orgProfile['profile_details']['contact']['website']['website'];
+      if (this.gUtils.checkNestedKey(this.orgProfile, ['organization_details', 'contact', 'website', 'website'])) {
+        this.aboutWebsite = this.orgProfile['organization_details']['contact']['website']['website'];
       }
       // for email
-      if (this.gUtils.checkNestedKey(this.orgProfile, ['profile_details', 'email'])) {
-        this.aboutEmail = this.orgProfile['profile_details']['email'];
+      if (this.gUtils.checkNestedKey(this.orgProfile, ['organization_details', 'email'])) {
+        this.aboutEmail = this.orgProfile['organization_details']['email'];
       }
       // for description
-      if (this.gUtils.checkNestedKey(this.orgProfile, ['profile_details', 'description'])) {
-        this.aboutDescription = this.orgProfile['profile_details']['description'];
+      if (this.gUtils.checkNestedKey(this.orgProfile, ['organization_details', 'description'])) {
+        this.aboutDescription = this.orgProfile['organization_details']['description'];
       }
       // for services
-      if (this.gUtils.checkNestedKey(this.orgProfile, ['profile_details', 'languages'])) {
-        this.aboutServices = this.orgProfile['profile_details']['languages'];
-        this.aboutServicesStr = this.orgProfile['profile_details']['languages'].join(', ');
+      if (this.gUtils.checkNestedKey(this.orgProfile, ['organization_details', 'languages'])) {
+        this.aboutServices = this.orgProfile['organization_details']['languages'];
+        this.aboutServicesStr = this.orgProfile['organization_details']['languages'].join(', ');
       }
       // loading industries
-      if (this.gUtils.checkNestedKey(this.orgProfile, ['profile_details', 'extra', 'industryList']) && this.orgProfile['profile_details']['extra']['industryList'].length > 0) {
+      if (this.gUtils.checkNestedKey(this.orgProfile, ['organization_details', 'extra', 'industryList']) && this.orgProfile['organization_details']['extra']['industryList'].length > 0) {
         setTimeout(() => {
-          const industryArrLen = this.orgProfile['profile_details']['extra']['industryList'].length;
-          this.aboutIndustry = this.orgProfile['profile_details']['extra']['industryList'][industryArrLen - 1];
+          const industryArrLen = this.orgProfile['organization_details']['extra']['industryList'].length;
+          this.aboutIndustry = this.orgProfile['organization_details']['extra']['industryList'][industryArrLen - 1];
           if (this.aboutIndustry && this.aboutIndustry['code']) {
             this.aboutIndustryCode = this.aboutIndustry['code'];
           }
         }, 1000);
       }
       // for founded date
-      if (this.gUtils.checkNestedKey(this.orgProfile, ['profile_details', 'activeFrom'])) {
-        this.aboutFoundedDate = this.datePipe.transform(this.orgProfile['profile_details']['activeFrom'], 'dd-MM-yyyy');
+      if (this.gUtils.checkNestedKey(this.orgProfile, ['organization_details', 'activeFrom'])) {
+        this.aboutFoundedDate = this.datePipe.transform(this.orgProfile['organization_details']['activeFrom'], 'dd-MM-yyyy');
       }
       // for address
-      if (this.gUtils.checkNestedKey(this.orgProfile, ['profile_details', 'extra', 'address', 'line1'])) {
-        this.aboutAddress = this.orgProfile['profile_details']['extra']['address']['line1'];
-      }
-      // check for invite status
-      if (this.gUtils.checkNestedKey(this.orgProfile, ['invite_sent']) && this.orgProfile['invite_sent'] === true && this.inviteSent === true) {
-        this.toastr.success('Invite sent successfully', '', {
-          timeOut: 3000
-        });
-        this.inviteSent = false;
-        const invitedUserHandle = this.orgProfile['org_invite_req_data'].userHandle;
-        // remove user from the list
-        this.people = _.filter(this.people, function(person) { return person.handle !== invitedUserHandle; });
+      if (this.gUtils.checkNestedKey(this.orgProfile, ['organization_details', 'extra', 'address', 'line1'])) {
+        this.aboutAddress = this.orgProfile['organization_details']['extra']['address']['line1'];
       }
     });
     /* org state */
+  }
 
-    this.loginTagState$ = store.select('loginTags');
-    this.loginTagState$.subscribe((state) => {
-      this.forIndustries = state;
-    });
-
-    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES});
-
+  loadOrgDetails(username: string) {
+    this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: username });
   }
 
   ngOnInit() {
     this.getLocationGoogle();
-
-    // console.log('this.router.url', this.router.url);
-
-    // // load org profile details if owned profile
-    // if (this.router.url.includes('/org/')) {
-    //   console.log('owned org profile');
-    //   // check if username available in local storage
-    //   const orgUsername = localStorage.getItem('profileUsername');
-    //   if (localStorage.getItem('profileType') !== undefined && localStorage.getItem('profileType') === 'organization' && orgUsername !== undefined && orgUsername.length > 0) {
-    //     // console.log('get org', orgUsername);
-    //     this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgUsername });
-    //   }
-    // }
+    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
   }
 
   /**
@@ -229,6 +184,7 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
    */
   editField(fieldName: string) {
     this.editingField = fieldName;
+    this.editedField = fieldName;
   }
 
   /**
@@ -300,7 +256,7 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
 
     // for indusrty update
     if (fieldName === 'industries' && this.aboutIndustryCode.length > 0) {
-      const newIndustry = _.find(this.forIndustries.industries, { 'code': this.aboutIndustryCode });
+      const newIndustry = _.find(this.forIndustries, { 'code': this.aboutIndustryCode });
       reqBody = {
         industryList: []
       };
@@ -315,12 +271,32 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
       };
     }
 
+    if (fieldName === 'address') {
+      reqBody = {
+        address: {
+          city: '',
+          country: '',
+          line1: '',
+          line2: '',
+          postalCode: '',
+          state: ''
+        }
+      };
+      reqBody.address.city = this.city ? this.city.charAt(0).toUpperCase().trim() + this.city.slice(1).trim() : '';
+      reqBody.address.country = this.country ? this.country.trim() : '';
+      reqBody.address.line1 = this.address ? this.address.trim() : '';
+      // reqBody.address.line2 = this.addressTwo.trim() || '';
+      reqBody.address.state = this.state ? this.state.trim() : '';
+      reqBody.address.postalCode = this.postalCode ? this.postalCode.trim() : '';
+
+    }
+
     this.dispatchAboutUpdate(reqBody);
   }
 
   dispatchAboutUpdate(reqData: any) {
     const data = {
-      handle: this.orgProfile.profile_details.handle,
+      handle: this.orgProfile.organization_details.handle,
       body: reqData
     }
     this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_UPDATE, payload: data });
@@ -332,52 +308,6 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
    */
   reverseDate(string) {
     return string.split('-').reverse().join('-');
-  }
-
-  ngAfterViewInit() {
-    /**
-     * Observing the search input change
-     */
-    this.searchInput.valueChanges
-    .debounceTime(500)
-    .subscribe(() => {
-
-      this.searchString = this.searchInput.value;
-
-      // search if string is available
-      if (this.searchString && this.searchString.length > 0) {
-        this.isSearching = true;
-
-        const searchParams = {
-          query: this.searchString,
-          offset: 0,
-          limit: 20
-        }
-
-        // search people
-        // this.searchStore.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchParams });
-      }
-
-    });
-
-  }
-
-  /**
-   * Sending an invitation to the person
-   */
-  sendInvitation(person: any) {
-    // get org handle
-    const orgHandle = localStorage.getItem('profileHandle');
-
-    this.inviteSent = true;
-
-    this.store.dispatch({
-      type: OrganizationActions.INVITE_MEMBER,
-      payload: {
-        userHandle: person.handle,
-        orgHandle: orgHandle
-      }
-    });
   }
 
   /**
@@ -418,16 +348,16 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
             const addressType = place.address_components[i].types[0];
             if (componentForm[addressType]) {
               const val = place.address_components[i][componentForm[addressType]];
-              if ( addressType === 'country') {
+              if (addressType === 'country') {
                 this.country = val;
               }
-              if ( addressType === 'postal_code') {
+              if (addressType === 'postal_code') {
                 this.postalCode = val;
               }
-              if ( addressType === 'locality') {
+              if (addressType === 'locality') {
                 this.city = val
               }
-              if ( addressType === 'administrative_area_level_1') {
+              if (addressType === 'administrative_area_level_1') {
                 this.state = val
               }
             }
@@ -456,6 +386,10 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
         this.zoom = 12;
       });
     }
+  }
+
+  ngOnDestroy() {
+    this.orgSub.unsubscribe();
   }
 
 }
