@@ -327,7 +327,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
    * Load org
    */
   loadOrg() {
-    this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: this.userCards.other.username });
+    localStorage.setItem('orgUsername', this.userCards.other.username);
+    // this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: this.userCards.other.username });
     this.router.navigateByUrl('/org/page');
   }
 
