@@ -16,7 +16,7 @@
           <li class="o-noti-tab" [ngClass]="{'active':notificationType === 'other'}">
             <a data-toggle="tab" (click)="switchtabs('other')" aria-expanded="false">Other</a>
           </li>
-          <div class="c-text_md color-theme pull-right m-t-16">{{notificationCount}} Notifications</div>
+          <li class="c-text_md color-theme float-right-m-handle">{{notificationCount}} Notifications</li>
         </ul>
         <div class="tab-content">
           <div class="noti_left" id="ops_scrollbar1" infinite-scroll [infiniteScrollDistance]="2"
