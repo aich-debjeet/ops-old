@@ -78,6 +78,7 @@ import { ProfileImageComponent } from './profile-image/profile-image.component';
 import { ProfileCoverComponent } from './profile-cover/profile-cover.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { UserCardHorizontalComponent } from './user-card-horizontal/user-card-horizontal.component';
+import { ClickedOutsideDirective } from './directives/clicked-outside.directive';
 
 @NgModule({
   imports: [
@@ -153,7 +154,8 @@ import { UserCardHorizontalComponent } from './user-card-horizontal/user-card-ho
     PeopleToFollowComponent,
     ProfileImageComponent,
     ProfileCoverComponent,
-    UserCardHorizontalComponent
+    UserCardHorizontalComponent,
+    ClickedOutsideDirective
   ],
   exports: [
     OpportunityCardComponent,
@@ -206,7 +208,8 @@ import { UserCardHorizontalComponent } from './user-card-horizontal/user-card-ho
     PeopleToFollowComponent,
     ProfileImageComponent,
     ProfileCoverComponent,
-    UserCardHorizontalComponent
+    UserCardHorizontalComponent,
+    ClickedOutsideDirective
   ]
 })
 export class SharedModule { }
