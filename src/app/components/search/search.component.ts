@@ -24,6 +24,7 @@ import 'rxjs/add/operator/debounceTime';
 import { Store } from '@ngrx/store';
 import * as _ from 'lodash';
 import { GeneralUtilities } from '../../helpers/general.utils';
+import { SearchService } from 'app/services/search.service';
 
 @Component({
   selector: 'app-search',
@@ -62,12 +63,15 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   all_opps: any[];
   /* global result store */
 
+  autocompleteResult: any;
+
   globalFilter: any;
   selectedProfileFilters: any;
 
   profileTypeSearch = 'registered';
 
   searchSub: ISubscription;
+  autoCompSub: ISubscription;
 
   constructor(
     private router: Router,
@@ -75,6 +79,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     private mediaStore: Store<Media>,
     private store: Store<SearchModel>,
     private scrollHelper: ScrollHelper,
+    private searchService: SearchService,
     private generalHelper: GeneralUtilities,
     private profileStore: Store<ProfileModal>,
     @Inject(DOCUMENT) private document: Document
@@ -385,6 +390,12 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       });
   }
 
+  autocompleteSearch() {
+    this.autoCompSub = this.searchService.getAutocompleteList(this.searchString).subscribe((data) => {
+      this.autocompleteResult = data;
+    });
+  }
+
   ngAfterViewInit() {
     // set focus to input
     this.searchInput2.nativeElement.focus();
@@ -400,12 +411,15 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       this.searchString = this.searchInput.value;
 
       if (this.searchString.length === 0) {
+
         // trigger search get request
         this.searchGetRequest({});
 
         if (this.profileTypeSearch === 'unregistered') {
           this.loadWikiProfiles();
         }
+      } else if (this.searchString.length > 2) {
+        this.autocompleteSearch();
       }
 
       // preparing get query params for the search get request
@@ -445,6 +459,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy() {
     this.routeSub.unsubscribe();
     this.searchSub.unsubscribe();
+    this.autoCompSub.unsubscribe();
   }
 
   /**
@@ -505,6 +520,16 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       searchText: this.searchString
     };
     this.store.dispatch({ type: SearchActions.SEARCH_WIKI_PROFILES, payload: reqBody });
+  }
+
+  navigateTo(type: string, username: string) {
+    if (username && username.length > 0) {
+      if (type === 'profile') {
+        this.router.navigateByUrl('/profile/u/' + username);
+      } else if (type === 'org') {
+        this.router.navigateByUrl('/org/p/' + username);
+      }
+    }
   }
 
 }

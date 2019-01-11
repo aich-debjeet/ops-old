@@ -10,6 +10,45 @@
           <img *ngIf="isSearching" [src]="baseUrl + 'img/search-preloader.gif'">
         </div>
       </form>
+      <div *ngIf="searchString.length > 0 && autocompleteResult" class="o-search-drop">
+        <div *ngIf="autocompleteResult?.profiles.length > 0" class="o-search-drop__list">
+          <div class="o-search-drop-list__title">
+            <div class="c-text_sm color-grey-dark ltr-space text_uppercase">Profile</div>
+          </div>
+          <ul class="o-search-drop-result">
+              <li class="o-search-drop-result__single"
+                *ngFor="let autoProf of autocompleteResult?.profiles.slice(0, 4)"
+                (click)="navigateTo('profile', autoProf?.extra?.username)">
+                <div class="o-search-drop-result__prof-pic">
+                  <img [src]="baseUrl + autoProf?.profileImage" onError="this.src='https://cdn.onepagespotlight.com/img/avatar.png';" alt="profile pic">
+                </div>
+                <div class="o-search-drop-result__name">
+                  <div class="c-text_md color-grey-dark">{{ autoProf?.name }}</div>
+                </div>
+              </li>
+          </ul>
+        </div>
+        <div *ngIf="autocompleteResult?.organization.length > 0">
+          <div class="o-search-drop-list__title">
+            <div class="c-text_sm color-grey-dark ltr-space text_uppercase">Organization</div>
+          </div>
+          <ul class="o-search-drop-result">
+            <li class="o-search-drop-result__single"
+              *ngFor="let autoOrg of autocompleteResult?.organization.slice(0, 4)"
+              (click)="navigateTo('org', autoOrg?.extras?.username)">
+              <div class="o-search-drop-result__prof-pic">
+                <img [src]="baseUrl + autoOrg?.organizationImage" onError="this.src='https://cdn.onepagespotlight.com/img/avatar.png';" alt="profile pic">
+              </div>
+              <div class="o-search-drop-result__name">
+                <div class="c-text_md color-grey-dark">{{ autoOrg?.organizationName }}</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <!-- <div class="o-search-drop-list__all">
+          <a href="#" class="o-search-drop__seeall"> See All Results</a>
+        </div> -->
+      </div>
     </div><!-- search end -->
   </div>
 </section><!-- top section end -->
