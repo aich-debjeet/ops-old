@@ -202,6 +202,7 @@
 
   @include mq($from: $mobile_sm, $until: $mobile_lg) {
     width: 100%;
+    height: auto;
   }
 }
 

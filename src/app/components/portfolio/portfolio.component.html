@@ -11,14 +11,14 @@
       </div>
     </div>
     <div *ngIf="profileState?.portfolio_user_profile_loading === false && profileState?.portfolio_user_profile_loaded === true"
-      class="row m-t-24">
-      <div class="col-md-3 p-b-20">
+      class="row p-t-24 mobile-row-m-0">
+      <div class="col-md-3 p-b-20 mobile-row-p-0">
         <div class="o-port_userimg">
           <img [src]="baseImageUrl + portfolioUserProfile?.profileImage" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';"
             class="o-port_user--img">
         </div>
         <div class="c-h4 text-center m-t-16">{{ portfolioUserProfile?.name }}</div>
-        <div *ngIf="portfolioUserProfile?.profileType?.length > 0" class="width100 float_left m-16">
+        <div *ngIf="portfolioUserProfile?.profileType?.length > 0" class="width100 float_left p-t-16 p-b-16">
           <a [routerLink]="'/spotfeed/' + skill?.name" *ngFor="let skill of portfolioUserProfile?.profileType.slice(0, 5)" class="c-skill__tags2">
             {{ skill?.name }}
           </a>
@@ -34,7 +34,7 @@
             (click)="publishAction('unpublish')" class="btn btn-default btn-md btn-block m-t-8">unpublish</button>
         </div>
       </div>
-      <div class="col-md-9 float_left">
+      <div class="col-md-9 float_left m-width100p mobile-row-p-0">
         <div *ngIf="profileState?.get_port_display_media === true && profileState?.get_port_display_media_success === false" class="row m-t-24">
           <div>
             <div class="sticky">
@@ -42,12 +42,12 @@
             </div>
           </div>
         </div>
-        <div *ngIf="profileState?.get_port_display_media === false && profileState?.get_port_display_media_success === true" class="row">
+        <div *ngIf="profileState?.get_port_display_media === false && profileState?.get_port_display_media_success === true" class="row mobile-row-m-0">
           <div class="col-md-12 p-0">
             <div class="c-port__tabs">
-              <ul class="nav nav-tabs">
+              <ul class="nav nav-tabs m-pad-top-20">
                 <li [ngClass]="{'active': activeTab === 'all'}">
-                  <a (click)="selectTab({ categoryName: 'all', categoryId: 'all' })" data-toggle="tab" class="p-l-0">ALL</a>
+                  <a (click)="selectTab({ categoryName: 'all', categoryId: 'all' })" data-toggle="tab" class="">ALL</a>
                 </li>
                 <ng-container *ngIf="portCategories?.length > 0">
                   <li *ngFor="let category of portCategories" [ngClass]="{'active': activeTab === category.categoryName}"
@@ -129,8 +129,8 @@
               </div>
             </div>
           </div>
-          <div class="row m-t-8">
-            <div class="col-md-2">
+          <div class="row m-t-8 ">
+            <div class="col-md-2 col-sm-12 col-xs-12">
               <div class="c-text_lg">All Posts</div>
               <div class="c-text_sm text-uppercase color-grey-dark m-t-8">channels</div>
               <div class="c-form__group c-form--sm c-form--noeffect c-form__faded--sm m-t-8">
@@ -152,10 +152,10 @@
                 </form>
               </div>
             </div>
-            <div class="col-md-10 c-portscroll" id="ops_scrollbar" infiniteScroll [infiniteScrollDistance]="2"
+            <div class="col-md-10 col-sm-12 col-xs-12 c-portscroll" id="ops_scrollbar" infiniteScroll [infiniteScrollDistance]="2"
               [infiniteScrollThrottle]="1000" [scrollWindow]="false" (scrolled)="portMediaModalScroll($event)">
               <div *ngIf="userMedia?.length > 0;" class="row">
-                <ngx-masonry [useImagesLoaded]="true">
+                <ngx-masonry [useImagesLoaded]="true" class="add-work-img-gallery">
                   <ngx-masonry-item *ngFor="let media of userMedia" class="col-xs-6 col-md-3 c-portfolio--block"
                     (click)="toggleMediaSelection(media?.mediaId)">
                     <app-portfolio-media [isOwner]=false [portMediaDetails]="media"></app-portfolio-media>
