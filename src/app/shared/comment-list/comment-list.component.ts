@@ -34,7 +34,6 @@ export class CommentListComponent implements OnInit {
 
   ngOnInit() {
     this.messageText = this.commentData.comment;
-    console.log(this.commentData)
   }
 
   onContentEdit() {

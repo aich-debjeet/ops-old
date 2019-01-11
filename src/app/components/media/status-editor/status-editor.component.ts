@@ -12,7 +12,7 @@ import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/filter';
 import { GeneralUtilities } from 'app/helpers/general.utils';
 import { ProfileActions } from 'app/actions/profile.action';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 export class UploadItem {
   fileName: string;
@@ -58,6 +58,10 @@ export class StatusEditorComponent implements OnInit {
   previewUrl: any[];
   external_post_active = false;
   postSubmiting = false;
+  ct_id: any;
+  post_to: any;
+  nameActive: boolean;
+  ct_name: string;
 
   constructor(
     private Upload: NgxfUploaderService,
@@ -65,8 +69,28 @@ export class StatusEditorComponent implements OnInit {
     private api: TokenService,
     private toastr: ToastrService,
     private gUtils: GeneralUtilities,
-    private _store: Store<any>
+    private _store: Store<any>,
+    private route: ActivatedRoute,
   ) {
+    // if redriect url there
+    if (this.route.snapshot.queryParams['post_to'] === 'community') {
+
+      if (this.route.snapshot.queryParams['post_to'] && this.route.snapshot.queryParams['ct_id']) {
+        this.external_post_active = true;
+        this.ct_id = this.route.snapshot.queryParams['ct_id'];
+        this.post_to = this.route.snapshot.queryParams['post_to'];
+        // this.redrectUrl = this.route.snapshot.queryParams['next'];
+      }
+    }
+
+    this.route.queryParams.subscribe(params => {
+      if (Object.keys(params).length) {
+        if(params['ct_name'] !== undefined && params['ct_name'].length >0){
+          this.ct_name = params['ct_name'];
+          this.nameActive = true;
+        }
+      } else this.nameActive = false;
+    });
     this.cards = [];
 
     this.editingFile = new UploadItem;
@@ -215,36 +239,63 @@ export class StatusEditorComponent implements OnInit {
         multipleMedias.push(mediaItem);
       }
     }
+    if (this.post_to === 'community') {
+      if (userHandle !== '') {
+        const resp = {
+          id: this.ct_id,
+          data: {
+            feedList: [{
+              access: 0,
+              active: true,
+              description: this.desc,
+              feed_type: 'status',
+              owner: userHandle,
+              title: ''
+            }]
+          }
+        }
+        this._store.dispatch({ type: ProfileActions.COMMUNITY_MEDIA_POST, payload: resp });
 
-    let reqBody;
-    if (multipleMedias.length > 0) {
-      reqBody = {
-        media: multipleMedias
-      };
-    } else {
-      reqBody = {
-        feed: [{
-          access: 0,
-          active: true,
-          description: this.desc,
-          feed_type: 'status',
-          owner: userHandle,
-          title: ''
-        }]
-      };
-    }
-
-    this.postSubmiting = true;
-    this._store.dispatch({ type: ProfileActions.POST_STATUS, payload: reqBody });
-    this._store.select('profileTags')
-      .first(media => media['postedStatus'] === true)
-      .subscribe(data => {
-        setTimeout(() => { this.postSubmiting = false; }, 2000);
-        this.toastr.success('Your media has been successfully posted to your activity feed', 'Upload', {
-          timeOut: 3000
+        this._store.select('profileTags')
+          .first(media => media['community_media_success'] === true)
+          .subscribe(data => {
+            this.toastr.success('Your media has been successfully posted', 'Upload', {
+              timeOut: 3000
+            });
+            this.router.navigateByUrl('/communities/' + this.ct_id);
+          });
+      }
+    } else{
+      let reqBody;
+      if (multipleMedias.length > 0) {
+        reqBody = {
+          media: multipleMedias
+        };
+      } else {
+        reqBody = {
+          feed: [{
+            access: 0,
+            active: true,
+            description: this.desc,
+            feed_type: 'status',
+            owner: userHandle,
+            title: ''
+          }]
+        };
+      }
+  
+      this.postSubmiting = true;
+      this._store.dispatch({ type: ProfileActions.POST_STATUS, payload: reqBody });
+      this._store.select('profileTags')
+        .first(media => media['postedStatus'] === true)
+        .subscribe(data => {
+          setTimeout(() => { this.postSubmiting = false; }, 2000);
+          this.toastr.success('Your media has been successfully posted to your activity feed', 'Upload', {
+            timeOut: 3000
+          });
+          this.router.navigate(['/profile/user/post']);
         });
-        this.router.navigate(['/profile/user/post']);
-      });
+    }
   }
 
   /**
