@@ -1,6 +1,91 @@
 @import './src/assets/scss/helpers/_variables.scss';
 @import '~sass-mq/_mq.scss';
 
+.auto-drop-selected {
+  background: #F3F5F7;
+}
+
+.o-search-drop-list__all {
+  width: 100%;
+  padding: 0px 16px 16px;
+}
+
+.o-search-drop__seeall {
+  color: #00badc;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  line-height: 18px;
+  text-transform: uppercase;
+}
+
+.o-seach__input {
+  border: none;
+}
+
+.o-search-block {
+  width: 50%;
+  height: 100%;
+  background: #fff;
+  border-radius: 3px;
+  position: relative;
+}
+
+.o-search-drop {
+  width: 100%;
+  background: #fff;
+  position: absolute;
+  z-index: 1;
+  box-shadow: 0 13px 17px 0 rgba(102, 45, 145, 0.13);
+  left: 0;
+  top: 46px;
+}
+
+.o-search-drop__list {
+  width: 100%;
+  height: 100%;
+}
+
+.o-search-drop-list__title {
+  width: 100%;
+  padding: 4px 16px;
+  background: #F3F5F7;
+  margin: 0px 0px 8px 0px;
+}
+
+.o-search-drop-result {
+  width: 100%;
+  list-style: none;
+  display: inline-block;
+}
+
+.o-search-drop-result__single {
+  list-style-type: none;
+  width: 100%;
+  display: inherit;
+  padding: 8px;
+  cursor: pointer;
+  margin: 0;
+}
+
+.o-search-drop-result__prof-pic {
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+  border-radius: 50%;
+  float: left;
+}
+
+.o-search-drop-result__prof-pic img {
+  width: 24px;
+}
+
+.o-search-drop-result__name {
+  float: left;
+  margin-left: 8px;
+  padding-top: 2px;
+}
+
 /* ------------------------- search style --------------------------- */
 
 // search new
@@ -11,18 +96,19 @@
     width: 100%;
     float: left;
     height: 151px;
-    background: linear-gradient(139.48deg, $color-theme 0%, #F7D022 100%);
+    background: linear-gradient(139.48deg, #7BC7FF 0%, #666EB1 100%);
     margin-top: 50px;
 }
 
 // top search
 
 .o-search{
+  position: relative;
   width: 767px;
   margin:0px auto;
   background: #fff;
   height: 46px;
-  border-radius: 3px;
+  // border-radius: 3px;
   box-shadow: 0 11px 4px 0 rgba(102,45,145,0.1);
   padding:8px 16px;
   @include mq($from: $mobile_sm, $until: $mobile_lg) {
