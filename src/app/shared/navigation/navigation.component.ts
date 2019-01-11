@@ -290,6 +290,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
       case 'Network_Accepted':
         this.router.navigate(['/profile/network']);
         break;
+      
+      case 'Community_Invite':
+        this.router.navigate(['/communities/' + notification.community.id]);
+        break;
     }
   }
 
@@ -375,6 +379,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
             break;
           case 'Network_Accepted':
             this.notifications[i].message = ' has accepted your network request';
+            break;
+          case 'Community_Invite':
+            this.notifications[i].message = ' has invited you to join the community ' + this.notifications[i].community.title.toUpperCase(); 
             break;
         }
       }

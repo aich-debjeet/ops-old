@@ -144,6 +144,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
   // message maker
   processNotifications() {
     if (this.notifications.length > 0) {
+      console.log(this.notifications)
       for (let i = 0; i < this.notifications.length; i++) {
         switch (this.notifications[i].notificationType) {
           case 'Following':
@@ -167,6 +168,9 @@ export class NotificationComponent implements OnInit, OnDestroy {
           case 'Network_Accepted':
             this.notifications[i].message = ' has accepted your network request';
             break;
+          case 'Community_Invite':
+            this.notifications[i].message = ' has invited you to join the community ' + this.notifications[i].community.title.toUpperCase(); 
+            break; 
         }
       }
     }
@@ -193,6 +197,9 @@ export class NotificationComponent implements OnInit, OnDestroy {
         break;
       case 'Network_Sent':
         this.router.navigate(['/profile/network']);
+        break;
+      case 'Community_Invite':
+        this.router.navigate(['/communities/' + notification.community.id]);
         break;
     }
   }
