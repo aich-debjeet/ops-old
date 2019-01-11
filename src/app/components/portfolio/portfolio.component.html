@@ -129,8 +129,8 @@
               </div>
             </div>
           </div>
-          <div class="row m-t-8">
-            <div class="col-md-2">
+          <div class="row m-t-8 ">
+            <div class="col-md-2 col-sm-12 col-xs-12">
               <div class="c-text_lg">All Posts</div>
               <div class="c-text_sm text-uppercase color-grey-dark m-t-8">channels</div>
               <div class="c-form__group c-form--sm c-form--noeffect c-form__faded--sm m-t-8">
@@ -152,10 +152,10 @@
                 </form>
               </div>
             </div>
-            <div class="col-md-10 c-portscroll" id="ops_scrollbar" infiniteScroll [infiniteScrollDistance]="2"
+            <div class="col-md-10 col-sm-12 col-xs-12 c-portscroll" id="ops_scrollbar" infiniteScroll [infiniteScrollDistance]="2"
               [infiniteScrollThrottle]="1000" [scrollWindow]="false" (scrolled)="portMediaModalScroll($event)">
               <div *ngIf="userMedia?.length > 0;" class="row">
-                <ngx-masonry [useImagesLoaded]="true">
+                <ngx-masonry [useImagesLoaded]="true" class="add-work-img-gallery">
                   <ngx-masonry-item *ngFor="let media of userMedia" class="col-xs-6 col-md-3 c-portfolio--block"
                     (click)="toggleMediaSelection(media?.mediaId)">
                     <app-portfolio-media [isOwner]=false [portMediaDetails]="media"></app-portfolio-media>
