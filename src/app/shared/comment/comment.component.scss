@@ -440,6 +440,10 @@
 	color: #808080;
 	font-weight: 300;
 	line-height: 24px;
+	@include mq($from: $mobile_sm, $until: $mobile_lg){
+		height: 100%;
+		min-height: 20vh;
+}
 }
 
 .c-post__comment {
@@ -549,4 +553,7 @@
 	position: fixed;
 	padding: 0px 15px;
 	background-color: $color-white;
+	@media only screen and (max-width: 568px) {
+		width: calc(100% - 30px);
+	}
 }

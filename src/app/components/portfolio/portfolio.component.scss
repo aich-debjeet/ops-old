@@ -412,3 +412,8 @@ ul.nav-tabs li a:hover {
     float: right;
     margin-left: 8px;
 }
+@include mq($from: $mobile_sm, $until: $mobile_lg) {
+    .m-pad-top-20 {
+        padding-top: 20px;
+    }
+}
