@@ -293,6 +293,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   switchtabs(tab: string) {
     this.notificationType = tab;
+    this.isSelected = false;
     this.scrollingLoad = 251;
     this.page = 0;
     const reqBody = {
