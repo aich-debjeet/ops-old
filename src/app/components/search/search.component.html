@@ -3,21 +3,29 @@
   <div class="container">
     <div class="o-search m-t-32">
       <form action="">
-        <input #searchInput2 placeholder="What are you looking for?" #searchQueryElement #searchInput="ngModel" class="o-search__input"
-          type="text" [ngModel]="searchString" [ngModelOptions]="{standalone: true}">
+        <input
+          #searchInput2
+          placeholder="What are you looking for?"
+          #searchQueryElement
+          #searchInput="ngModel"
+          class="o-search__input"
+          type="text"
+          [ngModel]="searchString"
+          [ngModelOptions]="{standalone: true}"
+          (keydown)="selectFromDropdown($event)">
         <div class="o-search__icon">
           <img *ngIf="!isSearching" [src]="baseUrl  + 'img/svg/ico_search.svg'">
           <img *ngIf="isSearching" [src]="baseUrl + 'img/search-preloader.gif'">
         </div>
       </form>
-      <div *ngIf="searchString.length > 0 && autocompleteResult" class="o-search-drop">
+      <div *ngIf="searchString.length > 0 && autocompleteOpen" id="autocompleteWrapper" class="o-search-drop" appClickedOutside (clickOutside)="autocompleteShow(false)">
         <div *ngIf="autocompleteResult?.profiles.length > 0" class="o-search-drop__list">
           <div class="o-search-drop-list__title">
             <div class="c-text_sm color-grey-dark ltr-space text_uppercase">Profile</div>
           </div>
           <ul class="o-search-drop-result">
               <li class="o-search-drop-result__single"
-                *ngFor="let autoProf of autocompleteResult?.profiles.slice(0, 4)"
+                *ngFor="let autoProf of autocompleteResult?.profiles.slice(0, autoPerType)"
                 (click)="navigateTo('profile', autoProf?.extra?.username)">
                 <div class="o-search-drop-result__prof-pic">
                   <img [src]="baseUrl + autoProf?.profileImage" onError="this.src='https://cdn.onepagespotlight.com/img/avatar.png';" alt="profile pic">
@@ -34,7 +42,7 @@
           </div>
           <ul class="o-search-drop-result">
             <li class="o-search-drop-result__single"
-              *ngFor="let autoOrg of autocompleteResult?.organization.slice(0, 4)"
+              *ngFor="let autoOrg of autocompleteResult?.organization.slice(0, autoPerType)"
               (click)="navigateTo('org', autoOrg?.extras?.username)">
               <div class="o-search-drop-result__prof-pic">
                 <img [src]="baseUrl + autoOrg?.organizationImage" onError="this.src='https://cdn.onepagespotlight.com/img/avatar.png';" alt="profile pic">

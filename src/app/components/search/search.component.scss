@@ -1,6 +1,10 @@
 @import './src/assets/scss/helpers/_variables.scss';
 @import '~sass-mq/_mq.scss';
 
+.auto-drop-selected {
+  background: #F3F5F7;
+}
+
 .o-search-drop-list__all {
   width: 100%;
   padding: 0px 16px 16px;
@@ -51,7 +55,6 @@
 
 .o-search-drop-result {
   width: 100%;
-  padding: 0px 16px;
   list-style: none;
   display: inline-block;
 }
@@ -60,8 +63,9 @@
   list-style-type: none;
   width: 100%;
   display: inherit;
-  margin: 8px 0px;
+  padding: 8px;
   cursor: pointer;
+  margin: 0;
 }
 
 .o-search-drop-result__prof-pic {

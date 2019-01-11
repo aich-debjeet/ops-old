@@ -43,6 +43,10 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   searchString = '';
   routeSub: any;
   ownerHandle = '';
+  autoPerType = 4;
+  autoCurrPos = -1;
+  autocompleteResult: any;
+  autocompleteOpen = false;
 
   searchFilters: any;
 
@@ -63,8 +67,6 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   all_opps: any[];
   /* global result store */
 
-  autocompleteResult: any;
-
   globalFilter: any;
   selectedProfileFilters: any;
 
@@ -75,6 +77,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private router: Router,
+    private elemRef: ElementRef,
     private route: ActivatedRoute,
     private mediaStore: Store<Media>,
     private store: Store<SearchModel>,
@@ -392,8 +395,17 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
   autocompleteSearch() {
     this.autoCompSub = this.searchService.getAutocompleteList(this.searchString).subscribe((data) => {
+      this.autocompleteShow(true);
       this.autocompleteResult = data;
     });
+  }
+
+  autocompleteShow(action: boolean) {
+    if (action === true) {
+      this.autocompleteOpen = true;
+    } else {
+      this.autocompleteOpen = false;
+    }
   }
 
   ngAfterViewInit() {
@@ -529,6 +541,29 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       } else if (type === 'org') {
         this.router.navigateByUrl('/org/p/' + username);
       }
+    }
+  }
+
+  selectFromDropdown(e: any) {
+    const key = e.keyCode;
+    if (key && key !== 40 && key !== 38 && key !== 13) { return; }
+    const allLis = this.elemRef.nativeElement.querySelector('#autocompleteWrapper').querySelectorAll('li');
+    for (const elem of allLis) {
+      elem.classList.remove('auto-drop-selected');
+    }
+    if (key === 40) { // down key
+      if (this.autoCurrPos < (allLis.length - 1)) {
+        this.autoCurrPos++;
+      }
+    }
+    if (key === 38) { // up key
+      if (this.autoCurrPos > 0) {
+        this.autoCurrPos--;
+      }
+    }
+    allLis[this.autoCurrPos].classList.add('auto-drop-selected');
+    if (key === 13) {
+      allLis[this.autoCurrPos].click();
     }
   }
 
