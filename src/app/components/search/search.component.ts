@@ -60,6 +60,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   searchType = 'all';
 
   /* global result store */
+  all_industries: any[];
   all_channels: any[];
   all_artists: any[];
   all_events: any[];
@@ -135,6 +136,11 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
         ) {
         this.isSearching = false;
         this.showPreloader = false;
+      }
+
+      // load global industries
+      if (state && state['search_all_data'] && state['search_all_data']['skillType']) {
+        this.all_industries = state['search_all_data']['skillType'];
       }
 
       // load global artists
@@ -563,9 +569,10 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
         this.autoCurrPos--;
       }
     }
-    allLis[this.autoCurrPos].classList.add('auto-drop-selected');
+    const newElem = allLis[this.autoCurrPos];
+    newElem.classList.add('auto-drop-selected');
     if (key === 13) {
-      allLis[this.autoCurrPos].click();
+      newElem.click();
     }
   }
 

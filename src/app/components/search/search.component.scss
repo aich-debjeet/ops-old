@@ -1,6 +1,10 @@
 @import './src/assets/scss/helpers/_variables.scss';
 @import '~sass-mq/_mq.scss';
 
+.clearfix {
+  clear: both;
+}
+
 .auto-drop-selected {
   background: #F3F5F7;
 }
@@ -243,6 +247,14 @@
   float: left;
   background: #fff;
   // min-height: 300px;
+  border-radius: 3px;
+  padding:16px 24px;
+}
+
+.o-search-industry-block{
+  width: 100%;
+  float: left;
+  background: #fff;
   border-radius: 3px;
   padding:16px 24px;
 }
@@ -662,7 +674,7 @@
 }
 
 .o-people-result-block2 {
-  height: 50vh;
+  max-height: 50vh;
   overflow-y: auto;
 }
 /* people */
