@@ -9,7 +9,7 @@ import { Media, initialMedia  } from '../../models/media.model';
 import { SearchModel } from './../../models/search.model';
 import { ProfileModal, initialTag } from '../../models/profile.model';
 
-import { environment } from './../../../environments/environment.prod';
+import { environment } from './../../../environments/environment';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 
 // helper functions

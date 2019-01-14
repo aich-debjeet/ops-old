@@ -12,7 +12,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
-import { environment } from './../../../../../environments/environment.prod';
+import { environment } from './../../../../../environments/environment';
 import { Organization } from '../../../../models/organization.model';
 import { UtcDatePipe } from './../../../../pipes/utcdate.pipe';
 import { DatePipe } from '@angular/common';

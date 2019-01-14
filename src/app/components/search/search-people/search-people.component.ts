@@ -2,7 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output, OnDestroy } from '@angu
 import { SearchActions } from './../../../actions/search.action';
 import { SearchModel } from './../../../models/search.model';
 import { ProfileActions } from './../../../actions/profile.action';
-import { environment } from './../../../../environments/environment.prod';
+import { environment } from './../../../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { ISubscription } from 'rxjs/Subscription';
