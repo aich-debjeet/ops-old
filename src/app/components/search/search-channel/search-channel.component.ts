@@ -4,7 +4,7 @@ import { SearchActions } from './../../../actions/search.action';
 import { ProfileActions } from './../../../actions/profile.action';
 import { SearchModel } from './../../../models/search.model';
 
-import { environment } from './../../../../environments/environment.prod';
+import { environment } from './../../../../environments/environment';
 
 // rx
 import { Observable } from 'rxjs/Observable';
