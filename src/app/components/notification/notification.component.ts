@@ -209,13 +209,23 @@ export class NotificationComponent implements OnInit, OnDestroy {
    * @Param: notification id
    */
   markAsRead() {
-    console.log(this.notificationsList)
+    this.markRead(this.notificationsList);
     this.store.dispatch({
       type: NotificationActions.MARK_AS_READ,
       payload: {
         notificationList: this.notificationsList
       }
     });
+  }
+
+  markRead(list: any){
+    console.log(list)
+    for(let i of list){
+      const obj =_.find(this.notifications, {'notificationId' : i});
+      if(obj !== undefined){
+        obj.isRead = true;
+      }
+    }
   }
 
   markAsDelete() {
