@@ -271,14 +271,6 @@
 }
 
 // people result
-
-.o-people-result-block{
-  width: 100%;
-  float: left;
-  margin-top: 16px;
-  display: flex;
-  align-items:center;
-}
 .o-people-result__prof-pic{
   width: 56px;
   height: 56px;
@@ -661,6 +653,7 @@
   margin-top: 16px;
   display: flex;
   align-items: center;
+  padding-right: 10px;
 }
 
 
