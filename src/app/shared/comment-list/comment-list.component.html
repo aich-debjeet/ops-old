@@ -30,6 +30,17 @@
           </li>
       </ul>
   </div>
+
+    <div class="dropdown c-dropdown c-dropdown__options m-r-16" appDropdown *ngIf="!commentData?.isOwner">
+        <span class="dropdown-toggle" appDropdownOpen>
+            <img [src]="imageLink + 'img/svg/ico_options.svg'" class="c-options--img">
+        </span>
+        <ul class="dropdown-menu dropdown-menu-right">
+            <li>
+                <a (click)="reportModalOpen(commentData.commentsId)">Report</a>
+            </li>
+        </ul>
+    </div>
 </div>
 
 
@@ -65,4 +76,20 @@
             </li>
         </ul>
     </div>
+    <div class="dropdown c-dropdown c-dropdown__options m-r-16" appDropdown *ngIf="!commentData?.isOwner">
+        <span class="dropdown-toggle" appDropdownOpen>
+            <img [src]="imageLink + 'img/svg/ico_options.svg'" class="c-options--img">
+        </span>
+        <ul class="dropdown-menu dropdown-menu-right">
+            <li>
+                <a (click)="reportModalOpen(commentData.commentsId)">Report</a>
+              </li>
+        </ul>
+    </div>
 </div>
+
+<app-modal-new #reportModal modalClass="modal-report__popup">
+    <modal-content>
+      <app-report-popoup [reportContentId]="reportId" [reportType]="'comment'" (onclose)="reportModal.close()"></app-report-popoup>
+    </modal-content>
+</app-modal-new>

@@ -16,7 +16,7 @@
         <a class="o-mystory-media__two" *ngIf="i===1" [ngStyle]="{'background-image': 'url(' + baseUrl + list?.thumbNails?.mediumLarge + ')',
         'background-size': 'cover',
         'background-position': 'center',
-        'width': '100%'}">
+        'width': '100%'}" [routerLink]="['', { outlets: { media : ['media', list?.id]}}]">
           <!-- <a [routerLink]="['', { outlets: { media : ['media', list?.id]}}]">
             <img [src]="baseUrl + list?.thumbNails?.mediumLarge" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';">
           </a> -->

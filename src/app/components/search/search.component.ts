@@ -24,6 +24,7 @@ import 'rxjs/add/operator/debounceTime';
 import { Store } from '@ngrx/store';
 import * as _ from 'lodash';
 import { GeneralUtilities } from '../../helpers/general.utils';
+import { SearchService } from 'app/services/search.service';
 
 @Component({
   selector: 'app-search',
@@ -42,6 +43,10 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   searchString = '';
   routeSub: any;
   ownerHandle = '';
+  autoPerType = 4;
+  autoCurrPos = -1;
+  autocompleteResult: any;
+  autocompleteOpen = false;
 
   searchFilters: any;
 
@@ -55,6 +60,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   searchType = 'all';
 
   /* global result store */
+  all_industries: any[];
   all_channels: any[];
   all_artists: any[];
   all_events: any[];
@@ -68,13 +74,16 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   profileTypeSearch = 'registered';
 
   searchSub: ISubscription;
+  autoCompSub: ISubscription;
 
   constructor(
     private router: Router,
+    private elemRef: ElementRef,
     private route: ActivatedRoute,
     private mediaStore: Store<Media>,
     private store: Store<SearchModel>,
     private scrollHelper: ScrollHelper,
+    private searchService: SearchService,
     private generalHelper: GeneralUtilities,
     private profileStore: Store<ProfileModal>,
     @Inject(DOCUMENT) private document: Document
@@ -127,6 +136,11 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
         ) {
         this.isSearching = false;
         this.showPreloader = false;
+      }
+
+      // load global industries
+      if (state && state['search_all_data'] && state['search_all_data']['skillType']) {
+        this.all_industries = state['search_all_data']['skillType'];
       }
 
       // load global artists
@@ -385,6 +399,21 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       });
   }
 
+  autocompleteSearch() {
+    this.autoCompSub = this.searchService.getAutocompleteList(this.searchString).subscribe((data) => {
+      this.autocompleteShow(true);
+      this.autocompleteResult = data;
+    });
+  }
+
+  autocompleteShow(action: boolean) {
+    if (action === true) {
+      this.autocompleteOpen = true;
+    } else {
+      this.autocompleteOpen = false;
+    }
+  }
+
   ngAfterViewInit() {
     // set focus to input
     this.searchInput2.nativeElement.focus();
@@ -400,12 +429,15 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       this.searchString = this.searchInput.value;
 
       if (this.searchString.length === 0) {
+
         // trigger search get request
         this.searchGetRequest({});
 
         if (this.profileTypeSearch === 'unregistered') {
           this.loadWikiProfiles();
         }
+      } else if (this.searchString.length > 2) {
+        this.autocompleteSearch();
       }
 
       // preparing get query params for the search get request
@@ -445,6 +477,9 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy() {
     this.routeSub.unsubscribe();
     this.searchSub.unsubscribe();
+    if (this.autoCompSub) {
+      this.autoCompSub.unsubscribe();
+    }
   }
 
   /**
@@ -505,6 +540,40 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       searchText: this.searchString
     };
     this.store.dispatch({ type: SearchActions.SEARCH_WIKI_PROFILES, payload: reqBody });
+  }
+
+  navigateTo(type: string, username: string) {
+    if (username && username.length > 0) {
+      if (type === 'profile') {
+        this.router.navigateByUrl('/profile/u/' + username);
+      } else if (type === 'org') {
+        this.router.navigateByUrl('/org/p/' + username);
+      }
+    }
+  }
+
+  selectFromDropdown(e: any) {
+    const key = e.keyCode;
+    if (key && key !== 40 && key !== 38 && key !== 13) { return; }
+    const allLis = this.elemRef.nativeElement.querySelector('#autocompleteWrapper').querySelectorAll('li');
+    for (const elem of allLis) {
+      elem.classList.remove('auto-drop-selected');
+    }
+    if (key === 40) { // down key
+      if (this.autoCurrPos < (allLis.length - 1)) {
+        this.autoCurrPos++;
+      }
+    }
+    if (key === 38) { // up key
+      if (this.autoCurrPos > 0) {
+        this.autoCurrPos--;
+      }
+    }
+    const newElem = allLis[this.autoCurrPos];
+    newElem.classList.add('auto-drop-selected');
+    if (key === 13) {
+      newElem.click();
+    }
   }
 
 }

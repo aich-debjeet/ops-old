@@ -1,7 +1,7 @@
 <div class="o-post-result-block">
   <div *ngIf="post?.mtype === 'image'" class="o-post-result__prof-pic">
     <a [routerLink]="['', { outlets: { media : ['media', post?.id] } }]" [queryParams]="query" class="c-artist__avatar">
-        <img *ngIf="post?.repopath; else no_post_image" [src]="baseUrl + post?.thumbNails?.small" class="c-artist__img" [class.c-feed__adult-blur]="post?.isNsfw">
+        <img *ngIf="post?.repopath; else no_post_image" [src]="baseUrl + post?.thumbNails?.small" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image-square.jpg';" class="c-artist__img" [class.c-feed__adult-blur]="post?.isNsfw">
         <ng-template #no_post_image>
           <img [src]="baseUrl + 'img/avatar.png'" class="c-artist__img">
         </ng-template>
@@ -9,7 +9,7 @@
   </div>
   <div *ngIf="post?.mtype === 'video'" class="o-post-result__prof-pic">
     <a [routerLink]="['', { outlets: { media : ['media', post?.id] } }]" [queryParams]="query"  class="c-artist__avatar">
-        <img *ngIf="post?.thumbNails?.small; else no_video_thumb" [src]="baseUrl + post?.thumbNails?.small" class="c-artist__img" [class.c-feed__adult-blur]="post?.isNsfw">
+        <img *ngIf="post?.thumbNails?.small; else no_video_thumb" [src]="baseUrl + post?.thumbNails?.small" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image-square.jpg';" class="c-artist__img" [class.c-feed__adult-blur]="post?.isNsfw">
         <ng-template #no_video_thumb>
           <img [src]="baseUrl + 'img/avatar.png'" class="c-artist__img">
         </ng-template>
@@ -20,7 +20,7 @@
   </div>
   <div *ngIf="post?.mtype === 'audio'" class="o-post-result__prof-pic">
     <a  [routerLink]="['', { outlets: { media : ['media', post?.id] } }]" [queryParams]="query"  class="c-artist__avatar">
-        <img *ngIf="post?.thumbNails?.small; else no_audio_thumb" [src]="baseUrl + post?.thumbNails?.small" class="c-artist__img" [class.c-feed__adult-blur]="post?.isNsfw">
+        <img *ngIf="post?.thumbNails?.small; else no_audio_thumb" [src]="baseUrl + post?.thumbNails?.small" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image-square.jpg';" class="c-artist__img" [class.c-feed__adult-blur]="post?.isNsfw">
         <ng-template #no_audio_thumb>
           <img [src]="baseUrl + 'img/avatar.png'" class="c-artist__img">
         </ng-template>

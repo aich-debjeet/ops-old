@@ -8,9 +8,10 @@ import { TruncatePipe } from '../../pipes/truncate.pipe';
   styleUrls: ['./event-card.component.scss']
 })
 export class EventCardComponent implements OnInit {
-  @Input() eventData;
   baseUrl = environment.API_IMAGE;
-  @Input() loader: boolean = false;
+  @Input() loader = false;
+  @Input() type: string;
+  @Input() eventData;
 
   constructor() { }
 

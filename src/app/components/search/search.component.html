@@ -3,13 +3,60 @@
   <div class="container">
     <div class="o-search m-t-32">
       <form action="">
-        <input #searchInput2 placeholder="What are you looking for?" #searchQueryElement #searchInput="ngModel" class="o-search__input"
-          type="text" [ngModel]="searchString" [ngModelOptions]="{standalone: true}">
+        <input
+          #searchInput2
+          placeholder="What are you looking for?"
+          #searchQueryElement
+          #searchInput="ngModel"
+          class="o-search__input"
+          type="text"
+          [ngModel]="searchString"
+          [ngModelOptions]="{standalone: true}"
+          (keydown)="selectFromDropdown($event)">
         <div class="o-search__icon">
           <img *ngIf="!isSearching" [src]="baseUrl  + 'img/svg/ico_search.svg'">
           <img *ngIf="isSearching" [src]="baseUrl + 'img/search-preloader.gif'">
         </div>
       </form>
+      <div *ngIf="searchString.length > 0 && autocompleteOpen" id="autocompleteWrapper" class="o-search-drop" appClickedOutside (clickOutside)="autocompleteShow(false)">
+        <div *ngIf="autocompleteResult?.profiles.length > 0" class="o-search-drop__list">
+          <div class="o-search-drop-list__title">
+            <div class="c-text_sm color-grey-dark ltr-space text_uppercase">Profile</div>
+          </div>
+          <ul class="o-search-drop-result">
+              <li class="o-search-drop-result__single"
+                *ngFor="let autoProf of autocompleteResult?.profiles.slice(0, autoPerType)"
+                (click)="navigateTo('profile', autoProf?.extra?.username)">
+                <div class="o-search-drop-result__prof-pic">
+                  <img [src]="baseUrl + autoProf?.profileImage" onError="this.src='https://cdn.onepagespotlight.com/img/avatar.png';" alt="profile pic">
+                </div>
+                <div class="o-search-drop-result__name">
+                  <div class="c-text_md color-grey-dark">{{ autoProf?.name }}</div>
+                </div>
+              </li>
+          </ul>
+        </div>
+        <div *ngIf="autocompleteResult?.organization.length > 0">
+          <div class="o-search-drop-list__title">
+            <div class="c-text_sm color-grey-dark ltr-space text_uppercase">Organization</div>
+          </div>
+          <ul class="o-search-drop-result">
+            <li class="o-search-drop-result__single"
+              *ngFor="let autoOrg of autocompleteResult?.organization.slice(0, autoPerType)"
+              (click)="navigateTo('org', autoOrg?.extras?.username)">
+              <div class="o-search-drop-result__prof-pic">
+                <img [src]="baseUrl + autoOrg?.organizationImage" onError="this.src='https://cdn.onepagespotlight.com/img/avatar.png';" alt="profile pic">
+              </div>
+              <div class="o-search-drop-result__name">
+                <div class="c-text_md color-grey-dark">{{ autoOrg?.organizationName }}</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <!-- <div class="o-search-drop-list__all">
+          <a href="#" class="o-search-drop__seeall"> See All Results</a>
+        </div> -->
+      </div>
     </div><!-- search end -->
   </div>
 </section><!-- top section end -->
@@ -136,6 +183,11 @@
 
         <!-- search all -->
         <div *ngIf="searchType === 'all'">
+          <div *ngIf="all_industries && all_industries.length > 0" class="row p-t-16 clearfix">
+            <div *ngFor="let industryDetails of all_industries.slice(0,2)">
+              <app-search-industry [industryDetails]="industryDetails" class="col-md-6"></app-search-industry>
+            </div>
+          </div>
           <div class="o-search-result-block m-t-16 p-b-24">
             <!-- people -->
             <div class="col-md-6 p-l-0">
@@ -200,8 +252,11 @@
               <a (click)="seeAll('event')" class="color-theme float_right">See all</a>
             </h6>
             <div class="">
-              <div *ngFor="let event of all_events | slice:0:6" class="col-md-2 col-sm-3 col-xs-6 p-0">
+              <!-- <div *ngFor="let event of all_events | slice:0:6" class="col-md-2 col-sm-3 col-xs-6 p-0">
                 <app-event-search-card [eventDetails]="event"></app-event-search-card>
+              </div> -->
+              <div *ngFor="let event of all_events | slice:0:4">
+                <app-event-card [eventData]="event" [type]="'search'"></app-event-card>
               </div>
             </div>
           </div>
