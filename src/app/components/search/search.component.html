@@ -184,7 +184,7 @@
         <!-- search all -->
         <div *ngIf="searchType === 'all'">
           <div *ngIf="all_industries && all_industries.length > 0" class="row p-t-16 clearfix">
-            <div *ngFor="let industryDetails of all_industries">
+            <div *ngFor="let industryDetails of all_industries.slice(0,2)">
               <app-search-industry [industryDetails]="industryDetails" class="col-md-6"></app-search-industry>
             </div>
           </div>
