@@ -112,7 +112,12 @@
     <a [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
       <img [src]="imageLink + mediaData?.thumbNails?.large" onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';"
         class="img-responsive audio-image" [class.c-feed__adult-blur]="mediaData?.isNsfw && mediaData?.isOwner === false">
-      <app-audioplayer *ngIf="mediaData?.inViewport === true" [mediaId]="mediaData?.id" (audioPlayed)="markMediaAsViewed($event)" [size]="'small'" [src]="imageLink + mediaData?.repopath"></app-audioplayer>
+      <app-audioplayer
+        *ngIf="mediaData?.inViewport === true"
+        [mediaId]="mediaData?.id"
+        (audioPlayed)="markMediaAsViewed($event, 'audio')"
+        [size]="'small'"
+        [src]="imageLink + mediaData?.repopath"></app-audioplayer>
       <div *ngIf="!mediaData?.inViewport" class="audio-placeholder"></div>
     </a>
   </div>
@@ -121,8 +126,13 @@
   <!-- video -->
   <div class="c-feed__img2" appAppear (reached)="onReachingInViewport(mediaData?.id)" (departed)="onDepartedFromViewport(mediaData?.id)"
     *ngIf="mediaData?.mtype === 'video'">
-    <app-videoplayer [mediaId]="mediaData?.id" [showControls]="'true'" *ngIf="mediaData?.inViewport === true" class="{{ imageLink + mediaData?.repopath }}"
-      src="{{ imageLink +  mediaData?.repopath }}" (videoPlayed)="markMediaAsViewed($event)"></app-videoplayer>
+    <app-videoplayer
+      [mediaId]="mediaData?.id"
+      [showControls]="'true'"
+      *ngIf="mediaData?.inViewport === true"
+      class="{{ imageLink + mediaData?.repopath }}"
+      src="{{ imageLink +  mediaData?.repopath }}"
+      (videoPlayed)="markMediaAsViewed($event, 'video')"></app-videoplayer>
     <a *ngIf="mediaData?.inViewport === false" [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
       <img [src]="imageLink + mediaData?.thumbNails?.large" [ngClass]="{'audio-image': mediaData?.mtype === 'audio'}"
         onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="img-responsive"
@@ -142,34 +152,36 @@
 
   <div class="c-status--block">
     <div class="c-links">
-      <div class="c-links__spots relative show-on-hover">
-        <a (click)="spotMedia(mediaData)">
-          <img *ngIf="following" [src]="imageLink + 'img/svg/spot_icon.svg'" class="c-links__image">
-          <img *ngIf="!following" [src]="imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
-        </a>
-        <a *ngIf="mediaData?.counts?.spotsCount > 0; else noSpots" (click)="spottedUsers(mediaData?.id)">
-          <span class="c-links__count">{{ mediaData?.counts?.spotsCount || 0 }} Spots</span>
-        </a>
-        <ng-template #noSpots>
-          <a><span class="c-links__count">0 Spots</span></a>
-        </ng-template>
-        <!-- <ul class="people-spots show-this">
-          <li *ngFor="let spotted of spottedPeople">{{ spotted }}</li>
-          <li class="see-more-spotted">
-            <button class="see-more-spotted">See more</button>
-          </li>
-        </ul> -->
+      <div class="small-device-375-flex">
+          <div class="c-links__spots relative show-on-hover">
+            <a (click)="spotMedia(mediaData)">
+              <img *ngIf="following" [src]="imageLink + 'img/svg/spot_icon.svg'" class="c-links__image">
+              <img *ngIf="!following" [src]="imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
+            </a>
+            <a *ngIf="mediaData?.counts?.spotsCount > 0; else noSpots" (click)="spottedUsers(mediaData?.id)">
+              <span class="c-links__count">{{ mediaData?.counts?.spotsCount || 0 }} Spots</span>
+            </a>
+            <ng-template #noSpots>
+              <a><span class="c-links__count">0 Spots</span></a>
+            </ng-template>
+            <!-- <ul class="people-spots show-this">
+              <li *ngFor="let spotted of spottedPeople">{{ spotted }}</li>
+              <li class="see-more-spotted">
+                <button class="see-more-spotted">See more</button>
+              </li>
+            </ul> -->
+          </div>
+          <div *ngIf="mediaData?.description && mediaData?.mtype === 'status' " class="c-links__comments">
+            <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
+            <span class="c-links__count">{{ mediaData?.counts?.commentsCount || 0 }} Comments</span>
+          </div>
+          <div *ngIf="mediaData?.mtype === 'video' || mediaData?.mtype === 'audio' || mediaData?.mtype === 'image' || mediaData?.mtype === 'collection'" class="c-links__comments"
+          [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
+            <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
+            <span class="c-links__count">{{ mediaData?.counts?.commentsCount || 0 }} Comments</span>
+          </div>
       </div>
-      <div *ngIf="mediaData?.description && mediaData?.mtype === 'status' " class="c-links__comments">
-        <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
-        <span class="c-links__count">{{ mediaData?.counts?.commentsCount || 0 }} Comments</span>
-      </div>
-      <div *ngIf="mediaData?.mtype === 'video' || mediaData?.mtype === 'audio' || mediaData?.mtype === 'image' || mediaData?.mtype === 'collection'" class="c-links__comments"
-        [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
-        <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
-        <span class="c-links__count">{{ mediaData?.counts?.commentsCount || 0 }} Comments</span>
-      </div>
-      <div class="c-links__actions">
+      <div class="c-links__actions small-device-375-left-align">
         <span class="c-links__view-count">
           <span class="color-grey-darker">{{ mediaData?.counts?.viewcount || 0 }}</span> Views
         </span>
@@ -178,7 +190,7 @@
             <img [src]="imageLink + 'img/svg/ico_share-02.svg'" class="c-action__image">
           </a>
           <div class="dropdown-menu dropdown-menu-right o-share__profile2 p-16">
-            <div class="c-text_md">Share this Profile</div>
+            <div class="c-text_md">Share this post on:</div>
             <div class="o-share__social">
               <div class="o-share__social-icon p-l-0" shareButton="google" [sbUrl]="domainLink + 'media/' + mediaData?.id">
                 <img [src]="imageLink + 'img/svg/googleplus.svg'">

@@ -16,7 +16,7 @@
           <li class="o-noti-tab" [ngClass]="{'active':notificationType === 'other'}">
             <a data-toggle="tab" (click)="switchtabs('other')" aria-expanded="false">Other</a>
           </li>
-          <div class="c-text_md color-theme pull-right m-t-16">{{notificationCount}} Notifications</div>
+          <li class="c-text_md color-theme float-right-m-handle">{{notificationCount}} Notifications</li>
         </ul>
         <div class="tab-content">
           <div class="noti_left" id="ops_scrollbar1" infinite-scroll [infiniteScrollDistance]="2"
@@ -338,7 +338,8 @@
     <div class="not_block act_scroll" id="ops_scrollbar2" infinite-scroll [infiniteScrollDistance]="2"
       [infiniteScrollThrottle]="1000" [infiniteScrollContainer]="'#ops_scrollbar2'" (scrolled)="onScrollAct($event)">
       <div class="c-text_lg p-t-b-16 p-l-r-24">Activities</div>
-      <div class="not_activite_row" *ngFor="let list of activities">
+      <ul>
+      <li class="has-flex not_activite_row nowrap" *ngFor="let list of activities">
         <div class="col-md-2 p-0">
           <div class="not_userimg">
             <img *ngIf="!list.profileImage" src="assets/demo/new/avatar3.png">
@@ -350,7 +351,8 @@
             <a [routerLink]="['', 'profile', 'u', list.username, 'user']">{{list.name}}</a> {{list.message}}
           </div>
         </div>
-      </div>
+      </li>
+    </ul>
       <ng-container *ngIf="notifState?.requesting_activities === true">
         <div class="not_activite_row" *ngFor="let n of [0,1,2]">
           <div class="col-md-2 p-0">

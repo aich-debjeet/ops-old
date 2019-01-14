@@ -10,6 +10,7 @@ import { ProfileActions } from '../../../actions/profile.action';
 import { MediaActions } from '../../../actions/media.action';
 import { findIndex as _findIndex } from 'lodash';
 import { Modal } from 'app/shared/modal-new/Modal';
+import { MediaService } from 'app/services/media.service';
 
 @Component({
   selector: 'app-home-post',
@@ -50,7 +51,8 @@ export class HomePostComponent implements OnInit, OnDestroy {
 
   constructor(
     public route: ActivatedRoute,
-    private store: Store<ProfileModal>
+    private store: Store<ProfileModal>,
+    private mediaService: MediaService
   ) {
     this.tagState$ = this.store.select('profileTags');
     this.posts = [];
@@ -192,7 +194,7 @@ export class HomePostComponent implements OnInit, OnDestroy {
     this.store.dispatch({ type: ProfileActions.GET_MEDIA_SPOTTED_USERS, payload: this.spottedUsersParams });
   }
 
-  loadMoreSpottedUsers() {
+  loadMoreSpottedUsers(e?: any) {
     this.spottedUsersParams.offset += this.spottedUsersParams.limit;
     this.fetchSpottedUsers();
   }
@@ -209,6 +211,15 @@ export class HomePostComponent implements OnInit, OnDestroy {
 
   spottedUsersModalClosed() {
     this.store.dispatch({ type: ProfileActions.CLEAR_SPOTTED_USERS });
+  }
+
+  markAsViewedForVA(payload) {
+    const tempSub = this.mediaService.mediaAddViewCount(payload).subscribe(response => {
+      // console.log('response', response);
+      if (tempSub) {
+        tempSub.unsubscribe();
+      }
+    });
   }
 
 }

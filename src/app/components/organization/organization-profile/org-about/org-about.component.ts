@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 
 // maps
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
-import {} from '@types/googlemaps';
+import { } from '@types/googlemaps';
 
 // action
 import { OrganizationActions } from '../../../../actions/organization.action';
@@ -22,12 +22,13 @@ import * as _ from 'lodash';
 import { GeneralUtilities } from '../../../../helpers/general.utils';
 import { AuthActions } from 'app/actions/auth.action';
 import { Login, BasicOrgTag } from '../../../../models/auth.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-org-about',
   templateUrl: './org-about.component.html',
   styleUrls: ['./org-about.component.scss'],
-  providers: [ UtcDatePipe, DatePipe ]
+  providers: [UtcDatePipe, DatePipe]
 })
 export class OrgAboutComponent implements OnInit, OnDestroy {
 
@@ -60,6 +61,7 @@ export class OrgAboutComponent implements OnInit, OnDestroy {
   public longitude: number;
   public searchControl: FormControl;
   public zoom: number;
+  orgLoaded = false;
 
   // address
   address: string;
@@ -77,7 +79,8 @@ export class OrgAboutComponent implements OnInit, OnDestroy {
     private store: Store<Organization>,
     private localStorageService: LocalStorageService,
     private datePipe: DatePipe,
-    private gUtils: GeneralUtilities
+    private gUtils: GeneralUtilities,
+    private router: Router
   ) {
 
     // check if creator is user or organization
@@ -106,16 +109,23 @@ export class OrgAboutComponent implements OnInit, OnDestroy {
     this.orgState$ = this.store.select('profileTags');
     this.orgSub = this.orgState$.subscribe((state) => {
       this.orgProfile = state;
+      if (!this.orgProfile['organization_details'] && !this.orgLoaded && this.router.url === '/org/page/about') {
+        this.orgLoaded = true;
+        const orgUsername = localStorage.getItem('orgUsername');
+        this.loadOrgDetails(orgUsername);
+      }
       if (this.orgProfile && this.orgProfile['org_profile_update_success'] === true) {
         this.orgProfile.org_profile_update_success = false;
         if (this.orgProfile && this.orgProfile['profile_navigation_details']['isOrganization'] === true) {
-          this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: this.orgProfile['profile_navigation_details']['organization']['organizationUserName'] });
+          this.loadOrgDetails(this.orgProfile['profile_navigation_details']['organization']['organizationUserName']);
         }
       }
-      if(typeof this.orgProfile['org_update']=== 'boolean'){
-        if(this.orgProfile['org_update']){
+      if (typeof this.orgProfile['org_update'] === 'boolean') {
+        if (this.orgProfile['org_update']) {
           this.isUpdating = true;
-        } else this.isUpdating = false;
+        } else {
+          this.isUpdating = false;
+        }
       }
       // for mobile
       if (this.gUtils.checkNestedKey(this.orgProfile, ['organization_details', 'contact', 'mobile', 'mobile'])) {
@@ -160,9 +170,13 @@ export class OrgAboutComponent implements OnInit, OnDestroy {
     /* org state */
   }
 
+  loadOrgDetails(username: string) {
+    this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: username });
+  }
+
   ngOnInit() {
     this.getLocationGoogle();
-    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES});
+    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
   }
 
   /**
@@ -265,14 +279,14 @@ export class OrgAboutComponent implements OnInit, OnDestroy {
           line1: '',
           line2: '',
           postalCode: '',
-          state:''
+          state: ''
         }
       };
       reqBody.address.city = this.city ? this.city.charAt(0).toUpperCase().trim() + this.city.slice(1).trim() : '';
       reqBody.address.country = this.country ? this.country.trim() : '';
       reqBody.address.line1 = this.address ? this.address.trim() : '';
       // reqBody.address.line2 = this.addressTwo.trim() || '';
-      reqBody.address.state = this.state? this.state.trim() : '';
+      reqBody.address.state = this.state ? this.state.trim() : '';
       reqBody.address.postalCode = this.postalCode ? this.postalCode.trim() : '';
 
     }
@@ -334,16 +348,16 @@ export class OrgAboutComponent implements OnInit, OnDestroy {
             const addressType = place.address_components[i].types[0];
             if (componentForm[addressType]) {
               const val = place.address_components[i][componentForm[addressType]];
-              if ( addressType === 'country') {
+              if (addressType === 'country') {
                 this.country = val;
               }
-              if ( addressType === 'postal_code') {
+              if (addressType === 'postal_code') {
                 this.postalCode = val;
               }
-              if ( addressType === 'locality') {
+              if (addressType === 'locality') {
                 this.city = val
               }
-              if ( addressType === 'administrative_area_level_1') {
+              if (addressType === 'administrative_area_level_1') {
                 this.state = val
               }
             }

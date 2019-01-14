@@ -354,6 +354,7 @@
 	clear: both;
 }
 
+
 .c-post--unread {
 	background-color: #f5f5f5;
 }
@@ -439,6 +440,10 @@
 	color: #808080;
 	font-weight: 300;
 	line-height: 24px;
+	@include mq($from: $mobile_sm, $until: $mobile_lg){
+		height: 100%;
+		min-height: 20vh;
+}
 }
 
 .c-post__comment {
@@ -446,6 +451,9 @@
 	@include clearfix;
 	position: relative;
 	clear: both;
+	@media only screen and (max-width: 375px) {
+		padding: 8px 16px;
+	}
 }
 
 .c-post--unread {
@@ -545,4 +553,7 @@
 	position: fixed;
 	padding: 0px 15px;
 	background-color: $color-white;
+	@media only screen and (max-width: 568px) {
+		width: calc(100% - 30px);
+	}
 }

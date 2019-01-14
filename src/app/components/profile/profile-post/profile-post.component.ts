@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
@@ -16,6 +16,7 @@ import { Observable } from 'rxjs/Observable';
 import { ISubscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 import { findIndex as _findIndex } from 'lodash';
+import { Modal } from 'app/shared/modal-new/Modal';
 
 @Component({
   selector: 'app-profile-post',
@@ -49,6 +50,15 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
   people_follow_id: any = '';
   scrollingPeople = 100;
   playingVideoId = '';
+  spottedUsers: any[];
+  spottedUsersParams = {
+    mediaId: '',
+    mediaType: '',
+    offset: 0,
+    limit: 20
+  };
+  isLoadingSpottedUsers = true;
+  @ViewChild('spottedUsersModal') spottedUsersModal: Modal;
 
   constructor(
     public route: ActivatedRoute,
@@ -62,7 +72,18 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
       this.userMedia = state;
       this.posts = this.userMedia.user_posts;
       this.setMediaViewportKey();
-      this.post_scroll_id = this.userMedia.user_post_scrollId
+      this.post_scroll_id = this.userMedia.user_post_scrollId;
+      if (state['loadingSpottedUsers'] === false && state['loadedSpottedUsers'] === true) {
+        if (this.spottedUsersParams.offset === 0) {
+          this.isLoadingSpottedUsers = false;
+        }
+        this.spottedUsers = state['spottedUsersList'];
+      }
+      if (state['loadingSpottedUsers'] === true && state['loadedSpottedUsers'] === false) {
+        if (this.spottedUsersParams.offset === 0) {
+          this.isLoadingSpottedUsers = true;
+        }
+      }
     });
   }
 
@@ -178,6 +199,27 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
         }
       }
     }
+  }
+
+  loadSpottedUsers(data) {
+    this.spottedUsersParams.mediaType = data['mediaType'];
+    this.spottedUsersParams.mediaId = data['mediaId'];
+    this.spottedUsersParams.offset = 0;
+    this.spottedUsersModal.open();
+    this.fetchSpottedUsers();
+  }
+
+  fetchSpottedUsers() {
+    this._store.dispatch({ type: ProfileActions.GET_MEDIA_SPOTTED_USERS, payload: this.spottedUsersParams });
+  }
+
+  loadMoreSpottedUsers(e?: any) {
+    this.spottedUsersParams.offset += this.spottedUsersParams.limit;
+    this.fetchSpottedUsers();
+  }
+
+  spottedUsersModalClosed() {
+    this._store.dispatch({ type: ProfileActions.CLEAR_SPOTTED_USERS });
   }
 
 }

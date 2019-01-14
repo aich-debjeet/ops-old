@@ -1,4 +1,4 @@
-<vg-player class="large" [ngClass]="{'small': size === 'small'}">
+<vg-player (onPlayerReady)="onPlayerReady($event)" class="large" [ngClass]="{'small': size === 'small'}">
   <vg-controls *ngIf="type !== 'simple'">
     <vg-play-pause></vg-play-pause>
     <div *ngIf="type !== 'simple'">
@@ -8,13 +8,12 @@
     <vg-scrub-bar>
       <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
     </vg-scrub-bar>
-    <!-- <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display> -->
     <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
     <div *ngIf="type !== 'simple'">
       <vg-mute></vg-mute>
     </div>
   </vg-controls>
-  <audio #audioElem [vgMedia]="audioElem" preload="auto" autoplay>
+  <audio #audioElem [vgMedia]="audioElem" preload="auto">
     <source [src]="src" type="audio/mp3">
   </audio>
 </vg-player>

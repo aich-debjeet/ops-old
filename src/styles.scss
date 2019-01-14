@@ -902,3 +902,17 @@ ul > li {
     padding: 0px 15px;
   }
 }
+@media only screen and (max-width: 568px) {
+  .mobile-row-m-0 {
+    margin: auto 0px;
+  }
+  .mobile-row-m-h-15 {
+    margin: auto 15px;
+  }
+  .mobile-row-p-0 {
+    padding: 0 0px;
+	}
+	.m-width100p {
+		width: 100%;
+	}
+}

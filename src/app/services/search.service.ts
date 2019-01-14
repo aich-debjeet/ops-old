@@ -29,6 +29,13 @@ export class SearchService {
   }
 
   /**
+   * Get autocomplete result
+   */
+  getAutocompleteList(query: string) {
+    return this.api.post('/portal/global/search/autoComplete', { searchText: query });
+  }
+
+  /**
    * Get wiki profiles by search query
    * @param search query
    */

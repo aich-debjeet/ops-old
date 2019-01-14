@@ -1,12 +1,18 @@
 <div class="column-container">
   <div class="columns">
     <div class="search-results" infinite-scroll (scrolled)="onScroll($event)">
-      <app-post *ngFor="let userMedia of posts; let i = index" (elemViewportStatus)="elemInViewportStatus($event)"
-        [className]="'col-md-8'" (postDelete)="postDelete(userMedia)" [mediaData]="userMedia" [userData]="userData"></app-post>
+      <app-post
+        (loadSpottedUsers)="loadSpottedUsers($event)"
+        *ngFor="let userMedia of posts; let i = index"
+        (elemViewportStatus)="elemInViewportStatus($event)"
+        [className]="'col-md-8'"
+        (postDelete)="postDelete(userMedia)"
+        [mediaData]="userMedia"
+        [userData]="userData"></app-post>
     </div>
 
     <div *ngIf="userMedia.user_posts_loading">
-      <app-post-card [className]="'c-card m-t-8 m-b-0'" [loader]=true *ngFor="let number of [0,1]"></app-post-card>
+      <app-post-card [loader]=true *ngFor="let number of [0,1]"></app-post-card>
     </div>
 
     <div *ngIf="!userMedia.user_posts_loading && posts.length < 1 && isOwner === true" class="empty__state">
@@ -23,3 +29,34 @@
     <app-people-to-follow [page]="'profile'" class="c-card top-stick"></app-people-to-follow>
   </div>
 </div>
+
+<app-modal-new #spottedUsersModal modalClass="spotted-users-container" (onClose)="spottedUsersModalClosed()">
+  <modal-content>
+    <p class="c-text_lg f-w_600 relative num-of-people-spotted">Spots
+      <a class="pop-close" (click)="spottedUsersModal.close()">
+        <img src="https://cdn.onepagespotlight.com/img/svg/ico_close-38.svg" />
+      </a>
+    </p>
+    <ul id="ops_scrollbar" class="spotted-people-list"
+      infiniteScroll
+      [scrollWindow]="false"
+      (scrolled)="loadMoreSpottedUsers($event)">
+      <ng-container *ngIf="spottedUsers?.length > 0;">
+        <li class="c-invite__block" *ngFor="let profileItem of spottedUsers">
+          <app-user-card-horizontal
+            [hideButtons]="'true'"
+            [profileName]="profileItem?.name"
+            [username]="profileItem?.extra?.username"
+            [profileImage]="profileItem?.profileImage"
+            (followAction)="followActionListen($event)"
+            [isFollowing]="profileItem.extra?.isFollowing"></app-user-card-horizontal>
+        </li>
+      </ng-container>
+      <div *ngIf="isLoadingSpottedUsers">
+        <div class="sticky">
+          <div class="loader">Loading...</div>
+        </div>
+      </div>
+    </ul>
+  </modal-content>
+</app-modal-new>
