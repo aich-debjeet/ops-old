@@ -1,0 +1,50 @@
+.c-card {
+    width: 100%;
+    height: auto;
+    float: left;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.15);
+    background-color: #ffffff;
+}
+
+.c-search-industry {
+    width: 100%;
+    border: 1px solid #F3F5F7;
+    border-radius: 3px;
+    box-shadow: 0 2px 4px 0 rgba(102, 45, 145, 0.1);
+    padding: 16px;
+    float: left;
+}
+
+.c-search-industry__img {
+    width: 86px;
+    height: 85px;
+    border-radius: 3px;
+    overflow: hidden;
+    float: right;
+    background: #000;
+}
+
+.c-search-industry__img img {
+    width: 100%;
+}
+
+.c-search-industry__info {
+    width: calc(100% - 102px);
+    float: left;
+}
+
+.f-w_600 {
+    font-weight: 600 !important;
+}
+
+.c-search-industry__info-txt {
+    color: #929292;
+    font-size: 11px;
+    line-height: 18px;
+    margin-top: 4px;
+}
+
+.clearfix {
+    clear: both;
+}

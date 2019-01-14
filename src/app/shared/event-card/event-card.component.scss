@@ -3,9 +3,17 @@
 @import './src/assets/scss/components/_cards.scss';
 @import './src/assets/scss/components/_preloader.scss';
 
-.cursor-pointer{
-    cursor: pointer;
+.cursor-pointer {
+  cursor: pointer;
 }
-.c-card__event-address{
-    text-transform: capitalize;
+
+.c-card__event-address {
+  text-transform: capitalize;
+}
+
+.search-card {
+  width: 197px;
+  @include mq($from: $mobile_sm, $until: $tablet) {
+    width: 96%;
+  }
 }

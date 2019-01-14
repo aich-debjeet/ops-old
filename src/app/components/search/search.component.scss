@@ -1,6 +1,10 @@
 @import './src/assets/scss/helpers/_variables.scss';
 @import '~sass-mq/_mq.scss';
 
+.clearfix {
+  clear: both;
+}
+
 .auto-drop-selected {
   background: #F3F5F7;
 }
@@ -247,6 +251,14 @@
   padding:16px 24px;
 }
 
+.o-search-industry-block{
+  width: 100%;
+  float: left;
+  background: #fff;
+  border-radius: 3px;
+  padding:16px 24px;
+}
+
 // top result block
 .o-search-info-top{
   width: 100%;
@@ -271,14 +283,6 @@
 }
 
 // people result
-
-.o-people-result-block{
-  width: 100%;
-  float: left;
-  margin-top: 16px;
-  display: flex;
-  align-items:center;
-}
 .o-people-result__prof-pic{
   width: 56px;
   height: 56px;
@@ -661,6 +665,7 @@
   margin-top: 16px;
   display: flex;
   align-items: center;
+  padding-right: 10px;
 }
 
 
@@ -669,7 +674,7 @@
 }
 
 .o-people-result-block2 {
-  height: 50vh;
+  max-height: 50vh;
   overflow-y: auto;
 }
 /* people */

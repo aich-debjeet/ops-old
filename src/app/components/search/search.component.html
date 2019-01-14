@@ -183,6 +183,11 @@
 
         <!-- search all -->
         <div *ngIf="searchType === 'all'">
+          <div *ngIf="all_industries && all_industries.length > 0" class="row p-t-16 clearfix">
+            <div *ngFor="let industryDetails of all_industries.slice(0,2)">
+              <app-search-industry [industryDetails]="industryDetails" class="col-md-6"></app-search-industry>
+            </div>
+          </div>
           <div class="o-search-result-block m-t-16 p-b-24">
             <!-- people -->
             <div class="col-md-6 p-l-0">
@@ -247,8 +252,11 @@
               <a (click)="seeAll('event')" class="color-theme float_right">See all</a>
             </h6>
             <div class="">
-              <div *ngFor="let event of all_events | slice:0:6" class="col-md-2 col-sm-3 col-xs-6 p-0">
+              <!-- <div *ngFor="let event of all_events | slice:0:6" class="col-md-2 col-sm-3 col-xs-6 p-0">
                 <app-event-search-card [eventDetails]="event"></app-event-search-card>
+              </div> -->
+              <div *ngFor="let event of all_events | slice:0:4">
+                <app-event-card [eventData]="event" [type]="'search'"></app-event-card>
               </div>
             </div>
           </div>
