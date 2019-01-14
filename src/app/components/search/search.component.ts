@@ -471,7 +471,9 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy() {
     this.routeSub.unsubscribe();
     this.searchSub.unsubscribe();
-    this.autoCompSub.unsubscribe();
+    if (this.autoCompSub) {
+      this.autoCompSub.unsubscribe();
+    }
   }
 
   /**
