@@ -4,8 +4,21 @@
 ul.nav-tabs li a:hover {
     color: #555555;
 }
-
+.modal-lg {
+	width: 1170px;
+	margin-top: 54px;
+}
 /* -------------------- portfolio all ---------------------*/
+@include mq($from: $mobile_sm, $until: $tablet) {
+.add-work-img-gallery .c-portfolio--block {
+			width: 100%;
+			display: inline-block;
+		}
+		.modal-lg {
+			width: 100%;
+		}
+}
+
 .c-portfolio--block {
     position: relative;
     padding: 8px;
@@ -74,7 +87,7 @@ ul.nav-tabs li a:hover {
     .modal-lg {
         width: 1170px;
         @include mq($from: $mobile_sm, $until: $tablet) {
-            width: 96%;
+            width: 100%;
         }
     }
     .modal-md {
@@ -156,9 +169,11 @@ ul.nav-tabs li a:hover {
     width: 1170px;
     margin-top: 54px;
     @include mq($from: $mobile_sm, $until: $tablet) {
-        width: 94%;
+        width: 100%;
+        margin: 0px;
     }
 }
+
 .modal-header {
     border: none;
     .close {
@@ -177,12 +192,21 @@ ul.nav-tabs li a:hover {
     height: 493px;
     overflow-y: scroll;
     overflow-x: hidden;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        overflow-y: auto;
+        padding-bottom: 50px;
+        height: calc(98vh - 280px);
+    }
 }
 
 .c-portscroll2 {
     height: 380px;
     overflow-y: scroll;
     overflow-x: hidden;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        height: 90px;
+        overflow-y: auto;
+    }
 }
 
 .c-porthover {
@@ -320,10 +344,6 @@ ul.nav-tabs li a:hover {
     padding-top: 50px;
 }
 
-.modal-lg {
-    width: 1170px;
-    margin-top: 54px;
-}
 
 .o-portfolio-empty-text {
     width: 100%;
@@ -411,4 +431,9 @@ ul.nav-tabs li a:hover {
     height: 16px;
     float: right;
     margin-left: 8px;
+}
+@include mq($from: $mobile_sm, $until: $mobile_lg) {
+    .m-pad-top-20 {
+        padding-top: 20px;
+    }
 }

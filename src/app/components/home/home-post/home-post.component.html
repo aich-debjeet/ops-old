@@ -155,7 +155,8 @@
       [className]="'c-card m-t-8'"
       (postDelete)="postDelete(userMedia)"
       [mediaData]="userMedia"
-      [userData]="userData"></app-post>
+      [userData]="userData"
+      (markAsViewedForVA)="markAsViewedForVA($event)"></app-post>
     <div *ngIf="userProfile.user_following_posts_loading">
       <app-post-card [className]="'c-card m-t-8'" [loader]=true *ngFor="let number of [0,1]"></app-post-card>
     </div>

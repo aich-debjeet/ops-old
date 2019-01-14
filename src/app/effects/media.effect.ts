@@ -9,7 +9,7 @@ import 'rxjs/add/operator/withLatestFrom';
 
 import { MediaService } from '../services/media.service';
 import { MediaActions } from '../actions/media.action';
-import { ProfileActions } from 'app/actions/profile.action';
+// import { ProfileActions } from 'app/actions/profile.action';
 
 @Injectable()
 export class MediaEffect {
@@ -17,10 +17,10 @@ export class MediaEffect {
   /**
    * Update media view count to home, profile posts
    */
-  @Effect()
-  updateMediaCountOnTimeline$ = this.actions$
-    .ofType(MediaActions.MEDIA_ADD_VIEW_COUNT_SUCCESS)
-    .map(res => ({ type: ProfileActions.MEDIA_VIEW_COUNT_UPDATE, payload: res.payload['SUCCESS'] }));
+  // @Effect()
+  // updateMediaCountOnTimeline$ = this.actions$
+  //   .ofType(MediaActions.MEDIA_ADD_VIEW_COUNT_SUCCESS)
+  //   .map(res => ({ type: ProfileActions.MEDIA_VIEW_COUNT_UPDATE, payload: res.payload['SUCCESS'] }));
 
   /**
    * Update media view count

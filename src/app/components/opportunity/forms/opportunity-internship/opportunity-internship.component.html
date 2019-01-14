@@ -7,11 +7,11 @@
       <!-- subtitle end -->
       <div class="o-oppo-form__single">
           <div class="col-md-3 p-0">
-              <div class="c-text_md o-oppo-form-title">Role</div>
+              <div class="c-text_md o-oppo-form-title">Title</div>
           </div>
           <div class="col-md-9 p-0">
               <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                  <input formControlName="internshipRole" class="c-form__input" type="text" placeholder="Eg: Manager/Director">
+                  <input formControlName="internshipRole" class="c-form__input" type="text" placeholder="Name of the role (E.g., Assistant designer, Choreographer, etc.)">
                   <span class="c-form__highlight"></span>
                   <span class="c-form__bar"></span>
                   <!-- <label>Eg: Manager/Director</label> -->
@@ -27,7 +27,7 @@
           <div class="col-md-9 p-0">
               <div class="c-form__group m-t-0 c-form--sm">
                   <!-- <textarea formControlName="internshipDescription" class="c-textarea__block c-textarea--style" placeholder="Describe about opportunity"></textarea> -->
-                  <quill-editor [modules]="quillModules" [style]="{height: '250px'}" class="quill-editor" [placeholder]="'Describe about opportunity'" formControlName="internshipDescription"></quill-editor>
+                  <quill-editor [modules]="quillModules" [style]="{height: '250px'}" class="quill-editor" [placeholder]="''" formControlName="internshipDescription"></quill-editor>
               </div>
               <p *ngIf="internshipFrm.controls['internshipDescription'].errors?.required && createInternshipFrm.submitted" class="c-form__validation error">Description is required!</p>
           </div>

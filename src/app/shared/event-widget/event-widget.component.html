@@ -14,7 +14,7 @@
   </div>
   <ng-container *ngIf="eventState?.event_loaded">
     <div class="empty_message" *ngIf="eventList?.length === 0">
-      <p>There is no event</p>
+      <p>There are no events</p>
       <!-- <a [routerLink]="['/event/create']">Create Event</a> -->
     </div>
     <div class="p-16 event__block" *ngFor="let event of eventList.slice(0, 2)">

@@ -243,3 +243,8 @@
 .about-sub-block {
   margin-top: 20px
 }
+
+.mob-align-list > li {
+  float: none;
+  display: inline-block;
+}

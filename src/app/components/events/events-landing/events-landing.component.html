@@ -1,64 +1,64 @@
 <app-navigation></app-navigation>
 <div class="o-event-top-slider">
-    <div class="eventslider">
-        <ngu-carousel [inputs]="carouselOne">
-            <ngu-item NguCarouselItem class="" *ngFor="let banner of bannerList">
-                <div class="o-event-slider__media">
-                    <a [routerLink]="'/event/inner/' + banner?.id">
-                        <img [src]="baseUrl + banner?.coverImage">
-                        <div class="o-event-slider_info-txt">
-                            <div class="o-event-slider__date">
-                                <div class="c-h2 color-theme">{{banner?.startDate | utcDate | date:'d'}}</div>
-                                <p class="c-text_sm color-theme text_uppercase ltr-space">{{banner?.startDate | utcDate | date:'MMM'}}</p>
-                            </div>
-                            <div class="o-event-slider__det-text m-t-16">
-                                <h3 class="c-h3 color-white f-w_500">{{banner?.title  | truncate:[22, '...'] }}</h3>
-                                <p class="c-text_md color-grey-dark">{{banner?.venue?.location}}</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </ngu-item>
-            <button NguCarouselPrev class='leftRs'>&lt;</button>
-            <button NguCarouselNext class='rightRs'>&gt;</button>
-        </ngu-carousel>
+	<div class="eventslider">
+		<ngu-carousel [inputs]="carouselOne">
+			<ngu-item NguCarouselItem class="" *ngFor="let banner of bannerList">
+				<div class="o-event-slider__media">
+					<a [routerLink]="'/event/inner/' + banner?.id">
+						<img [src]="baseUrl + banner?.coverImage">
+						<div class="o-event-slider_info-txt">
+							<div class="o-event-slider__date">
+								<div class="c-h2 color-theme">{{banner?.startDate | utcDate | date:'d'}}</div>
+								<p class="c-text_sm color-theme text_uppercase ltr-space">{{banner?.startDate | utcDate | date:'MMM'}}</p>
+							</div>
+							<div class="o-event-slider__det-text m-t-16">
+								<h3 class="c-h3 color-white f-w_500">{{banner?.title | truncate:[22, '...'] }}</h3>
+								<p class="c-text_md color-grey-dark">{{banner?.venue?.location}}</p>
+							</div>
+						</div>
+					</a>
+				</div>
+			</ngu-item>
+			<button NguCarouselPrev class='leftRs'>&lt;</button>
+			<button NguCarouselNext class='rightRs'>&gt;</button>
+		</ngu-carousel>
 
-    </div>
+	</div>
 </div>
 
 <div class="o-event-contentarea">
-    <div class="container o-contianer--p_none">
+	<div class="container o-contianer--p_none">
 
-        <div class="o-event-filter-sec with_border_top c-ops__tabs o-event-tabs m-t--32">
-            <div class="col-md-6 col-sm-6 col-xs-12 p-0">
-                <ul class="nav nav-tabs">
-                    <li routerLinkActive="active"><a class="p-l-0 p-t-b-16" [routerLink]="['/event']" [queryParams]="{ status: 'recommended', stat: '' }">Recommended</a></li>
-                    <li routerLinkActive="active"><a class="p-t-b-16" [routerLink]="['/event']" [queryParams]="{ status: 'attending' }">Attending</a></li>
-                    <li routerLinkActive="active"><a class="p-t-b-16 p-r-0" [routerLink]="['/event']" [queryParams]="{ status: 'created' }">Created</a></li>
-                </ul>
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-12 p-0">
-                <a routerLink="/event/create" class="btn btn-primary btn-md float_right m-t-8 m-l-8">Create</a>
-                <ul class="o-calendar float_right">
-                    <li class="o-calendar__list" [ngClass]="{'o-calendar--active': dayStatus === 'today'}">
-                        <div class="o-calander__date" (click)="filterDate(day, 'today')">
-                            <span class="c-h5 o-calendar--color point">{{ day | date:"dd, MMM" }}</span>
-                            <span class="c-text_sm text_uppercase ltr-space o-calendar--color">Today</span>
-                        </div>
-                    </li>
-                    <li class="o-calendar__list hidden-xs" [ngClass]="{'o-calendar--active': dayStatus === 'tommorrow'}">
-                        <div class="o-calander__date" (click)="filterDate(tomorrow, 'tommorrow')">
-                            <span class="c-h5 o-calendar--color point">{{ tomorrow | date:"dd, MMM" }}</span>
-                            <span class="c-text_sm text_uppercase ltr-space o-calendar--color">tomorrow</span>
-                        </div>
-                    </li>
-                    <li class="o-calendar__list hidden-xs hidden-sm" [ngClass]="{'o-calendar--active': dayStatus === 'weekend'}">
-                        <div class="o-calander__date" (click)="filterDate(weekend, 'weekend')">
-                            <span class="c-h5 o-calendar--color point">{{ weekend | date:"dd, MMM" }}</span>
-                            <span class="c-text_sm text_uppercase ltr-space o-calendar--color">Weekend</span>
-                        </div>
-                    </li>
-                    <!-- <li class="o-calendar__list--icon dropdown" appDropdown>
+		<div class="o-event-filter-sec with_border_top c-ops__tabs o-event-tabs m-t--32">
+			<div class="col-md-6 col-sm-6 col-xs-12 p-0">
+				<ul class="nav nav-tabs">
+					<li routerLinkActive="active"><a class="p-l-0 p-t-b-16" [routerLink]="['/event']" [queryParams]="{ status: 'recommended', stat: '' }">Recommended</a></li>
+					<li routerLinkActive="active"><a class="p-t-b-16" [routerLink]="['/event']" [queryParams]="{ status: 'attending' }">Attending</a></li>
+					<li routerLinkActive="active"><a class="p-t-b-16 p-r-0" [routerLink]="['/event']" [queryParams]="{ status: 'created' }">Created</a></li>
+				</ul>
+			</div>
+			<div class="col-md-6 col-sm-6 col-xs-12 p-0">
+				<a routerLink="/event/create" class="btn btn-primary btn-md float_right m-t-8 m-l-8">Create</a>
+				<ul class="o-calendar float_right">
+					<li class="o-calendar__list" [ngClass]="{'o-calendar--active': dayStatus === 'today'}">
+						<div class="o-calander__date" (click)="filterDate(day, 'today')">
+							<span class="c-h5 o-calendar--color point">{{ day | date:"dd, MMM" }}</span>
+							<span class="c-text_sm text_uppercase ltr-space o-calendar--color">Today</span>
+						</div>
+					</li>
+					<li class="o-calendar__list hidden-xs" [ngClass]="{'o-calendar--active': dayStatus === 'tommorrow'}">
+						<div class="o-calander__date" (click)="filterDate(tomorrow, 'tommorrow')">
+							<span class="c-h5 o-calendar--color point">{{ tomorrow | date:"dd, MMM" }}</span>
+							<span class="c-text_sm text_uppercase ltr-space o-calendar--color">tomorrow</span>
+						</div>
+					</li>
+					<li class="o-calendar__list hidden-xs hidden-sm" [ngClass]="{'o-calendar--active': dayStatus === 'weekend'}">
+						<div class="o-calander__date" (click)="filterDate(weekend, 'weekend')">
+							<span class="c-h5 o-calendar--color point">{{ weekend | date:"dd, MMM" }}</span>
+							<span class="c-text_sm text_uppercase ltr-space o-calendar--color">Weekend</span>
+						</div>
+					</li>
+					<!-- <li class="o-calendar__list--icon dropdown" appDropdown>
                         <a>
                             <div class="o-calendar__icon" [dpDayPicker]="config" theme="dp-material">
                                 <img [src]="baseUrl + 'img/svg/calendar_gray.svg'" alt="">
@@ -66,19 +66,19 @@
                         </a>
                     </li> -->
 
-                    <li class="o-calendar__list--icon" #calenda>
-                        <div class=" c-dropdown">
-                            <a class="o-calendar__icon dropdown-toggle p-l-0" data-toggle="dropdown" aria-expanded="true">
-                                <img [src]="baseUrl + 'img/svg/calendar_gray.svg'" alt="">
-                            </a>
-                        </div>
-                    </li>
-                    
-                </ul>
-                <div class="cal_pos" *ngIf="calendar">
-                    <dp-day-calendar [ngModel]="selectedDate" (ngModelChange)="onDateChange($event)" theme="dp-material" [ngClass]="(calendar)? 'disp_cal' : ''"></dp-day-calendar>
-                </div>
-                <!-- <ul class="o-event-filter-list-block">
+					<li class="o-calendar__list--icon" #calenda>
+						<div class=" c-dropdown">
+							<a class="o-calendar__icon dropdown-toggle p-l-0" data-toggle="dropdown" aria-expanded="true">
+								<img [src]="baseUrl + 'img/svg/calendar_gray.svg'" alt="">
+							</a>
+						</div>
+					</li>
+
+				</ul>
+				<div class="cal_pos" *ngIf="calendar">
+					<dp-day-calendar [ngModel]="selectedDate" (ngModelChange)="onDateChange($event)" theme="dp-material" [ngClass]="(calendar)? 'disp_cal' : ''"></dp-day-calendar>
+				</div>
+				<!-- <ul class="o-event-filter-list-block">
   				<li class="o-event-filter-list__item">
   					<a href="#" class="o-event-filter-item__location">
   						<span class="o-event-select-location c-text_md color-grey-dark">
@@ -98,66 +98,67 @@
   					<a href="events_form.html" class="btn btn-primary btn-md ">Create</a>
   				</li>
   			</ul> -->
-            </div>
-        </div>
-        <!-- event tab end -->
+			</div>
+		</div>
+		<!-- event tab end -->
 
-        <div class="o-event-sort-link hidden-xs">
-                <!-- <ng-container *ngIf="eventTypeList?.length > 0"> 
+		<div class="o-event-sort-link hidden-xs">
+			<!-- <ng-container *ngIf="eventTypeList?.length > 0"> 
                     <a routerLinkActive="active" class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a" *ngFor="let type of eventTypeList[0]?.filters" (click)="filter(type)">{{ type.name }}</a> 
                 </ng-container> -->
-            <ngu-carousel [inputs]="eventTypeSlider" *ngIf="eventTypeList?.length > 0">
-                <ngu-item NguCarouselItem class="bannerStyle" *ngFor="let type of eventTypeList[0]?.filters">
-                    <a routerLinkActive="active" class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a" (click)="filter(type)">{{ type.name }}</a> 
-                </ngu-item>
-                <button NguCarouselPrev class='previous'></button>
-                <button NguCarouselNext class='next'></button>
-            </ngu-carousel>         
-        </div>
-        <!-- <form [formGroup]="locForm" #ecfrom="ngForm"> -->
-            <div class="o-select-loc float_right">
-                <div class=" c-dropdown  p-t-b-16">
-                    <a class=" o-event-filter-item__location c-text_md f-w_600 color-grey-dark dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                        <span (click) = "openDropbox()" class="o-event-select-location c-text_md color-grey-dark">
-                            <span class="o-event-select-location__ico">
-                                    <img [src]="baseUrl + 'img/svg/location.svg'" alt="">
-                            </span> Select Location
-                        </span>
-                    </a>
-                    <ul class="dropdown-menu event-drop o-location--drop" [ngClass]="{'hide': !locPop}">
-                        <li>
-                            <span class="del-msg" title="Close" (click) = "openDropbox()">x</span>
-                        </li>
-                        <li>
-                           <form [formGroup]="locForm" novalidate  #ecfrom="ngForm">
-                                <div class="c-form__group c-form--lg">
-                                    <input class="c-form__input" required="" placeholder="" type="text" autocorrect="off" autocapitalize="off" spellcheck="off" #search formControlName="location" (keyup.enter)="manualSearch(search.value)">
-                                    <label>Enter your city</label>
-                                </div>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        <!-- </form> -->
-        <!-- location end-->
+			<ngu-carousel [inputs]="eventTypeSlider" *ngIf="eventTypeList?.length > 0">
+				<ngu-item NguCarouselItem class="bannerStyle" *ngFor="let type of eventTypeList[0]?.filters">
+					<a routerLinkActive="active" class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a" (click)="filter(type)">{{
+						type.name }}</a>
+				</ngu-item>
+				<button NguCarouselPrev class='previous'></button>
+				<button NguCarouselNext class='next'></button>
+			</ngu-carousel>
+		</div>
+		<!-- <form [formGroup]="locForm" #ecfrom="ngForm"> -->
+		<div class="o-select-loc float_right">
+			<div class=" c-dropdown  p-t-b-16">
+				<a class=" o-event-filter-item__location c-text_md f-w_600 color-grey-dark dropdown-toggle" data-toggle="dropdown"
+				 aria-expanded="true">
+					<span (click)="openDropbox()" class="o-event-select-location c-text_md color-grey-dark">
+						<span class="o-event-select-location__ico">
+							<img [src]="baseUrl + 'img/svg/location.svg'" alt="">
+						</span> Select Location
+					</span>
+				</a>
+				<ul class="dropdown-menu event-drop o-location--drop" [ngClass]="{'hide': !locPop}">
+					<li>
+						<span class="del-msg" title="Close" (click)="openDropbox()">x</span>
+					</li>
+					<li>
+						<form [formGroup]="locForm" novalidate #ecfrom="ngForm">
+							<div class="c-form__group c-form--lg">
+								<input class="c-form__input" required="" placeholder="" type="text" autocorrect="off" autocapitalize="off"
+								 spellcheck="off" #search formControlName="location" (keyup.enter)="manualSearch(search.value)">
+								<label>Enter your city</label>
+							</div>
+						</form>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- </form> -->
+		<!-- location end-->
 
-        <div class="col-md-12 col-sm-12 col-xs-12 p-0" infiniteScroll
-        [infiniteScrollDistance]="2"
-        [infiniteScrollThrottle]="1000"
-        (scrolled)="onScroll($event)">
-            <div class="tab-content">
-                <div id="recommended" class="tab-pane fade  active in">
-                    <div>
-                        <app-event-card *ngFor="let event of eventList" [eventData]="event"></app-event-card>
-                        <div *ngIf="event_loading">
-                            <app-event-card [loader]=true *ngFor="let number of [0,1,2,3,4]" ></app-event-card>
-                        </div>
-                    </div>
-                    <div class="empty_message" *ngIf="eventList?.length === 0 && !event_loading">
-                        <p>There is no {{filterStatus}} event</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+		<div class="col-md-12 col-sm-12 col-xs-12 p-0" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="1000"
+		 (scrolled)="onScroll($event)">
+			<div class="tab-content">
+				<div id="recommended" class="tab-pane fade  active in">
+					<div>
+						<app-event-card *ngFor="let event of eventList" [eventData]="event"></app-event-card>
+						<div *ngIf="event_loading">
+							<app-event-card [loader]=true *ngFor="let number of [0,1,2,3,4]"></app-event-card>
+						</div>
+					</div>
+					<div class="empty_message" *ngIf="eventList?.length === 0 && !event_loading">
+						<p>Sorry, no records found.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
