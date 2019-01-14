@@ -653,9 +653,10 @@ button.sb-wrapper.sb-facebook {
 	word-break: break-word;
 }
 
-// #toast-container .toast {
-//     padding: 15px 15px 15px 25px;
-// }
+#toast-container .toast {
+	// padding: 15px 15px 15px 25px;
+	border-radius: 5px !important;
+}
 
 .o-event-content-container {
 	p {
