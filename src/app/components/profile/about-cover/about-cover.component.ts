@@ -5,7 +5,7 @@ import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { ModalService } from '../../../shared/modal/modal.component.service';
 
 import { ProfileActions } from '../../../actions/profile.action';
-import { environment } from '../../../../environments/environment.prod';
+import { environment } from '../../../../environments/environment';
 
 import { Observable } from 'rxjs/Observable';
 import { GeneralUtilities } from '../../../helpers/general.utils';

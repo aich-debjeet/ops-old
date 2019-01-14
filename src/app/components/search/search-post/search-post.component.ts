@@ -6,7 +6,7 @@ import { MediaActions } from '../../../actions/media.action';
 
 import { Media, initialMedia  } from '../../../models/media.model';
 
-import { environment } from './../../../../environments/environment.prod';
+import { environment } from './../../../../environments/environment';
 
 // rx
 import { Observable } from 'rxjs/Observable';

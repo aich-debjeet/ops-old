@@ -19,13 +19,13 @@
         </div>
       </form>
       <div *ngIf="searchString.length > 0 && autocompleteOpen" id="autocompleteWrapper" class="o-search-drop" appClickedOutside (clickOutside)="autocompleteShow(false)">
-        <div *ngIf="autocompleteResult?.profiles.length > 0" class="o-search-drop__list">
+        <div *ngIf="autocompleteResult?.profiles?.length > 0" class="o-search-drop__list">
           <div class="o-search-drop-list__title">
             <div class="c-text_sm color-grey-dark ltr-space text_uppercase">Profile</div>
           </div>
           <ul class="o-search-drop-result">
               <li class="o-search-drop-result__single"
-                *ngFor="let autoProf of autocompleteResult?.profiles.slice(0, autoPerType)"
+                *ngFor="let autoProf of autocompleteResult?.profiles?.slice(0, autoPerType)"
                 (click)="navigateTo('profile', autoProf?.extra?.username)">
                 <div class="o-search-drop-result__prof-pic">
                   <img [src]="baseUrl + autoProf?.profileImage" onError="this.src='https://cdn.onepagespotlight.com/img/avatar.png';" alt="profile pic">
@@ -36,13 +36,13 @@
               </li>
           </ul>
         </div>
-        <div *ngIf="autocompleteResult?.organization.length > 0">
+        <div *ngIf="autocompleteResult?.organization?.length > 0">
           <div class="o-search-drop-list__title">
             <div class="c-text_sm color-grey-dark ltr-space text_uppercase">Organization</div>
           </div>
           <ul class="o-search-drop-result">
             <li class="o-search-drop-result__single"
-              *ngFor="let autoOrg of autocompleteResult?.organization.slice(0, autoPerType)"
+              *ngFor="let autoOrg of autocompleteResult?.organization?.slice(0, autoPerType)"
               (click)="navigateTo('org', autoOrg?.extras?.username)">
               <div class="o-search-drop-result__prof-pic">
                 <img [src]="baseUrl + autoOrg?.organizationImage" onError="this.src='https://cdn.onepagespotlight.com/img/avatar.png';" alt="profile pic">
