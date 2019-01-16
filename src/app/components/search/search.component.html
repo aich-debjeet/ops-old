@@ -35,7 +35,10 @@
                   <img src="https://cdn.onepagespotlight.com/img/avatar.png" alt="profile pic">
                 </div>
                 <div class="o-search-drop-result__name">
-                  <div class="c-text_md color-grey-dark">{{ autoProf?.name }}</div>
+                  <div class="c-text_md color-grey-dark float_left">{{ autoProf?.name }}</div>
+                  <ng-container *ngIf="autoProf?.profileType?.length > 0">
+                    <div *ngFor="let skill of autoProf?.profileType.slice(0, 5)" class="c-skill__tags color-grey-dark float_left m-l-8">{{ skill?.name }}</div>
+                  </ng-container>
                 </div>
               </li>
           </ul>
@@ -53,7 +56,10 @@
                 <img src="https://cdn.onepagespotlight.com/images/defaultOrg/defaultorg.png" alt="org profile pic">
               </div>
               <div class="o-search-drop-result__name">
-                <div class="c-text_md color-grey-dark">{{ autoOrg?.organizationName }}</div>
+                <div class="c-text_md color-grey-dark float_left">{{ autoOrg?.organizationName }}</div>
+                <ng-container *ngIf="autoProf?.profileType?.length > 0">
+                  <div *ngFor="let skill of autoProf?.profileType.slice(0, 5)" class="c-skill__tags color-grey-dark float_left m-l-8">{{ skill?.name }}</div>
+                </ng-container>
               </div>
             </li>
           </ul>
