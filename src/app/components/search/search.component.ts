@@ -545,7 +545,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   navigateTo(type: string, username: string) {
     if (username && username.length > 0) {
       if (type === 'profile') {
-        this.router.navigateByUrl('/profile/u/' + username);
+        this.router.navigateByUrl('/profile/u/' + username + '/about/bio');
       } else if (type === 'org') {
         this.router.navigateByUrl('/org/p/' + username);
       }
