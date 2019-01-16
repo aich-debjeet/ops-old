@@ -14,41 +14,52 @@
           [ngModelOptions]="{standalone: true}"
           (keydown)="selectFromDropdown($event)">
         <div class="o-search__icon">
-          <img *ngIf="!isSearching" [src]="baseUrl  + 'img/svg/ico_search.svg'">
-          <img *ngIf="isSearching" [src]="baseUrl + 'img/search-preloader.gif'">
+          <img *ngIf="!autocompSearching" [src]="baseUrl  + 'img/svg/ico_search.svg'">
+          <img *ngIf="autocompSearching" [src]="baseUrl + 'img/search-preloader.gif'">
         </div>
       </form>
       <div *ngIf="searchString.length > 0 && autocompleteOpen" id="autocompleteWrapper" class="o-search-drop" appClickedOutside (clickOutside)="autocompleteShow(false)">
+        <div class="o-search-drop-list__all">
+          <a (click)="searchAll()" class="o-search-drop__seeall"> See All Results For '{{ searchString }}'</a>
+        </div>
         <div *ngIf="autocompleteResult?.profiles?.length > 0" class="o-search-drop__list">
-          <div class="o-search-drop-list__title">
+          <!-- <div class="o-search-drop-list__title">
             <div class="c-text_sm color-grey-dark ltr-space text_uppercase">Profile</div>
-          </div>
+          </div> -->
           <ul class="o-search-drop-result">
               <li class="o-search-drop-result__single"
                 *ngFor="let autoProf of autocompleteResult?.profiles?.slice(0, autoPerType)"
                 (click)="navigateTo('profile', autoProf?.extra?.username)">
                 <div class="o-search-drop-result__prof-pic">
-                  <img [src]="baseUrl + autoProf?.profileImage" onError="this.src='https://cdn.onepagespotlight.com/img/avatar.png';" alt="profile pic">
+                  <!-- <img [src]="baseUrl + autoProf?.profileImage" onError="this.src='https://cdn.onepagespotlight.com/img/avatar.png';" alt="profile pic"> -->
+                  <img src="https://cdn.onepagespotlight.com/img/avatar.png" alt="profile pic">
                 </div>
                 <div class="o-search-drop-result__name">
-                  <div class="c-text_md color-grey-dark">{{ autoProf?.name }}</div>
+                  <div class="c-text_md color-grey-dark float_left">{{ autoProf?.name }}</div>
+                  <ng-container *ngIf="autoProf?.profileType?.length > 0">
+                    <div *ngFor="let skill of autoProf?.profileType.slice(0, 5)" class="c-skill__tags color-grey-dark float_left m-l-8">{{ skill?.name }}</div>
+                  </ng-container>
                 </div>
               </li>
           </ul>
         </div>
         <div *ngIf="autocompleteResult?.organization?.length > 0">
-          <div class="o-search-drop-list__title">
+          <!-- <div class="o-search-drop-list__title">
             <div class="c-text_sm color-grey-dark ltr-space text_uppercase">Organization</div>
-          </div>
+          </div> -->
           <ul class="o-search-drop-result">
             <li class="o-search-drop-result__single"
               *ngFor="let autoOrg of autocompleteResult?.organization?.slice(0, autoPerType)"
               (click)="navigateTo('org', autoOrg?.extras?.username)">
               <div class="o-search-drop-result__prof-pic">
-                <img [src]="baseUrl + autoOrg?.organizationImage" onError="this.src='https://cdn.onepagespotlight.com/img/avatar.png';" alt="profile pic">
+                <!-- <img [src]="baseUrl + autoOrg?.organizationImage" onError="this.src='https://cdn.onepagespotlight.com/img/avatar.png';" alt="profile pic"> -->
+                <img src="https://cdn.onepagespotlight.com/images/defaultOrg/defaultorg.png" alt="org profile pic">
               </div>
               <div class="o-search-drop-result__name">
-                <div class="c-text_md color-grey-dark">{{ autoOrg?.organizationName }}</div>
+                <div class="c-text_md color-grey-dark float_left">{{ autoOrg?.organizationName }}</div>
+                <ng-container *ngIf="autoProf?.profileType?.length > 0">
+                  <div *ngFor="let skill of autoProf?.profileType.slice(0, 5)" class="c-skill__tags color-grey-dark float_left m-l-8">{{ skill?.name }}</div>
+                </ng-container>
               </div>
             </li>
           </ul>
@@ -86,7 +97,7 @@
     <!-- search message -->
 
     <!-- search wrapper -->
-    <div *ngIf="searchString?.length > 0 && !isSearching">
+    <div *ngIf="searchState?.searching_all === false && searchState?.searched_all === true && searchString?.length > 0 && !isSearching">
 
       <!-- search filters -->
       <div *ngIf="searchType === 'all'" class="col-md-3 col-sm-4 col-xs-12 p-l-0 m-t--32 m-b-16">

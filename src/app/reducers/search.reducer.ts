@@ -68,6 +68,7 @@ export const SearchReducer: ActionReducer<any> = (state, {payload, type}: Action
     case SearchActions.SEARCH_ALL:
       return Object.assign({}, state, {
         searching_all: true,
+        searched_all: false,
         search_all_params: payload,
         search_all_success: false
       });
@@ -82,6 +83,7 @@ export const SearchReducer: ActionReducer<any> = (state, {payload, type}: Action
       }
       return Object.assign({}, state, {
         searching_all: false,
+        searched_all: true,
         search_all_data: payload,
         search_filters: searchFilters, // adding filter listing to the global state
         search_all_success: true
@@ -91,6 +93,7 @@ export const SearchReducer: ActionReducer<any> = (state, {payload, type}: Action
     case SearchActions.SEARCH_ALL_FAILED:
       return Object.assign({}, state, {
         searching_all: false,
+        searched_all: false,
         search_all_success: false
       });
     /* search all reducers */
