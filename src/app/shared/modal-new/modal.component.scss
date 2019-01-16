@@ -244,7 +244,8 @@
     margin: auto;
     .body {
         width: 100%;
-        height: 96vh;
+        height: auto;
+        min-height: 96vh;
         overflow-y: auto;
     }
     @include mq($from: $mobile_sm, $until: $tablet) {

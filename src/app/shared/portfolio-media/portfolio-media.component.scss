@@ -32,6 +32,10 @@
     font-size: 13px;
     line-height: 20px;
     margin: 8px 4px;
+    overflow: hidden;
+    white-space: pre-wrap;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
 }
 
 .c-port-opt {
