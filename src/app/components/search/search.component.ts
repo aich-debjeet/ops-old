@@ -43,7 +43,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   searchString = '';
   routeSub: any;
   ownerHandle = '';
-  autoPerType = 4;
+  autoPerType = 6;
   autoCurrPos = -1;
   autocompleteResult: any;
   autocompleteOpen = false;
