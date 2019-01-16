@@ -445,17 +445,20 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       // }
       this.autocompleteSearch();
 
-      // preparing get query params for the search get request
-      // const params = {
-      //   q: this.searchString,
-      //   type: this.searchType
-      // };
-
-      // // trigger search get request
-      // this.searchGetRequest(params);
-
     });
 
+  }
+
+  searchAll() {
+    this.autocompleteShow(false);
+    // preparing get query params for the search get request
+    const params = {
+      q: this.searchString,
+      type: this.searchType
+    };
+
+    // trigger search get request
+    this.searchGetRequest(params);
   }
 
   // trigger search action
