@@ -62,6 +62,7 @@ export class OrgAboutComponent implements OnInit, OnDestroy {
   public searchControl: FormControl;
   public zoom: number;
   orgLoaded = false;
+  ownOrg = false;
 
   // address
   address: string;
@@ -109,6 +110,13 @@ export class OrgAboutComponent implements OnInit, OnDestroy {
     this.orgState$ = this.store.select('profileTags');
     this.orgSub = this.orgState$.subscribe((state) => {
       this.orgProfile = state;
+      if (this.gUtils.checkNestedKey(state, ['profile_cards', 'other', 'handle']) && this.gUtils.checkNestedKey(state, ['organization_details', 'handle'])) {
+        if (state['profile_cards']['other']['handle'] === state['organization_details']['handle']) {
+          this.ownOrg = true;
+        } else {
+          this.ownOrg = false;
+        }
+      }
       if (!this.orgProfile['organization_details'] && !this.orgLoaded && this.router.url === '/org/page/about') {
         this.orgLoaded = true;
         const orgUsername = localStorage.getItem('orgUsername');

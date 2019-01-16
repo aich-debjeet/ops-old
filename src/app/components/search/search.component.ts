@@ -436,9 +436,11 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
         if (this.profileTypeSearch === 'unregistered') {
           this.loadWikiProfiles();
         }
-      } else if (this.searchString.length > 2) {
-        this.autocompleteSearch();
       }
+      // else if (this.searchString.length > 2) {
+      //   this.autocompleteSearch();
+      // }
+      this.autocompleteSearch();
 
       // preparing get query params for the search get request
       const params = {
@@ -545,7 +547,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   navigateTo(type: string, username: string) {
     if (username && username.length > 0) {
       if (type === 'profile') {
-        this.router.navigateByUrl('/profile/u/' + username);
+        this.router.navigateByUrl('/profile/u/' + username + '/about/bio');
       } else if (type === 'org') {
         this.router.navigateByUrl('/org/p/' + username);
       }
