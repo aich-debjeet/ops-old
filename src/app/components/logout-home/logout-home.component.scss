@@ -246,7 +246,7 @@
   }
 }
 .o-platform-det-block{
-  padding-bottom: 200px;
+  // padding-bottom: 200px;
   @include mq($from: $mobile_sm, $until: $mobile_lg){
     padding-bottom: 0px;
   }
