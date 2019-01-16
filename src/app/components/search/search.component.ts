@@ -55,6 +55,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
   recordsPerPage = 20;
   showPreloader = false;
+  autocompSearching = false;
 
   resultCount = 0;
   searchType = 'all';
@@ -400,7 +401,9 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   autocompleteSearch() {
+    this.autocompSearching = true;
     this.autoCompSub = this.searchService.getAutocompleteList(this.searchString).subscribe((data) => {
+      this.autocompSearching = false;
       this.autocompleteShow(true);
       this.autocompleteResult = data;
     });
@@ -433,9 +436,9 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
         // trigger search get request
         this.searchGetRequest({});
 
-        if (this.profileTypeSearch === 'unregistered') {
-          this.loadWikiProfiles();
-        }
+        // if (this.profileTypeSearch === 'unregistered') {
+        //   this.loadWikiProfiles();
+        // }
       }
       // else if (this.searchString.length > 2) {
       //   this.autocompleteSearch();
@@ -443,13 +446,13 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       this.autocompleteSearch();
 
       // preparing get query params for the search get request
-      const params = {
-        q: this.searchString,
-        type: this.searchType
-      };
+      // const params = {
+      //   q: this.searchString,
+      //   type: this.searchType
+      // };
 
-      // trigger search get request
-      this.searchGetRequest(params);
+      // // trigger search get request
+      // this.searchGetRequest(params);
 
     });
 
