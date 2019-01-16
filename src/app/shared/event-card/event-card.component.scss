@@ -11,9 +11,3 @@
   text-transform: capitalize;
 }
 
-.search-card {
-  width: 197px;
-  @include mq($from: $mobile_sm, $until: $tablet) {
-    width: 96%;
-  }
-}

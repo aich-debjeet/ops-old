@@ -1,4 +1,4 @@
-<div class="c-event__card" [ngClass]="type === 'search' ? 'search-card' : ''" *ngIf="!loader">
+<div class="c-event__cards" *ngIf="!loader">
     <!-- card media (img, video & audio) -->
     <div class="c-card__event">
         <a [routerLink]="'/event/inner/' + eventData?.id" >

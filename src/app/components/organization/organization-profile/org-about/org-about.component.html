@@ -8,7 +8,7 @@
             <li class="o-org-form__item m-b-24">
               <div *ngIf="editingField != 'description'">
                 <h6 class="c-text_md">Brief
-                  <a class="o-org-form__edit-ico" (click)="editField('description')"><img [src]="baseUrl + 'img/svg/ico_edit.svg'"></a>
+                  <a class="o-org-form__edit-ico" *ngIf="ownOrg" (click)="editField('description')"><img [src]="baseUrl + 'img/svg/ico_edit.svg'"></a>
                 </h6>
                 <p id="brief" class="c-text_sm color-grey-dark m-t-8">
                   {{ aboutDescription }}
@@ -27,7 +27,7 @@
             <li class="o-org-form__item m-b-24">
               <div *ngIf="editingField != 'services'">
                 <h6 class="c-text_md">Services
-                  <a class="o-org-form__edit-ico" (click)="editField('services')"><img [src]="baseUrl + 'img/svg/ico_edit.svg'"></a>
+                  <a class="o-org-form__edit-ico" *ngIf="ownOrg" (click)="editField('services')"><img [src]="baseUrl + 'img/svg/ico_edit.svg'"></a>
                 </h6>
                 <p id="o-org-about-serv" class="c-text_sm color-grey-dark m-t-8">
                   {{ aboutServicesStr }}
@@ -51,7 +51,7 @@
             <li class="o-org-form__item m-b-24">
               <div *ngIf="editingField != 'industries'">
                 <h6 class="c-text_md">Industry
-                  <a class="o-org-form__edit-ico" (click)="editField('industries')"><img [src]="baseUrl + 'img/svg/ico_edit.svg'"></a>
+                  <a class="o-org-form__edit-ico" *ngIf="ownOrg" (click)="editField('industries')"><img [src]="baseUrl + 'img/svg/ico_edit.svg'"></a>
                 </h6>
                 <p id="o-org-about-ind" class="c-text_sm color-grey-dark m-t-8">
                   <!-- <ng-container *ngFor="let industry of orgProfile?.organization_details?.extra?.industryList; let isLast = last;">
@@ -79,7 +79,7 @@
             <li class="o-org-form__item m-b-24">
               <div *ngIf="editingField != 'activeFrom'">
                 <h6 class="c-text_md">Founded Year
-                  <a class="o-org-form__edit-ico" (click)="editField('activeFrom')"><img [src]="baseUrl + 'img/svg/ico_edit.svg'"></a>
+                  <a class="o-org-form__edit-ico" *ngIf="ownOrg" (click)="editField('activeFrom')"><img [src]="baseUrl + 'img/svg/ico_edit.svg'"></a>
                 </h6>
                 <p id="o-org-about-foundyr" class="c-text_sm color-grey-dark m-t-8">
                   {{ orgProfile?.organization_details?.activeFrom | utcDate | date: 'dd MMM, yyyy' }}
@@ -112,7 +112,7 @@
                 <span class="o-org-about__contact-txt c-text_sm color-grey-dark">
                   {{ orgProfile?.organization_details?.contact?.mobile?.mobile }}
                 </span>
-                <a class="o-org-form__edit-ico" (click)="editField('mobile')"><img [src]="baseUrl + 'img/svg/ico_edit.svg'"></a>
+                <a class="o-org-form__edit-ico" *ngIf="ownOrg" (click)="editField('mobile')"><img [src]="baseUrl + 'img/svg/ico_edit.svg'"></a>
               </div>
               <img *ngIf="isUpdating && editedField =='mobile'" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '7px','right': '88px'}"
               [src]="baseUrl + 'img/search-preloader.gif'">
@@ -136,7 +136,7 @@
                 <span class="o-org-about__contact-txt c-text_sm color-grey-dark">
                   {{ orgProfile?.organization_details?.email }}
                 </span>
-                <a class="o-org-form__edit-ico" (click)="editField('email')"><img [src]="baseUrl + 'img/svg/ico_edit.svg'"></a>
+                <a class="o-org-form__edit-ico" *ngIf="ownOrg" (click)="editField('email')"><img [src]="baseUrl + 'img/svg/ico_edit.svg'"></a>
               </div>
               <img *ngIf="isUpdating && editedField =='email'" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '7px','right': '88px'}"
               [src]="baseUrl + 'img/search-preloader.gif'">
@@ -160,7 +160,7 @@
                 <span class="o-org-about__contact-txt c-text_sm color-grey-dark" contenteditable="true">
                   {{ orgProfile?.organization_details?.contact?.website.website }}
                 </span>
-                <a class="o-org-form__edit-ico" (click)="editField('website')"><img [src]="baseUrl + 'img/svg/ico_edit.svg'"></a>
+                <a class="o-org-form__edit-ico" *ngIf="ownOrg" (click)="editField('website')"><img [src]="baseUrl + 'img/svg/ico_edit.svg'"></a>
               </div>
               <img *ngIf="isUpdating && editedField =='website'" [ngStyle]="{'height': '20px','width': '20px','position': 'absolute','top': '7px','right': '88px'}"
               [src]="baseUrl + 'img/search-preloader.gif'">
@@ -179,7 +179,7 @@
             <li class="o-org-form__item m-t-24">
               <div [ngClass]="{'show': editingField != 'address'}">
                 <h6 class="c-text_md">Address
-                  <a class="o-org-form__edit-ico" (click)="editField('address')"><img [src]="baseUrl + 'img/svg/ico_edit.svg'"></a>
+                  <a class="o-org-form__edit-ico" *ngIf="ownOrg" (click)="editField('address')"><img [src]="baseUrl + 'img/svg/ico_edit.svg'"></a>
                 </h6>
                 <!-- <div class="o-org-about__address-map m-t-b-8">
                   <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.9863164034696!2d77.63703341474799!3d12.972726890855197!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae16a6f8666621%3A0x8a0eaab208105e27!2sAbove+Solutions+India+Pvt.+Ltd.!5e0!3m2!1sen!2sin!4v1509367207866"

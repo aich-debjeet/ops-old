@@ -171,7 +171,7 @@
       <!-- search filters -->
 
       <!-- search result -->
-      <div class="col-md-9 col-sm-8 col-xs-12 sm-p-0 m-t--32" [ngClass]="{'col-md-12 col-sm-12': searchType !== 'all'}">
+      <div class="col-md-9 col-sm-8 col-xs-12 m-t--32 mobile-row-p-0" [ngClass]="{'col-md-12 col-sm-12': searchType !== 'all'}">
 
         <div class="o-search-result-block">
           <div class="o-search-info-top">
@@ -208,7 +208,7 @@
             </div><!-- people -->
 
             <!-- posts -->
-            <div class="col-md-6">
+            <div class="col-md-6 m-p-t-20">
               <h6 class="c-text_lg p-b-16 with_border_bottom">Posts
                 <a *ngIf="all_posts && all_posts.length > 0;" (click)="seeAll('post')" class="color-theme float_right">See
                   all</a>
@@ -231,7 +231,7 @@
                 <a (click)="seeAll('channel')" class="color-theme float_right">See all</a>
               </h6>
               <div class="row m-0">
-                <div *ngFor="let channel of all_channels | slice:0:4" class="col-md-3 p-0 p-r-10 p-b-10">
+                <div *ngFor="let channel of all_channels | slice:0:4" class="col-md-3 searched-channel-lists">
                   <app-channel [channelData]="channel" (onFollow)="followChannel($event)"></app-channel>
                 </div>
               </div>
@@ -248,14 +248,14 @@
             </div>
           </div>
           <div *ngIf="all_events && all_events.length > 0;" class="o-search-result-single-block">
-            <h6 class="c-text_lg m-t-24">Events
+            <h6 class="c-text_lg p-t-24 p-b-8">Events
               <a (click)="seeAll('event')" class="color-theme float_right">See all</a>
             </h6>
-            <div class="">
+            <div class="col-4d-3t-1m col-gap10 row-gap10 p-b-16">
               <!-- <div *ngFor="let event of all_events | slice:0:6" class="col-md-2 col-sm-3 col-xs-6 p-0">
                 <app-event-search-card [eventDetails]="event"></app-event-search-card>
               </div> -->
-              <div *ngFor="let event of all_events | slice:0:4">
+              <div class="fill-white bdr-rad-3" *ngFor="let event of all_events | slice:0:4">
                 <app-event-card [eventData]="event" [type]="'search'"></app-event-card>
               </div>
             </div>

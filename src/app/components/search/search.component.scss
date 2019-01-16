@@ -180,7 +180,7 @@
   width: 100%;
   float: left;
   border-radius: 3px;
-  min-height: 100vh;
+  min-height: calc(100vh - 272px);
   // margin: 100px 0;
 }
 // // left block 
@@ -899,11 +899,30 @@ a {
       margin-right: 0px;
    }
 }
-
+.bdr-rad-3 {
+  overflow: hidden;
+  border-radius: 3px;
+}
 .sm-p-0 {
   padding: 0;
   @include mq($from: $mobile_sm, $until: $mobile_lg) {
     padding-left: 15px;
     padding-right: 15px;
+  }
+}
+
+.searched-channel-lists {
+  padding: 0;
+  padding-right: 10px;
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    padding-right: 0px;
+  }
+}
+.searched-channel-lists:last-child {
+  padding-right: 0px;
+}
+@media only screen and (max-width: 568px) {
+  .m-p-t-20 {
+    padding-top: 20px;
   }
 }
