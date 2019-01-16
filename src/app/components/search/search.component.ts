@@ -436,9 +436,11 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
         if (this.profileTypeSearch === 'unregistered') {
           this.loadWikiProfiles();
         }
-      } else if (this.searchString.length > 2) {
-        this.autocompleteSearch();
       }
+      // else if (this.searchString.length > 2) {
+      //   this.autocompleteSearch();
+      // }
+      this.autocompleteSearch();
 
       // preparing get query params for the search get request
       const params = {
