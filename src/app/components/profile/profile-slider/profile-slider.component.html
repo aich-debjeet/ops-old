@@ -150,7 +150,8 @@
           </div>
           <div class="col-md-4 col-sm-4 o-profile__detail__block with_border_right p-24">
             <div class="o-profile__detail--heading">About Me</div>
-            <p class="o-profile__detail--text">{{ profileObject?.userBio | slice:0:200}}</p>
+            <p class="o-profile__detail--text">{{ profileObject?.userBio | truncate: [200, '...'] }}</p>
+            <a *ngIf="profileObject?.userBio?.length > 200" (click)="bioModal.open()" class="c-skill__tags--more">More</a>
           </div>
           <div class="col-md-4 col-sm-4 o-profile__detail__block p-24 hidden-xs">
             <div class="o-profile__detail--heading">Skills</div>
@@ -241,7 +242,7 @@
   <modal-content>
     <div class="modal-content o-tag-pop o-skills__popup">
       <div class="o-tag-head">
-        <h2 class="o-tag__title">More Skills
+        <h2 class="o-tag__title">Skills
           <span class="pop-close" (click)="skillModal.close()">
             <a><img [src]="baseUrl + 'img/svg/ico_close-38.svg'" alt=""></a>
           </span>
@@ -250,6 +251,23 @@
       <div class="o-tag-list">
         <span *ngFor="let skill of profileObject?.userSkill" [routerLink]="'/spotfeed/' + skill?.name" class="c-skill__tags">{{
           skill?.name }}</span>
+      </div>
+    </div>
+  </modal-content>
+</app-modal-new>
+
+<app-modal-new #bioModal modalClass="modal-cus__sm">
+  <modal-content>
+    <div class="modal-content o-tag-pop o-skills__popup">
+      <div class="o-tag-head">
+        <h2 class="o-tag__title">About Me
+          <span class="pop-close" (click)="bioModal.close()">
+            <a><img [src]="baseUrl + 'img/svg/ico_close-38.svg'" alt=""></a>
+          </span>
+        </h2>
+      </div>
+      <div class="o-tag-list">
+        {{ profileObject?.userBio }}
       </div>
     </div>
   </modal-content>
