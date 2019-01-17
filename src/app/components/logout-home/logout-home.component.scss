@@ -487,6 +487,9 @@
 .o-platform-media{
     width: 70%;
     margin: 60px auto 60px auto;
+    @include mq($from: $mobile_sm, $until: $desktop_sm){
+      margin: 0px auto 30px auto;
+    }
     img{
         width: 100%;
     }
@@ -535,6 +538,9 @@
  }
  .landing_top_block {
       margin: 20px 0 150px;
+      @include mq($from: $mobile_sm, $until: $desktop_sm){
+        margin-bottom: 15px;
+      }
      .landing_slider {
          .slider_heading {
              margin-top: 80px;
