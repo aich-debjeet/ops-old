@@ -1,10 +1,22 @@
 @import './src/assets/scss/components/_tabs.scss';
 @import './src/assets/scss/helpers/_variables.scss';
 @import '~sass-mq/_mq.scss';
+
+.ev-card {
+    width: 215px;
+    height: 340px;
+    float: left;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.15);
+    box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.15);
+    background-color: #ffffff;
+    overflow: hidden;
+    margin: 8px;
+}
+
 .nav-tabs {
     border: none;
 }
-
 .bannerStyle{
     width: auto !important;
 }
@@ -156,6 +168,8 @@
     width: 88%;
     float: left;
     display: flex;
+    display: block;
+    overflow: hidden;
     align-items: center;
     position: relative;
     @include mq($from: $mobile_sm, $until: $tablet) {
