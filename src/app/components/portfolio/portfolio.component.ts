@@ -113,7 +113,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
         }
       }
       if (!this.portfolioMediaLoaded && this.generalUtils.checkNestedKey(state, ['portfolio_user_profile', 'handle'])) {
-        console.log('get media for', state['portfolio_user_profile']);
+        // console.log('get media for', state['portfolio_user_profile']);
         this.loadPortMedia(state['portfolio_user_profile']['handle']);
         this.portfolioMediaLoaded = true;
       }
@@ -515,6 +515,10 @@ export class PortfolioComponent implements OnInit, OnDestroy {
       };
       this.getTabMedia(reqBody);
     }
+  }
+
+  openDefaultMediaModal(mediaId) {
+    this.router.navigate(['', { outlets: { media : ['media', mediaId] } }]);
   }
 
 }
