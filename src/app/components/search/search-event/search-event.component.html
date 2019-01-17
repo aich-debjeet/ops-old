@@ -1,6 +1,6 @@
 <div infinite-scroll (scrolled)="onScroll($event)" class="row event-row">
   <div class="col-12">
-      <app-event-card *ngFor="let event of events" [eventData]="event"></app-event-card>
+      <app-event-card class="ev-card" *ngFor="let event of events" [eventData]="event"></app-event-card>
   </div>
 </div>
 
