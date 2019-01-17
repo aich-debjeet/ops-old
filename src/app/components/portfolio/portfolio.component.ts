@@ -203,7 +203,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
    * add category
    */
   portAddCategory(formData: any) {
-    if (this.portAddCategoryForm.controls.categoryName.value === '') {
+    if (this.portAddCategoryForm.controls.categoryName.value.trim() === '') {
       this.catNameIsRequired = true;
       return;
     } else {
@@ -215,7 +215,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
       if (this.portAddCategoryForm.valid === true) {
         this.profileStore.dispatch({
           type: ProfileActions.ADD_PORTFOLIO_CATEGORY,
-          payload: { name: formData.categoryName }
+          payload: { name: formData.categoryName.trim() }
         });
         this.portAddCategoryForm.controls.categoryName.setValue('');
       }
