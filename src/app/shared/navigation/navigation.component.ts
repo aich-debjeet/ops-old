@@ -78,6 +78,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
       message: { open: false },
       profile: { open: false },
     };
+    this.loadNotifsInitialSet();
 
     this.profileState$ = this.store.select('profileTags');
     this.notificationsState$ = this.notificationStore.select('notificationTags');
@@ -114,10 +115,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.notifSub = this.notificationsState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
         this.notifState = state;
+        console.log(this.notifState)
         if (typeof state['recieved_notifications'] !== 'undefined') {
           const noti = state['recieved_notifications'];
           this.notifications = _uniqBy(noti, noti.notificationId);
           this.processNotifications();
+          this.determinReadStatus(this.notifications);
         }
         if (typeof state['marking_as_read_response'] !== 'undefined') {
           // upadte notification as marked
@@ -144,8 +147,17 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.modalService.open('AddMedia');
   }
 
+  determinReadStatus(noti: any){
+    if(noti.length > 0){
+      if(noti.some(i => !i.isRead)){
+        this.notifyNotif = true;
+      } else this.notifyNotif = false;
+    }
+
+  }
+
   notificationPopup() {
-    this.notifyNotif = false;
+    // this.notifyNotif = false;
     if (!this.loadedNotifsInitialSet) {
       this.loadedNotifsInitialSet = true;
       this.loadNotifsInitialSet();
@@ -310,7 +322,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   loadNotifsInitialSet() {
-    console.log('loadNotifsInitialSet');
     const data = {
       notificationType: 'all',
       limit: 10,
