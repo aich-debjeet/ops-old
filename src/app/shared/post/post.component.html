@@ -134,9 +134,13 @@
       src="{{ imageLink +  mediaData?.repopath }}"
       (videoPlayed)="markMediaAsViewed($event, 'video')"></app-videoplayer>
     <a *ngIf="mediaData?.inViewport === false" [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
-      <img [src]="imageLink + mediaData?.thumbNails?.large" [ngClass]="{'audio-image': mediaData?.mtype === 'audio'}"
-        onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';" class="img-responsive"
-        [class.c-feed__adult-blur]="mediaData?.isNsfw && mediaData?.isOwner === false">
+      <img
+        class="img-responsive"
+        (load)="thumbnailLoaded($event)"
+        [src]="imageLink + mediaData?.thumbNails?.large"
+        [ngClass]="{'audio-image': mediaData?.mtype === 'audio'}"
+        [class.c-feed__adult-blur]="mediaData?.isNsfw && mediaData?.isOwner === false"
+        onError="this.src='https://cdn.onepagespotlight.com/img/placeholder-image.jpg';">
       <div class="c-feed__adult" id="c-feed__adult-hide" *ngIf="mediaData?.isNsfw && mediaData?.isOwner === false">
         <div class="c-feed__adult-text">
           <div>
