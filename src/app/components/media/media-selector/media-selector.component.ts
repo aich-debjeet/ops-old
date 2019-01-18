@@ -503,9 +503,9 @@ export class MediaSelectorComponent implements OnInit {
       const data = {
         media : multipleMedias
       }
-      this._store.dispatch({ type: MediaActions.POST_STORY, payload: data });
+      this._store.dispatch({ type: MediaActions.MY_STORY_ADD, payload: data });
       this._store.select('mediaStore')
-      .first(media => media['story_media_success'] === true)
+      .first(media => media['my_story_add_success'] === true)
       .subscribe(data => {
         this.toastr.success('Your media has been successfully posted to your story', 'Upload', {
           timeOut: 3000
