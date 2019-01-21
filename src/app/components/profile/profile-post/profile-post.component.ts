@@ -59,6 +59,8 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
   };
   isLoadingSpottedUsers = true;
   @ViewChild('spottedUsersModal') spottedUsersModal: Modal;
+  @ViewChild('confirmDeleteModal') confirmDeleteModal: Modal;
+  deleteMedia: any;
 
   constructor(
     public route: ActivatedRoute,
@@ -129,14 +131,14 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
     }
   }
 
-  postDelete(post) {
-    const index: number = this.posts.indexOf(post);
-    if (index !== -1) {
-      this.posts.splice(index, 1);
-      const id = post.id;
-      this._store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id });
-    }
-  }
+  // postDelete(post) {
+  //   const index: number = this.posts.indexOf(post);
+  //   if (index !== -1) {
+  //     this.posts.splice(index, 1);
+  //     const id = post.id;
+  //     this._store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id });
+  //   }
+  // }
 
   /**
    * Current User post load
@@ -220,6 +222,20 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
 
   spottedUsersModalClosed() {
     this._store.dispatch({ type: ProfileActions.CLEAR_SPOTTED_USERS });
+  }
+
+  onPostDelete(post) {
+    this.deleteMedia = post;
+    this.confirmDeleteModal.open();
+  }
+
+  deleteConfirmed(action: string) {
+    this.confirmDeleteModal.close();
+    if (action === 'yes' && this.deleteMedia.id !== 'undefined') {
+      const id = this.deleteMedia.id;
+      this._store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id });
+      this._store.dispatch({ type: ProfileActions.MEDIA_POST_DELETE, payload: id });
+    }
   }
 
 }

@@ -74,13 +74,13 @@ export class MediaActions {
   static LOAD_USER_MEDIA_SUCCESS = '[USER]LOAD_USER_MEDIA_SUCCESS';
   static LOAD_USER_MEDIA_FAILED = '[USER]LOAD_USER_MEDIA_FAILED';
 
-  // Media post delete
+   // Media post delete
   static MEDIA_POST_DELETE = 'MEDIA_POST_DELETE';
   static MEDIA_POST_DELETE_SUCCESS = 'MEDIA_POST_DELETE_SUCCESS';
   static MEDIA_POST_DELETE_FAILED = 'MEDIA_POST_DELETE_FAILED';
 
 
-  // Load My Status
+   // Load My Status
   static LOAD_MY_MEDIA = 'LOAD_MY_MEDIA';
   static LOAD_MY_MEDIA_SUCCESS = 'LOAD_MY_MEDIA_SUCCESS';
   static LOAD_MY_MEDIA_FAILED = 'LOAD_MY_MEDIA_FAILED';
@@ -90,14 +90,18 @@ export class MediaActions {
   static MEDIA_EDIT_SUCCESS = 'MEDIA_EDIT_SUCCESS';
   static MEDIA_EDIT_FAILED = 'MEDIA_EDIT_FAILED';
 
-  // to load my story
-  static MY_STORY_GET = 'MY_STORY_GET';
-  static MY_STORY_GET_SUCCESS = 'MY_STORY_GET_SUCCESS';
-  static MY_STORY_GET_FAILED = 'MY_STORY_GET_FAILED';
+    /**
+   * for: Get My Story
+   */
+  static GET_MY_STORY = 'GET_MY_STORY';
+  static GET_MY_STORY_SUCCESS = 'GET_MY_STORY_SUCCESS';
+  static GET_MY_STORY_FAILED = 'GET_MY_STORY_FAILED';
 
-  // to post my story
-  static MY_STORY_ADD = 'MY_STORY_ADD';
-  static MY_STORY_ADD_SUCCESS = 'MY_STORY_ADD_SUCCESS';
-  static MY_STORY_ADD_FAILED = 'MY_STORY_ADD_FAILED';
+    /**
+   * for: post story
+   */
+  static POST_STORY = 'POST_STORY';
+  static POST_STORY_SUCCESS = 'POST_STORY_SUCCESS';
+  static POST_STORY_FAILED = 'POST_STORY_FAILED';
 
 }
