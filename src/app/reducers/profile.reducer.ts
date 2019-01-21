@@ -78,6 +78,29 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
 
   switch (type) {
 
+    /**
+     * for: media deletion
+     */
+    case ProfileActions.PROFILE_MEDIA_POST_DELETE:
+      return Object.assign({}, state, {
+        mediaDeleting: true,
+        mediaDeleted: false,
+        user_following_posts: state.user_following_posts.filter(post => post.id !== payload),
+        user_posts: state.user_posts.filter(post => post.id !== payload)
+      });
+
+    case ProfileActions.PROFILE_MEDIA_POST_DELETE_SUCCESS:
+      return Object.assign({}, state, {
+        mediaDeleting: false,
+        mediaDeleted: true
+      });
+
+    case ProfileActions.PROFILE_MEDIA_POST_DELETE_FAILED:
+      return Object.assign({}, state, {
+        mediaDeleting: false,
+        mediaDeleted: false
+      });
+
     case ProfileActions.CLEAR_SPOTTED_USERS:
       return Object.assign({}, state, {
         spottedUsersParams: null,
@@ -137,7 +160,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
     case ProfileActions.REMOVE_MEDIA:
       return {
         ...state,
-        user_following_posts: state.user_following_posts.filter(post => post.id !== payload)
+        user_following_posts: state.user_following_posts.filter(post => post.id !== payload),
+        user_posts: state.user_posts.filter(post => post.id !== payload)
       };
 
     case ProfileActions.RPOFILE_BOOKAMRK_FLAG_UPDATE:
@@ -1179,12 +1203,12 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
      * Load a portfolio Profile
      */
     case ProfileActions.PORTFOLIO_PROFILE_LOAD:
-    return Object.assign({}, state, {
-      portfolio_user_profile_loading: true,
-      portfolio_user_profile_loaded: false,
-      portfolio_user_profile_params: payload,
-      portfolio_user_profile: null
-    });
+      return Object.assign({}, state, {
+        portfolio_user_profile_loading: true,
+        portfolio_user_profile_loaded: false,
+        portfolio_user_profile_params: payload,
+        portfolio_user_profile: null
+      });
 
     case ProfileActions.PORTFOLIO_PROFILE_LOAD_SUCCESS:
       return Object.assign({}, state, {
@@ -1435,17 +1459,17 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
       return Object.assign({}, state, {
         user_following_posts: home_post_spot === undefined ? [...state.user_following_posts] : [
           ...state.user_following_posts.slice(0, home_post_spot_index),
-          Object.assign({}, home_post_spot, { ...home_post_spot, isSpotted: true, counts: { ...home_post_spot.counts, spotsCount: home_post_spot_count }}),
+          Object.assign({}, home_post_spot, { ...home_post_spot, isSpotted: true, counts: { ...home_post_spot.counts, spotsCount: home_post_spot_count } }),
           ...state.user_following_posts.slice(home_post_spot_index + 1)
         ],
         trending_post: trend_spot_inc === undefined ? [...state.trending_post] : [
           ...state.trending_post.slice(0, trend_spot_inc_index),
-          Object.assign({}, trend_spot_inc, { ...trend_spot_inc, isSpotted: true, counts: { ...trend_spot_inc.counts, spotsCount: trend_spot_inc_count }}),
+          Object.assign({}, trend_spot_inc, { ...trend_spot_inc, isSpotted: true, counts: { ...trend_spot_inc.counts, spotsCount: trend_spot_inc_count } }),
           ...state.trending_post.slice(trend_spot_inc_index + 1)
         ],
         user_posts: post_spot === undefined ? [...state.user_posts] : [
           ...state.user_posts.slice(0, post_spot_index),
-          Object.assign({}, post_spot, { ...post_spot, isSpotted: true, counts: { ...post_spot.counts, spotsCount: post_spot_count }}),
+          Object.assign({}, post_spot, { ...post_spot, isSpotted: true, counts: { ...post_spot.counts, spotsCount: post_spot_count } }),
           ...state.user_posts.slice(post_spot_index + 1)
         ]
       });
@@ -1466,17 +1490,17 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
       return Object.assign({}, state, {
         user_following_posts: home_post_unspot === undefined ? [...state.user_following_posts] : [
           ...state.user_following_posts.slice(0, home_post_unspot_index),
-          Object.assign({}, home_post_unspot, { ...home_post_unspot, isSpotted: false, counts: { ...home_post_unspot.counts, spotsCount: home_post_unspot_count }}),
+          Object.assign({}, home_post_unspot, { ...home_post_unspot, isSpotted: false, counts: { ...home_post_unspot.counts, spotsCount: home_post_unspot_count } }),
           ...state.user_following_posts.slice(home_post_unspot_index + 1)
         ],
         trending_post: trend_spot_dec === undefined ? [...state.trending_post] : [
           ...state.trending_post.slice(0, trend_spot_dec_index),
-          Object.assign({}, trend_spot_dec, { ...trend_spot_dec, isSpotted: false, counts: { ...trend_spot_dec.counts, spotsCount: trend_spot_dec_count }}),
+          Object.assign({}, trend_spot_dec, { ...trend_spot_dec, isSpotted: false, counts: { ...trend_spot_dec.counts, spotsCount: trend_spot_dec_count } }),
           ...state.trending_post.slice(trend_spot_dec_index + 1)
         ],
         user_posts: post_unspot === undefined ? [...state.user_posts] : [
           ...state.user_posts.slice(0, post_unspot_index),
-          Object.assign({}, post_unspot, { ...post_unspot, isSpotted: false, counts: { ...post_unspot.counts, spotsCount: post_unspot_count }}),
+          Object.assign({}, post_unspot, { ...post_unspot, isSpotted: false, counts: { ...post_unspot.counts, spotsCount: post_unspot_count } }),
           ...state.user_posts.slice(post_unspot_index + 1)
         ]
       });
@@ -2003,43 +2027,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
       return Object.assign({}, state, {
         community_media_success: true
       });
-    //   /**
-    //    * Reducer for post story
-    //    */
-    //   case ProfileActions.POST_STORY:
-    //   return Object.assign({}, state, {
-    //     story_media_success: false
-    //   });
-
-    // case ProfileActions.POST_STORY_SUCCESS:
-    //   return Object.assign({}, state, {
-    //     story_media_success: true
-    //   });
-
-      // /**
-      //  * For getting my stories
-      //  */
-      // case ProfileActions.GET_MY_STORY:
-      // return Object.assign({}, state, {
-      //   my_story: [],
-      //   stories_loading: false
-      // });
-
-      // case ProfileActions.GET_MY_STORY_SUCCESS:
-      // return Object.assign({}, state, {
-      //   my_story: payload,
-      //   stories_loading: true
-      // });
-
-      // case ProfileActions.GET_MY_STORY_FAILED:
-      // return Object.assign({}, state, {
-      //   stories_loading: false
-      // });
-
-
-
-
-
 
     case ProfileActions.CANCEL_NETWORK_REQUEST_FAILED:
       return Object.assign({}, state, {

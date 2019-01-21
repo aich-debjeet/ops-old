@@ -190,4 +190,13 @@ export class PostComponent implements OnInit {
     }
   }
 
+  thumbnailLoaded(value: any) {
+    const thumbWrap = value.srcElement.closest('.c-feed__img2');
+    thumbWrap.style.height = value.srcElement.height + 'px';
+    // this.mediaData['thumbDimensions'] = {
+    //   height: value.srcElement.height,
+    //   width: value.srcElement.width
+    // };
+  }
+
 }

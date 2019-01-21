@@ -238,7 +238,7 @@
 <!-- View media modal -->
 <app-modal-new #mediaViewModal modalClass="modal-portfolio__media_view">
   <modal-content>
-    <app-portfolio-view-media (closeViewMediaModal)="mediaViewModal.close()" [viewMediaDetails]="viewMedia"></app-portfolio-view-media>
+    <app-portfolio-view-media (openDefaultMediaModal)="openDefaultMediaModal($event)" (closeViewMediaModal)="mediaViewModal.close()" [viewMediaDetails]="viewMedia"></app-portfolio-view-media>
   </modal-content>
 </app-modal-new>
 <!-- View media modal -->

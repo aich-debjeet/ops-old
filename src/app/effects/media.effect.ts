@@ -271,28 +271,28 @@ export class MediaEffect {
       }))
     );
 
-        /**
-     * Get users story
+    /**
+     * get my story
      */
     @Effect()
     storyGet$ = this.actions$
-    .ofType(MediaActions.GET_MY_STORY)
+    .ofType(MediaActions.MY_STORY_GET)
     .map(toPayload)
     .switchMap((payload) => this.mediaService.storyGet(payload)
-    .map(res => ({ type: MediaActions.GET_MY_STORY_SUCCESS, payload: res }))
-    .catch((res) => Observable.of({ type: MediaActions.GET_MY_STORY_FAILED, payload: res }))
+    .map(res => ({ type: MediaActions.MY_STORY_GET_SUCCESS, payload: res }))
+    .catch((res) => Observable.of({ type: MediaActions.MY_STORY_GET_FAILED, payload: res }))
     );
 
     /**
-     * effects: post story
+     * add my story
      */
     @Effect()
     storyPost$ = this.actions$
-    .ofType(MediaActions.POST_STORY)
+    .ofType(MediaActions.MY_STORY_ADD)
     .map(toPayload)
     .switchMap((payload) => this.mediaService.storyPost(payload)
-    .map(res => ({ type: MediaActions.POST_STORY_SUCCESS, payload: res }))
-    .catch((res) => Observable.of({ type: MediaActions.POST_STORY_FAILED, payload: res }))
+    .map(res => ({ type: MediaActions.MY_STORY_ADD_SUCCESS, payload: res }))
+    .catch((res) => Observable.of({ type: MediaActions.MY_STORY_ADD_FAILED, payload: res }))
     );
 
 

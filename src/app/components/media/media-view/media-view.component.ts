@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UtcDatePipe } from './../../../pipes/utcdate.pipe';
 import { BookmarkActions } from 'app/actions/bookmark.action';
 import { GeneralUtilities } from 'app/helpers/general.utils';
+import { Modal } from 'app/shared/modal-new/Modal';
 
 @Component({
   selector: 'app-media-view',
@@ -28,6 +29,7 @@ export class MediaViewComponent implements OnDestroy {
   @Output() onComment: EventEmitter<any> = new EventEmitter<any>();
   @Output() onMediaNext: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('firstModal') modal: any;
+  @ViewChild('confirmDeleteModal') confirmDeleteModal: Modal;
   domainLink: string = environment.API_DOMAIN;
   private mediaSub: Subscription;
   private profSub: Subscription;
@@ -49,6 +51,7 @@ export class MediaViewComponent implements OnDestroy {
   commentsLoading: boolean;
   commentsLoaded: boolean;
   isMediaOwner: boolean;
+  deleteMedia: any;
 
   constructor(
     private router: Router,
@@ -193,10 +196,8 @@ export class MediaViewComponent implements OnDestroy {
 
   deletePost(data) {
     this.deleteMsg = true;
-    if (data.id !== 'undefined') {
-      const id = data.id;
-      this.store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id });
-    }
+    this.deleteMedia = data;
+    this.confirmDeleteModal.open();
   }
 
   onContentEdit() {
@@ -255,5 +256,15 @@ export class MediaViewComponent implements OnDestroy {
 
   mediaModalClosed() {
     this.store.dispatch({ type: MediaActions.CLEAR_VIEW_MEDIA });
+  }
+
+  deleteConfirmed(action: string) {
+    this.confirmDeleteModal.close();
+    if (action === 'yes' && this.deleteMedia.id !== 'undefined') {
+      this.closeFunction();
+      const id = this.deleteMedia.id;
+      this.store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id });
+      this.store.dispatch({ type: ProfileActions.REMOVE_MEDIA, payload: id });
+    }
   }
 }

@@ -48,6 +48,8 @@ export class HomePostComponent implements OnInit, OnDestroy {
   isLoadingSpottedUsers = true;
 
   @ViewChild('spottedUsersModal') spottedUsersModal: Modal;
+  @ViewChild('confirmDeleteModal') confirmDeleteModal: Modal;
+  deleteMedia: any;
 
   constructor(
     public route: ActivatedRoute,
@@ -111,14 +113,12 @@ export class HomePostComponent implements OnInit, OnDestroy {
     }
     this.store.dispatch({ type: ProfileActions.LOAD_USER_FOLLOWING_POSTS, payload: data });
   }
-  postDelete(post) {
-    const index: number = this.posts.indexOf(post);
-    if (index !== -1) {
-      this.posts.splice(index, 1);
-      const id = post.id;
-      this.store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id });
-    }
+
+  onPostDelete(post) {
+    this.deleteMedia = post;
+    this.confirmDeleteModal.open();
   }
+
   onScroll(e) {
     this.scrolling = e.currentScrollPosition;
     if (this.scrollingLoad <= this.scrolling) {
@@ -220,6 +220,14 @@ export class HomePostComponent implements OnInit, OnDestroy {
         tempSub.unsubscribe();
       }
     });
+  }
+
+  deleteConfirmed(action: string) {
+    this.confirmDeleteModal.close();
+    if (action === 'yes' && this.deleteMedia.id !== 'undefined') {
+      const id = this.deleteMedia.id;
+      this.store.dispatch({ type: ProfileActions.PROFILE_MEDIA_POST_DELETE, payload: id });
+    }
   }
 
 }
