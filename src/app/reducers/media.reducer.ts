@@ -1,18 +1,18 @@
 import { ActionReducer, Action } from '@ngrx/store';
-import { Media, initialMedia  } from '../models/media.model';
+import { Media, initialMedia } from '../models/media.model';
 import { MediaActions } from '../actions/media.action';
 import { GeneralUtilities } from 'app/helpers/general.utils';
 
 const gUtils = new GeneralUtilities;
 
-export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload, type}: Action) =>  {
+export const MediaReducer: ActionReducer<any> = (state = initialMedia, { payload, type }: Action) => {
 
   switch (type) {
 
     case MediaActions.CLEAR_VIEW_MEDIA:
-    return Object.assign({}, state, {
-      media_detail: {}
-    });
+      return Object.assign({}, state, {
+        media_detail: {}
+      });
 
     case MediaActions.MEDIA_BOOKAMRK_FLAG_UPDATE:
       return Object.assign({}, state, {
@@ -332,7 +332,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
         });
       }
       return Object.assign({}, state, {
-          my_media_loading: false
+        my_media_loading: false
       });
 
 
@@ -342,85 +342,85 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
         my_media: new_media
       });
 
-  /**
-   * MEDIA_POST_DELETE
-   */
-  case MediaActions.MEDIA_POST_DELETE:
-    let my_story_del_index;
-    if (gUtils.checkNestedKey(state, ['my_story', 'media']) && state.my_story.media.length > 0) {
-      my_story_del_index = state.my_story.media.indexOf(payload);
-    }
-    return Object.assign({}, state, {
-      mediaDeleting: true,
-      mediaDeleted: false,
-      my_story: my_story_del_index === undefined ? { ...state.my_story } : {
-        ...state.my_story,
-        media: state.my_story.media.filter(media => media.id !== payload)
+    /**
+     * MEDIA_POST_DELETE
+     */
+    case MediaActions.MEDIA_POST_DELETE:
+      let my_story_del_index;
+      if (gUtils.checkNestedKey(state, ['my_story', 'media']) && state.my_story.media.length > 0) {
+        my_story_del_index = state.my_story.media.indexOf(payload);
       }
-    });
+      return Object.assign({}, state, {
+        mediaDeleting: true,
+        mediaDeleted: false,
+        my_story: my_story_del_index === undefined ? { ...state.my_story } : {
+          ...state.my_story,
+          media: state.my_story.media.filter(media => media.id !== payload)
+        }
+      });
 
-  case MediaActions.MEDIA_POST_DELETE_SUCCESS:
-    return Object.assign({}, state, {
-      mediaDeleting: false,
-      mediaDeleted: true,
-      media_delete_msg: payload.SUCCESS,
-      channel_detail: state.channel_detail.spotCount === undefined ? { ...state.channel_detail } : {
-        ...state.channel_detail,
-        spotCount: state.channel_detail ? state.channel_detail.spotCount - 1 : null
-      }
-    });
+    case MediaActions.MEDIA_POST_DELETE_SUCCESS:
+      return Object.assign({}, state, {
+        mediaDeleting: false,
+        mediaDeleted: true,
+        media_delete_msg: payload.SUCCESS,
+        channel_detail: state.channel_detail.spotCount === undefined ? { ...state.channel_detail } : {
+          ...state.channel_detail,
+          spotCount: state.channel_detail ? state.channel_detail.spotCount - 1 : null
+        }
+      });
 
-  case MediaActions.MEDIA_POST_DELETE_FAILED:
-    return Object.assign({}, state, {
-      mediaDeleting: false,
-      mediaDeleted: false
-    });
+    case MediaActions.MEDIA_POST_DELETE_FAILED:
+      return Object.assign({}, state, {
+        mediaDeleting: false,
+        mediaDeleted: false
+      });
 
-  /**
-   * Media_Edit
-   */
-  case MediaActions.MEDIA_EDIT_SUCCESS:
-    return Object.assign({}, state, {
-      media_edit_msg: payload.SUCCESS
-    });
+    /**
+     * Media_Edit
+     */
+    case MediaActions.MEDIA_EDIT_SUCCESS:
+      return Object.assign({}, state, {
+        media_edit_msg: payload.SUCCESS
+      });
 
-  case MediaActions.MEDIA_NEXT_SUCCESS:
-    return Object.assign({}, state, {
-      media_carousel: payload
-    });
+    case MediaActions.MEDIA_NEXT_SUCCESS:
+      return Object.assign({}, state, {
+        media_carousel: payload
+      });
 
-  /**
-   * For getting my stories
-   */
-  case MediaActions.GET_MY_STORY:
-    return Object.assign({}, state, {
-      my_story: [],
-      stories_loading: false
-    });
+    /**
+     * For getting my stories
+     */
+    case MediaActions.MY_STORY_GET:
+      return Object.assign({}, state, {
+        my_story: [],
+        stories_loading: false
+      });
 
-  case MediaActions.GET_MY_STORY_SUCCESS:
-    return Object.assign({}, state, {
-      my_story: payload,
-      stories_loading: true
-    });
+    case MediaActions.MY_STORY_GET_SUCCESS:
+      return Object.assign({}, state, {
+        my_story: payload,
+        stories_loading: true
+      });
 
-  case MediaActions.GET_MY_STORY_FAILED:
-    return Object.assign({}, state, {
-      stories_loading: false
-    });
+    case MediaActions.MY_STORY_GET_FAILED:
+      return Object.assign({}, state, {
+        stories_loading: false
+      });
 
-  /**
-   * Reducer for post story
-   */
-  case MediaActions.POST_STORY:
-    return Object.assign({}, state, {
-      story_media_success: false
-    });
+    /**
+     * Reducer for post story
+     */
+    case MediaActions.MY_STORY_ADD:
+      return Object.assign({}, state, {
+        story_media_success: false
+      });
 
-  case MediaActions.POST_STORY_SUCCESS:
-    return Object.assign({}, state, {
-      story_media_success: true
-    });
+    case MediaActions.MY_STORY_ADD_SUCCESS:
+      return Object.assign({}, state, {
+        story_media_success: true
+      });
 
     default:
       return state;
