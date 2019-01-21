@@ -11,17 +11,17 @@ import { Media, initialMedia } from '../../models/media.model';
   templateUrl: './my-story.component.html',
   styleUrls: ['./my-story.component.scss']
 })
-export class MyStoryComponent implements OnInit, OnChanges {
+export class MyStoryComponent implements OnInit, OnDestroy, OnChanges {
 
-@Input() currentUser: boolean;
-@Input() handle: string;
+  @Input() currentUser: boolean;
+  @Input() handle: string;
 
- baseUrl = environment.API_IMAGE;
- profileState$: any;
- private mediaSub: Subscription;
- mediaState$: Observable<Media>;
- mediaStore = initialMedia;
- storyList: any;
+  baseUrl = environment.API_IMAGE;
+  profileState$: any;
+  private mediaSub: Subscription;
+  mediaState$: Observable<Media>;
+  mediaStore = initialMedia;
+  storyList: any;
   storyDetails: any;
   getSto = true;
 
@@ -36,20 +36,26 @@ export class MyStoryComponent implements OnInit, OnChanges {
         this.storyDetails = state['my_story'];
       }
     });
-   }
-  
-   ngOnChanges(changes: SimpleChanges) {
-     const handle: SimpleChange = changes.handle;
-     if(handle.currentValue !== undefined){
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    const handle: SimpleChange = changes.handle;
+    if (handle.currentValue !== undefined) {
       this._store.dispatch({
-        type: MediaActions.GET_MY_STORY, payload: {
+        type: MediaActions.MY_STORY_GET, payload: {
           handle: handle.currentValue
         }
       });
-     }
+    }
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    if (this.mediaSub) {
+      this.mediaSub.unsubscribe();
+    }
   }
 
 }

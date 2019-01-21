@@ -6,7 +6,7 @@
         *ngFor="let userMedia of posts; let i = index"
         (elemViewportStatus)="elemInViewportStatus($event)"
         [className]="'col-md-8'"
-        (postDelete)="postDelete(userMedia)"
+        (postDelete)="onPostDelete(userMedia)"
         [mediaData]="userMedia"
         [userData]="userData"></app-post>
     </div>
@@ -58,5 +58,12 @@
         </div>
       </div>
     </ul>
+  </modal-content>
+</app-modal-new>
+
+<app-modal-new #confirmDeleteModal modalClass="o-comodal_main in">
+  <modal-content>
+    <app-confirm-box [message]="'Are you sure you want to delete this post?'" [heading]="'Delete'" (confirmAction)="deleteConfirmed($event)"
+      (closeModal)="confirmDeleteModal.close()"></app-confirm-box>
   </modal-content>
 </app-modal-new>
