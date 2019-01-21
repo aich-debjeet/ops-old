@@ -499,19 +499,19 @@ export class MediaSelectorComponent implements OnInit {
           });
       }
     }
-    if(this.post_to === 'my_story'){
+    if (this.post_to === 'my_story') {
       const data = {
-        media : multipleMedias
+        media: multipleMedias
       }
       this._store.dispatch({ type: MediaActions.MY_STORY_ADD, payload: data });
       this._store.select('mediaStore')
-      .first(media => media['my_story_add_success'] === true)
-      .subscribe(data => {
-        this.toastr.success('Your media has been successfully posted to your story', 'Upload', {
-          timeOut: 3000
+        .first(media => media['story_media_success'] === true)
+        .subscribe(data => {
+          this.toastr.success('Your media has been successfully posted to your story', 'Upload', {
+            timeOut: 3000
+          });
+          this.router.navigate(['/profile/user/']);
         });
-        this.router.navigate(['/profile/user/']);
-      });
     }
     if (this.post_to === 'channel') {
       this.postMediaToChannel(this.ct_id, multipleMedias)
