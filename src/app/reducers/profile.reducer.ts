@@ -78,6 +78,29 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
 
   switch (type) {
 
+    /**
+     * for: media deletion
+     */
+    case ProfileActions.MEDIA_POST_DELETE:
+      return Object.assign({}, state, {
+        mediaDeleting: true,
+        mediaDeleted: false,
+        user_following_posts: state.user_following_posts.filter(post => post.id !== payload),
+        user_posts: state.user_posts.filter(post => post.id !== payload)
+      });
+
+    case ProfileActions.MEDIA_POST_DELETE_SUCCESS:
+      return Object.assign({}, state, {
+        mediaDeleting: false,
+        mediaDeleted: true
+      });
+
+    case ProfileActions.MEDIA_POST_DELETE_FAILED:
+      return Object.assign({}, state, {
+        mediaDeleting: false,
+        mediaDeleted: false
+      });
+
     case ProfileActions.CLEAR_SPOTTED_USERS:
       return Object.assign({}, state, {
         spottedUsersParams: null,

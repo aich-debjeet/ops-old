@@ -11,9 +11,26 @@ import 'rxjs/add/operator/filter';
 
 import { ProfileService } from '../services/profile.service';
 import { ProfileActions } from '../actions/profile.action';
+import { MediaService } from 'app/services/media.service';
 
 @Injectable()
 export class ProfileEffect {
+
+
+  /**
+   *Media post delete
+   */
+  @Effect()
+  mediaPostDelete$ = this.actions$
+    .ofType(ProfileActions.MEDIA_POST_DELETE)
+    .map(toPayload)
+    .switchMap((payload) => this.mediaService.mediaPostDelete(payload)
+      .map(res => ({ type: ProfileActions.MEDIA_POST_DELETE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.MEDIA_POST_DELETE_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
 
   /**
   * spotted users
@@ -1057,7 +1074,8 @@ export class ProfileEffect {
 
   constructor(
     private actions$: Actions,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private mediaService: MediaService
   ) { }
 
 }
