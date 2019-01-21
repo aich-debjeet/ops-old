@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
-import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs/Rx'
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
