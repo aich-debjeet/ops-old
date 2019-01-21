@@ -1,6 +1,9 @@
 import { ActionReducer, Action } from '@ngrx/store';
 import { Media, initialMedia  } from '../models/media.model';
 import { MediaActions } from '../actions/media.action';
+import { GeneralUtilities } from 'app/helpers/general.utils';
+
+const gUtils = new GeneralUtilities;
 
 export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload, type}: Action) =>  {
 
@@ -343,7 +346,10 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
    * MEDIA_POST_DELETE
    */
   case MediaActions.MEDIA_POST_DELETE:
-    const my_story_del_index = state.my_story.media.indexOf(payload);
+    let my_story_del_index;
+    if (gUtils.checkNestedKey(state, ['my_story', 'media']) && state.my_story.media.length > 0) {
+      my_story_del_index = state.my_story.media.indexOf(payload);
+    }
     return Object.assign({}, state, {
       mediaDeleting: true,
       mediaDeleted: false,
