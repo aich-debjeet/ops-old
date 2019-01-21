@@ -264,6 +264,7 @@ export class MediaViewComponent implements OnDestroy {
       this.closeFunction();
       const id = this.deleteMedia.id;
       this.store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id });
+      this.store.dispatch({ type: ProfileActions.REMOVE_MEDIA, payload: id });
     }
   }
 }
