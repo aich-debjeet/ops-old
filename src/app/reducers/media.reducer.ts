@@ -343,20 +343,33 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
    * MEDIA_POST_DELETE
    */
   case MediaActions.MEDIA_POST_DELETE:
-    return Object.assign({}, state,{
-      my_story:{
-          ...state.my_story,
-          media:state.my_story.media.filter(media => media.id != payload)},
+    const my_story_del_index = state.my_story.media.indexOf(payload);
+    return Object.assign({}, state, {
+      mediaDeleting: true,
+      mediaDeleted: false,
+      my_story: my_story_del_index === undefined ? { ...state.my_story } : {
+        ...state.my_story,
+        media: state.my_story.media.filter(media => media.id !== payload)
+      }
     });
 
-    case MediaActions.MEDIA_POST_DELETE_SUCCESS:
-      return Object.assign({}, state, {
-        media_delete_msg: payload.SUCCESS,
-        channel_detail: {
-          ...state.channel_detail,
-          spotCount: state.channel_detail ? state.channel_detail.spotCount - 1 : null
-        }
-      });
+  case MediaActions.MEDIA_POST_DELETE_SUCCESS:
+    return Object.assign({}, state, {
+      mediaDeleting: false,
+      mediaDeleted: true,
+      media_delete_msg: payload.SUCCESS,
+      channel_detail: state.channel_detail.spotCount === undefined ? { ...state.channel_detail } : {
+        ...state.channel_detail,
+        spotCount: state.channel_detail ? state.channel_detail.spotCount - 1 : null
+      }
+    });
+
+  case MediaActions.MEDIA_POST_DELETE_FAILED:
+    return Object.assign({}, state, {
+      mediaDeleting: false,
+      mediaDeleted: false
+    });
+
   /**
    * Media_Edit
    */
