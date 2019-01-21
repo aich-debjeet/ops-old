@@ -20,12 +20,12 @@ export class ProfileEffect {
    */
   @Effect()
   mediaPostDelete$ = this.actions$
-    .ofType(ProfileActions.MEDIA_POST_DELETE)
+    .ofType(ProfileActions.PROFILE_MEDIA_POST_DELETE)
     .map(toPayload)
     .switchMap((payload) => this.mediaService.mediaPostDelete(payload)
-      .map(res => ({ type: ProfileActions.MEDIA_POST_DELETE_SUCCESS, payload: res }))
+      .map(res => ({ type: ProfileActions.PROFILE_MEDIA_POST_DELETE_SUCCESS, payload: res }))
       .catch((res) => Observable.of({
-        type: ProfileActions.MEDIA_POST_DELETE_FAILED,
+        type: ProfileActions.PROFILE_MEDIA_POST_DELETE_FAILED,
         payload: { errorStatus: res.status }
       }))
     );

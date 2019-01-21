@@ -81,7 +81,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
     /**
      * for: media deletion
      */
-    case ProfileActions.MEDIA_POST_DELETE:
+    case ProfileActions.PROFILE_MEDIA_POST_DELETE:
       return Object.assign({}, state, {
         mediaDeleting: true,
         mediaDeleted: false,
@@ -89,13 +89,13 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, { payload
         user_posts: state.user_posts.filter(post => post.id !== payload)
       });
 
-    case ProfileActions.MEDIA_POST_DELETE_SUCCESS:
+    case ProfileActions.PROFILE_MEDIA_POST_DELETE_SUCCESS:
       return Object.assign({}, state, {
         mediaDeleting: false,
         mediaDeleted: true
       });
 
-    case ProfileActions.MEDIA_POST_DELETE_FAILED:
+    case ProfileActions.PROFILE_MEDIA_POST_DELETE_FAILED:
       return Object.assign({}, state, {
         mediaDeleting: false,
         mediaDeleted: false

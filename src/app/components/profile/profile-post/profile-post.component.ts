@@ -233,7 +233,7 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
     this.confirmDeleteModal.close();
     if (action === 'yes' && this.deleteMedia.id !== 'undefined') {
       const id = this.deleteMedia.id;
-      this._store.dispatch({ type: ProfileActions.MEDIA_POST_DELETE, payload: id });
+      this._store.dispatch({ type: ProfileActions.PROFILE_MEDIA_POST_DELETE, payload: id });
     }
   }
 
