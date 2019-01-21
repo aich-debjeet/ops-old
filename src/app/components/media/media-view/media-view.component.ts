@@ -258,7 +258,7 @@ export class MediaViewComponent implements OnDestroy {
     this.store.dispatch({ type: MediaActions.CLEAR_VIEW_MEDIA });
   }
 
-  confirmation(action: string) {
+  deleteConfirmed(action: string) {
     this.confirmDeleteModal.close();
     if (action === 'yes' && this.deleteMedia.id !== 'undefined') {
       this.closeFunction();
