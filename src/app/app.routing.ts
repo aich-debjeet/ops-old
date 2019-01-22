@@ -4,7 +4,6 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { SpotfeedComponent } from './components/spotfeed/spotfeed.component';
-import { SpotfeedPremiumComponent } from './components/spotfeed-premium/spotfeed-premium.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { LogoutHomeComponent } from './components/logout-home/logout-home.component';
 import { ChannelInnerComponent } from './components/channel-inner/channel-inner.component';
@@ -36,7 +35,6 @@ export const routes: Routes = [
     { path: 'user/status/list', component: StatusListComponent, canActivate: [AuthGuard] },
     { path: 'user/media/list', loadChildren: './components/media-list/media-list.module#MediaListModule', canActivate: [AuthGuard] },
     { path: 'spotfeed/:id', component: SpotfeedComponent, canActivate: [AuthGuard] },
-    { path: 'spotfeed-premium', component: SpotfeedPremiumComponent, canActivate: [AuthGuard] },
     { path: 'notification', loadChildren: './components/notification/notification.module#NotificationModule', canActivate: [AuthGuard] },
     { path: 'message', loadChildren: './components/message/message.module#MessageModule', canActivate: [AuthGuard] },
     { path: 'portfolio', loadChildren: './components/portfolio/portfolio.module#PortfolioModule' },
