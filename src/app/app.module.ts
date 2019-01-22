@@ -103,8 +103,6 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { TermsComponent } from './components/terms/terms.component';
 import { AboutComponent } from './components/about/about.component';
-import { DirectoryEffect } from './effects/directory.effect';
-import { DirectoryService } from './services/directory.service';
 import { NgProgressModule } from 'ngx-progressbar';
 import { BookmarkEffect } from './effects/bookmark.effect';
 import { BookmarkService } from './services/bookmark.service';
@@ -170,7 +168,6 @@ import { BookmarkService } from './services/bookmark.service';
     EffectsModule.run(ExploreEffect),
     EffectsModule.run(ClaimProfileEffect),
     EffectsModule.run(CommunitiesEffect),
-    EffectsModule.run(DirectoryEffect),
     EffectsModule.run(BookmarkEffect),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     VgCoreModule,
@@ -209,7 +206,6 @@ import { BookmarkService } from './services/bookmark.service';
     ClaimProfileService,
     FileService,
     CommunitiesService,
-    DirectoryService,
     BookmarkService
   ],
   bootstrap: [AppComponent]

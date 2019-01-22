@@ -54,7 +54,6 @@ export const routes: Routes = [
     { path: 'search', loadChildren: './components/search/search.module#SearchModule', canActivate: [AuthGuard] },
     { path: 'org', loadChildren: './components/organization/organization.module#OrganizationModule' },
     { path: 'opportunity', loadChildren: './components/opportunity/opportunity.module#OpportunityModule', canActivate: [AuthGuard] },
-    { path: 'directory', loadChildren: './components/directory/directory.module#DirectoryModule', canActivate: [AuthGuard] },
     { path: 'invite', loadChildren: './components/invite-people/invite-people.module#InvitePeopleModule' },
     { path: 'bookmark', loadChildren: './components/bookmark/bookmark.module#BookmarkModule', canActivate: [AuthGuard] },
     { path: 'page-not-found', component: NotFoundPageComponent },
