@@ -546,11 +546,12 @@ export class ProfileService {
   }
 
   /**
-   * Update Profile Object
+   * load directory api
    */
-  loadDirectory(body: any) {
-    return this.api.put('/portal/directory', body);
-  }
+  // loadDirectory(body: any) {
+  //   return this.api.put('/portal/directory', body);
+  // }
+
   /**
     * Get Blocked Users
     */
