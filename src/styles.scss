@@ -445,6 +445,9 @@ app-audioplayer vg-scrub-bar {
 .dp-material {
 	color: #000;
 	font-size: 12px;
+	.dp-day-calendar-container {
+		width: 244px;
+	}
 	span.dp-calendar-weekday {
 		font-size: 12px;
 		background: #fff;
