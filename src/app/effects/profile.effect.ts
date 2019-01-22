@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
-import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs/Rx'
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
@@ -11,9 +9,26 @@ import 'rxjs/add/operator/filter';
 
 import { ProfileService } from '../services/profile.service';
 import { ProfileActions } from '../actions/profile.action';
+import { MediaService } from 'app/services/media.service';
 
 @Injectable()
 export class ProfileEffect {
+
+
+  /**
+   *Media post delete
+   */
+  @Effect()
+  mediaPostDelete$ = this.actions$
+    .ofType(ProfileActions.PROFILE_MEDIA_POST_DELETE)
+    .map(toPayload)
+    .switchMap((payload) => this.mediaService.mediaPostDelete(payload)
+      .map(res => ({ type: ProfileActions.PROFILE_MEDIA_POST_DELETE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.PROFILE_MEDIA_POST_DELETE_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
 
   /**
   * spotted users
@@ -941,30 +956,6 @@ export class ProfileEffect {
       .catch((res) => Observable.of({ type: ProfileActions.COMMUNITY_MEDIA_POST_FAILED, payload: res }))
     );
 
-    // /**
-    //  * effects: post story
-    //  */
-    // @Effect()
-    // storyPost$ = this.actions$
-    // .ofType(ProfileActions.POST_STORY)
-    // .map(toPayload)
-    // .switchMap((payload) => this.profileService.storyPost(payload)
-    // .map(res => ({ type: ProfileActions.POST_STORY_SUCCESS, payload: res }))
-    // .catch((res) => Observable.of({ type: ProfileActions.POST_STORY_FAILED, payload: res }))
-    // );
-
-    // /**
-    //  * Get users story
-    //  */
-    // @Effect()
-    // storyGet$ = this.actions$
-    // .ofType(ProfileActions.GET_MY_STORY)
-    // .map(toPayload)
-    // .switchMap((payload) => this.profileService.storyGet(payload)
-    // .map(res => ({ type: ProfileActions.GET_MY_STORY_SUCCESS, payload: res }))
-    // .catch((res) => Observable.of({ type: ProfileActions.GET_MY_STORY_FAILED, payload: res }))
-    // );
-
   /**
    * GET PENDING REQUEST LIST
    */
@@ -1057,7 +1048,8 @@ export class ProfileEffect {
 
   constructor(
     private actions$: Actions,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private mediaService: MediaService
   ) { }
 
 }
