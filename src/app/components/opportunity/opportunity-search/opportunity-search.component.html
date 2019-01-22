@@ -160,7 +160,7 @@
 			<app-opportunity-search-created 	*ngIf="searchType === 'created'" 	 [opportunities]="opportunities"></app-opportunity-search-created>
 		</div>
 		<div *ngIf="!showPreloader && opportunities && opportunities.length === 0">
-			<p class="result-not-found">No records found!</p>
+			<p class="result-not-found">Sorry, no records found.</p>
 		</div>
 		<!-- search prelaoder -->
 		<div *ngIf="showPreloader">

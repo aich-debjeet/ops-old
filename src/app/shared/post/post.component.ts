@@ -163,7 +163,7 @@ export class PostComponent implements OnInit {
       description: text,
       mType: this.mediaType
     }
-    console.log(data)
+    // console.log(data)
     this.store.dispatch({ type: MediaActions.MEDIA_EDIT, payload: data });
   }
 
@@ -188,6 +188,15 @@ export class PostComponent implements OnInit {
       // this.store.dispatch({ type: MediaActions.MEDIA_ADD_VIEW_COUNT, payload: data });
       // this.store.dispatch({ type: ProfileActions.MEDIA_VIEW_COUNT_UPDATE, payload: mediaId });
     }
+  }
+
+  thumbnailLoaded(value: any) {
+    const thumbWrap = value.srcElement.closest('.c-feed__img2');
+    thumbWrap.style.height = value.srcElement.height + 'px';
+    // this.mediaData['thumbDimensions'] = {
+    //   height: value.srcElement.height,
+    //   width: value.srcElement.width
+    // };
   }
 
 }
