@@ -93,7 +93,6 @@ import { StatusListComponent } from './components/status-list/status-list.compon
 import { PlannerComponent } from './components/planner/planner.component';
 import { NetworkComponent } from './components/network/network.component';
 import { ProjectComponent } from './components/project/project.component';
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { SpotfeedComponent } from './components/spotfeed/spotfeed.component';
 import { SpotfeedPremiumComponent } from './components/spotfeed-premium/spotfeed-premium.component';
 import { SettingsComponent } from './components/settings/settings.component';
@@ -111,7 +110,6 @@ import { BookmarkService } from './services/bookmark.service';
   declarations: [
     AppComponent,
     LoginComponent,
-    ResetPasswordComponent,
     SpotfeedComponent,
     SpotfeedPremiumComponent,
     SettingsComponent,

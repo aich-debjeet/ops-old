@@ -3,7 +3,6 @@ import { Routes } from '@angular/router';
 // components
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { SpotfeedComponent } from './components/spotfeed/spotfeed.component';
 import { SpotfeedPremiumComponent } from './components/spotfeed-premium/spotfeed-premium.component';
 import { SettingsComponent } from './components/settings/settings.component';
@@ -33,7 +32,6 @@ export const routes: Routes = [
     { path: 'reg', loadChildren: './components/registration/registration.module#RegistrationModule' },
     { path: 'account', loadChildren: './components/forgot-password/forgot-password.module#ForgotPasswordModule' },
     { path: 'home', loadChildren: './components/home/home.module#HomeModule', canActivate: [AuthGuard] },
-    { path: 'reset-password', component: ResetPasswordComponent },
     { path: 'profile', loadChildren: './components/profile/profile.module#ProfileModule' },
     { path: 'user/status/list', component: StatusListComponent, canActivate: [AuthGuard] },
     { path: 'user/media/list', loadChildren: './components/media-list/media-list.module#MediaListModule', canActivate: [AuthGuard] },
