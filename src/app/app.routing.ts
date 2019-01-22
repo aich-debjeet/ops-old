@@ -9,7 +9,6 @@ import { LogoutHomeComponent } from './components/logout-home/logout-home.compon
 import { ChannelInnerComponent } from './components/channel-inner/channel-inner.component';
 import { ResourceComponent } from './components/resource/resource.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
-import { ProjectComponent } from './components/project/project.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { TermsComponent } from './components/terms/terms.component';
 import { AboutComponent } from './components/about/about.component';
@@ -34,7 +33,6 @@ export const routes: Routes = [
     { path: 'notification', loadChildren: './components/notification/notification.module#NotificationModule', canActivate: [AuthGuard] },
     { path: 'message', loadChildren: './components/message/message.module#MessageModule', canActivate: [AuthGuard] },
     { path: 'portfolio', loadChildren: './components/portfolio/portfolio.module#PortfolioModule' },
-    { path: 'project', component: ProjectComponent, canActivate: [AuthGuard] },
     { path: 'event', loadChildren: './components/events/events.module#EventsModule' },
     { path: 'explore', loadChildren: './components/explore/explore.module#ExploreModule', canActivate: [AuthGuard] },
     { path: 'user/settings', component: SettingsComponent, canActivate: [AuthGuard] },

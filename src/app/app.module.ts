@@ -90,7 +90,6 @@ import { ChannelInnerComponent } from './components/channel-inner/channel-inner.
 import { ResourceComponent } from './components/resource/resource.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import { NetworkComponent } from './components/network/network.component';
-import { ProjectComponent } from './components/project/project.component';
 import { SpotfeedComponent } from './components/spotfeed/spotfeed.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { LogoutHomeComponent } from './components/logout-home/logout-home.component';
@@ -118,7 +117,6 @@ import { BookmarkService } from './services/bookmark.service';
     UniquePipe,
     SearchNamePipe,
     NetworkComponent,
-    ProjectComponent,
     PrivacyPolicyComponent,
     TermsComponent,
     AboutComponent
