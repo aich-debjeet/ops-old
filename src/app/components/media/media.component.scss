@@ -6,7 +6,7 @@
     background: #fff;
     padding-top: 70px;
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        padding-top: 48px;
+        padding-top: 70px;
     }
 }
 

@@ -125,6 +125,9 @@
     width: 100%;
     float: left;
     padding-top: 5px;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        padding-right: 15px;
+    }
 }
 
 .o-event-select-location__ico {
