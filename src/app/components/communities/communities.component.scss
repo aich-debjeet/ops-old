@@ -27,8 +27,7 @@
     box-shadow: 0 11px 4px 0 rgba(102, 45, 145, 0.1);
     padding: 8px 16px;
     @include mq($from: $mobile_sm, $until: $tablet){
-        width: 97%!important;
-        margin:0px 8px;
+        width: calc(100% - 16px);
     }
 }
 
@@ -127,11 +126,10 @@
 }
 
 .o-c-tab-top-block{
-    margin: 0px 6px;
     width: 99%;
-    float: left;
+    margin: 0px auto;
     @include mq($from: $mobile_sm, $until: $tablet){
-        width: 98%!important;
+        width: calc(100% - 16px);
     }
 }
 
