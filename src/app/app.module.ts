@@ -28,7 +28,7 @@ import { SharedPipesModule } from './pipes/shared-pipes.module';
 
 // Guard
 import { AuthGuard } from './guard/auth.guard';
-import { AuthlogoutGuard } from './guard/authlogout.guard';
+import { AuthLogoutGuard } from './guard/authlogout.guard';
 
 // Routes
 import { routes } from './app.routing';
@@ -87,16 +87,9 @@ import { VgControlsModule } from 'videogular2/controls';
 import { VgOverlayPlayModule } from 'videogular2/overlay-play';
 import { VgBufferingModule } from 'videogular2/buffering';
 import { ChannelInnerComponent } from './components/channel-inner/channel-inner.component';
-import { LearnComponent } from './components/learn/learn.component';
-import { ResourceComponent } from './components/resource/resource.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
-import { StatusListComponent } from './components/status-list/status-list.component';
-import { PlannerComponent } from './components/planner/planner.component';
 import { NetworkComponent } from './components/network/network.component';
-import { ProjectComponent } from './components/project/project.component';
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { SpotfeedComponent } from './components/spotfeed/spotfeed.component';
-import { SpotfeedPremiumComponent } from './components/spotfeed-premium/spotfeed-premium.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { LogoutHomeComponent } from './components/logout-home/logout-home.component';
 import { LogoutComponent } from './components/logout/logout.component';
@@ -112,23 +105,16 @@ import { BookmarkService } from './services/bookmark.service';
   declarations: [
     AppComponent,
     LoginComponent,
-    ResetPasswordComponent,
     SpotfeedComponent,
-    SpotfeedPremiumComponent,
     SettingsComponent,
     LogoutHomeComponent,
     LogoutComponent,
     ChannelInnerComponent,
-    LearnComponent,
-    ResourceComponent,
     NotFoundPageComponent,
     OrderByPipe,
     UniquePipe,
     SearchNamePipe,
-    StatusListComponent,
-    PlannerComponent,
     NetworkComponent,
-    ProjectComponent,
     PrivacyPolicyComponent,
     TermsComponent,
     AboutComponent
@@ -189,7 +175,7 @@ import { BookmarkService } from './services/bookmark.service';
     MessageService,
     AuthGuard,
     SharedService,
-    AuthlogoutGuard,
+    AuthLogoutGuard,
     GeneralService,
     ApiService,
     TokenService,
