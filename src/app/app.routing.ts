@@ -14,15 +14,15 @@ import { AboutComponent } from './components/about/about.component';
 
 // Guard
 import { AuthGuard } from './guard/auth.guard';
-import { AuthlogoutGuard } from './guard/authlogout.guard';
+import { AuthLogoutGuard } from './guard/authlogout.guard';
 
 export const routes: Routes = [
-    { path: '', component: LogoutHomeComponent, canActivate: [AuthlogoutGuard] },
+    { path: '', component: LogoutHomeComponent, canActivate: [AuthLogoutGuard] },
     { path: 'logout', component: LogoutComponent },
     { path: 'privacy-policy', component: PrivacyPolicyComponent },
     { path: 'terms', component: TermsComponent },
     { path: 'about', component: AboutComponent },
-    { path: 'login', component: LoginComponent, canActivate: [AuthlogoutGuard] },
+    { path: 'login', component: LoginComponent, canActivate: [AuthLogoutGuard] },
     { path: 'channel/:id', component: ChannelInnerComponent, canActivate: [AuthGuard] },
     { path: 'reg', loadChildren: './components/registration/registration.module#RegistrationModule' },
     { path: 'account', loadChildren: './components/forgot-password/forgot-password.module#ForgotPasswordModule' },

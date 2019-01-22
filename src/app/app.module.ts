@@ -28,7 +28,7 @@ import { SharedPipesModule } from './pipes/shared-pipes.module';
 
 // Guard
 import { AuthGuard } from './guard/auth.guard';
-import { AuthlogoutGuard } from './guard/authlogout.guard';
+import { AuthLogoutGuard } from './guard/authlogout.guard';
 
 // Routes
 import { routes } from './app.routing';
@@ -175,7 +175,7 @@ import { BookmarkService } from './services/bookmark.service';
     MessageService,
     AuthGuard,
     SharedService,
-    AuthlogoutGuard,
+    AuthLogoutGuard,
     GeneralService,
     ApiService,
     TokenService,
