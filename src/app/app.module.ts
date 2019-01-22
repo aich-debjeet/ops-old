@@ -89,7 +89,6 @@ import { VgBufferingModule } from 'videogular2/buffering';
 import { ChannelInnerComponent } from './components/channel-inner/channel-inner.component';
 import { ResourceComponent } from './components/resource/resource.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
-import { PlannerComponent } from './components/planner/planner.component';
 import { NetworkComponent } from './components/network/network.component';
 import { ProjectComponent } from './components/project/project.component';
 import { SpotfeedComponent } from './components/spotfeed/spotfeed.component';
@@ -118,7 +117,6 @@ import { BookmarkService } from './services/bookmark.service';
     OrderByPipe,
     UniquePipe,
     SearchNamePipe,
-    PlannerComponent,
     NetworkComponent,
     ProjectComponent,
     PrivacyPolicyComponent,
