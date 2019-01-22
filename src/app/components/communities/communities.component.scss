@@ -15,6 +15,10 @@
     background: $color-theme;
     background-size: cover;
     margin-top: 50px;
+    @include mq($from: $mobile_sm, $until: $tablet){
+        height: auto;
+        min-height: 110px;
+    }
 }
 
 // top text and search
@@ -129,7 +133,7 @@
     width: 99%;
     margin: 0px auto;
     @include mq($from: $mobile_sm, $until: $tablet){
-        width: calc(100% - 16px);
+        width: 100%;
     }
 }
 
