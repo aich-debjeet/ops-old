@@ -87,7 +87,6 @@ import { VgControlsModule } from 'videogular2/controls';
 import { VgOverlayPlayModule } from 'videogular2/overlay-play';
 import { VgBufferingModule } from 'videogular2/buffering';
 import { ChannelInnerComponent } from './components/channel-inner/channel-inner.component';
-import { LearnComponent } from './components/learn/learn.component';
 import { ResourceComponent } from './components/resource/resource.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import { StatusListComponent } from './components/status-list/status-list.component';
@@ -119,7 +118,6 @@ import { BookmarkService } from './services/bookmark.service';
     LogoutHomeComponent,
     LogoutComponent,
     ChannelInnerComponent,
-    LearnComponent,
     ResourceComponent,
     NotFoundPageComponent,
     OrderByPipe,

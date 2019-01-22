@@ -9,7 +9,6 @@ import { SpotfeedPremiumComponent } from './components/spotfeed-premium/spotfeed
 import { SettingsComponent } from './components/settings/settings.component';
 import { LogoutHomeComponent } from './components/logout-home/logout-home.component';
 import { ChannelInnerComponent } from './components/channel-inner/channel-inner.component';
-import { LearnComponent } from './components/learn/learn.component';
 import { ResourceComponent } from './components/resource/resource.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import { StatusListComponent } from './components/status-list/status-list.component';
@@ -30,7 +29,6 @@ export const routes: Routes = [
     { path: 'terms', component: TermsComponent },
     { path: 'about', component: AboutComponent },
     { path: 'login', component: LoginComponent, canActivate: [AuthlogoutGuard] },
-    { path: 'learn', component: LearnComponent, canActivate: [AuthGuard] },
     { path: 'channel/:id', component: ChannelInnerComponent, canActivate: [AuthGuard] },
     { path: 'reg', loadChildren: './components/registration/registration.module#RegistrationModule' },
     { path: 'account', loadChildren: './components/forgot-password/forgot-password.module#ForgotPasswordModule' },
