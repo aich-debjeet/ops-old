@@ -9,7 +9,6 @@ import { LogoutHomeComponent } from './components/logout-home/logout-home.compon
 import { ChannelInnerComponent } from './components/channel-inner/channel-inner.component';
 import { ResourceComponent } from './components/resource/resource.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
-import { StatusListComponent } from './components/status-list/status-list.component';
 import { PlannerComponent } from './components/planner/planner.component';
 import { ProjectComponent } from './components/project/project.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
@@ -32,7 +31,6 @@ export const routes: Routes = [
     { path: 'account', loadChildren: './components/forgot-password/forgot-password.module#ForgotPasswordModule' },
     { path: 'home', loadChildren: './components/home/home.module#HomeModule', canActivate: [AuthGuard] },
     { path: 'profile', loadChildren: './components/profile/profile.module#ProfileModule' },
-    { path: 'user/status/list', component: StatusListComponent, canActivate: [AuthGuard] },
     { path: 'user/media/list', loadChildren: './components/media-list/media-list.module#MediaListModule', canActivate: [AuthGuard] },
     { path: 'spotfeed/:id', component: SpotfeedComponent, canActivate: [AuthGuard] },
     { path: 'notification', loadChildren: './components/notification/notification.module#NotificationModule', canActivate: [AuthGuard] },
