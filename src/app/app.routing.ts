@@ -31,7 +31,6 @@ export const routes: Routes = [
     { path: 'account', loadChildren: './components/forgot-password/forgot-password.module#ForgotPasswordModule' },
     { path: 'home', loadChildren: './components/home/home.module#HomeModule', canActivate: [AuthGuard] },
     { path: 'profile', loadChildren: './components/profile/profile.module#ProfileModule' },
-    { path: 'user/media/list', loadChildren: './components/media-list/media-list.module#MediaListModule', canActivate: [AuthGuard] },
     { path: 'spotfeed/:id', component: SpotfeedComponent, canActivate: [AuthGuard] },
     { path: 'notification', loadChildren: './components/notification/notification.module#NotificationModule', canActivate: [AuthGuard] },
     { path: 'message', loadChildren: './components/message/message.module#MessageModule', canActivate: [AuthGuard] },
