@@ -90,10 +90,6 @@ body {
 		font-weight: bold;
 	}
 }
-.break-word {
-	word-break: break-word;
-	-ms-word-break: break-word;
-}
 // Right section graph
 .reg_graph {
 	width: 170px;
@@ -652,8 +648,10 @@ button.sb-wrapper.sb-facebook {
 	color: #83a591 !important;
 	padding-left: 24px;
 }
-.toast-message {
+
+.toast-message, .break-word {
 	word-break: break-word;
+	-ms-word-break: break-word;
 }
 
 #toast-container .toast {
