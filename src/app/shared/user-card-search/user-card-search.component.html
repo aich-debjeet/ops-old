@@ -6,7 +6,7 @@
       <img *ngIf="artist?.extra?.isImported === false" src="https://ops-v2.netlify.com/assets/directory/active.svg">
     </span>
   </div>
-  <a routerLink="{{ '/profile/u/' + artist?.extra?.username + ( artist?.extra?.isImported === true ? '/about' : '' ) }}" class="c-scard_name">{{ artist?.name | truncate:[12, '...'] }}</a>
+  <a routerLink="{{ '/profile/u/' + artist?.extra?.username + ( artist?.extra?.isImported === true ? '/about/bio' : '' ) }}" class="c-scard_name">{{ artist?.name | truncate:[12, '...'] }}</a>
   <div *ngIf="artist?.extra?.isImported === false" class="c-scard_folllow">
     <span>{{ artist?.followersCount }}</span>followers
   </div>
@@ -18,6 +18,6 @@
     <a type="button" class="btn btn-primary btn-sm" disabled>Message</a>
   </div> -->
   <div class="c-scard_btn">
-    <a routerLink="{{ '/profile/u/' + artist?.extra?.username + ( artist?.extra?.isImported === true ? '/about' : '' ) }}" type="button" class="btn btn-primary btn-sm ">View Profile</a>
+    <a routerLink="{{ '/profile/u/' + artist?.extra?.username + ( artist?.extra?.isImported === true ? '/about/bio' : '' ) }}" type="button" class="btn btn-primary btn-sm ">View Profile</a>
   </div>
 </div>

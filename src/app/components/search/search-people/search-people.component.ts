@@ -14,9 +14,6 @@ import { ISubscription } from 'rxjs/Subscription';
 })
 export class SearchPeopleComponent implements OnInit, OnDestroy {
 
-  @Output() onProfileTypeSwitch: EventEmitter<any> = new EventEmitter<any>();
-  @Input() profileType: String;
-
   searchState$: Observable<SearchModel>;
   searchState: any;
   baseUrl: string;
@@ -61,25 +58,14 @@ export class SearchPeopleComponent implements OnInit, OnDestroy {
       this.searchState = state;
       // console.log('this.searchState', this.searchState);
       if (state) {
-        if (this.profileType === 'registered' && typeof state['search_people_data'] !== 'undefined' && state['search_people_data']['profileResponse']) {
+        if (typeof state['search_people_data'] !== 'undefined' && state['search_people_data']['profileResponse']) {
           this.people = state['search_people_data']['profileResponse'];
         }
         // hide preloader
-        if (this.profileType === 'registered' && typeof state['searching_people'] !== 'undefined'
+        if (typeof state['searching_people'] !== 'undefined'
           && state['searching_people'] === false
           && typeof state['search_people_success'] !== 'undefined'
           && state['search_people_success'] === true) {
-          this.showPreloader = false;
-        }
-
-        if (this.profileType === 'unregistered' && typeof state['search_wiki_profiles_data'] !== 'undefined' && state['search_wiki_profiles_data']['wikiResponse']) {
-          this.people = state['search_wiki_profiles_data']['wikiResponse'];
-        }
-        // hide preloader
-        if (this.profileType === 'unregistered' && typeof state['searching_wiki_profiles'] !== 'undefined'
-          && state['searching_wiki_profiles'] === false
-          && typeof state['search_wiki_profiles_success'] !== 'undefined'
-          && state['search_wiki_profiles_success'] === true) {
           this.showPreloader = false;
         }
       }
@@ -104,21 +90,12 @@ export class SearchPeopleComponent implements OnInit, OnDestroy {
       this.canScroll = false;
       this.scrollingLoad += 500;
       // check if it's first request
-      if (this.profileType === 'registered' && this.searchState && this.searchState['search_people_data'] && this.searchState['search_people_data']['scrollId']) {
+      if (this.searchState && this.searchState['search_people_data'] && this.searchState['search_people_data']['scrollId']) {
         this.store.dispatch({
           type: SearchActions.SEARCH_PEOPLE,
           payload: {
             isHuman: '1',
             name: { scrollId: this.searchState['search_people_data']['scrollId'] }
-          }
-        });
-      }
-      // check if it's first request
-      if (this.profileType === 'unregistered' && this.searchState && this.searchState['search_wiki_profiles_data'] && this.searchState['search_wiki_profiles_data']['scrollId']) {
-        this.store.dispatch({
-          type: SearchActions.SEARCH_WIKI_PROFILES,
-          payload: {
-            scrollId: this.searchState['search_wiki_profiles_data']['scrollId']
           }
         });
       }
@@ -138,15 +115,6 @@ export class SearchPeopleComponent implements OnInit, OnDestroy {
     } else {
       this.profileStore.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: data.userHandle });
     }
-  }
-
-  toggleProfileType() {
-    if (this.profileType === 'registered') {
-      this.profileType = 'unregistered';
-    } else {
-      this.profileType = 'registered';
-    }
-    this.onProfileTypeSwitch.emit(this.profileType);
   }
 
   ngOnDestroy() {

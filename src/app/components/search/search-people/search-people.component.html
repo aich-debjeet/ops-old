@@ -1,12 +1,6 @@
-<!-- <div class="c-text_md float_left width100 m-b-8">
-    <a *ngIf="profileType === 'registered'" (click)="toggleProfileType()" class="color-theme">See unregistered users</a>
-    <a *ngIf="profileType !== 'registered'" (click)="toggleProfileType()" class="color-theme">See registered users</a>
-</div> -->
-
 <div *ngIf="people?.length > 0" infinite-scroll (scrolled)="onScroll($event)" class="o-search-result-block m-r--8 m-l--8">
     <div *ngFor="let person of people" class="col-3 c-scard-block">
-        <app-user-card-search *ngIf="profileType === 'registered'" [artist]="person" [ownerHandle]="ownerHandle" (followActions)="followActions($event)"></app-user-card-search>
-        <app-wiki-profile-card *ngIf="profileType !== 'registered'" [profileDetails]="person"></app-wiki-profile-card>
+        <app-user-card-search [artist]="person" [ownerHandle]="ownerHandle" (followActions)="followActions($event)"></app-user-card-search>
     </div>
 </div>
 
