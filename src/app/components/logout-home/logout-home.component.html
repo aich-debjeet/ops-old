@@ -22,14 +22,13 @@
               on projects with other artists, craftspeople, and organizations. Alongside, creating an immersive and
               entertaining experience for art lovers around the world.
             </div>
-            <form [formGroup]="inviteForm" (ngSubmit)="sendInvite()" #myform="ngForm">
+            <!-- <form [formGroup]="inviteForm" (ngSubmit)="sendInvite()" #myform="ngForm">
               <div class="o-invitation-block">
                 <div class="col-xs-8 col-md-6 p-0">
                   <div class="c-form__group c-form--lg m-t-0">
                     <input class="c-form__input" type="text" formControlName="emailId" placeholder="Enter your email">
                     <span class="c-form__highlight"></span>
                     <span class="c-form__bar"></span>
-                    <!-- <label>Enter your email</label> -->
                     <p class="c-form__validation" *ngIf="inviteForm.controls['emailId'].errors?.required && myform.submitted">Email
                       is required</p>
                     <p class="c-form__validation" *ngIf="inviteForm.controls['emailId'].errors?.isInvalidEmail && myform.submitted">Email
@@ -40,8 +39,8 @@
                   <button class="btn btn-primary btn-lg o-landing-signup-btn" [disabled]="disableSubmit">Get Invite</button>
                 </div>
               </div>
-            </form>
-            <!-- <a [routerLink]="['/reg']" class="btn btn-primary btn-lg o-landing-signup-btn">Sign up</a> -->
+            </form> -->
+            <a [routerLink]="['/reg']" class="btn btn-primary btn-lg o-landing-signup-btn">Sign up</a>
             <!-- <a href="login.html" class="o-landing-more-btn m-l-16">Login</a> -->
           </div>
         </div>
@@ -195,10 +194,9 @@
   </section>
 </div>
 
-<app-modal-new #inviteSuccessModal [closeOnEscape]="true" [closeOnOutsideClick]="true" modalClass="">
+<!-- <app-modal-new #inviteSuccessModal [closeOnEscape]="true" [closeOnOutsideClick]="true" modalClass="">
   <modal-content>
     <div class="modal-dialog o-invitation-pop">
-      <!-- Modal content-->
       <div class="modal-content o-invitation-pop">
         <h2>Thank you for showing your interest</h2>
         <div class="c-text_lg color-grey-dark o-invitation--space">We'll let you know as soon as your account is ready!</div>
@@ -206,4 +204,4 @@
       </div>
     </div>
   </modal-content>
-</app-modal-new>
+</app-modal-new> -->
