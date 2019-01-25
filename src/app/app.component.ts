@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer } from '@angular/core';
 import { Router, NavigationEnd, RouteConfigLoadStart, RouteConfigLoadEnd } from '@angular/router';
 import { NgProgress } from 'ngx-progressbar';
 import { ISubscription } from 'rxjs/Subscription';
@@ -17,10 +17,16 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     public ngProgress: NgProgress,
+    public renderer: Renderer,
     public router: Router
   ) { }
 
   ngOnInit() {
+    if (environment.production) {
+      this.renderer.listenGlobal('document', 'contextmenu', (event) => {
+        event.preventDefault();
+      });
+    }
     this.routerSub = this.router.events
       .subscribe(event => {
         // for google analytics
