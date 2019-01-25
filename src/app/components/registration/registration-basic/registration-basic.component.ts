@@ -50,8 +50,8 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   claimData: any;
   claimActive = false;
   regSub: ISubscription;
-  refCodeVerified = false;
-  refCodeVerifying = false;
+  // refCodeVerified = false;
+  // refCodeVerifying = false;
 
   myOptions: INgxMyDpOptions = {
     showTodayBtn: false,
@@ -98,7 +98,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
     public modalService: ModalService,
     private authService: AuthService,
     private toastr: ToastrService,
-    private activatedRoute: ActivatedRoute
+    // private activatedRoute: ActivatedRoute
   ) {
 
     // store select
@@ -128,19 +128,19 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
           this.otpPopup.close();
           this.router.navigate(['/reg/addskill']);
         }
-        if (state['verifyRefCode'] === false && state['verifyRefCodeSuccess'] === true) {
-          this.refCodeVerifying = false;
-          this.refCodeVerified = true;
-          localStorage.setItem('reffCode', this.reffCode);
-          this.initFormDependancies();
-        }
-        if (state['verifyRefCode'] === false && state['verifyRefCodeSuccess'] === false) {
-          setTimeout(() => {
-            this.refCodeVerifying = false;
-            this.toastr.warning('Verification failed!');
-            this.router.navigateByUrl('/');
-          }, 2000);
-        }
+        // if (state['verifyRefCode'] === false && state['verifyRefCodeSuccess'] === true) {
+        //   this.refCodeVerifying = false;
+        //   this.refCodeVerified = true;
+        //   localStorage.setItem('reffCode', this.reffCode);
+        //   this.initFormDependancies();
+        // }
+        // if (state['verifyRefCode'] === false && state['verifyRefCodeSuccess'] === false) {
+        //   setTimeout(() => {
+        //     this.refCodeVerifying = false;
+        //     this.toastr.warning('Verification failed!');
+        //     this.router.navigateByUrl('/');
+        //   }, 2000);
+        // }
       }
     });
 
@@ -184,18 +184,18 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   }
 
   ngOnInit() {
-    this.reffCode = this.activatedRoute.snapshot.queryParams['ref'];
-    if (this.reffCode !== '') {
-      this.refCodeVerifying = true;
-      const data = { reffCode: this.reffCode };
-      this.store.dispatch({ type: AuthActions.VERIFY_REFERENCE_CODE, payload: data });
-    }
+    // this.reffCode = this.activatedRoute.snapshot.queryParams['ref'];
+    // if (this.reffCode !== '') {
+    //   this.refCodeVerifying = true;
+    //   const data = { reffCode: this.reffCode };
+    //   this.store.dispatch({ type: AuthActions.VERIFY_REFERENCE_CODE, payload: data });
+    // }
     // this.otpPopup.open();
-    // this.store.dispatch({ type: AuthActions.STORE_COUNTRY_CODE, payload: this.country.callingCodes[0] });
+    this.store.dispatch({ type: AuthActions.STORE_COUNTRY_CODE, payload: this.country.callingCodes[0] });
   }
 
   ngAfterViewInit() {
-    // this.countrySelectorReg.initCountrySelector('country-options-reg');
+    this.countrySelectorReg.initCountrySelector('country-options-reg');
   }
 
   initFormDependancies() {
