@@ -144,7 +144,6 @@ export class NotificationComponent implements OnInit, OnDestroy {
   // message maker
   processNotifications() {
     if (this.notifications.length > 0) {
-      console.log(this.notifications)
       for (let i = 0; i < this.notifications.length; i++) {
         switch (this.notifications[i].notificationType) {
           case 'Following':
@@ -219,7 +218,6 @@ export class NotificationComponent implements OnInit, OnDestroy {
   }
 
   markRead(list: any){
-    console.log(list)
     for(let i of list){
       const obj =_.find(this.notifications, {'notificationId' : i});
       if(obj !== undefined){

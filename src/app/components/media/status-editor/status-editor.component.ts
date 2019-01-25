@@ -241,20 +241,30 @@ export class StatusEditorComponent implements OnInit {
     }
     if (this.post_to === 'community') {
       if (userHandle !== '') {
-        const resp = {
-          id: this.ct_id,
-          data: {
-            feedList: [{
-              access: 0,
-              active: true,
-              description: this.desc,
-              feed_type: 'status',
-              owner: userHandle,
-              title: ''
-            }]
+        let reqBody;
+        if (multipleMedias.length > 0) {
+          reqBody = {
+            id: this.ct_id,
+            data:{
+              mediaList: multipleMedias
+            }
+          };
+         } else {
+            reqBody = {
+              id: this.ct_id,
+              data: {
+                feedList: [{
+                  access: 0,
+                  active: true,
+                  description: this.desc,
+                  feed_type: 'status',
+                  owner: userHandle,
+                  title: ''
+                }]
+              }
+            }
           }
-        }
-        this._store.dispatch({ type: ProfileActions.COMMUNITY_MEDIA_POST, payload: resp });
+        this._store.dispatch({ type: ProfileActions.COMMUNITY_MEDIA_POST, payload: reqBody });
 
         this._store.select('profileTags')
           .first(media => media['community_media_success'] === true)
