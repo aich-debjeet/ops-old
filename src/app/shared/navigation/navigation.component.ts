@@ -115,7 +115,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.notifSub = this.notificationsState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
         this.notifState = state;
-        console.log(this.notifState)
         if (typeof state['recieved_notifications'] !== 'undefined') {
           const noti = state['recieved_notifications'];
           this.notifications = _uniqBy(noti, noti.notificationId);
