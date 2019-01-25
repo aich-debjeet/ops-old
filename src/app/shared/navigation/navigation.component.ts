@@ -392,7 +392,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
             this.notifications[i].message = ' has accepted your network request';
             break;
           case 'Community_Invite':
-            this.notifications[i].message = ' has invited you to join the community ' + this.notifications[i].community.title.toUpperCase(); 
+            // this.notifications[i].message = ' has invited you to join the community ' + this.notifications[i].community.title.toUpperCase(); 
+            this.notifications[i].message = ' has invited you to join the community'; 
             break;
         }
       }
