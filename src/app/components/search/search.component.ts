@@ -401,6 +401,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   autocompleteSearch() {
+    this.resetCurrPos();
     this.autocompSearching = true;
     this.autoCompSub = this.searchService.getAutocompleteList(this.searchString).subscribe((data) => {
       this.autocompSearching = false;
@@ -586,6 +587,10 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     } else {
       this.searchAll();
     }
+  }
+
+  resetCurrPos() {
+    this.autoCurrPos = -1;
   }
 
 }
