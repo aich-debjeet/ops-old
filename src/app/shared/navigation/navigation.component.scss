@@ -646,6 +646,9 @@
     margin-top: 10px;
     font-size: 11px;
     text-transform: uppercase;
+    @include mq($from: $mobile_sm, $until: $desktop_sm) {
+        margin-top: 0;
+    }
 }
 
 .o-logout__btn {
@@ -663,7 +666,8 @@
     display: none;
     @include mq($from: $mobile_sm, $until: $desktop_sm) {
         display: block;
-        margin-top: 16px;
+        // margin-top: 16px;
+        margin-top: 3px;
         float: right;
     }
 }

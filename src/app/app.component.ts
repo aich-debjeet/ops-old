@@ -22,11 +22,16 @@ export class AppComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+
+    // to disable right click for OPS media on Prod env
     if (environment.production) {
       this.renderer.listenGlobal('document', 'contextmenu', (event) => {
-        event.preventDefault();
+        if (event.target.nodeName === 'IMG' || event.target.nodeName === 'VIDEO' || event.target.nodeName === 'AUDIO') {
+          event.preventDefault();
+        }
       });
     }
+
     this.routerSub = this.router.events
       .subscribe(event => {
         // for google analytics
