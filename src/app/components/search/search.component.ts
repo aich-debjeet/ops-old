@@ -401,6 +401,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   autocompleteSearch() {
+    this.resetCurrPos();
     this.autocompSearching = true;
     this.autoCompSub = this.searchService.getAutocompleteList(this.searchString).subscribe((data) => {
       this.autocompSearching = false;
@@ -550,10 +551,14 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     this.store.dispatch({ type: SearchActions.SEARCH_WIKI_PROFILES, payload: reqBody });
   }
 
-  navigateTo(type: string, username: string) {
+  navigateTo(type: string, username: any, isImported: boolean) {
     if (username && username.length > 0) {
       if (type === 'profile') {
-        this.router.navigateByUrl('/profile/u/' + username + '/about/bio');
+        if (isImported) {
+          this.router.navigateByUrl('/profile/u/' + username + '/about/bio');
+        } else {
+          this.router.navigateByUrl('/profile/u/' + username);
+        }
       } else if (type === 'org') {
         this.router.navigateByUrl('/org/p/' + username);
       }
@@ -563,25 +568,47 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   selectFromDropdown(e: any) {
     const key = e.keyCode;
     if (key && key !== 40 && key !== 38 && key !== 13) { return; }
-    const allLis = this.elemRef.nativeElement.querySelector('#autocompleteWrapper').querySelectorAll('li');
-    for (const elem of allLis) {
-      elem.classList.remove('auto-drop-selected');
-    }
-    if (key === 40) { // down key
-      if (this.autoCurrPos < (allLis.length - 1)) {
-        this.autoCurrPos++;
+    const allLis = this.removeSelectionIndecation();
+    if (allLis) {
+      if (key === 40) { // down key
+        if (this.autoCurrPos < (allLis.length - 1)) {
+          this.autoCurrPos++;
+        }
+      }
+      if (key === 38) { // up key
+        if (this.autoCurrPos > 0) {
+          this.autoCurrPos--;
+        }
+      }
+      const newElem = allLis[this.autoCurrPos];
+      if (newElem) {
+        newElem.classList.add('auto-drop-selected');
+        if (key === 13) { // enter key
+          newElem.click();
+        }
+      } else {
+        if (key === 13) { // enter key
+          this.searchAll();
+        }
       }
     }
-    if (key === 38) { // up key
-      if (this.autoCurrPos > 0) {
-        this.autoCurrPos--;
+  }
+
+  resetCurrPos() {
+    this.autoCurrPos = -1;
+    this.removeSelectionIndecation();
+  }
+
+  removeSelectionIndecation() {
+    const allLisWrap = this.elemRef.nativeElement.querySelector('#autocompleteWrapper');
+    if (allLisWrap) {
+      const allLis = allLisWrap.querySelectorAll('li');
+      for (const elem of allLis) {
+        elem.classList.remove('auto-drop-selected');
       }
+      return allLis;
     }
-    const newElem = allLis[this.autoCurrPos];
-    newElem.classList.add('auto-drop-selected');
-    if (key === 13) {
-      newElem.click();
-    }
+    return false;
   }
 
 }

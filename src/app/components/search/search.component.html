@@ -29,16 +29,16 @@
           <ul class="o-search-drop-result">
               <li class="o-search-drop-result__single"
                 *ngFor="let autoProf of autocompleteResult?.profiles?.slice(0, autoPerType)"
-                (click)="navigateTo('profile', autoProf?.extra?.username)">
+                (click)="navigateTo('profile', autoProf?.extra?.username, autoProf?.extra?.isImported)">
                 <div class="o-search-drop-result__prof-pic">
                   <!-- <img [src]="baseUrl + autoProf?.profileImage" onError="this.src='https://cdn.onepagespotlight.com/img/avatar.png';" alt="profile pic"> -->
                   <img src="https://cdn.onepagespotlight.com/img/avatar.png" alt="profile pic">
                 </div>
                 <div class="o-search-drop-result__name">
                   <div class="c-text_md color-grey-dark float_left">{{ autoProf?.name }}</div>
-                  <ng-container *ngIf="autoProf?.profileType?.length > 0">
-                    <div *ngFor="let skill of autoProf?.profileType.slice(0, 5)" class="c-skill__tags color-grey-dark float_left m-l-8">{{ skill?.name }}</div>
-                  </ng-container>
+                </div>
+                <div class="o-search-drop__skill-tag" *ngIf="autoProf?.profileType?.length > 0">
+                  <div *ngFor="let skill of autoProf?.profileType.slice(0, 5)" class="c-skill__tags color-grey-dark float_left">{{ skill?.name }}</div>
                 </div>
               </li>
           </ul>
@@ -50,16 +50,16 @@
           <ul class="o-search-drop-result">
             <li class="o-search-drop-result__single"
               *ngFor="let autoOrg of autocompleteResult?.organization?.slice(0, autoPerType)"
-              (click)="navigateTo('org', autoOrg?.extras?.username)">
+              (click)="navigateTo('org', autoOrg?.extras?.username, false)">
               <div class="o-search-drop-result__prof-pic">
                 <!-- <img [src]="baseUrl + autoOrg?.organizationImage" onError="this.src='https://cdn.onepagespotlight.com/img/avatar.png';" alt="profile pic"> -->
                 <img src="https://cdn.onepagespotlight.com/images/defaultOrg/defaultorg.png" alt="org profile pic">
               </div>
               <div class="o-search-drop-result__name">
                 <div class="c-text_md color-grey-dark float_left">{{ autoOrg?.organizationName }}</div>
-                <ng-container *ngIf="autoProf?.profileType?.length > 0">
-                  <div *ngFor="let skill of autoProf?.profileType.slice(0, 5)" class="c-skill__tags color-grey-dark float_left m-l-8">{{ skill?.name }}</div>
-                </ng-container>
+              </div>
+              <div class="o-search-drop__skill-tag" *ngIf="autoOrg?.profileType?.length > 0">
+                <div *ngFor="let skill of autoOrg?.profileType.slice(0, 5)" class="c-skill__tags color-grey-dark float_left">{{ skill?.name }}</div>
               </div>
             </li>
           </ul>
