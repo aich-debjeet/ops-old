@@ -24,7 +24,9 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
     if (environment.production) {
       this.renderer.listenGlobal('document', 'contextmenu', (event) => {
-        event.preventDefault();
+        if (event.target.nodeName === 'IMG' || event.target.nodeName === 'VIDEO' || event.target.nodeName === 'AUDIO') {
+          event.preventDefault();
+        }
       });
     }
     this.routerSub = this.router.events
