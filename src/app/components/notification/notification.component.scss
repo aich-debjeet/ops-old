@@ -216,7 +216,8 @@
     display: none;
     @include mq($from: $mobile_sm, $until: $desktop_sm) {
         display: block;
-        margin-top: 16px;
+        // margin-top: 16px;
+        margin-top: 3px;
         float: right;
     }
 }
