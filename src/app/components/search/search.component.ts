@@ -578,9 +578,13 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     }
     const newElem = allLis[this.autoCurrPos];
-    newElem.classList.add('auto-drop-selected');
-    if (key === 13) {
-      newElem.click();
+    if (newElem) {
+      newElem.classList.add('auto-drop-selected');
+      if (key === 13) {
+        newElem.click();
+      }
+    } else {
+      this.searchAll();
     }
   }
 
