@@ -31,8 +31,8 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   day: any;
   tomorrow: any;
   weekend: any;
-  carouselOne: NguCarousel;
-  eventTypeSlider: NguCarousel;
+  carouselOne;
+  eventTypeSlider;
   tagState$: Observable<EventModal>;
   eventList: any;
   eventType: any;
