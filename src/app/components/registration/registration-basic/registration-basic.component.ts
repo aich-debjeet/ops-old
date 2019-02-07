@@ -52,6 +52,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   regSub: ISubscription;
   // refCodeVerified = false;
   // refCodeVerifying = false;
+  public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
   myOptions: INgxMyDpOptions = {
     showTodayBtn: false,
