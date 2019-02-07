@@ -95,21 +95,25 @@
                         <!-- <button class="password-toggle pos-abs" type="button" (click)="passwordShowToggle()" title="{{ passwordShow ? 'Hide Password' : 'Show Password' }}">
                             <span class="fa {{ passwordShow ? 'fa-eye' : 'fa-eye-slash' }}"></span>
                         </button> -->
-                        <input class="c-form__input" type="password" tabindex="6" formControlName="password" placeholder="Password">
+                        <input class="c-form__input" type="{{ passwordShow ? 'text' : 'password' }}" tabindex="6" formControlName="password" placeholder="Password">
                         <span class="c-form__highlight"></span>
                         <span class="c-form__bar"></span>
                         <!-- <label>Password</label> -->
+                        <a id="eye" class="password-closed-eye" (click)="passwordShowToggle()">
+                          <img *ngIf="!passwordShow" src="https://ops-v2.netlify.com/assets/reg/eye.svg" class="c-form__input--righticon open-eye" title="Show">
+                          <img *ngIf="passwordShow" src="https://ops-v2.netlify.com/assets/reg/eyeclose.svg" class="c-form__input--righticon closed-eye" title="Hide">
+                        </a>
                         <p class="c-form__validation" *ngIf="regFormBasic.controls['password'].errors?.required && regform.submitted">Password is required</p>
                         <p class="c-form__validation" *ngIf="regFormBasic.controls['password'].errors?.isWeakPassword">Password should contain atleast 5 alphanumeric characters</p>
                     </div>
-                    <div class="c-form__group pass-margin">
+                    <!-- <div class="c-form__group pass-margin">
                         <input class="c-form__input" type="password" tabindex="7" formControlName="confirmpassword" placeholder="Confirm Password">
                         <span class="c-form__highlight"></span>
                         <span class="c-form__bar"></span>
-                        <!-- <label>Confirm Password</label> -->
+                        <label>Confirm Password</label>
                         <p class="c-form__validation" *ngIf="regFormBasic.controls['confirmpassword'].errors?.required && regform.submitted">Confirm password is required</p>
                         <p class="c-form__validation" *ngIf="regFormBasic.controls['confirmpassword'].errors?.passwordDoesNotMatch">Password does not match</p>
-                    </div>
+                    </div> -->
                     <div *ngIf="regFormBasic.controls['email'].errors?.emailAccExists || regFormBasic.controls['phone'].errors?.isMobileUnique" class="c-form__group pass-margin">
                         <p>Already a member? <a class="text-theme" routerLink="/login">Log In</a></p>
                     </div>

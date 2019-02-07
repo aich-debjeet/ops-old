@@ -247,10 +247,10 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
         Validators.required,
         FormValidation.passwordStrength.bind(this)
       ]],
-      confirmpassword: ['', [
-        Validators.required,
-        this.passwordMatchCheck.bind(this)
-      ]],
+      // confirmpassword: ['', [
+      //   Validators.required,
+      //   this.passwordMatchCheck.bind(this)
+      // ]],
     });
 
     // OTP Form Builder
