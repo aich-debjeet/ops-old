@@ -26,6 +26,7 @@ import { initialBasicRegTag, BasicRegTag } from '../../../models/auth.model';
 import { AuthActions } from '../../../actions/auth.action';
 import { AuthService } from '../../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import moment = require('moment');
 
 @Component({
   selector: 'app-registration-basic',
@@ -345,8 +346,23 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
     return null;
   }
 
+  /**
+   * reverse date
+   * @param date string
+   * @return date in reverse order
+   */
   reverseDate(string) {
     return string.split('-').reverse().join('-');
+  }
+
+  /**
+   * date modified as per the API requirement
+   * @param date string
+   * @return date in format YYYY-MM-DD
+   */
+  dobForApi(dob) {
+    const dobRes = moment(dob, 'MM-DD-YYYY').format('YYYY-MM-DD') + 'T05:00:00';
+    return dobRes;
   }
 
   /**
@@ -414,7 +430,8 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
           name: 'Artist',
           typeName: 'individual'
         }],
-        dateOfBirth: this.reverseDate(value.dob.formatted) + 'T05:00:00',
+        // dateOfBirth: this.reverseDate(value.dob.formatted) + 'T05:00:00',
+        dateOfBirth: this.dobForApi(value.dob),
       }
     };
     this.uploadingFormData = true;
