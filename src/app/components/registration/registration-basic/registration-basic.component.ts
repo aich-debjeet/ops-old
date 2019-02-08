@@ -26,7 +26,8 @@ import { initialBasicRegTag, BasicRegTag } from '../../../models/auth.model';
 import { AuthActions } from '../../../actions/auth.action';
 import { AuthService } from '../../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
-import moment = require('moment');
+
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-registration-basic',
