@@ -45,7 +45,7 @@ export class ProfileBlockComponent implements OnInit, OnDestroy, AfterViewInit {
   imageBaseUrl = environment.API_IMAGE;
   userHandle: string;
   channelPinSuccess = false;
-  carouselOne: NguCarousel;
+  carouselOne;
   openChannel: boolean;
   pinListEmpty = true;
   opportunities: any[];

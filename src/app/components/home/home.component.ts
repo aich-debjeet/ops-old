@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   userQuickAccess = initialTag;
   channelList$: Observable<Channel>;
   cards: any = [];
-  carouselOne: NguCarousel;
+  carouselOne;
   quickList: any = [];
   loadMoreParams: any;
   userProfileHandle: string;

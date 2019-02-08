@@ -14,6 +14,7 @@ import { RegistrationAddSkillComponent } from './registration-add-skill/registra
 
 // modules
 import { SharedModule } from '../../shared/shared.module';
+import { TextMaskModule } from 'angular2-text-mask';
 
 // routes
 export const routes = [
@@ -31,7 +32,8 @@ export const routes = [
     InfiniteScrollModule,
     RouterModule.forChild(routes),
     NgxMyDatePickerModule.forRoot(),
-    DpDatePickerModule
+    DpDatePickerModule,
+    TextMaskModule
   ],
   declarations: [
     RegistrationComponent,

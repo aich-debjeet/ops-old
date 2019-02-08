@@ -42,7 +42,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'status',
+        redirectTo: 'media',
         pathMatch: 'full'
       },
       {

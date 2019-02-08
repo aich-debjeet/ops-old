@@ -27,6 +27,8 @@ import { AuthActions } from '../../../actions/auth.action';
 import { AuthService } from '../../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-registration-basic',
   templateUrl: './registration-basic.component.html',
@@ -52,6 +54,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   regSub: ISubscription;
   // refCodeVerified = false;
   // refCodeVerifying = false;
+  public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
   myOptions: INgxMyDpOptions = {
     showTodayBtn: false,
@@ -245,10 +248,10 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
         Validators.required,
         FormValidation.passwordStrength.bind(this)
       ]],
-      confirmpassword: ['', [
-        Validators.required,
-        this.passwordMatchCheck.bind(this)
-      ]],
+      // confirmpassword: ['', [
+      //   Validators.required,
+      //   this.passwordMatchCheck.bind(this)
+      // ]],
     });
 
     // OTP Form Builder
@@ -344,8 +347,23 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
     return null;
   }
 
+  /**
+   * reverse date
+   * @param date string
+   * @return date in reverse order
+   */
   reverseDate(string) {
     return string.split('-').reverse().join('-');
+  }
+
+  /**
+   * date modified as per the API requirement
+   * @param date string
+   * @return date in format YYYY-MM-DD
+   */
+  dobForApi(dob) {
+    const dobRes = moment(dob, 'MM-DD-YYYY').format('YYYY-MM-DD') + 'T05:00:00';
+    return dobRes;
   }
 
   /**
@@ -413,7 +431,8 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
           name: 'Artist',
           typeName: 'individual'
         }],
-        dateOfBirth: this.reverseDate(value.dob.formatted) + 'T05:00:00',
+        // dateOfBirth: this.reverseDate(value.dob.formatted) + 'T05:00:00',
+        dateOfBirth: this.dobForApi(value.dob),
       }
     };
     this.uploadingFormData = true;

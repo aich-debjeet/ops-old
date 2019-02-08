@@ -15,7 +15,7 @@ import { environment } from 'environments/environment';
   styleUrls: ['./explore.component.scss']
 })
 export class ExploreComponent implements OnInit, OnDestroy {
-  exploreSlider: NguCarousel;
+  exploreSlider;
   spotfeeds: any[];
   expSub: ISubscription;
   searchType = 'post';
