@@ -27,7 +27,11 @@ export class AppComponent implements OnInit, OnDestroy {
       { name: 'title', content: 'One Page Spotlight' },
       { name: 'image', content: 'https://cdn.onepagespotlight.com/v2/index/logo.svg' },
       { name: 'description', content: 'An online hub for artists and creators. Create your profile, highlight your work, build connections and network exclusively with artists, showcase your portfolio, and find the best opportunities.' },
-      { name: 'keywords', content: '' }
+      { name: 'keywords', content: 'one page spotlight,artist,arts,arts and entertainment,community,creative,online,platform,portfolio,opportunity,events,spot,aeione,network,talent,connect' },
+      { name: 'geo.region', content: 'IN-KA' },
+      { name: 'geo.placename', content: 'Bengaluru' },
+      { name: 'geo.position', content: '12.971599;77.594563' },
+      { name: 'ICBM', content: '12.971599, 77.594563' },
     ]);
 
     // schema.org
@@ -40,28 +44,18 @@ export class AppComponent implements OnInit, OnDestroy {
     // twitter
     this.meta.addTags([
       { name: 'twitter:card', content: 'summary' },
-      { name: 'twitter:title', content: 'One Page Spotlight' },
-      { name: 'twitter:description', content: 'An online hub for artists and creators. Create your profile, highlight your work, build connections and network exclusively with artists, showcase your portfolio, and find the best opportunities.' },
       { name: 'twitter:site', content: '@1pagespotlight' },
-      { name: 'twitter:image:src', content: 'https://cdn.onepagespotlight.com/v2/ops_icon.png' },
+      { name: 'twitter:image', content: 'https://cdn.onepagespotlight.com/v2/ops_icon.png' },
     ]);
 
     // open graph (facebook, pinterest, google+ etc.)
-    this.meta.addTags([
-      { name: 'og:title', content: 'One Page Spotlight' },
-      { name: 'og:description', content: 'An online hub for artists and creators. Create your profile, highlight your work, build connections and network exclusively with artists, showcase your portfolio, and find the best opportunities.' },
-      { name: 'og:image', content: 'https://cdn.onepagespotlight.com/v2/ops_icon.png' },
-      { name: 'og:url', content: 'https://onepagespotlight.com' },
-      { name: 'og:site_name', content: 'One Page Spotlight' },
-      { name: 'og:type', content: 'website' },
-    ]);
-
     this.meta.addTags([
       { property: 'og:title', content: 'One Page Spotlight' },
       { property: 'og:description', content: 'An online hub for artists and creators. Create your profile, highlight your work, build connections and network exclusively with artists, showcase your portfolio, and find the best opportunities.' },
       { property: 'og:image', content: 'https://cdn.onepagespotlight.com/v2/ops_icon.png' },
       { property: 'og:url', content: 'https://onepagespotlight.com' },
       { property: 'og:site_name', content: 'One Page Spotlight' },
+      { property: 'fb:app_id', content: '678678015828014' },
       { property: 'og:type', content: 'website' },
     ]);
   }
