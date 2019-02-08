@@ -27,7 +27,7 @@ export class AppComponent implements OnInit, OnDestroy {
       { name: 'title', content: 'One Page Spotlight' },
       { name: 'image', content: 'https://cdn.onepagespotlight.com/v2/index/logo.svg' },
       { name: 'description', content: 'An online hub for artists and creators. Create your profile, highlight your work, build connections and network exclusively with artists, showcase your portfolio, and find the best opportunities.' },
-      { name: 'keywords', content: '' },
+      { name: 'keywords', content: 'one page spotlight,artist,arts,arts and entertainment,community,creative,online,platform,portfolio,opportunity,events,spot,aeione,network,talent,connect' },
       { name: 'geo.region', content: 'IN-KA' },
       { name: 'geo.placename', content: 'Bengaluru' },
       { name: 'geo.position', content: '12.971599;77.594563' },
