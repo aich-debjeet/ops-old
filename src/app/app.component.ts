@@ -51,6 +51,7 @@ export class AppComponent implements OnInit, OnDestroy {
       { property: 'og:image', content: 'https://cdn.onepagespotlight.com/v2/ops_icon.png' },
       { property: 'og:url', content: 'https://onepagespotlight.com' },
       { property: 'og:site_name', content: 'One Page Spotlight' },
+      { property: 'fb:app_id', content: '678678015828014' },
       { property: 'og:type', content: 'website' },
     ]);
   }
