@@ -41,6 +41,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.meta.addTags([
       { name: 'twitter:card', content: 'summary' },
       { name: 'twitter:site', content: '@1pagespotlight' },
+      { name: 'twitter:image', content: 'https://cdn.onepagespotlight.com/v2/ops_icon.png' },
     ]);
 
     // open graph (facebook, pinterest, google+ etc.)
