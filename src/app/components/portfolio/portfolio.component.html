@@ -57,7 +57,7 @@
                 </ng-container>
                 <div *ngIf="ownProfile" class="c-port__setting">
                   <a (click)="showCategories()" data-toggle="modal" data-target="#editCat">
-                    <img src="https://ops-v2-2.netlify.com/assets/svg/ico_create-plus.svg">
+                    <img src="https://ops-v2.netlify.com/assets/svg/ico_create-plus.svg">
                   </a>
                 </div>
               </ul>
@@ -204,7 +204,7 @@
               </div>
               <div class="col-md-3 p-0">
                 <a class="o-category__delet" *ngIf="!category?.isEditable" (click)="deleteCategory(category.categoryId)">
-                  <img src="https://ops-v2-2.netlify.com/assets/svg/trash.svg" alt="">
+                  <img src="https://ops-v2.netlify.com/assets/svg/trash.svg" alt="">
                 </a>
                 <a class="o-category__edit" *ngIf="!category?.isEditable" (click)="catEditAction('enable', catIndex)">Edit</a>
                 <a *ngIf="category?.isEditable" (click)="saveCatNewName(catIndex)">Save</a>

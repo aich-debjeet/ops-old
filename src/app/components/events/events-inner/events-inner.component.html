@@ -32,10 +32,10 @@
             </div>
             <span *ngIf="!eventDetail?.isOwner" class="c-links__bookmark pull-right">
               <a *ngIf="eventDetail?.extras?.isBookmarked === true" (click)="bookmarkAction('remove', eventDetail?.id)">
-                <img src="https://ops-v2-2.netlify.com/assets/svg/bookmarked.svg" class="c-action__image">
+                <img src="https://ops-v2.netlify.com/assets/svg/bookmarked.svg" class="c-action__image">
               </a>
               <a *ngIf="eventDetail?.extras?.isBookmarked === false" (click)="bookmarkAction('add', eventDetail?.id)">
-                <img src="https://ops-v2-2.netlify.com/assets/svg/bookmark.svg" class="c-action__image">
+                <img src="https://ops-v2.netlify.com/assets/svg/bookmark.svg" class="c-action__image">
               </a>
             </span>
         </div>
