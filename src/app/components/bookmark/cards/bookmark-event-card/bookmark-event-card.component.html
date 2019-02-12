@@ -11,7 +11,7 @@
             <div class="bookmark-media-type__label">Event
                 <div class="bookmark-delet">
                     <div (click)="deleteBookmark(eventDetails)" class="bookmark-delet__icon">
-                        <img src="https://ops-v2-2.netlify.com/assets/svg/ico_close-38.svg" alt="">
+                        <img src="https://ops-v2.netlify.com/assets/svg/ico_close-38.svg" alt="">
                     </div>
                 </div>
             </div>
@@ -20,11 +20,11 @@
                     {{ eventDetails?.title | truncate: [150, '...'] }}
                     <div class="o-bookmarkevent__detail">
                         <div class="o-bookmarkevent__date">
-                            <img src="https://ops-v2-2.netlify.com/assets/svg/calendar.svg" class="o-bookmarkevent__detail--img"> 
+                            <img src="https://ops-v2.netlify.com/assets/svg/calendar.svg" class="o-bookmarkevent__detail--img"> 
                             {{ eventDetails?.startDate | utcDate | date: 'dd MMM, yy' }}
                         </div>
                         <div class="o-bookmarkevent__address">
-                            <img src="https://ops-v2-2.netlify.com/assets/svg/ico_location2.svg" class="o-bookmarkevent__detail--img"> 
+                            <img src="https://ops-v2.netlify.com/assets/svg/ico_location2.svg" class="o-bookmarkevent__detail--img"> 
                             {{ eventDetails?.venue }}
                         </div>
                     </div>
