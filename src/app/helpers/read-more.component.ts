@@ -13,7 +13,7 @@ import { Component, EventEmitter, Output, Input, OnChanges } from '@angular/core
             </div>
         </div>
         <ng-template #notEditing>
-            <p [innerHTML]="currentText" [class]="class"></p>
+            <p *ngIf="currentText" [innerHTML]="currentText | safeHtml" [class]="class"></p>
             <a class="text-label" [class.hidden]="hideToggle" (click)="toggleView()">Read {{isCollapsed? 'more':'less'}}</a>
         </ng-template>
     `,

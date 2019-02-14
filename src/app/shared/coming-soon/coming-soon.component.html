@@ -2,8 +2,8 @@
     <div class="container">
         <div class="comming-soon-container">
             <div class="col-md-6 comming-soon_txt">
-                <h2 [innerHTML]="data.mainTitle"></h2>
-                <p [innerHTML]="data.description"></p>
+                <h2 *ngIf="data.mainTitle" [innerHTML]="data.mainTitle | safeHtml"></h2>
+                <p *ngIf="data.description" [innerHTML]="data.description | safeHtml"></p>
                 <!--<div>{{ data.description }}</div>${this.name}-->
                 <a routerLink="{{ data.buttonLink }}" class="btn btn-primary btn-md">{{ data.buttonText }}</a>
             </div>
